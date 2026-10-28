@@ -8,6 +8,7 @@ requires identical observations.
 - `conformance/`: scenarios, the Perl reference runner and the Perl golden results
 - `GETTING-STARTED.md`: run the servers and the tests (start here)
 - `CLAUDE.md`: the workspace guide (conventions, build, test, Docker, security)
+- `IMPROVEMENTS.md`: recommended next changes (HTTPS, concurrent requests, persistent sessions)
 
 The Perl GADS is included as submodules, pinned to the commits the golden
 results come from:
