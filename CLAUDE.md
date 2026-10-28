@@ -182,9 +182,18 @@ Debugging environment variables:
 - **Concurrency.** One `gads.Engine` serves all requests behind a single
   mutex (`Server.mu`), like a one-worker Dancer2. Only dispatch holds the
   lock; static files, request bodies and responses are transferred outside
-  it. The engine is not safe for concurrent use.
+  it, and mail is sent by a background queue. The engine is not safe for
+  concurrent use.
+  - Engine flags changed for a while (`IgnorePermissions`,
+    `IgnorePermissionsSearch`, as Perl's `local`) must be restored with
+    `defer`, or a failure leaves the shared engine changed for every
+    later request. `Server.resetEngine` also resets them, rolls back any
+    open transaction and clears the reports around each request.
+  - Anything that can run without end holds up every user, so user code
+    has limits (see Deviations).
 - **Dead code.** Keep `staticcheck` and `deadcode -test ./...` clean.
-  `goLuaCallback` is a cgo export and deadcode can't see it.
+  `goLuaCallback` is a cgo export and deadcode can't see it, so keep
+  what it calls inside it.
 - Format with gofmt. Test files sit beside the code (`*_test.go`). Expected
   values are taken from Perl wherever possible.
 
@@ -206,8 +215,14 @@ Configuration works as in Dancer2:
 - The session cookie comes from `engines: session: <session engine>:`:
   `cookie_name`, `cookie_path`, `cookie_domain`, `cookie_duration`,
   `is_secure`, `is_http_only`, `cookie_same_site`, `session_duration`.
-  Sessions are kept in memory, so a restart logs everyone out. Without a
-  duration they are kept until the process ends.
+  Sessions are kept in memory, so a restart logs everyone out. A session
+  unused for `session_duration` (otherwise `cookie_duration`, otherwise
+  7 days) is dropped.
+- Request bodies are limited to 100 MB (`web.Config.MaxBodyBytes`); a
+  larger request gets 413.
+- `serve` stops on SIGINT or SIGTERM, letting requests in progress finish
+  (30 s), and every command delivers the queued emails before it exits
+  (for up to a minute).
 - Mail settings are in `gads: mail:` (via sendmail or smtp, host, port,
   security starttls/tls/none, username, password, helo, timeout).
 - Uploaded files are stored on disk under `gads: uploads`.
@@ -270,6 +285,13 @@ Changes made in the Go code that don't affect parity:
 - Plain passwords are compared in constant time.
 - Uploaded files are created with modes 0640 and 0750.
 - Dependencies are kept clear of known vulnerabilities (`govulncheck`).
+- The engine is reset around each request, and request bodies are limited
+  (see Concurrency and Running the application).
+- Mail is sent in the background, so a slow mail server holds up no
+  request.
+- User code is limited (Lua instructions and memory, regex match time,
+  `working_days_add`), and the API token of a deleted user is refused
+  (see Deviations).
 
 SAML responses are always rejected, as in Perl with Net::SAML2 0.89, so the
 Perl authentication bypass (C-1) does not exist in Go.
@@ -285,9 +307,7 @@ itself, and **Go reproduces them** for parity:
 - There is CSV formula injection (M-11).
 
 Fixing these is a deliberate deviation from Perl. Decide on each one,
-implement it in Go, and record it below. A further Go-specific risk: a calc
-field with an endless Lua loop blocks every request, because all requests
-share the one engine lock. A Lua instruction limit would fix it.
+implement it in Go, and record it below.
 
 ## Deviations and not ported
 
@@ -303,5 +323,19 @@ share the one engine lock. A Lua instruction limit would fix it.
     which avoids a quadratic search plan.
   - The SAML callback fails as Perl's does. Working verification would be an
     optional deviation.
+  - Limits on user code, which in Perl could block one worker but in Go
+    would block everyone:
+    - Lua stops after about 1e9 instructions (about 4 s; "code stopped
+      after running more than N instructions") and is limited to 512 MB
+      while code runs ("not enough memory"). These are
+      `lua.Interpreter.MaxInstructions` and `MaxMemory`.
+    - `working_days_add` with a negative count, or more than 100000 days,
+      is an error. Perl's loop never ends for these.
+    - A field's regex that runs for over 1 s counts as no match.
+  - Sessions expire after 7 days unused when no duration is configured.
+  - The bearer token of a deleted user, or of an account request, is
+    refused. Perl accepts it until it expires.
+  - Savepoints need a transaction, as in DBIC. This is not a deviation:
+    Go used to begin a transaction that was never committed.
 - PostgreSQL parity is 160 of 166 (master era). The remaining differences
   are Perl's own plan-dependent row order and fixture ID collisions.
