@@ -158,6 +158,9 @@ func TestSendSMTP(t *testing.T) {
 	m := newMailer(cfg, `"Linkspace" <noreply@example.com>`)
 	m.Send(gads.Email{Subject: "Données", To: []string{"a@example.com", "b@example.com"},
 		Text: "Hello\n.dot line\n", HTML: "<p>Hello</p>", ReplyTo: "r@example.com"})
+	if !m.Close(5 * time.Second) {
+		t.Fatal("queue not delivered")
+	}
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	if len(f.mails) != 2 {
@@ -222,5 +225,37 @@ func TestBuildMessageHeaderInjection(t *testing.T) {
 		if strings.HasPrefix(line, "Bcc:") || strings.ContainsAny(line, "\r\n") {
 			t.Errorf("injected header line %q", line)
 		}
+	}
+}
+
+// Send queues: a slow mail server does not hold up the caller, and Close
+// delivers what is queued
+func TestMailQueue(t *testing.T) {
+	m := newMailer(&mailConfig{Via: "sendmail"}, "noreply@example.com")
+	var mu sync.Mutex
+	var sent []string
+	m.send = func(_, to string, _ []byte) error {
+		time.Sleep(50 * time.Millisecond)
+		mu.Lock()
+		sent = append(sent, to)
+		mu.Unlock()
+		return nil
+	}
+	start := time.Now()
+	m.Send(gads.Email{Subject: "s", Text: "t", To: []string{"a@example.com", "b@example.com"}})
+	m.Send(gads.Email{Subject: "s", Text: "t", To: []string{"c@example.com"}})
+	if d := time.Since(start); d > 40*time.Millisecond {
+		t.Errorf("Send waited %s for delivery", d)
+	}
+	if !m.Close(5 * time.Second) {
+		t.Fatal("queue not delivered")
+	}
+	if strings.Join(sent, ",") != "a@example.com,b@example.com,c@example.com" {
+		t.Errorf("sent %v", sent)
+	}
+	// After Close, an email is delivered at once
+	m.Send(gads.Email{Subject: "s", Text: "t", To: []string{"d@example.com"}})
+	if len(sent) != 4 {
+		t.Errorf("email after close not delivered")
 	}
 }

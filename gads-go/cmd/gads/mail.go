@@ -14,6 +14,7 @@ import (
 	"os/exec"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/ctrlo/gads-go/internal/gads"
@@ -96,26 +97,71 @@ func (c *appConfig) mailConfig() (*mailConfig, error) {
 }
 
 // mailer sends the emails of the engine: one message to each recipient,
-// as GADS::Email does (so recipients do not see each other)
+// as GADS::Email does (so recipients do not see each other). Emails are
+// queued and delivered in the background, so that a slow mail server does
+// not hold up the engine (and so every request) while it is sent.
 type mailer struct {
 	cfg  *mailConfig
 	from string // the From header (email_from)
 	// send delivers a message to one recipient (sendmail or SMTP)
 	send func(envelopeFrom, to string, msg []byte) error
+
+	mu    sync.Mutex
+	queue chan gads.Email // nil once closed
+	done  chan struct{}   // closed when the queue has been delivered
 }
 
+// mailQueueSize is the number of emails waiting before Send blocks
+const mailQueueSize = 1000
+
 func newMailer(cfg *mailConfig, from string) *mailer {
-	m := &mailer{cfg: cfg, from: from}
+	m := &mailer{cfg: cfg, from: from, queue: make(chan gads.Email, mailQueueSize), done: make(chan struct{})}
 	if cfg.Via == "smtp" {
 		m.send = m.sendSMTP
 	} else {
 		m.send = sendmailTo
 	}
+	go func(queue <-chan gads.Email) {
+		defer close(m.done)
+		for e := range queue {
+			m.deliver(e)
+		}
+	}(m.queue)
 	return m
 }
 
-// Send sends an email, reporting failures as GADS does not fail on them
+// Send queues an email (delivered at once after Close)
 func (m *mailer) Send(e gads.Email) {
+	e.To = append([]string(nil), e.To...)
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	if m.queue == nil {
+		m.deliver(e)
+		return
+	}
+	m.queue <- e
+}
+
+// Close delivers the queued emails, waiting at most timeout for them. It
+// reports whether all were delivered.
+func (m *mailer) Close(timeout time.Duration) bool {
+	m.mu.Lock()
+	if m.queue != nil {
+		close(m.queue)
+		m.queue = nil
+	}
+	m.mu.Unlock()
+	select {
+	case <-m.done:
+		return true
+	case <-time.After(timeout):
+		fmt.Fprintln(os.Stderr, "Emails still unsent at exit")
+		return false
+	}
+}
+
+// deliver sends an email, reporting failures as GADS does not fail on them
+func (m *mailer) deliver(e gads.Email) {
 	envelope := envelopeAddress(m.from)
 	if envelope == "" {
 		envelope = m.cfg.Username

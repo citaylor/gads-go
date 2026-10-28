@@ -13,12 +13,15 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"net/http"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"strings"
+	"syscall"
 	"time"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
@@ -82,32 +85,37 @@ func configDir(flagValue string) string {
 	return "."
 }
 
-// open opens the database and engine of a configuration
-func open(dir string) (*appConfig, *gads.Engine, error) {
+// mailDrainTimeout is how long the emails still queued at exit are waited
+// for
+const mailDrainTimeout = time.Minute
+
+// open opens the database and engine of a configuration, with the mailer
+// of its emails (to be closed at exit, delivering those still queued)
+func open(dir string) (*appConfig, *gads.Engine, *mailer, error) {
 	cfg, err := loadConfig(dir, environment())
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
 	}
 	driver, dsn, err := cfg.database()
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
+	}
+	mc, err := cfg.mailConfig()
+	if err != nil {
+		return nil, nil, nil, err
 	}
 	d, err := db.Open(driver, dsn)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
 	}
 	e, err := gads.NewEngine(d, cfg.engineConfig())
 	if err != nil {
 		d.Close()
-		return nil, nil, err
+		return nil, nil, nil, err
 	}
-	mc, err := cfg.mailConfig()
-	if err != nil {
-		d.Close()
-		return nil, nil, err
-	}
-	e.Emailer = newMailer(mc, asString(cfg.section("gads")["email_from"])).Send
-	return cfg, e, nil
+	m := newMailer(mc, asString(cfg.section("gads")["email_from"]))
+	e.Emailer = m.Send
+	return cfg, e, m, nil
 }
 
 func fail(err error) int {
@@ -123,10 +131,11 @@ func serve(args []string) int {
 	public := fs.String("public", "", "directory of the static files (default <config>/public)")
 	fs.Parse(args)
 	dir := configDir(*conf)
-	cfg, e, err := open(dir)
+	cfg, e, m, err := open(dir)
 	if err != nil {
 		return fail(err)
 	}
+	defer m.Close(mailDrainTimeout)
 	if *views == "" {
 		*views = filepath.Join(dir, "views")
 	}
@@ -154,7 +163,21 @@ func serve(args []string) int {
 		ReadTimeout:       10 * time.Minute,
 		IdleTimeout:       2 * time.Minute,
 	}
-	if err := server.ListenAndServe(); err != nil {
+	// SIGINT and SIGTERM stop accepting requests and let those in progress
+	// finish
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+	errc := make(chan error, 1)
+	go func() { errc <- server.ListenAndServe() }()
+	select {
+	case err := <-errc:
+		return fail(err)
+	case <-ctx.Done():
+	}
+	fmt.Fprintln(os.Stderr, "GADS shutting down")
+	sctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	if err := server.Shutdown(sctx); err != nil {
 		return fail(err)
 	}
 	return 0
@@ -164,10 +187,11 @@ func deploy(args []string) int {
 	fs := flag.NewFlagSet("deploy", flag.ExitOnError)
 	conf := fs.String("config", "", "configuration directory (with config.yml)")
 	fs.Parse(args)
-	_, e, err := open(configDir(*conf))
+	_, e, m, err := open(configDir(*conf))
 	if err != nil {
 		return fail(err)
 	}
+	defer m.Close(mailDrainTimeout)
 	if err := e.DB.Deploy(); err != nil {
 		return fail(err)
 	}
@@ -183,12 +207,13 @@ func script(name string, args []string) int {
 		usage()
 		return 2
 	}
-	_, e, err := open(configDir(""))
+	_, e, m, err := open(configDir(""))
 	if err != nil {
 		return fail(err)
 	}
 	env := cli.NewEnv(e, args, os.Stdin, os.Stdout, os.Stderr)
 	res := cli.Run(name, env)
+	m.Close(mailDrainTimeout)
 	if res.Died != "" {
 		fmt.Fprintln(os.Stderr, res.Died)
 	}
