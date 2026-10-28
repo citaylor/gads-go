@@ -76,6 +76,9 @@ services:
     image: gads-go-builder:latest
     # Files written to the mounted source belong to this user (default 1000)
     user: "${BUILD_UID:-1000}:${BUILD_GID:-1000}"
+    environment:
+      # The GADS of the conformance test (views, golden results)
+      GADS_DIR: /upstream/GADS
     working_dir: /src
     volumes:
       - .:/src

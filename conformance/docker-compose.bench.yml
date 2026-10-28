@@ -12,6 +12,8 @@
 name: gads-bench
 
 x-bench-env: &bench-env
+  # The GADS checkout mounted (GADS_SRC), for the runners
+  GADS_DIR: /upstream/GADS
   GADS_TEST_PG_HOST: test-pg
   BENCH_SUFFIX: ${BENCH_SUFFIX:--docker}
   HOME: /tmp
@@ -40,6 +42,24 @@ services:
     environment: *bench-env
     working_dir: /conformance
     cpus: ${BENCH_CPUS:-0}
+    volumes:
+      - .:/conformance
+      - ${GADS_SRC:-../upstream/GADS-dev}:/upstream/GADS:ro
+      - perl-inline:/cache/inline
+
+  # The Perl of the golden results (results/perl): the same modules without
+  # the XS backends, which the reference install lacks and whose output
+  # differs in places. Use it for conformance runs:
+  #   docker compose -f docker-compose.bench.yml run --rm perl-ref ./run_perl.sh
+  perl-ref:
+    build:
+      context: ./docker/perl
+      args:
+        XS: 0
+    image: gads-perl:reference
+    user: "${BENCH_UID:-1000}:${BENCH_GID:-1000}"
+    environment: *bench-env
+    working_dir: /conformance
     volumes:
       - .:/conformance
       - ${GADS_SRC:-../upstream/GADS-dev}:/upstream/GADS:ro

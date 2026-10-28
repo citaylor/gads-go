@@ -6,6 +6,7 @@ requires identical observations.
 
 - `gads-go/`: the Go module (application, engine, template engine, tools)
 - `conformance/`: scenarios, the Perl reference runner and the Perl golden results
+- `GETTING-STARTED.md`: run the servers and the tests (start here)
 - `CLAUDE.md`: the workspace guide (conventions, build, test, Docker, security)
 
 The Perl GADS is included as submodules, pinned to the commits the golden

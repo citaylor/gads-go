@@ -46,6 +46,20 @@ use GADS::AlertSend;
 use GADS::AlertDescription;
 use MIME::Base64 ();
 use Encode ();
+# Test::TempDir::Tiny (the uploads of Test::GADS::DataSheet) makes its
+# directory under the directory it is loaded from: one of our own, so that
+# the GADS checkout is not written to (it is read-only in the containers)
+BEGIN {
+    require Cwd;
+    require File::Path;
+    require File::Spec;
+    my $dir = File::Spec->catdir(File::Spec->tmpdir, "gads-conformance-$<");
+    File::Path::make_path($dir);
+    my $cwd = Cwd::getcwd();
+    chdir $dir or die "Unable to chdir to $dir: $!";
+    require Test::TempDir::Tiny;
+    chdir $cwd or die "Unable to chdir to $cwd: $!";
+}
 use Test::GADS::DataSheet;
 use Template;
 use GADS::Conformance::Web;

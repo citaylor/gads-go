@@ -269,8 +269,17 @@ docker compose restart dev                 # rebuild and rerun after a change
 - **Other compose files.**
   - `conformance/docker-compose.test-pg.yml` is the disposable PostgreSQL
     for `--pg` runs.
-  - `conformance/docker-compose.bench.yml` runs the Perl and Go benchmark
-    containers.
+  - `conformance/docker-compose.bench.yml` has the runner containers:
+    - `perl-ref` (image `gads-perl:reference`) is the Perl of the golden
+      results; use it for conformance runs.
+    - `perl` adds the XS backends (JSON::XS, Text::CSV_XS) for
+      benchmarks. Its output differs from the golden results in places,
+      for example in base64-encoded JSON.
+    - `go`, and `test-pg` (profile `pg`).
+
+    All of them mount the GADS checkout at `/upstream/GADS`, with
+    `GADS_DIR` set to it. A newcomer's walkthrough is in
+    `GETTING-STARTED.md`.
 
 ## Security
 
