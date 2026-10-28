@@ -1,0 +1,91 @@
+# The checks of CLAUDE.md "Build and test", on every push and pull request,
+# and weekly for newly published vulnerabilities
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: gads-go
+
+env:
+  GO_VERSION: "1.27.3"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # The submodules are the Perl GADS, whose views the web tests render
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: gads-go/go.sum
+      - name: gofmt
+        run: test -z "$(gofmt -l . | tee /dev/stderr)"
+      - run: go vet ./...
+      - name: Build with the pure Go SQLite driver
+        run: go build -tags modernc ./...
+      - name: Tests, Perl parity and the hardened scenarios
+        run: go test ./...
+      - name: Race detector
+        run: go test -race ./internal/web ./internal/db ./cmd/gads
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: gads-go/go.sum
+      - name: Install the linters
+        run: |
+          go install honnef.co/go/tools/cmd/staticcheck@v0.8.2
+          go install golang.org/x/vuln/cmd/govulncheck@v1.9.0
+          go install golang.org/x/tools/cmd/deadcode@v0.52.0
+      - run: staticcheck ./...
+      - run: govulncheck ./...
+      # goLuaCallback is a cgo export, which deadcode cannot see called
+      - name: deadcode
+        run: |
+          out=$(deadcode -test ./... | grep -v 'unreachable func: goLuaCallback$' || true)
+          if [ -n "$out" ]; then echo "$out"; exit 1; fi
+
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: gads_test
+          POSTGRES_PASSWORD: gads_test
+          POSTGRES_DB: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U gads_test -d postgres"
+          --health-interval 2s --health-timeout 5s --health-retries 30
+    env:
+      GADS_TEST_PG: host=localhost port=5432 user=gads_test
+      PGPASSWORD: gads_test
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: gads-go/go.sum
+      # SQLite ignores column sizes and other constraints that PostgreSQL
+      # enforces
+      - name: Hardened scenarios on PostgreSQL
+        run: go test ./conformance -run TestHardened

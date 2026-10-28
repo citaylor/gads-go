@@ -30,6 +30,11 @@ identical.
   caches and the regenerated results; only `results/perl` and
   `results/perl-pg` are committed. Commit with the GitHub noreply address:
   pushes with a private email are refused.
+- **CI.** `.github/workflows/ci.yml` runs on every push and weekly. It runs
+  the tests (with parity and the hardened scenarios) and the race detector,
+  the linters of "Build and test" (versions pinned there), and the hardened
+  scenarios on PostgreSQL. Keep it passing, and update its pins with the
+  local tools.
 - **Upstream submodules.** `upstream/GADS-dev` (branch `dev`) and
   `upstream/GADS` (branch `master`) are submodules of
   `https://github.com/ctrlo/GADS.git`, pinned to the commits the golden
