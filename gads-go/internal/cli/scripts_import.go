@@ -367,7 +367,7 @@ func (im *importer) run(updateCached bool) {
 		gads.Fail("Cannot open directory _export: %s", perlErr(err))
 	}
 	// The instances in the order of the directory (not sorted)
-	entries, _ := root.Readdirnames(-1)
+	entries := env.readDirNames(root)
 	root.Close()
 	var allColumns []importColumn
 	var allLayouts []importLayout

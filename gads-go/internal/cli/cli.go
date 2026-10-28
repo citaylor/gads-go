@@ -28,6 +28,21 @@ type Env struct {
 	Dir string
 	// Env is the environment of the process (os.Getenv if nil)
 	Env map[string]string
+	// SortedDirs lists directories sorted rather than in the order of the
+	// filesystem, which differs between filesystems: the conformance
+	// runner, whose Perl results were recorded where readdir gave them
+	// sorted (XFS), so that they also hold on others (such as ext4)
+	SortedDirs bool
+}
+
+// readDirNames lists a directory as Perl's readdir does: in the order of
+// the filesystem, unless SortedDirs
+func (env *Env) readDirNames(f *os.File) []string {
+	names, _ := f.Readdirnames(-1)
+	if env.SortedDirs {
+		sort.Strings(names)
+	}
+	return names
 }
 
 // Getenv is a variable of the environment of the script

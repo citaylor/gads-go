@@ -71,6 +71,7 @@ func (r *Runner) stepCLI(args map[string]any) any {
 	var stdout, stderr bytes.Buffer
 	env := cli.NewEnv(r.e, argv, strings.NewReader(str(args["stdin"])), &stdout, &stderr)
 	env.Dir = tmp
+	env.SortedDirs = true
 	siteID := r.e.SiteID
 	res := cli.Run(script, env)
 	r.e.SiteID = siteID

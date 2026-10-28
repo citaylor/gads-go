@@ -124,6 +124,7 @@ In a checkout with the GADS dependencies installed, run
 | The site redirects elsewhere | Use the `GADS_HOST` name (`localhost`). |
 | Your change doesn't show | Run `docker compose up -d --build` (app) or `docker compose restart dev`. |
 | `go: downloading` in the builder | Run `docker compose build builder`. |
+| `243_cli_import` or `244_cli_import_data` differ after a Perl run | Perl's `import.pl` reads tables in directory order, which depends on the filesystem (the golden results come from XFS). Keep the committed results. |
 | `results/perl` changed after a Perl run | Perl now differs from the golden results. Commit the new results only if the scenario changed on purpose; otherwise run `git checkout conformance/results/perl`. |
 
 ## Cleaning up
