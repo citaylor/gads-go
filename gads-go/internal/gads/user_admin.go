@@ -103,6 +103,15 @@ func (e *Engine) CreateUser(params map[string]any) *User {
 	return e.FindUser(user.ID)
 }
 
+// CheckCanManage fails if the user may not change or retire target.
+// Hardened (H-3): only a superadmin manages a superadmin, so that a
+// useradmin cannot take over a superadmin's account by changing its email.
+func (u *User) CheckCanManage(target *User) {
+	if u.e.Config.Hardened && target.Permission()["superadmin"] && !u.Permission()["superadmin"] {
+		Fail("Only a superadmin can change or delete a superadmin")
+	}
+}
+
 var reEmailValid = regexp.MustCompile(`(?i)^[=+'a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,10}$`)
 
 // UpdateUser updates a user from the parameters of a user form
@@ -115,6 +124,9 @@ func (u *User) UpdateUser(params map[string]any) {
 	}
 	e.DB.Txn(func() {
 		current, _ := p["current_user"].(*User)
+		if current != nil {
+			current.CheckCanManage(u)
+		}
 		site := e.Site()
 		// Set null values where required for database insertions
 		for _, f := range []string{"organisation", "department_id", "team_id", "title"} {

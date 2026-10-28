@@ -37,6 +37,11 @@ gads:
     This email has been generated and sent from Linkspace. Replies
     will be directed to the sender of the message.
   user_status: 0 # Whether to show user status on login
+  # The fixes of the GADS security findings are on unless hardened: 0
+  # (behave exactly as Perl GADS). perl_password_hashes: 1 keeps the
+  # password hashes of Perl, for a database that Perl GADS also uses.
+  # hardened: 1
+  # perl_password_hashes: 0
   # Uploaded files are stored on disk here (the uploads volume of
   # docker-compose.yml); GADS_UPLOADS overrides it
   uploads: /var/lib/gads/uploads

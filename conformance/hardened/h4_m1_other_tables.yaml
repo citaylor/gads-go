@@ -1,0 +1,115 @@
+name: h4_m1_other_tables
+hardened: 1
+description: >
+  H-4 and M-1: rights on one table give no access to the objects of
+  another. normal1 administers and purges table a only, and tries to purge,
+  edit and delete the records, graphs, reports and trees of table b.
+steps:
+  - sheet:
+      as: a
+      site_id: 1
+      data:
+        - { string1: A1 }
+  - sheet:
+      as: b
+      instance_id: 2
+      share_users: 1
+      data:
+        - { string1: B1 }
+  - db:
+      op: insert
+      table: instance_group
+      set: { instance_id: "@instance:a", group_id: "@group:default", permission: layout }
+  - db:
+      op: insert
+      table: instance_group
+      set: { instance_id: "@instance:a", group_id: "@group:default", permission: purge }
+  - db:
+      op: insert
+      table: graph
+      set: { id: 50, title: B graph, type: bar, instance_id: "@instance:b", is_shared: 1 }
+  - db:
+      op: insert
+      table: report
+      set: { id: 60, name: B report, title: B title, instance_id: "@instance:b" }
+  - login: { user: normal1 }
+  - http: { as: normal1, path: "/{sheet:a}/data" }
+  # H-4: a historic purge of a record and field of table b
+  - http:
+      id: purge_other_table
+      as: normal1
+      method: POST
+      path: "/{sheet:a}/historic_purge/"
+      form: { purge: 1, current_id: [2], columns_selected: ["{column:b:string1}"] }
+      expect: { status: 200 }
+  - db:
+      id: b_value_kept
+      op: select
+      table: string
+      where: { layout_id: "@column:b:string1" }
+      columns: [value, purged_by]
+      expect: [{ value: B1, purged_by: null }]
+  # A purge of table a still works
+  - http:
+      id: purge_own_table
+      as: normal1
+      method: POST
+      path: "/{sheet:a}/historic_purge/"
+      form: { purge: 1, current_id: [1], columns_selected: ["{column:a:string1}"] }
+      expect: { status: 302 }
+  # M-1: the graph, report and tree of table b, through table a
+  - http:
+      id: graph_other_table
+      as: normal1
+      path: "/{sheet:a}/graph/50"
+  - http:
+      id: graph_delete_other_table
+      as: normal1
+      method: POST
+      path: "/{sheet:a}/graph/50"
+      form: { delete: 1 }
+  - db:
+      id: graph_kept
+      op: select
+      table: graph
+      columns: [id, instance_id]
+      expect: [{ id: "50", instance_id: "2" }]
+  - http:
+      id: report_edit_other_table
+      as: normal1
+      path: "/{sheet:a}/report/edit60"
+  - http:
+      id: report_delete_other_table
+      as: normal1
+      method: POST
+      path: "/{sheet:a}/report"
+      form: { delete: 60 }
+  - db:
+      id: report_kept
+      op: select
+      table: report
+      columns: [id, deleted]
+      expect: [{ id: "60", deleted: null }]
+  - http:
+      id: tree_other_table
+      as: normal1
+      path: "/{sheet:a}/tree/{column:b:tree1}"
+  - http:
+      id: tree_update_other_table
+      as: normal1
+      method: POST
+      path: "/{sheet:a}/tree/{column:b:tree1}"
+      form: { data: '[{"text":"Replaced"}]' }
+  - db:
+      id: b_tree_kept
+      op: select
+      table: enumval
+      where: { layout_id: "@column:b:tree1", value: Replaced }
+      columns: [id]
+      expect: []
+  - http:
+      id: field_values_other_table
+      as: normal1
+      method: POST
+      path: "/{sheet:a}/api/field/values/{column:b:string1}"
+      query: { submission-token: abc }

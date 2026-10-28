@@ -299,7 +299,7 @@ func (s *Server) hData(c *Ctx) string {
 	}
 
 	if rows := c.ParamS("rows"); truthy(rows) {
-		c.SessionSet("rows", perlInt(rows))
+		c.SessionSet("rows", s.clampRows(perlInt(rows)))
 	}
 	if page := c.ParamS("page"); truthy(page) {
 		c.SessionSet("page", perlInt(page))

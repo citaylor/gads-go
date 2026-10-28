@@ -1,0 +1,86 @@
+name: h1_csrf
+hardened: 1
+description: >
+  H-1: a GET request cannot change data, as a link on another site could
+  make one; PUT and DELETE need the CSRF token like POST. Pages and the
+  changes made with forms still work.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - login: { user: superadmin }
+  - login: { user: useradmin }
+  - db:
+      op: insert
+      table: group
+      set: { id: 100, name: Editors, site_id: 1 }
+  # Pages that write while showing (audit, session settings, default
+  # dashboards) still work
+  - http: { id: home, as: useradmin, path: /, expect: { status: 200 } }
+  - http: { id: data, as: superadmin, path: "/{sheet:s}/data", expect: { status: 200 } }
+  - http: { id: overview, as: useradmin, path: /group_overview/, expect: { status: 200 } }
+  # Deleting with a GET is refused (Perl deletes the group)
+  - http:
+      id: delete_by_get
+      as: useradmin
+      path: /group_overview/
+      query: { delete: 100 }
+      expect: { status: 200 }
+  - db:
+      id: group_kept
+      op: select
+      table: group
+      where: { id: 100 }
+      columns: [name]
+      expect: [{ name: Editors }]
+  # Retiring a user with a GET is refused
+  - http:
+      id: retire_by_get
+      as: useradmin
+      path: "/user/{user:normal1}"
+      query: { delete: "{user:normal1}" }
+  - db:
+      id: user_kept
+      op: select
+      table: user
+      where: { id: "@user:normal1" }
+      columns: [deleted]
+      expect: [{ deleted: null }]
+  # Deleting with a POST works
+  - http:
+      id: delete_by_post
+      as: useradmin
+      method: POST
+      path: /group_edit/100
+      form: { delete: 1 }
+      expect: { status: 302 }
+  - db:
+      id: group_deleted
+      op: select
+      table: group
+      where: { id: 100 }
+      columns: [name]
+      expect: []
+  # A widget is deleted with DELETE only with the token
+  - http: { id: home_superadmin, as: superadmin, path: /, expect: { status: 200 } }
+  - http:
+      id: add_notice
+      as: superadmin
+      method: POST
+      path: /api/dashboard/1/widget
+      query: { type: notice }
+      json: {}
+      capture: { notice: message }
+      expect: { status: 200 }
+  - http:
+      id: delete_without_token
+      as: superadmin
+      method: DELETE
+      csrf: false
+      path: "/api/dashboard/1/widget/{var:notice}"
+      expect: { json: { message: "csrf-token missing for uri /api/dashboard/1/widget/{var:notice}" } }
+  - http:
+      id: delete_with_token
+      as: superadmin
+      method: DELETE
+      path: "/api/dashboard/1/widget/{var:notice}"
+      body: ""
+      expect: { status: 200, json: { message: Widget deleted successfully } }

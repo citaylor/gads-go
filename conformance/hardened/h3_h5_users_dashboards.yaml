@@ -1,0 +1,115 @@
+name: h3_h5_users_dashboards
+hardened: 1
+description: >
+  H-3: a useradmin cannot change or retire a superadmin (Perl lets one
+  change a superadmin's email and so take over the account).
+  H-5: a dashboard is changed by the permission of its own scope, not of
+  the table in the URL, and the HTML of a notice is sanitised.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - login: { user: superadmin }
+  - login: { user: useradmin }
+  - login: { user: normal1 }
+  # The clients take their CSRF tokens from a page
+  - http: { as: useradmin, path: /user_overview/ }
+  - http: { as: normal1, path: /myaccount }
+  # H-5: normal1 administers the table
+  - db:
+      op: insert
+      table: instance_group
+      set: { instance_id: "@instance:s", group_id: "@group:default", permission: layout }
+  # The site dashboard (1) and the superadmin's (2)
+  - http: { id: home, as: superadmin, path: /, expect: { status: 200 } }
+  - http:
+      id: table_admin_changes_site_dashboard
+      as: normal1
+      method: POST
+      path: "/{sheet:s}/api/dashboard/1/widget"
+      query: { type: notice }
+      json: {}
+      expect: { status: 400, json: { message: User does not have write access to dashboard ID 1 } }
+  - http:
+      id: table_admin_reads_personal_dashboard
+      as: normal1
+      method: PUT
+      path: "/{sheet:s}/api/dashboard/2/dashboard/2"
+      json: []
+      expect: { status: 400, json: { message: User does not have access to dashboard ID 2 } }
+  # The table's dashboard (3), which normal1 can change
+  - http: { id: table_home, as: normal1, path: "/{sheet:s}", expect: { status: 200 } }
+  - db:
+      id: dashboards
+      op: select
+      table: dashboard
+      columns: [id, instance_id, user_id]
+  - http:
+      id: table_admin_changes_table_dashboard
+      as: normal1
+      method: POST
+      path: "/{sheet:s}/api/dashboard/3/widget"
+      query: { type: notice }
+      json: {}
+      capture: { notice: message }
+      expect: { status: 200 }
+  - http:
+      id: notice_with_script
+      as: normal1
+      method: PUT
+      path: "/{sheet:s}/api/dashboard/3/widget/{var:notice}/edit"
+      json: { title: News, content: "<p class=\"x\">Hello</p><script>alert(1)</script><img src=\"a.png\" onerror=\"alert(2)\">" }
+      expect: { status: 200 }
+  - http:
+      id: notice_sanitised
+      as: normal1
+      path: "/{sheet:s}/api/dashboard/3/widget/{var:notice}"
+      expect: { body: "<h4>News</h4>\n\n\n    <p class=\"x\">Hello</p><img src=\"a.png\">\n\n" }
+  # (Changing a user's email changes their username, which logs them out)
+  # H-3
+  - http:
+      id: useradmin_edits_superadmin
+      as: useradmin
+      method: POST
+      path: "/user/{user:superadmin}"
+      form: { submit: 1, firstname: Evil, surname: Admin, email: attacker@example.com }
+      expect: { status: 200 }
+  - db:
+      id: superadmin_unchanged
+      op: select
+      table: user
+      where: { id: "@user:superadmin" }
+      columns: [firstname]
+      expect: [{ firstname: User1 }]
+  - http:
+      id: useradmin_retires_superadmin
+      as: useradmin
+      method: POST
+      path: "/user/{user:superadmin}"
+      form: { delete: "{user:superadmin}" }
+  - db:
+      id: superadmin_not_retired
+      op: select
+      table: user
+      where: { id: "@user:superadmin" }
+      columns: [deleted]
+      expect: [{ deleted: null }]
+  - http:
+      id: useradmin_edits_normal
+      as: useradmin
+      method: POST
+      path: "/user/{user:normal1}"
+      form: { submit: 1, firstname: Norma, surname: Normal, email: normal@example.com }
+      expect: { status: 302 }
+  - db:
+      id: normal_changed
+      op: select
+      table: user
+      where: { id: "@user:normal1" }
+      columns: [firstname]
+      expect: [{ firstname: Norma }]
+  - http:
+      id: superadmin_edits_superadmin
+      as: superadmin
+      method: POST
+      path: "/user/{user:superadmin}"
+      form: { submit: 1, firstname: Super, surname: Admin, email: super@example.com }
+      expect: { status: 302 }

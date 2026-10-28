@@ -66,6 +66,7 @@ func (s *Server) hAPIRecords(c *Ctx) string {
 	if length == 0 {
 		length = 25
 	}
+	length = float64(s.clampRows(int64(length)))
 
 	records := s.E.NewRecords(layout, user)
 	records.View = view

@@ -58,7 +58,11 @@ func (s *Server) beforeHook(c *Ctx) {
 		user = c.LoggedInUser()
 	}
 
-	if c.IsPost() && !csrfExemptRe.MatchString(c.Path()) {
+	// Hardened: PUT, PATCH and DELETE need the token too (H-1), when made
+	// in a session (an API client authenticates with its bearer token)
+	checkCSRF := c.IsPost() || (e.Config.Hardened && !safeMethod(c.Method()) &&
+		c.LoggedInUser() != nil && c.Var("api_user") == nil)
+	if checkCSRF && !csrfExemptRe.MatchString(c.Path()) {
 		var token string
 		if c.RequestContentType() == "application/json" {
 			var body map[string]any
@@ -105,6 +109,9 @@ func (s *Server) beforeHook(c *Ctx) {
 	if c.URI() != "/aup_text" {
 		c.Header("X-Frame-Options", "DENY")
 	}
+	if e.Config.Hardened {
+		c.securityHeaders()
+	}
 
 	if logged := c.LoggedInUser(); logged != nil {
 		if truthy(s.Config.Gads["aup"]) {
@@ -125,7 +132,9 @@ func (s *Server) beforeHook(c *Ctx) {
 				c.ForwardHome("danger", "Your password has expired. Please use the Change password button\n                below to set a new password.", "myaccount")
 			}
 		}
-		c.Header("Content-Security-Policy", "script-src 'self';")
+		if !e.Config.Hardened {
+			c.Header("Content-Security-Policy", "script-src 'self';")
+		}
 		persistent := c.persistent()
 		if v, _ := c.Param("instance"); truthy(v) {
 			c.SessionSet("search", nil)

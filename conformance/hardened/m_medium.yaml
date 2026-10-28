@@ -1,0 +1,117 @@
+name: m_medium
+hardened: 1
+description: >
+  The medium findings. M-3: only superadmins upload independent files.
+  M-4: passwords are stored with PBKDF2, upgraded at login. M-5: the API
+  password grant has the lockout and the audit of /login. M-9: a request
+  for an existing account sends the pending reset code again rather than
+  replacing it, and long names are refused. M-11: CSV downloads do not
+  start a cell with a formula.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: "=HYPERLINK(\"http://evil\")", integer1: -5 }
+        - { string1: "@SUM(A1)", integer1: 7 }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { as: normal1, path: /myaccount }
+  # M-3
+  - http:
+      id: normal_uploads
+      as: normal1
+      method: POST
+      path: /file/
+      upload:
+        file: { filename: page.txt, content: "<script>alert(1)</script>\n", content_type: text/plain }
+  - db:
+      id: no_independent_files
+      op: select
+      table: fileval
+      columns: [id]
+      where: { is_independent: 1 }
+      expect: []
+  # M-4: the logins upgraded the SSHA512 hashes that the runner sets
+  - db:
+      id: hashes
+      op: select
+      table: user
+      where: { id: "@user:normal1" }
+      columns: [password]
+      columns_match: { password: '^\{PBKDF2-SHA512\}210000\$' }
+      expect: [{ password: "1" }]
+  - login: { user: normal1, as: normal1_again }
+  - http: { id: home_again, as: normal1_again, path: /, expect: { status: 200 } }
+  # M-5
+  - db:
+      op: insert
+      table: oauthclient
+      set: { client_id: cid, client_secret: csecret }
+  - http:
+      id: token_wrong_1
+      method: POST
+      path: /api/token
+      csrf: false
+      form: { grant_type: password, client_id: cid, client_secret: csecret, username: user1@example.com, password: wrong }
+  - http: { id: token_wrong_2, method: POST, path: /api/token, csrf: false, form: { grant_type: password, client_id: cid, client_secret: csecret, username: user1@example.com, password: wrong } }
+  - http: { id: token_wrong_3, method: POST, path: /api/token, csrf: false, form: { grant_type: password, client_id: cid, client_secret: csecret, username: user1@example.com, password: wrong } }
+  - http: { id: token_wrong_4, method: POST, path: /api/token, csrf: false, form: { grant_type: password, client_id: cid, client_secret: csecret, username: user1@example.com, password: wrong } }
+  - http: { id: token_wrong_5, method: POST, path: /api/token, csrf: false, form: { grant_type: password, client_id: cid, client_secret: csecret, username: user1@example.com, password: wrong } }
+  - http:
+      id: token_locked
+      method: POST
+      path: /api/token
+      csrf: false
+      form: { grant_type: password, client_id: cid, client_secret: csecret, username: user1@example.com, password: password }
+      expect: { json: { error: access_denied } }
+  - db:
+      id: api_failures_audited
+      op: count
+      table: audit
+      where: { type: login_failure }
+      expect: { count: "6" }
+  # M-9
+  - http: { id: register_page, path: /register }
+  - http:
+      id: register_existing
+      method: POST
+      path: /register
+      form: { register: 1, firstname: a, surname: b, email: user4@example.com }
+  - db:
+      id: reset_code
+      op: select
+      table: user
+      where: { id: "@user:normal1" }
+      columns: [resetpw]
+  - http:
+      id: register_existing_again
+      method: POST
+      path: /register
+      form: { register: 1, firstname: a, surname: b, email: user4@example.com }
+  - db:
+      id: reset_code_kept
+      op: select
+      table: user
+      where: { id: "@user:normal1" }
+      columns: [resetpw]
+      expect: [{ resetpw: T0000000000000000000000000000009 }]
+  - http:
+      id: register_long_name
+      method: POST
+      path: /register
+      form: { register: 1, firstname: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", surname: b, email: new@example.com }
+  - db:
+      id: no_long_request
+      op: select
+      table: user
+      where: { email: new@example.com }
+      columns: [id]
+      expect: []
+  # M-11
+  - http:
+      id: download_csv
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { download: "" }
+      expect_body_contains: [",\"'=HYPERLINK(\"\"http://evil\"\")\",-5,", ",'@SUM(A1),7,"]

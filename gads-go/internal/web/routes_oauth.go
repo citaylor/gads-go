@@ -13,6 +13,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/ctrlo/gads-go/internal/db"
 	"github.com/ctrlo/gads-go/internal/gads"
@@ -115,6 +116,9 @@ func (s *Server) verifyUserPassword(clientID, clientSecret *string, username, pa
 		uq += ` AND "me"."site_id" = ` + fmtInt(s.E.SiteID)
 	}
 	user := s.E.DB.QueryRow(uq+` ORDER BY "me"."id" LIMIT 1`, username)
+	if s.E.Config.Hardened {
+		return s.verifyUserPasswordHardened(client, user, username, password)
+	}
 	if user != nil {
 		hashed, _ := db.AsString(user["password"])
 		if saltedHashValidate(hashed, password) {
@@ -123,6 +127,29 @@ func (s *Server) verifyUserPassword(clientID, clientSecret *string, username, pa
 			return oauthVerifyResult{client: cid, userID: uid}
 		}
 	}
+	return oauthVerifyResult{err: "access_denied"}
+}
+
+// verifyUserPasswordHardened is the password check of the password grant
+// with the lockout and the audit of /login (hardened, M-5): Perl lets the
+// API try passwords without limit, unaudited
+func (s *Server) verifyUserPasswordHardened(client, user db.Row, username, password string) oauthVerifyResult {
+	e := s.E
+	if user != nil {
+		uid, _ := db.AsInt64(user["id"])
+		fc, _ := toInt64(user["failcount"])
+		lastfail, _ := db.AsTime(user["lastfail"])
+		locked := fc >= 5 && user["lastfail"] != nil && lastfail.After(e.Now().Add(-15*time.Minute))
+		hashed, _ := db.AsString(user["password"])
+		if !locked && saltedHashValidate(hashed, password) {
+			e.Audit(map[string]any{"user_id": uid, "description": "Successful API login by username " + username, "type": "login_success"})
+			e.DB.UpdateMap("user", map[string]any{"failcount": 0, "lastfail": nil}, map[string]any{"id": uid})
+			cid, _ := db.AsInt64(client["id"])
+			return oauthVerifyResult{client: cid, userID: uid}
+		}
+		e.DB.UpdateMap("user", map[string]any{"failcount": fc + 1, "lastfail": e.Now()}, map[string]any{"id": uid})
+	}
+	e.Audit(map[string]any{"description": "API login failure using username " + username, "type": "login_failure"})
 	return oauthVerifyResult{err: "access_denied"}
 }
 

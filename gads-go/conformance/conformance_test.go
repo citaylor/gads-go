@@ -61,3 +61,27 @@ func TestConformance(t *testing.T) {
 		})
 	}
 }
+
+// TestHardened runs the scenarios of conformance/hardened, which check the
+// security fixes of hardened mode (deviations from Perl, so that they have
+// no Perl results): only their expectations are checked
+func TestHardened(t *testing.T) {
+	scenarios, _ := filepath.Glob("../../conformance/hardened/*.yaml")
+	if len(scenarios) == 0 {
+		t.Skip("no scenarios found")
+	}
+	for _, f := range scenarios {
+		name := strings.TrimSuffix(filepath.Base(f), ".yaml")
+		t.Run(name, func(t *testing.T) {
+			res := RunFile(f)
+			if res.Fatal != "" {
+				t.Fatalf("fatal: %s", res.Fatal)
+			}
+			for _, s := range res.Steps {
+				for _, m := range s.Failures {
+					t.Errorf("%s: %s", s.ID, m)
+				}
+			}
+		})
+	}
+}

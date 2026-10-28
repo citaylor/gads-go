@@ -1,6 +1,7 @@
 package web
 
 import (
+	"github.com/ctrlo/gads-go/internal/db"
 	"github.com/ctrlo/gads-go/internal/gads"
 	"github.com/ctrlo/gads-go/internal/tt"
 )
@@ -69,7 +70,7 @@ func (s *Server) hReports(c *Ctx) string {
 	lo, _ := c.RouteParam("layout_name")
 	if del, _ := c.BodyParam("delete"); truthy(del) {
 		row := s.E.DB.QueryRow(`SELECT * FROM "report" WHERE "id" = ?`, del)
-		if row == nil {
+		if row == nil || !s.ofLayout(row, layout) {
 			gads.Fail("No report found for %s", del)
 		}
 		if c.Process(func() { s.E.RemoveReport(row) }) {
@@ -123,12 +124,12 @@ func (s *Server) hReportEdit(c *Ctx) string {
 	user := c.LoggedInUser()
 	id, _ := c.Param("id")
 	if v, _ := c.BodyParam("submit"); truthy(v) {
-		report := s.E.LoadReportForEdit(id)
+		report := s.loadReportForEdit(id, layout)
 		s.E.UpdateReport(report, c.reportInput())
 		lo, _ := c.RouteParam("layout_name")
 		c.ForwardHome("success", "Report updated", lo+"/report")
 	}
-	report := s.E.LoadReportForEdit(id)
+	report := s.loadReportForEdit(id, layout)
 	checked := map[int64]bool{}
 	for _, l := range s.E.ReportLayoutIDs(report["id"]) {
 		checked[l] = true
@@ -151,4 +152,24 @@ func (s *Server) hReportEdit(c *Ctx) string {
 	tokens.Set("viewtype", "edit")
 	tokens.Set("groups", c.ttGroupRows(user))
 	return c.Template("reports/edit", tokens, nil)
+}
+
+// loadReportForEdit is Report load_for_edit, which in hardened mode (M-1)
+// finds only a report of the table: Perl finds those of any table
+func (s *Server) loadReportForEdit(id string, layout *gads.Layout) db.Row {
+	report := s.E.LoadReportForEdit(id)
+	if !s.ofLayout(report, layout) {
+		gads.Fail("No report found for id %s", id)
+	}
+	return report
+}
+
+// ofLayout is whether a row (with an instance_id) belongs to the table of
+// the page. Without Hardened every row does, as in Perl (M-1).
+func (s *Server) ofLayout(row db.Row, layout *gads.Layout) bool {
+	if !s.E.Config.Hardened || layout == nil {
+		return true
+	}
+	id, ok := db.AsInt64(row["instance_id"])
+	return ok && id == layout.InstanceID
 }

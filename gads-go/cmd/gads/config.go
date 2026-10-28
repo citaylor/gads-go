@@ -132,6 +132,12 @@ func (c *appConfig) engineConfig() *gads.Config {
 	}
 	cfg.Header = asString(g["header"])
 	cfg.Uploads = asString(g["uploads"])
+	// The security fixes are on unless turned off (gads: hardened: 0)
+	cfg.Hardened = true
+	if v, ok := g["hardened"]; ok {
+		cfg.Hardened = asBool(v)
+	}
+	cfg.PerlPasswordHashes = asBool(g["perl_password_hashes"])
 	strMap := func(v any) map[string]string {
 		m, ok := v.(map[string]any)
 		if !ok {

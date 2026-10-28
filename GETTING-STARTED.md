@@ -63,6 +63,10 @@ docker compose run --rm builder go test ./...
 A difference is reported as
 `parity: <step> observed.status: perl="200" go="302"`.
 
+The server fixes the security findings of the Perl GADS ("hardened mode",
+see `CLAUDE.md`). The suite compares Go with Perl as it is, so hardened mode
+is off there, and `conformance/hardened/` tests the fixes on their own.
+
 **The Perl reference run** (about 40 minutes). This re-runs the scenarios
 on Perl GADS, which proves that the golden results are Perl's behaviour:
 

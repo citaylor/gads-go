@@ -37,3 +37,23 @@ func TestPerlRegexTimeout(t *testing.T) {
 		t.Errorf("took %s", d)
 	}
 }
+
+// Hardened CSV downloads quote what a spreadsheet would run as a formula
+func TestCSVNoFormula(t *testing.T) {
+	for in, want := range map[string]string{
+		"=1+1": "'=1+1", "+A1": "'+A1", "@SUM(A1)": "'@SUM(A1)", "\tx": "'\tx",
+		"-5": "-5", "+3.5": "+3.5", "-": "'-", "plain": "plain", "": "",
+	} {
+		if got := csvNoFormula(in); got != want {
+			t.Errorf("csvNoFormula(%q) = %q, want %q", in, got, want)
+		}
+	}
+	e := &Engine{Config: &Config{}}
+	if got := e.csvDownloadLine([]string{"=1"}); got != "=1\n" {
+		t.Errorf("not hardened: %q", got)
+	}
+	e.Config.Hardened = true
+	if got := e.csvDownloadLine([]string{"=1"}); got != "'=1\n" {
+		t.Errorf("hardened: %q", got)
+	}
+}

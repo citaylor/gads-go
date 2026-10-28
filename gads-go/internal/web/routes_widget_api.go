@@ -43,6 +43,11 @@ func (s *Server) getDashboard(c *Ctx, id string) *gads.Dashboard {
 		c.Status(404)
 		gads.Fail("Dashboard %s not found", id)
 	}
+	// Hardened (M-2): a personal dashboard is only its owner's
+	if s.E.Config.Hardened && d.UserID != nil && *d.UserID != c.LoggedInUser().ID {
+		c.Status(403)
+		gads.Fail("User does not have access to dashboard ID %s", id)
+	}
 	return d
 }
 
@@ -50,7 +55,11 @@ func (s *Server) getDashboard(c *Ctx, id string) *gads.Dashboard {
 func (s *Server) getDashboardWrite(c *Ctx, id string, layout *gads.Layout) *gads.Dashboard {
 	d := s.getDashboard(c, id)
 	user := c.LoggedInUser()
-	if user.Permission()["superadmin"] || (layout != nil && layout.UserCan("layout")) {
+	if s.E.Config.Hardened {
+		if s.canWriteDashboard(c, d) {
+			return d
+		}
+	} else if user.Permission()["superadmin"] || (layout != nil && layout.UserCan("layout")) {
 		return d
 	}
 	if d.UserID != nil && *d.UserID == user.ID {
@@ -59,6 +68,26 @@ func (s *Server) getDashboardWrite(c *Ctx, id string, layout *gads.Layout) *gads
 	c.Status(403)
 	gads.Fail("User does not have write access to dashboard ID %s", id)
 	return nil
+}
+
+// canWriteDashboard is whether the user can change a dashboard, by the
+// dashboard's own scope (hardened, H-5). Perl allows anyone with the
+// layout permission of the table in the URL to change any dashboard,
+// including the site's home dashboard.
+func (s *Server) canWriteDashboard(c *Ctx, d *gads.Dashboard) bool {
+	user := c.LoggedInUser()
+	switch {
+	case d.UserID != nil: // personal
+		return *d.UserID == user.ID
+	case d.InstanceID == nil: // the site's
+		return user.Permission()["superadmin"]
+	default: // a table's
+		if user.Permission()["superadmin"] {
+			return true
+		}
+		l := c.Instances().Layout(*d.InstanceID)
+		return l != nil && l.UserCan("layout")
+	}
 }
 
 // getWidget is API.pm _get_widget

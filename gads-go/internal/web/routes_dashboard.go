@@ -191,7 +191,13 @@ func (c *Ctx) widgetHTML(w *gads.Widget) string {
 	typ, _ := db.AsString(w.Row["type"])
 	params := tt.HashOf("type", typ, "title", ttValue(w.Row["title"]))
 	if typ == "notice" {
-		params.Set("content", ttValue(w.Row["content"]))
+		content := ttValue(w.Row["content"])
+		// Hardened (H-5): Perl renders the HTML of a notice as given, so
+		// that whoever can edit a dashboard can add scripts to it
+		if c.E.Config.Hardened {
+			content = noticePolicy.Sanitize(fmtAny(w.Row["content"]))
+		}
+		params.Set("content", content)
 	} else {
 		if w.Layout == nil {
 			gads.Panic("Missing layout")

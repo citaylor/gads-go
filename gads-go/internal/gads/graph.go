@@ -64,7 +64,15 @@ func (e *Engine) LoadGraphLazy(id string, layout *Layout, user *User) *Graph {
 		return &Graph{e: e, Layout: layout, User: user, loadErr: "Invalid graph ID " + id, rawID: id}
 	}
 	gid, _ := strconv.ParseInt(id, 10, 64)
-	if row := e.DB.QueryRow(`SELECT "id" FROM "graph" WHERE "id" = ?`, gid); row == nil {
+	row := e.DB.QueryRow(`SELECT "id", "instance_id" FROM "graph" WHERE "id" = ?`, gid)
+	// Hardened (M-1): a graph of another table is not found, and has no ID
+	// to delete or update. Perl edits it, and moves it to this table.
+	if e.Config.Hardened && row != nil && layout != nil {
+		if inst, _ := db.AsInt64(row["instance_id"]); inst != layout.InstanceID {
+			return &Graph{e: e, Layout: layout, User: user, loadErr: "Requested graph ID " + id + " not found"}
+		}
+	}
+	if row == nil {
 		return &Graph{e: e, Layout: layout, User: user, ID: gid, loadErr: "Requested graph ID " + id + " not found"}
 	}
 	return e.LoadGraph(gid, layout, user)

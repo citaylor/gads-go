@@ -98,6 +98,7 @@ type Server struct {
 
 	router   *Router
 	sessions *sessionStore
+	limiter  rateLimiter
 	// GADS (as Perl Dancer2 with a single worker) processes one request at
 	// a time: the engine is not safe for concurrent use
 	mu sync.Mutex
@@ -429,6 +430,10 @@ func (c *Ctx) sessionCookie(id string, destroyed bool) *http.Cookie {
 	cfg := c.s.Config.Session
 	ck := &http.Cookie{Name: cfg.CookieName, Value: id, Path: cfg.CookiePath, Domain: cfg.CookieDomain,
 		Secure: cfg.Secure, HttpOnly: cfg.HTTPOnly, SameSite: cfg.SameSite}
+	// Hardened: SameSite=Lax unless configured (H-1, M-8)
+	if ck.SameSite == 0 && c.E.Config.Hardened {
+		ck.SameSite = http.SameSiteLaxMode
+	}
 	if destroyed {
 		ck.Expires = c.E.Now().Add(-24 * time.Hour)
 	} else if cfg.CookieDuration > 0 {
@@ -502,6 +507,10 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	if s.serveStatic(w, req) {
 		return
 	}
+	if s.rateLimit(req) {
+		http.Error(w, "Too many requests: please wait a minute and try again", http.StatusTooManyRequests)
+		return
+	}
 	c := &Ctx{
 		s:       s,
 		E:       s.E,
@@ -525,6 +534,9 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		// Whatever a failed request left behind does not reach the next
 		defer s.resetEngine(siteID)
 		s.resetEngine(0)
+		if s.E.Config.Hardened && safeMethod(req.Method) {
+			defer s.readOnly()()
+		}
 		c.dispatch()
 		c.flushReports()
 		c.write(res)
@@ -577,6 +589,9 @@ func (s *Server) serveStatic(w http.ResponseWriter, req *http.Request) bool {
 	st, err := os.Stat(full)
 	if err != nil || st.IsDir() {
 		return false
+	}
+	if s.E != nil && s.E.Config.Hardened {
+		w.Header().Set("X-Content-Type-Options", "nosniff")
 	}
 	http.ServeFile(w, req, full)
 	return true

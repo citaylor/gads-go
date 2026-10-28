@@ -395,6 +395,12 @@ sub _check
         push @failures, "no message matching /$re/"
             unless grep { $_ =~ /$re/ } @{$obs->{messages} || []};
     }
+    if (my $list = $args->{expect_body_contains})
+    {
+        my $body = ($obs->{observed} && $obs->{observed}->{body}) // '';
+        push @failures, "body does not contain "._show($_)
+            foreach grep { index($body, $_) < 0 } @$list;
+    }
     @failures;
 }
 

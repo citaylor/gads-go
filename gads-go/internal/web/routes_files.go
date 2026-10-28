@@ -59,6 +59,11 @@ func (s *Server) hFile(c *Ctx) string {
 // post '/file/:id?' (GADS.pm:1694): uploading an independent file through
 // the "manage files" page, or deleting one
 func (s *Server) hFilePost(c *Ctx) string {
+	// Hardened (M-3): only superadmins manage files. Perl lets anyone
+	// upload one (that every user can read), checking only deletions.
+	if s.E.Config.Hardened && !c.LoggedInUser().Permission()["superadmin"] {
+		gads.Fail("You do not have permission to manage files")
+	}
 	if up := c.Upload("file"); up != nil && up.Filename != "" {
 		mime := gads.CheckUpload(up.Filename, up.Content, gads.CheckOptions{CheckName: true})
 		var id int64

@@ -66,6 +66,9 @@ func (s *Server) hAPIUsers(c *Ctx) string {
 	if !truthy(length) {
 		length = "10"
 	}
+	if s.E.Config.Hardened {
+		length = fmtInt(s.clampRows(perlInt(length)))
+	}
 
 	from := ` FROM "user" "me" LEFT JOIN "organisation" "organisation" ON "organisation"."id" = "me"."organisation" LEFT JOIN "department" "department" ON "department"."id" = "me"."department_id" LEFT JOIN "team" "team" ON "team"."id" = "me"."team_id" LEFT JOIN "title" "title" ON "title"."id" = "me"."title"`
 	where := []string{`"me"."account_request" = 0`, `"me"."deleted" IS NULL`}
@@ -252,6 +255,10 @@ func (s *Server) hAPIFieldValues(c *Ctx) string {
 	}
 	cid, _ := toInt64(colID)
 	curval := layout.Column(cid)
+	// Hardened (M-1): only a field of this table that the user can read
+	if curval != nil && s.E.Config.Hardened && (!layout.ColumnThisInstance(cid) || !curval.UserCan("read")) {
+		gads.Fail("Field ID %s not found", colID)
+	}
 	if curval == nil {
 		gads.Panic(`Can't call method "subvals_input_required" on an undefined value`)
 	}

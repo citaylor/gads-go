@@ -29,6 +29,7 @@ file** (JSON) containing one entry per step. Two checks prove equivalence:
 | `fixed_time` | `YYYY-MM-DD HH:MM:SS` UTC time to freeze the clock at (Test::MockTime equivalent). Omitted = frozen at `2014-10-10 01:00:00` for determinism. |
 | `config`     | GADS config overrides, e.g. `{dateformat: dd-MM-yyyy}` |
 | `steps`      | ordered list of steps |
+| `hardened`   | Go only: run with the security fixes of hardened mode (the scenarios of `hardened/`, which Perl does not run) |
 
 ## Steps
 
@@ -40,6 +41,7 @@ Each step is a single-key mapping: `- <type>: {...options}`. Common options:
 * `capture_warnings` – also report WARNING messages (code evaluation
   parameter dumps, which are in random hash order, are stripped)
 * `expect_messages_match` – a regex that at least one message must match
+* `expect_body_contains` – strings that the observed `body` must contain
 * `ignore_permissions` – run the step with `$GADS::Schema::IGNORE_PERMISSIONS`
 * `env` – environment variables set for the step (`GADS_ALLOW_BLANK_CURVAL`,
   `PANIC_ON_CURVAL_BUILD_VALUES`)

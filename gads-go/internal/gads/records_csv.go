@@ -27,6 +27,32 @@ func csvField(s string) string {
 // (Text::CSV combine).
 func CSVFormatLine(fields []string) string { return csvLine(fields) }
 
+// csvDownloadLine is a line of a CSV download. Hardened (M-11): a field
+// that a spreadsheet would run as a formula starts with a quote. Perl
+// writes the values as they are.
+func (e *Engine) csvDownloadLine(fields []string) string {
+	if e.Config.Hardened {
+		safe := make([]string, len(fields))
+		for i, f := range fields {
+			safe[i] = csvNoFormula(f)
+		}
+		fields = safe
+	}
+	return csvLine(fields)
+}
+
+// csvNoFormula prefixes a field starting with a formula character (other
+// than a number, such as -1) with a quote
+func csvNoFormula(f string) string {
+	if f == "" || !strings.ContainsRune("=+-@\t\r", rune(f[0])) {
+		return f
+	}
+	if _, err := strconv.ParseFloat(f, 64); err == nil {
+		return f
+	}
+	return "'" + f
+}
+
 func csvLine(fields []string) string {
 	out := make([]string, len(fields))
 	for i, f := range fields {
@@ -48,7 +74,7 @@ func (r *Records) CSVHeader() string {
 	for _, c := range r.ColumnsRender() {
 		names = append(names, c.Name)
 	}
-	out := csvLine(names)
+	out := r.e.csvDownloadLine(names)
 	if h := r.e.Config.Header; h != "" {
 		out = h + "\n" + out
 	}
@@ -76,5 +102,5 @@ func (r *Records) CSVLine() (string, bool) {
 	for _, c := range r.ColumnsRender() {
 		items = append(items, line.GetFieldValue(c).AsString())
 	}
-	return csvLine(items), true
+	return r.e.csvDownloadLine(items), true
 }

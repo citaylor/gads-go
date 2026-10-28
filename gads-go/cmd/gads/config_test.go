@@ -69,6 +69,14 @@ plugins:
 	if ec.DateFormat != "dd-MM-yyyy" || ec.LoginInstance != 2 || ec.URL != "https://example.com/" {
 		t.Errorf("engine config = %+v", ec)
 	}
+	if !ec.Hardened || ec.PerlPasswordHashes {
+		t.Errorf("security fixes not on by default: %+v", ec)
+	}
+	cfg.raw["gads"].(map[string]any)["hardened"] = 0
+	cfg.raw["gads"].(map[string]any)["perl_password_hashes"] = 1
+	if ec := cfg.engineConfig(); ec.Hardened || !ec.PerlPasswordHashes {
+		t.Errorf("hardened: 0, perl_password_hashes: 1 = %+v", ec)
+	}
 	wc := cfg.webConfig()
 	if !wc.ShowErrors || wc.Gads["login_instance"] != int64(2) {
 		t.Errorf("web config = %+v", wc)

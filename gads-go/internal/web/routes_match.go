@@ -16,6 +16,10 @@ func (s *Server) hHelptext(c *Ctx) string {
 			col = all[0].Column(id)
 		}
 	}
+	// Hardened (M-1): only the help of a field the user can read
+	if col != nil && s.E.Config.Hardened && (c.Instances().Layout(col.InstanceID) == nil || !col.UserCan("read")) {
+		col = nil
+	}
 	tokens := tt.HashOf()
 	if col != nil {
 		tokens.Set("column", c.ttColumn(col))

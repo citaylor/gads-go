@@ -85,6 +85,7 @@ func (s *Server) retireUser(c *Ctx, id, rejectText string) bool {
 		if u == nil {
 			gads.Panic(`Can't call method "retire" on an undefined value`)
 		}
+		c.LoggedInUser().CheckCanManage(u)
 		u.Retire(true, rejectText)
 	})
 	if ok {

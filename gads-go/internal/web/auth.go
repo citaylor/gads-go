@@ -2,14 +2,17 @@ package web
 
 import (
 	"crypto/md5"
+	"crypto/pbkdf2"
 	"crypto/rand"
 	"crypto/sha1"
 	"crypto/sha256"
 	"crypto/sha512"
 	"crypto/subtle"
 	"encoding/base64"
+	"fmt"
 	"hash"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -51,6 +54,9 @@ func MatchPassword(given, correct string) bool {
 		return subtle.ConstantTimeCompare([]byte(given), []byte(correct)) == 1
 	}
 	scheme := strings.ToUpper(m[1])
+	if scheme == pbkdf2Scheme {
+		return matchPBKDF2(given, m[2])
+	}
 	salted := strings.HasPrefix(scheme, "S")
 	name := scheme
 	if salted {
@@ -98,6 +104,67 @@ func HashPassword(pw string) string {
 	return "{SSHA512}" + base64.StdEncoding.EncodeToString(append(d.Sum(nil), salt...))
 }
 
+// Hardened password hashes (M-4): PBKDF2 with SHA-512, a 16 byte salt,
+// pbkdf2Iterations and a 32 byte key, as
+// {PBKDF2-SHA512}ITERATIONS$SALT$KEY (base64): 91 characters, within the
+// 128 of the password column. Perl GADS cannot check them.
+const (
+	pbkdf2Scheme     = "PBKDF2-SHA512"
+	pbkdf2Iterations = 210000
+	pbkdf2KeyLen     = 32
+)
+
+// hashPasswordPBKDF2 is the hardened hash of a password
+func hashPasswordPBKDF2(pw string) string {
+	salt := make([]byte, 16)
+	rand.Read(salt)
+	key, err := pbkdf2.Key(sha512.New, pw, salt, pbkdf2Iterations, pbkdf2KeyLen)
+	if err != nil {
+		gads.Panic("%s", err.Error())
+	}
+	return fmt.Sprintf("{%s}%d$%s$%s", pbkdf2Scheme, pbkdf2Iterations,
+		base64.StdEncoding.EncodeToString(salt), base64.StdEncoding.EncodeToString(key))
+}
+
+// matchPBKDF2 checks a password against the part of a PBKDF2 hash after
+// its scheme
+func matchPBKDF2(given, h string) bool {
+	parts := strings.Split(h, "$")
+	if len(parts) != 3 {
+		return false
+	}
+	iter, err := strconv.Atoi(parts[0])
+	if err != nil || iter < 1 || iter > 10_000_000 {
+		return false
+	}
+	salt, err1 := base64.StdEncoding.DecodeString(parts[1])
+	want, err2 := base64.StdEncoding.DecodeString(parts[2])
+	if err1 != nil || err2 != nil || len(want) == 0 {
+		return false
+	}
+	key, err := pbkdf2.Key(sha512.New, given, salt, iter, len(want))
+	return err == nil && subtle.ConstantTimeCompare(key, want) == 1
+}
+
+// hashPassword hashes a new password: as Perl GADS does, or with PBKDF2 in
+// hardened mode (unless the database is shared with Perl)
+func (s *Server) hashPassword(pw string) string {
+	if cfg := s.E.Config; cfg.Hardened && !cfg.PerlPasswordHashes {
+		return hashPasswordPBKDF2(pw)
+	}
+	return HashPassword(pw)
+}
+
+// upgradePassword rehashes a password that has just been checked, if it
+// is not stored with the hash of hashPassword
+func (s *Server) upgradePassword(userID int64, pw, stored string) {
+	if cfg := s.E.Config; !cfg.Hardened || cfg.PerlPasswordHashes ||
+		strings.HasPrefix(stored, "{"+pbkdf2Scheme+"}") {
+		return
+	}
+	s.E.DB.UpdateMap("user", map[string]any{"password": hashPasswordPBKDF2(pw)}, map[string]any{"id": userID})
+}
+
 // authenticateUser is authenticate_user: returns whether the username and
 // password are valid, recording the last login.
 func (c *Ctx) authenticateUser(username, password string) bool {
@@ -112,6 +179,7 @@ func (c *Ctx) authenticateUser(username, password string) bool {
 	if !MatchPassword(password, pw) {
 		return false
 	}
+	c.s.upgradePassword(user.ID, password, pw)
 	if ll, ok := db.AsTime(user.Row["lastlogin"]); ok && user.Row["lastlogin"] != nil {
 		c.SessionSet("logged_in_user_lastlogin", ll.Unix())
 	}

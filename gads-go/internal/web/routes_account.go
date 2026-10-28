@@ -1,6 +1,8 @@
 package web
 
 import (
+	"unicode/utf8"
+
 	"github.com/ctrlo/gads-go/internal/db"
 	"github.com/ctrlo/gads-go/internal/gads"
 	"github.com/ctrlo/gads-go/internal/tt"
@@ -43,9 +45,18 @@ func (s *Server) hRegister(c *Ctx) string {
 			gads.Fail("Self-service account requests are not enabled on this site")
 		}
 		email := c.ParamS("email")
+		if s.E.Config.Hardened {
+			checkRegisterLengths(c)
+		}
 		if s.E.UserExists(email) {
 			code := s.E.NewToken(32)
 			user := s.E.FindActiveUser(email)
+			// Hardened (M-9): a pending reset code is sent again rather
+			// than replaced, so that anyone requesting an account with the
+			// address cannot cancel the owner's password reset
+			if pending, _ := db.AsString(user.Row["resetpw"]); s.E.Config.Hardened && pending != "" {
+				code = pending
+			}
 			s.E.DB.UpdateMap("user", map[string]any{"resetpw": code}, map[string]any{"id": user.ID})
 			m := s.welcomeText(c, code)
 			m.To = []string{email}
@@ -128,7 +139,7 @@ func (s *Server) setUserPassword(username, password string) {
 	if u == nil {
 		return
 	}
-	s.E.DB.UpdateMap("user", map[string]any{"password": HashPassword(password), "pwchanged": s.E.Now()}, map[string]any{"id": u.ID})
+	s.E.DB.UpdateMap("user", map[string]any{"password": s.hashPassword(password), "pwchanged": s.E.Now()}, map[string]any{"id": u.ID})
 }
 
 // userByResetCode is get_user_by_code of the DBIC provider: the active
@@ -233,4 +244,21 @@ func (s *Server) hResetPWCode(c *Ctx) string {
 	// Default pw reset landing page to prevent invalidating the one time
 	// use pw reset link, if the page is scanned
 	return c.Template("reset_password_mail_landing", tokens, nil)
+}
+
+// Longest values of an account request (hardened, M-9): the sizes of the
+// name columns, and a limit on the text ones
+var registerLengths = map[string]int{
+	"firstname": 128, "surname": 128, "email": 254,
+	"freetext1": 1000, "freetext2": 1000, "account_request_notes": 10000,
+}
+
+// checkRegisterLengths fails for an account request with a value that is
+// too long
+func checkRegisterLengths(c *Ctx) {
+	for _, k := range []string{"firstname", "surname", "email", "freetext1", "freetext2", "account_request_notes"} {
+		if v := c.ParamS(k); utf8.RuneCountInString(v) > registerLengths[k] {
+			gads.Fail("The value of %s is too long", k)
+		}
+	}
 }

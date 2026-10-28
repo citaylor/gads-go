@@ -48,6 +48,22 @@ type DB struct {
 	// GADS reports them once its web application has set the schema's
 	// exception_action to panic with them
 	FullErrors bool
+	// WriteCheck, if set, is called with the table and statement of every
+	// INSERT, UPDATE and DELETE before it runs (it may panic to refuse it)
+	WriteCheck func(table, query string)
+}
+
+// writeTableRe finds the table written by a statement
+var writeTableRe = regexp.MustCompile(`(?is)^\s*(?:INSERT\s+INTO|UPDATE|DELETE\s+FROM)\s+"?([A-Za-z_][A-Za-z0-9_]*)"?`)
+
+// checkWrite calls WriteCheck for a statement that writes a table
+func (d *DB) checkWrite(q string) {
+	if d.WriteCheck == nil {
+		return
+	}
+	if m := writeTableRe.FindStringSubmatch(q); m != nil {
+		d.WriteCheck(m[1], q)
+	}
 }
 
 // Error is a database error (equivalent of a DBI exception).
@@ -262,6 +278,7 @@ func (d *DB) Exec(q string, args ...any) sql.Result {
 
 // TryExec runs a statement returning any error.
 func (d *DB) TryExec(q string, args ...any) (sql.Result, error) {
+	d.checkWrite(q)
 	args = convertArgs(args)
 	d.trace(q, args)
 	r, err := d.conn.ExecContext(context.Background(), d.rebind(q), args...)
@@ -285,6 +302,7 @@ func (d *DB) Query(q string, args ...any) []Row {
 
 // TryQuery runs a query returning rows or error.
 func (d *DB) TryQuery(q string, args ...any) ([]Row, error) {
+	d.checkWrite(q)
 	args = convertArgs(args)
 	d.trace(q, args)
 	rs, err := d.conn.QueryContext(context.Background(), d.rebind(q), args...)
@@ -369,6 +387,7 @@ func (d *DB) QueryCol(q string, args ...any) []any {
 
 // TryQueryCol is QueryCol returning an error.
 func (d *DB) TryQueryCol(q string, args ...any) ([]any, error) {
+	d.checkWrite(q)
 	args = convertArgs(args)
 	d.trace(q, args)
 	rs, err := d.conn.QueryContext(context.Background(), d.rebind(q), args...)

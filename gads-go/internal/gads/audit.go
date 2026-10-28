@@ -104,7 +104,7 @@ func GadsTime(t time.Time) string {
 func (e *Engine) AuditCSV(f *AuditFiltering) string {
 	out := csvLine([]string{"ID", "Username", "Type", "Time", "Description"})
 	for _, l := range e.AuditLogs(f) {
-		out += csvLine([]string{itoa(l.ID), "", l.Type, l.Datetime, anyToString(l.Description)})
+		out += e.csvDownloadLine([]string{itoa(l.ID), "", l.Type, l.Datetime, anyToString(l.Description)})
 	}
 	return out
 }

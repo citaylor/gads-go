@@ -27,6 +27,10 @@ func (u *User) Retire(sendRejectEmail bool, emailRejectText string) {
 		e.DB.Exec(`DELETE FROM "user" WHERE "id" = ?`, u.ID)
 		return
 	}
+	// Hardened (M-5): the user's API tokens are revoked (Perl keeps them)
+	if e.Config.Hardened {
+		e.DB.Exec(`DELETE FROM "oauthtoken" WHERE "user_id" = ?`, u.ID)
+	}
 	e.DB.Exec(`DELETE FROM "user_graph" WHERE "user_id" = ?`, u.ID)
 	alerts := e.DB.QueryInt64s(`SELECT "id" FROM "alert" WHERE "user_id" = ?`, u.ID)
 	for _, a := range alerts {

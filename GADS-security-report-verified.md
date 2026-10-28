@@ -8,6 +8,11 @@
 | **Method** | Manual static review of `lib/`, `views/`, selected `src/` front-end code and deployment files, followed by a verification pass. Library behaviour was checked against CPAN sources (Net::SAML2 0.85/0.89, Dancer2 2.2.2, DBIx::Class 0.082844, SQL::Abstract::Classic 1.91, WWW::Mechanize::Chrome 0.80, Net::OAuth2::AuthorizationServer 0.28, Dancer2::Plugin::Auth::Extensible 0.714 + DBIC provider 0.624, Crypt::SaltedHash 0.12, Text::Markdown, Text::CSV 2.06). Browser-dependent behaviour was tested locally with headless Google Chrome 151. The GADS application itself was not deployed. |
 | **Supersedes** | `GADS-security-assessment.md` (initial report; that file is now truncated) |
 
+**Status (28 Oct 2026):** re-checked against `dev` at `fddd4a15`. Every
+critical, high and medium finding is still present in Perl GADS. The Go
+port fixes them in hardened mode, which is on by default (see `CLAUDE.md`,
+Security).
+
 **Verdicts:**
 - **Confirmed** means the code path was traced end to end, including the library code it depends on.
 - **Confirmed (tested)** means, in addition, the browser or library behaviour it relies on was reproduced locally.

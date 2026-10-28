@@ -90,6 +90,15 @@ type Config struct {
 	// SMS is the SMS gateway configuration (gads.sms: username, password,
 	// from, and url for an alternative gateway)
 	SMS map[string]string
+	// Hardened fixes the security findings of GADS
+	// (GADS-security-report-verified.md), each a deliberate deviation from
+	// Perl. It is off by default, so that the conformance suite compares
+	// Go with Perl as it is, and on in the application (gads: hardened).
+	Hardened bool
+	// PerlPasswordHashes keeps writing the SSHA512 password hashes of Perl
+	// in hardened mode, for a database that Perl GADS also uses
+	// (gads: perl_password_hashes)
+	PerlPasswordHashes bool
 }
 
 // DefaultConfig returns the default configuration.

@@ -223,6 +223,10 @@ func (r *Runner) newDatabase() error {
 		return err
 	}
 	cfg := gads.DefaultConfig()
+	// The security fixes: for the scenarios of hardened/ (hardened: 1), or
+	// for all with GADS_HARDENED=1, to review how they change the
+	// observations (which then differ from Perl's)
+	cfg.Hardened = truthy(r.scenario["hardened"]) || os.Getenv("GADS_HARDENED") != ""
 	if r.uploads == "" {
 		if r.uploads, err = os.MkdirTemp("", "gads-uploads"); err != nil {
 			d.Close()
@@ -571,6 +575,17 @@ func check(args map[string]any, sr *StepResult) []string {
 		}
 		if !found {
 			failures = append(failures, fmt.Sprintf("no message matching /%v/", re))
+		}
+	}
+	if list, ok := args["expect_body_contains"].([]any); ok {
+		var body string
+		if m, ok := sr.Observed.(map[string]any); ok {
+			body, _ = m["body"].(string)
+		}
+		for _, want := range list {
+			if !strings.Contains(body, str(want)) {
+				failures = append(failures, fmt.Sprintf("body does not contain %s", show(want)))
+			}
 		}
 	}
 	return failures

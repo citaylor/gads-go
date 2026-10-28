@@ -46,6 +46,7 @@ identical.
 | `upstream/GADS` | Perl GADS master `571f2bd`, the old reference (results in `conformance/results/*-master*`). |
 | `conformance/` | The suite. `SPEC.md` is the scenario format and the definition of every step. |
 | `conformance/scenarios/*.yaml` | Scenarios. Many are generated: the `_generator:` key names the script in `generators/`. |
+| `conformance/hardened/*.yaml` | Go-only scenarios for hardened mode (see Security). |
 | `conformance/perl/` | Perl reference runner: `run.pl`, plus `lib/GADS/Conformance/{Runner,Web,Patches,Test}.pm`. |
 | `conformance/results/perl` | Golden observations from Perl. `results/go` holds Go's; `-pg` suffixes are the PostgreSQL runs. |
 | `gads-go/` | Go module `github.com/ctrlo/gads-go` (Go 1.27, cgo). |
@@ -90,7 +91,7 @@ go build ./...                          # everything (cgo)
 go build -o bin/gads ./cmd/gads         # the application binary
 go vet ./... && staticcheck ./...       # staticcheck.conf disables ST1005 and SA6005, with reasons
 govulncheck ./...                       # must report no vulnerabilities
-go test ./...                           # unit tests, plus all scenarios against the Perl golden (about 25 s)
+go test ./...                           # unit tests, all scenarios against the Perl golden, and the hardened scenarios (about 25 s)
 go test ./conformance -run 'TestConformance/205_'   # one scenario
 ```
 
@@ -142,6 +143,7 @@ Debugging environment variables:
 | `GADS_DIR` | GADS checkout for views and public files (the default is `upstream/GADS-dev`). |
 | `GADS_TEST_PG` | libpq connection string: the runners create one database per scenario. |
 | `GADS_RAW_ERRORS` | Perl runner: unformatted errors. |
+| `GADS_HARDENED=1` | Go runner: run every scenario in hardened mode (see Security). |
 
 ## Conventions in the Go code
 
@@ -226,6 +228,8 @@ Configuration works as in Dancer2:
 - Mail settings are in `gads: mail:` (via sendmail or smtp, host, port,
   security starttls/tls/none, username, password, helo, timeout).
 - Uploaded files are stored on disk under `gads: uploads`.
+- The security fixes are on unless `gads: hardened: 0` is set
+  (`perl_password_hashes: 1` keeps Perl's hashes; see Security).
 
 ## Docker
 
@@ -303,20 +307,48 @@ Changes made in the Go code that don't affect parity:
   (see Deviations).
 
 SAML responses are always rejected, as in Perl with Net::SAML2 0.89, so the
-Perl authentication bypass (C-1) does not exist in Go.
+Perl authentication bypass (C-1) does not exist in Go. Nor does H-2
+(`/print` runs no browser in Go).
 
-The other findings of `GADS-security-report-verified.md` belong to GADS
-itself, and **Go reproduces them** for parity:
+**Hardened mode** (`gads.Config.Hardened`) fixes the other critical, high
+and medium findings of `GADS-security-report-verified.md`. All of them were
+re-checked against dev `fddd4a15` on 2026-10-28 and are still present in Perl.
+Each fix is a deliberate deviation and is marked `Hardened (X-n)` in the
+code.
 
-- CSRF is checked only on POST (H-1).
-- Object lookups are not scoped to their table (H-4, H-5, M-1).
-- A useradmin can edit superadmins (H-3).
-- Password hashing is weak: SSHA512 with a 4-byte salt, kept so that the
-  database is shared with Perl (M-4).
-- There is CSV formula injection (M-11).
+- The application turns it on unless `gads: hardened: 0` is set. The engine
+  default (off) is Perl's behaviour, which the conformance suite compares.
+- `gads: perl_password_hashes: 1` keeps Perl's hashes, for a database shared
+  with Perl GADS.
+- Tests:
+  - `conformance/hardened/*.yaml` (`hardened: 1`, Go only) attack each
+    finding and check that it is refused. `go test ./conformance -run
+    TestHardened` checks their expectations; they have no golden results.
+  - `GADS_HARDENED=1` runs the whole suite hardened, to review what changes
+    compared with Perl.
 
-Fixing these is a deliberate deviation from Perl. Decide on each one,
-implement it in Go, and record it below.
+| Finding | Fix (web layer: `internal/web/hardening.go`) |
+|---|---|
+| H-1 CSRF | A GET request cannot change data: `DB.WriteCheck` allows only the writes of showing a page (audit, `session_settings`, default dashboards and RAG settings, submission tokens, the OAuth client, expired tokens), and mail fails. PUT, PATCH and DELETE need the token in a session. The cookie is SameSite=Lax unless configured. |
+| H-3 | Only a superadmin changes or retires a superadmin (`User.CheckCanManage`). |
+| H-4 | A historic purge takes only records that the user sees in this table's view, and the columns the page offers. |
+| H-5 | Dashboards are changed by their own scope: the site's by superadmins, a table's with `layout` on that table, a personal one by its owner, who is also the only one who can read it (M-2). Notice HTML is sanitised (bluemonday). |
+| M-1 | Graphs, reports, trees, field values and help text are found only in the URL's table, or among the fields the user can read. |
+| M-3 | Only superadmins upload independent files. |
+| M-4 | PBKDF2-SHA512 (210000 iterations, 91 characters), upgraded at login. The user's `encryption_key` changes with the hash, as it does on a password change. |
+| M-5 | The password grant has the lockout and audit of `/login`. Retiring a user revokes their tokens. |
+| M-7 | Pages are at most 1000 rows. POSTs to `/login`, `/register`, `/resetpw` and `/api/token` are limited to 20 a minute per address (429). |
+| M-8 | CSP with `object-src`, `base-uri` and `frame-ancestors` on every response, plus nosniff, Referrer-Policy and HSTS (with `is_secure`). |
+| M-9 | A request for an existing account resends the pending reset code. Long names and notes are refused. |
+| M-11 | CSV downloads quote a cell that starts with `= + - @`, a tab or a CR, unless it is a number. |
+
+Not fixed:
+- The OAuth client secret is stored in plain text, because
+  `/clientcredentials` shows it.
+- Tokens are not refused when the password has expired, because that
+  would break API clients every 60 days.
+- The other suggestions of H-3: notifying the old address, and
+  re-authenticating.
 
 ## Deviations and not ported
 
@@ -346,5 +378,6 @@ implement it in Go, and record it below.
     refused. Perl accepts it until it expires.
   - Savepoints need a transaction, as in DBIC. This is not a deviation:
     Go used to begin a transaction that was never committed.
+  - Hardened mode, on in the application: see Security.
 - PostgreSQL parity is 160 of 166 (master era). The remaining differences
   are Perl's own plan-dependent row order and fixture ID collisions.
