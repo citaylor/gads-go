@@ -1,0 +1,50 @@
+name: 215_web_audit
+source:
+  - lib/GADS.pm (/settings/audit/)
+  - lib/GADS/Audit.pm (filtering, logs, csv), GADS.pm (DateTime gads_time)
+  - views/admin/audit.tt, wizard/audit_filter.tt
+description: >
+  The audit log page of auditors: the logs of the last day by default
+  (newest first, with the user and the time in London), filtering by
+  method, type, user and dates (kept in the session until cleared), an
+  invalid user ID, and the CSV download.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - db:
+      op: insert
+      table: audit
+      set: { user_id: 4, description: Old action, type: user_action, method: GET, url: /old, datetime: "2014-10-01 10:00:00", site_id: 1 }
+  - db:
+      op: insert
+      table: audit
+      set: { user_id: 5, description: "Changed \"quoted\", text", type: login_change, datetime: "2014-10-09 12:00:00", site_id: 1 }
+  - db:
+      op: insert
+      table: audit
+      set: { description: Failure, type: login_failure, datetime: "2014-10-09 23:30:00", site_id: 1 }
+  - login: { user: audit }
+  - login: { user: normal1 }
+  - http: { id: audit_default, as: audit, path: /settings/audit/ }
+  - http:
+      id: filter_type
+      as: audit
+      method: POST
+      path: /settings/audit/
+      form: { audit_filtering: submit, method: "", type: login_change, user: "", from: "", to: "" }
+  - http: { id: filter_kept, as: audit, path: /settings/audit }
+  - http:
+      id: filter_dates
+      as: audit
+      method: POST
+      path: /settings/audit/
+      form: { audit_filtering: submit, method: get, type: "", user: "4", from: "2014-09-30", to: "2014-10-02" }
+  - http: { id: download, as: audit, path: /settings/audit/, query: { download: "" } }
+  - http:
+      id: filter_bad_user
+      as: audit
+      method: POST
+      path: /settings/audit/
+      form: { audit_filtering: submit, user: abc }
+  - http: { id: clear, as: audit, path: /settings/audit/, query: { clear: "" } }
+  - http: { id: download_all, as: audit, path: /settings/audit/, query: { download: "" } }
+  - http: { id: normal_denied, as: normal1, path: /settings/audit/ }

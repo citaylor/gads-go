@@ -1,0 +1,1129 @@
+name: 007_column_types
+source:
+- t/007_column_types.t
+description: Curval values and filters, tree values, internal columns and column deletion
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: Foo
+      integer1: 50
+      date1: '2014-10-10'
+      daterange1:
+      - '2012-02-10'
+      - '2013-06-15'
+      enum1: 1
+    - string1: Bar
+      integer1: 99
+      date1: '2009-01-02'
+      daterange1:
+      - '2008-05-04'
+      - '2008-07-14'
+      enum1: 2
+    - string1: Bar
+      integer1: 99
+      date1: '2009-01-02'
+      daterange1:
+      - '2008-05-04'
+      - '2008-07-14'
+      enum1: ''
+    - string1: FooBar
+      integer1: 150
+      date1: '2000-01-02'
+      daterange1:
+      - '2001-05-12'
+      - '2002-03-22'
+      enum1: 3
+- sheet:
+    as: main
+    data: &id002
+    - string1: Foo
+      integer1: '100'
+      enum1:
+      - 7
+      - 8
+      tree1: 10
+      date1: '2010-10-10'
+      daterange1:
+      - '2000-10-10'
+      - '2001-10-10'
+      curval1: 1
+      file1: null
+    - string1: Bar
+      integer1: '200'
+      enum1: 8
+      tree1: 11
+      date1: '2011-10-10'
+      daterange1:
+      - '2000-11-11'
+      - '2001-11-11'
+      curval1: 2
+      file1: null
+    multivalue: 1
+    curval: cv
+    curval_fields:
+    - string1
+    calc_code: "function evaluate (L1string1)\n    if type(L1string1) == \"table\"\
+      \ then\n        L1string1 = L1string1[1]\n    end\n    return L1string1\nend"
+    calc_return_type: string
+- column:
+    op: update
+    id: calc invalid character
+    sheet: main
+    column: calc1
+    set:
+      code: function evaluate (_id) return "test“test" end
+    expect_error: .
+- clear_layouts: {}
+- held:
+    op: find
+    as: p
+    sheet: cv
+    current_id: 1
+- held:
+    op: delete
+    as: p
+- held:
+    id: purge referenced
+    op: purge
+    as: p
+    expect_error: The following records refer to this record as a value
+- held:
+    op: restore
+    as: p
+- column:
+    id: curval values
+    op: get
+    sheet: main
+    filtered_values: true
+    column: curval1
+    all_values: true
+- sheet:
+    as: cs2
+    curval: main
+    instance_id: 3
+    curval_offset: 12
+- column:
+    id: second curval sheet values
+    op: get
+    sheet: cs2
+    filtered_values: true
+    column: curval1
+- column:
+    op: create
+    id: curval blank
+    sheet: main
+    type: curval
+    name: curval blank
+    refers_to: cv
+    curval_fields: []
+    env: &id001
+      GADS_ALLOW_BLANK_CURVAL: 1
+    as: cb
+- clear_layouts: {}
+- column:
+    id: curval blank values
+    op: get
+    sheet: main
+    filtered_values: true
+    column: '@col:cb'
+- column:
+    op: create
+    id: curval blank filter
+    sheet: main
+    type: curval
+    name: curval blank filter
+    refers_to: cv
+    curval_fields: []
+    env: *id001
+    as: cbf
+- clear_layouts: {}
+- db:
+    op: update
+    table: layout
+    where: {}
+    set:
+      filter: null
+- column:
+    id: undefined filter values
+    op: get
+    sheet: main
+    filtered_values: true
+    column: '@col:cbf'
+- db:
+    id: curval fields at start
+    op: count
+    table: curval_fields
+- column:
+    op: create
+    sheet: main
+    type: curval
+    name: curval fields
+    refers_to: cv
+    curval_fields:
+    - string1
+    as: caf
+- db:
+    id: curval fields after new
+    op: count
+    table: curval_fields
+- column:
+    op: update
+    sheet: main
+    column: '@col:caf'
+    set:
+      curval_fields:
+      - string1
+      - integer1
+- db:
+    id: curval fields after addition
+    op: count
+    table: curval_fields
+- column:
+    op: update
+    sheet: main
+    column: '@col:caf'
+    set:
+      curval_fields:
+      - integer1
+- db:
+    id: curval fields after removal
+    op: count
+    table: curval_fields
+- column:
+    op: delete
+    sheet: main
+    column: '@col:caf'
+- column:
+    op: create
+    sheet: main
+    type: curval
+    name: curval filter
+    refers_to: cv
+    curval_fields:
+    - integer1
+    filter:
+      rules:
+      - name: cv:string1
+        type: string
+        operator: equal
+        value: Foo
+    as: cf
+- clear_layouts: {}
+- column:
+    id: curval filter values
+    op: get
+    sheet: main
+    filtered_values: true
+    column: '@col:cf'
+    all_values: true
+- held:
+    op: single
+    as: s
+    sheet: main
+- held:
+    op: set
+    as: s
+    values:
+      '@col:cf': 1
+- held:
+    op: write
+    as: s
+- column:
+    op: update
+    sheet: main
+    column: '@col:cf'
+    set:
+      filter:
+        rules:
+        - name: cv:string1
+          type: string
+          operator: equal
+          value: Bar
+- clear_layouts: {}
+- column:
+    id: curval filter values after change
+    op: get
+    sheet: main
+    filtered_values: true
+    column: '@col:cf'
+- held:
+    id: legacy value
+    op: find
+    as: s
+    sheet: main
+    clear: true
+    current_id: '@held:s'
+    datum:
+    - '@col:cf'
+    datum_props:
+    - as_string
+    - id
+    - ids
+- column:
+    op: update
+    sheet: main
+    column: '@col:cf'
+    set:
+      multivalue: 1
+- clear_layouts: {}
+- held:
+    id: legacy value multiple
+    op: single
+    as: s2
+    sheet: main
+    datum:
+    - '@col:cf'
+    datum_props:
+    - as_string
+    - ids
+    for_code_curval: '@col:cf'
+    for_code_fields:
+    - L2enum1
+- add_autocur:
+    id: autocur
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- layout:
+    op: set_user
+    sheet: cv
+    user: normal1
+- clear_layouts: {}
+- column:
+    id: filtered before view limit
+    op: get
+    sheet: main
+    filtered_values: true
+    column: '@col:cf'
+- view_held:
+    op: new
+    as: vl
+    sheet: cv
+    user: normal1
+    name: Limit to view
+    filter:
+      rules:
+      - name: enum1
+        type: string
+        value: foo2
+        operator: equal
+- view_held:
+    op: write
+    as: vl
+    view_as: vl
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl
+- clear_layouts: {}
+- column:
+    id: filtered after view limit
+    op: get
+    sheet: main
+    filtered_values: true
+    column: '@col:cf'
+    all_values: true
+- column:
+    op: update
+    sheet: main
+    column: '@col:cf'
+    set:
+      override_permissions: 1
+- clear_layouts: {}
+- column:
+    id: filtered with override
+    op: get
+    sheet: main
+    filtered_values: true
+    column: '@col:cf'
+- view_held:
+    op: new
+    as: vl2
+    sheet: main
+    user: normal1
+    name: Limit to view
+    filter:
+      rules:
+      - name: enum1
+        type: string
+        value: foo3
+        operator: equal
+- view_held:
+    op: write
+    as: vl2
+    view_as: vl2
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl2
+- record:
+    id: autocur with limited record
+    op: get
+    sheet: cv
+    user: normal1
+    current_id: 1
+    observe:
+    - autocur1
+- search:
+    id: sorted view with autocur
+    sheet: cv
+    user: normal1
+    view:
+      name: Sorted view with autocur
+      columns:
+      - autocur1
+      sorts:
+      - name: autocur1_enum1
+        type: asc
+    observe:
+    - autocur1
+- user:
+    op: view_limits
+    user: normal1
+    views: []
+- clear_layouts: {}
+- layout:
+    op: position
+    sheet: main
+    columns:
+    - integer1
+    - date1
+    - daterange1
+    - enum1
+    - tree1
+    - curval1
+    - '@col:cf'
+    - string1
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: calc2
+    name_short: L1calc2
+    return_type: string
+    code: "function evaluate (_id, L1date1, L1daterange1) \n return {\"Foo\", \"Bar\"\
+      } \nend"
+    multivalue: 1
+- column:
+    op: update
+    sheet: main
+    column: date1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: equal
+          value: Foo
+- clear_layouts: {}
+- column:
+    op: hold
+    sheet: main
+    column: '@col:cf'
+    as: cf
+- column:
+    op: update
+    sheet: main
+    held_col: cf
+    set:
+      filter:
+        rules:
+        - name: cv:string1
+          type: string
+          operator: equal
+          value: $L1string1
+      curval_fields:
+      - string1
+- column:
+    op: clear
+    sheet: main
+    held_col: cf
+- column:
+    id: 'filter string1: input required'
+    op: get
+    sheet: main
+    held_col: cf
+    subvals_input_required: true
+- clear_layouts: {}
+- held:
+    op: find
+    as: t_string1
+    sheet: main
+    current_id: 5
+- held:
+    op: clone_oldvalue
+    as: t_string1
+    columns:
+    - string1
+- held:
+    op: write
+    as: t_string1
+    options:
+      dry_run: 1
+      missing_not_fatal: 1
+      submitted_fields_of: '@col:cf'
+- column:
+    id: 'filter string1: filtered for record'
+    op: get
+    sheet: main
+    held_col: cf
+    filtered_values: true
+- clear_layouts: {}
+- held:
+    op: new
+    as: t_string1_new
+    sheet: main
+- held:
+    id: 'filter string1: filtered for new record'
+    op: get
+    as: t_string1_new
+    filtered_values: '@col:cf'
+- column:
+    op: delete
+    sheet: main
+    held_col: cf
+- column:
+    op: update
+    sheet: main
+    held_col: cf
+    set:
+      filter:
+        rules:
+        - name: cv:enum1
+          type: string
+          operator: equal
+          value: $L1enum1
+      curval_fields:
+      - string1
+- column:
+    op: clear
+    sheet: main
+    held_col: cf
+- column:
+    id: 'filter enum1: input required'
+    op: get
+    sheet: main
+    held_col: cf
+    subvals_input_required: true
+- clear_layouts: {}
+- held:
+    op: find
+    as: t_enum1
+    sheet: main
+    current_id: 5
+- held:
+    op: clone_oldvalue
+    as: t_enum1
+    columns:
+    - enum1
+- held:
+    op: write
+    as: t_enum1
+    options:
+      dry_run: 1
+      missing_not_fatal: 1
+      submitted_fields_of: '@col:cf'
+- column:
+    id: 'filter enum1: filtered for record'
+    op: get
+    sheet: main
+    held_col: cf
+    filtered_values: true
+- clear_layouts: {}
+- held:
+    op: new
+    as: t_enum1_new
+    sheet: main
+- held:
+    id: 'filter enum1: filtered for new record'
+    op: get
+    as: t_enum1_new
+    filtered_values: '@col:cf'
+- column:
+    op: delete
+    sheet: main
+    held_col: cf
+- column:
+    op: update
+    sheet: main
+    held_col: cf
+    set:
+      filter:
+        rules:
+        - name: cv:string1
+          type: string
+          operator: equal
+          value: $L1calc1
+      curval_fields:
+      - string1
+- column:
+    op: clear
+    sheet: main
+    held_col: cf
+- column:
+    id: 'filter calc1: input required'
+    op: get
+    sheet: main
+    held_col: cf
+    subvals_input_required: true
+- clear_layouts: {}
+- held:
+    op: find
+    as: t_calc1
+    sheet: main
+    current_id: 5
+- held:
+    op: clone_oldvalue
+    as: t_calc1
+    columns:
+    - string1
+- held:
+    op: write
+    as: t_calc1
+    options:
+      dry_run: 1
+      missing_not_fatal: 1
+      submitted_fields_of: '@col:cf'
+- column:
+    id: 'filter calc1: filtered for record'
+    op: get
+    sheet: main
+    held_col: cf
+    filtered_values: true
+- clear_layouts: {}
+- held:
+    op: new
+    as: t_calc1_new
+    sheet: main
+- held:
+    id: 'filter calc1: filtered for new record'
+    op: get
+    as: t_calc1_new
+    filtered_values: '@col:cf'
+- column:
+    op: delete
+    sheet: main
+    held_col: cf
+- column:
+    op: update
+    sheet: main
+    held_col: cf
+    set:
+      filter:
+        rules:
+        - name: cv:integer1
+          type: string
+          operator: less
+          value: $L1integer1
+      curval_fields:
+      - string1
+- column:
+    op: clear
+    sheet: main
+    held_col: cf
+- column:
+    id: 'filter integer1: input required'
+    op: get
+    sheet: main
+    held_col: cf
+    subvals_input_required: true
+- clear_layouts: {}
+- held:
+    op: find
+    as: t_integer1
+    sheet: main
+    current_id: 5
+- held:
+    op: clone_oldvalue
+    as: t_integer1
+    columns:
+    - integer1
+- held:
+    op: write
+    as: t_integer1
+    options:
+      dry_run: 1
+      missing_not_fatal: 1
+      submitted_fields_of: '@col:cf'
+- column:
+    id: 'filter integer1: filtered for record'
+    op: get
+    sheet: main
+    held_col: cf
+    filtered_values: true
+- clear_layouts: {}
+- held:
+    op: new
+    as: t_integer1_new
+    sheet: main
+- held:
+    id: 'filter integer1: filtered for new record'
+    op: get
+    as: t_integer1_new
+    filtered_values: '@col:cf'
+- column:
+    op: delete
+    sheet: main
+    held_col: cf
+- column:
+    op: update
+    sheet: main
+    held_col: cf
+    set:
+      filter:
+        rules:
+        - name: cv:enum1
+          type: string
+          operator: equal
+          value: $L1enum1
+        - name: cv:enum1
+          type: string
+          operator: is_empty
+        condition: OR
+      curval_fields:
+      - string1
+- column:
+    op: clear
+    sheet: main
+    held_col: cf
+- column:
+    id: 'filter multi: input required'
+    op: get
+    sheet: main
+    held_col: cf
+    subvals_input_required: true
+- clear_layouts: {}
+- held:
+    op: find
+    as: t_multi
+    sheet: main
+    current_id: 5
+- held:
+    op: clone_oldvalue
+    as: t_multi
+    columns:
+    - enum1
+- held:
+    op: write
+    as: t_multi
+    options:
+      dry_run: 1
+      missing_not_fatal: 1
+      submitted_fields_of: '@col:cf'
+- column:
+    id: 'filter multi: filtered for record'
+    op: get
+    sheet: main
+    held_col: cf
+    filtered_values: true
+- clear_layouts: {}
+- held:
+    op: new
+    as: t_multi_new
+    sheet: main
+- held:
+    id: 'filter multi: filtered for new record'
+    op: get
+    as: t_multi_new
+    filtered_values: '@col:cf'
+- column:
+    op: delete
+    sheet: main
+    held_col: cf
+- column:
+    op: update
+    sheet: main
+    held_col: cf
+    set:
+      filter:
+        rules:
+        - name: cv:enum1
+          type: string
+          operator: not_equal
+          value: $L1enum1
+      curval_fields:
+      - string1
+- column:
+    op: clear
+    sheet: main
+    held_col: cf
+- column:
+    id: 'filter negative: input required'
+    op: get
+    sheet: main
+    held_col: cf
+    subvals_input_required: true
+- clear_layouts: {}
+- held:
+    op: find
+    as: t_negative
+    sheet: main
+    current_id: 5
+- held:
+    op: clone_oldvalue
+    as: t_negative
+    columns:
+    - enum1
+- held:
+    op: write
+    as: t_negative
+    options:
+      dry_run: 1
+      missing_not_fatal: 1
+      submitted_fields_of: '@col:cf'
+- column:
+    id: 'filter negative: filtered for record'
+    op: get
+    sheet: main
+    held_col: cf
+    filtered_values: true
+- clear_layouts: {}
+- held:
+    op: new
+    as: t_negative_new
+    sheet: main
+- held:
+    id: 'filter negative: filtered for new record'
+    op: get
+    as: t_negative_new
+    filtered_values: '@col:cf'
+- column:
+    op: delete
+    sheet: main
+    held_col: cf
+- column:
+    op: update
+    sheet: main
+    held_col: cf
+    set:
+      filter:
+        rules:
+        - name: cv:string1
+          type: string
+          operator: equal
+          value: $L1tree1
+      curval_fields:
+      - string1
+- column:
+    op: clear
+    sheet: main
+    held_col: cf
+- column:
+    id: 'filter nomatch: input required'
+    op: get
+    sheet: main
+    held_col: cf
+    subvals_input_required: true
+- clear_layouts: {}
+- held:
+    op: find
+    as: t_nomatch
+    sheet: main
+    current_id: 5
+- held:
+    op: clone_oldvalue
+    as: t_nomatch
+    columns:
+    - string1
+- held:
+    op: write
+    as: t_nomatch
+    options:
+      dry_run: 1
+      missing_not_fatal: 1
+      submitted_fields_of: '@col:cf'
+- column:
+    id: 'filter nomatch: filtered for record'
+    op: get
+    sheet: main
+    held_col: cf
+    filtered_values: true
+- clear_layouts: {}
+- held:
+    op: new
+    as: t_nomatch_new
+    sheet: main
+- held:
+    id: 'filter nomatch: filtered for new record'
+    op: get
+    as: t_nomatch_new
+    filtered_values: '@col:cf'
+- column:
+    op: delete
+    sheet: main
+    held_col: cf
+- column:
+    op: update
+    sheet: main
+    held_col: cf
+    set:
+      filter:
+        rules:
+        - name: cv:string1
+          type: string
+          operator: equal
+          value: $L1string123
+      curval_fields:
+      - string1
+- column:
+    op: clear
+    sheet: main
+    held_col: cf
+- column:
+    id: 'filter invalid: input required'
+    op: get
+    sheet: main
+    held_col: cf
+    subvals_input_required: true
+- clear_layouts: {}
+- held:
+    op: find
+    as: t_invalid
+    sheet: main
+    current_id: 5
+- held:
+    op: clone_oldvalue
+    as: t_invalid
+    columns:
+    - string1
+- held:
+    op: write
+    as: t_invalid
+    options:
+      dry_run: 1
+      missing_not_fatal: 1
+      submitted_fields_of: '@col:cf'
+- column:
+    id: 'filter invalid: filtered for record'
+    op: get
+    sheet: main
+    held_col: cf
+    filtered_values: true
+- clear_layouts: {}
+- held:
+    op: new
+    as: t_invalid_new
+    sheet: main
+- held:
+    id: 'filter invalid: filtered for new record'
+    op: get
+    as: t_invalid_new
+    filtered_values: '@col:cf'
+- column:
+    op: delete
+    sheet: main
+    held_col: cf
+- column:
+    op: update
+    sheet: main
+    held_col: cf
+    set:
+      filter:
+        rules:
+        - name: cv:string1
+          type: string
+          operator: equal
+          value: $L1calc2
+      curval_fields:
+      - string1
+- column:
+    op: clear
+    sheet: main
+    held_col: cf
+- column:
+    id: 'filter calcmulti: input required'
+    op: get
+    sheet: main
+    held_col: cf
+    subvals_input_required: true
+- clear_layouts: {}
+- held:
+    op: find
+    as: t_calcmulti
+    sheet: main
+    current_id: 5
+- held:
+    op: clone_oldvalue
+    as: t_calcmulti
+    columns:
+    - string1
+- held:
+    op: write
+    as: t_calcmulti
+    options:
+      dry_run: 1
+      missing_not_fatal: 1
+      submitted_fields_of: '@col:cf'
+- column:
+    id: 'filter calcmulti: filtered for record'
+    op: get
+    sheet: main
+    held_col: cf
+    filtered_values: true
+- clear_layouts: {}
+- held:
+    op: new
+    as: t_calcmulti_new
+    sheet: main
+- held:
+    id: 'filter calcmulti: filtered for new record'
+    op: get
+    as: t_calcmulti_new
+    filtered_values: '@col:cf'
+- column:
+    op: delete
+    sheet: main
+    held_col: cf
+- column:
+    op: update
+    sheet: main
+    held_col: cf
+    set:
+      filter:
+        rules:
+        - name: cv:date1
+          type: string
+          operator: greater
+          value: $L1date1
+      curval_fields:
+      - string1
+- column:
+    op: clear
+    sheet: main
+    held_col: cf
+- column:
+    id: 'filter displayfield: input required'
+    op: get
+    sheet: main
+    held_col: cf
+    subvals_input_required: true
+- clear_layouts: {}
+- held:
+    op: find
+    as: t_displayfield
+    sheet: main
+    current_id: 5
+- held:
+    op: clone_oldvalue
+    as: t_displayfield
+    columns:
+    - date1
+- held:
+    op: write
+    as: t_displayfield
+    options:
+      dry_run: 1
+      missing_not_fatal: 1
+      submitted_fields_of: '@col:cf'
+- column:
+    id: 'filter displayfield: filtered for record'
+    op: get
+    sheet: main
+    held_col: cf
+    filtered_values: true
+- clear_layouts: {}
+- held:
+    op: new
+    as: t_displayfield_new
+    sheet: main
+- held:
+    id: 'filter displayfield: filtered for new record'
+    op: get
+    as: t_displayfield_new
+    filtered_values: '@col:cf'
+- column:
+    op: delete
+    sheet: main
+    held_col: cf
+- search:
+    id: curval text without building values
+    sheet: main
+    observe:
+    - curval1
+    env:
+      PANIC_ON_CURVAL_BUILD_VALUES: 1
+- clear_layouts: {}
+- db:
+    id: tree values at start
+    op: count
+    table: enumval
+    where:
+      layout_id: '@column:main:tree1'
+      deleted: 0
+- column:
+    op: update
+    sheet: main
+    column: tree1
+    set:
+      tree:
+      - text: tree1
+      - text: tree2
+        children:
+        - text: tree3
+      - text: tree4
+- db:
+    id: tree values after addition
+    op: count
+    table: enumval
+    where:
+      layout_id: '@column:main:tree1'
+      deleted: 0
+- column:
+    op: update
+    sheet: main
+    column: tree1
+    set:
+      tree:
+      - text: tree4
+- db:
+    id: tree values after removal
+    op: count
+    table: enumval
+    where:
+      layout_id: '@column:main:tree1'
+      deleted: 0
+- layout:
+    id: write internal columns
+    op: write_internal
+    sheet: main
+- column:
+    op: delete
+    sheet: cs2
+    column: curval1
+- column:
+    op: delete
+    sheet: cv
+    column: autocur1
+- layout:
+    id: delete all columns
+    op: delete_all_columns
+    sheet: main
+- sheet:
+    as: cv2
+    instance_id: 2
+    build_columns: false
+    create_records: false
+- sheet:
+    as: main2
+    data: *id002
+    curval: cv2
+    create_records: false
+- db:
+    op: update
+    table: layout
+    where: {}
+    set:
+      type: string
+- clear_layouts: {}
+- layout:
+    id: delete all string columns
+    op: delete_all_columns
+    sheet: main2

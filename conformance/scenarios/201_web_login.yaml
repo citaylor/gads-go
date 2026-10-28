@@ -1,0 +1,159 @@
+name: 201_web_login
+source:
+  - lib/GADS.pm (login, logout, _successful_login, before hook)
+description: >
+  Logging in and out of the web application: successful logins, failed
+  logins and the lockout after repeated failures, return URLs, CSRF
+  protection, session messages and the pages of logged in users.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - http:
+      id: missing_csrf
+      method: POST
+      path: /login
+      csrf: false
+      form: { username: user1@example.com, password: password, signin: 1 }
+      expect: { status: 302, location: "/" }
+  - http:
+      id: message_shown_on_login_page
+      path: /login
+  - http:
+      id: message_cleared
+      path: /login
+  - http:
+      id: invalid_csrf
+      method: POST
+      path: /login
+      form: { username: user1@example.com, password: password, signin: 1, csrf_token: wrong }
+      expect: { status: 302, location: "/" }
+  - http:
+      id: bad_password_page
+      method: POST
+      path: /login
+      form: { username: user1@example.com, password: wrong, signin: 1 }
+      expect: { status: 200 }
+  - db:
+      id: failcount
+      op: select
+      table: user
+      where: { id: 1 }
+      columns: [failcount, lastfail]
+      expect: [{ failcount: "1", lastfail: "2014-10-10 01:00:00" }]
+  - http:
+      id: unknown_user
+      method: POST
+      path: /login
+      form: { username: nobody@example.com, password: wrong, signin: 1 }
+      no_body: true
+      expect: { status: 200 }
+  - login:
+      id: login_superadmin
+      user: superadmin
+      expect: { status: 302, location: "/" }
+  - db:
+      id: login_resets_failcount
+      op: select
+      table: user
+      where: { id: 1 }
+      columns: [failcount, lastfail, lastlogin]
+      expect: [{ failcount: "0", lastfail: null, lastlogin: "2014-10-10 01:00:00" }]
+  - http:
+      id: login_page_when_logged_in
+      as: superadmin
+      path: /login
+      expect: { status: 302, location: "/" }
+  - http:
+      id: logged_in_404
+      as: superadmin
+      path: /no/such/route/here
+      expect: { status: 404 }
+  - http:
+      id: ping_logged_in
+      as: superadmin
+      path: /ping
+      expect: { status: 200, body: alive }
+  - db:
+      id: audit
+      op: select
+      table: audit
+      columns: [user_id, description, type, method, url, instance_id, datetime]
+  - http:
+      id: logout
+      as: superadmin
+      path: /logout
+      expect: { status: 302, location: "/" }
+  - http:
+      id: after_logout
+      as: superadmin
+      path: /
+      expect: { status: 302, location: "/login?return_url=%2F" }
+  - login:
+      id: login_return_url
+      user: normal1
+      path: "/login?return_url=%2Fsome%2Fpage%3Fa%3D1"
+  - login:
+      id: login_return_url_root
+      user: normal1
+      as: normal1b
+      path: "/login?return_url=%2F"
+  - set_time: { time: "2014-10-10 01:01:00" }
+  - login:
+      id: fail1
+      user: normal2
+      password: wrong1
+  - login:
+      id: fail2
+      user: normal2
+      as: normal2
+      password: wrong2
+  - login:
+      id: fail3
+      user: normal2
+      password: wrong3
+  - login:
+      id: fail4
+      user: normal2
+      password: wrong4
+  - login:
+      id: fail5
+      user: normal2
+      password: wrong5
+  - login:
+      id: locked_out
+      user: normal2
+  - db:
+      id: locked_failcount
+      op: select
+      table: user
+      where: { id: 5 }
+      columns: [failcount]
+  - set_time: { time: "2014-10-10 01:20:00" }
+  - login:
+      id: lock_expired
+      user: normal2
+      expect: { status: 302 }
+  - http:
+      id: login_denied
+      path: /login/denied
+      expect: { status: 302, location: "/" }
+  - http:
+      id: invalidsite
+      path: /invalidsite
+      expect: { status: 200 }
+  - http:
+      id: remember_login_page
+      as: remember
+      path: /login
+      no_body: true
+  - http:
+      id: remember_me
+      method: POST
+      as: remember
+      path: /login
+      form: { username: user1@example.com, password: password, signin: 1, remember_me: 1 }
+      no_body: true
+  - http:
+      id: remembered_username
+      as: remember2
+      path: /login
+      headers: { Cookie: "remember_me=user1%40example.com" }

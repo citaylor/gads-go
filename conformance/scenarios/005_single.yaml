@@ -1,0 +1,77 @@
+name: 005_single
+source: [t/005_single.t]
+description: Single values in a multivalue sheet, curval values for code, curval with no visible fields
+steps:
+- sheet: {as: curval, instance_id: 2}
+- sheet:
+    as: main
+    own_group: true
+    curval: curval
+    curval_fields: [string1]
+    multivalue: 1
+    data:
+    - string1: Foobar
+      date1: '2014-10-10'
+      daterange1: ['2000-10-10', '2001-10-10']
+      enum1: foo1
+      tree1: tree1
+      integer1: 10
+      person1: 1
+      curval1: 1
+      file1: {name: file.txt, mimetype: text/plain, content: Text file content}
+- record:
+    id: values retrieved
+    op: get
+    sheet: main
+    current_id: 3
+    observe: [string1, date1, daterange1, enum1, tree1, integer1, person1, curval1, file1]
+    expect:
+      record_id: 3
+      values:
+        string1: Foobar
+        date1: '2014-10-10'
+        daterange1: 2000-10-10 to 2001-10-10
+        enum1: foo1
+        tree1: tree1
+        integer1: '10'
+        person1: User1, User1
+        curval1: Foo
+        file1: file.txt
+- held:
+    id: curval values for code
+    op: find
+    as: r
+    sheet: main
+    current_id: 3
+    for_code_curval: curval1
+    observe: [curval1]
+    expect:
+      values: {curval1: Foo}
+      for_code_curval:
+        count: 1
+        field_values_keys: ['@any', '@any', '@any', '@any', '@any', '@any', '@any']
+# Simulate a curval without fields selected by removing permissions from the
+# curval's field
+- column:
+    op: update
+    sheet: curval
+    column: string1
+    set:
+      permissions_sheet: main
+      permissions: {default: []}
+- record:
+    id: curval blank when no fields selected
+    op: get
+    sheet: main
+    current_id: 3
+    observe: [curval1]
+    expect:
+      values: {curval1: ''}
+- record:
+    id: curval blank when no fields selected (via record_id)
+    op: get
+    sheet: main
+    record_id: 3
+    observe: [curval1]
+    expect:
+      values: {curval1: ''}

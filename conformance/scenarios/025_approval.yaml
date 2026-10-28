@@ -1,0 +1,59 @@
+name: 025_approval
+source: [t/025_approval.t]
+description: Values needing approval are written as approval versions and not used for sorting
+steps:
+- sheet:
+    as: main
+    data:
+    - {string1: Foo1, date1: '2004-01-01'}
+    - {string1: Foo4, date1: '2001-01-01'}
+    - {string1: Foo3, date1: '2002-01-01'}
+    - {string1: Foo2, date1: '2003-01-01'}
+- search: {id: records to begin, sheet: main, expect: {count: 4}}
+# date1 needs approval (approval permissions are normally removed, so they
+# are re-enabled for the test)
+- column:
+    op: update
+    sheet: main
+    column: date1
+    set: {permissions: {default: [read, write_new, write_existing]}}
+    write_options: {include_approval_perms: 1}
+- clear_layouts: {}
+# One value needs approving, one is written immediately
+- held: {op: find, as: r, sheet: main, current_id: 1}
+- held: {op: set, as: r, values: {string1: Foo5, date1: '2000-01-02'}}
+- held: {id: write with approval, op: write, as: r}
+- db: {id: normal versions, op: count, table: record, where: {approval: 0}, expect: {count: 5}}
+- db: {id: versions for approval, op: count, table: record, where: {approval: 1}, expect: {count: 1}}
+- search: {id: records after write, sheet: main, observe: [string1, date1], expect: {count: 4}}
+# Sort by the field needing approval: the approved value is used and only
+# one version retrieved
+- search:
+    id: sort by approval field
+    sheet: main
+    view: {name: Sort view, columns: [date1, string1], sorts: [{name: date1, type: asc}]}
+    observe: [string1, date1]
+    expect: {count: 4, ids: [2, 3, 4, 1]}
+# GADS-dev: downloaded records also as expected, and the live version holds
+# the written data with the unapproved value still the previous version
+- download:
+    id: download sorted by approval field
+    sheet: main
+    view: {name: Sort view, columns: [date1, string1], sorts: [{name: date1, type: asc}]}
+    expect:
+      lines: ["2,Foo4,2001-01-01\n", "3,Foo3,2002-01-01\n", "4,Foo2,2003-01-01\n", "1,Foo5,2004-01-01\n"]
+- search:
+    id: live version in records
+    sheet: main
+    view: {name: Sort view, columns: [date1, string1], sorts: [{name: date1, type: asc}]}
+    observe: [string1, date1]
+    expect: {ids: [2, 3, 4, 1], rows: [{}, {}, {}, {string1: Foo5, date1: '2004-01-01'}]}
+- held:
+    id: live version in record
+    op: find
+    as: lv
+    sheet: main
+    clear: true
+    current_id: 1
+    observe: [string1, date1]
+    expect: {values: {string1: Foo5, date1: '2004-01-01'}}

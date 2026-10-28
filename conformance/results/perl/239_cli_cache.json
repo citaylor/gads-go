@@ -1,0 +1,563 @@
+{
+   "runner" : "perl",
+   "scenario" : "239_cli_cache",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "2",
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:alert",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "alert"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:alert",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "alert"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:view",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:emails",
+         "observed" : [],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "calcvals_before",
+         "observed" : [
+            {
+               "record_id" : "2",
+               "value_int" : "10"
+            },
+            {
+               "record_id" : "3",
+               "value_int" : "20"
+            },
+            {
+               "record_id" : "4",
+               "value_int" : "30"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "uc_bad_option",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "Unknown option: nope\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "uc_from",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "calcvals_from",
+         "observed" : [
+            {
+               "record_id" : "2",
+               "value_int" : "10"
+            },
+            {
+               "record_id" : "3",
+               "value_int" : "40"
+            },
+            {
+               "record_id" : "4",
+               "value_int" : "60"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "uc_all",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "calcvals_all",
+         "observed" : [
+            {
+               "record_id" : "2",
+               "value_int" : "10"
+            },
+            {
+               "record_id" : "3",
+               "value_int" : "40"
+            },
+            {
+               "record_id" : "4",
+               "value_int" : "60"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "alert_sends",
+         "observed" : [
+            {
+               "alert_id" : "1",
+               "current_id" : "3",
+               "layout_id" : "35",
+               "status" : "changed"
+            },
+            {
+               "alert_id" : "1",
+               "current_id" : "4",
+               "layout_id" : "35",
+               "status" : "changed"
+            },
+            {
+               "alert_id" : "2",
+               "current_id" : "3",
+               "layout_id" : "35",
+               "status" : "changed"
+            },
+            {
+               "alert_id" : "2",
+               "current_id" : "4",
+               "layout_id" : "35",
+               "status" : "changed"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "uc_again",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "alert_send_count",
+         "observed" : {
+            "count" : "4"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:db",
+         "observed" : {
+            "id" : "5"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:db",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:db",
+         "observed" : {
+            "id" : "7"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sa_send",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sa_emails",
+         "observed" : [
+            {
+               "html" : "<p>This email contains details of any changes in views that you have asked to be alerted to.</p><p>The following are changes in the view \"view1\":</p><ul>\n<li>record <a href=\"http://localhost/record/2\">ID 2</a> has disappeared from the view</li>\n<li>The following columns have changed in record <a href=\"http://localhost/record/3\">ID 3</a>: calc1, string1</li>\n<li>The following columns have changed in record <a href=\"http://localhost/record/4\">ID 4</a>: calc1</li>",
+               "reply_to" : null,
+               "subject" : "Changes in your views",
+               "text" : "This email contains details of any changes in views that you have asked to be alerted to.\n\nThe following are changes in the view \"view1\":\n* record ID 2 has now disappeared from the view\n* The following columns have changed in record ID 3: calc1, string1\n* The following columns have changed in record ID 4: calc1",
+               "to" : [
+                  "user1@example.com"
+               ]
+            },
+            {
+               "html" : "<p>This email contains details of any changes in views that you have asked to be alerted to.</p><p>The following are changes in the view \"view1\":</p><ul>\n<li>The following columns have changed in record <a href=\"http://localhost/record/3\">ID 3</a>: calc1</li>\n<li>record <a href=\"http://localhost/record/4\">ID 4</a> is now in the view</li>\n<li>The following columns have changed in record <a href=\"http://localhost/record/4\">ID 4</a>: calc1</li>\n</ul><p></p>",
+               "reply_to" : null,
+               "subject" : "Changes in your views",
+               "text" : "This email contains details of any changes in views that you have asked to be alerted to.\n\nThe following are changes in the view \"view1\":\n* The following columns have changed in record ID 3: calc1\n* record ID 4 is now in the view\n* The following columns have changed in record ID 4: calc1\n",
+               "to" : [
+                  "user4@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "alert_send_after",
+         "observed" : {
+            "count" : "0"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sa_nothing",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sa_no_emails",
+         "observed" : [],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:db",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "uac",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "alert_cache_rebuilt",
+         "observed" : [
+            {
+               "current_id" : "3",
+               "layout_id" : "25",
+               "user_id" : null,
+               "view_id" : "2"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "df_no_format",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Please provide new date format with --to\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "df_to",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "view_filters",
+         "observed" : [
+            {
+               "filter" : "{}",
+               "id" : "1",
+               "name" : "view1"
+            },
+            {
+               "filter" : "{\"rules\":[{\"field\":29,\"id\":29,\"operator\":\"equal\",\"type\":\"date\",\"value\":\"2014-10-10\"},{\"field\":25,\"id\":25,\"operator\":\"equal\",\"type\":\"string\",\"value\":\"Foo1\"}]}",
+               "id" : "2",
+               "name" : "Dated"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "us_none",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "fct_none",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "35:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "fct_no_audit",
+         "observed" : {
+            "died" : "Can't call method \"id\" on an undefined value",
+            "exit" : "255",
+            "stderr" : "Cannot find edit of 2 edited at 2014-10-10T01:00:00 by User1, User1\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "37:db",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "fct_report",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "Parent 2 edited 2014-10-10T01:00:00 by User1, User1 has nearby curval record edited at 2014-10-10T01:00:10 by User1, User1 with ID 1\nParent 3 edited 2014-10-10T01:00:00 by User1, User1 has nearby curval record edited at 2014-10-10T01:00:10 by User1, User1 with ID 1\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "39:db",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "fct_direct",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "DIRECT EDIT!\nParent 2 edited 2014-10-10T01:00:00 by User1, User1 has nearby curval record edited at 2014-10-10T01:00:10 by User1, User1 with ID 1\nDIRECT EDIT!\nParent 3 edited 2014-10-10T01:00:00 by User1, User1 has nearby curval record edited at 2014-10-10T01:00:10 by User1, User1 with ID 1\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      }
+   ]
+}

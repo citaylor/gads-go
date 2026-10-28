@@ -1,0 +1,83 @@
+# GADS configuration of the container (as config.yml-example of GADS). The
+# database connection is written by the entrypoint to
+# environments/docker.yml from the POSTGRES_* environment variables, and
+# merged over this file. To change these settings, mount a replacement at
+# /etc/gads/config.yml.
+appname: "Linkspace"
+layout: "main"
+charset: "UTF-8"
+template: "template_toolkit"
+logger: LogReport
+
+# Set to 1 when served behind a reverse proxy (X-Forwarded-* headers)
+behind_proxy: 0
+show_errors: 0
+
+# The session cookie (Dancer2 session engine settings). Sessions are kept in
+# memory and dropped after session_duration without use. Set is_secure: 1
+# when the site is served over HTTPS.
+session: Simple
+engines:
+  session:
+    Simple:
+      cookie_same_site: Lax
+      session_duration: 8 hours
+      # is_secure: 1
+
+gads:
+  header: "HEADER"
+  hostlocal: 1     # Whether to fetch files such as jquery.js locally
+  dateformat: "yyyy-MM-dd" # In CLDR format
+  email_from: '"Linkspace" <user@example.com>' # Emails are sent from this
+  aup: 0 # Whether to show an acceptable use policy
+  login_instance: 1 # The config values used for login page
+  default_instance: 1 # The default instance on login, if more than one
+  url: http://localhost:3000/ # Used for URLs in overnight email alerts
+  message_prefix: |
+    This email has been generated and sent from Linkspace. Replies
+    will be directed to the sender of the message.
+  user_status: 0 # Whether to show user status on login
+  # Uploaded files are stored on disk here (the uploads volume of
+  # docker-compose.yml); GADS_UPLOADS overrides it
+  uploads: /var/lib/gads/uploads
+  # How emails are sent: sendmail (the default) or smtp. In the container
+  # the entrypoint sets this from the SMTP_* environment variables.
+  # mail:
+  #   via: smtp
+  #   host: smtp.example.com
+  #   port: 587
+  #   security: starttls   # starttls, tls (implicit, port 465) or none
+  #   username: user
+  #   password: secret
+
+plugins:
+  LogReport:
+    session_messages: [ NOTICE, MISTAKE, WARNING, ERROR, FAULT, ALERT, FAILURE, PANIC ]
+  DBIC:
+    default:
+      schema_class: GADS::Schema
+      options:
+        RaiseError: 1
+        PrintError: 1
+        quote_names: 1
+  Auth::Extensible:
+    no_default_pages: 1
+    no_login_handler: 1
+    record_lastlogin: 1
+    mail_from: '"Linkspace Database" <user@example.com>'
+    realms:
+      dbic:
+        provider: DBIC
+        user_as_object: 1
+        users_resultset: User
+        roles_resultset: Permission
+        user_roles_resultset: UserPermission
+        roles_role_column: name
+        roles_key: permission
+        password_expiry_days: 60
+        users_pwchanged_column: pwchanged
+        users_pwresetcode_column: resetpw
+        encryption_algorithm: SHA-512
+        user_valid_conditions:
+          deleted: ~
+          account_request: 0

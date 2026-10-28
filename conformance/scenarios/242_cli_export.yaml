@@ -1,0 +1,58 @@
+name: 242_cli_export
+source:
+  - bin/export.pl
+  - lib/GADS/Layout.pm (export), lib/GADS/Column.pm and lib/GADS/Column/*.pm (export_hash)
+  - lib/GADS/MetricGroup.pm, lib/GADS/Graph.pm, lib/GADS/View.pm (export_hash)
+  - lib/GADS/Schema/Result/Current.pm, User.pm and the value results (export_hash)
+description: >
+  Exporting the configuration of a site (its groups, and for each table
+  its settings, topics, fields of each type, metrics, graphs and views)
+  and with its data (users and records with their values of each type), of
+  all tables or chosen tables, and the errors of the options.
+steps:
+  - sheet:
+      as: cv
+      site_id: 1
+      instance_id: 2
+      data:
+        - { string1: Foo }
+        - { string1: Bar }
+  - sheet:
+      as: s
+      curval: cv
+      curval_fields: [string1]
+      multivalue: 1
+      data:
+        - string1: Foo1
+          integer1: 10
+          enum1: [7, 8]
+          tree1: 11
+          date1: "2014-10-10"
+          daterange1: ["2014-01-01", "2014-12-31"]
+          person1: 2
+          curval1: [1, 2]
+          file1: { name: file1.txt, mimetype: text/plain, content: "Text file1 with a line longer than the seventy six characters of a base64 line" }
+        - { string1: Bar1 }
+  - db: { op: insert, table: topic, set: { name: My topic, instance_id: 1, click_to_edit: 1, description: About it, initial_state: collapsed } }
+  - db: { op: update, table: layout, where: { id: "@column:s:string1" }, set: { topic_id: 1, description: A string, helptext: Help } }
+  - db: { op: insert, table: metric_group, set: { name: Targets, instance_id: 1 } }
+  - db: { op: insert, table: metric, set: { metric_group: 1, x_axis_value: Foo1, target: 20, y_axis_grouping_value: foo1 } }
+  - db: { op: insert, table: graph, set: { title: Shared graph, type: bar, x_axis: "@column:s:string1", y_axis: "@column:s:integer1", y_axis_stack: sum, instance_id: 1, is_shared: 1, metric_group: 1, from: "2014-01-01", to: "2014-12-31", x_axis_range: custom } }
+  - db: { op: insert, table: graph, set: { title: Personal graph, type: line, x_axis: "@column:s:string1", y_axis_stack: count, instance_id: 1, user_id: 4 } }
+  - view:
+      op: create
+      sheet: s
+      as: v
+      name: Shared
+      global: 1
+      columns: [string1, integer1]
+      sorts: [{ name: string1, type: desc }]
+      filter:
+        rules:
+          - { name: string1, type: string, operator: equal, value: Foo1 }
+  - view: { op: create, sheet: s, as: va, name: Admin view, is_admin: 1, columns: [string1] }
+  - view: { op: create, sheet: s, as: vp, name: Personal, global: 0, columns: [string1] }
+  - cli: { id: ex_no_site, script: export.pl }
+  - cli: { id: ex_all, script: export.pl, args: [--site-id, 1], observe_files: content }
+  - cli: { id: ex_one_data, script: export.pl, args: [--site-id, 1, --instance-id, 1, --include-data], observe_files: content }
+  - cli: { id: ex_data, script: export.pl, args: [--site-id, 1, --include-data], observe_files: content }

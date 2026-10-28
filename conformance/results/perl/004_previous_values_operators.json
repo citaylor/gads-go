@@ -1,0 +1,2136 @@
+{
+   "runner" : "perl",
+   "scenario" : "004_previous_values_operators",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 1 integer1 less",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 1 integer1 less",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 2 integer1 greater",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 2 integer1 greater",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "24:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 3 integer1 less_or_equal",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 3 integer1 less_or_equal",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "29:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "30:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "33:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 4 integer1 not_equal",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 4 integer1 not_equal",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "36:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "37:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "38:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "39:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "40:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "41:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "42:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 5 integer1 is_empty",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 5 integer1 is_empty",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "45:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "46:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "47:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "48:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "49:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "50:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "51:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 6 integer1 is_not_empty",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 6 integer1 is_not_empty",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "54:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "55:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "56:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "57:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "58:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "59:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "60:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 7 string1 not_equal",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 7 string1 not_equal",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "63:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "64:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "65:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "66:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "67:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "68:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "69:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 8 string1 contains",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 8 string1 contains",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "72:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "73:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "74:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "75:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "76:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "77:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "78:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 9 string1 not_contains",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 9 string1 not_contains",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "81:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "82:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "83:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "84:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "85:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "86:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "87:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 10 string1 not_begins_with",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 10 string1 not_begins_with",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "90:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "91:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "92:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "93:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "94:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "95:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "96:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "97:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 11 string1 is_empty",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 11 string1 is_empty",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "100:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "101:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "102:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "103:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "104:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "105:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "106:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "107:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 12 string1 is_not_empty",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 12 string1 is_not_empty",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "110:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "111:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "112:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "113:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "114:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "115:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "116:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "117:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 13 string1 is_empty",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 13 string1 is_empty",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "120:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "121:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "122:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "123:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "124:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "125:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "126:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "127:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 14 string1 is_not_empty",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 14 string1 is_not_empty",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "130:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "131:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "132:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "133:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "134:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "135:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "136:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 15 enum1 not_equal",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 15 enum1 not_equal",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "139:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "140:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "141:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "142:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "143:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "144:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "145:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 16 enum1 equal",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 16 enum1 equal",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "148:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "149:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "150:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "151:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "152:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "153:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "154:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 17 enum1 equal",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 17 enum1 equal",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "157:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "158:set_time",
+         "observed" : {
+            "time" : "2014-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "159:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "160:set_time",
+         "observed" : {
+            "time" : "2014-06-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "161:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "162:set_time",
+         "observed" : {
+            "time" : "2015-01-01 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "163:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal - 18 enum1 not_equal",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "inc previous - 18 enum1 not_equal",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      }
+   ]
+}

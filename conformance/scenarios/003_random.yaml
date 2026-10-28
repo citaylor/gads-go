@@ -1,0 +1,2061 @@
+name: 003_random
+source:
+- t/003_random.t
+description: Random sorting of a view
+steps:
+- sheet:
+    as: main
+    data:
+    - string1: Foo 1
+      enum1: 2
+    - string1: Foo 2
+      enum1: 3
+    - string1: Foo 3
+      enum1: 1
+    - string1: Foo 4
+      enum1: 2
+    - string1: Foo 5
+      enum1: 3
+    - string1: Foo 6
+      enum1: 1
+    - string1: Foo 7
+      enum1: 2
+    - string1: Foo 8
+      enum1: 3
+    - string1: Foo 9
+      enum1: 1
+    - string1: Foo 10
+      enum1: 2
+    - string1: Foo 11
+      enum1: 3
+    - string1: Foo 12
+      enum1: 1
+    - string1: Foo 13
+      enum1: 2
+    - string1: Foo 14
+      enum1: 3
+    - string1: Foo 15
+      enum1: 1
+    - string1: Foo 16
+      enum1: 2
+    - string1: Foo 17
+      enum1: 3
+    - string1: Foo 18
+      enum1: 1
+    - string1: Foo 19
+      enum1: 2
+    - string1: Foo 20
+      enum1: 3
+    - string1: Foo 21
+      enum1: 1
+    - string1: Foo 22
+      enum1: 2
+    - string1: Foo 23
+      enum1: 3
+    - string1: Foo 24
+      enum1: 1
+    - string1: Foo 25
+      enum1: 2
+    - string1: Foo 26
+      enum1: 3
+    - string1: Foo 27
+      enum1: 1
+    - string1: Foo 28
+      enum1: 2
+    - string1: Foo 29
+      enum1: 3
+    - string1: Foo 30
+      enum1: 1
+    - string1: Foo 31
+      enum1: 2
+    - string1: Foo 32
+      enum1: 3
+    - string1: Foo 33
+      enum1: 1
+    - string1: Foo 34
+      enum1: 2
+    - string1: Foo 35
+      enum1: 3
+    - string1: Foo 36
+      enum1: 1
+    - string1: Foo 37
+      enum1: 2
+    - string1: Foo 38
+      enum1: 3
+    - string1: Foo 39
+      enum1: 1
+    - string1: Foo 40
+      enum1: 2
+    - string1: Foo 41
+      enum1: 3
+    - string1: Foo 42
+      enum1: 1
+    - string1: Foo 43
+      enum1: 2
+    - string1: Foo 44
+      enum1: 3
+    - string1: Foo 45
+      enum1: 1
+    - string1: Foo 46
+      enum1: 2
+    - string1: Foo 47
+      enum1: 3
+    - string1: Foo 48
+      enum1: 1
+    - string1: Foo 49
+      enum1: 2
+    - string1: Foo 50
+      enum1: 3
+    - string1: Foo 51
+      enum1: 1
+    - string1: Foo 52
+      enum1: 2
+    - string1: Foo 53
+      enum1: 3
+    - string1: Foo 54
+      enum1: 1
+    - string1: Foo 55
+      enum1: 2
+    - string1: Foo 56
+      enum1: 3
+    - string1: Foo 57
+      enum1: 1
+    - string1: Foo 58
+      enum1: 2
+    - string1: Foo 59
+      enum1: 3
+    - string1: Foo 60
+      enum1: 1
+    - string1: Foo 61
+      enum1: 2
+    - string1: Foo 62
+      enum1: 3
+    - string1: Foo 63
+      enum1: 1
+    - string1: Foo 64
+      enum1: 2
+    - string1: Foo 65
+      enum1: 3
+    - string1: Foo 66
+      enum1: 1
+    - string1: Foo 67
+      enum1: 2
+    - string1: Foo 68
+      enum1: 3
+    - string1: Foo 69
+      enum1: 1
+    - string1: Foo 70
+      enum1: 2
+    - string1: Foo 71
+      enum1: 3
+    - string1: Foo 72
+      enum1: 1
+    - string1: Foo 73
+      enum1: 2
+    - string1: Foo 74
+      enum1: 3
+    - string1: Foo 75
+      enum1: 1
+    - string1: Foo 76
+      enum1: 2
+    - string1: Foo 77
+      enum1: 3
+    - string1: Foo 78
+      enum1: 1
+    - string1: Foo 79
+      enum1: 2
+    - string1: Foo 80
+      enum1: 3
+    - string1: Foo 81
+      enum1: 1
+    - string1: Foo 82
+      enum1: 2
+    - string1: Foo 83
+      enum1: 3
+    - string1: Foo 84
+      enum1: 1
+    - string1: Foo 85
+      enum1: 2
+    - string1: Foo 86
+      enum1: 3
+    - string1: Foo 87
+      enum1: 1
+    - string1: Foo 88
+      enum1: 2
+    - string1: Foo 89
+      enum1: 3
+    - string1: Foo 90
+      enum1: 1
+    - string1: Foo 91
+      enum1: 2
+    - string1: Foo 92
+      enum1: 3
+    - string1: Foo 93
+      enum1: 1
+    - string1: Foo 94
+      enum1: 2
+    - string1: Foo 95
+      enum1: 3
+    - string1: Foo 96
+      enum1: 1
+    - string1: Foo 97
+      enum1: 2
+    - string1: Foo 98
+      enum1: 3
+    - string1: Foo 99
+      enum1: 1
+    - string1: Foo 100
+      enum1: 2
+    - string1: Foo 101
+      enum1: 3
+    - string1: Foo 102
+      enum1: 1
+    - string1: Foo 103
+      enum1: 2
+    - string1: Foo 104
+      enum1: 3
+    - string1: Foo 105
+      enum1: 1
+    - string1: Foo 106
+      enum1: 2
+    - string1: Foo 107
+      enum1: 3
+    - string1: Foo 108
+      enum1: 1
+    - string1: Foo 109
+      enum1: 2
+    - string1: Foo 110
+      enum1: 3
+    - string1: Foo 111
+      enum1: 1
+    - string1: Foo 112
+      enum1: 2
+    - string1: Foo 113
+      enum1: 3
+    - string1: Foo 114
+      enum1: 1
+    - string1: Foo 115
+      enum1: 2
+    - string1: Foo 116
+      enum1: 3
+    - string1: Foo 117
+      enum1: 1
+    - string1: Foo 118
+      enum1: 2
+    - string1: Foo 119
+      enum1: 3
+    - string1: Foo 120
+      enum1: 1
+    - string1: Foo 121
+      enum1: 2
+    - string1: Foo 122
+      enum1: 3
+    - string1: Foo 123
+      enum1: 1
+    - string1: Foo 124
+      enum1: 2
+    - string1: Foo 125
+      enum1: 3
+    - string1: Foo 126
+      enum1: 1
+    - string1: Foo 127
+      enum1: 2
+    - string1: Foo 128
+      enum1: 3
+    - string1: Foo 129
+      enum1: 1
+    - string1: Foo 130
+      enum1: 2
+    - string1: Foo 131
+      enum1: 3
+    - string1: Foo 132
+      enum1: 1
+    - string1: Foo 133
+      enum1: 2
+    - string1: Foo 134
+      enum1: 3
+    - string1: Foo 135
+      enum1: 1
+    - string1: Foo 136
+      enum1: 2
+    - string1: Foo 137
+      enum1: 3
+    - string1: Foo 138
+      enum1: 1
+    - string1: Foo 139
+      enum1: 2
+    - string1: Foo 140
+      enum1: 3
+    - string1: Foo 141
+      enum1: 1
+    - string1: Foo 142
+      enum1: 2
+    - string1: Foo 143
+      enum1: 3
+    - string1: Foo 144
+      enum1: 1
+    - string1: Foo 145
+      enum1: 2
+    - string1: Foo 146
+      enum1: 3
+    - string1: Foo 147
+      enum1: 1
+    - string1: Foo 148
+      enum1: 2
+    - string1: Foo 149
+      enum1: 3
+    - string1: Foo 150
+      enum1: 1
+    - string1: Foo 151
+      enum1: 2
+    - string1: Foo 152
+      enum1: 3
+    - string1: Foo 153
+      enum1: 1
+    - string1: Foo 154
+      enum1: 2
+    - string1: Foo 155
+      enum1: 3
+    - string1: Foo 156
+      enum1: 1
+    - string1: Foo 157
+      enum1: 2
+    - string1: Foo 158
+      enum1: 3
+    - string1: Foo 159
+      enum1: 1
+    - string1: Foo 160
+      enum1: 2
+    - string1: Foo 161
+      enum1: 3
+    - string1: Foo 162
+      enum1: 1
+    - string1: Foo 163
+      enum1: 2
+    - string1: Foo 164
+      enum1: 3
+    - string1: Foo 165
+      enum1: 1
+    - string1: Foo 166
+      enum1: 2
+    - string1: Foo 167
+      enum1: 3
+    - string1: Foo 168
+      enum1: 1
+    - string1: Foo 169
+      enum1: 2
+    - string1: Foo 170
+      enum1: 3
+    - string1: Foo 171
+      enum1: 1
+    - string1: Foo 172
+      enum1: 2
+    - string1: Foo 173
+      enum1: 3
+    - string1: Foo 174
+      enum1: 1
+    - string1: Foo 175
+      enum1: 2
+    - string1: Foo 176
+      enum1: 3
+    - string1: Foo 177
+      enum1: 1
+    - string1: Foo 178
+      enum1: 2
+    - string1: Foo 179
+      enum1: 3
+    - string1: Foo 180
+      enum1: 1
+    - string1: Foo 181
+      enum1: 2
+    - string1: Foo 182
+      enum1: 3
+    - string1: Foo 183
+      enum1: 1
+    - string1: Foo 184
+      enum1: 2
+    - string1: Foo 185
+      enum1: 3
+    - string1: Foo 186
+      enum1: 1
+    - string1: Foo 187
+      enum1: 2
+    - string1: Foo 188
+      enum1: 3
+    - string1: Foo 189
+      enum1: 1
+    - string1: Foo 190
+      enum1: 2
+    - string1: Foo 191
+      enum1: 3
+    - string1: Foo 192
+      enum1: 1
+    - string1: Foo 193
+      enum1: 2
+    - string1: Foo 194
+      enum1: 3
+    - string1: Foo 195
+      enum1: 1
+    - string1: Foo 196
+      enum1: 2
+    - string1: Foo 197
+      enum1: 3
+    - string1: Foo 198
+      enum1: 1
+    - string1: Foo 199
+      enum1: 2
+    - string1: Foo 200
+      enum1: 3
+    - string1: Foo 201
+      enum1: 1
+    - string1: Foo 202
+      enum1: 2
+    - string1: Foo 203
+      enum1: 3
+    - string1: Foo 204
+      enum1: 1
+    - string1: Foo 205
+      enum1: 2
+    - string1: Foo 206
+      enum1: 3
+    - string1: Foo 207
+      enum1: 1
+    - string1: Foo 208
+      enum1: 2
+    - string1: Foo 209
+      enum1: 3
+    - string1: Foo 210
+      enum1: 1
+    - string1: Foo 211
+      enum1: 2
+    - string1: Foo 212
+      enum1: 3
+    - string1: Foo 213
+      enum1: 1
+    - string1: Foo 214
+      enum1: 2
+    - string1: Foo 215
+      enum1: 3
+    - string1: Foo 216
+      enum1: 1
+    - string1: Foo 217
+      enum1: 2
+    - string1: Foo 218
+      enum1: 3
+    - string1: Foo 219
+      enum1: 1
+    - string1: Foo 220
+      enum1: 2
+    - string1: Foo 221
+      enum1: 3
+    - string1: Foo 222
+      enum1: 1
+    - string1: Foo 223
+      enum1: 2
+    - string1: Foo 224
+      enum1: 3
+    - string1: Foo 225
+      enum1: 1
+    - string1: Foo 226
+      enum1: 2
+    - string1: Foo 227
+      enum1: 3
+    - string1: Foo 228
+      enum1: 1
+    - string1: Foo 229
+      enum1: 2
+    - string1: Foo 230
+      enum1: 3
+    - string1: Foo 231
+      enum1: 1
+    - string1: Foo 232
+      enum1: 2
+    - string1: Foo 233
+      enum1: 3
+    - string1: Foo 234
+      enum1: 1
+    - string1: Foo 235
+      enum1: 2
+    - string1: Foo 236
+      enum1: 3
+    - string1: Foo 237
+      enum1: 1
+    - string1: Foo 238
+      enum1: 2
+    - string1: Foo 239
+      enum1: 3
+    - string1: Foo 240
+      enum1: 1
+    - string1: Foo 241
+      enum1: 2
+    - string1: Foo 242
+      enum1: 3
+    - string1: Foo 243
+      enum1: 1
+    - string1: Foo 244
+      enum1: 2
+    - string1: Foo 245
+      enum1: 3
+    - string1: Foo 246
+      enum1: 1
+    - string1: Foo 247
+      enum1: 2
+    - string1: Foo 248
+      enum1: 3
+    - string1: Foo 249
+      enum1: 1
+    - string1: Foo 250
+      enum1: 2
+    - string1: Foo 251
+      enum1: 3
+    - string1: Foo 252
+      enum1: 1
+    - string1: Foo 253
+      enum1: 2
+    - string1: Foo 254
+      enum1: 3
+    - string1: Foo 255
+      enum1: 1
+    - string1: Foo 256
+      enum1: 2
+    - string1: Foo 257
+      enum1: 3
+    - string1: Foo 258
+      enum1: 1
+    - string1: Foo 259
+      enum1: 2
+    - string1: Foo 260
+      enum1: 3
+    - string1: Foo 261
+      enum1: 1
+    - string1: Foo 262
+      enum1: 2
+    - string1: Foo 263
+      enum1: 3
+    - string1: Foo 264
+      enum1: 1
+    - string1: Foo 265
+      enum1: 2
+    - string1: Foo 266
+      enum1: 3
+    - string1: Foo 267
+      enum1: 1
+    - string1: Foo 268
+      enum1: 2
+    - string1: Foo 269
+      enum1: 3
+    - string1: Foo 270
+      enum1: 1
+    - string1: Foo 271
+      enum1: 2
+    - string1: Foo 272
+      enum1: 3
+    - string1: Foo 273
+      enum1: 1
+    - string1: Foo 274
+      enum1: 2
+    - string1: Foo 275
+      enum1: 3
+    - string1: Foo 276
+      enum1: 1
+    - string1: Foo 277
+      enum1: 2
+    - string1: Foo 278
+      enum1: 3
+    - string1: Foo 279
+      enum1: 1
+    - string1: Foo 280
+      enum1: 2
+    - string1: Foo 281
+      enum1: 3
+    - string1: Foo 282
+      enum1: 1
+    - string1: Foo 283
+      enum1: 2
+    - string1: Foo 284
+      enum1: 3
+    - string1: Foo 285
+      enum1: 1
+    - string1: Foo 286
+      enum1: 2
+    - string1: Foo 287
+      enum1: 3
+    - string1: Foo 288
+      enum1: 1
+    - string1: Foo 289
+      enum1: 2
+    - string1: Foo 290
+      enum1: 3
+    - string1: Foo 291
+      enum1: 1
+    - string1: Foo 292
+      enum1: 2
+    - string1: Foo 293
+      enum1: 3
+    - string1: Foo 294
+      enum1: 1
+    - string1: Foo 295
+      enum1: 2
+    - string1: Foo 296
+      enum1: 3
+    - string1: Foo 297
+      enum1: 1
+    - string1: Foo 298
+      enum1: 2
+    - string1: Foo 299
+      enum1: 3
+    - string1: Foo 300
+      enum1: 1
+    - string1: Foo 301
+      enum1: 2
+    - string1: Foo 302
+      enum1: 3
+    - string1: Foo 303
+      enum1: 1
+    - string1: Foo 304
+      enum1: 2
+    - string1: Foo 305
+      enum1: 3
+    - string1: Foo 306
+      enum1: 1
+    - string1: Foo 307
+      enum1: 2
+    - string1: Foo 308
+      enum1: 3
+    - string1: Foo 309
+      enum1: 1
+    - string1: Foo 310
+      enum1: 2
+    - string1: Foo 311
+      enum1: 3
+    - string1: Foo 312
+      enum1: 1
+    - string1: Foo 313
+      enum1: 2
+    - string1: Foo 314
+      enum1: 3
+    - string1: Foo 315
+      enum1: 1
+    - string1: Foo 316
+      enum1: 2
+    - string1: Foo 317
+      enum1: 3
+    - string1: Foo 318
+      enum1: 1
+    - string1: Foo 319
+      enum1: 2
+    - string1: Foo 320
+      enum1: 3
+    - string1: Foo 321
+      enum1: 1
+    - string1: Foo 322
+      enum1: 2
+    - string1: Foo 323
+      enum1: 3
+    - string1: Foo 324
+      enum1: 1
+    - string1: Foo 325
+      enum1: 2
+    - string1: Foo 326
+      enum1: 3
+    - string1: Foo 327
+      enum1: 1
+    - string1: Foo 328
+      enum1: 2
+    - string1: Foo 329
+      enum1: 3
+    - string1: Foo 330
+      enum1: 1
+    - string1: Foo 331
+      enum1: 2
+    - string1: Foo 332
+      enum1: 3
+    - string1: Foo 333
+      enum1: 1
+    - string1: Foo 334
+      enum1: 2
+    - string1: Foo 335
+      enum1: 3
+    - string1: Foo 336
+      enum1: 1
+    - string1: Foo 337
+      enum1: 2
+    - string1: Foo 338
+      enum1: 3
+    - string1: Foo 339
+      enum1: 1
+    - string1: Foo 340
+      enum1: 2
+    - string1: Foo 341
+      enum1: 3
+    - string1: Foo 342
+      enum1: 1
+    - string1: Foo 343
+      enum1: 2
+    - string1: Foo 344
+      enum1: 3
+    - string1: Foo 345
+      enum1: 1
+    - string1: Foo 346
+      enum1: 2
+    - string1: Foo 347
+      enum1: 3
+    - string1: Foo 348
+      enum1: 1
+    - string1: Foo 349
+      enum1: 2
+    - string1: Foo 350
+      enum1: 3
+    - string1: Foo 351
+      enum1: 1
+    - string1: Foo 352
+      enum1: 2
+    - string1: Foo 353
+      enum1: 3
+    - string1: Foo 354
+      enum1: 1
+    - string1: Foo 355
+      enum1: 2
+    - string1: Foo 356
+      enum1: 3
+    - string1: Foo 357
+      enum1: 1
+    - string1: Foo 358
+      enum1: 2
+    - string1: Foo 359
+      enum1: 3
+    - string1: Foo 360
+      enum1: 1
+    - string1: Foo 361
+      enum1: 2
+    - string1: Foo 362
+      enum1: 3
+    - string1: Foo 363
+      enum1: 1
+    - string1: Foo 364
+      enum1: 2
+    - string1: Foo 365
+      enum1: 3
+    - string1: Foo 366
+      enum1: 1
+    - string1: Foo 367
+      enum1: 2
+    - string1: Foo 368
+      enum1: 3
+    - string1: Foo 369
+      enum1: 1
+    - string1: Foo 370
+      enum1: 2
+    - string1: Foo 371
+      enum1: 3
+    - string1: Foo 372
+      enum1: 1
+    - string1: Foo 373
+      enum1: 2
+    - string1: Foo 374
+      enum1: 3
+    - string1: Foo 375
+      enum1: 1
+    - string1: Foo 376
+      enum1: 2
+    - string1: Foo 377
+      enum1: 3
+    - string1: Foo 378
+      enum1: 1
+    - string1: Foo 379
+      enum1: 2
+    - string1: Foo 380
+      enum1: 3
+    - string1: Foo 381
+      enum1: 1
+    - string1: Foo 382
+      enum1: 2
+    - string1: Foo 383
+      enum1: 3
+    - string1: Foo 384
+      enum1: 1
+    - string1: Foo 385
+      enum1: 2
+    - string1: Foo 386
+      enum1: 3
+    - string1: Foo 387
+      enum1: 1
+    - string1: Foo 388
+      enum1: 2
+    - string1: Foo 389
+      enum1: 3
+    - string1: Foo 390
+      enum1: 1
+    - string1: Foo 391
+      enum1: 2
+    - string1: Foo 392
+      enum1: 3
+    - string1: Foo 393
+      enum1: 1
+    - string1: Foo 394
+      enum1: 2
+    - string1: Foo 395
+      enum1: 3
+    - string1: Foo 396
+      enum1: 1
+    - string1: Foo 397
+      enum1: 2
+    - string1: Foo 398
+      enum1: 3
+    - string1: Foo 399
+      enum1: 1
+    - string1: Foo 400
+      enum1: 2
+    - string1: Foo 401
+      enum1: 3
+    - string1: Foo 402
+      enum1: 1
+    - string1: Foo 403
+      enum1: 2
+    - string1: Foo 404
+      enum1: 3
+    - string1: Foo 405
+      enum1: 1
+    - string1: Foo 406
+      enum1: 2
+    - string1: Foo 407
+      enum1: 3
+    - string1: Foo 408
+      enum1: 1
+    - string1: Foo 409
+      enum1: 2
+    - string1: Foo 410
+      enum1: 3
+    - string1: Foo 411
+      enum1: 1
+    - string1: Foo 412
+      enum1: 2
+    - string1: Foo 413
+      enum1: 3
+    - string1: Foo 414
+      enum1: 1
+    - string1: Foo 415
+      enum1: 2
+    - string1: Foo 416
+      enum1: 3
+    - string1: Foo 417
+      enum1: 1
+    - string1: Foo 418
+      enum1: 2
+    - string1: Foo 419
+      enum1: 3
+    - string1: Foo 420
+      enum1: 1
+    - string1: Foo 421
+      enum1: 2
+    - string1: Foo 422
+      enum1: 3
+    - string1: Foo 423
+      enum1: 1
+    - string1: Foo 424
+      enum1: 2
+    - string1: Foo 425
+      enum1: 3
+    - string1: Foo 426
+      enum1: 1
+    - string1: Foo 427
+      enum1: 2
+    - string1: Foo 428
+      enum1: 3
+    - string1: Foo 429
+      enum1: 1
+    - string1: Foo 430
+      enum1: 2
+    - string1: Foo 431
+      enum1: 3
+    - string1: Foo 432
+      enum1: 1
+    - string1: Foo 433
+      enum1: 2
+    - string1: Foo 434
+      enum1: 3
+    - string1: Foo 435
+      enum1: 1
+    - string1: Foo 436
+      enum1: 2
+    - string1: Foo 437
+      enum1: 3
+    - string1: Foo 438
+      enum1: 1
+    - string1: Foo 439
+      enum1: 2
+    - string1: Foo 440
+      enum1: 3
+    - string1: Foo 441
+      enum1: 1
+    - string1: Foo 442
+      enum1: 2
+    - string1: Foo 443
+      enum1: 3
+    - string1: Foo 444
+      enum1: 1
+    - string1: Foo 445
+      enum1: 2
+    - string1: Foo 446
+      enum1: 3
+    - string1: Foo 447
+      enum1: 1
+    - string1: Foo 448
+      enum1: 2
+    - string1: Foo 449
+      enum1: 3
+    - string1: Foo 450
+      enum1: 1
+    - string1: Foo 451
+      enum1: 2
+    - string1: Foo 452
+      enum1: 3
+    - string1: Foo 453
+      enum1: 1
+    - string1: Foo 454
+      enum1: 2
+    - string1: Foo 455
+      enum1: 3
+    - string1: Foo 456
+      enum1: 1
+    - string1: Foo 457
+      enum1: 2
+    - string1: Foo 458
+      enum1: 3
+    - string1: Foo 459
+      enum1: 1
+    - string1: Foo 460
+      enum1: 2
+    - string1: Foo 461
+      enum1: 3
+    - string1: Foo 462
+      enum1: 1
+    - string1: Foo 463
+      enum1: 2
+    - string1: Foo 464
+      enum1: 3
+    - string1: Foo 465
+      enum1: 1
+    - string1: Foo 466
+      enum1: 2
+    - string1: Foo 467
+      enum1: 3
+    - string1: Foo 468
+      enum1: 1
+    - string1: Foo 469
+      enum1: 2
+    - string1: Foo 470
+      enum1: 3
+    - string1: Foo 471
+      enum1: 1
+    - string1: Foo 472
+      enum1: 2
+    - string1: Foo 473
+      enum1: 3
+    - string1: Foo 474
+      enum1: 1
+    - string1: Foo 475
+      enum1: 2
+    - string1: Foo 476
+      enum1: 3
+    - string1: Foo 477
+      enum1: 1
+    - string1: Foo 478
+      enum1: 2
+    - string1: Foo 479
+      enum1: 3
+    - string1: Foo 480
+      enum1: 1
+    - string1: Foo 481
+      enum1: 2
+    - string1: Foo 482
+      enum1: 3
+    - string1: Foo 483
+      enum1: 1
+    - string1: Foo 484
+      enum1: 2
+    - string1: Foo 485
+      enum1: 3
+    - string1: Foo 486
+      enum1: 1
+    - string1: Foo 487
+      enum1: 2
+    - string1: Foo 488
+      enum1: 3
+    - string1: Foo 489
+      enum1: 1
+    - string1: Foo 490
+      enum1: 2
+    - string1: Foo 491
+      enum1: 3
+    - string1: Foo 492
+      enum1: 1
+    - string1: Foo 493
+      enum1: 2
+    - string1: Foo 494
+      enum1: 3
+    - string1: Foo 495
+      enum1: 1
+    - string1: Foo 496
+      enum1: 2
+    - string1: Foo 497
+      enum1: 3
+    - string1: Foo 498
+      enum1: 1
+    - string1: Foo 499
+      enum1: 2
+    - string1: Foo 500
+      enum1: 3
+    - string1: Foo 501
+      enum1: 1
+    - string1: Foo 502
+      enum1: 2
+    - string1: Foo 503
+      enum1: 3
+    - string1: Foo 504
+      enum1: 1
+    - string1: Foo 505
+      enum1: 2
+    - string1: Foo 506
+      enum1: 3
+    - string1: Foo 507
+      enum1: 1
+    - string1: Foo 508
+      enum1: 2
+    - string1: Foo 509
+      enum1: 3
+    - string1: Foo 510
+      enum1: 1
+    - string1: Foo 511
+      enum1: 2
+    - string1: Foo 512
+      enum1: 3
+    - string1: Foo 513
+      enum1: 1
+    - string1: Foo 514
+      enum1: 2
+    - string1: Foo 515
+      enum1: 3
+    - string1: Foo 516
+      enum1: 1
+    - string1: Foo 517
+      enum1: 2
+    - string1: Foo 518
+      enum1: 3
+    - string1: Foo 519
+      enum1: 1
+    - string1: Foo 520
+      enum1: 2
+    - string1: Foo 521
+      enum1: 3
+    - string1: Foo 522
+      enum1: 1
+    - string1: Foo 523
+      enum1: 2
+    - string1: Foo 524
+      enum1: 3
+    - string1: Foo 525
+      enum1: 1
+    - string1: Foo 526
+      enum1: 2
+    - string1: Foo 527
+      enum1: 3
+    - string1: Foo 528
+      enum1: 1
+    - string1: Foo 529
+      enum1: 2
+    - string1: Foo 530
+      enum1: 3
+    - string1: Foo 531
+      enum1: 1
+    - string1: Foo 532
+      enum1: 2
+    - string1: Foo 533
+      enum1: 3
+    - string1: Foo 534
+      enum1: 1
+    - string1: Foo 535
+      enum1: 2
+    - string1: Foo 536
+      enum1: 3
+    - string1: Foo 537
+      enum1: 1
+    - string1: Foo 538
+      enum1: 2
+    - string1: Foo 539
+      enum1: 3
+    - string1: Foo 540
+      enum1: 1
+    - string1: Foo 541
+      enum1: 2
+    - string1: Foo 542
+      enum1: 3
+    - string1: Foo 543
+      enum1: 1
+    - string1: Foo 544
+      enum1: 2
+    - string1: Foo 545
+      enum1: 3
+    - string1: Foo 546
+      enum1: 1
+    - string1: Foo 547
+      enum1: 2
+    - string1: Foo 548
+      enum1: 3
+    - string1: Foo 549
+      enum1: 1
+    - string1: Foo 550
+      enum1: 2
+    - string1: Foo 551
+      enum1: 3
+    - string1: Foo 552
+      enum1: 1
+    - string1: Foo 553
+      enum1: 2
+    - string1: Foo 554
+      enum1: 3
+    - string1: Foo 555
+      enum1: 1
+    - string1: Foo 556
+      enum1: 2
+    - string1: Foo 557
+      enum1: 3
+    - string1: Foo 558
+      enum1: 1
+    - string1: Foo 559
+      enum1: 2
+    - string1: Foo 560
+      enum1: 3
+    - string1: Foo 561
+      enum1: 1
+    - string1: Foo 562
+      enum1: 2
+    - string1: Foo 563
+      enum1: 3
+    - string1: Foo 564
+      enum1: 1
+    - string1: Foo 565
+      enum1: 2
+    - string1: Foo 566
+      enum1: 3
+    - string1: Foo 567
+      enum1: 1
+    - string1: Foo 568
+      enum1: 2
+    - string1: Foo 569
+      enum1: 3
+    - string1: Foo 570
+      enum1: 1
+    - string1: Foo 571
+      enum1: 2
+    - string1: Foo 572
+      enum1: 3
+    - string1: Foo 573
+      enum1: 1
+    - string1: Foo 574
+      enum1: 2
+    - string1: Foo 575
+      enum1: 3
+    - string1: Foo 576
+      enum1: 1
+    - string1: Foo 577
+      enum1: 2
+    - string1: Foo 578
+      enum1: 3
+    - string1: Foo 579
+      enum1: 1
+    - string1: Foo 580
+      enum1: 2
+    - string1: Foo 581
+      enum1: 3
+    - string1: Foo 582
+      enum1: 1
+    - string1: Foo 583
+      enum1: 2
+    - string1: Foo 584
+      enum1: 3
+    - string1: Foo 585
+      enum1: 1
+    - string1: Foo 586
+      enum1: 2
+    - string1: Foo 587
+      enum1: 3
+    - string1: Foo 588
+      enum1: 1
+    - string1: Foo 589
+      enum1: 2
+    - string1: Foo 590
+      enum1: 3
+    - string1: Foo 591
+      enum1: 1
+    - string1: Foo 592
+      enum1: 2
+    - string1: Foo 593
+      enum1: 3
+    - string1: Foo 594
+      enum1: 1
+    - string1: Foo 595
+      enum1: 2
+    - string1: Foo 596
+      enum1: 3
+    - string1: Foo 597
+      enum1: 1
+    - string1: Foo 598
+      enum1: 2
+    - string1: Foo 599
+      enum1: 3
+    - string1: Foo 600
+      enum1: 1
+    - string1: Foo 601
+      enum1: 2
+    - string1: Foo 602
+      enum1: 3
+    - string1: Foo 603
+      enum1: 1
+    - string1: Foo 604
+      enum1: 2
+    - string1: Foo 605
+      enum1: 3
+    - string1: Foo 606
+      enum1: 1
+    - string1: Foo 607
+      enum1: 2
+    - string1: Foo 608
+      enum1: 3
+    - string1: Foo 609
+      enum1: 1
+    - string1: Foo 610
+      enum1: 2
+    - string1: Foo 611
+      enum1: 3
+    - string1: Foo 612
+      enum1: 1
+    - string1: Foo 613
+      enum1: 2
+    - string1: Foo 614
+      enum1: 3
+    - string1: Foo 615
+      enum1: 1
+    - string1: Foo 616
+      enum1: 2
+    - string1: Foo 617
+      enum1: 3
+    - string1: Foo 618
+      enum1: 1
+    - string1: Foo 619
+      enum1: 2
+    - string1: Foo 620
+      enum1: 3
+    - string1: Foo 621
+      enum1: 1
+    - string1: Foo 622
+      enum1: 2
+    - string1: Foo 623
+      enum1: 3
+    - string1: Foo 624
+      enum1: 1
+    - string1: Foo 625
+      enum1: 2
+    - string1: Foo 626
+      enum1: 3
+    - string1: Foo 627
+      enum1: 1
+    - string1: Foo 628
+      enum1: 2
+    - string1: Foo 629
+      enum1: 3
+    - string1: Foo 630
+      enum1: 1
+    - string1: Foo 631
+      enum1: 2
+    - string1: Foo 632
+      enum1: 3
+    - string1: Foo 633
+      enum1: 1
+    - string1: Foo 634
+      enum1: 2
+    - string1: Foo 635
+      enum1: 3
+    - string1: Foo 636
+      enum1: 1
+    - string1: Foo 637
+      enum1: 2
+    - string1: Foo 638
+      enum1: 3
+    - string1: Foo 639
+      enum1: 1
+    - string1: Foo 640
+      enum1: 2
+    - string1: Foo 641
+      enum1: 3
+    - string1: Foo 642
+      enum1: 1
+    - string1: Foo 643
+      enum1: 2
+    - string1: Foo 644
+      enum1: 3
+    - string1: Foo 645
+      enum1: 1
+    - string1: Foo 646
+      enum1: 2
+    - string1: Foo 647
+      enum1: 3
+    - string1: Foo 648
+      enum1: 1
+    - string1: Foo 649
+      enum1: 2
+    - string1: Foo 650
+      enum1: 3
+    - string1: Foo 651
+      enum1: 1
+    - string1: Foo 652
+      enum1: 2
+    - string1: Foo 653
+      enum1: 3
+    - string1: Foo 654
+      enum1: 1
+    - string1: Foo 655
+      enum1: 2
+    - string1: Foo 656
+      enum1: 3
+    - string1: Foo 657
+      enum1: 1
+    - string1: Foo 658
+      enum1: 2
+    - string1: Foo 659
+      enum1: 3
+    - string1: Foo 660
+      enum1: 1
+    - string1: Foo 661
+      enum1: 2
+    - string1: Foo 662
+      enum1: 3
+    - string1: Foo 663
+      enum1: 1
+    - string1: Foo 664
+      enum1: 2
+    - string1: Foo 665
+      enum1: 3
+    - string1: Foo 666
+      enum1: 1
+    - string1: Foo 667
+      enum1: 2
+    - string1: Foo 668
+      enum1: 3
+    - string1: Foo 669
+      enum1: 1
+    - string1: Foo 670
+      enum1: 2
+    - string1: Foo 671
+      enum1: 3
+    - string1: Foo 672
+      enum1: 1
+    - string1: Foo 673
+      enum1: 2
+    - string1: Foo 674
+      enum1: 3
+    - string1: Foo 675
+      enum1: 1
+    - string1: Foo 676
+      enum1: 2
+    - string1: Foo 677
+      enum1: 3
+    - string1: Foo 678
+      enum1: 1
+    - string1: Foo 679
+      enum1: 2
+    - string1: Foo 680
+      enum1: 3
+    - string1: Foo 681
+      enum1: 1
+    - string1: Foo 682
+      enum1: 2
+    - string1: Foo 683
+      enum1: 3
+    - string1: Foo 684
+      enum1: 1
+    - string1: Foo 685
+      enum1: 2
+    - string1: Foo 686
+      enum1: 3
+    - string1: Foo 687
+      enum1: 1
+    - string1: Foo 688
+      enum1: 2
+    - string1: Foo 689
+      enum1: 3
+    - string1: Foo 690
+      enum1: 1
+    - string1: Foo 691
+      enum1: 2
+    - string1: Foo 692
+      enum1: 3
+    - string1: Foo 693
+      enum1: 1
+    - string1: Foo 694
+      enum1: 2
+    - string1: Foo 695
+      enum1: 3
+    - string1: Foo 696
+      enum1: 1
+    - string1: Foo 697
+      enum1: 2
+    - string1: Foo 698
+      enum1: 3
+    - string1: Foo 699
+      enum1: 1
+    - string1: Foo 700
+      enum1: 2
+    - string1: Foo 701
+      enum1: 3
+    - string1: Foo 702
+      enum1: 1
+    - string1: Foo 703
+      enum1: 2
+    - string1: Foo 704
+      enum1: 3
+    - string1: Foo 705
+      enum1: 1
+    - string1: Foo 706
+      enum1: 2
+    - string1: Foo 707
+      enum1: 3
+    - string1: Foo 708
+      enum1: 1
+    - string1: Foo 709
+      enum1: 2
+    - string1: Foo 710
+      enum1: 3
+    - string1: Foo 711
+      enum1: 1
+    - string1: Foo 712
+      enum1: 2
+    - string1: Foo 713
+      enum1: 3
+    - string1: Foo 714
+      enum1: 1
+    - string1: Foo 715
+      enum1: 2
+    - string1: Foo 716
+      enum1: 3
+    - string1: Foo 717
+      enum1: 1
+    - string1: Foo 718
+      enum1: 2
+    - string1: Foo 719
+      enum1: 3
+    - string1: Foo 720
+      enum1: 1
+    - string1: Foo 721
+      enum1: 2
+    - string1: Foo 722
+      enum1: 3
+    - string1: Foo 723
+      enum1: 1
+    - string1: Foo 724
+      enum1: 2
+    - string1: Foo 725
+      enum1: 3
+    - string1: Foo 726
+      enum1: 1
+    - string1: Foo 727
+      enum1: 2
+    - string1: Foo 728
+      enum1: 3
+    - string1: Foo 729
+      enum1: 1
+    - string1: Foo 730
+      enum1: 2
+    - string1: Foo 731
+      enum1: 3
+    - string1: Foo 732
+      enum1: 1
+    - string1: Foo 733
+      enum1: 2
+    - string1: Foo 734
+      enum1: 3
+    - string1: Foo 735
+      enum1: 1
+    - string1: Foo 736
+      enum1: 2
+    - string1: Foo 737
+      enum1: 3
+    - string1: Foo 738
+      enum1: 1
+    - string1: Foo 739
+      enum1: 2
+    - string1: Foo 740
+      enum1: 3
+    - string1: Foo 741
+      enum1: 1
+    - string1: Foo 742
+      enum1: 2
+    - string1: Foo 743
+      enum1: 3
+    - string1: Foo 744
+      enum1: 1
+    - string1: Foo 745
+      enum1: 2
+    - string1: Foo 746
+      enum1: 3
+    - string1: Foo 747
+      enum1: 1
+    - string1: Foo 748
+      enum1: 2
+    - string1: Foo 749
+      enum1: 3
+    - string1: Foo 750
+      enum1: 1
+    - string1: Foo 751
+      enum1: 2
+    - string1: Foo 752
+      enum1: 3
+    - string1: Foo 753
+      enum1: 1
+    - string1: Foo 754
+      enum1: 2
+    - string1: Foo 755
+      enum1: 3
+    - string1: Foo 756
+      enum1: 1
+    - string1: Foo 757
+      enum1: 2
+    - string1: Foo 758
+      enum1: 3
+    - string1: Foo 759
+      enum1: 1
+    - string1: Foo 760
+      enum1: 2
+    - string1: Foo 761
+      enum1: 3
+    - string1: Foo 762
+      enum1: 1
+    - string1: Foo 763
+      enum1: 2
+    - string1: Foo 764
+      enum1: 3
+    - string1: Foo 765
+      enum1: 1
+    - string1: Foo 766
+      enum1: 2
+    - string1: Foo 767
+      enum1: 3
+    - string1: Foo 768
+      enum1: 1
+    - string1: Foo 769
+      enum1: 2
+    - string1: Foo 770
+      enum1: 3
+    - string1: Foo 771
+      enum1: 1
+    - string1: Foo 772
+      enum1: 2
+    - string1: Foo 773
+      enum1: 3
+    - string1: Foo 774
+      enum1: 1
+    - string1: Foo 775
+      enum1: 2
+    - string1: Foo 776
+      enum1: 3
+    - string1: Foo 777
+      enum1: 1
+    - string1: Foo 778
+      enum1: 2
+    - string1: Foo 779
+      enum1: 3
+    - string1: Foo 780
+      enum1: 1
+    - string1: Foo 781
+      enum1: 2
+    - string1: Foo 782
+      enum1: 3
+    - string1: Foo 783
+      enum1: 1
+    - string1: Foo 784
+      enum1: 2
+    - string1: Foo 785
+      enum1: 3
+    - string1: Foo 786
+      enum1: 1
+    - string1: Foo 787
+      enum1: 2
+    - string1: Foo 788
+      enum1: 3
+    - string1: Foo 789
+      enum1: 1
+    - string1: Foo 790
+      enum1: 2
+    - string1: Foo 791
+      enum1: 3
+    - string1: Foo 792
+      enum1: 1
+    - string1: Foo 793
+      enum1: 2
+    - string1: Foo 794
+      enum1: 3
+    - string1: Foo 795
+      enum1: 1
+    - string1: Foo 796
+      enum1: 2
+    - string1: Foo 797
+      enum1: 3
+    - string1: Foo 798
+      enum1: 1
+    - string1: Foo 799
+      enum1: 2
+    - string1: Foo 800
+      enum1: 3
+    - string1: Foo 801
+      enum1: 1
+    - string1: Foo 802
+      enum1: 2
+    - string1: Foo 803
+      enum1: 3
+    - string1: Foo 804
+      enum1: 1
+    - string1: Foo 805
+      enum1: 2
+    - string1: Foo 806
+      enum1: 3
+    - string1: Foo 807
+      enum1: 1
+    - string1: Foo 808
+      enum1: 2
+    - string1: Foo 809
+      enum1: 3
+    - string1: Foo 810
+      enum1: 1
+    - string1: Foo 811
+      enum1: 2
+    - string1: Foo 812
+      enum1: 3
+    - string1: Foo 813
+      enum1: 1
+    - string1: Foo 814
+      enum1: 2
+    - string1: Foo 815
+      enum1: 3
+    - string1: Foo 816
+      enum1: 1
+    - string1: Foo 817
+      enum1: 2
+    - string1: Foo 818
+      enum1: 3
+    - string1: Foo 819
+      enum1: 1
+    - string1: Foo 820
+      enum1: 2
+    - string1: Foo 821
+      enum1: 3
+    - string1: Foo 822
+      enum1: 1
+    - string1: Foo 823
+      enum1: 2
+    - string1: Foo 824
+      enum1: 3
+    - string1: Foo 825
+      enum1: 1
+    - string1: Foo 826
+      enum1: 2
+    - string1: Foo 827
+      enum1: 3
+    - string1: Foo 828
+      enum1: 1
+    - string1: Foo 829
+      enum1: 2
+    - string1: Foo 830
+      enum1: 3
+    - string1: Foo 831
+      enum1: 1
+    - string1: Foo 832
+      enum1: 2
+    - string1: Foo 833
+      enum1: 3
+    - string1: Foo 834
+      enum1: 1
+    - string1: Foo 835
+      enum1: 2
+    - string1: Foo 836
+      enum1: 3
+    - string1: Foo 837
+      enum1: 1
+    - string1: Foo 838
+      enum1: 2
+    - string1: Foo 839
+      enum1: 3
+    - string1: Foo 840
+      enum1: 1
+    - string1: Foo 841
+      enum1: 2
+    - string1: Foo 842
+      enum1: 3
+    - string1: Foo 843
+      enum1: 1
+    - string1: Foo 844
+      enum1: 2
+    - string1: Foo 845
+      enum1: 3
+    - string1: Foo 846
+      enum1: 1
+    - string1: Foo 847
+      enum1: 2
+    - string1: Foo 848
+      enum1: 3
+    - string1: Foo 849
+      enum1: 1
+    - string1: Foo 850
+      enum1: 2
+    - string1: Foo 851
+      enum1: 3
+    - string1: Foo 852
+      enum1: 1
+    - string1: Foo 853
+      enum1: 2
+    - string1: Foo 854
+      enum1: 3
+    - string1: Foo 855
+      enum1: 1
+    - string1: Foo 856
+      enum1: 2
+    - string1: Foo 857
+      enum1: 3
+    - string1: Foo 858
+      enum1: 1
+    - string1: Foo 859
+      enum1: 2
+    - string1: Foo 860
+      enum1: 3
+    - string1: Foo 861
+      enum1: 1
+    - string1: Foo 862
+      enum1: 2
+    - string1: Foo 863
+      enum1: 3
+    - string1: Foo 864
+      enum1: 1
+    - string1: Foo 865
+      enum1: 2
+    - string1: Foo 866
+      enum1: 3
+    - string1: Foo 867
+      enum1: 1
+    - string1: Foo 868
+      enum1: 2
+    - string1: Foo 869
+      enum1: 3
+    - string1: Foo 870
+      enum1: 1
+    - string1: Foo 871
+      enum1: 2
+    - string1: Foo 872
+      enum1: 3
+    - string1: Foo 873
+      enum1: 1
+    - string1: Foo 874
+      enum1: 2
+    - string1: Foo 875
+      enum1: 3
+    - string1: Foo 876
+      enum1: 1
+    - string1: Foo 877
+      enum1: 2
+    - string1: Foo 878
+      enum1: 3
+    - string1: Foo 879
+      enum1: 1
+    - string1: Foo 880
+      enum1: 2
+    - string1: Foo 881
+      enum1: 3
+    - string1: Foo 882
+      enum1: 1
+    - string1: Foo 883
+      enum1: 2
+    - string1: Foo 884
+      enum1: 3
+    - string1: Foo 885
+      enum1: 1
+    - string1: Foo 886
+      enum1: 2
+    - string1: Foo 887
+      enum1: 3
+    - string1: Foo 888
+      enum1: 1
+    - string1: Foo 889
+      enum1: 2
+    - string1: Foo 890
+      enum1: 3
+    - string1: Foo 891
+      enum1: 1
+    - string1: Foo 892
+      enum1: 2
+    - string1: Foo 893
+      enum1: 3
+    - string1: Foo 894
+      enum1: 1
+    - string1: Foo 895
+      enum1: 2
+    - string1: Foo 896
+      enum1: 3
+    - string1: Foo 897
+      enum1: 1
+    - string1: Foo 898
+      enum1: 2
+    - string1: Foo 899
+      enum1: 3
+    - string1: Foo 900
+      enum1: 1
+    - string1: Foo 901
+      enum1: 2
+    - string1: Foo 902
+      enum1: 3
+    - string1: Foo 903
+      enum1: 1
+    - string1: Foo 904
+      enum1: 2
+    - string1: Foo 905
+      enum1: 3
+    - string1: Foo 906
+      enum1: 1
+    - string1: Foo 907
+      enum1: 2
+    - string1: Foo 908
+      enum1: 3
+    - string1: Foo 909
+      enum1: 1
+    - string1: Foo 910
+      enum1: 2
+    - string1: Foo 911
+      enum1: 3
+    - string1: Foo 912
+      enum1: 1
+    - string1: Foo 913
+      enum1: 2
+    - string1: Foo 914
+      enum1: 3
+    - string1: Foo 915
+      enum1: 1
+    - string1: Foo 916
+      enum1: 2
+    - string1: Foo 917
+      enum1: 3
+    - string1: Foo 918
+      enum1: 1
+    - string1: Foo 919
+      enum1: 2
+    - string1: Foo 920
+      enum1: 3
+    - string1: Foo 921
+      enum1: 1
+    - string1: Foo 922
+      enum1: 2
+    - string1: Foo 923
+      enum1: 3
+    - string1: Foo 924
+      enum1: 1
+    - string1: Foo 925
+      enum1: 2
+    - string1: Foo 926
+      enum1: 3
+    - string1: Foo 927
+      enum1: 1
+    - string1: Foo 928
+      enum1: 2
+    - string1: Foo 929
+      enum1: 3
+    - string1: Foo 930
+      enum1: 1
+    - string1: Foo 931
+      enum1: 2
+    - string1: Foo 932
+      enum1: 3
+    - string1: Foo 933
+      enum1: 1
+    - string1: Foo 934
+      enum1: 2
+    - string1: Foo 935
+      enum1: 3
+    - string1: Foo 936
+      enum1: 1
+    - string1: Foo 937
+      enum1: 2
+    - string1: Foo 938
+      enum1: 3
+    - string1: Foo 939
+      enum1: 1
+    - string1: Foo 940
+      enum1: 2
+    - string1: Foo 941
+      enum1: 3
+    - string1: Foo 942
+      enum1: 1
+    - string1: Foo 943
+      enum1: 2
+    - string1: Foo 944
+      enum1: 3
+    - string1: Foo 945
+      enum1: 1
+    - string1: Foo 946
+      enum1: 2
+    - string1: Foo 947
+      enum1: 3
+    - string1: Foo 948
+      enum1: 1
+    - string1: Foo 949
+      enum1: 2
+    - string1: Foo 950
+      enum1: 3
+    - string1: Foo 951
+      enum1: 1
+    - string1: Foo 952
+      enum1: 2
+    - string1: Foo 953
+      enum1: 3
+    - string1: Foo 954
+      enum1: 1
+    - string1: Foo 955
+      enum1: 2
+    - string1: Foo 956
+      enum1: 3
+    - string1: Foo 957
+      enum1: 1
+    - string1: Foo 958
+      enum1: 2
+    - string1: Foo 959
+      enum1: 3
+    - string1: Foo 960
+      enum1: 1
+    - string1: Foo 961
+      enum1: 2
+    - string1: Foo 962
+      enum1: 3
+    - string1: Foo 963
+      enum1: 1
+    - string1: Foo 964
+      enum1: 2
+    - string1: Foo 965
+      enum1: 3
+    - string1: Foo 966
+      enum1: 1
+    - string1: Foo 967
+      enum1: 2
+    - string1: Foo 968
+      enum1: 3
+    - string1: Foo 969
+      enum1: 1
+    - string1: Foo 970
+      enum1: 2
+    - string1: Foo 971
+      enum1: 3
+    - string1: Foo 972
+      enum1: 1
+    - string1: Foo 973
+      enum1: 2
+    - string1: Foo 974
+      enum1: 3
+    - string1: Foo 975
+      enum1: 1
+    - string1: Foo 976
+      enum1: 2
+    - string1: Foo 977
+      enum1: 3
+    - string1: Foo 978
+      enum1: 1
+    - string1: Foo 979
+      enum1: 2
+    - string1: Foo 980
+      enum1: 3
+    - string1: Foo 981
+      enum1: 1
+    - string1: Foo 982
+      enum1: 2
+    - string1: Foo 983
+      enum1: 3
+    - string1: Foo 984
+      enum1: 1
+    - string1: Foo 985
+      enum1: 2
+    - string1: Foo 986
+      enum1: 3
+    - string1: Foo 987
+      enum1: 1
+    - string1: Foo 988
+      enum1: 2
+    - string1: Foo 989
+      enum1: 3
+    - string1: Foo 990
+      enum1: 1
+    - string1: Foo 991
+      enum1: 2
+    - string1: Foo 992
+      enum1: 3
+    - string1: Foo 993
+      enum1: 1
+    - string1: Foo 994
+      enum1: 2
+    - string1: Foo 995
+      enum1: 3
+    - string1: Foo 996
+      enum1: 1
+    - string1: Foo 997
+      enum1: 2
+    - string1: Foo 998
+      enum1: 3
+    - string1: Foo 999
+      enum1: 1
+    - string1: Foo 1000
+      enum1: 2
+- view:
+    op: create
+    sheet: main
+    name: Random view
+    columns:
+    - string1
+    - enum1
+    sorts:
+    - name: string1
+      type: random
+    as: rv
+- repeat_single:
+    id: random
+    sheet: main
+    view_ref: rv
+    columns:
+    - string1
+    expect:
+      string1: many
+- view:
+    op: update
+    sheet: main
+    ref: rv
+    sorts:
+    - name: string1
+      type: asc
+- repeat_single:
+    id: fixed
+    sheet: main
+    view_ref: rv
+    columns:
+    - string1
+    expect:
+      string1: 'one: Foo 1'
+- view:
+    op: update
+    sheet: main
+    ref: rv
+    sorts:
+    - name: enum1
+      type: asc
+    - name: string1
+      type: random
+- repeat_single:
+    id: random part
+    sheet: main
+    view_ref: rv
+    columns:
+    - string1
+    - enum1
+    expect:
+      string1: many
+      enum1: 'one: foo1'

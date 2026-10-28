@@ -1,0 +1,20 @@
+--- a/lib/GADS/Schema/Result/Record.pm	2026-10-19 10:05:53.568256889 +0100
++++ b/lib/GADS/Schema/Result/Record.pm	2026-10-21 15:43:12.176088328 +0100
+@@ -409,6 +409,17 @@
+ sub sqlt_deploy_hook {
+     my ($self, $sqlt_table) = @_;
+     $sqlt_table->add_index(name => 'record_idx_approval', fields => [ 'approval' ]);
++    # Find the later versions of a record (the record_later join of every
++    # search) by record. Without this, SQLite uses record_idx_approval for
++    # the join, which matches almost every row, so that searches take time
++    # quadratic in the number of records (about 1 second to count 1000
++    # records). PostgreSQL chooses a hash join from its statistics and does
++    # not need it, so it is only added for SQLite (which is not migrated).
++    my $producer = $sqlt_table->schema->translator->producer_type || '';
++    $sqlt_table->add_index(
++        name   => 'record_idx_current_id_approval_created',
++        fields => [qw/current_id approval created id/],
++    ) if $producer =~ /SQLite/;
+ }
+ 
+ # Enable finding of latest record for current ID

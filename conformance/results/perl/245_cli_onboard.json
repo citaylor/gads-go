@@ -1,0 +1,520 @@
+{
+   "runner" : "perl",
+   "scenario" : "245_cli_onboard",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "users",
+         "observed" : [
+            {
+               "id" : "1",
+               "username" : "user1@example.com",
+               "value" : "User1, User1"
+            },
+            {
+               "id" : "2",
+               "username" : "user2@example.com",
+               "value" : "User2, User2"
+            },
+            {
+               "id" : "3",
+               "username" : "user3@example.com",
+               "value" : "User3, User3"
+            },
+            {
+               "id" : "4",
+               "username" : "user4@example.com",
+               "value" : "User4, User4"
+            },
+            {
+               "id" : "5",
+               "username" : "user5@example.com",
+               "value" : "User5, User5"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ev",
+         "observed" : [
+            {
+               "id" : "1",
+               "layout_id" : "10",
+               "parent" : null,
+               "value" : "foo1"
+            },
+            {
+               "id" : "2",
+               "layout_id" : "10",
+               "parent" : null,
+               "value" : "foo2"
+            },
+            {
+               "id" : "3",
+               "layout_id" : "10",
+               "parent" : null,
+               "value" : "foo3"
+            },
+            {
+               "id" : "4",
+               "layout_id" : "11",
+               "parent" : null,
+               "value" : "tree1"
+            },
+            {
+               "id" : "5",
+               "layout_id" : "11",
+               "parent" : null,
+               "value" : "tree2"
+            },
+            {
+               "id" : "6",
+               "layout_id" : "11",
+               "parent" : "5",
+               "value" : "tree3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "no_inst",
+         "observed" : {
+            "died" : "Need --instance-id to be specified",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "no_file",
+         "observed" : {
+            "died" : "Usage: bin/onboard.pl [--take-first-enum] [--ignore-incomplete-dateranges]\n    [--ignore-string-zeros] [--dry-run] [--force=mandatory] [--invalid-csv=failed.csv] filename",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "bad_force",
+         "observed" : {
+            "died" : "Invalid option 'x' supplied to --force",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "bad_field",
+         "observed" : {
+            "died" : "Field nope does not exist",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "basic",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,string1,integer1,enum1,tree1,date1,daterange1,person1,Errors\n\"Record not written\",Bar,10,foo1,tree1,2014-10-10,\"2014-01-01 to 2014-02-01\",\"User1, User1\",\"No permissions to add a new entry\"\n\"Record not written\",Baz,x,foo9,tree9,2014-13-10,bad,nobody,\"Invalid item \"\"x\"\" for integer field \"\"integer1\"\"\",\"Invalid daterange value \"\"bad\"\" for \"\"daterange1\"\"\",\"Invalid enum value \"\"foo9\"\" for \"\"enum1\"\"\",\"Invalid enum value \"\"tree9\"\" for \"\"tree1\"\"\",\"Invalid enum value \"\"nobody\"\" for \"\"person1\"\"\"\n\"Record not written\",,,,,,,,\"Invalid daterange value \"\"\"\" for \"\"daterange1\"\"\"\n\"Record not written\",\" Qux \",3.6,FOO2,tree2,2014-10-11,20140101-20140202,,\"Invalid daterange value \"\"20140101-20140202\"\" for \"\"daterange1\"\"\"\n"
+            },
+            "stderr" : "",
+            "stdout" : "$VAR1 = {\n          'errors' => 4,\n          'in' => 4,\n          'written' => 0\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "setval",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,string1,Errors\n\"Record not written\",A,\"Invalid date '2014-13-10' for date1. Please enter as yyyy-MM-dd.\"\n\"Record not written\",0,\"No permissions to add a new entry\",\"Invalid enum value \"\"nope\"\" for \"\"enum1\"\"\"\n\"Record not written\",C,\"Invalid item \"\"abc\"\" for integer field \"\"integer1\"\"\"\n"
+            },
+            "stderr" : "",
+            "stdout" : "$VAR1 = {\n          'errors' => 3,\n          'in' => 3,\n          'written' => 0\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "report_bad",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Field nope invalid for invalid-report\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "append_bad",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Field nope invalid for append\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "uu_bad",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: field nope not found for update-unique\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "twice",
+         "observed" : {
+            "died" : "Field string1 exists twice",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "excl",
+         "observed" : {
+            "died" : "--skip-existing-unique and --update-unique are mutually exclusive",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ncub",
+         "observed" : {
+            "died" : "Invalid option 'x' supplied to --no-change-unless-blank",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "skipnew",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,string1,integer1,enum1,Errors\n\"Record not written\",Foo,6,foo2,\"'5\n6' is not a valid integer for 'integer1'\"\n\"Record not written\",FOO,7,foo1,\"No permissions to add a new entry\"\n"
+            },
+            "stderr" : "",
+            "stdout" : "$VAR1 = {\n          'errors' => 2,\n          'in' => 2,\n          'written' => 0\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "same",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,string1,integer1,Errors\n"
+            },
+            "stderr" : "",
+            "stdout" : "$VAR1 = {\n          'errors' => 0,\n          'in' => 2,\n          'written' => 2\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "by_id",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,string1,integer1,Errors\n\"Record written\",Bar,6,99,\"Failed to retrieve record ID 99 (try-block stopped with ERROR: error: Record ID 99 not found\n). Data will not be uploaded.\"\n\"Record not written\",Baz,8,\"Missing unique identifier for \"\"ID\"\". Data will be uploaded as new record. Full record follows: Baz 8\",\"No permissions to add a new entry\"\n\"Record not written\",Foo,9,1,\"You do not have permission to edit field integer1\"\n"
+            },
+            "stderr" : "",
+            "stdout" : "Changes for record 1 are as follows:\nChange value of \"integer1\" from \"5\" to \"9\"\n\n\n$VAR1 = {\n          'errors' => 3,\n          'in' => 4,\n          'written' => 1\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:db",
+         "observed" : {
+            "id" : "7"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "multi_enum",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,string1,enum1,person1,Errors\n\"Record not written\",A,foo1,user1@example.com,\"Multiple instances of enum value \"\"foo1\"\" for \"\"enum1\"\"\",\"Invalid enum value \"\"user1@example.com\"\" for \"\"person1\"\"\"\n"
+            },
+            "stderr" : "",
+            "stdout" : "$VAR1 = {\n          'errors' => 1,\n          'in' => 1,\n          'written' => 0\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "first_enum",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,enum1,string1,Errors\n\"Record not written\",foo1,A,\"No permissions to add a new entry\"\n\"Record not written\",foo2,,\"No permissions to add a new entry\"\n"
+            },
+            "stderr" : "",
+            "stdout" : "$VAR1 = {\n          'errors' => 2,\n          'in' => 2,\n          'written' => 0\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "missing_file",
+         "observed" : {
+            "died" : "nofile.csv: No such file or directory",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "strings",
+         "observed" : [
+            {
+               "layout_id" : "8",
+               "record_id" : "1",
+               "value" : "Foo"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "recs",
+         "observed" : [
+            {
+               "created" : "2014-10-10 01:00:00",
+               "createdby" : "1",
+               "current_id" : "1",
+               "id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dry",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,string1,integer1,Errors\n\"Record not written\",Dry,1,\"No permissions to add a new entry\"\n"
+            },
+            "stderr" : "",
+            "stdout" : "$VAR1 = {\n          'errors' => 1,\n          'in' => 1,\n          'written' => 0\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "update",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,string1,integer1,Errors\n\"Record not written\",Foo,7,\"You do not have permission to edit field integer1\"\n\"Record not written\",New,8,\"No permissions to add a new entry\"\n\"Record not written\",,9,\"Missing unique identifier for \"\"string1\"\". Data will be uploaded as new record. Full record follows:  9\",\"No permissions to add a new entry\"\n"
+            },
+            "stderr" : "",
+            "stdout" : "Changes for record Foo are as follows:\nChange value of \"integer1\" from \"5\" to \"7\"\n\n\n$VAR1 = {\n          'errors' => 3,\n          'in' => 3,\n          'written' => 0\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "update_id",
+         "observed" : {
+            "died" : "ID is present in the layout but is a special name",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "skip",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,string1,integer1,Errors\n\"Record not written\",Foo2,7,\"No permissions to add a new entry\"\n\"Record not written\",New2,8,\"No permissions to add a new entry\"\n"
+            },
+            "stderr" : "",
+            "stdout" : "$VAR1 = {\n          'errors' => 2,\n          'in' => 2,\n          'written' => 0\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dr2",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,string1,daterange1,Errors\n\"Record not written\",D1,2014-01-01,2014-02-01,\"No permissions to add a new entry\"\n\"Record not written\",D2,01/03/2014,,\"No permissions to add a new entry\"\n"
+            },
+            "stderr" : "",
+            "stdout" : "$VAR1 = {\n          'errors' => 2,\n          'in' => 2,\n          'written' => 0\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "version",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "bad.csv" : "Status,string1,__version_datetime,__version_userid,Errors\n\"Record not written\",V1,2013-01-01,2,\"No permissions to add a new entry\"\n\"Record not written\",V2,bad,2,\"Invalid version_datetime \"\"bad\"\"\"\n"
+            },
+            "stderr" : "",
+            "stdout" : "$VAR1 = {\n          'errors' => 2,\n          'in' => 2,\n          'written' => 0\n        };\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "recs2",
+         "observed" : [
+            {
+               "created" : "2014-10-10 01:00:00",
+               "createdby" : "1",
+               "current_id" : "1",
+               "id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "strings2",
+         "observed" : [
+            {
+               "layout_id" : "8",
+               "record_id" : "1",
+               "value" : "Foo"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

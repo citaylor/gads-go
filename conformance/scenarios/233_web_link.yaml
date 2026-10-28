@@ -1,0 +1,80 @@
+name: 233_web_link
+source:
+  - lib/GADS.pm (/:layout_name/link/:id?)
+  - lib/GADS/Record.pm (write_linked_id)
+  - views/link.tt
+description: >
+  Linking a record to a record of another table: the form for a new and an
+  existing record, the permission needed, linking an existing record,
+  creating a new linked record and unlinking.
+steps:
+  - sheet:
+      as: p
+      site_id: 1
+      instance_id: 1
+      data:
+        - { string1: Parent1, daterange1: ["2010-01-01", "2010-02-01"] }
+  - sheet:
+      as: s
+      instance_id: 2
+      data:
+        - { string1: Child1 }
+  - column:
+      op: update
+      sheet: s
+      column: daterange1
+      set:
+        link_parent: p:daterange1
+  - clear_layouts: {}
+  - login: { user: superadmin }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: link_new_page, as: superadmin, path: "/{sheet:s}/link/" }
+  - http: { id: link_existing_page, as: superadmin, path: "/{sheet:s}/link/2" }
+  - http:
+      id: link_denied
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/link/2"
+      form: { submit: 1, linked_id: 1 }
+  - db:
+      op: insert
+      table: instance_group
+      set: { instance_id: 2, group_id: "@group:default", permission: link }
+  - http:
+      id: link_existing
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/link/2"
+      form: { submit: 1, linked_id: 1 }
+  - db:
+      id: current_linked
+      op: select
+      table: current
+      columns: [id, instance_id, linked_id]
+      order_by: [id]
+  - http: { id: link_existing_after, as: superadmin, path: "/{sheet:s}/link/2" }
+  - http:
+      id: link_new
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/link/"
+      form: { submit: 1, linked_id: 1 }
+  - http:
+      id: unlink
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/link/2"
+      form: { submit: 1, linked_id: "" }
+  - db:
+      id: current_after
+      op: select
+      table: current
+      columns: [id, instance_id, linked_id]
+      order_by: [id]
+  - db:
+      id: records_after
+      op: select
+      table: record
+      columns: [id, current_id]
+      order_by: [id]
+  - http: { id: link_missing, as: superadmin, path: "/{sheet:s}/link/99" }

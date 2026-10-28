@@ -1,0 +1,278 @@
+name: 203_web_data
+source:
+  - lib/GADS.pm (any /:layout_name/data, table view type)
+  - lib/GADS/Role/Presentation/Column.pm
+  - views/data.tt, views/data_table.tt, views/navigation/*
+description: >
+  The data page of a table: the table view (columns of the current view,
+  rows loaded by the browser from the records API), selecting a view, sorting,
+  rows and page selection, additional filters, alerts and bulk delete.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - view:
+      sheet: s
+      user: superadmin
+      name: Strings only
+      columns: [string1, enum1]
+      as: v1
+  - view:
+      sheet: s
+      user: superadmin
+      name: Global view
+      global: 1
+      columns: [string1, integer1, date1]
+      sorts: [{ name: integer1, type: desc }]
+      as: v2
+  - login: { user: superadmin }
+  - http:
+      id: data_default
+      as: superadmin
+      path: "/{sheet:s}/data"
+      expect: { status: 200 }
+  - http:
+      id: select_view
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { view: "{view:v1}" }
+      expect: { status: 200 }
+  - db:
+      id: session_settings_view
+      op: select
+      table: user
+      columns: [id, session_settings]
+  - http:
+      id: remembers_view
+      as: superadmin
+      path: "/{sheet:s}/data"
+      expect: { status: 200 }
+  - http:
+      id: global_view_sorted
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { view: "{view:v2}" }
+      expect: { status: 200 }
+  - http:
+      id: sort_column
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { sort: "{column:string1}asc" }
+      expect: { status: 200 }
+  - http:
+      id: sort_invalid_column
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { sort: "999asc" }
+  - http:
+      id: rows_and_page
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { rows: 10, page: 2 }
+      expect: { status: 200 }
+  - http:
+      id: additional_filter
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { "{column:string1}": Foo }
+      expect: { status: 200 }
+  - http:
+      id: alert_set
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_alert: 1, frequency: 24, view_id: "{view:v2}" }
+  - db:
+      id: alerts
+      op: select
+      table: alert
+      columns: [id, view_id, user_id, frequency]
+  - http:
+      id: data_with_alert
+      as: superadmin
+      path: "/{sheet:s}/data"
+      expect: { status: 200 }
+  - http:
+      id: alert_remove
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_remove: 1, view_id: "{view:v2}" }
+  - db:
+      id: alerts_removed
+      op: select
+      table: alert
+      columns: [id, view_id, user_id, frequency]
+  - http:
+      id: viewtype_bad
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { viewtype: nonsense }
+      expect: { status: 200 }
+  - http:
+      id: download_csv
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { download: "" }
+  - graph:
+      sheet: s
+      user: superadmin
+      title: Strings by enum
+      description: A <b>test</b> graph
+      type: bar
+      x_axis: string1
+      y_axis: enum1
+      y_axis_stack: count
+      is_shared: 1
+      no_data: true
+  - graph:
+      sheet: s
+      user: superadmin
+      title: Pie graph
+      type: pie
+      x_axis: enum1
+      y_axis: string1
+      y_axis_stack: count
+      is_shared: 0
+      no_data: true
+  - http:
+      id: graphs_none_selected
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { viewtype: graph }
+      expect: { status: 200 }
+  - db:
+      op: insert
+      table: user_graph
+      set: { user_id: "@user:superadmin", graph_id: 1 }
+  - db:
+      op: insert
+      table: user_graph
+      set: { user_id: "@user:superadmin", graph_id: 2 }
+  - http:
+      id: graphs_selected
+      as: superadmin
+      path: "/{sheet:s}/data"
+      expect: { status: 200 }
+  - view:
+      sheet: s
+      user: superadmin
+      name: Dates
+      columns: [string1, date1]
+      as: v3
+  - http:
+      id: timeline
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { viewtype: timeline, view: "{view:v3}" }
+      expect: { status: 200 }
+  - http:
+      id: timeline_options
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_timeline: 1, tl_label: "{column:string1}", tl_group: "", tl_color: "" }
+      expect: { status: 200 }
+  - db:
+      id: session_settings_timeline
+      op: select
+      table: user
+      columns: [id, session_settings]
+      where: { id: 1 }
+  - http:
+      id: back_to_table
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { viewtype: table }
+      expect: { status: 200 }
+  - http:
+      id: rewind
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_rewind: 1, rewind_date: "2014-10-01", rewind_time: "" }
+      expect: { status: 200 }
+  - http:
+      id: rewind_invalid
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_rewind: 1, rewind_date: "nonsense" }
+  - http:
+      id: rewind_reset
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_rewind_reset: 1 }
+      expect: { status: 200 }
+  - db:
+      op: update
+      table: view
+      where: { id: "@view:v1" }
+      set: { is_limit_extra: 1 }
+  - db:
+      op: insert
+      table: instance_group
+      set: { instance_id: "@instance:s", group_id: "@group:default", permission: view_limit_extra }
+  - http:
+      id: view_limit_extra
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { extra: "{view:v1}" }
+      expect: { status: 200 }
+  - http:
+      id: views_other_user
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { views_other_user_id: 4, modal_views_other_user: submit }
+      expect: { status: 200 }
+  - http:
+      id: views_other_user_clear
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { views_other_user_clear: submit }
+      expect: { status: 200 }
+  - login: { user: normal1 }
+  - http:
+      id: data_normal
+      as: normal1
+      path: "/{sheet:s}/data"
+      expect: { status: 200 }
+  - http:
+      id: bulk_delete_denied
+      as: normal1
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_delete: 1 }
+  - db:
+      op: insert
+      table: instance_group
+      set: { instance_id: "@instance:s", group_id: "@group:default", permission: bulk_delete }
+  - db:
+      op: insert
+      table: instance_group
+      set: { instance_id: "@instance:s", group_id: "@group:default", permission: delete }
+  - http:
+      id: bulk_delete
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_delete: 1, delete_id: 1 }
+  - db:
+      id: deleted_records
+      op: select
+      table: current
+      columns: [id, deleted, deletedby]
+  - http:
+      id: data_after_delete
+      as: superadmin
+      path: "/{sheet:s}/data"
+      expect: { status: 200 }
+  - http:
+      id: not_logged_in
+      path: "/{sheet:s}/data"
+  - http:
+      id: unknown_table_data
+      as: superadmin
+      path: /nosuchtable/data
+      expect: { status: 404 }

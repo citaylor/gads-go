@@ -1,0 +1,107 @@
+name: 217_web_user_export_upload
+source:
+  - lib/GADS.pm (/user_export/, /user_upload/)
+  - lib/GADS/Users.pm (csv, _produce_csv), lib/GADS/Schema/ResultSet/User.pm (upload)
+  - views/user/user_export.tt, user_upload.tt
+description: >
+  Exporting the users as CSV (produced inline: GADS forks a process for it)
+  with the optional user fields of the site, downloading and clearing
+  exports, and uploading users from CSV (with groups and permissions, the
+  welcome emails, and the errors that fail the whole upload).
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - db:
+      op: insert
+      table: title
+      set: { name: Dr, site_id: 1 }
+  - db:
+      op: update
+      table: user
+      where: { id: 4 }
+      set: { title: 1, freetext1: "=SUM(A1)", account_request_notes: Notes here }
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { register_show_title: 1, register_freetext1_name: Extra }
+  - db:
+      op: insert
+      table: audit
+      set: { user_id: 4, description: Visit, type: user_action, datetime: "2014-10-05 10:00:00", instance_id: 1, site_id: 1 }
+  - login: { user: useradmin }
+  - login: { user: superadmin }
+  - http: { id: export_page, as: useradmin, path: /user_export/ }
+  - http:
+      id: export
+      as: useradmin
+      method: POST
+      path: /user_export/
+      form: { submit: 1 }
+  - http: { id: export_page_after, as: useradmin, path: /user_export/ }
+  - http: { id: download, as: useradmin, path: /user_export/, query: { download: 1 } }
+  - http: { id: download_not_found, as: useradmin, path: /user_export/, query: { download: 99 } }
+  - db:
+      id: exports
+      op: select
+      table: export
+      columns: [id, user_id, type, started, completed, result, result_internal, mimetype]
+  - http:
+      id: clear
+      as: useradmin
+      method: POST
+      path: /user_export/
+      form: { clear: 1 }
+  - http: { id: export_page_cleared, as: useradmin, path: /user_export/ }
+  # Upload
+  - http: { id: upload_page, as: useradmin, path: /user_upload/ }
+  - http:
+      id: upload_no_file
+      as: useradmin
+      method: POST
+      path: /user_upload/
+      form: { submit: 1 }
+  - http:
+      id: upload_no_email_column
+      as: useradmin
+      method: POST
+      path: /user_upload/
+      form: { submit: 1 }
+      upload:
+        file: { filename: users.csv, content: "Forename,Surname\nA,B\n", content_type: text/csv }
+  - http:
+      id: upload_errors
+      as: useradmin
+      method: POST
+      path: /user_upload/
+      form: { submit: 1 }
+      upload:
+        file: { filename: users.csv, content: "Forename,Surname,Email address,Title\nAnn,Able,ann@example.com,Dr\nBob,Baker,user1@example.com,Dr\nCat,Cole,cat@example.com,Prof\n", content_type: text/csv }
+  - db:
+      id: users_after_errors
+      op: select
+      table: user
+      columns: [id, email]
+      order_by: [id]
+  - http: { id: upload_page_superadmin, as: superadmin, path: /user_upload/, no_body: true }
+  - http:
+      id: upload
+      as: superadmin
+      method: POST
+      path: /user_upload/
+      form: { submit: 1, groups: [1], view_limits: [""] }
+      upload:
+        file: { filename: users.csv, content: "﻿Forename,Surname,Email address,Title,Extra\nAnn,Able,ann@example.com,dr,Free\n\"Bob, Jr\",Baker,bob@example.com,Dr,\n", content_type: text/csv }
+  - emails: { id: welcome_emails }
+  - db:
+      id: users_uploaded
+      op: select
+      table: user
+      columns: [id, email, username, firstname, surname, value, title, freetext1, resetpw, site_id]
+      order_by: [id]
+  - db:
+      id: groups_uploaded
+      op: select
+      table: user_group
+      columns: [user_id, group_id]
+      order_by: [user_id, group_id]
+  - http: { id: overview_after_upload, as: useradmin, path: /user_overview/, no_body: true }

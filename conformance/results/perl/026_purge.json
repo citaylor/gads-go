@@ -1,0 +1,1535 @@
+{
+   "runner" : "perl",
+   "scenario" : "026_purge",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "string2" : "9",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree1 initial value",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "tree1" : "tree1"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree1 values before purge",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "4"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:historic_purge",
+         "observed" : {},
+         "pass" : true,
+         "type" : "historic_purge"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree1 value purged",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "tree1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree1 values after purge",
+         "observed" : [
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "1",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string2 values after purging tree1",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "Keep"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string1 initial value",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "string1" : "Foo2"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string1 values before purge",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "Foo"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "Foo2"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:historic_purge",
+         "observed" : {},
+         "pass" : true,
+         "type" : "historic_purge"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string1 value purged",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string1 values after purge",
+         "observed" : [
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "1",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "2",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string2 values after purging string1",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "Keep"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "integer1 initial value",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "integer1" : "72"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "integer1 values before purge",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "50"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "50"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "value" : "72"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:historic_purge",
+         "observed" : {},
+         "pass" : true,
+         "type" : "historic_purge"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "integer1 value purged",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "integer1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "integer1 values after purge",
+         "observed" : [
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "1",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "2",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "3",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string2 values after purging integer1",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "value" : "Keep"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "29:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "date1 initial value",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "date1" : "2024-10-11"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "date1 values before purge",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "2014-10-10"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "2014-10-10"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "value" : "2014-10-10"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "4",
+               "value" : "2024-10-11"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:historic_purge",
+         "observed" : {},
+         "pass" : true,
+         "type" : "historic_purge"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "date1 value purged",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "date1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "date1 values after purge",
+         "observed" : [
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "1",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "2",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "3",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "4",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string2 values after purging date1",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "4",
+               "value" : "Keep"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "36:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "37:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "38:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enum1 initial value",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "enum1" : "foo2"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enum1 values before purge",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "4",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "5",
+               "value" : "2"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "41:historic_purge",
+         "observed" : {},
+         "pass" : true,
+         "type" : "historic_purge"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enum1 value purged",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "enum1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enum1 values after purge",
+         "observed" : [
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "1",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "2",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "3",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "4",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "5",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string2 values after purging enum1",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "4",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "5",
+               "value" : "Keep"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "45:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "46:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "47:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "6"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "daterange1 initial value",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "daterange1" : "2010-02-11 to 2015-06-16"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "daterange1 values before purge",
+         "observed" : [
+            {
+               "from" : "2012-02-10",
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "to" : "2013-06-15",
+               "value" : "2012-02-10 to 2013-06-15"
+            },
+            {
+               "from" : "2012-02-10",
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "to" : "2013-06-15",
+               "value" : "2012-02-10 to 2013-06-15"
+            },
+            {
+               "from" : "2012-02-10",
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "to" : "2013-06-15",
+               "value" : "2012-02-10 to 2013-06-15"
+            },
+            {
+               "from" : "2012-02-10",
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "4",
+               "to" : "2013-06-15",
+               "value" : "2012-02-10 to 2013-06-15"
+            },
+            {
+               "from" : "2012-02-10",
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "5",
+               "to" : "2013-06-15",
+               "value" : "2012-02-10 to 2013-06-15"
+            },
+            {
+               "from" : "2010-02-11",
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "6",
+               "to" : "2015-06-16",
+               "value" : "2010-02-11 to 2015-06-16"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "50:historic_purge",
+         "observed" : {},
+         "pass" : true,
+         "type" : "historic_purge"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "daterange1 value purged",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "daterange1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "daterange1 values after purge",
+         "observed" : [
+            {
+               "from" : null,
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "1",
+               "to" : null,
+               "value" : null
+            },
+            {
+               "from" : null,
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "2",
+               "to" : null,
+               "value" : null
+            },
+            {
+               "from" : null,
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "3",
+               "to" : null,
+               "value" : null
+            },
+            {
+               "from" : null,
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "4",
+               "to" : null,
+               "value" : null
+            },
+            {
+               "from" : null,
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "5",
+               "to" : null,
+               "value" : null
+            },
+            {
+               "from" : null,
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "6",
+               "to" : null,
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string2 values after purging daterange1",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "4",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "5",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "6",
+               "value" : "Keep"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "54:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "55:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "56:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "7"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "person1 initial value",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "person1" : "User2, User2"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "person1 values before purge",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "4",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "5",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "6",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "7",
+               "value" : "2"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "59:historic_purge",
+         "observed" : {},
+         "pass" : true,
+         "type" : "historic_purge"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "person1 value purged",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "person1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "person1 values after purge",
+         "observed" : [
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "1",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "2",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "3",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "4",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "5",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "6",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "7",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string2 values after purging person1",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "4",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "5",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "6",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "7",
+               "value" : "Keep"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "63:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "64:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "65:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "8"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "file1 initial value",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "file1" : "file2.txt"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "file1 values before purge",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "4",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "5",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "6",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "7",
+               "value" : "1"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "8",
+               "value" : "2"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "68:historic_purge",
+         "observed" : {},
+         "pass" : true,
+         "type" : "historic_purge"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "file1 value purged",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "file1" : "Purged"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "file1 values after purge",
+         "observed" : [
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "1",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "2",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "3",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "4",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "5",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "6",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "7",
+               "value" : null
+            },
+            {
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "8",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string2 values after purging file1",
+         "observed" : [
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "1",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "2",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "3",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "4",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "5",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "6",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "7",
+               "value" : "Keep"
+            },
+            {
+               "purged_by" : null,
+               "purged_on" : null,
+               "record_id" : "8",
+               "value" : "Keep"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "72:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "before version purge record versions",
+         "observed" : [
+            {
+               "id" : "1"
+            },
+            {
+               "id" : "2"
+            },
+            {
+               "id" : "3"
+            },
+            {
+               "id" : "4"
+            },
+            {
+               "id" : "5"
+            },
+            {
+               "id" : "6"
+            },
+            {
+               "id" : "7"
+            },
+            {
+               "id" : "8"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "before version purge current version",
+         "observed" : [
+            {
+               "current_version_id" : "8"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "purge version",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "after version purge record versions",
+         "observed" : [
+            {
+               "id" : "1"
+            },
+            {
+               "id" : "2"
+            },
+            {
+               "id" : "3"
+            },
+            {
+               "id" : "4"
+            },
+            {
+               "id" : "5"
+            },
+            {
+               "id" : "6"
+            },
+            {
+               "id" : "7"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "after version purge current version",
+         "observed" : [
+            {
+               "current_version_id" : "7"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

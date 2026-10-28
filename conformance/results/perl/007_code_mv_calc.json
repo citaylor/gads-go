@@ -1,0 +1,416 @@
+{
+   "runner" : "perl",
+   "scenario" : "007_code_mv_calc",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:column",
+         "observed" : {
+            "id" : "17"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "one value written",
+         "observed" : [
+            {
+               "id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "one element",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "calc1" : "10"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "second value not yet written",
+         "observed" : [
+            {
+               "id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "two elements",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "calc1" : "10, 10"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "second value written",
+         "observed" : [
+            {
+               "id" : "1"
+            },
+            {
+               "id" : "2"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not changed to begin with",
+         "observed" : {
+            "changed" : {
+               "calc1" : "0"
+            },
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed after re-evaluation",
+         "observed" : {
+            "changed" : {
+               "calc1" : "1"
+            },
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "values before write",
+         "observed" : [
+            {
+               "id" : "1"
+            },
+            {
+               "id" : "2"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "values after write",
+         "observed" : [
+            {
+               "id" : "1"
+            },
+            {
+               "id" : "2"
+            },
+            {
+               "id" : "3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "old values deleted",
+         "observed" : [
+            {
+               "id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "24:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "25:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "values for int 10",
+         "observed" : [
+            {
+               "id" : "2"
+            },
+            {
+               "id" : "3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not changed after same value",
+         "observed" : {
+            "changed" : {
+               "calc1" : "0"
+            },
+            "current_id" : "1",
+            "values" : {
+               "calc1" : "100, 200"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "30:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not changed after switching elements",
+         "observed" : {
+            "changed" : {
+               "calc1" : "0"
+            },
+            "current_id" : "1",
+            "values" : {
+               "calc1" : "200, 100"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "values after switch",
+         "observed" : [
+            {
+               "id" : "2"
+            },
+            {
+               "id" : "3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

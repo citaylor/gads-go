@@ -1,0 +1,23 @@
+name: 007_curval_internal
+source:
+- t/007_curval_internal.t
+description: Internal columns (serial, ID) used as curval fields
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data: [{string1: foo1}]
+- sheet:
+    as: main
+    curval: cv
+    curval_offset: 6
+    curval_fields: [string1, _serial, _id]
+    data: [{string1: foo, curval1: 1}]
+- held:
+    id: curval with id
+    op: find
+    as: rec
+    sheet: main
+    current_id: 2
+    observe: [curval1]
+    expect: {values: {curval1: '1, 1, foo1'}}

@@ -1,0 +1,72 @@
+name: 211_api_settings_logo
+source:
+  - lib/GADS/API.pm (post /api/settings/logo)
+  - lib/GADS.pm (get /settings/logo)
+  - lib/GADS/Filecheck.pm (is_image, get_filetype), lib/GADS/Schema/Result/Site.pm (load_logo)
+description: >
+  Uploading the logo of the site (images only, by superadmins) and
+  fetching it with the content type of the image.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - login: { user: superadmin }
+  - login: { user: useradmin }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: home_useradmin, as: useradmin, path: /, no_body: true }
+  - http:
+      id: logo_not_configured
+      as: superadmin
+      path: /settings/logo
+  - http:
+      id: no_file
+      as: superadmin
+      method: POST
+      path: /api/settings/logo
+      upload:
+        other: { filename: logo.png, content_b64: "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" }
+  - http:
+      id: not_an_image
+      as: superadmin
+      method: POST
+      path: /api/settings/logo
+      upload:
+        file: { filename: logo.png, content: "Just some text", content_type: image/png }
+  - http:
+      id: binary_not_image
+      as: superadmin
+      method: POST
+      path: /api/settings/logo
+      upload:
+        file: { filename: logo.png, content_b64: "AAECA/4=" }
+  - http:
+      id: useradmin_denied
+      as: useradmin
+      method: POST
+      path: /api/settings/logo
+      upload:
+        file: { filename: logo.gif, content_b64: "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==", content_type: image/gif }
+  - http:
+      id: upload_gif
+      as: superadmin
+      method: POST
+      path: /api/settings/logo
+      upload:
+        file: { filename: logo.gif, content_b64: "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==", content_type: image/gif }
+  - http:
+      id: get_gif
+      as: useradmin
+      path: /settings/logo
+      no_body: true
+  - http:
+      id: upload_svg
+      as: superadmin
+      method: POST
+      path: /api/settings/logo
+      upload:
+        file: { filename: logo.svg, content: "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"10\" height=\"10\"><rect width=\"10\" height=\"10\"/></svg>\n", content_type: text/plain }
+  - http:
+      id: get_svg
+      as: superadmin
+      path: /settings/logo
+  - http:
+      id: get_not_logged_in
+      path: /settings/logo

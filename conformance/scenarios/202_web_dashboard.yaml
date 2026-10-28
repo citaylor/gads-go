@@ -1,0 +1,100 @@
+name: 202_web_dashboard
+source:
+  - lib/GADS.pm (get /, get /:layout_name/, get /table/)
+  - lib/GADS/Schema/ResultSet/Dashboard.pm
+  - lib/GADS/Schema/Result/Dashboard.pm, Widget.pm (notice widgets)
+description: >
+  The home page and table pages show dashboards: shared dashboards are
+  created from the legacy homepage text, personal dashboards are created
+  for each user, a dashboard can be selected with did, and the tables page
+  lists the tables.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { homepage_text: "<p>Site homepage</p>", homepage_text2: "<p>Second column</p>" }
+  - db:
+      op: update
+      table: instance
+      where: { id: 1 }
+      set: { homepage_text: "<p>Table homepage</p>" }
+  - login: { user: superadmin }
+  - http:
+      id: home_superadmin
+      as: superadmin
+      path: /
+      expect: { status: 200 }
+  - db:
+      id: dashboards_after_home
+      op: select
+      table: dashboard
+      columns: [id, instance_id, user_id]
+  - db:
+      id: widgets_after_home
+      op: select
+      table: widget
+      columns: [id, grid_id, dashboard_id, type, title, static, h, w, x, y, content]
+  - http:
+      id: home_personal
+      as: superadmin
+      path: /
+      query: { did: 2 }
+      expect: { status: 200 }
+  - http:
+      id: home_remembers_dashboard
+      as: superadmin
+      path: /
+      expect: { status: 200 }
+  - http:
+      id: table_dashboard
+      as: superadmin
+      path: "/{sheet:s}"
+      expect: { status: 200 }
+  - http:
+      id: table_dashboard_slash
+      as: superadmin
+      path: "/{sheet:s}/"
+      expect: { status: 200 }
+  - db:
+      id: dashboards_after_table
+      op: select
+      table: dashboard
+      columns: [id, instance_id, user_id]
+  - http:
+      id: other_users_dashboard
+      as: superadmin
+      path: /
+      query: { did: 999 }
+  - http:
+      id: tables
+      as: superadmin
+      path: /table
+      expect: { status: 200 }
+  - http:
+      id: unknown_table
+      as: superadmin
+      path: /nosuchtable
+      expect: { status: 404 }
+  - login: { user: normal1 }
+  - http:
+      id: home_normal
+      as: normal1
+      path: /
+      expect: { status: 200 }
+  - http:
+      id: superadmin_dashboard_not_for_normal
+      as: normal1
+      path: /
+      query: { did: 2 }
+  - http:
+      id: tables_normal
+      as: normal1
+      path: /table/
+      expect: { status: 200 }
+  - db:
+      id: session_settings
+      op: select
+      table: user
+      columns: [id, session_settings]

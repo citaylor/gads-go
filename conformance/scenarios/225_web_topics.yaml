@@ -1,0 +1,76 @@
+name: 225_web_topics
+source:
+  - lib/GADS.pm (/:layout_name/topic/:id, /:layout_name/topics)
+  - lib/GADS/Schema/Result/Topic.pm (before_delete)
+  - views/topic.tt, views/topics.tt
+description: >
+  Managing the topics of a table: the list (empty and with topics), adding
+  a topic (with the default initial state), editing it, a topic that does
+  not exist or is of another table, deleting a topic (its fields are
+  removed from it) and the permission needed.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - sheet: { as: other, site_id: 1, instance_id: 2, data: [{ string1: Other }] }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { id: home_normal1, as: normal1, path: /, no_body: true }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: topics_denied, as: normal1, path: "/{sheet:s}/topics" }
+  - http: { id: topic_denied, as: normal1, path: "/{sheet:s}/topic/0" }
+  - http: { id: topics_empty, as: superadmin, path: "/{sheet:s}/topics/" }
+  - http: { id: topic_add_page, as: superadmin, path: "/{sheet:s}/topic/0" }
+  - http:
+      id: topic_add
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/topic/0"
+      form: { submit: submit, name: First <topic>, description: Some *text*, click_to_edit: 0 }
+  - http:
+      id: topic_add_second
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/topic/0"
+      form: { submit: submit, name: Second, description: "", click_to_edit: 1, initial_state: open, prevent_edit_topic_id: 1 }
+  - db:
+      op: insert
+      table: topic
+      set: { instance_id: 2, name: Elsewhere, click_to_edit: 0 }
+  - db:
+      id: topics_created
+      op: select
+      table: topic
+      columns: [id, instance_id, name, description, initial_state, click_to_edit, prevent_edit_topic_id]
+  - http: { id: topics_list, as: superadmin, path: "/{sheet:s}/topics" }
+  - http: { id: topic_edit_page, as: superadmin, path: "/{sheet:s}/topic/1" }
+  - http: { id: topic_edit_open, as: superadmin, path: "/{sheet:s}/topic/2" }
+  - http: { id: topic_other_table, as: superadmin, path: "/{sheet:s}/topic/3" }
+  - http: { id: topic_missing, as: superadmin, path: "/{sheet:s}/topic/99" }
+  - http:
+      id: topic_edit
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/topic/1"
+      form: { submit: submit, name: Renamed, description: New, click_to_edit: 0, initial_state: open }
+  - db:
+      op: update
+      table: layout
+      where: { id: 8 }
+      set: { topic_id: 2 }
+  - http:
+      id: topic_delete
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/topic/2"
+      form: { delete: 1 }
+  - db:
+      id: topics_after
+      op: select
+      table: topic
+      columns: [id, instance_id, name, description, initial_state, click_to_edit, prevent_edit_topic_id]
+  - db:
+      id: layout_topics
+      op: select
+      table: layout
+      where: { id: 8 }
+      columns: [id, topic_id]
+  - http: { id: topics_after_page, as: superadmin, path: "/{sheet:s}/topics" }

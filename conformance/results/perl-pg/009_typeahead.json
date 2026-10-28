@@ -1,0 +1,687 @@
+{
+   "runner" : "perl",
+   "scenario" : "009_typeahead",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enum foo",
+         "observed" : {
+            "can_child" : "0",
+            "enumvals" : [
+               {
+                  "deleted" : "0",
+                  "id" : "7",
+                  "value" : "foo1"
+               },
+               {
+                  "deleted" : "0",
+                  "id" : "8",
+                  "value" : "foo2"
+               },
+               {
+                  "deleted" : "0",
+                  "id" : "9",
+                  "value" : "foo3"
+               }
+            ],
+            "id" : "27",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "enum1",
+            "name_short" : "L1enum1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "enum",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : [
+               {
+                  "id" : "7",
+                  "label" : "foo1"
+               },
+               {
+                  "id" : "8",
+                  "label" : "foo2"
+               },
+               {
+                  "id" : "9",
+                  "label" : "foo3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enum foo1",
+         "observed" : {
+            "can_child" : "0",
+            "enumvals" : [
+               {
+                  "deleted" : "0",
+                  "id" : "7",
+                  "value" : "foo1"
+               },
+               {
+                  "deleted" : "0",
+                  "id" : "8",
+                  "value" : "foo2"
+               },
+               {
+                  "deleted" : "0",
+                  "id" : "9",
+                  "value" : "foo3"
+               }
+            ],
+            "id" : "27",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "enum1",
+            "name_short" : "L1enum1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "enum",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : [
+               {
+                  "id" : "7",
+                  "label" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enum blank",
+         "observed" : {
+            "can_child" : "0",
+            "enumvals" : [
+               {
+                  "deleted" : "0",
+                  "id" : "7",
+                  "value" : "foo1"
+               },
+               {
+                  "deleted" : "0",
+                  "id" : "8",
+                  "value" : "foo2"
+               },
+               {
+                  "deleted" : "0",
+                  "id" : "9",
+                  "value" : "foo3"
+               }
+            ],
+            "id" : "27",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "enum1",
+            "name_short" : "L1enum1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "enum",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : [
+               {
+                  "id" : "7",
+                  "label" : "foo1"
+               },
+               {
+                  "id" : "8",
+                  "label" : "foo2"
+               },
+               {
+                  "id" : "9",
+                  "label" : "foo3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : "",
+         "failures" : [
+            "unexpected error: "
+         ],
+         "id" : "person User1",
+         "observed" : null,
+         "pass" : false,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:db",
+         "observed" : {
+            "id" : "3"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "orgs",
+         "observed" : [
+            {
+               "id" : "1",
+               "name" : "My Organisation"
+            },
+            {
+               "id" : "2",
+               "name" : "My Organisation"
+            },
+            {
+               "id" : "3",
+               "name" : "Another Organisation"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:column",
+         "observed" : {
+            "id" : "32"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : "",
+         "failures" : [
+            "unexpected error: "
+         ],
+         "id" : "person filtered",
+         "observed" : null,
+         "pass" : false,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:column",
+         "observed" : {
+            "id" : "33"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval typeahead no values",
+         "observed" : {
+            "all_values" : [],
+            "can_child" : "0",
+            "filtered_values" : [],
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval1",
+            "name_short" : "L1curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval bar",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval1",
+            "name_short" : "L1curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : []
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval blank",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval1",
+            "name_short" : "L1curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : [
+               {
+                  "id" : "1",
+                  "label" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012"
+               },
+               {
+                  "id" : "2",
+                  "label" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval bar foo",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval1",
+            "name_short" : "L1curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : []
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval contains",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval1",
+            "name_short" : "L1curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : [
+               {
+                  "id" : "2",
+                  "label" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:column",
+         "observed" : {
+            "id" : "33"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval filter 50",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval1",
+            "name_short" : "L1curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : [
+               {
+                  "id" : "1",
+                  "label" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval filter 99",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval1",
+            "name_short" : "L1curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : []
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:column",
+         "observed" : {
+            "id" : "33"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval record filter 50",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval1",
+            "name_short" : "L1curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : [
+               {
+                  "id" : "1",
+                  "label" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval record filter 99",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval1",
+            "name_short" : "L1curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : [
+               {
+                  "id" : "2",
+                  "label" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "calc integer",
+         "observed" : {
+            "can_child" : "0",
+            "depends_on" : [
+               "30"
+            ],
+            "id" : "35",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "calc1",
+            "name_short" : "L1calc1",
+            "numeric" : "1",
+            "optional" : "1",
+            "return_type" : "integer",
+            "type" : "calc",
+            "userinput" : "0",
+            "value_field" : "value_int",
+            "values_beginning_with" : []
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "25:column",
+         "observed" : {
+            "id" : "35"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "calc string",
+         "observed" : {
+            "can_child" : "0",
+            "depends_on" : [
+               "25"
+            ],
+            "id" : "35",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "calc1",
+            "name_short" : "L1calc1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "calc",
+            "userinput" : "0",
+            "value_field" : "value_text",
+            "values_beginning_with" : [
+               "Foo"
+            ]
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "29:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "calc string after write",
+         "observed" : {
+            "can_child" : "0",
+            "depends_on" : [
+               "25"
+            ],
+            "id" : "35",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "calc1",
+            "name_short" : "L1calc1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "calc",
+            "userinput" : "0",
+            "value_field" : "value_text",
+            "values_beginning_with" : [
+               "Foo2"
+            ]
+         },
+         "pass" : true,
+         "type" : "column"
+      }
+   ]
+}

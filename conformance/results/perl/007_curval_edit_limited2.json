@@ -1,0 +1,988 @@
+{
+   "runner" : "perl",
+   "scenario" : "007_curval_edit_limited2",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:column",
+         "observed" : {
+            "id" : "33"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:add_autocur",
+         "observed" : {
+            "id" : "36",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_not_used admin write",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_not_used normal view",
+         "observed" : {
+            "current_id" : "4",
+            "values" : {
+               "curval1" : "Access; Access2; Brown; Smith"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_not_used normal write",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_not_used normal after edit",
+         "observed" : {
+            "current_id" : "4",
+            "values" : {
+               "curval1" : "Access; Access2; Brown"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_not_used curval records",
+         "observed" : [
+            {
+               "deleted" : null,
+               "id" : "1"
+            },
+            {
+               "deleted" : null,
+               "id" : "2"
+            },
+            {
+               "deleted" : null,
+               "id" : "3"
+            },
+            {
+               "deleted" : null,
+               "id" : "5"
+            },
+            {
+               "deleted" : null,
+               "id" : "6"
+            },
+            {
+               "deleted" : null,
+               "id" : "7"
+            },
+            {
+               "deleted" : "2014-10-10 01:00:00",
+               "id" : "8"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:column",
+         "observed" : {
+            "id" : "33"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:add_autocur",
+         "observed" : {
+            "id" : "36",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "24:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "25:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal admin write",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal normal view",
+         "observed" : {
+            "current_id" : "4",
+            "values" : {
+               "curval1" : "Access; Access2; Brown; Smith"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal normal write",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal normal after edit",
+         "observed" : {
+            "current_id" : "4",
+            "values" : {
+               "curval1" : "Access; Access2; Brown"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal curval records",
+         "observed" : [
+            {
+               "deleted" : null,
+               "id" : "1"
+            },
+            {
+               "deleted" : null,
+               "id" : "2"
+            },
+            {
+               "deleted" : null,
+               "id" : "3"
+            },
+            {
+               "deleted" : null,
+               "id" : "5"
+            },
+            {
+               "deleted" : null,
+               "id" : "6"
+            },
+            {
+               "deleted" : null,
+               "id" : "7"
+            },
+            {
+               "deleted" : null,
+               "id" : "8"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "33:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "34:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "35:column",
+         "observed" : {
+            "id" : "33"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "36:add_autocur",
+         "observed" : {
+            "id" : "36",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "37:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "38:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "39:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "40:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "41:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess admin write",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess normal view",
+         "observed" : {
+            "current_id" : "4",
+            "values" : {
+               "curval1" : "Access; Access2"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "44:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess normal write",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess normal after edit",
+         "observed" : {
+            "current_id" : "4",
+            "values" : {
+               "curval1" : "Access; Access2"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess curval records",
+         "observed" : [
+            {
+               "deleted" : null,
+               "id" : "1"
+            },
+            {
+               "deleted" : null,
+               "id" : "2"
+            },
+            {
+               "deleted" : null,
+               "id" : "3"
+            },
+            {
+               "deleted" : null,
+               "id" : "5"
+            },
+            {
+               "deleted" : null,
+               "id" : "6"
+            },
+            {
+               "deleted" : null,
+               "id" : "7"
+            },
+            {
+               "deleted" : null,
+               "id" : "8"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "48:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess admin after edit",
+         "observed" : {
+            "current_id" : "4",
+            "values" : {
+               "curval1" : "Access; Access2; Brown; Smith"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "50:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "51:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "52:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "53:column",
+         "observed" : {
+            "id" : "33"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "54:add_autocur",
+         "observed" : {
+            "id" : "36",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "55:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "56:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "57:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "58:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "59:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess_changed admin write",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess_changed normal view",
+         "observed" : {
+            "current_id" : "4",
+            "values" : {
+               "curval1" : "Access; Access2"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "62:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess_changed normal write",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess_changed normal after edit",
+         "observed" : {
+            "current_id" : "4",
+            "values" : {
+               "curval1" : "Access"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess_changed curval records",
+         "observed" : [
+            {
+               "deleted" : null,
+               "id" : "1"
+            },
+            {
+               "deleted" : null,
+               "id" : "2"
+            },
+            {
+               "deleted" : null,
+               "id" : "3"
+            },
+            {
+               "deleted" : null,
+               "id" : "5"
+            },
+            {
+               "deleted" : "2014-10-10 01:00:00",
+               "id" : "6"
+            },
+            {
+               "deleted" : null,
+               "id" : "7"
+            },
+            {
+               "deleted" : null,
+               "id" : "8"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "66:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "noaccess_changed admin after edit",
+         "observed" : {
+            "current_id" : "4",
+            "values" : {
+               "curval1" : "Access; Brown; Smith"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      }
+   ]
+}

@@ -1,0 +1,63 @@
+name: 238_cli_records
+source:
+  - bin/delete-record-version.pl
+  - bin/delete-file.pl
+  - bin/import-user.pl
+  - bin/fixtimes.pl
+description: >
+  The record maintenance scripts: purging a record version (usage, missing
+  and unknown options, the confirmation), purging files of a record (usage,
+  declining, confirming), importing users from a CSV file (unknown title,
+  organisation and group, and a successful import) and the summer time fix
+  of record created times.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - string1: Foo1
+          file1: { name: file1.txt, mimetype: text/plain, content: Text file1 }
+        - { string1: Bar1 }
+  - held: { op: find, as: r, sheet: s, current_id: 1 }
+  - held: { op: set, as: r, values: { string1: Foo2 } }
+  - held: { op: write, as: r }
+  - cli: { id: drv_no_args, script: delete-record-version.pl }
+  - cli: { id: drv_missing, script: delete-record-version.pl, args: [--record-id, 99] }
+  - cli: { id: drv_bad_option, script: delete-record-version.pl, args: [--nope] }
+  - cli: { id: drv_abbrev, script: delete-record-version.pl, args: [--rec, 3], stdin: "\n" }
+  - db: { id: records_after_purge, op: select, table: record, columns: [id, current_id], order_by: [id] }
+  - cli: { id: df_usage, script: delete-file.pl }
+  - cli: { id: df_usage_one, script: delete-file.pl, args: [1] }
+  - cli: { id: df_decline, script: delete-file.pl, args: [1, "{column:s:file1}"], stdin: "n\n" }
+  - db: { id: files_declined, op: select, table: fileval, columns: [id, name, mimetype], order_by: [id] }
+  - cli: { id: df_none, script: delete-file.pl, args: [2, "{column:s:file1}"], stdin: "y\n" }
+  - cli: { id: df_confirm, script: delete-file.pl, args: [1, "{column:s:file1}"], stdin: "Yes\n" }
+  - db: { id: files_purged, op: select, table: fileval, columns: [id, name, mimetype], order_by: [id] }
+  - db: { op: insert, table: title, set: { name: Dr, site_id: 1 } }
+  - db: { op: insert, table: organisation, set: { name: Acme, site_id: 1 } }
+  - cli: { id: iu_usage, script: import-user.pl }
+  - cli:
+      id: iu_bad_title
+      script: import-user.pl
+      args: ["{file:users.csv}"]
+      files: { users.csv: "Jo,Bloggs,jo@example.com,f1,f2,Prof,Acme,group1\n" }
+  - cli:
+      id: iu_bad_org
+      script: import-user.pl
+      args: ["{file:users.csv}"]
+      files: { users.csv: "Jo,Bloggs,jo@example.com,f1,f2,Dr,Nope,group1\n" }
+  - cli:
+      id: iu_bad_group
+      script: import-user.pl
+      args: ["{file:users.csv}"]
+      files: { users.csv: "Jo,Bloggs,jo@example.com,f1,f2,Dr,Acme,nogroup\n" }
+  - cli:
+      id: iu_ok
+      script: import-user.pl
+      args: ["{file:users.csv}"]
+      files: { users.csv: "Jo,Bloggs,jo@example.com,f1,f2,Dr,Acme,group1\n\"Ann, Q\",Smith,ann@example.com,,\"x \"\"y\"\"\",Dr,Acme,group1\n" }
+  - db: { id: users_imported, op: select, table: user, columns: [id, firstname, surname, email, username, freetext1, freetext2, title, organisation], order_by: [id] }
+  - db: { id: user_groups, op: select, table: user_group, columns: [user_id, group_id], order_by: [user_id, group_id] }
+  - db: { op: update, table: record, where: { id: 1 }, set: { created: "2020-04-01 10:00:00" } }
+  - cli: { id: fixtimes, script: fixtimes.pl }
+  - db: { id: created_fixed, op: select, table: record, columns: [id, created], order_by: [id] }

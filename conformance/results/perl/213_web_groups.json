@@ -1,0 +1,736 @@
+{
+   "runner" : "perl",
+   "scenario" : "213_web_groups",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "groups",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>group | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups nav__link--active\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info col-lg-6\">\n    <h1 class=\"content-block__title\">\n      Group\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      Groups are the basis for LinkSpace’s fine-grained access control. Users can be allocated to any number of groups. You then set the group permissions for every field you create to control what fields users can view or edit.\n    </div>\n  </div>\n  \n    <div class=\"content-block__aside col-lg-6\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <a href=\"/group_add/\" class=\"btn btn-primary btn-add\">\n        Add group        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n<div class=\"content-block__main\">\n  \n\n<table\n  class=\"data-table  table \"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJHcm91cCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJHcm91cCIsIndpZHRoIjoiOTAlIn0seyJjbGFzc05hbWUiOiJtaW4tdGFibGV0LWwgZGF0YS10YWJsZV9faGVhZGVyLS1pbnZpc2libGUiLCJuYW1lIjoiIiwib3JkZXJhYmxlIjowfSx7ImNsYXNzTmFtZSI6ImR0ci1jb250cm9sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IlRvZ2dsZSBjaGlsZCByb3ciLCJvcmRlcmFibGUiOjAsInRhcmdldHMiOi0xfV0sImlEaXNwbGF5TGVuZ3RoIjotMSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6Ik5vIGdyb3VwcyBhdmFpbGFibGUifSwibGF5b3V0IjoiIiwib3JkZXIiOltdLCJvcmRlcmluZyI6MSwicGFnaW5nIjoxLCJyZXNwb25zaXZlIjp7ImRldGFpbHMiOnsidGFyZ2V0IjotMSwidHlwZSI6ImNvbHVtbiJ9fSwic2Nyb2xsWSI6IiJ9'\n>\n  \n    <caption class=\"visually-hidden\">Groups table</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Group\n  </span>\n</th>\n\n<th >\n  <span>\n    Delete\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  <a href='/group_edit/3' class='link link--plain'>\n    delete_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"delete_1\"\n    data-id=3\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/6' class='link link--plain'>\n    download_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"download_1\"\n    data-id=6\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/1' class='link link--plain'>\n    group1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"group1\"\n    data-id=1\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/2' class='link link--plain'>\n    link_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"link_1\"\n    data-id=2\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/4' class='link link--plain'>\n    purge_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"purge_1\"\n    data-id=4\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/8' class='link link--plain'>\n    view_create_4\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_create_4\"\n    data-id=8\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/9' class='link link--plain'>\n    view_create_5\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_create_5\"\n    data-id=9\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/5' class='link link--plain'>\n    view_group_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_group_1\"\n    data-id=5\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/7' class='link link--plain'>\n    view_limit_extra_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_limit_extra_1\"\n    data-id=7\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n</div>\n<div class=\"modal modal--delete\"  id=\"deleteModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"deleteModalLabel\">\n      Delete group\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <form role=\"form\" method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\" >\n          <div class=\"modal-body\">\n            <p>Are you sure you want to delete this group? You cannot undo this step.</p>\n          </div>\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"delete\" value=\"delete\">\n    <span class=\"btn__title\">Delete</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add_form",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>group | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups nav__link--active\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"http://localhost/group_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Create group</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      In this window you can create a permission group. Under table and field management you can define permissions and functions available to this group.\n    </div>\n  </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <form method=\"post\"><input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n    <div class=\"form-group mb-4\">\n      <div class=\"row\">\n        <div class=\"col-lg-6\">\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"name\" class=\"form-label\">\n    Group\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"name\"\n        name=\"name\"\n        placeholder=\"Name of group\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n        </div>      </div>\n    </div>\n    \n<div class=\"row\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"http://localhost/group_overview/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-sm-auto\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Save</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n  </form>\n</div>\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add_no_name",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>group | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups nav__link--active\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Please enter a name\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"http://localhost/group_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Create group</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      In this window you can create a permission group. Under table and field management you can define permissions and functions available to this group.\n    </div>\n  </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <form method=\"post\"><input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n    <div class=\"form-group mb-4\">\n      <div class=\"row\">\n        <div class=\"col-lg-6\">\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"name\" class=\"form-label\">\n    Group\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"name\"\n        name=\"name\"\n        placeholder=\"Name of group\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n        </div>      </div>\n    </div>\n    \n<div class=\"row\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"http://localhost/group_overview/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-sm-auto\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Save</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n  </form>\n</div>\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/group_overview/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/group_overview/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add2",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/group_overview/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/group_overview/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "groups_after_add",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>group | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups nav__link--active\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Group has been created successfully\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Group has been created successfully\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info col-lg-6\">\n    <h1 class=\"content-block__title\">\n      Group\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      Groups are the basis for LinkSpace’s fine-grained access control. Users can be allocated to any number of groups. You then set the group permissions for every field you create to control what fields users can view or edit.\n    </div>\n  </div>\n  \n    <div class=\"content-block__aside col-lg-6\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <a href=\"/group_add/\" class=\"btn btn-primary btn-add\">\n        Add group        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n<div class=\"content-block__main\">\n  \n\n<table\n  class=\"data-table  table \"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJHcm91cCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJHcm91cCIsIndpZHRoIjoiOTAlIn0seyJjbGFzc05hbWUiOiJtaW4tdGFibGV0LWwgZGF0YS10YWJsZV9faGVhZGVyLS1pbnZpc2libGUiLCJuYW1lIjoiIiwib3JkZXJhYmxlIjowfSx7ImNsYXNzTmFtZSI6ImR0ci1jb250cm9sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IlRvZ2dsZSBjaGlsZCByb3ciLCJvcmRlcmFibGUiOjAsInRhcmdldHMiOi0xfV0sImlEaXNwbGF5TGVuZ3RoIjotMSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6Ik5vIGdyb3VwcyBhdmFpbGFibGUifSwibGF5b3V0IjoiIiwib3JkZXIiOltdLCJvcmRlcmluZyI6MSwicGFnaW5nIjoxLCJyZXNwb25zaXZlIjp7ImRldGFpbHMiOnsidGFyZ2V0IjotMSwidHlwZSI6ImNvbHVtbiJ9fSwic2Nyb2xsWSI6IiJ9'\n>\n  \n    <caption class=\"visually-hidden\">Groups table</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Group\n  </span>\n</th>\n\n<th >\n  <span>\n    Delete\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  <a href='/group_edit/11' class='link link--plain'>\n    Authors\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"Authors\"\n    data-id=11\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/10' class='link link--plain'>\n    Editors\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"Editors\"\n    data-id=10\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/3' class='link link--plain'>\n    delete_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"delete_1\"\n    data-id=3\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/6' class='link link--plain'>\n    download_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"download_1\"\n    data-id=6\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/1' class='link link--plain'>\n    group1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"group1\"\n    data-id=1\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/2' class='link link--plain'>\n    link_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"link_1\"\n    data-id=2\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/4' class='link link--plain'>\n    purge_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"purge_1\"\n    data-id=4\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/8' class='link link--plain'>\n    view_create_4\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_create_4\"\n    data-id=8\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/9' class='link link--plain'>\n    view_create_5\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_create_5\"\n    data-id=9\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/5' class='link link--plain'>\n    view_group_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_group_1\"\n    data-id=5\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/7' class='link link--plain'>\n    view_limit_extra_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_limit_extra_1\"\n    data-id=7\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n</div>\n<div class=\"modal modal--delete\"  id=\"deleteModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"deleteModalLabel\">\n      Delete group\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <form role=\"form\" method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\" >\n          <div class=\"modal-body\">\n            <p>Are you sure you want to delete this group? You cannot undo this step.</p>\n          </div>\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"delete\" value=\"delete\">\n    <span class=\"btn__title\">Delete</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "groups_db",
+         "observed" : [
+            {
+               "default_read" : "0",
+               "default_write_new" : "0",
+               "id" : "1",
+               "name" : "group1",
+               "site_id" : "1"
+            },
+            {
+               "default_read" : "0",
+               "default_write_new" : "0",
+               "id" : "2",
+               "name" : "link_1",
+               "site_id" : "1"
+            },
+            {
+               "default_read" : "0",
+               "default_write_new" : "0",
+               "id" : "3",
+               "name" : "delete_1",
+               "site_id" : "1"
+            },
+            {
+               "default_read" : "0",
+               "default_write_new" : "0",
+               "id" : "4",
+               "name" : "purge_1",
+               "site_id" : "1"
+            },
+            {
+               "default_read" : "0",
+               "default_write_new" : "0",
+               "id" : "5",
+               "name" : "view_group_1",
+               "site_id" : "1"
+            },
+            {
+               "default_read" : "0",
+               "default_write_new" : "0",
+               "id" : "6",
+               "name" : "download_1",
+               "site_id" : "1"
+            },
+            {
+               "default_read" : "0",
+               "default_write_new" : "0",
+               "id" : "7",
+               "name" : "view_limit_extra_1",
+               "site_id" : "1"
+            },
+            {
+               "default_read" : "0",
+               "default_write_new" : "0",
+               "id" : "8",
+               "name" : "view_create_4",
+               "site_id" : "1"
+            },
+            {
+               "default_read" : "0",
+               "default_write_new" : "0",
+               "id" : "9",
+               "name" : "view_create_5",
+               "site_id" : "1"
+            },
+            {
+               "default_read" : "0",
+               "default_write_new" : "0",
+               "id" : "10",
+               "name" : "Editors",
+               "site_id" : "1"
+            },
+            {
+               "default_read" : "0",
+               "default_write_new" : "0",
+               "id" : "11",
+               "name" : "Authors",
+               "site_id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edit_form",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>group | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups nav__link--active\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"http://localhost/group_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Edit group</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      In this window you can create a permission group. Under table and field management you can define permissions and functions available to this group.\n    </div>\n  </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <form method=\"post\"><input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n<input type=\"hidden\"\n       name=\"id\"\n       value=\"10\">\n    <div class=\"form-group mb-4\">\n      <div class=\"row\">\n        <div class=\"col-lg-6\">\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"name\" class=\"form-label\">\n    Group\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"name\"\n        name=\"name\"\n        placeholder=\"Name of group\"\n        value=\"Editors\"\n        data-restore-value=\"Editors\"\n      >\n    </div>\n  </div>\n  \n\n\n        </div>        <div class=\"col align-self-end mb-3\">\n          <button\n            type=\"button\"\n            class=\"btn btn-delete btn-js-delete\"\n            data-bs-toggle=\"modal\"\n            data-bs-target=\"#deleteModal\"\n            data-title=\"Editors\"\n            data-id=\"10\"\n          >\n            <span class=\"btn__title\">Delete group</span>\n          </button>\n        </div>      </div>\n    </div>\n    \n<div class=\"row\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"http://localhost/group_overview/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-sm-auto\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Save</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n  </form>\n</div><div class=\"modal modal--delete\"  id=\"deleteModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"deleteModalLabel\">\n      Delete group\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <form role=\"form\" method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\" >\n          <div class=\"modal-body\">\n            <p>Are you sure you want to delete this group? You cannot undo this step.</p>\n          </div>\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"delete\" value=\"delete\">\n    <span class=\"btn__title\">Delete</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rename",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/group_overview/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/group_overview/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rename_no_name",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>group | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups nav__link--active\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Group has been updated successfully\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Please enter a name\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"http://localhost/group_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Edit group</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      In this window you can create a permission group. Under table and field management you can define permissions and functions available to this group.\n    </div>\n  </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <form method=\"post\"><input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n<input type=\"hidden\"\n       name=\"id\"\n       value=\"10\">\n    <div class=\"form-group mb-4\">\n      <div class=\"row\">\n        <div class=\"col-lg-6\">\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"name\" class=\"form-label\">\n    Group\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"name\"\n        name=\"name\"\n        placeholder=\"Name of group\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n        </div>        <div class=\"col align-self-end mb-3\">\n          <button\n            type=\"button\"\n            class=\"btn btn-delete btn-js-delete\"\n            data-bs-toggle=\"modal\"\n            data-bs-target=\"#deleteModal\"\n            data-title=\"\"\n            data-id=\"10\"\n          >\n            <span class=\"btn__title\">Delete group</span>\n          </button>\n        </div>      </div>\n    </div>\n    \n<div class=\"row\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"http://localhost/group_overview/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-sm-auto\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Save</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n  </form>\n</div><div class=\"modal modal--delete\"  id=\"deleteModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"deleteModalLabel\">\n      Delete group\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <form role=\"form\" method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\" >\n          <div class=\"modal-body\">\n            <p>Are you sure you want to delete this group? You cannot undo this step.</p>\n          </div>\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"delete\" value=\"delete\">\n    <span class=\"btn__title\">Delete</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edit_not_found",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>group | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups nav__link--active\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"http://localhost/group_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Create group</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      In this window you can create a permission group. Under table and field management you can define permissions and functions available to this group.\n    </div>\n  </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <form method=\"post\"><input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n    <div class=\"form-group mb-4\">\n      <div class=\"row\">\n        <div class=\"col-lg-6\">\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"name\" class=\"form-label\">\n    Group\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"name\"\n        name=\"name\"\n        placeholder=\"Name of group\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n        </div>      </div>\n    </div>\n    \n<div class=\"row\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"http://localhost/group_overview/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-sm-auto\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Save</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n  </form>\n</div>\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edit_not_found_submit",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/group_overview/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/group_overview/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:db",
+         "observed" : {
+            "id" : "14"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:db",
+         "observed" : {
+            "id" : "9"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:db",
+         "observed" : {
+            "id" : "51"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_overview",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/group_overview/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/group_overview/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_not_found",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/group_overview/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/group_overview/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_edit",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/group_overview/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/group_overview/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "groups_final",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>group | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups nav__link--active\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Group has been updated successfully\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    The group has been deleted successfully\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    The group has been deleted successfully\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    The group has been deleted successfully\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info col-lg-6\">\n    <h1 class=\"content-block__title\">\n      Group\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      Groups are the basis for LinkSpace’s fine-grained access control. Users can be allocated to any number of groups. You then set the group permissions for every field you create to control what fields users can view or edit.\n    </div>\n  </div>\n  \n    <div class=\"content-block__aside col-lg-6\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <a href=\"/group_add/\" class=\"btn btn-primary btn-add\">\n        Add group        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n<div class=\"content-block__main\">\n  \n\n<table\n  class=\"data-table  table \"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJHcm91cCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJHcm91cCIsIndpZHRoIjoiOTAlIn0seyJjbGFzc05hbWUiOiJtaW4tdGFibGV0LWwgZGF0YS10YWJsZV9faGVhZGVyLS1pbnZpc2libGUiLCJuYW1lIjoiIiwib3JkZXJhYmxlIjowfSx7ImNsYXNzTmFtZSI6ImR0ci1jb250cm9sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IlRvZ2dsZSBjaGlsZCByb3ciLCJvcmRlcmFibGUiOjAsInRhcmdldHMiOi0xfV0sImlEaXNwbGF5TGVuZ3RoIjotMSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6Ik5vIGdyb3VwcyBhdmFpbGFibGUifSwibGF5b3V0IjoiIiwib3JkZXIiOltdLCJvcmRlcmluZyI6MSwicGFnaW5nIjoxLCJyZXNwb25zaXZlIjp7ImRldGFpbHMiOnsidGFyZ2V0IjotMSwidHlwZSI6ImNvbHVtbiJ9fSwic2Nyb2xsWSI6IiJ9'\n>\n  \n    <caption class=\"visually-hidden\">Groups table</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Group\n  </span>\n</th>\n\n<th >\n  <span>\n    Delete\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  <a href='/group_edit/12' class='link link--plain'>\n    Created by edit\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"Created by edit\"\n    data-id=12\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/3' class='link link--plain'>\n    delete_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"delete_1\"\n    data-id=3\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/6' class='link link--plain'>\n    download_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"download_1\"\n    data-id=6\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/1' class='link link--plain'>\n    group1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"group1\"\n    data-id=1\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/2' class='link link--plain'>\n    link_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"link_1\"\n    data-id=2\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/4' class='link link--plain'>\n    purge_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"purge_1\"\n    data-id=4\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/8' class='link link--plain'>\n    view_create_4\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_create_4\"\n    data-id=8\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/9' class='link link--plain'>\n    view_create_5\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_create_5\"\n    data-id=9\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/5' class='link link--plain'>\n    view_group_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_group_1\"\n    data-id=5\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/group_edit/7' class='link link--plain'>\n    view_limit_extra_1\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteModal\"\n    data-title=\"view_limit_extra_1\"\n    data-id=7\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n</div>\n<div class=\"modal modal--delete\"  id=\"deleteModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"deleteModalLabel\">\n      Delete group\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <form role=\"form\" method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\" >\n          <div class=\"modal-body\">\n            <p>Are you sure you want to delete this group? You cannot undo this step.</p>\n          </div>\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"delete\" value=\"delete\">\n    <span class=\"btn__title\">Delete</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "groups_final_db",
+         "observed" : [
+            {
+               "id" : "1",
+               "name" : "group1"
+            },
+            {
+               "id" : "2",
+               "name" : "link_1"
+            },
+            {
+               "id" : "3",
+               "name" : "delete_1"
+            },
+            {
+               "id" : "4",
+               "name" : "purge_1"
+            },
+            {
+               "id" : "5",
+               "name" : "view_group_1"
+            },
+            {
+               "id" : "6",
+               "name" : "download_1"
+            },
+            {
+               "id" : "7",
+               "name" : "view_limit_extra_1"
+            },
+            {
+               "id" : "8",
+               "name" : "view_create_4"
+            },
+            {
+               "id" : "9",
+               "name" : "view_create_5"
+            },
+            {
+               "id" : "12",
+               "name" : "Created by edit"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "memberships",
+         "observed" : [
+            {
+               "group_id" : "1",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "2",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "3",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "4",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "5",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "6",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "7",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "2"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "3"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "4"
+            },
+            {
+               "group_id" : "8",
+               "user_id" : "4"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "5"
+            },
+            {
+               "group_id" : "9",
+               "user_id" : "5"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "perms",
+         "observed" : [
+            {
+               "group_id" : "2",
+               "instance_id" : "1",
+               "permission" : "link"
+            },
+            {
+               "group_id" : "3",
+               "instance_id" : "1",
+               "permission" : "delete"
+            },
+            {
+               "group_id" : "4",
+               "instance_id" : "1",
+               "permission" : "purge"
+            },
+            {
+               "group_id" : "5",
+               "instance_id" : "1",
+               "permission" : "view_group"
+            },
+            {
+               "group_id" : "6",
+               "instance_id" : "1",
+               "permission" : "download"
+            },
+            {
+               "group_id" : "7",
+               "instance_id" : "1",
+               "permission" : "view_limit_extra"
+            },
+            {
+               "group_id" : "8",
+               "instance_id" : "1",
+               "permission" : "view_create"
+            },
+            {
+               "group_id" : "9",
+               "instance_id" : "1",
+               "permission" : "view_create"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_denied",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        <p>You do not have access to the requested page. Please contact the system administrator to request access.</p>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "403"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "added_after_missing_delete",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/group_overview/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/group_overview/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ids_after_missing_delete",
+         "observed" : [
+            {
+               "id" : "1",
+               "name" : "group1"
+            },
+            {
+               "id" : "2",
+               "name" : "link_1"
+            },
+            {
+               "id" : "3",
+               "name" : "delete_1"
+            },
+            {
+               "id" : "4",
+               "name" : "purge_1"
+            },
+            {
+               "id" : "5",
+               "name" : "view_group_1"
+            },
+            {
+               "id" : "6",
+               "name" : "download_1"
+            },
+            {
+               "id" : "7",
+               "name" : "view_limit_extra_1"
+            },
+            {
+               "id" : "8",
+               "name" : "view_create_4"
+            },
+            {
+               "id" : "9",
+               "name" : "view_create_5"
+            },
+            {
+               "id" : "12",
+               "name" : "Created by edit"
+            },
+            {
+               "id" : "13",
+               "name" : "Last"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

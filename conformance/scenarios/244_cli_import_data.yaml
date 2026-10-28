@@ -1,0 +1,80 @@
+name: 244_cli_import_data
+source:
+  - bin/import.pl
+  - lib/GADS/Schema/ResultSet/User.pm, Current.pm (import_hash)
+  - lib/GADS/Column/*.pm (import_value)
+description: >
+  Importing a site exported with its data (users and records with values
+  of each type) into a new site, with --create-users (and the error when
+  the users do not exist without it), with and without --report-only, and
+  the site as exported again after the import.
+steps:
+  - sheet:
+      as: cv
+      site_id: 1
+      instance_id: 2
+      data:
+        - { string1: Foo }
+        - { string1: Bar }
+  - sheet:
+      as: s
+      curval: cv
+      curval_fields: [string1]
+      multivalue: 1
+      data:
+        - string1: Foo1
+          integer1: 10
+          enum1: [7, 8]
+          tree1: 11
+          date1: "2014-10-10"
+          daterange1: ["2014-01-01", "2014-12-31"]
+          person1: 2
+          curval1: [1, 2]
+          file1: { name: file1.txt, mimetype: text/plain, content: "Text file1 with a line longer than the seventy six characters of a base64 line" }
+        - { string1: Bar1 }
+  - db: { op: insert, table: topic, set: { name: My topic, instance_id: 1, click_to_edit: 1, description: About it, initial_state: collapsed } }
+  - db: { op: update, table: layout, where: { id: "@column:s:string1" }, set: { topic_id: 1, description: A string, helptext: Help } }
+  - db: { op: insert, table: metric_group, set: { name: Targets, instance_id: 1 } }
+  - db: { op: insert, table: metric, set: { metric_group: 1, x_axis_value: Foo1, target: 20, y_axis_grouping_value: foo1 } }
+  - db: { op: insert, table: graph, set: { title: Shared graph, type: bar, x_axis: "@column:s:string1", y_axis: "@column:s:integer1", y_axis_stack: sum, instance_id: 1, is_shared: 1, metric_group: 1, from: "2014-01-01", to: "2014-12-31", x_axis_range: custom } }
+  - db: { op: insert, table: graph, set: { title: Personal graph, type: line, x_axis: "@column:s:string1", y_axis_stack: count, instance_id: 1, user_id: 4 } }
+  - view:
+      op: create
+      sheet: s
+      as: v
+      name: Shared
+      global: 1
+      columns: [string1, integer1]
+      sorts: [{ name: string1, type: desc }]
+      filter:
+        rules:
+          - { name: string1, type: string, operator: equal, value: Foo1 }
+  - view: { op: create, sheet: s, as: va, name: Admin view, is_admin: 1, columns: [string1] }
+  - view: { op: create, sheet: s, as: vp, name: Personal, global: 0, columns: [string1] }
+  - cli: { id: ex, script: export.pl, args: [--site-id, 1, --include-data], dir: d }
+  - db: { op: update, table: user, where: { id: 1 }, set: { username: old1@example.com, email: old1@example.com } }
+  - db: { op: update, table: user, where: { id: 2 }, set: { username: old2@example.com, email: old2@example.com } }
+  - db: { op: update, table: user, where: { id: 3 }, set: { username: old3@example.com, email: old3@example.com } }
+  - db: { op: update, table: user, where: { id: 4 }, set: { username: old4@example.com, email: old4@example.com } }
+  - db: { op: update, table: user, where: { id: 5 }, set: { username: old5@example.com, email: old5@example.com } }
+  - db: { op: insert, table: site, set: { id: 2, host: other.example.com } }
+  - cli: { id: no_users, script: import.pl, args: [--site-id, 2], dir: d }
+  - cli: { id: report, script: import.pl, args: [--site-id, 2, --report-only, --create-users], dir: d }
+  - db: { id: after_report, op: select, table: record, columns: [id], where: { id: { ">": 4 } } }
+  - cli: { id: import, script: import.pl, args: [--site-id, 2, --create-users, --update-cached], dir: d }
+  - db: { id: user_groups, op: select, table: user_group, columns: [user_id, group_id], where: { user_id: { ">": 5 } }, order_by: [user_id, group_id] }
+  - db: { id: user_permissions, op: select, table: user_permission, columns: [user_id, permission_id], where: { user_id: { ">": 5 } }, order_by: [user_id, permission_id] }
+  - db: { id: currents, op: select, table: current, columns: [id, serial, instance_id, deleted, deletedby, draftuser_id], where: { id: { ">": 4 } }, order_by: [id] }
+  - db: { id: records, op: select, table: record, columns: [id, created, current_id, createdby, approvedby, approval], where: { id: { ">": 4 } }, order_by: [id] }
+  - db: { id: strings, op: select, table: string, columns: [record_id, layout_id, child_unique, value, value_index], where: { record_id: { ">": 4 } }, order_by: [record_id, layout_id] }
+  - db: { id: intgrs, op: select, table: intgr, columns: [record_id, layout_id, value], where: { record_id: { ">": 4 } }, order_by: [record_id, layout_id] }
+  - db: { id: enums, op: select, table: enum, columns: [record_id, layout_id, value], where: { record_id: { ">": 4 } }, order_by: [record_id, layout_id, value] }
+  - db: { id: dates, op: select, table: date, columns: [record_id, layout_id, value], where: { record_id: { ">": 4 } }, order_by: [record_id, layout_id] }
+  - db: { id: dateranges, op: select, table: daterange, columns: [record_id, layout_id, from, to, value], where: { record_id: { ">": 4 } }, order_by: [record_id, layout_id] }
+  - db: { id: people, op: select, table: person, columns: [record_id, layout_id, value], where: { record_id: { ">": 4 } }, order_by: [record_id, layout_id] }
+  - db: { id: curvals, op: select, table: curval, columns: [record_id, layout_id, value], where: { record_id: { ">": 4 } }, order_by: [record_id, layout_id, value] }
+  - db: { id: files, op: select, table: file, columns: [record_id, layout_id, value], where: { record_id: { ">": 4 } }, order_by: [record_id, layout_id] }
+  - db: { id: filevals, op: select, table: fileval, columns: [id, name, mimetype], order_by: [id] }
+  - db: { id: calcvals, op: select, table: calcval, columns: [record_id, layout_id, value_text, value_int, value_date], where: { record_id: { ">": 4 } }, order_by: [record_id, layout_id] }
+  - db: { id: ragvals, op: select, table: ragval, columns: [record_id, layout_id, value], where: { record_id: { ">": 4 } }, order_by: [record_id, layout_id] }
+  - cli: { id: export_again, script: export.pl, args: [--site-id, 2, --include-data], observe_files: content }

@@ -1,0 +1,193 @@
+name: 208_api_users_values
+source:
+  - lib/GADS/API.pm (any /api/users, post /:layout_name/api/field/values/:id)
+  - lib/GADS/Schema/ResultSet/User.pm (summary), Result/User.pm (for_data_table)
+  - lib/GADS/Column/Curcommon.pm (filtered_values)
+description: >
+  The users API of the user administration table (columns, paging, sorting
+  by each column, searching, the site's optional user fields) and the API
+  of the values of a filtered curval field, given the values of the fields
+  its filter refers to.
+steps:
+  - sheet:
+      as: cv
+      site_id: 1
+      instance_id: 2
+      data:
+        - { string1: Foo, integer1: 10 }
+        - { string1: Foo, integer1: 20 }
+        - { string1: Bar, integer1: 30 }
+  - sheet:
+      as: s
+      curval: cv
+      curval_fields: [integer1]
+      data:
+        - { string1: Foo }
+  - column:
+      op: update
+      sheet: s
+      column: curval1
+      set:
+        filter:
+          rules:
+            - { name: string1, type: string, value: $L1string1, operator: equal }
+          condition: AND
+  - column:
+      op: update
+      sheet: s
+      column: string1
+      set: { optional: 0 }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  # Users API
+  - http:
+      id: users_columns
+      as: superadmin
+      path: /api/users
+      query: { cols: 1 }
+  - http:
+      id: users_default
+      as: superadmin
+      path: /api/users
+      query: { draw: 3 }
+  - http:
+      id: users_page
+      as: superadmin
+      path: /api/users
+      query: { start: 2, length: 2 }
+  - http:
+      id: users_sort_email_asc
+      as: superadmin
+      path: /api/users
+      query: { "order[0][column]": 1, "order[0][dir]": asc, "columns[1][name]": Email address }
+  - http:
+      id: users_sort_id
+      as: superadmin
+      path: /api/users
+      query: { "order[0][column]": 0, "order[0][dir]": asc, "columns[0][name]": ID }
+  - http:
+      id: users_sort_created
+      as: superadmin
+      path: /api/users
+      query: { "order[0][column]": 0, "columns[0][name]": Created }
+  - http:
+      id: users_sort_lastlogin
+      as: superadmin
+      path: /api/users
+      query: { "order[0][column]": 0, "order[0][dir]": asc, "columns[0][name]": Last login }
+  - http:
+      id: users_search
+      as: superadmin
+      path: /api/users
+      query: { "search[value]": "user4" }
+  - http:
+      id: users_search_words
+      as: superadmin
+      path: /api/users
+      query: { "search[value]": "  example  User5 " }
+  - http:
+      id: users_search_id
+      as: superadmin
+      path: /api/users
+      query: { "search[value]": "2" }
+  - http:
+      id: users_search_underscore
+      as: superadmin
+      path: /api/users
+      query: { "search[value]": "user_1" }
+  - http:
+      id: home_for_csrf
+      as: superadmin
+      path: /
+      no_body: true
+  - http:
+      id: users_post
+      as: superadmin
+      method: POST
+      path: /api/users
+      form: { length: 1, start: 1 }
+  - http:
+      id: users_denied
+      as: normal1
+      path: /api/users
+  # Optional user fields of the site
+  - db:
+      op: insert
+      table: organisation
+      set: { name: Acme, site_id: 1 }
+  - db:
+      op: update
+      table: user
+      where: { id: 4 }
+      set: { organisation: 3, freetext1: Extra info }
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { register_show_title: 1, register_show_organisation: 1, register_organisation_name: Company, register_freetext1_name: Notes1 }
+  - http:
+      id: users_columns_fields
+      as: superadmin
+      path: /api/users
+      query: { cols: 1 }
+  - http:
+      id: users_fields
+      as: superadmin
+      path: /api/users
+  - http:
+      id: users_sort_organisation
+      as: superadmin
+      path: /api/users
+      query: { "order[0][column]": 0, "order[0][dir]": asc, "columns[0][name]": Company }
+  - http:
+      id: users_search_organisation
+      as: superadmin
+      path: /api/users
+      query: { "search[value]": "acm" }
+  # Filtered curval values
+  - http:
+      id: values_foo
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/field/values/{column:s:curval1}"
+      query: { submission-token: nosuchtoken, "field{column:s:string1}": Foo }
+  - http:
+      id: values_bar
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/field/values/{column:s:curval1}"
+      query: { submission-token: nosuchtoken, "field{column:s:string1}": Bar }
+  - http:
+      id: values_none
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/field/values/{column:s:curval1}"
+      query: { submission-token: nosuchtoken, "field{column:s:string1}": Nothing }
+  - http:
+      id: values_missing_required
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/field/values/{column:s:curval1}"
+      query: { submission-token: nosuchtoken }
+  - http:
+      id: values_no_token
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/field/values/{column:s:curval1}"
+      query: { "field{column:s:string1}": Foo }
+  - http:
+      id: values_no_table
+      as: superadmin
+      method: POST
+      path: "/nosuchtable/api/field/values/{column:s:curval1}"
+      query: { submission-token: nosuchtoken }
+  - http:
+      id: values_not_logged_in
+      method: POST
+      path: "/{sheet:s}/api/field/values/{column:s:curval1}"
+      query: { submission-token: nosuchtoken }
+  - db:
+      id: filtered_values
+      op: select
+      table: filtered_value
+      columns: [id, submission_id, layout_id, current_id]

@@ -1,0 +1,138 @@
+name: 229_web_table_edit
+source:
+  - lib/GADS.pm (/:layout_name/edit, /:layout_name/permissions)
+  - lib/GADS/Layout.pm (write, set_alert_columns, write_rags, rag, group_has, has_alert_column, delete)
+  - views/table.tt, views/table_permissions.tt
+description: >
+  The general settings of a table: the form, an invalid and an existing
+  short name (the values entered are shown again, the alert columns are
+  set), updating the table (name, short name, sort, view limit, RAG grades
+  and their descriptions, alert columns), deleting a table with records and
+  a table with fields but no records; the permissions of the groups on a table (shown, set,
+  removed) and the permission needed.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo, integer1: 10 }
+  - sheet: { as: empty, site_id: 1, instance_id: 2, data: [] }
+  - db:
+      op: update
+      table: instance
+      where: { id: 2 }
+      set: { name_short: other }
+  - db:
+      op: insert
+      table: view
+      set: { name: Global view, global: 1, instance_id: 1, filter: "{}" }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { id: home_normal1, as: normal1, path: /, no_body: true }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: edit_denied, as: normal1, path: "/{sheet:s}/edit" }
+  - http: { id: permissions_denied, as: normal1, path: "/{sheet:s}/permissions" }
+  - http: { id: edit_page, as: superadmin, path: "/{sheet:s}/edit" }
+  - http:
+      id: edit_bad_short
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/edit"
+      form: { submit: 1, id: 1, name: Renamed, name_short: "bad name!", hide_in_selector: 1, alert_column: ["{column:s:string1}"] }
+  - db:
+      id: alert_columns_after_error
+      op: select
+      table: alert_column
+      columns: [id, layout_id, instance_id]
+  - http:
+      id: edit_existing_short
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/edit"
+      form: { submit: 1, id: 1, name: Renamed, name_short: other, hide_in_selector: 0, sort_layout_id: "{column:s:integer1}", sort_type: desc }
+  - http:
+      id: edit_update
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/edit"
+      form:
+        submit: 1
+        id: 1
+        name: My <table>
+        name_short: mytable
+        hide_in_selector: 1
+        sort_layout_id: "{column:s:integer1}"
+        sort_type: asc
+        view_limit_id: 1
+        alert_column: ["{column:s:integer1}", "{column:s:string1}"]
+        danger_selected: 1
+        danger_description: Very bad
+        warning_selected: 1
+        warning_description: ""
+        complete_selected: 1
+        complete_description: Done
+  - db:
+      id: instance_after
+      op: select
+      table: instance
+      where: { id: 1 }
+      columns: [id, name, name_short, hide_in_selector, sort_layout_id, sort_type, view_limit_id]
+  - db:
+      id: rags_after
+      op: select
+      table: instance_rag
+      where: { instance_id: 1 }
+      columns: [rag, enabled, description]
+      order_by: [rag]
+  - db:
+      id: alert_columns_after
+      op: select
+      table: alert_column
+      columns: [id, layout_id, instance_id]
+  - http: { id: edit_page_after, as: superadmin, path: "/mytable/edit" }
+  - http:
+      id: delete_with_records
+      as: superadmin
+      method: POST
+      path: "/mytable/edit"
+      form: { delete: 1 }
+  # Permissions
+  - http: { id: permissions_page, as: superadmin, path: "/mytable/permissions" }
+  - http:
+      id: permissions_set
+      as: superadmin
+      method: POST
+      path: "/mytable/permissions"
+      form: { submit: 1, permissions: [1_layout, 1_delete, 2_purge, 2_download, 3_view_create] }
+  - db:
+      id: permissions_after
+      op: select
+      table: instance_group
+      where: { instance_id: 1 }
+      columns: [instance_id, group_id, permission]
+  - http: { id: permissions_page_after, as: superadmin, path: "/mytable/permissions" }
+  - http: { id: edit_lost_permission, as: superadmin, path: "/mytable/edit" }
+  # A table with fields but no records
+  - http: { id: edit_empty_page, as: superadmin, path: "/other/edit" }
+  - http:
+      id: delete_empty_with_fields
+      as: superadmin
+      method: POST
+      path: "/other/edit"
+      form: { delete: 1 }
+  - db:
+      id: instances_after
+      op: select
+      table: instance
+      columns: [id, name]
+  - http:
+      id: edit_bad_sort_type
+      as: superadmin
+      method: POST
+      path: "/other/edit"
+      form: { submit: 1, id: 2, name: Empty, name_short: "", hide_in_selector: 0, sort_type: sideways }
+  - db:
+      id: instances_end
+      op: select
+      table: instance
+      columns: [id, name, name_short, sort_type]

@@ -1,0 +1,413 @@
+{
+   "runner" : "perl",
+   "scenario" : "241_cli_layout",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_none",
+         "observed" : {
+            "died" : "Need --instance-id",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_nosite",
+         "observed" : {
+            "died" : "Need --site-id",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_nofile",
+         "observed" : {
+            "died" : "Need either --load-file or --dump-file",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_load_empty",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "Field ID (ID 1) not in updated layout - needs manual deletion\nField Last edited time (ID 2) not in updated layout - needs manual deletion\nField Last edited by (ID 3) not in updated layout - needs manual deletion\nField Created by (ID 4) not in updated layout - needs manual deletion\nField Created time (ID 6) not in updated layout - needs manual deletion\nField Serial (ID 7) not in updated layout - needs manual deletion\nField string1 (ID 8) not in updated layout - needs manual deletion\nField integer1 (ID 9) not in updated layout - needs manual deletion\nField enum1 (ID 10) not in updated layout - needs manual deletion\nField tree1 (ID 11) not in updated layout - needs manual deletion\nField date1 (ID 12) not in updated layout - needs manual deletion\nField daterange1 (ID 13) not in updated layout - needs manual deletion\nField file1 (ID 14) not in updated layout - needs manual deletion\nField person1 (ID 15) not in updated layout - needs manual deletion\nField rag1 (ID 16) not in updated layout - needs manual deletion\nField calc1 (ID 17) not in updated layout - needs manual deletion\nerror: You do not have permission to manage fields\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "layout_rows",
+         "observed" : [
+            {
+               "id" : "1",
+               "name" : "ID",
+               "options" : null,
+               "position" : null,
+               "type" : "id"
+            },
+            {
+               "id" : "2",
+               "name" : "Last edited time",
+               "options" : null,
+               "position" : null,
+               "type" : "createddate"
+            },
+            {
+               "id" : "3",
+               "name" : "Last edited by",
+               "options" : null,
+               "position" : null,
+               "type" : "createdby"
+            },
+            {
+               "id" : "4",
+               "name" : "Created by",
+               "options" : null,
+               "position" : null,
+               "type" : "createdby"
+            },
+            {
+               "id" : "5",
+               "name" : "Deleted by",
+               "options" : null,
+               "position" : null,
+               "type" : "deletedby"
+            },
+            {
+               "id" : "6",
+               "name" : "Created time",
+               "options" : null,
+               "position" : null,
+               "type" : "createddate"
+            },
+            {
+               "id" : "7",
+               "name" : "Serial",
+               "options" : null,
+               "position" : null,
+               "type" : "serial"
+            },
+            {
+               "id" : "8",
+               "name" : "string1",
+               "options" : "{\"max_length\":null}",
+               "position" : "1",
+               "type" : "string"
+            },
+            {
+               "id" : "9",
+               "name" : "integer1",
+               "options" : "{\"show_calculator\":0}",
+               "position" : "2",
+               "type" : "intgr"
+            },
+            {
+               "id" : "10",
+               "name" : "enum1",
+               "options" : "{}",
+               "position" : "3",
+               "type" : "enum"
+            },
+            {
+               "id" : "11",
+               "name" : "tree1",
+               "options" : "{}",
+               "position" : "4",
+               "type" : "tree"
+            },
+            {
+               "id" : "12",
+               "name" : "date1",
+               "options" : "{\"default_today\":0,\"show_datepicker\":1}",
+               "position" : "5",
+               "type" : "date"
+            },
+            {
+               "id" : "13",
+               "name" : "daterange1",
+               "options" : "{\"show_datepicker\":0}",
+               "position" : "6",
+               "type" : "daterange"
+            },
+            {
+               "id" : "14",
+               "name" : "file1",
+               "options" : "{\"override_types\":[]}",
+               "position" : "7",
+               "type" : "file"
+            },
+            {
+               "id" : "15",
+               "name" : "person1",
+               "options" : "{\"default_to_login\":0,\"notify_on_selection\":0,\"notify_on_selection_message\":\"\",\"notify_on_selection_subject\":\"\"}",
+               "position" : "8",
+               "type" : "person"
+            },
+            {
+               "id" : "16",
+               "name" : "rag1",
+               "options" : "{}",
+               "position" : "9",
+               "type" : "rag"
+            },
+            {
+               "id" : "17",
+               "name" : "calc1",
+               "options" : "{\"show_in_edit\":0}",
+               "position" : "10",
+               "type" : "calc"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_load_existing",
+         "observed" : {
+            "died" : "Can't locate object method \"display_field\" via package \"GADS::Column::String\"",
+            "exit" : "255",
+            "stderr" : "Field ID (ID 1) not in updated layout - needs manual deletion\nField Last edited time (ID 2) not in updated layout - needs manual deletion\nField Last edited by (ID 3) not in updated layout - needs manual deletion\nField Created by (ID 4) not in updated layout - needs manual deletion\nField Created time (ID 6) not in updated layout - needs manual deletion\nField Serial (ID 7) not in updated layout - needs manual deletion\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_load_missing",
+         "observed" : {
+            "died" : "Can't locate object method \"display_field\" via package \"GADS::Column::String\"",
+            "exit" : "255",
+            "stderr" : "Creating missing field 100 (New)\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_load_badtype",
+         "observed" : {
+            "died" : "Can't locate object method \"new\" via package \"GADS::Column::Nope\" (perhaps you forgot to load \"GADS::Column::Nope\"?)",
+            "exit" : "255",
+            "stderr" : "Creating missing field 100 (New)\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_load_views",
+         "observed" : {
+            "died" : "isa check for \"set_sorts\" failed: ARRAY(0x0) is not a HashRef!",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "views",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "view_layouts",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sorts",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:view",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:view",
+         "observed" : {
+            "id" : "3"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "gen",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "new.csv" : {
+                  "first" : "string1,integer1,enum1,tree1,date1,daterange1,person1",
+                  "lines" : "1001"
+               }
+            },
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "gen_none",
+         "observed" : {
+            "died" : "Need instance ID with --instance-id",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_dump",
+         "observed" : {
+            "died" : "Can't locate object method \"display_field\" via package \"GADS::Column::Id\"",
+            "exit" : "255",
+            "files" : {},
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_views",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "views.yaml" : "---\n- columns:\n  - 8\n  - 17\n  filter: '{}'\n  global: 1\n  id: 1\n  is_admin: 0\n  name: 'view: one'\n  sorts: []\n- columns: []\n  filter: '{\"rules\":[{\"field\":8,\"id\":8,\"operator\":\"equal\",\"type\":\"string\",\"value\":\"Foo\"}]}'\n  global: 0\n  id: 2\n  is_admin: 1\n  name: Admin's\n  sorts: []\n"
+            },
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_views_none",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "views.yaml" : "--- []\n"
+            },
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ml_load_views_empty",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      }
+   ]
+}

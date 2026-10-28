@@ -1,0 +1,81 @@
+name: 243_cli_import
+source:
+  - bin/import.pl
+  - lib/GADS/Layout.pm, lib/GADS/Column.pm and lib/GADS/Column/*.pm (import_hash, import_after_write, import_after_all)
+  - lib/GADS/MetricGroup.pm, lib/GADS/Graph.pm, lib/GADS/View.pm (import_hash)
+description: >
+  Importing the configuration exported by bin/export.pl into a new site
+  (its groups, tables, permissions, topics, fields with their enumerated
+  values and trees, metrics, graphs and views), with and without
+  --report-only, and the errors of the options, of a missing export and of
+  importing into a site that already has the groups or tables.
+steps:
+  - sheet:
+      as: cv
+      site_id: 1
+      instance_id: 2
+      data:
+        - { string1: Foo }
+        - { string1: Bar }
+  - sheet:
+      as: s
+      curval: cv
+      curval_fields: [string1]
+      multivalue: 1
+      data:
+        - string1: Foo1
+          integer1: 10
+          enum1: [7, 8]
+          tree1: 11
+          date1: "2014-10-10"
+          daterange1: ["2014-01-01", "2014-12-31"]
+          person1: 2
+          curval1: [1, 2]
+          file1: { name: file1.txt, mimetype: text/plain, content: "Text file1 with a line longer than the seventy six characters of a base64 line" }
+        - { string1: Bar1 }
+  - db: { op: insert, table: topic, set: { name: My topic, instance_id: 1, click_to_edit: 1, description: About it, initial_state: collapsed } }
+  - db: { op: update, table: layout, where: { id: "@column:s:string1" }, set: { topic_id: 1, description: A string, helptext: Help } }
+  - db: { op: insert, table: metric_group, set: { name: Targets, instance_id: 1 } }
+  - db: { op: insert, table: metric, set: { metric_group: 1, x_axis_value: Foo1, target: 20, y_axis_grouping_value: foo1 } }
+  - db: { op: insert, table: graph, set: { title: Shared graph, type: bar, x_axis: "@column:s:string1", y_axis: "@column:s:integer1", y_axis_stack: sum, instance_id: 1, is_shared: 1, metric_group: 1, from: "2014-01-01", to: "2014-12-31", x_axis_range: custom } }
+  - db: { op: insert, table: graph, set: { title: Personal graph, type: line, x_axis: "@column:s:string1", y_axis_stack: count, instance_id: 1, user_id: 4 } }
+  - view:
+      op: create
+      sheet: s
+      as: v
+      name: Shared
+      global: 1
+      columns: [string1, integer1]
+      sorts: [{ name: string1, type: desc }]
+      filter:
+        rules:
+          - { name: string1, type: string, operator: equal, value: Foo1 }
+  - view: { op: create, sheet: s, as: va, name: Admin view, is_admin: 1, columns: [string1] }
+  - view: { op: create, sheet: s, as: vp, name: Personal, global: 0, columns: [string1] }
+  - cli: { id: no_site, script: import.pl }
+  - cli: { id: no_dir, script: import.pl, args: [--site-id, 2] }
+  - cli: { id: ex, script: export.pl, args: [--site-id, 1], dir: d }
+  - cli: { id: groups_exist, script: import.pl, args: [--site-id, 1], dir: d }
+  - cli: { id: exists_report, script: import.pl, args: [--site-id, 1, --report-only], dir: d }
+  - cli: { id: exists_add, script: import.pl, args: [--site-id, 1, --add], dir: d }
+  - cli: { id: bad_option, script: import.pl, args: [--site-id, 1, --instance-id, 1], dir: d }
+  - db: { op: insert, table: site, set: { id: 2, host: other.example.com } }
+  - cli: { id: merge_no_add, script: import.pl, args: [--site-id, 2, --merge], dir: d }
+  - cli: { id: report, script: import.pl, args: [--site-id, 2, --report-only], dir: d }
+  - db: { id: after_report, op: select, table: layout, columns: [id], where: { id: { ">": 35 } } }
+  - cli: { id: import, script: import.pl, args: [--site-id, 2], dir: d }
+  - db: { id: instance_groups, op: select, table: instance_group, columns: [instance_id, group_id, permission], where: { instance_id: { ">": 2 } }, order_by: [instance_id, group_id, permission] }
+  - db: { id: layouts, op: select, table: layout, columns: [id, name, name_short, type, instance_id, permission, optional, remember, isunique, textbox, typeahead, force_regex, position, ordering, end_node_only, multivalue, description, helptext, display_field, display_regex, display_condition, display_matchtype, link_parent, related_field, width, filter, topic_id, aggregate, group_display, lookup_endpoint, lookup_group, notes, options, can_child, internal], where: { id: { ">": 35 } }, order_by: [id] }
+  - db: { id: layout_groups, op: select, table: layout_group, columns: [layout_id, group_id, permission], where: { layout_id: { ">": 35 } }, order_by: [layout_id, group_id, permission] }
+  - db: { id: enumvals, op: select, table: enumval, columns: [id, value, layout_id, deleted, parent, position], where: { layout_id: { ">": 35 } }, order_by: [id] }
+  - db: { id: calcs, op: select, table: calc, columns: [layout_id, calc, code, return_format, decimal_places], where: { layout_id: { ">": 35 } }, order_by: [layout_id] }
+  - db: { id: curval_fields, op: select, table: curval_fields, columns: [parent_id, child_id], where: { parent_id: { ">": 35 } }, order_by: [parent_id, child_id] }
+  - db: { id: topics, op: select, table: topic, columns: [id, instance_id, name, description, click_to_edit, initial_state, prevent_edit_topic_id], order_by: [id] }
+  - db: { id: metric_groups, op: select, table: metric_group, columns: [id, name, instance_id], order_by: [id] }
+  - db: { id: metrics, op: select, table: metric, columns: [id, metric_group, x_axis_value, target, y_axis_grouping_value], order_by: [id] }
+  - db: { id: graphs, op: select, table: graph, columns: [id, title, description, y_axis, y_axis_stack, y_axis_label, x_axis, x_axis_link, x_axis_grouping, group_by, stackseries, as_percent, type, metric_group, instance_id, is_shared, user_id, group_id, trend, from, to, x_axis_range], order_by: [id] }
+  - db: { id: views, op: select, table: view, columns: [id, user_id, group_id, name, global, is_admin, is_limit_extra, filter, instance_id], order_by: [id] }
+  - db: { id: view_layouts, op: select, table: view_layout, columns: [view_id, layout_id, order], order_by: [view_id, layout_id] }
+  - db: { id: sorts, op: select, table: sort, columns: [view_id, layout_id, parent_id, type, order], order_by: [view_id, layout_id] }
+  - db: { id: filters, op: select, table: filter, columns: [view_id, layout_id], order_by: [view_id, layout_id] }
+  - cli: { id: again, script: import.pl, args: [--site-id, 2], dir: d }

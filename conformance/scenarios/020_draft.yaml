@@ -1,0 +1,104 @@
+name: 020_draft
+source: [t/020_draft.t]
+description: Saving and loading drafts, including drafts of curval sub-records
+steps:
+- sheet: {as: curval, instance_id: 2}
+- sheet: {as: main, curval: curval, multivalue: 1}
+- column: {op: update, sheet: main, column: string1, set: {optional: 0}}
+- column: {op: update, sheet: main, column: integer1, set: {optional: 0}}
+- column: {op: update, sheet: main, column: date1, set: {optional: 0}}
+- layout: {op: set_user, sheet: curval, user: normal1}
+- layout: {op: set_user, sheet: main, user: normal1}
+- db: {id: initial records, op: count, table: current, where: {draftuser_id: null}, expect: {count: 4}}
+- db: {id: no drafts to start, op: count, table: current, where: {draftuser_id: '@user:normal1'}, expect: {count: 0}}
+# Write a draft (missing date1 does not matter)
+- held: {op: new, as: d, sheet: main, user: normal1}
+- held: {op: set, as: d, values: {string1: Draft1, integer1: 450}}
+- held: {id: write draft, op: write, as: d, options: {draft: 1}}
+- db: {id: one draft saved, op: count, table: current, where: {draftuser_id: '@user:normal1'}, expect: {count: 1}}
+- db: {id: same normal records, op: count, table: current, where: {draftuser_id: null}, expect: {count: 4}}
+- search: {id: draft not in normal records, sheet: main, user: normal1, expect: {count: 2}}
+# Load the draft
+- held: {op: new, as: l, sheet: main, user: normal1, no_initialise: true}
+- held:
+    id: draft loaded
+    op: load_remembered_values
+    as: l
+    datum: [string1, integer1]
+    datum_props: [as_string]
+    expect: {datum: {string1: {as_string: Draft1}, integer1: {as_string: '450'}}}
+# Write a proper record
+- held: {op: new, as: p, sheet: main, user: normal1}
+- held: {op: set, as: p, values: {string1: Perm1, integer1: 650}}
+- held: {id: missing date1, op: write, as: p, expect_error: 'date1.* is not optional'}
+- held: {op: set, as: p, values: {date1: '2010-10-10'}}
+- held: {id: write normal record, op: write, as: p}
+- held: {op: find, as: p, current_id: '@held:p', clear: true}
+- held: {id: no draft of existing record, op: write, as: p, options: {draft: 1}, expect_error: Cannot save draft of existing}
+- db: {id: no drafts after proper save, op: count, table: current, where: {draftuser_id: '@user:normal1'}, expect: {count: 0}}
+- db: {id: additional normal record, op: count, table: current, where: {draftuser_id: null}, expect: {count: 5}}
+# Draft with sub-records: first a standard draft in the sub-record table
+- held: {op: new, as: c, sheet: curval, user: normal1}
+- held: {op: set, as: c, values: {string1: Draft2}}
+- held: {op: write, as: c, options: {draft: 1}}
+- db: {id: main count, op: count, table: current, where: {instance_id: 1}}
+- db: {id: curval count, op: count, table: current, where: {instance_id: 2}}
+- column: {op: update, sheet: main, column: curval1, set: {show_add: 1, curval_fields: [string1, integer1, rag1]}}
+# Draft of a main record containing 2 draft sub-records
+- held: {op: new, as: m, sheet: main, user: normal1}
+- held:
+    op: set
+    as: m
+    values:
+      string1: Draft3
+      curval1: ['@field:string1=orange&@field:integer1=25', '@field:string1=apple&@field:integer1=50']
+- held: {op: write, as: m, options: {draft: 1}}
+- db: {id: one main draft record, op: count, table: current, where: {instance_id: 1}}
+- db: {id: two sub-record drafts, op: count, table: current, where: {instance_id: 2}}
+# The previously created sub-record draft is retrieved (not drafts from the
+# main record)
+- held: {op: new, as: c2, sheet: curval, user: normal1, no_initialise: true}
+- held:
+    id: draft sub-record retrieved
+    op: load_remembered_values
+    as: c2
+    datum: [string1]
+    datum_props: [as_string]
+    expect: {datum: {string1: {as_string: Draft2}}}
+- held: {op: set, as: c2, values: {string1: Draft4}}
+- held: {op: write, as: c2, options: {draft: 1}}
+- held: {op: clear, as: c2}
+- held:
+    id: updated draft sub-record retrieved
+    op: load_remembered_values
+    as: c2
+    datum: [string1]
+    datum_props: [as_string]
+    expect: {datum: {string1: {as_string: Draft4}}}
+# The curval values include the draft curval records for the draft user
+- held: {op: new, as: m2, sheet: main, user: normal1, no_initialise: true}
+- held: {id: curval values for draft user, op: load_remembered_values, as: m2, filtered_values: curval1}
+# But not for another user
+- held: {op: new, as: o, sheet: main, user: normal2, layout_user: true}
+- held: {id: curval values for other user, op: load_remembered_values, as: o, filtered_values: curval1}
+- held: {id: remembered sub-record curval, op: get, as: m2, observe: [curval1], expect: {values: {curval1: 'apple, 50, a_grey; orange, 25, a_grey'}}}
+- db: {id: sub-record drafts, op: count, table: current, where: {instance_id: 2, draftuser_id: '@user:normal1'}, expect: {count: 3}}
+# Write the main record: the 2 sub-record drafts are written and removed
+- held:
+    op: set
+    as: m2
+    values:
+      curval1: ['@field:string1=orange&@field:integer1=25', '@field:string1=apple&@field:integer1=50']
+      integer1: 10
+      date1: '2015-01-01'
+- held: {id: write main record, op: write, as: m2}
+- db: {id: no draft sub-records after write, op: count, table: current, where: {instance_id: 2, draftuser_id: '@user:normal1'}, expect: {count: 1}}
+- held: {id: written record uses curval drafts, op: find, as: w, sheet: main, user: normal1, current_id: '@held:m2', observe: [curval1], expect: {values: {curval1: 'apple, 50, a_grey; orange, 25, a_grey'}}}
+- held: {op: new, as: c3, sheet: curval, user: normal1, no_initialise: true}
+- held:
+    id: remaining draft is the direct one
+    op: load_remembered_values
+    as: c3
+    datum: [string1]
+    datum_props: [as_string]
+    expect: {datum: {string1: {as_string: Draft4}}}

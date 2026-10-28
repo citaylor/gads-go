@@ -1,0 +1,1344 @@
+{
+   "runner" : "perl",
+   "scenario" : "011_views",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:user",
+         "observed" : {
+            "id" : "7"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:user",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:user",
+         "observed" : {
+            "id" : "9"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:user",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : "User 10 does not have permission to create new views",
+         "failures" : [],
+         "id" : "create view without permission",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "create normal view as normal user",
+         "observed" : {
+            "id" : "1",
+            "user_id" : "6"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "@held:v",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : "User 7 does not have access to view 1",
+         "failures" : [],
+         "id" : "read other user view",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : "User 7 does not have access to modify view 1",
+         "failures" : [],
+         "id" : "write is_admin 0 as normal user",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : "User 9 does not have access to modify view 1",
+         "failures" : [],
+         "id" : "write is_admin 0 as view_group no group",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : "User 9 does not have access to modify view 1",
+         "failures" : [],
+         "id" : "write is_admin 0 with group as view_group",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "@held:v",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : "User 7 does not have access to view 1",
+         "failures" : [],
+         "id" : "read is_admin 0 in group",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "views is_admin 0 in group",
+         "observed" : {
+            "ids" : [],
+            "names" : []
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "@held:v",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : "User 7 does not have access to view 1",
+         "failures" : [],
+         "id" : "read is_admin 0 not in group",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "views is_admin 0 not in group",
+         "observed" : {
+            "ids" : [],
+            "names" : []
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "33:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write is_admin 0 as admin",
+         "observed" : {
+            "id" : "1",
+            "user_id" : null
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "@held:v",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "36:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "read is_admin 0 as normal user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "38:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "39:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "40:view_held",
+         "observed" : {
+            "id" : "2",
+            "user_id" : "6"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "41:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : "User 6 does not have access to modify view 2",
+         "failures" : [],
+         "id" : "write global 1 as normal user",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "43:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : "User 9 does not have access to modify view 2",
+         "failures" : [],
+         "id" : "write global 1 as view_group no group",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "45:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write global 1 with group as view_group",
+         "observed" : {
+            "id" : "2",
+            "user_id" : null
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "@held:v",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "48:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "49:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "read global 1 in group",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "views global 1 in group",
+         "observed" : {
+            "ids" : [
+               "2"
+            ],
+            "names" : [
+               "view1"
+            ]
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "@held:v",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "53:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "54:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : "User 7 does not have access to view 2",
+         "failures" : [],
+         "id" : "read global 1 not in group",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "views global 1 not in group",
+         "observed" : {
+            "ids" : [],
+            "names" : []
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "57:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "58:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "59:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write global 1 as admin",
+         "observed" : {
+            "id" : "2",
+            "user_id" : null
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "@held:v",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "62:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "read global 1 as normal user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "64:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "65:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "66:view_held",
+         "observed" : {
+            "id" : "3",
+            "user_id" : "6"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "67:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : "User 6 does not have access to modify view 3",
+         "failures" : [],
+         "id" : "write is_admin 2 as normal user",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "69:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : "User 9 does not have access to modify view 3",
+         "failures" : [],
+         "id" : "write is_admin 2 as view_group no group",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "71:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : "User 9 does not have access to modify view 3",
+         "failures" : [],
+         "id" : "write is_admin 2 with group as view_group",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "@held:v",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "74:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "75:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : "User 7 does not have access to view 3",
+         "failures" : [],
+         "id" : "read is_admin 2 in group",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "views is_admin 2 in group",
+         "observed" : {
+            "ids" : [
+               "2"
+            ],
+            "names" : [
+               "view1"
+            ]
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "@held:v",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "79:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "80:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : "User 7 does not have access to view 3",
+         "failures" : [],
+         "id" : "read is_admin 2 not in group",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "views is_admin 2 not in group",
+         "observed" : {
+            "ids" : [
+               "2"
+            ],
+            "names" : [
+               "view1"
+            ]
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "83:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "84:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "85:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write is_admin 2 as admin",
+         "observed" : {
+            "id" : "3",
+            "user_id" : null
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "@held:v",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "88:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "read is_admin 2 as normal user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "90:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "91:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "92:view_held",
+         "observed" : {
+            "id" : "4",
+            "user_id" : "6"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "93:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "94:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "personal view user id",
+         "observed" : {
+            "id" : "5",
+            "user_id" : "1"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "96:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "global view no user id",
+         "observed" : {
+            "id" : "5",
+            "user_id" : null
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "98:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "personal view user id again",
+         "observed" : {
+            "id" : "5",
+            "user_id" : "1"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "100:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "101:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "102:view_held",
+         "observed" : {
+            "id" : "6",
+            "user_id" : "6"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "103:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal user other user views",
+         "observed" : {
+            "ids" : [
+               "2"
+            ],
+            "names" : [
+               "view1"
+            ]
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "105:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "admin other user views",
+         "observed" : {
+            "ids" : [
+               "2",
+               "6",
+               "4",
+               "1",
+               "3"
+            ],
+            "names" : [
+               "view1",
+               "FooBar",
+               "view1",
+               "view1",
+               "view1"
+            ]
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "107:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "108:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "109:view_held",
+         "observed" : {
+            "id" : "7",
+            "user_id" : "6"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "110:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal user cannot create as other user",
+         "observed" : {
+            "ids" : [
+               "2"
+            ],
+            "names" : [
+               "view1"
+            ]
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "112:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal user created own view",
+         "observed" : {
+            "ids" : [
+               "2",
+               "6",
+               "7",
+               "4"
+            ],
+            "names" : [
+               "view1",
+               "FooBar",
+               "FooBar2",
+               "view1"
+            ]
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "114:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "115:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "116:view_held",
+         "observed" : {
+            "id" : "8",
+            "user_id" : "7"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "117:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "admin created as other user",
+         "observed" : {
+            "ids" : [
+               "2",
+               "8"
+            ],
+            "names" : [
+               "view1",
+               "FooBar3"
+            ]
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "119:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foobar3",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "121:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "122:view_held",
+         "observed" : {
+            "id" : "8",
+            "user_id" : "7"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "123:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "admin updated other user view",
+         "observed" : {
+            "ids" : [
+               "2",
+               "8"
+            ],
+            "names" : [
+               "view1",
+               "FooBar4"
+            ]
+         },
+         "pass" : true,
+         "type" : "views"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "125:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "126:view_held",
+         "observed" : {
+            "id" : "9",
+            "user_id" : "7"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "127:alert",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "alert"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "view count",
+         "observed" : {
+            "count" : "9"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "129:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : "It is not possible to have alerts on a grouped view. Please either remove the grouping or disable the alerts",
+         "failures" : [],
+         "id" : "group on view with alerts",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "131:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "view count after delete",
+         "observed" : {
+            "count" : "8"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : -10,
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "invalid view",
+         "observed" : {
+            "columns" : [],
+            "name" : null
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "135:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : "Field ID 100 does not exist",
+         "failures" : [],
+         "id" : "invalid field in filter",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "137:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "138:view_held",
+         "observed" : {
+            "id" : "9",
+            "user_id" : "7"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "139:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "badfilter",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "invalid rule removed from base64",
+         "observed" : {
+            "filter_base64" : {
+               "condition" : "equal",
+               "rules" : [
+                  {}
+               ]
+            }
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "142:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : "View name must be less than 128 characters",
+         "failures" : [],
+         "id" : "view name too long",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view_held"
+      }
+   ]
+}

@@ -1,0 +1,3602 @@
+{
+   "runner" : "perl",
+   "scenario" : "003_display_field",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "34",
+               "date1" : "30",
+               "daterange1" : "31",
+               "enum1" : "28",
+               "file1" : "32",
+               "integer1" : "26",
+               "integer2" : "27",
+               "person1" : "33",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "29"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "initial",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "50",
+               "string1" : "Foo"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 0 equal: normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "foobar"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "6"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 0 equal: blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "xxfoobarxx"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "7"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 1 contains: normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "xxfoobarxx"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "8"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 1 contains: blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "foo"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "24:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "25:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 2 not_equal: normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "foo"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "30:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "10"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 2 not_equal: blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "foobar"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "33:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "34:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "35:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "36:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "37:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "11"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 3 not_contains: normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "foo"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "39:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "40:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "12"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 3 not_contains: blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "xxfoobarxx"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "42:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "43:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "44:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "45:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "46:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "13"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 4 equal: normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "bar, foo, foobar"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "48:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "49:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "14"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 4 equal: blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "abc, xxfoobarxx"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "51:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "52:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "53:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "54:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "55:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "15"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 5 contains: normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "bar, foo, xxfoobarxx"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "57:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "58:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "16"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 5 contains: blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "fo"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "60:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "61:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "62:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "63:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "64:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "17"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 6 not_equal: normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "foo, foobarx"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "66:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "67:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "18"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 6 not_equal: blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "foobar, foobar2"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "69:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "70:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "71:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "72:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "73:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "19"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 7 not_contains: normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "fo"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "75:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "76:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "20"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single 7 not_contains: blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "bar, foo, xxfoobarxx"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "78:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "79:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "80:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "81:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "82:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "21"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "multi AND 0 normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "foobar"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "84:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "85:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "22"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "multi AND 0 blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "xxfoobarxx"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "87:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "88:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "23"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "multi AND 1 blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "foobar"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "90:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "91:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "24"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "multi AND 2 blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "xxfoobarxx"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "93:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "94:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "95:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "96:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "97:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "25"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "multi OR 0 normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "foobar"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "99:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "100:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "26"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "multi OR 0 blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "string1" : "xxfoobarxx"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "102:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "103:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "27"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "multi OR 1 normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "foobar"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "105:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "106:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "28"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "multi OR 2 normal",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "150",
+               "string1" : "xxfoobarxx"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "108:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "109:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "110:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "111:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "112:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "113:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "'integer1' is not optional. Please enter a value.",
+         "failures" : [],
+         "id" : "shown mandatory blank",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "115:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "hidden mandatory blank",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "29"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "117:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "118:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "119:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "120:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "121:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "122:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "123:held",
+         "observed" : {
+            "current_id" : "6",
+            "record_id" : "30"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field string1 blank",
+         "observed" : {
+            "current_id" : "6",
+            "values" : {
+               "integer1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "125:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "126:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "127:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "128:held",
+         "observed" : {
+            "current_id" : "7",
+            "record_id" : "31"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field string1 match",
+         "observed" : {
+            "current_id" : "7",
+            "values" : {
+               "integer1" : "839"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "130:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "131:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "132:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "133:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "134:held",
+         "observed" : {
+            "current_id" : "8",
+            "record_id" : "32"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field enum1 blank",
+         "observed" : {
+            "current_id" : "8",
+            "values" : {
+               "integer1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "136:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "137:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "138:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "139:held",
+         "observed" : {
+            "current_id" : "9",
+            "record_id" : "33"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field enum1 match",
+         "observed" : {
+            "current_id" : "9",
+            "values" : {
+               "integer1" : "839"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "141:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "142:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "143:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "144:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "145:held",
+         "observed" : {
+            "current_id" : "10",
+            "record_id" : "34"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field tree1 blank",
+         "observed" : {
+            "current_id" : "10",
+            "values" : {
+               "integer1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "147:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "148:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "149:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "150:held",
+         "observed" : {
+            "current_id" : "11",
+            "record_id" : "35"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field tree1 match",
+         "observed" : {
+            "current_id" : "11",
+            "values" : {
+               "integer1" : "839"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "152:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "153:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "154:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "155:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "156:held",
+         "observed" : {
+            "current_id" : "12",
+            "record_id" : "36"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field integer2 blank",
+         "observed" : {
+            "current_id" : "12",
+            "values" : {
+               "integer1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "158:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "159:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "160:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "161:held",
+         "observed" : {
+            "current_id" : "13",
+            "record_id" : "37"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field integer2 match",
+         "observed" : {
+            "current_id" : "13",
+            "values" : {
+               "integer1" : "839"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "163:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "164:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "165:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "166:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "167:held",
+         "observed" : {
+            "current_id" : "14",
+            "record_id" : "38"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field curval1 blank",
+         "observed" : {
+            "current_id" : "14",
+            "values" : {
+               "integer1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "169:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "170:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "171:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "172:held",
+         "observed" : {
+            "current_id" : "15",
+            "record_id" : "39"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field curval1 match",
+         "observed" : {
+            "current_id" : "15",
+            "values" : {
+               "integer1" : "839"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "174:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "175:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "176:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "177:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "178:held",
+         "observed" : {
+            "current_id" : "16",
+            "record_id" : "40"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field date1 blank",
+         "observed" : {
+            "current_id" : "16",
+            "values" : {
+               "integer1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "180:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "181:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "182:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "183:held",
+         "observed" : {
+            "current_id" : "17",
+            "record_id" : "41"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field date1 match",
+         "observed" : {
+            "current_id" : "17",
+            "values" : {
+               "integer1" : "839"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "185:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "186:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "187:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "188:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "189:held",
+         "observed" : {
+            "current_id" : "18",
+            "record_id" : "42"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field daterange1 blank",
+         "observed" : {
+            "current_id" : "18",
+            "values" : {
+               "integer1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "191:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "192:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "193:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "194:held",
+         "observed" : {
+            "current_id" : "19",
+            "record_id" : "43"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field daterange1 match",
+         "observed" : {
+            "current_id" : "19",
+            "values" : {
+               "integer1" : "839"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "196:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "197:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "198:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "199:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "200:held",
+         "observed" : {
+            "current_id" : "20",
+            "record_id" : "44"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field person1 blank",
+         "observed" : {
+            "current_id" : "20",
+            "values" : {
+               "integer1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "202:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "203:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "204:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "205:held",
+         "observed" : {
+            "current_id" : "21",
+            "record_id" : "45"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field person1 match",
+         "observed" : {
+            "current_id" : "21",
+            "values" : {
+               "integer1" : "839"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "207:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "208:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "209:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "210:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "211:held",
+         "observed" : {
+            "current_id" : "22",
+            "record_id" : "46"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blank regex match",
+         "observed" : {
+            "current_id" : "22",
+            "values" : {
+               "integer1" : "789"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "213:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "214:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "215:held",
+         "observed" : {
+            "current_id" : "23",
+            "record_id" : "47"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blank regex no match",
+         "observed" : {
+            "current_id" : "23",
+            "values" : {
+               "integer1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "217:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "218:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "219:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "220:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "221:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "48"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree blank",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "tree1" : "tree1"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "223:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "224:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "49"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree match",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "350",
+               "tree1" : "tree3"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "226:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "227:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "50"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree multi",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "360",
+               "tree1" : "tree1, tree3"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "229:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "230:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "231:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "232:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "51"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree full path",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "400",
+               "tree1" : "tree3"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "234:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "235:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "52"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree full path reversed",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "",
+               "tree1" : "tree2"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "237:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "238:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "239:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "240:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "241:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "53"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree higher level",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "600",
+               "tree1" : "tree3"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "243:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "244:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "245:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "54"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "246:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "247:column",
+         "observed" : {
+            "id" : "25"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "248:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "249:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "250:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "251:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "55"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "depends on non-visible",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "253:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "254:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "255:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "256:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "56"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "depends on non-visible reverse",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "integer1" : "250"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "258:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "259:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "260:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "261:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "You do not have permission to edit field integer1",
+         "failures" : [],
+         "id" : "no write access",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "no write access unchanged",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "date1" : "2014-10-10",
+               "integer1" : "250",
+               "string1" : "Foobar"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "264:column",
+         "observed" : {
+            "id" : "25"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "265:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "266:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "267:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "268:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "269:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "270:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "271:held",
+         "observed" : {
+            "current_id" : "24",
+            "record_id" : "57"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dns shown",
+         "observed" : {
+            "current_id" : "24",
+            "datum" : {
+               "integer1" : {
+                  "dependent_not_shown" : "0"
+               },
+               "string1" : {
+                  "dependent_not_shown" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "273:held",
+         "observed" : {
+            "current_id" : "24"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dns not shown",
+         "observed" : {
+            "current_id" : "24",
+            "datum" : {
+               "integer1" : {
+                  "dependent_not_shown" : "1"
+               },
+               "string1" : {
+                  "dependent_not_shown" : "0"
+               }
+            },
+            "record_id" : "58"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "275:held",
+         "observed" : {
+            "current_id" : "24"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dns not shown 2",
+         "observed" : {
+            "current_id" : "24",
+            "datum" : {
+               "integer1" : {
+                  "dependent_not_shown" : "1"
+               },
+               "string1" : {
+                  "dependent_not_shown" : "0"
+               }
+            },
+            "record_id" : "59"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dns in table view",
+         "observed" : {
+            "count" : "22",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5",
+               "6",
+               "7",
+               "8",
+               "9",
+               "10",
+               "11",
+               "12",
+               "13",
+               "14",
+               "15",
+               "16",
+               "17",
+               "18",
+               "19",
+               "20",
+               "21",
+               "22",
+               "23",
+               "24"
+            ],
+            "last" : "24",
+            "single" : [
+               "3",
+               "4",
+               "5",
+               "6",
+               "7",
+               "8",
+               "9",
+               "10",
+               "11",
+               "12",
+               "13",
+               "14",
+               "15",
+               "16",
+               "17",
+               "18",
+               "19",
+               "20",
+               "21",
+               "22",
+               "23",
+               "24"
+            ],
+            "single_dependent_not_shown" : [
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0",
+               "0"
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "278:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "279:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "280:column",
+         "observed" : {
+            "id" : "34"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "281:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "282:column",
+         "observed" : {
+            "id" : "37",
+            "name" : "Curval back to main table"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "283:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "284:column",
+         "observed" : {
+            "id" : "37"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "285:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "286:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "287:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "288:held",
+         "observed" : {
+            "current_id" : "25",
+            "record_id" : "60"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval master written",
+         "observed" : {
+            "current_id" : "25",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Apple",
+                  "ids" : [
+                     "26"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval record",
+         "observed" : {
+            "current_id" : "26",
+            "values" : {
+               "L2curval1" : "Bar",
+               "integer1" : "100",
+               "string1" : "Apple"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "291:column",
+         "observed" : {
+            "id" : "37"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "292:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "293:held",
+         "observed" : {
+            "current_id" : "25"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "294:held",
+         "observed" : {
+            "current_id" : "25"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "295:held",
+         "observed" : {
+            "current_id" : "25",
+            "record_id" : "62"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval record updated",
+         "observed" : {
+            "current_id" : "26",
+            "values" : {
+               "L2curval1" : "Foobar",
+               "string1" : "Apples"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "297:column",
+         "observed" : {
+            "id" : "9"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "298:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "299:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "300:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "301:held",
+         "observed" : {
+            "current_id" : "27",
+            "record_id" : "64"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "302:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "303:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "304:held",
+         "observed" : {
+            "current_id" : "27"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "305:held",
+         "observed" : {
+            "current_id" : "27"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "no longer optional warning",
+         "messages" : [
+            "MISTAKE: 'integer1' is no longer optional, but was previously blank for this record."
+         ],
+         "observed" : {
+            "current_id" : "27",
+            "record_id" : "65"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "307:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "308:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "309:held",
+         "observed" : {
+            "current_id" : "27"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "310:held",
+         "observed" : {
+            "current_id" : "27"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "mandatory not shown",
+         "observed" : {
+            "current_id" : "27",
+            "record_id" : "66"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "312:held",
+         "observed" : {
+            "current_id" : "27"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "313:held",
+         "observed" : {
+            "current_id" : "27"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "'integer1' is not optional. Please enter a value.",
+         "failures" : [],
+         "id" : "mandatory now shown",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "315:column",
+         "observed" : {
+            "id" : "25"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "316:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "317:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "318:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "319:held",
+         "observed" : {
+            "current_id" : "28",
+            "record_id" : "67"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "recursive initial",
+         "observed" : {
+            "current_id" : "28",
+            "values" : {
+               "string1" : "Foobar"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "321:held",
+         "observed" : {
+            "current_id" : "28"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "322:held",
+         "observed" : {
+            "current_id" : "28",
+            "record_id" : "68"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "recursive first removed",
+         "observed" : {
+            "current_id" : "28",
+            "values" : {
+               "string1" : "Foobar"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "324:held",
+         "observed" : {
+            "current_id" : "28"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "325:held",
+         "observed" : {
+            "current_id" : "28",
+            "record_id" : "69"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "recursive second removed",
+         "observed" : {
+            "current_id" : "28",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "The following fields are conditional on this field: integer1, string1.\n            Please remove these conditions before deletion.",
+         "failures" : [],
+         "id" : "delete depended field",
+         "observed" : null,
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete independent field",
+         "observed" : {
+            "deleted" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      }
+   ]
+}

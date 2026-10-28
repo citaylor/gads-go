@@ -1,0 +1,121 @@
+name: 007_curval_order
+source:
+- t/007_curval_order.t
+description: Curval values and dropdown ordered by the sort of the referred table
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: foo1
+    - string1: foo2
+    - string1: foo3
+    - string1: foo4
+- sheet:
+    as: main
+    curval: cv
+    curval_offset: 6
+    curval_fields:
+    - string1
+    multivalue: 1
+    multivalue_columns:
+      curval: 1
+    data:
+    - string1: foo
+      curval1:
+      - 1
+      - 2
+      - 3
+      - 4
+- db:
+    op: update
+    table: instance
+    where:
+      id: 2
+    set:
+      sort_layout_id: '@column:cv:string1'
+      sort_type: asc
+- clear_layouts: {}
+- held:
+    id: find asc
+    op: find
+    as: fasc
+    sheet: main
+    current_id: 5
+    datum:
+    - curval1
+    datum_props:
+    - text_all
+    expect:
+      datum:
+        curval1:
+          text_all: &id001
+          - foo1
+          - foo2
+          - foo3
+          - foo4
+- held:
+    id: single asc
+    op: single
+    as: sasc
+    sheet: main
+    datum:
+    - curval1
+    datum_props:
+    - text_all
+    expect:
+      datum:
+        curval1:
+          text_all: *id001
+- column:
+    id: dropdown asc
+    op: get
+    sheet: main
+    column: curval1
+    all_values: true
+- db:
+    op: update
+    table: instance
+    where:
+      id: 2
+    set:
+      sort_layout_id: '@column:cv:string1'
+      sort_type: desc
+- clear_layouts: {}
+- held:
+    id: find desc
+    op: find
+    as: fdesc
+    sheet: main
+    current_id: 5
+    datum:
+    - curval1
+    datum_props:
+    - text_all
+    expect:
+      datum:
+        curval1:
+          text_all: &id002
+          - foo4
+          - foo3
+          - foo2
+          - foo1
+- held:
+    id: single desc
+    op: single
+    as: sdesc
+    sheet: main
+    datum:
+    - curval1
+    datum_props:
+    - text_all
+    expect:
+      datum:
+        curval1:
+          text_all: *id002
+- column:
+    id: dropdown desc
+    op: get
+    sheet: main
+    column: curval1
+    all_values: true

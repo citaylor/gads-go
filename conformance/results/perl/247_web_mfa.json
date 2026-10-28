@@ -1,0 +1,606 @@
+{
+   "runner" : "perl",
+   "scenario" : "247_web_mfa",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "no_mfa",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_redirect",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/mfa\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "location" : "/mfa",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "logout_allowed",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "choose",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        \n\n\n\n\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Multi-factor Authentication\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    </div>\n  </div>\n  \n</div>\n\n\n<form role=\"form\" method=\"post\">\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            \n                <div class=\"form-group\">\n                    <p>\n                        In order to continue, it is required to set up multi-factor authentication.\n                    </p>\n                    <p>\n                        Which type of multi-factor authentication would you like to use?\n                    </p>\n                </div>\n                \n                \n                \n            \n        </div>\n    </div>\n\n    \n    \n<div class=\"row\">\n  \n    <div class=\"\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"choose_mfa\"\n        value=\"otp\"\n        class=\"btn btn-default\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">One-time passwords (OTP)</span>\n      </button>\n      \n    </li>\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"choose_mfa\"\n        value=\"sms\"\n        class=\"btn btn-default\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">SMS</span>\n      </button>\n      \n    </li>\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"choose_mfa\"\n        value=\"yub\"\n        class=\"btn btn-default\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Yubikey hardware token</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "choose_sms",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        \n\n\n\n\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Multi-factor Authentication\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    </div>\n  </div>\n  \n</div>\n\n\n<form role=\"form\" method=\"post\">\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            \n                <div class=\"form-group\">\n                    <p>\n                        In order to continue, it is required to set up multi-factor\n                        authentication using SMS. A mobile telephone number will be\n                        required to deliver the SMS text messages to.\n                    </p>\n                    <label for=\"mobile\">Mobile telephone number:</label>\n                    <input class=\"form-control\" type=\"text\" name=\"mobile\" placeholder=\"+4471234123123\" value=\"\">\n                    <small class=\"form-text text-muted\">\n                        By entering your number, you agree to receive mobile messages\n                        from this site at the phone number provided. Message\n                        frequency varies. Message and data rates may apply. Carriers\n                        are not liable for any delays or undelivered messages, Reply\n                        STOP to opt-out. View our Privacy Policy.\n                    </p>\n                </div>\n            \n        </div>\n    </div>\n\n    \n        \n    \n    \n<div class=\"row\">\n  \n    <div class=\"\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit-login\"\n        value=\"submit\"\n        class=\"btn btn-default\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Submit</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "type_chosen",
+         "observed" : [
+            {
+               "mfa_type" : "sms",
+               "mobile" : null,
+               "mobile_verified" : "0"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sms_setup",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        \n\n\n\n\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Multi-factor Authentication\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    </div>\n  </div>\n  \n</div>\n\n\n<form role=\"form\" method=\"post\">\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            \n                <div class=\"form-group\">\n                    <p>\n                        In order to continue, it is required to set up multi-factor\n                        authentication using SMS. A mobile telephone number will be\n                        required to deliver the SMS text messages to.\n                    </p>\n                    <label for=\"mobile\">Mobile telephone number:</label>\n                    <input class=\"form-control\" type=\"text\" name=\"mobile\" placeholder=\"+4471234123123\" value=\"\">\n                    <small class=\"form-text text-muted\">\n                        By entering your number, you agree to receive mobile messages\n                        from this site at the phone number provided. Message\n                        frequency varies. Message and data rates may apply. Carriers\n                        are not liable for any delays or undelivered messages, Reply\n                        STOP to opt-out. View our Privacy Policy.\n                    </p>\n                </div>\n            \n        </div>\n    </div>\n\n    \n        \n    \n    \n<div class=\"row\">\n  \n    <div class=\"\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit-login\"\n        value=\"submit\"\n        class=\"btn btn-default\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Submit</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sms_bad_mobile",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sms_not_received",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/mfa/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/mfa/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sms_mobile",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/mfa/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/mfa/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "mobile_set",
+         "observed" : [
+            {
+               "mfa_type" : "sms",
+               "mobile" : "+441234567890",
+               "mobile_verified" : "0"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sms_send_unconfigured",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/mfa\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "location" : "/mfa",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sms_bad_token",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/mfa/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/mfa/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "mobile_cleared",
+         "observed" : [
+            {
+               "mfa_type" : "sms",
+               "mobile" : null,
+               "mobile_verified" : "0"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "otp_code_page",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    The mobile number 0123 is invalid. Please enter as international format (e.g. +1444555666)\n  </div>\n  \n  <div class=\"alert alert-info\" role=\"alert\">\n    NOTICE:\n    Please re-enter your mobile number and try again\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Mobile number has been added successfully\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    The token entered was not valid. Please re-enter your mobile number.\n  </div>\n  \n\n\n\n\n\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Multi-factor Authentication\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    </div>\n  </div>\n  \n</div>\n\n\n<form role=\"form\" method=\"post\">\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            \n                <div class=\"form-group\">\n                    \n                        <p>Please use your One-time Password application to generate an MFA code.</p>\n                    \n                    <label for=\"token\">Enter token:</label>\n                    <input class=\"form-control\" type=\"text\" name=\"token\">\n                </div>\n            \n        </div>\n    </div>\n\n    \n        \n    \n    \n<div class=\"row\">\n  \n    <div class=\"\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit-login\"\n        value=\"submit\"\n        class=\"btn btn-default\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Submit</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "otp_wrong",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        \n  \n  <div class=\"alert alert-warning\" role=\"alert\">\n    WARNING:\n    Incorrect or invalid token entered\n  </div>\n  \n\n\n\n\n\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Multi-factor Authentication\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    </div>\n  </div>\n  \n</div>\n\n\n<form role=\"form\" method=\"post\">\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            \n                <div class=\"form-group\">\n                    \n                        <p>Please use your One-time Password application to generate an MFA code.</p>\n                    \n                    <label for=\"token\">Enter token:</label>\n                    <input class=\"form-control\" type=\"text\" name=\"token\">\n                </div>\n            \n        </div>\n    </div>\n\n    \n        \n    \n    \n<div class=\"row\">\n  \n    <div class=\"\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit-login\"\n        value=\"submit\"\n        class=\"btn btn-default\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Submit</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "otp_wrong_again",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        \n  \n  <div class=\"alert alert-warning\" role=\"alert\">\n    WARNING:\n    Incorrect or invalid token entered\n  </div>\n  \n\n\n\n\n\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Multi-factor Authentication\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    </div>\n  </div>\n  \n</div>\n\n\n<form role=\"form\" method=\"post\">\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            \n                <div class=\"form-group\">\n                    \n                        <p>Please use your One-time Password application to generate an MFA code.</p>\n                    \n                    <label for=\"token\">Enter token:</label>\n                    <input class=\"form-control\" type=\"text\" name=\"token\">\n                </div>\n            \n        </div>\n    </div>\n\n    \n        \n    \n    \n<div class=\"row\">\n  \n    <div class=\"\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit-login\"\n        value=\"submit\"\n        class=\"btn btn-default\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Submit</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "failcount",
+         "observed" : [
+            {
+               "mfa_failcount" : "2"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "otp_correct",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "MFATOKEN",
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "after_success",
+         "observed" : [
+            {
+               "mfa_failcount" : "0",
+               "mfa_lastfail" : null,
+               "mfa_token_previous_type" : "otp"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_after_success",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/mfa\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "MFATOKEN",
+               "dancer.session"
+            ],
+            "location" : "/mfa",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "otp_reused",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "MFATOKEN",
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "otp_locked",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "MFATOKEN",
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "30:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "otp_lock_expired",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "MFATOKEN",
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "forced_yubikey_setup",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        \n  \n  <div class=\"alert alert-warning\" role=\"alert\">\n    WARNING:\n    The authentication token has already been used in the last 5 minutes, possibly an attacker?\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Multi-factor authentication is currently unavailable, please try again shortly.\n  </div>\n  \n  <div class=\"alert alert-warning\" role=\"alert\">\n    WARNING:\n    The authentication token has already been used in the last 5 minutes, possibly an attacker?\n  </div>\n  \n\n\n\n\n\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Multi-factor Authentication\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    </div>\n  </div>\n  \n</div>\n\n\n<form role=\"form\" method=\"post\">\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n    <div class=\"row\">\n        <div class=\"col-md-6\">\n            \n                <div class=\"form-group\">\n                    \n                    <label for=\"token\">Enter token:</label>\n                    <input class=\"form-control\" type=\"text\" name=\"token\">\n                </div>\n            \n        </div>\n    </div>\n\n    \n        \n    \n    \n<div class=\"row\">\n  \n    <div class=\"\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit-login\"\n        value=\"submit\"\n        class=\"btn btn-default\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Submit</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "MFATOKEN",
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "34:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "35:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "mfa_not_needed",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "MFATOKEN",
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      }
+   ]
+}

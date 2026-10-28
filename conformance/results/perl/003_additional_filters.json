@@ -1,0 +1,333 @@
+{
+   "runner" : "perl",
+   "scenario" : "003_additional_filters",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "34",
+               "date1" : "30",
+               "daterange1" : "31",
+               "enum1" : "27",
+               "enum2" : "28",
+               "file1" : "32",
+               "integer1" : "26",
+               "person1" : "33",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "29"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Enum",
+         "observed" : {
+            "count" : "1",
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Enum multiple",
+         "observed" : {
+            "count" : "2",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Tree",
+         "observed" : {
+            "count" : "1",
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Tree multiple",
+         "observed" : {
+            "count" : "2",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String match",
+         "observed" : {
+            "count" : "1",
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String like",
+         "observed" : {
+            "count" : "1",
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String multiple",
+         "observed" : {
+            "count" : "2",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String no match",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Integer",
+         "observed" : {
+            "count" : "1",
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Curval",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date",
+         "observed" : {
+            "count" : "1",
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date range",
+         "observed" : {
+            "count" : "1",
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "File",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "File - begins with",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Calc - begins with",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Rag",
+         "observed" : {
+            "count" : "2",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Person",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      }
+   ]
+}

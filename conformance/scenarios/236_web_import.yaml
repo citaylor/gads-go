@@ -1,0 +1,102 @@
+name: 236_web_import
+source:
+  - lib/GADS.pm (/:layout_name/import/?, /import/rows/:import_id, /import/data/?)
+  - lib/GADS/Import.pm
+  - views/import.tt, views/import/data.tt, views/import/rows.tt
+description: >
+  Importing records from CSV: the permission needed, the upload form, a
+  submission without a file, a dry run, an import (with an invalid row),
+  updating by a unique field, the list of imports, the rows of an import, a
+  missing import and clearing the completed imports.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo1, integer1: 1 }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: home_normal1, as: normal1, path: /, no_body: true }
+  - http: { id: import_denied, as: normal1, path: "/{sheet:s}/import" }
+  - db:
+      op: insert
+      table: instance_group
+      set: { instance_id: 1, group_id: "@group:default", permission: bulk_import }
+  - http: { id: imports_empty, as: superadmin, path: "/{sheet:s}/import/" }
+  - http: { id: import_form, as: superadmin, path: "/{sheet:s}/import/data" }
+  - http:
+      id: import_no_file
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/import/data/"
+      form: { submit: 1 }
+  - http:
+      id: import_dry_run
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/import/data"
+      form: { submit: 1, import_options: [dry_run] }
+      upload:
+        file: { filename: data.csv, content: "string1,integer1\nBar1,10\nBar2,20\n", content_type: text/csv }
+  - http:
+      id: import_real
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/import/data"
+      form: { submit: 1 }
+      upload:
+        file: { filename: data.csv, content: "string1,integer1\nBar1,10\nBar2,notanumber\nBar3,30\n", content_type: text/csv }
+  - http:
+      id: import_bad_header
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/import/data"
+      form: { submit: 1 }
+      upload:
+        file: { filename: data.csv, content: "nosuchfield,integer1\nBar1,10\n", content_type: text/csv }
+  - http:
+      id: import_update_unique
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/import/data"
+      form: { submit: 1, update_unique: "{column:s:string1}", import_options: [split_multiple, round_integers] }
+      upload:
+        file: { filename: data.csv, content: "string1,integer1\nBar1,11.6\nNew4,40\n", content_type: text/csv }
+  - db:
+      id: imports
+      op: select
+      table: import
+      columns: [id, instance_id, user_id, type, row_count, started, completed, error_count, skipped_count, result]
+      order_by: [id]
+  - db:
+      id: import_rows
+      op: select
+      table: import_row
+      columns: [id, import_id, status, content, errors, changes]
+      order_by: [id]
+  - db:
+      id: strings
+      op: select
+      table: string
+      columns: [record_id, value]
+      order_by: [record_id]
+  - db:
+      id: intgrs
+      op: select
+      table: intgr
+      columns: [record_id, value]
+      order_by: [record_id]
+  - http: { id: imports_list, as: superadmin, path: "/{sheet:s}/import" }
+  - http: { id: import_rows_page, as: superadmin, path: "/{sheet:s}/import/rows/2" }
+  - http: { id: import_rows_missing, as: superadmin, path: "/{sheet:s}/import/rows/99" }
+  - http:
+      id: imports_clear
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/import"
+      form: { clear: 1 }
+  - db:
+      id: imports_after_clear
+      op: count
+      table: import

@@ -1,0 +1,336 @@
+{
+   "runner" : "perl",
+   "scenario" : "003_chronology",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "16",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "initial",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "integer1" : "10",
+               "string1" : "Foo1"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "first change",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "integer1" : "20",
+               "string1" : "Foo2"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "second change",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "integer1" : "30"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chronology full user",
+         "observed" : {
+            "chronology" : [
+               {
+                  "changed" : [
+                     {
+                        "name_short" : "L1string1",
+                        "value" : "Foo1"
+                     },
+                     {
+                        "name_short" : "L1integer1",
+                        "value" : "10"
+                     }
+                  ],
+                  "datetime" : "2014-10-10 02:00:00",
+                  "editor" : "User1, User1"
+               },
+               {
+                  "changed" : [
+                     {
+                        "name_short" : "L1string1",
+                        "value" : "Foo2"
+                     },
+                     {
+                        "name_short" : "L1integer1",
+                        "value" : "20"
+                     }
+                  ],
+                  "datetime" : "2014-10-10 02:00:00",
+                  "editor" : "User1, User1"
+               },
+               {
+                  "changed" : [
+                     {
+                        "name_short" : "L1integer1",
+                        "value" : "30"
+                     }
+                  ],
+                  "datetime" : "2014-10-10 02:00:00",
+                  "editor" : "User1, User1"
+               }
+            ],
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chronology within view limit",
+         "observed" : {
+            "chronology" : [
+               {
+                  "changed" : [
+                     {
+                        "name_short" : "L1string1",
+                        "value" : "Foo2"
+                     },
+                     {
+                        "name_short" : "L1integer1",
+                        "value" : "20"
+                     }
+                  ],
+                  "datetime" : "2014-10-10 02:00:00",
+                  "editor" : "User1, User1"
+               },
+               {
+                  "changed" : [
+                     {
+                        "name_short" : "L1integer1",
+                        "value" : "30"
+                     }
+                  ],
+                  "datetime" : "2014-10-10 02:00:00",
+                  "editor" : "User1, User1"
+               }
+            ],
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:view",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "chronology latest version outside view limit",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:column",
+         "observed" : {
+            "id" : "9"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chronology without integer",
+         "observed" : {
+            "chronology" : [
+               {
+                  "changed" : [
+                     {
+                        "name_short" : "L1string1",
+                        "value" : "Foo1"
+                     }
+                  ],
+                  "datetime" : "2014-10-10 02:00:00",
+                  "editor" : "User1, User1"
+               },
+               {
+                  "changed" : [
+                     {
+                        "name_short" : "L1string1",
+                        "value" : "Foo2"
+                     }
+                  ],
+                  "datetime" : "2014-10-10 02:00:00",
+                  "editor" : "User1, User1"
+               }
+            ],
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      }
+   ]
+}

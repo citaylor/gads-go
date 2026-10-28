@@ -1,0 +1,52 @@
+name: 247_web_mfa
+source:
+  - lib/GADS/MFA.pm (the before hook and /mfa)
+  - lib/GADS/Schema/Result/User.pm (mfa_type_effective, need_mfa, need_mfa_setup, check_token, recent_mfa, need_mobile_verification, send_mfa_sms)
+  - views/mfa.tt
+description: >
+  GADS-dev multi-factor authentication: a site forcing MFA redirects to the
+  MFA page, where the user chooses the type of MFA and sets it up (for SMS
+  its mobile number, sending the code failing without SMS configuration),
+  then authentication with an OTP token: wrong tokens counted, the correct
+  token accepted (its cookie is secure, so not sent back over http), and
+  the brute-force lockout. The random OTP setup key is not observed.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - login: { user: normal1 }
+  - http: { id: no_mfa, as: normal1, path: /mfa }
+  - db: { op: update, table: site, where: { id: 1 }, set: { force_mfa: any } }
+  - http: { id: home_redirect, as: normal1, path: / }
+  - http: { id: logout_allowed, as: normal1, path: /logout, no_body: true }
+  - login: { user: normal1 }
+  - http: { id: choose, as: normal1, path: /mfa }
+  - http: { id: choose_sms, as: normal1, method: POST, path: /mfa, form: { choose_mfa: sms } }
+  - db: { id: type_chosen, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_type, mobile, mobile_verified] }
+  - http: { id: sms_setup, as: normal1, path: /mfa }
+  - http: { id: sms_bad_mobile, as: normal1, method: POST, path: /mfa, form: { mobile: "0123" } }
+  - http: { id: sms_not_received, as: normal1, method: POST, path: /mfa, form: { sms-not-received: 1 } }
+  - http: { id: sms_mobile, as: normal1, method: POST, path: /mfa, form: { mobile: "+441234567890" } }
+  - db: { id: mobile_set, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_type, mobile, mobile_verified] }
+  - http: { id: sms_send_unconfigured, as: normal1, path: /mfa/ }
+  - http: { id: sms_bad_token, as: normal1, method: POST, path: /mfa, form: { token: "999999" } }
+  - db: { id: mobile_cleared, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_type, mobile, mobile_verified] }
+  # OTP with a known secret
+  - db: { op: update, table: user, where: { id: "@user:normal1" }, set: { mfa_type: otp, mfa_secret: JBSWY3DPEHPK3PXP } }
+  - http: { id: otp_code_page, as: normal1, path: /mfa }
+  - http: { id: otp_wrong, as: normal1, method: POST, path: /mfa, form: { token: "000000" } }
+  - http: { id: otp_wrong_again, as: normal1, method: POST, path: /mfa, form: { token: "abc" } }
+  - db: { id: failcount, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_failcount] }
+  - http: { id: otp_correct, as: normal1, method: POST, path: /mfa, form: { token: "{totp:JBSWY3DPEHPK3PXP}" } }
+  - db: { id: after_success, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_failcount, mfa_lastfail, mfa_token_previous_type] }
+  - http: { id: home_after_success, as: normal1, path: / }
+  - http: { id: otp_reused, as: normal1, method: POST, path: /mfa, form: { token: "{totp:JBSWY3DPEHPK3PXP}" } }
+  # Brute-force lockout
+  - db: { op: update, table: user, where: { id: "@user:normal1" }, set: { mfa_failcount: 6, mfa_lastfail: "@now" } }
+  - http: { id: otp_locked, as: normal1, method: POST, path: /mfa, form: { token: "{totp:JBSWY3DPEHPK3PXP}" } }
+  - db: { op: update, table: user, where: { id: "@user:normal1" }, set: { mfa_failcount: 6, mfa_lastfail: "2000-01-01 00:00:00" } }
+  - http: { id: otp_lock_expired, as: normal1, method: POST, path: /mfa, form: { token: "{totp:JBSWY3DPEHPK3PXP}" } }
+  # The site forcing a type overrides the user's choice
+  - db: { op: update, table: site, where: { id: 1 }, set: { force_mfa: yub } }
+  - http: { id: forced_yubikey_setup, as: normal1, path: /mfa }
+  - db: { op: update, table: site, where: { id: 1 }, set: { force_mfa: null } }
+  - db: { op: update, table: user, where: { id: "@user:normal1" }, set: { mfa_type: null } }
+  - http: { id: mfa_not_needed, as: normal1, path: /mfa }

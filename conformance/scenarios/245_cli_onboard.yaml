@@ -1,0 +1,138 @@
+name: 245_cli_onboard
+source:
+  - bin/onboard.pl
+description: >
+  Onboarding records from a CSV file: the errors of the options and of the
+  headings, the parsing of each type of field (enumerated values, trees
+  and people by their text, date ranges as text or two columns, integers,
+  strings, version date and user), matching existing records by a unique
+  field or ID (with --report-changes, --append and
+  --no-change-unless-blank), skipping existing unique values, and the CSV
+  of invalid rows (with --invalid-report). The script writes as no user,
+  so as in GADS new records and changed values fail for want of
+  permission, and only unchanged records are "written".
+steps:
+  - sheet: { as: s, site_id: 1, data: [{ string1: Foo, integer1: 5 }] }
+  - db: { id: users, op: select, table: user, columns: [id, value, username] }
+  - db: { id: ev, op: select, table: enumval, columns: [id, value, layout_id, parent] }
+  - cli: { id: no_inst, script: onboard.pl }
+  - cli: { id: no_file, script: onboard.pl, args: [--instance-id, 1] }
+  - cli: { id: bad_force, script: onboard.pl, args: [--force, x] }
+  - cli: { id: bad_field, script: onboard.pl, args: [--instance-id, 1, "{file:in.csv}"], files: { in.csv: "string1,nope\nA,B\n" } }
+  - cli:
+      id: basic
+      script: onboard.pl
+      args: [--instance-id, 1, --invalid-csv, bad.csv, "{file:in.csv}"]
+      observe_files: content
+      files:
+        in.csv: |
+          string1,integer1,enum1,tree1,date1,daterange1,person1
+          Bar,10,foo1,tree1,2014-10-10,2014-01-01 to 2014-02-01,"User1, User1"
+          Baz,x,foo9,tree9,2014-13-10,bad,nobody
+          ,,,,,,
+          " Qux ",3.6,FOO2,tree2,2014-10-11,20140101-20140202,
+  - cli:
+      id: setval
+      script: onboard.pl
+      observe_files: content
+      args: [--instance-id, 1, --invalid-csv, bad.csv, --invalid-report, string1, --blank-invalid-enum, --ignore-string-zeros, "{file:in.csv}"]
+      files: { in.csv: "string1,date1,enum1,integer1\nA,2014-13-10,foo1,1\n0,,nope,2\nC,2014-01-01,foo1,abc\n" }
+  - cli:
+      id: report_bad
+      script: onboard.pl
+      args: [--instance-id, 1, --invalid-csv, bad.csv, --invalid-report, nope, "{file:in.csv}"]
+      files: { in.csv: "string1\nA\n" }
+  - cli:
+      id: append_bad
+      script: onboard.pl
+      args: [--instance-id, 1, --append, nope, "{file:in.csv}"]
+      files: { in.csv: "string1\nA\n" }
+  - cli:
+      id: uu_bad
+      script: onboard.pl
+      args: [--instance-id, 1, --update-unique, nope, "{file:in.csv}"]
+      files: { in.csv: "string1\nA\n" }
+  - cli:
+      id: twice
+      script: onboard.pl
+      args: [--instance-id, 1, "{file:in.csv}"]
+      files: { in.csv: "string1,string1\nA,B\n" }
+  - cli:
+      id: excl
+      script: onboard.pl
+      args: [--instance-id, 1, --update-unique, a, --skip-existing-unique, b, "{file:in.csv}"]
+  - cli:
+      id: ncub
+      script: onboard.pl
+      args: [--instance-id, 1, --no-change-unless-blank, x, "{file:in.csv}"]
+  - cli:
+      id: skipnew
+      script: onboard.pl
+      observe_files: content
+      args: [--instance-id, 1, --invalid-csv, bad.csv, --update-unique, string1, --no-change-unless-blank, skip_new, --report-changes, --append, integer1, "{file:in.csv}"]
+      files: { in.csv: "string1,integer1,enum1\nFoo,6,foo2\nFOO,7,foo1\n" }
+  - cli:
+      id: same
+      script: onboard.pl
+      observe_files: content
+      args: [--instance-id, 1, --invalid-csv, bad.csv, --update-unique, string1, "{file:in.csv}"]
+      files: { in.csv: "string1,integer1\nFoo,5\nFoo,\n" }
+  - cli:
+      id: by_id
+      script: onboard.pl
+      observe_files: content
+      args: [--instance-id, 1, --invalid-csv, bad.csv, --update-unique, ID, --report-changes, "{file:in.csv}"]
+      files: { in.csv: "string1,integer1\nFoo,5,1\nBar,6,99\nBaz,8\nFoo,9,1\n" }
+  - db: { op: insert, table: enumval, set: { layout_id: 10, value: " FOO1", position: 4 } }
+  - cli:
+      id: multi_enum
+      script: onboard.pl
+      observe_files: content
+      args: [--instance-id, 1, --invalid-csv, bad.csv, "{file:in.csv}"]
+      files: { in.csv: "string1,enum1,person1\nA,foo1,user1@example.com\n" }
+  - cli:
+      id: first_enum
+      script: onboard.pl
+      observe_files: content
+      args: [--instance-id, 1, --invalid-csv, bad.csv, --take-first-enum, --skip-existing-unique, string1, "{file:in.csv}"]
+      files: { in.csv: "enum1,string1\nfoo1,A\nfoo2,\n" }
+  - cli: { id: missing_file, script: onboard.pl, args: [--instance-id, 1, nofile.csv] }
+  - db: { id: strings, op: select, table: string, columns: [record_id, layout_id, value], order_by: [record_id, layout_id] }
+  - db: { id: recs, op: select, table: record, columns: [id, current_id, created, createdby], order_by: [id] }
+  - cli:
+      id: dry
+      script: onboard.pl
+      args: [--instance-id, 1, --dry-run, --invalid-csv, bad.csv, "{file:in.csv}"]
+      observe_files: content
+      files: { in.csv: "string1,integer1\nDry,1\n" }
+  - cli:
+      id: update
+      observe_files: content
+      script: onboard.pl
+      args: [--instance-id, 1, --invalid-csv, bad.csv, --update-unique, string1, --report-changes, "{file:in.csv}"]
+      files: { in.csv: "string1,integer1\nFoo,7\nNew,8\n,9\n" }
+  - cli:
+      id: update_id
+      script: onboard.pl
+      args: [--instance-id, 1, --update-unique, ID, --report-changes, "{file:in.csv}"]
+      files: { in.csv: "ID,string1,integer1\n1,Foo2,7\n99,X,1\n" }
+  - cli:
+      id: skip
+      observe_files: content
+      script: onboard.pl
+      args: [--instance-id, 1, --invalid-csv, bad.csv, --skip-existing-unique, string1, "{file:in.csv}"]
+      files: { in.csv: "string1,integer1\nFoo2,7\nNew2,8\n" }
+  - cli:
+      id: dr2
+      observe_files: content
+      script: onboard.pl
+      args: [--instance-id, 1, --invalid-csv, bad.csv, --ignore-incomplete-dateranges, "{file:in.csv}"]
+      files: { in.csv: "string1,daterange1,daterange1\nD1,2014-01-01,2014-02-01\nD2,01/03/2014,\n" }
+  - cli:
+      id: version
+      observe_files: content
+      script: onboard.pl
+      args: [--instance-id, 1, --invalid-csv, bad.csv, "{file:in.csv}"]
+      files: { in.csv: "string1,__version_datetime,__version_userid\nV1,2013-01-01,2\nV2,bad,2\n" }
+  - db: { id: recs2, op: select, table: record, columns: [id, current_id, created, createdby], order_by: [id] }
+  - db: { id: strings2, op: select, table: string, columns: [record_id, layout_id, value], order_by: [record_id, layout_id] }

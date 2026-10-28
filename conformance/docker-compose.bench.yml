@@ -1,0 +1,65 @@
+# The Perl and Go GADS in containers on the same base (Debian trixie), with
+# a disposable PostgreSQL on their own network, so that the benchmarks
+# compare the two on equal terms (and neither goes through the port
+# forwarding of the host). Run by bench_docker.sh; the results are those of
+# the bench scripts with the suffix BENCH_SUFFIX (-docker).
+#
+#   ./bench_docker.sh [--pg] [--time SECS] [--no-units] [bench/x.yaml ...]
+#
+# The services can also be used directly, e.g. the conformance suite on the
+# Perl of the image:
+#   docker compose -f docker-compose.bench.yml run --rm perl ./run_perl.sh --pg
+name: gads-bench
+
+x-bench-env: &bench-env
+  GADS_TEST_PG_HOST: test-pg
+  BENCH_SUFFIX: ${BENCH_SUFFIX:--docker}
+  HOME: /tmp
+
+services:
+  test-pg:
+    image: postgres:16-alpine
+    profiles: ["pg"]
+    environment:
+      POSTGRES_USER: gads_test
+      POSTGRES_PASSWORD: gads_test
+      POSTGRES_DB: postgres
+    command: ["postgres", "-c", "fsync=off", "-c", "synchronous_commit=off", "-c", "full_page_writes=off"]
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gads_test -d postgres"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  perl:
+    build: ./docker/perl
+    image: gads-perl-bench:latest
+    user: "${BENCH_UID:-1000}:${BENCH_GID:-1000}"
+    environment: *bench-env
+    working_dir: /conformance
+    cpus: ${BENCH_CPUS:-0}
+    volumes:
+      - .:/conformance
+      - ${GADS_SRC:-../upstream/GADS-dev}:/upstream/GADS:ro
+      - perl-inline:/cache/inline
+
+  go:
+    build:
+      context: ../gads-go
+      target: builder
+    image: gads-go-builder:latest
+    user: "${BENCH_UID:-1000}:${BENCH_GID:-1000}"
+    environment: *bench-env
+    working_dir: /conformance
+    cpus: ${BENCH_CPUS:-0}
+    volumes:
+      - .:/conformance
+      - ../gads-go:/gads-go
+      - ${GADS_SRC:-../upstream/GADS-dev}:/upstream/GADS:ro
+      - go-build-cache:/cache/go-build
+
+volumes:
+  perl-inline:
+  go-build-cache:

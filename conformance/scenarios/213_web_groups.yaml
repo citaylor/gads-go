@@ -1,0 +1,111 @@
+name: 213_web_groups
+source:
+  - lib/GADS.pm (/group_overview/, /group_add/, /group_edit/:id)
+  - lib/GADS/Group.pm (from_id, write, delete), lib/GADS/Groups.pm (all)
+description: >
+  The group administration pages: listing groups, adding and renaming
+  them (a name is required), deleting them with their permissions, and the
+  behaviour of GADS::Group for a group that does not exist (editing it
+  creates a group; deleting it creates and deletes one).
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - login: { user: useradmin }
+  - login: { user: normal1 }
+  - http: { id: groups, as: useradmin, path: /group_overview/ }
+  - http: { id: add_form, as: useradmin, path: /group_add/ }
+  - http:
+      id: add_no_name
+      as: useradmin
+      method: POST
+      path: /group_add/
+      form: { submit: submit, name: "" }
+  - http:
+      id: add
+      as: useradmin
+      method: POST
+      path: /group_add/
+      form: { submit: submit, name: Editors }
+  - http:
+      id: add2
+      as: useradmin
+      method: POST
+      path: /group_add/
+      form: { submit: submit, name: Authors }
+  - http: { id: groups_after_add, as: useradmin, path: /group_overview/ }
+  - db:
+      id: groups_db
+      op: select
+      table: group
+      columns: [id, name, site_id, default_read, default_write_new]
+      order_by: [id]
+  - http: { id: edit_form, as: useradmin, path: /group_edit/10 }
+  - http:
+      id: rename
+      as: useradmin
+      method: POST
+      path: /group_edit/10
+      form: { submit: submit, name: Chief editors }
+  - http:
+      id: rename_no_name
+      as: useradmin
+      method: POST
+      path: /group_edit/10
+      form: { submit: submit, name: "" }
+  - http: { id: edit_not_found, as: useradmin, path: /group_edit/999 }
+  - http:
+      id: edit_not_found_submit
+      as: useradmin
+      method: POST
+      path: /group_edit/999
+      form: { submit: submit, name: Created by edit }
+  - db:
+      op: insert
+      table: user_group
+      set: { user_id: 4, group_id: 11 }
+  - db:
+      op: insert
+      table: instance_group
+      set: { instance_id: 1, group_id: 11, permission: layout }
+  - db:
+      op: insert
+      table: layout_group
+      set: { layout_id: "@column:s:string1", group_id: 11, permission: read }
+  - http: { id: delete_overview, as: useradmin, path: /group_overview/, query: { delete: 11 } }
+  - http: { id: delete_not_found, as: useradmin, path: /group_overview/, query: { delete: 999 } }
+  - http:
+      id: delete_edit
+      as: useradmin
+      method: POST
+      path: /group_edit/10
+      form: { delete: 1 }
+  - http: { id: groups_final, as: useradmin, path: /group_overview/ }
+  - db:
+      id: groups_final_db
+      op: select
+      table: group
+      columns: [id, name]
+      order_by: [id]
+  - db:
+      id: memberships
+      op: select
+      table: user_group
+      columns: [user_id, group_id]
+      order_by: [user_id, group_id]
+  - db:
+      id: perms
+      op: select
+      table: instance_group
+      columns: [instance_id, group_id, permission]
+  - http: { id: normal_denied, as: normal1, path: /group_overview/ }
+  - http:
+      id: added_after_missing_delete
+      as: useradmin
+      method: POST
+      path: /group_add/
+      form: { submit: submit, name: Last }
+  - db:
+      id: ids_after_missing_delete
+      op: select
+      table: group
+      columns: [id, name]
+      order_by: [id]

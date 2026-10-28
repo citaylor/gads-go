@@ -1,0 +1,123 @@
+# GADS (Go) with PostgreSQL.
+#
+#   cp .env.example .env    # then set the passwords in .env
+#   docker compose up -d --build
+#
+# The application is then at http://localhost:3000/ (GADS_PORT), with the
+# user GADS_ADMIN_EMAIL / GADS_ADMIN_PASSWORD created on first start.
+name: gads
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-gads}
+      POSTGRES_USER: ${POSTGRES_USER:-gads}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_INITDB_ARGS: --encoding=UTF8
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./docker/postgres/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+    # Not published to the host; uncomment to connect from outside
+    # ports:
+    #   - "127.0.0.1:5432:5432"
+
+  app:
+    build:
+      context: .
+      additional_contexts:
+        gads-upstream: ../upstream/GADS-dev
+    image: gads-go:latest
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-gads}
+      POSTGRES_USER: ${POSTGRES_USER:-gads}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      GADS_HOST: ${GADS_HOST:-localhost}
+      GADS_INSTANCE_NAME: ${GADS_INSTANCE_NAME:-datasheet}
+      GADS_ADMIN_EMAIL: ${GADS_ADMIN_EMAIL:-admin@localhost}
+      GADS_ADMIN_PASSWORD: ${GADS_ADMIN_PASSWORD:-}
+      GADS_EMAIL_FROM: ${GADS_EMAIL_FROM:-}
+      # Emails are sent by SMTP when SMTP_HOST is set
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-}
+      SMTP_SECURITY: ${SMTP_SECURITY:-}
+      SMTP_USERNAME: ${SMTP_USERNAME:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_HELO: ${SMTP_HELO:-}
+    volumes:
+      # Uploaded files (gads.uploads)
+      - uploads:/var/lib/gads/uploads
+    ports:
+      - "${GADS_PORT:-3000}:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # The build environment (Go, gcc, the modules), with this directory
+  # mounted at /src, and the conformance suite and the Perl GADS (views)
+  # read-only, so that the conformance test runs too. Only run on request:
+  #   docker compose run --rm builder                  # builds bin/gads
+  #   docker compose run --rm builder go test ./...    # all the tests
+  #   docker compose run --rm builder go vet ./...
+  builder: &builder
+    profiles: ["build"]
+    build:
+      context: .
+      target: builder
+    image: gads-go-builder:latest
+    # Files written to the mounted source belong to this user (default 1000)
+    user: "${BUILD_UID:-1000}:${BUILD_GID:-1000}"
+    working_dir: /src
+    volumes:
+      - .:/src
+      - ../conformance:/conformance:ro
+      - ../upstream/GADS-dev:/upstream/GADS:ro
+      - go-build-cache:/cache/go-build
+    command: ["go", "build", "-trimpath", "-o", "bin/gads", "./cmd/gads"]
+
+  # The service built from the mounted source and run as the app service
+  # is (seeded on first start), for testing a change before building the
+  # image. It has its own database (POSTGRES_DEV_DB, created if missing) on
+  # the db server, and listens on GADS_DEV_PORT (3001):
+  #   docker compose --profile build up -d dev
+  #   docker compose restart dev          # rebuild and rerun after a change
+  #   docker compose logs -f dev
+  dev:
+    <<: *builder
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DEV_DB:-gads_dev}
+      POSTGRES_USER: ${POSTGRES_USER:-gads}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      GADS_HOST: ${GADS_HOST:-localhost}
+      GADS_INSTANCE_NAME: ${GADS_INSTANCE_NAME:-datasheet}
+      GADS_ADMIN_EMAIL: ${GADS_ADMIN_EMAIL:-admin@localhost}
+      GADS_ADMIN_PASSWORD: ${GADS_ADMIN_PASSWORD:-}
+      GADS_EMAIL_FROM: ${GADS_EMAIL_FROM:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-}
+      SMTP_SECURITY: ${SMTP_SECURITY:-}
+      SMTP_USERNAME: ${SMTP_USERNAME:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_HELO: ${SMTP_HELO:-}
+    ports:
+      - "${GADS_DEV_PORT:-3001}:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["/src/docker/dev-serve.sh"]
+
+volumes:
+  db-data:
+  uploads:
+  go-build-cache:

@@ -1,0 +1,32 @@
+name: 000_smoke
+source: [t/lib/Test/GADS/DataSheet.pm]
+description: Default DataSheet creation and record retrieval
+steps:
+  - sheet:
+      as: main
+      expect:
+        instance_id: "1"
+        records: ["1", "2"]
+  - record:
+      op: get
+      sheet: main
+      current_id: 1
+      expect:
+        current_id: "1"
+        values:
+          string1: Foo
+          integer1: "50"
+          date1: "2014-10-10"
+          enum1: foo1
+          daterange1: 2012-02-10 to 2013-06-15
+          calc1: "2012"
+          rag1: c_amber
+  - search:
+      sheet: main
+      observe: [string1, integer1, enum1]
+      expect:
+        count: "2"
+        ids: ["1", "2"]
+        rows:
+          - {string1: Foo, integer1: "50", enum1: foo1}
+          - {string1: Bar, integer1: "99", enum1: foo2}

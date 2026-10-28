@@ -1,0 +1,280 @@
+{
+   "backends" : {
+      "csv" : "Text::CSV_XS",
+      "json" : "JSON::Backend::XS"
+   },
+   "perl" : "5.40.5",
+   "runner" : "perl",
+   "units" : [
+      {
+         "iterations" : 300629,
+         "max_ns" : 6823.3,
+         "min_ns" : 6486.5,
+         "name" : "lua/simple",
+         "ns_per_op" : 6625.3,
+         "output_sha256" : "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049",
+         "samples" : [
+            6486.5,
+            6823.3,
+            6593.2,
+            6625.3,
+            6746
+         ]
+      },
+      {
+         "iterations" : 11557,
+         "max_ns" : 187603.8,
+         "min_ns" : 162513.4,
+         "name" : "lua/loop",
+         "ns_per_op" : 173709.5,
+         "output_sha256" : "5e99c6518cf430a06e128739c15998b583fc6570b8f674482d219559d57180ec",
+         "samples" : [
+            187603.8,
+            176746.5,
+            167077.7,
+            162513.4,
+            173709.5
+         ]
+      },
+      {
+         "iterations" : 157862,
+         "max_ns" : 14706.9,
+         "min_ns" : 12055.5,
+         "name" : "lua/strings",
+         "ns_per_op" : 12238.3,
+         "output_sha256" : "26ad35ce9988b335512fa8428ea266a8e3c6ca487f9fa5b9a9d19e67ab77e43c",
+         "samples" : [
+            14706.9,
+            12228.5,
+            12466.1,
+            12055.5,
+            12238.3
+         ]
+      },
+      {
+         "iterations" : 2813,
+         "max_ns" : 781904.3,
+         "min_ns" : 686696.4,
+         "name" : "tt/table_100",
+         "ns_per_op" : 697120.2,
+         "output_sha256" : "a3c2d88944ed1aad6c82bdea8849bd7e8a34aa4fc36dc95ed83d972fc4841b13",
+         "samples" : [
+            686696.4,
+            696904.2,
+            697120.2,
+            701875.4,
+            781904.3
+         ]
+      },
+      {
+         "iterations" : 7804,
+         "max_ns" : 273677.8,
+         "min_ns" : 243563.6,
+         "name" : "json/encode_1000",
+         "ns_per_op" : 253846.4,
+         "output_sha256" : "23a4577225cf2566007c5e0736432e011a858a44b5995239bb506eb80ba4a70e",
+         "samples" : [
+            253846.4,
+            243563.6,
+            261960.1,
+            273677.8,
+            250729.9
+         ]
+      },
+      {
+         "iterations" : 3306,
+         "max_ns" : 635533.3,
+         "min_ns" : 579230.1,
+         "name" : "json/decode_1000",
+         "ns_per_op" : 617089.4,
+         "output_sha256" : "23a4577225cf2566007c5e0736432e011a858a44b5995239bb506eb80ba4a70e",
+         "samples" : [
+            579230.1,
+            580780.8,
+            635533.3,
+            618950.5,
+            617089.4
+         ]
+      },
+      {
+         "iterations" : 1079,
+         "max_ns" : 2007620,
+         "min_ns" : 1729857.8,
+         "name" : "csv/parse_1000",
+         "ns_per_op" : 1821227.3,
+         "output_sha256" : "c4559f0e86975c6fea97c2a5c4e4c0396ea8baecfd8d8ccb66e6009c4552cf09",
+         "samples" : [
+            2007620,
+            1947961.4,
+            1820709.1,
+            1821227.3,
+            1729857.8
+         ]
+      },
+      {
+         "iterations" : 1088,
+         "max_ns" : 1861976.7,
+         "min_ns" : 1813438.9,
+         "name" : "csv/write_1000",
+         "ns_per_op" : 1845705.1,
+         "output_sha256" : "09a1a72f3917684f76ba016a90551773bfe9a156a5a63ad13306e23d94c08eeb",
+         "samples" : [
+            1836917.4,
+            1845705.1,
+            1861976.7,
+            1851474.7,
+            1813438.9
+         ]
+      },
+      {
+         "iterations" : 12190,
+         "max_ns" : 174944.9,
+         "min_ns" : 159278.3,
+         "name" : "date/parse_cldr",
+         "ns_per_op" : 160397.8,
+         "output_sha256" : "6b650ee281099e49279458c0c9b75b1d988b167bf3571789d580bcecbfe70549",
+         "samples" : [
+            174944.9,
+            160397.8,
+            159278.3,
+            167055.1,
+            159882.1
+         ]
+      },
+      {
+         "iterations" : 36035,
+         "max_ns" : 60310.6,
+         "min_ns" : 53475.2,
+         "name" : "date/format_cldr",
+         "ns_per_op" : 54689.6,
+         "output_sha256" : "23f3f247bca56e83c5dc376fac5c089db14e63b8af0aaea4dab3e05442878f20",
+         "samples" : [
+            53475.2,
+            54527.8,
+            54689.6,
+            60310.6,
+            55018.4
+         ]
+      },
+      {
+         "iterations" : 31445,
+         "max_ns" : 67995.6,
+         "min_ns" : 58989.7,
+         "name" : "filter/parse_json",
+         "ns_per_op" : 64741.9,
+         "output_sha256" : "1658e130d1f41f6756001740a6e9391e885cd082342636fadb3dab6370f3c613",
+         "samples" : [
+            64741.9,
+            58989.7,
+            66356.6,
+            67995.6,
+            60862.2
+         ]
+      },
+      {
+         "iterations" : 218690,
+         "max_ns" : 10129,
+         "min_ns" : 8718.6,
+         "name" : "password/hash",
+         "ns_per_op" : 9018.5,
+         "output_sha256" : "76151f44a7c46686edb0ee7a295a65bdd51274d81c5967684dc608ec1a3d1cd9",
+         "samples" : [
+            8898.1,
+            9088.5,
+            9018.5,
+            8718.6,
+            10129
+         ]
+      },
+      {
+         "iterations" : 91439,
+         "max_ns" : 23999.3,
+         "min_ns" : 20285.1,
+         "name" : "password/match",
+         "ns_per_op" : 21703.1,
+         "output_sha256" : "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+         "samples" : [
+            23999.3,
+            20285.1,
+            20295.4,
+            23654.4,
+            21703.1
+         ]
+      },
+      {
+         "iterations" : 15,
+         "max_ns" : 164249666.7,
+         "min_ns" : 147150666.7,
+         "name" : "db/count",
+         "ns_per_op" : 150486333.3,
+         "output_sha256" : "40510175845988f13f6162ed8526f0b09f73384467fa855e1e79b44a56562a58",
+         "samples" : [
+            150486333.3,
+            149827666.7,
+            164249666.7,
+            162778333.3,
+            147150666.7
+         ]
+      },
+      {
+         "iterations" : 15,
+         "max_ns" : 454924666.7,
+         "min_ns" : 415742333.3,
+         "name" : "db/page_50",
+         "ns_per_op" : 442838000,
+         "output_sha256" : "04149b82a49614b8c6b8bbb808df987377deb5624992fc1f33c681354b3a66e0",
+         "samples" : [
+            454924666.7,
+            415742333.3,
+            432640666.7,
+            442838000,
+            447792000
+         ]
+      },
+      {
+         "iterations" : 15,
+         "max_ns" : 1327813000,
+         "min_ns" : 1279076666.7,
+         "name" : "db/quick_search",
+         "ns_per_op" : 1311310666.7,
+         "output_sha256" : "bdd9b2455a37b49eaf054f8a8c23495f026e2374015d85ac9a8960f742bd5780",
+         "samples" : [
+            1314446000,
+            1311310666.7,
+            1327813000,
+            1279076666.7,
+            1293189000
+         ]
+      },
+      {
+         "iterations" : 40,
+         "max_ns" : 55640500,
+         "min_ns" : 52709750,
+         "name" : "db/record_get",
+         "ns_per_op" : 54199625,
+         "output_sha256" : "0d34a2b6c75d1e0400c53f7b87fa29c5fbb450c3261c7b919789d14d7adda869",
+         "samples" : [
+            52709750,
+            52943000,
+            54199625,
+            54901000,
+            55640500
+         ]
+      },
+      {
+         "iterations" : 33510,
+         "max_ns" : 62563.5,
+         "min_ns" : 57432.4,
+         "name" : "calc/eval_column",
+         "ns_per_op" : 59825.5,
+         "output_sha256" : "aa5a1f5b1a3d5fc32a2429794028915d77c4026a91c9e39c8dfdf0367668fd51",
+         "samples" : [
+            62563.5,
+            57432.4,
+            59825.5,
+            60843.2,
+            58065.5
+         ]
+      }
+   ]
+}

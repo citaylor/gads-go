@@ -1,0 +1,533 @@
+{
+   "runner" : "perl",
+   "scenario" : "236_web_import",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_superadmin",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_normal1",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import_denied",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:db",
+         "observed" : {
+            "id" : "9"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "imports_empty",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>imports | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Import records</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom d-flex flex-row flex-nowrap justify-content-between\">\n      <h2 class=\"table-header__page-title\">\n        Import records\n\n      </h2>\n      <div>\n        \n      </div>\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--footer\" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info col-lg-6\">\n    <h1 class=\"content-block__title\">\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      Here you can import new records into Layout1.\n    </div>\n  </div>\n  \n    <div class=\"content-block__aside col-lg-6\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-danger\"\n        data-bs-toggle=\"modal\"\n        data-bs-target=\"#deleteModal\"\n      >\n        <span class=\"btn__title\">Clear completed reports</span>\n      </button>\n      \n    </li>\n    \n    <li class=\"list__item\">\n      \n      <a href=\"/table1/import/data/\" class=\"btn btn-primary\">\n        Import data        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  \n\n<table\n  class=\"data-table  table table-striped\"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJJRCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJJRCJ9LHsibmFtZSI6IlR5cGUiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiVHlwZSJ9LHsibmFtZSI6IlN0YXR1cyIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJTdGF0dXMifSx7Im5hbWUiOiJSb3dzIHByb2Nlc3NlZCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJSb3dzIHByb2Nlc3NlZCJ9LHsibmFtZSI6IlJlc3VsdCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJSZXN1bHQifSx7ImNsYXNzTmFtZSI6ImR0ci1jb250cm9sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IlRvZ2dsZSBjaGlsZCByb3ciLCJvcmRlcmFibGUiOjAsInRhcmdldHMiOi0xfV0sImlEaXNwbGF5TGVuZ3RoIjotMSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6Ik5vIGltcG9ydHMgdG8gc2hvdyJ9LCJsYXlvdXQiOiIiLCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIn0='\n>\n  \n    <caption class=\"visually-hidden\">Table to show imports</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    ID\n  </span>\n</th>\n\n<th >\n  <span>\n    Type\n  </span>\n</th>\n\n<th >\n  <span>\n    Status\n  </span>\n</th>\n\n<th >\n  <span>\n    Rows processed\n  </span>\n</th>\n\n<th >\n  <span>\n    Result\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n  </tbody>\n  \n  \n</table>\n\n</div>\n\n<div class=\"modal modal--delete\"  id=\"deleteModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"deleteModalLabel\">\n      Delete completed reports\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <form role=\"form\" method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\" >\n          <div class=\"modal-body\">\n            <p>Are you sure you want to delete reports of all completed imports?</p>\n          </div>\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"clear\" value=\"clear\">\n    <span class=\"btn__title\">Confirm</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import_form",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>import | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/import\">Import records</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Upload</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom d-flex flex-row flex-nowrap justify-content-between\">\n      <h2 class=\"table-header__page-title\">\n        Upload\n\n      </h2>\n      <div>\n        \n      </div>\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--footer\" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      You can upload records as a CSV file. The first row of your CSV file must contain the identical field names to those in your table.\n    </div>\n  </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <form role=\"form\" method=\"post\" enctype=\"multipart/form-data\">\n    <div class=\"content-block__main-content\">\n      <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          <div class=\"input input--file \">\n  \n  <div class=\"error-messages\">\n  </div>\n\n  <div class=\"input__label\">\n  \n  <label for=\"file\">\n    <span class=\"input__file-label\" role=\"button\" aria-controls=\"file\" tabindex=\"0\">\n      CSV file\n    </span>\n  </label>\n\n  <div class=\"file\">\n    <label class=\"file__name form-label\" for=\"file\">\n      No CSV file chosen\n    </label>\n    <button type=\"button\" class=\"file__delete close\" aria-label=\"Delete\">\n      <span aria-hidden=\"true\" class=\"hidden\">Delete file</span>\n    </button>\n  </div>\n</div>\n\n\n\n\n  <div class=\"input__field\">\n    <input\n      type=\"file\"\n      id=\"file\"\n      name=\"file\"\n      class=\"form-control-file \"\n      tabindex=\"1\"\n    >\n  </div>\n</div>\n\n\n\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          \n\n<div class=\"form-group mb-4\">\n\n  <fieldset class=\"fieldset\" data-name=\"import_options\">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"-label\">\n    Options\n  </legend>\n  \n</div>\n\n\n    <div class=\"list list--vertical list--checkboxes\">\n      <ul class=\"list__items\" id=\"\">\n      \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"dry_run\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"dry_run\"\n    class=\"\"checked=\"checked\"    aria-labelledby=\"dry_run-label\"\n    data-value=\"Dry run\"\n    \n  >\n  <label for=\"dry_run\" id=\"dry_run-label\" class=\"checkbox-label form-label\">\n    Dry run\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"force_mandatory\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"force_mandatory\"\n    class=\"\"    aria-labelledby=\"force_mandatory-label\"\n    data-value=\"Allow blank mandatory values\"\n    \n  >\n  <label for=\"force_mandatory\" id=\"force_mandatory-label\" class=\"checkbox-label form-label\">\n    Allow blank mandatory values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"split_multiple\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"split_multiple\"\n    class=\"\"    aria-labelledby=\"split_multiple-label\"\n    data-value=\"Allow multiple values separated by comma\"\n    \n  >\n  <label for=\"split_multiple\" id=\"split_multiple-label\" class=\"checkbox-label form-label\">\n    Allow multiple values separated by comma\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"blank_invalid_enum\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"blank_invalid_enum\"\n    class=\"\"    aria-labelledby=\"blank_invalid_enum-label\"\n    data-value=\"Blank any invalid multiple select and tree values\"\n    \n  >\n  <label for=\"blank_invalid_enum\" id=\"blank_invalid_enum-label\" class=\"checkbox-label form-label\">\n    Blank any invalid multiple select and tree values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"no_change_unless_blank\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"no_change_unless_blank\"\n    class=\"\"    aria-labelledby=\"no_change_unless_blank-label\"\n    data-value=\"If updating a record, only insert new values, do not overwrite existing values\"\n    \n  >\n  <label for=\"no_change_unless_blank\" id=\"no_change_unless_blank-label\" class=\"checkbox-label form-label\">\n    If updating a record, only insert new values, do not overwrite existing values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"take_first_enum\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"take_first_enum\"\n    class=\"\"    aria-labelledby=\"take_first_enum-label\"\n    data-value=\"Take first value of duplicated matching tree nodes or multiple select values\"\n    \n  >\n  <label for=\"take_first_enum\" id=\"take_first_enum-label\" class=\"checkbox-label form-label\">\n    Take first value of duplicated matching tree nodes or multiple select values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"ignore_string_zeros\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"ignore_string_zeros\"\n    class=\"\"    aria-labelledby=\"ignore_string_zeros-label\"\n    data-value=\"Ignore values of &#39;0&#39; in text field values\"\n    \n  >\n  <label for=\"ignore_string_zeros\" id=\"ignore_string_zeros-label\" class=\"checkbox-label form-label\">\n    Ignore values of &#39;0&#39; in text field values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"round_integers\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"round_integers\"\n    class=\"\"    aria-labelledby=\"round_integers-label\"\n    data-value=\"Round decimal values being imported into integer fields\"\n    \n  >\n  <label for=\"round_integers\" id=\"round_integers-label\" class=\"checkbox-label form-label\">\n    Round decimal values being imported into integer fields\n  </label>\n  \n</div>\n\n        </li>\n              </ul>\n    </div>\n  </fieldset>\n  \n\n\n</div>\n\n\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          \n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"update_unique\" class=\"form-label\">\n    Update existing records where this unique value already exists\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-update_unique\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\"></span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"update_unique\"\n      name=\"update_unique\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-update_unique\"\n      \n      role=\"listbox\"\n    >\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"\" aria-selected=\"true\">\n        \n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"1\" aria-selected=\"false\">\n        ID\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"7\" aria-selected=\"false\">\n        Serial\n      </li>\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          \n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"skip_existing_unique\" class=\"form-label\">\n    Skip lines where this unique value already exists in a record\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-skip_existing_unique\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\"></span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"skip_existing_unique\"\n      name=\"skip_existing_unique\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-skip_existing_unique\"\n      \n      role=\"listbox\"\n    >\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"\" aria-selected=\"true\">\n        \n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"1\" aria-selected=\"false\">\n        ID\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"7\" aria-selected=\"false\">\n        Serial\n      </li>\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n\n        </div>\n      </div>\n    </div>\n\n    <footer class=\"content-block__footer\">\n      <div class=\"content-block__footer-container\">\n        \n<div class=\"row\">\n  \n    <div class=\"col-md-4 mb-3 mb-md-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/table1/import/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-md-8 d-md-flex justify-content-md-end align-items-center\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Submit</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n      </div>\n    </footer>\n  </form>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import_no_file",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>import | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/import\">Import records</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Upload</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom d-flex flex-row flex-nowrap justify-content-between\">\n      <h2 class=\"table-header__page-title\">\n        Upload\n\n      </h2>\n      <div>\n        \n      </div>\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--footer\" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Please select a file to upload\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      You can upload records as a CSV file. The first row of your CSV file must contain the identical field names to those in your table.\n    </div>\n  </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <form role=\"form\" method=\"post\" enctype=\"multipart/form-data\">\n    <div class=\"content-block__main-content\">\n      <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          <div class=\"input input--file \">\n  \n  <div class=\"error-messages\">\n  </div>\n\n  <div class=\"input__label\">\n  \n  <label for=\"file\">\n    <span class=\"input__file-label\" role=\"button\" aria-controls=\"file\" tabindex=\"0\">\n      CSV file\n    </span>\n  </label>\n\n  <div class=\"file\">\n    <label class=\"file__name form-label\" for=\"file\">\n      No CSV file chosen\n    </label>\n    <button type=\"button\" class=\"file__delete close\" aria-label=\"Delete\">\n      <span aria-hidden=\"true\" class=\"hidden\">Delete file</span>\n    </button>\n  </div>\n</div>\n\n\n\n\n  <div class=\"input__field\">\n    <input\n      type=\"file\"\n      id=\"file\"\n      name=\"file\"\n      class=\"form-control-file \"\n      tabindex=\"1\"\n    >\n  </div>\n</div>\n\n\n\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          \n\n<div class=\"form-group mb-4\">\n\n  <fieldset class=\"fieldset\" data-name=\"import_options\">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"-label\">\n    Options\n  </legend>\n  \n</div>\n\n\n    <div class=\"list list--vertical list--checkboxes\">\n      <ul class=\"list__items\" id=\"\">\n      \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"dry_run\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"dry_run\"\n    class=\"\"checked=\"checked\"    aria-labelledby=\"dry_run-label\"\n    data-value=\"Dry run\"\n    \n  >\n  <label for=\"dry_run\" id=\"dry_run-label\" class=\"checkbox-label form-label\">\n    Dry run\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"force_mandatory\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"force_mandatory\"\n    class=\"\"    aria-labelledby=\"force_mandatory-label\"\n    data-value=\"Allow blank mandatory values\"\n    \n  >\n  <label for=\"force_mandatory\" id=\"force_mandatory-label\" class=\"checkbox-label form-label\">\n    Allow blank mandatory values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"split_multiple\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"split_multiple\"\n    class=\"\"    aria-labelledby=\"split_multiple-label\"\n    data-value=\"Allow multiple values separated by comma\"\n    \n  >\n  <label for=\"split_multiple\" id=\"split_multiple-label\" class=\"checkbox-label form-label\">\n    Allow multiple values separated by comma\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"blank_invalid_enum\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"blank_invalid_enum\"\n    class=\"\"    aria-labelledby=\"blank_invalid_enum-label\"\n    data-value=\"Blank any invalid multiple select and tree values\"\n    \n  >\n  <label for=\"blank_invalid_enum\" id=\"blank_invalid_enum-label\" class=\"checkbox-label form-label\">\n    Blank any invalid multiple select and tree values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"no_change_unless_blank\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"no_change_unless_blank\"\n    class=\"\"    aria-labelledby=\"no_change_unless_blank-label\"\n    data-value=\"If updating a record, only insert new values, do not overwrite existing values\"\n    \n  >\n  <label for=\"no_change_unless_blank\" id=\"no_change_unless_blank-label\" class=\"checkbox-label form-label\">\n    If updating a record, only insert new values, do not overwrite existing values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"take_first_enum\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"take_first_enum\"\n    class=\"\"    aria-labelledby=\"take_first_enum-label\"\n    data-value=\"Take first value of duplicated matching tree nodes or multiple select values\"\n    \n  >\n  <label for=\"take_first_enum\" id=\"take_first_enum-label\" class=\"checkbox-label form-label\">\n    Take first value of duplicated matching tree nodes or multiple select values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"ignore_string_zeros\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"ignore_string_zeros\"\n    class=\"\"    aria-labelledby=\"ignore_string_zeros-label\"\n    data-value=\"Ignore values of &#39;0&#39; in text field values\"\n    \n  >\n  <label for=\"ignore_string_zeros\" id=\"ignore_string_zeros-label\" class=\"checkbox-label form-label\">\n    Ignore values of &#39;0&#39; in text field values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"round_integers\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"round_integers\"\n    class=\"\"    aria-labelledby=\"round_integers-label\"\n    data-value=\"Round decimal values being imported into integer fields\"\n    \n  >\n  <label for=\"round_integers\" id=\"round_integers-label\" class=\"checkbox-label form-label\">\n    Round decimal values being imported into integer fields\n  </label>\n  \n</div>\n\n        </li>\n              </ul>\n    </div>\n  </fieldset>\n  \n\n\n</div>\n\n\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          \n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"update_unique\" class=\"form-label\">\n    Update existing records where this unique value already exists\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-update_unique\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\"></span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"update_unique\"\n      name=\"update_unique\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-update_unique\"\n      \n      role=\"listbox\"\n    >\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"\" aria-selected=\"true\">\n        \n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"1\" aria-selected=\"false\">\n        ID\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"7\" aria-selected=\"false\">\n        Serial\n      </li>\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          \n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"skip_existing_unique\" class=\"form-label\">\n    Skip lines where this unique value already exists in a record\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-skip_existing_unique\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\"></span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"skip_existing_unique\"\n      name=\"skip_existing_unique\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-skip_existing_unique\"\n      \n      role=\"listbox\"\n    >\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"\" aria-selected=\"true\">\n        \n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"1\" aria-selected=\"false\">\n        ID\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"7\" aria-selected=\"false\">\n        Serial\n      </li>\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n\n        </div>\n      </div>\n    </div>\n\n    <footer class=\"content-block__footer\">\n      <div class=\"content-block__footer-container\">\n        \n<div class=\"row\">\n  \n    <div class=\"col-md-4 mb-3 mb-md-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/table1/import/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-md-8 d-md-flex justify-content-md-end align-items-center\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Submit</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n      </div>\n    </footer>\n  </form>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import_dry_run",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/import\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/import",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import_real",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/import\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/import",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import_bad_header",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>import | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/import\">Import records</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Upload</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom d-flex flex-row flex-nowrap justify-content-between\">\n      <h2 class=\"table-header__page-title\">\n        Upload\n\n      </h2>\n      <div>\n        \n      </div>\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--footer\" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    The file import process has been started and can be monitored using the Import Status below\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    The file import process has been started and can be monitored using the Import Status below\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Field &#39;nosuchfield&#39; in import headings not found in table\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      You can upload records as a CSV file. The first row of your CSV file must contain the identical field names to those in your table.\n    </div>\n  </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <form role=\"form\" method=\"post\" enctype=\"multipart/form-data\">\n    <div class=\"content-block__main-content\">\n      <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          <div class=\"input input--file \">\n  \n  <div class=\"error-messages\">\n  </div>\n\n  <div class=\"input__label\">\n  \n  <label for=\"file\">\n    <span class=\"input__file-label\" role=\"button\" aria-controls=\"file\" tabindex=\"0\">\n      CSV file\n    </span>\n  </label>\n\n  <div class=\"file\">\n    <label class=\"file__name form-label\" for=\"file\">\n      No CSV file chosen\n    </label>\n    <button type=\"button\" class=\"file__delete close\" aria-label=\"Delete\">\n      <span aria-hidden=\"true\" class=\"hidden\">Delete file</span>\n    </button>\n  </div>\n</div>\n\n\n\n\n  <div class=\"input__field\">\n    <input\n      type=\"file\"\n      id=\"file\"\n      name=\"file\"\n      class=\"form-control-file \"\n      tabindex=\"1\"\n    >\n  </div>\n</div>\n\n\n\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          \n\n<div class=\"form-group mb-4\">\n\n  <fieldset class=\"fieldset\" data-name=\"import_options\">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"-label\">\n    Options\n  </legend>\n  \n</div>\n\n\n    <div class=\"list list--vertical list--checkboxes\">\n      <ul class=\"list__items\" id=\"\">\n      \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"dry_run\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"dry_run\"\n    class=\"\"checked=\"checked\"    aria-labelledby=\"dry_run-label\"\n    data-value=\"Dry run\"\n    \n  >\n  <label for=\"dry_run\" id=\"dry_run-label\" class=\"checkbox-label form-label\">\n    Dry run\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"force_mandatory\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"force_mandatory\"\n    class=\"\"    aria-labelledby=\"force_mandatory-label\"\n    data-value=\"Allow blank mandatory values\"\n    \n  >\n  <label for=\"force_mandatory\" id=\"force_mandatory-label\" class=\"checkbox-label form-label\">\n    Allow blank mandatory values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"split_multiple\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"split_multiple\"\n    class=\"\"    aria-labelledby=\"split_multiple-label\"\n    data-value=\"Allow multiple values separated by comma\"\n    \n  >\n  <label for=\"split_multiple\" id=\"split_multiple-label\" class=\"checkbox-label form-label\">\n    Allow multiple values separated by comma\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"blank_invalid_enum\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"blank_invalid_enum\"\n    class=\"\"    aria-labelledby=\"blank_invalid_enum-label\"\n    data-value=\"Blank any invalid multiple select and tree values\"\n    \n  >\n  <label for=\"blank_invalid_enum\" id=\"blank_invalid_enum-label\" class=\"checkbox-label form-label\">\n    Blank any invalid multiple select and tree values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"no_change_unless_blank\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"no_change_unless_blank\"\n    class=\"\"    aria-labelledby=\"no_change_unless_blank-label\"\n    data-value=\"If updating a record, only insert new values, do not overwrite existing values\"\n    \n  >\n  <label for=\"no_change_unless_blank\" id=\"no_change_unless_blank-label\" class=\"checkbox-label form-label\">\n    If updating a record, only insert new values, do not overwrite existing values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"take_first_enum\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"take_first_enum\"\n    class=\"\"    aria-labelledby=\"take_first_enum-label\"\n    data-value=\"Take first value of duplicated matching tree nodes or multiple select values\"\n    \n  >\n  <label for=\"take_first_enum\" id=\"take_first_enum-label\" class=\"checkbox-label form-label\">\n    Take first value of duplicated matching tree nodes or multiple select values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"ignore_string_zeros\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"ignore_string_zeros\"\n    class=\"\"    aria-labelledby=\"ignore_string_zeros-label\"\n    data-value=\"Ignore values of &#39;0&#39; in text field values\"\n    \n  >\n  <label for=\"ignore_string_zeros\" id=\"ignore_string_zeros-label\" class=\"checkbox-label form-label\">\n    Ignore values of &#39;0&#39; in text field values\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"round_integers\"\n    type=\"checkbox\"\n    name=\"import_options\"\n    value=\"round_integers\"\n    class=\"\"    aria-labelledby=\"round_integers-label\"\n    data-value=\"Round decimal values being imported into integer fields\"\n    \n  >\n  <label for=\"round_integers\" id=\"round_integers-label\" class=\"checkbox-label form-label\">\n    Round decimal values being imported into integer fields\n  </label>\n  \n</div>\n\n        </li>\n              </ul>\n    </div>\n  </fieldset>\n  \n\n\n</div>\n\n\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          \n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"update_unique\" class=\"form-label\">\n    Update existing records where this unique value already exists\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-update_unique\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\"></span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"update_unique\"\n      name=\"update_unique\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-update_unique\"\n      \n      role=\"listbox\"\n    >\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"\" aria-selected=\"true\">\n        \n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"1\" aria-selected=\"false\">\n        ID\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"7\" aria-selected=\"false\">\n        Serial\n      </li>\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col col-lg-6\">\n          \n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"skip_existing_unique\" class=\"form-label\">\n    Skip lines where this unique value already exists in a record\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-skip_existing_unique\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\"></span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"skip_existing_unique\"\n      name=\"skip_existing_unique\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-skip_existing_unique\"\n      \n      role=\"listbox\"\n    >\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"\" aria-selected=\"true\">\n        \n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"1\" aria-selected=\"false\">\n        ID\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"7\" aria-selected=\"false\">\n        Serial\n      </li>\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n\n        </div>\n      </div>\n    </div>\n\n    <footer class=\"content-block__footer\">\n      <div class=\"content-block__footer-container\">\n        \n<div class=\"row\">\n  \n    <div class=\"col-md-4 mb-3 mb-md-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/table1/import/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-md-8 d-md-flex justify-content-md-end align-items-center\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Submit</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n      </div>\n    </footer>\n  </form>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import_update_unique",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/import\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/import",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "imports",
+         "observed" : [
+            {
+               "completed" : "2014-10-10 01:00:00",
+               "error_count" : "0",
+               "id" : "1",
+               "instance_id" : "1",
+               "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+               "row_count" : "2",
+               "skipped_count" : "0",
+               "started" : "2014-10-10 01:00:00",
+               "type" : "data",
+               "user_id" : "1"
+            },
+            {
+               "completed" : "2014-10-10 01:00:00",
+               "error_count" : "1",
+               "id" : "2",
+               "instance_id" : "1",
+               "result" : "Rows in: 3, rows written: 2, errors: 1, skipped: 0",
+               "row_count" : "3",
+               "skipped_count" : "0",
+               "started" : "2014-10-10 01:00:00",
+               "type" : "data",
+               "user_id" : "1"
+            },
+            {
+               "completed" : "2014-10-10 01:00:00",
+               "error_count" : "0",
+               "id" : "3",
+               "instance_id" : "1",
+               "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+               "row_count" : "2",
+               "skipped_count" : "0",
+               "started" : "2014-10-10 01:00:00",
+               "type" : "data",
+               "user_id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import_rows",
+         "observed" : [
+            {
+               "changes" : null,
+               "content" : "Bar1,10",
+               "errors" : null,
+               "id" : "1",
+               "import_id" : "1",
+               "status" : "Record written"
+            },
+            {
+               "changes" : null,
+               "content" : "Bar2,20",
+               "errors" : null,
+               "id" : "2",
+               "import_id" : "1",
+               "status" : "Record written"
+            },
+            {
+               "changes" : null,
+               "content" : "Bar1,10",
+               "errors" : null,
+               "id" : "3",
+               "import_id" : "2",
+               "status" : "Record written"
+            },
+            {
+               "changes" : null,
+               "content" : "Bar2,notanumber",
+               "errors" : "Invalid value 'notanumber' for integer field 'integer1'",
+               "id" : "4",
+               "import_id" : "2",
+               "status" : "Record not written"
+            },
+            {
+               "changes" : null,
+               "content" : "Bar3,30",
+               "errors" : null,
+               "id" : "5",
+               "import_id" : "2",
+               "status" : "Record written"
+            },
+            {
+               "changes" : "Change value of \"integer1\" from \"10\" to \"12\"",
+               "content" : "Bar1,11.6",
+               "errors" : null,
+               "id" : "6",
+               "import_id" : "3",
+               "status" : "Record written"
+            },
+            {
+               "changes" : "Unique identifier 'New4' does not exist. Data will be uploaded as new record.",
+               "content" : "New4,40",
+               "errors" : null,
+               "id" : "7",
+               "import_id" : "3",
+               "status" : "Record written"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "strings",
+         "observed" : [
+            {
+               "record_id" : "1",
+               "value" : "Foo1"
+            },
+            {
+               "record_id" : "2",
+               "value" : "Bar1"
+            },
+            {
+               "record_id" : "3",
+               "value" : "Bar3"
+            },
+            {
+               "record_id" : "4",
+               "value" : "Bar1"
+            },
+            {
+               "record_id" : "5",
+               "value" : "New4"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "intgrs",
+         "observed" : [
+            {
+               "record_id" : "1",
+               "value" : "1"
+            },
+            {
+               "record_id" : "2",
+               "value" : "10"
+            },
+            {
+               "record_id" : "3",
+               "value" : "30"
+            },
+            {
+               "record_id" : "4",
+               "value" : "12"
+            },
+            {
+               "record_id" : "5",
+               "value" : "40"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "imports_list",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>imports | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Import records</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom d-flex flex-row flex-nowrap justify-content-between\">\n      <h2 class=\"table-header__page-title\">\n        Import records\n\n      </h2>\n      <div>\n        \n      </div>\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--footer\" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    The file import process has been started and can be monitored using the Import Status below\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info col-lg-6\">\n    <h1 class=\"content-block__title\">\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      Here you can import new records into Layout1.\n    </div>\n  </div>\n  \n    <div class=\"content-block__aside col-lg-6\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-danger\"\n        data-bs-toggle=\"modal\"\n        data-bs-target=\"#deleteModal\"\n      >\n        <span class=\"btn__title\">Clear completed reports</span>\n      </button>\n      \n    </li>\n    \n    <li class=\"list__item\">\n      \n      <a href=\"/table1/import/data/\" class=\"btn btn-primary\">\n        Import data        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  \n\n<table\n  class=\"data-table  table table-striped\"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJJRCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJJRCJ9LHsibmFtZSI6IlR5cGUiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiVHlwZSJ9LHsibmFtZSI6IlN0YXR1cyIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJTdGF0dXMifSx7Im5hbWUiOiJSb3dzIHByb2Nlc3NlZCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJSb3dzIHByb2Nlc3NlZCJ9LHsibmFtZSI6IlJlc3VsdCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJSZXN1bHQifSx7ImNsYXNzTmFtZSI6ImR0ci1jb250cm9sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IlRvZ2dsZSBjaGlsZCByb3ciLCJvcmRlcmFibGUiOjAsInRhcmdldHMiOi0xfV0sImlEaXNwbGF5TGVuZ3RoIjotMSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6Ik5vIGltcG9ydHMgdG8gc2hvdyJ9LCJsYXlvdXQiOiIiLCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIn0='\n>\n  \n    <caption class=\"visually-hidden\">Table to show imports</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    ID\n  </span>\n</th>\n\n<th >\n  <span>\n    Type\n  </span>\n</th>\n\n<th >\n  <span>\n    Status\n  </span>\n</th>\n\n<th >\n  <span>\n    Rows processed\n  </span>\n</th>\n\n<th >\n  <span>\n    Result\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  <a href='/table1/import/rows/1' class='link link--plain'>\n    1\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/1' class='link link--plain'>\n    data\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/1' class='link link--plain'>\n    Completed 2014-10-10T01:00:00\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/1' class='link link--plain'>\n    2\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/1' class='link link--plain'>\n    Rows in: 2, rows written: 2, errors: 0, skipped: 0\n  </a>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/table1/import/rows/2' class='link link--plain'>\n    2\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/2' class='link link--plain'>\n    data\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/2' class='link link--plain'>\n    Completed 2014-10-10T01:00:00\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/2' class='link link--plain'>\n    3\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/2' class='link link--plain'>\n    Rows in: 3, rows written: 2, errors: 1, skipped: 0\n  </a>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <a href='/table1/import/rows/3' class='link link--plain'>\n    3\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/3' class='link link--plain'>\n    data\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/3' class='link link--plain'>\n    Completed 2014-10-10T01:00:00\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/3' class='link link--plain'>\n    2\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/table1/import/rows/3' class='link link--plain'>\n    Rows in: 2, rows written: 2, errors: 0, skipped: 0\n  </a>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n</div>\n\n<div class=\"modal modal--delete\"  id=\"deleteModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"deleteModalLabel\">\n      Delete completed reports\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <form role=\"form\" method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\" >\n          <div class=\"modal-body\">\n            <p>Are you sure you want to delete reports of all completed imports?</p>\n          </div>\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"clear\" value=\"clear\">\n    <span class=\"btn__title\">Confirm</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import_rows_page",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>import/row | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/import\">Import records</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Import 2</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom d-flex flex-row flex-nowrap justify-content-between\">\n      <h2 class=\"table-header__page-title\">\n        Imported rows for import 2\n\n      </h2>\n      <div>\n        \n      </div>\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--footer\" id=\"content-block\">\n        \n\n\n\n        \n\n<div class=\"content-block__main\">\n  \n\n<table\n  class=\"data-table  table table-striped\"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJTdGF0dXMiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiU3RhdHVzIn0seyJuYW1lIjoiRXJyb3JzIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6IkVycm9ycyJ9LHsibmFtZSI6IkNoYW5nZXMiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiQ2hhbmdlcyJ9LHsibmFtZSI6IkNvbnRlbnQiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiQ29udGVudCJ9LHsiY2xhc3NOYW1lIjoiZHRyLWNvbnRyb2wgZGF0YS10YWJsZV9faGVhZGVyLS1pbnZpc2libGUiLCJuYW1lIjoiVG9nZ2xlIGNoaWxkIHJvdyIsIm9yZGVyYWJsZSI6MCwidGFyZ2V0cyI6LTF9XSwiaURpc3BsYXlMZW5ndGgiOi0xLCJpbmZvIjoxLCJsYW5ndWFnZSI6eyJlbXB0eVRhYmxlIjoiTm8gcm93cyB0byBzaG93IGZvciB0aGlzIGltcG9ydCJ9LCJsYXlvdXQiOiIiLCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIn0='\n>\n  \n    <caption class=\"visually-hidden\">Table for imported rows</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Status\n  </span>\n</th>\n\n<th >\n  <span>\n    Errors\n  </span>\n</th>\n\n<th >\n  <span>\n    Changes\n  </span>\n</th>\n\n<th >\n  <span>\n    Content\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  Record written\n\n</td>\n\n<td >\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n<td >\n  Bar1,10\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  Record not written\n\n</td>\n\n<td >\n  Invalid value &#39;notanumber&#39; for integer field &#39;integer1&#39;\n\n</td>\n\n<td >\n  \n\n</td>\n\n<td >\n  Bar2,notanumber\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  Record written\n\n</td>\n\n<td >\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n<td >\n  Bar3,30\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import_rows_missing",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "imports_clear",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>imports | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Import records</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom d-flex flex-row flex-nowrap justify-content-between\">\n      <h2 class=\"table-header__page-title\">\n        Import records\n\n      </h2>\n      <div>\n        \n      </div>\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--footer\" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Requested import not found\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info col-lg-6\">\n    <h1 class=\"content-block__title\">\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      Here you can import new records into Layout1.\n    </div>\n  </div>\n  \n    <div class=\"content-block__aside col-lg-6\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-danger\"\n        data-bs-toggle=\"modal\"\n        data-bs-target=\"#deleteModal\"\n      >\n        <span class=\"btn__title\">Clear completed reports</span>\n      </button>\n      \n    </li>\n    \n    <li class=\"list__item\">\n      \n      <a href=\"/table1/import/data/\" class=\"btn btn-primary\">\n        Import data        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  \n\n<table\n  class=\"data-table  table table-striped\"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJJRCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJJRCJ9LHsibmFtZSI6IlR5cGUiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiVHlwZSJ9LHsibmFtZSI6IlN0YXR1cyIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJTdGF0dXMifSx7Im5hbWUiOiJSb3dzIHByb2Nlc3NlZCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJSb3dzIHByb2Nlc3NlZCJ9LHsibmFtZSI6IlJlc3VsdCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJSZXN1bHQifSx7ImNsYXNzTmFtZSI6ImR0ci1jb250cm9sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IlRvZ2dsZSBjaGlsZCByb3ciLCJvcmRlcmFibGUiOjAsInRhcmdldHMiOi0xfV0sImlEaXNwbGF5TGVuZ3RoIjotMSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6Ik5vIGltcG9ydHMgdG8gc2hvdyJ9LCJsYXlvdXQiOiIiLCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIn0='\n>\n  \n    <caption class=\"visually-hidden\">Table to show imports</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    ID\n  </span>\n</th>\n\n<th >\n  <span>\n    Type\n  </span>\n</th>\n\n<th >\n  <span>\n    Status\n  </span>\n</th>\n\n<th >\n  <span>\n    Rows processed\n  </span>\n</th>\n\n<th >\n  <span>\n    Result\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n  </tbody>\n  \n  \n</table>\n\n</div>\n\n<div class=\"modal modal--delete\"  id=\"deleteModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModal]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"deleteModalLabel\">\n      Delete completed reports\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <form role=\"form\" method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\" >\n          <div class=\"modal-body\">\n            <p>Are you sure you want to delete reports of all completed imports?</p>\n          </div>\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"clear\" value=\"clear\">\n    <span class=\"btn__title\">Confirm</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "imports_after_clear",
+         "observed" : {
+            "count" : "0"
+         },
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

@@ -1,0 +1,2371 @@
+name: 007_curval_edit
+source:
+- t/007_curval_edit.t
+description: Adding, editing and removing curval records from the parent record edit
+steps:
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+    site_id: 1
+- sheet:
+    as: main
+    curval: cv
+    column_count:
+      curval: 2
+    curval_offset: 6
+    curval_fields:
+    - string1
+    calc_return_type: string
+    calc_code: "function evaluate (L1curval1)\n    if L1curval1 == nil then\n    \
+      \    return \"\"\n    end\n    ret = \"\"\n    -- Allow values to be single\
+      \ or multi value\n    if L1curval1.field_values ~= nil then\n        ret = ret\
+      \ .. L1curval1.field_values.L2string1\n    else\n        for _, curval in ipairs(L1curval1)\
+      \ do\n            ret = ret .. curval.field_values.L2string1\n        end\n\
+      \    end\n    return ret\nend"
+- sheet:
+    as: main2
+    instance_id: 3
+    curval_offset: 12
+    curval: cv
+    curval_fields:
+    - string1
+    data: []
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- clear_layouts: {}
+- column:
+    op: create
+    sheet: cv
+    type: curval
+    refers_to: main
+    curval_fields:
+    - string1
+    name: Curval back to main table
+    name_short: L2curval2
+- column:
+    op: update
+    sheet: cv
+    column: daterange1
+    set:
+      permissions: none
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- column:
+    op: update
+    sheet: cv
+    column: calc1
+    set:
+      code: "\nfunction evaluate (L2autocur1)\n    return_value = ''\n    for _, v\
+        \ in pairs(L2autocur1) do\n        return_value = return_value .. v.field_values.L1integer1\n\
+        \    end\n    return return_value\nend\n"
+- add_autocur:
+    sheet: cv
+    refers_to: main2
+    related_field: curval1
+    curval_fields:
+    - string1
+- clear_layouts: {}
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      delete_not_used: 1
+      show_add: 1
+      value_selector: noshow
+    write_options:
+      no_alerts: 1
+- column:
+    op: update
+    sheet: main
+    column: curval2
+    set:
+      delete_not_used: 1
+      show_add: 1
+      value_selector: noshow
+    write_options:
+      no_alerts: 1
+- column:
+    op: update
+    sheet: main
+    column: daterange1
+    set:
+      isunique: 1
+- clear_layouts: {}
+- held:
+    op: new
+    as: n
+    sheet: main
+    user: normal1
+- held:
+    op: set
+    as: n
+    values:
+      integer1: 10
+      curval1:
+      - '@field:string1=foo55'
+- held:
+    op: write
+    as: n
+    id: 'delete_not_used: new write'
+    observe:
+    - calc1
+- held:
+    op: find
+    as: n
+    id: 'delete_not_used: new load'
+    sheet: main
+    clear: true
+    current_id: '@held:n'
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r
+    id: 'delete_not_used: blank to begin'
+    sheet: main
+    user: normal1
+    current_id: 3
+    observe:
+    - curval1
+- db:
+    id: 'delete_not_used: count before add'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - '@field:string1=foo1'
+- held:
+    op: write
+    as: r
+    id: 'delete_not_used: add write'
+    observe:
+    - calc1
+- db:
+    id: 'delete_not_used: count after add'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'delete_not_used: add load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    - ids
+- held:
+    op: find
+    as: cr
+    id: 'delete_not_used: curval record'
+    sheet: cv
+    user: normal1
+    current_id: 7
+    observe:
+    - calc1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - '@field:string1=foo2'
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r
+    id: 'delete_not_used: add second write'
+    observe:
+    - calc1
+- db:
+    id: 'delete_not_used: count after second'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'delete_not_used: add second load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: cr
+    id: 'delete_not_used: autocur calc'
+    sheet: cv
+    clear: true
+    current_id: 7
+    observe:
+    - calc1
+- held:
+    op: find
+    as: r
+    id: 'delete_not_used: edit reload'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - query: '@field:string1=foo5'
+        own_id: ^foo2$
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r
+- db:
+    id: 'delete_not_used: count after edit'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'delete_not_used: edit load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - query: '@field:string1=foo1'
+        own_id: ^foo1$
+      - query: '@field:string1=foo6'
+        own_id: ^foo5$
+- held:
+    op: write
+    as: r
+- db:
+    id: 'delete_not_used: count after edit 2'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'delete_not_used: edit 2 load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r2
+    sheet: main
+    user: normal1
+    current_id: 3
+- held:
+    op: set
+    as: r2
+    values:
+    - curval1: '@own_queries'
+    - date1: '2020-10-10'
+- held:
+    op: write
+    as: r2
+- db:
+    id: 'delete_not_used: count after no change'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r2
+    id: 'delete_not_used: no change load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r2
+    values:
+      curval1:
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r2
+- db:
+    id: 'delete_not_used: count after delete'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- db:
+    id: 'delete_not_used: live after delete'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+      deleted: null
+- held:
+    op: find
+    as: r2
+    id: 'delete_not_used: delete load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r2
+    id: 'delete_not_used: old version'
+    sheet: main
+    clear: true
+    current_id: 3
+    version: 1
+    observe:
+    - curval1
+- held:
+    op: new
+    as: d
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: d
+    id: 'delete_not_used: draft filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: d
+    values:
+      curval1:
+      - '@field:string1=foo10'
+      - '@field:string1=foo20'
+      curval2:
+      - '@field:string1=foo145'
+      integer1: 10
+- held:
+    op: write
+    as: d
+    options:
+      draft: 1
+- held:
+    op: clear
+    as: d
+- held:
+    op: load_remembered_values
+    as: d
+- held:
+    op: get
+    as: d
+    id: 'delete_not_used: draft form'
+    datum:
+    - curval1
+    - curval2
+    datum_props:
+    - blank
+    - html_form
+    - html_form_query
+- held:
+    op: set_from_form
+    as: d
+    from: d
+    columns:
+    - curval1
+    as_query: true
+    replace:
+    - foo20
+    - foo30
+- held:
+    op: set_from_form
+    as: d
+    from: d
+    columns:
+    - curval2
+    as_query: true
+- held:
+    op: write
+    as: d
+- held:
+    op: find
+    as: d
+    id: 'delete_not_used: draft submitted'
+    sheet: main
+    clear: true
+    current_id: '@held:d'
+    observe:
+    - curval1
+    - curval2
+- held:
+    op: find
+    as: r2
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r2
+    id: 'delete_not_used: curval before write'
+    values:
+      curval1:
+      - '@field:string1=foo10'
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f0
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f0
+    id: 'delete_not_used: fail 0: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f0
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f0
+    id: 'delete_not_used: fail 0: write'
+    expect_error: is not optional
+- held:
+    op: get
+    as: f0
+    id: 'delete_not_used: fail 0: after fail'
+    datum:
+    - curval1
+    datum_props:
+    - blank
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f1
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f1
+    id: 'delete_not_used: fail 1: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f1
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f1
+    options:
+      draft: 1
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f2
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f2
+    id: 'delete_not_used: fail 2: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f2
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f2
+    id: 'delete_not_used: fail 2: write'
+    expect_error: is not optional
+- held:
+    op: get
+    as: f2
+    id: 'delete_not_used: fail 2: after fail'
+    datum:
+    - curval1
+    datum_props:
+    - blank
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+    site_id: 1
+- sheet:
+    as: main
+    curval: cv
+    column_count:
+      curval: 2
+    curval_offset: 6
+    curval_fields:
+    - string1
+    calc_return_type: string
+    calc_code: "function evaluate (L1curval1)\n    if L1curval1 == nil then\n    \
+      \    return \"\"\n    end\n    ret = \"\"\n    -- Allow values to be single\
+      \ or multi value\n    if L1curval1.field_values ~= nil then\n        ret = ret\
+      \ .. L1curval1.field_values.L2string1\n    else\n        for _, curval in ipairs(L1curval1)\
+      \ do\n            ret = ret .. curval.field_values.L2string1\n        end\n\
+      \    end\n    return ret\nend"
+- sheet:
+    as: main2
+    instance_id: 3
+    curval_offset: 12
+    curval: cv
+    curval_fields:
+    - string1
+    data: []
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- clear_layouts: {}
+- column:
+    op: create
+    sheet: cv
+    type: curval
+    refers_to: main
+    curval_fields:
+    - string1
+    name: Curval back to main table
+    name_short: L2curval2
+- column:
+    op: update
+    sheet: cv
+    column: daterange1
+    set:
+      permissions: none
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- column:
+    op: update
+    sheet: cv
+    column: calc1
+    set:
+      code: "\nfunction evaluate (L2autocur1)\n    return_value = ''\n    for _, v\
+        \ in pairs(L2autocur1) do\n        return_value = return_value .. v.field_values.L1integer1\n\
+        \    end\n    return return_value\nend\n"
+- add_autocur:
+    sheet: cv
+    refers_to: main2
+    related_field: curval1
+    curval_fields:
+    - string1
+- clear_layouts: {}
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      delete_not_used: 0
+      show_add: 1
+      value_selector: typeahead
+    write_options:
+      no_alerts: 1
+- column:
+    op: update
+    sheet: main
+    column: curval2
+    set:
+      delete_not_used: 0
+      show_add: 1
+      value_selector: typeahead
+    write_options:
+      no_alerts: 1
+- column:
+    op: update
+    sheet: main
+    column: daterange1
+    set:
+      isunique: 1
+- clear_layouts: {}
+- held:
+    op: new
+    as: n
+    sheet: main
+    user: normal1
+- held:
+    op: set
+    as: n
+    values:
+      integer1: 10
+      curval1:
+      - '@field:string1=foo55'
+- held:
+    op: write
+    as: n
+    id: 'typeahead: new write'
+    observe:
+    - calc1
+- held:
+    op: find
+    as: n
+    id: 'typeahead: new load'
+    sheet: main
+    clear: true
+    current_id: '@held:n'
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r
+    id: 'typeahead: blank to begin'
+    sheet: main
+    user: normal1
+    current_id: 3
+    observe:
+    - curval1
+- db:
+    id: 'typeahead: count before add'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - '@field:string1=foo1'
+- held:
+    op: write
+    as: r
+    id: 'typeahead: add write'
+    observe:
+    - calc1
+- db:
+    id: 'typeahead: count after add'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'typeahead: add load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    - ids
+- held:
+    op: find
+    as: cr
+    id: 'typeahead: curval record'
+    sheet: cv
+    user: normal1
+    current_id: 7
+    observe:
+    - calc1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - '@field:string1=foo2'
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r
+    id: 'typeahead: add second write'
+    observe:
+    - calc1
+- db:
+    id: 'typeahead: count after second'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'typeahead: add second load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: cr
+    id: 'typeahead: autocur calc'
+    sheet: cv
+    clear: true
+    current_id: 7
+    observe:
+    - calc1
+- held:
+    op: find
+    as: r
+    id: 'typeahead: edit reload'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - query: '@field:string1=foo5'
+        own_id: ^foo2$
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r
+- db:
+    id: 'typeahead: count after edit'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'typeahead: edit load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - query: '@field:string1=foo1'
+        own_id: ^foo1$
+      - query: '@field:string1=foo6'
+        own_id: ^foo5$
+- held:
+    op: write
+    as: r
+- db:
+    id: 'typeahead: count after edit 2'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'typeahead: edit 2 load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r2
+    sheet: main
+    user: normal1
+    current_id: 3
+- held:
+    op: set
+    as: r2
+    values:
+    - curval1: '@own_queries'
+    - date1: '2020-10-10'
+- held:
+    op: write
+    as: r2
+- db:
+    id: 'typeahead: count after no change'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r2
+    id: 'typeahead: no change load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r2
+    values:
+      curval1:
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r2
+- db:
+    id: 'typeahead: count after delete'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- db:
+    id: 'typeahead: live after delete'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+      deleted: null
+- held:
+    op: find
+    as: r2
+    id: 'typeahead: delete load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r2
+    id: 'typeahead: old version'
+    sheet: main
+    clear: true
+    current_id: 3
+    version: 1
+    observe:
+    - curval1
+- held:
+    op: new
+    as: d
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: d
+    id: 'typeahead: draft filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: d
+    values:
+      curval1:
+      - '@field:string1=foo10'
+      - '@field:string1=foo20'
+      curval2:
+      - '@field:string1=foo145'
+      integer1: 10
+- held:
+    op: write
+    as: d
+    options:
+      draft: 1
+- held:
+    op: clear
+    as: d
+- held:
+    op: load_remembered_values
+    as: d
+- held:
+    op: get
+    as: d
+    id: 'typeahead: draft form'
+    datum:
+    - curval1
+    - curval2
+    datum_props:
+    - blank
+    - html_form
+    - html_form_query
+- held:
+    op: set_from_form
+    as: d
+    from: d
+    columns:
+    - curval1
+    as_query: true
+    replace:
+    - foo20
+    - foo30
+- held:
+    op: set_from_form
+    as: d
+    from: d
+    columns:
+    - curval2
+    as_query: true
+- held:
+    op: write
+    as: d
+- held:
+    op: find
+    as: d
+    id: 'typeahead: draft submitted'
+    sheet: main
+    clear: true
+    current_id: '@held:d'
+    observe:
+    - curval1
+    - curval2
+- held:
+    op: find
+    as: r2
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r2
+    id: 'typeahead: curval before write'
+    values:
+      curval1:
+      - '@field:string1=foo10'
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f0
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f0
+    id: 'typeahead: fail 0: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f0
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f0
+    id: 'typeahead: fail 0: write'
+    expect_error: is not optional
+- held:
+    op: get
+    as: f0
+    id: 'typeahead: fail 0: after fail'
+    datum:
+    - curval1
+    datum_props:
+    - blank
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f1
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f1
+    id: 'typeahead: fail 1: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f1
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f1
+    options:
+      draft: 1
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f2
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f2
+    id: 'typeahead: fail 2: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f2
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f2
+    id: 'typeahead: fail 2: write'
+    expect_error: is not optional
+- held:
+    op: get
+    as: f2
+    id: 'typeahead: fail 2: after fail'
+    datum:
+    - curval1
+    datum_props:
+    - blank
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+    site_id: 1
+- sheet:
+    as: main
+    curval: cv
+    column_count:
+      curval: 2
+    curval_offset: 6
+    curval_fields:
+    - string1
+    calc_return_type: string
+    calc_code: "function evaluate (L1curval1)\n    if L1curval1 == nil then\n    \
+      \    return \"\"\n    end\n    ret = \"\"\n    -- Allow values to be single\
+      \ or multi value\n    if L1curval1.field_values ~= nil then\n        ret = ret\
+      \ .. L1curval1.field_values.L2string1\n    else\n        for _, curval in ipairs(L1curval1)\
+      \ do\n            ret = ret .. curval.field_values.L2string1\n        end\n\
+      \    end\n    return ret\nend"
+- sheet:
+    as: main2
+    instance_id: 3
+    curval_offset: 12
+    curval: cv
+    curval_fields:
+    - string1
+    data: []
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- clear_layouts: {}
+- column:
+    op: create
+    sheet: cv
+    type: curval
+    refers_to: main
+    curval_fields:
+    - string1
+    name: Curval back to main table
+    name_short: L2curval2
+- column:
+    op: update
+    sheet: cv
+    column: daterange1
+    set:
+      permissions: none
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- column:
+    op: update
+    sheet: cv
+    column: calc1
+    set:
+      code: "\nfunction evaluate (L2autocur1)\n    return_value = ''\n    for _, v\
+        \ in pairs(L2autocur1) do\n        return_value = return_value .. v.field_values.L1integer1\n\
+        \    end\n    return return_value\nend\n"
+- add_autocur:
+    sheet: cv
+    refers_to: main2
+    related_field: curval1
+    curval_fields:
+    - string1
+- clear_layouts: {}
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      delete_not_used: 0
+      show_add: 1
+      value_selector: dropdown
+    write_options:
+      no_alerts: 1
+- column:
+    op: update
+    sheet: main
+    column: curval2
+    set:
+      delete_not_used: 0
+      show_add: 1
+      value_selector: dropdown
+    write_options:
+      no_alerts: 1
+- column:
+    op: update
+    sheet: main
+    column: daterange1
+    set:
+      isunique: 1
+- clear_layouts: {}
+- held:
+    op: new
+    as: n
+    sheet: main
+    user: normal1
+- held:
+    op: set
+    as: n
+    values:
+      integer1: 10
+      curval1:
+      - '@field:string1=foo55'
+- held:
+    op: write
+    as: n
+    id: 'dropdown: new write'
+    observe:
+    - calc1
+- held:
+    op: find
+    as: n
+    id: 'dropdown: new load'
+    sheet: main
+    clear: true
+    current_id: '@held:n'
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r
+    id: 'dropdown: blank to begin'
+    sheet: main
+    user: normal1
+    current_id: 3
+    observe:
+    - curval1
+- held:
+    op: get
+    as: r
+    id: 'dropdown: dropdown initial'
+    filtered_values: curval1
+    filtered_full: true
+- db:
+    id: 'dropdown: count before add'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - '@field:string1=foo1'
+- held:
+    op: write
+    as: r
+    id: 'dropdown: add write'
+    observe:
+    - calc1
+- db:
+    id: 'dropdown: count after add'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'dropdown: add load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    - ids
+- held:
+    op: find
+    as: cr
+    id: 'dropdown: curval record'
+    sheet: cv
+    user: normal1
+    current_id: 7
+    observe:
+    - calc1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - '@field:string1=foo2'
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r
+    id: 'dropdown: add second write'
+    observe:
+    - calc1
+- db:
+    id: 'dropdown: count after second'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'dropdown: add second load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: cr
+    id: 'dropdown: autocur calc'
+    sheet: cv
+    clear: true
+    current_id: 7
+    observe:
+    - calc1
+- held:
+    op: find
+    as: r
+    id: 'dropdown: edit reload'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - query: '@field:string1=foo5'
+        own_id: ^foo2$
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r
+- db:
+    id: 'dropdown: count after edit'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'dropdown: edit load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - query: '@field:string1=foo1'
+        own_id: ^foo1$
+      - query: '@field:string1=foo6'
+        own_id: ^foo5$
+- held:
+    op: write
+    as: r
+- db:
+    id: 'dropdown: count after edit 2'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'dropdown: edit 2 load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r2
+    sheet: main
+    user: normal1
+    current_id: 3
+- held:
+    op: set
+    as: r2
+    values:
+    - curval1: '@own_queries'
+    - date1: '2020-10-10'
+- held:
+    op: write
+    as: r2
+- db:
+    id: 'dropdown: count after no change'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r2
+    id: 'dropdown: no change load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r2
+    values:
+      curval1:
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r2
+- db:
+    id: 'dropdown: count after delete'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- db:
+    id: 'dropdown: live after delete'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+      deleted: null
+- held:
+    op: find
+    as: r2
+    id: 'dropdown: delete load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r2
+    id: 'dropdown: old version'
+    sheet: main
+    clear: true
+    current_id: 3
+    version: 1
+    observe:
+    - curval1
+- held:
+    op: find
+    as: u1
+    sheet: main
+    user: normal1
+    current_id: 3
+- held:
+    op: set
+    as: u1
+    values:
+      daterange1:
+      - '2020-10-10'
+      - '2021-10-10'
+- held:
+    op: write
+    as: u1
+- held:
+    op: new
+    as: u2
+    sheet: main
+    user: normal1
+- held:
+    op: set
+    as: u2
+    values:
+      daterange1:
+      - '2020-10-10'
+      - '2021-10-10'
+- held:
+    op: write
+    as: u2
+    id: 'dropdown: unique fail'
+    expect_error: must be unique
+- held:
+    op: get
+    as: u2
+    id: 'dropdown: filtered after unique fail'
+    filtered_values: curval1
+- held:
+    op: new
+    as: d
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: d
+    id: 'dropdown: draft filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: d
+    values:
+      curval1:
+      - '@field:string1=foo10'
+      - '@field:string1=foo20'
+      curval2:
+      - '@field:string1=foo145'
+      integer1: 10
+- held:
+    op: write
+    as: d
+    options:
+      draft: 1
+- held:
+    op: clear
+    as: d
+- held:
+    op: load_remembered_values
+    as: d
+- held:
+    op: get
+    as: d
+    id: 'dropdown: draft filtered'
+    filtered_values: curval1
+    filtered_full: true
+- layout:
+    op: set_user
+    sheet: cv
+    user: normal1
+- clear_layouts: {}
+- held:
+    op: new
+    as: m
+    sheet: cv
+    user: normal1
+- db:
+    id: 'dropdown: main non-draft count'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:main'
+      draftuser_id: null
+      deleted: null
+- held:
+    op: load_remembered_values
+    as: m
+- held:
+    op: get
+    as: m
+    id: 'dropdown: modal filtered'
+    filtered_values: Curval back to main table
+- held:
+    op: find
+    as: ex
+    sheet: main
+    user: normal1
+    current_id: 3
+- held:
+    op: get
+    as: ex
+    id: 'dropdown: existing filtered'
+    filtered_values: curval1
+- held:
+    op: get
+    as: d
+    id: 'dropdown: draft form'
+    datum:
+    - curval1
+    - curval2
+    datum_props:
+    - blank
+    - html_form
+    - html_form_query
+- held:
+    op: set_from_form
+    as: d
+    from: d
+    columns:
+    - curval1
+    as_query: true
+    replace:
+    - foo20
+    - foo30
+- held:
+    op: set_from_form
+    as: d
+    from: d
+    columns:
+    - curval2
+    as_query: true
+- held:
+    op: write
+    as: d
+- held:
+    op: find
+    as: d
+    id: 'dropdown: draft submitted'
+    sheet: main
+    clear: true
+    current_id: '@held:d'
+    observe:
+    - curval1
+    - curval2
+- held:
+    op: find
+    as: r2
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r2
+    id: 'dropdown: curval before write'
+    values:
+      curval1:
+      - '@field:string1=foo10'
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f0
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f0
+    id: 'dropdown: fail 0: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f0
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f0
+    id: 'dropdown: fail 0: write'
+    expect_error: is not optional
+- held:
+    op: get
+    as: f0
+    id: 'dropdown: fail 0: after fail'
+    datum:
+    - curval1
+    datum_props:
+    - blank
+    filtered_values: curval1
+    filtered_full: true
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f1
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f1
+    id: 'dropdown: fail 1: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f1
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f1
+    options:
+      draft: 1
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f2
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f2
+    id: 'dropdown: fail 2: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f2
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f2
+    id: 'dropdown: fail 2: write'
+    expect_error: is not optional
+- held:
+    op: get
+    as: f2
+    id: 'dropdown: fail 2: after fail'
+    datum:
+    - curval1
+    datum_props:
+    - blank
+    filtered_values: curval1
+    filtered_full: true
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+    site_id: 1
+- sheet:
+    as: main
+    curval: cv
+    column_count:
+      curval: 2
+    curval_offset: 6
+    curval_fields:
+    - string1
+    calc_return_type: string
+    calc_code: "function evaluate (L1curval1)\n    if L1curval1 == nil then\n    \
+      \    return \"\"\n    end\n    ret = \"\"\n    -- Allow values to be single\
+      \ or multi value\n    if L1curval1.field_values ~= nil then\n        ret = ret\
+      \ .. L1curval1.field_values.L2string1\n    else\n        for _, curval in ipairs(L1curval1)\
+      \ do\n            ret = ret .. curval.field_values.L2string1\n        end\n\
+      \    end\n    return ret\nend"
+- sheet:
+    as: main2
+    instance_id: 3
+    curval_offset: 12
+    curval: cv
+    curval_fields:
+    - string1
+    data: []
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- clear_layouts: {}
+- column:
+    op: create
+    sheet: cv
+    type: curval
+    refers_to: main
+    curval_fields:
+    - string1
+    name: Curval back to main table
+    name_short: L2curval2
+- column:
+    op: update
+    sheet: cv
+    column: daterange1
+    set:
+      permissions: none
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- column:
+    op: update
+    sheet: cv
+    column: calc1
+    set:
+      code: "\nfunction evaluate (L2autocur1)\n    return_value = ''\n    for _, v\
+        \ in pairs(L2autocur1) do\n        return_value = return_value .. v.field_values.L1integer1\n\
+        \    end\n    return return_value\nend\n"
+- add_autocur:
+    sheet: cv
+    refers_to: main2
+    related_field: curval1
+    curval_fields:
+    - string1
+- clear_layouts: {}
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      delete_not_used: 0
+      show_add: 1
+      value_selector: noshow
+    write_options:
+      no_alerts: 1
+- column:
+    op: update
+    sheet: main
+    column: curval2
+    set:
+      delete_not_used: 0
+      show_add: 1
+      value_selector: noshow
+    write_options:
+      no_alerts: 1
+- column:
+    op: update
+    sheet: main
+    column: daterange1
+    set:
+      isunique: 1
+- clear_layouts: {}
+- held:
+    op: new
+    as: n
+    sheet: main
+    user: normal1
+- held:
+    op: set
+    as: n
+    values:
+      integer1: 10
+      curval1:
+      - '@field:string1=foo55'
+- held:
+    op: write
+    as: n
+    id: 'noshow: new write'
+    observe:
+    - calc1
+- held:
+    op: find
+    as: n
+    id: 'noshow: new load'
+    sheet: main
+    clear: true
+    current_id: '@held:n'
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r
+    id: 'noshow: blank to begin'
+    sheet: main
+    user: normal1
+    current_id: 3
+    observe:
+    - curval1
+- db:
+    id: 'noshow: count before add'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - '@field:string1=foo1'
+- held:
+    op: write
+    as: r
+    id: 'noshow: add write'
+    observe:
+    - calc1
+- db:
+    id: 'noshow: count after add'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'noshow: add load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    - ids
+- held:
+    op: find
+    as: cr
+    id: 'noshow: curval record'
+    sheet: cv
+    user: normal1
+    current_id: 7
+    observe:
+    - calc1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - '@field:string1=foo2'
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r
+    id: 'noshow: add second write'
+    observe:
+    - calc1
+- db:
+    id: 'noshow: count after second'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'noshow: add second load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: cr
+    id: 'noshow: autocur calc'
+    sheet: cv
+    clear: true
+    current_id: 7
+    observe:
+    - calc1
+- held:
+    op: find
+    as: r
+    id: 'noshow: edit reload'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - query: '@field:string1=foo5'
+        own_id: ^foo2$
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r
+- db:
+    id: 'noshow: count after edit'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'noshow: edit load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - query: '@field:string1=foo1'
+        own_id: ^foo1$
+      - query: '@field:string1=foo6'
+        own_id: ^foo5$
+- held:
+    op: write
+    as: r
+- db:
+    id: 'noshow: count after edit 2'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r
+    id: 'noshow: edit 2 load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r2
+    sheet: main
+    user: normal1
+    current_id: 3
+- held:
+    op: set
+    as: r2
+    values:
+    - curval1: '@own_queries'
+    - date1: '2020-10-10'
+- held:
+    op: write
+    as: r2
+- db:
+    id: 'noshow: count after no change'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- held:
+    op: find
+    as: r2
+    id: 'noshow: no change load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: set
+    as: r2
+    values:
+      curval1:
+      - own_id: ^foo1$
+- held:
+    op: write
+    as: r2
+- db:
+    id: 'noshow: count after delete'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+- db:
+    id: 'noshow: live after delete'
+    op: count
+    table: current
+    where:
+      instance_id: '@instance:cv'
+      deleted: null
+- held:
+    op: find
+    as: r2
+    id: 'noshow: delete load'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - calc1
+    - curval1
+- held:
+    op: find
+    as: r2
+    id: 'noshow: old version'
+    sheet: main
+    clear: true
+    current_id: 3
+    version: 1
+    observe:
+    - curval1
+- held:
+    op: new
+    as: d
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: d
+    id: 'noshow: draft filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: d
+    values:
+      curval1:
+      - '@field:string1=foo10'
+      - '@field:string1=foo20'
+      curval2:
+      - '@field:string1=foo145'
+      integer1: 10
+- held:
+    op: write
+    as: d
+    options:
+      draft: 1
+- held:
+    op: clear
+    as: d
+- held:
+    op: load_remembered_values
+    as: d
+- held:
+    op: get
+    as: d
+    id: 'noshow: draft form'
+    datum:
+    - curval1
+    - curval2
+    datum_props:
+    - blank
+    - html_form
+    - html_form_query
+- held:
+    op: set_from_form
+    as: d
+    from: d
+    columns:
+    - curval1
+    as_query: true
+    replace:
+    - foo20
+    - foo30
+- held:
+    op: set_from_form
+    as: d
+    from: d
+    columns:
+    - curval2
+    as_query: true
+- held:
+    op: write
+    as: d
+- held:
+    op: find
+    as: d
+    id: 'noshow: draft submitted'
+    sheet: main
+    clear: true
+    current_id: '@held:d'
+    observe:
+    - curval1
+    - curval2
+- held:
+    op: find
+    as: r2
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r2
+    id: 'noshow: curval before write'
+    values:
+      curval1:
+      - '@field:string1=foo10'
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f0
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f0
+    id: 'noshow: fail 0: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f0
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f0
+    id: 'noshow: fail 0: write'
+    expect_error: is not optional
+- held:
+    op: get
+    as: f0
+    id: 'noshow: fail 0: after fail'
+    datum:
+    - curval1
+    datum_props:
+    - blank
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f1
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f1
+    id: 'noshow: fail 1: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f1
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f1
+    options:
+      draft: 1
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: f2
+    sheet: main
+    user: normal1
+- held:
+    op: get
+    as: f2
+    id: 'noshow: fail 2: filtered before'
+    filtered_values: curval1
+- held:
+    op: set
+    as: f2
+    values:
+      curval1:
+      - '@field:string1=foo99'
+      integer1: 50
+- held:
+    op: write
+    as: f2
+    id: 'noshow: fail 2: write'
+    expect_error: is not optional
+- held:
+    op: get
+    as: f2
+    id: 'noshow: fail 2: after fail'
+    datum:
+    - curval1
+    datum_props:
+    - blank
+- reset: {}
+- sheet:
+    as: cs2
+    instance_id: 4
+- sheet:
+    as: cs1
+    data: []
+    curval: cs2
+    curval_fields:
+    - string1
+    instance_id: 2
+- sheet:
+    as: main
+    data: []
+    curval: cs1
+    curval_fields:
+    - string1
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      show_add: 1
+      value_selector: noshow
+    write_options:
+      no_alerts: 1
+- clear_layouts: {}
+- held:
+    op: new
+    as: c
+    sheet: main
+    user: normal1
+- held:
+    op: set
+    as: c
+    values:
+      curval1:
+      - '@field:curval1=1&@field:string1=foobars'
+- held:
+    op: write
+    as: c
+    options:
+      draft: 1
+- held:
+    op: clear
+    as: c
+- held:
+    op: load_remembered_values
+    as: c
+    id: inner curval draft form
+    datum:
+    - curval1
+    datum_props:
+    - blank
+    - html_form
+    - html_form_query
+- held:
+    op: set_from_form
+    as: c
+    from: c
+    columns:
+    - curval1
+    as_query: true
+- held:
+    op: write
+    as: c
+- held:
+    op: find
+    as: c
+    id: inner curval saved
+    sheet: main
+    clear: true
+    current_id: '@held:c'
+    observe:
+    - curval1

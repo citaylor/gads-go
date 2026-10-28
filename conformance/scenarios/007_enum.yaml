@@ -1,0 +1,79 @@
+name: 007_enum
+source:
+- t/007_enum.t
+description: Deleted enum values of an existing record (none for a new record)
+steps:
+- sheet:
+    as: main
+- held:
+    id: existing deleted 0
+    op: single
+    as: rec0
+    datum:
+    - enum1
+    datum_props:
+    - as_string
+    - deleted_values
+    expect:
+      datum:
+        enum1:
+          as_string: foo1
+          deleted_values: []
+- held:
+    op: new
+    as: new0
+- held:
+    id: new deleted 0
+    op: get
+    as: new0
+    datum:
+    - enum1
+    datum_props:
+    - deleted_values
+    expect:
+      datum:
+        enum1:
+          deleted_values: []
+- reset: {}
+- sheet:
+    as: main
+- column:
+    op: update
+    sheet: main
+    column: enum1
+    set:
+      enumvals:
+      - value: foo2
+        id: 2
+      - value: foo3
+        id: 3
+- held:
+    id: existing deleted 1
+    op: single
+    as: rec1
+    datum:
+    - enum1
+    datum_props:
+    - as_string
+    - deleted_values
+    expect:
+      datum:
+        enum1:
+          as_string: foo1
+          deleted_values:
+          - foo1
+- held:
+    op: new
+    as: new1
+- held:
+    id: new deleted 1
+    op: get
+    as: new1
+    datum:
+    - enum1
+    datum_props:
+    - deleted_values
+    expect:
+      datum:
+        enum1:
+          deleted_values: []

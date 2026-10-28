@@ -1,0 +1,534 @@
+name: 001_lua_input_types
+source:
+- lib/GADS/Datum/*.pm
+- lib/GADS/Column/Code.pm
+description: Probe the exact Lua types/representations received by calc code for every datum type, via the database (update_cached) path and the record write path.
+steps:
+- sheet:
+    as: curval
+    instance_id: 2
+- sheet:
+    as: main
+    instance_id: 1
+    curval: curval
+    curval_fields:
+    - string1
+    - integer1
+    - date1
+    data:
+    - string1: Foo
+      integer1: 50
+      date1: '2014-10-10'
+      daterange1:
+      - '2012-02-10'
+      - '2013-06-15'
+      enum1: foo2
+      tree1: tree3
+      curval1: 1
+      person1: 2
+      file1: null
+    - string1: ''
+      integer1: null
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_string1
+    name_short: probe_string1
+    return_type: string
+    code: |-
+      function evaluate (L1string1)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(L1string1)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_integer1
+    name_short: probe_integer1
+    return_type: string
+    code: |-
+      function evaluate (L1integer1)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(L1integer1)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_date1
+    name_short: probe_date1
+    return_type: string
+    code: |-
+      function evaluate (L1date1)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(L1date1)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_daterange1
+    name_short: probe_daterange1
+    return_type: string
+    code: |-
+      function evaluate (L1daterange1)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(L1daterange1)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_enum1
+    name_short: probe_enum1
+    return_type: string
+    code: |-
+      function evaluate (L1enum1)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(L1enum1)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_tree1
+    name_short: probe_tree1
+    return_type: string
+    code: |-
+      function evaluate (L1tree1)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(L1tree1)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_curval1
+    name_short: probe_curval1
+    return_type: string
+    code: |-
+      function evaluate (L1curval1)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(L1curval1)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_calc1
+    name_short: probe_calc1
+    return_type: string
+    code: |-
+      function evaluate (L1calc1)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(L1calc1)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_id
+    name_short: probe_id
+    return_type: string
+    code: |-
+      function evaluate (_id)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(_id)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_serial
+    name_short: probe_serial
+    return_type: string
+    code: |-
+      function evaluate (_serial)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(_serial)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_version_datetime
+    name_short: probe_version_datetime
+    return_type: string
+    code: |-
+      function evaluate (_version_datetime)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(_version_datetime)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_version_user
+    name_short: probe_version_user
+    return_type: string
+    code: |-
+      function evaluate (_version_user)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(_version_user)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_created
+    name_short: probe_created
+    return_type: string
+    code: |-
+      function evaluate (_created)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(_created)
+      end
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: probe_created_user
+    name_short: probe_created_user
+    return_type: string
+    code: |-
+      function evaluate (_created_user)
+          local function ser(v)
+              if type(v) == "table" then
+                  local keys = {}
+                  for k in pairs(v) do table.insert(keys, k) end
+                  table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+                  local out = {}
+                  for _, k in ipairs(keys) do
+                      table.insert(out, type(k):sub(1,1) .. tostring(k) .. "=" .. ser(v[k]))
+                  end
+                  return "{" .. table.concat(out, ",") .. "}"
+              elseif type(v) == "number" then
+                  return "n(" .. tostring(v) .. ")"
+              elseif type(v) == "string" then
+                  return "s(" .. v .. ")"
+              else
+                  return type(v) .. "(" .. tostring(v) .. ")"
+              end
+          end
+          return ser(_created_user)
+      end
+- record:
+    op: get
+    sheet: main
+    current_id: 3
+    observe:
+    - probe_string1
+    - probe_integer1
+    - probe_date1
+    - probe_daterange1
+    - probe_enum1
+    - probe_tree1
+    - probe_curval1
+    - probe_calc1
+    - probe_id
+    - probe_serial
+    - probe_version_datetime
+    - probe_version_user
+    - probe_created
+    - probe_created_user
+- record:
+    op: get
+    sheet: main
+    current_id: 4
+    observe:
+    - probe_string1
+    - probe_integer1
+    - probe_date1
+    - probe_daterange1
+    - probe_enum1
+    - probe_tree1
+    - probe_curval1
+    - probe_calc1
+    - probe_id
+    - probe_serial
+    - probe_version_datetime
+    - probe_version_user
+    - probe_created
+    - probe_created_user
+- record:
+    op: create
+    sheet: main
+    values:
+      string1: Bar
+      integer1: '77'
+      date1: '2015-01-02'
+      daterange1:
+      - '2001-01-01'
+      - '2002-02-02'
+      enum1: foo3
+      tree1: tree1
+      curval1: 2
+      person1: 3
+    as: new1
+- record:
+    op: get
+    sheet: main
+    current_id: '@record:new1'
+    observe:
+    - probe_string1
+    - probe_integer1
+    - probe_date1
+    - probe_daterange1
+    - probe_enum1
+    - probe_tree1
+    - probe_curval1
+    - probe_calc1
+    - probe_id
+    - probe_serial
+    - probe_version_datetime
+    - probe_version_user
+    - probe_created
+    - probe_created_user
+- record:
+    op: update
+    sheet: main
+    current_id: 3
+    values:
+      integer1: '12'
+- record:
+    op: get
+    sheet: main
+    current_id: 3
+    observe:
+    - probe_string1
+    - probe_integer1
+    - probe_date1
+    - probe_daterange1
+    - probe_enum1
+    - probe_tree1
+    - probe_curval1
+    - probe_calc1
+    - probe_id
+    - probe_serial
+    - probe_version_datetime
+    - probe_version_user
+    - probe_created
+    - probe_created_user

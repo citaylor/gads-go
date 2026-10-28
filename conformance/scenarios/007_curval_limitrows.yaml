@@ -1,0 +1,318 @@
+name: 007_curval_limitrows
+source:
+- t/007_curval_limitrows.t
+description: Limit the number of rows shown for a curval field, keeping hidden values on write
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: String1
+      enum1: foo1
+      integer1: 10
+    - string1: String2
+      enum1: foo1
+      integer1: 10
+    - string1: String3
+      enum1: foo1
+      integer1: 10
+    - string1: String4
+      enum1: foo1
+      integer1: 10
+    - string1: String5
+      enum1: foo2
+      integer1: 10
+    - string1: String6
+      enum1: foo2
+      integer1: 10
+    - string1: String7
+      enum1: foo2
+      integer1: 10
+    - string1: String8
+      enum1: foo2
+      integer1: 10
+- layout:
+    op: update
+    sheet: cv
+    sort_layout: _id
+    sort_type: desc
+- sheet:
+    as: main
+    multivalue: 0
+    instance_id: 1
+    curval: cv
+    curval_fields:
+    - string1
+    calc_code: "function evaluate (L1curval1)\n            return_value = 0\n            if L1curval1[1] then\n                for _, v in pairs(L1curval1) do\n                    return_value = return_value + v.field_values.L2integer1\n                end\n                return return_value\n            end\n            return L1curval1.field_values.L2integer1\n        end"
+    data:
+    - string1: My project
+      curval1:
+      - 1
+    - string1: My project 2
+      curval1:
+      - 1
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      limit_rows: 4
+- held:
+    id: mv0 initial
+    op: find
+    as: a
+    sheet: main
+    current_id: 9
+    observe:
+    - curval1
+    - calc1
+    expect:
+      values:
+        curval1: String1
+        calc1: '10'
+- search:
+    id: mv0 table
+    sheet: main
+    observe:
+    - curval1
+    - calc1
+    expect:
+      rows:
+      - curval1: String1
+        calc1: '10'
+      - curval1: String1
+        calc1: '10'
+- held:
+    op: single
+    as: s
+    sheet: main
+- held:
+    op: set
+    as: s
+    values:
+      curval1:
+      - 8
+- held:
+    id: mv0 edit curval
+    op: write
+    as: s
+    options:
+      no_alerts: 1
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      permissions:
+        default: []
+- held:
+    id: mv0 after edit
+    op: find
+    as: b
+    sheet: main
+    current_id: 9
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: String8
+- held:
+    op: set
+    as: b
+    values:
+      curval1: '@own_ids'
+- held:
+    id: mv0 no-op edit
+    op: get
+    as: b
+    observe:
+    - calc1
+    expect:
+      values:
+        calc1: '10'
+- held:
+    op: set
+    as: b
+    values:
+      string1: Foobar
+- held:
+    id: mv0 write other
+    op: write
+    as: b
+    options:
+      no_alerts: 1
+- held:
+    id: mv0 after other write
+    op: find
+    as: c
+    sheet: main
+    current_id: 9
+    observe:
+    - curval1
+    - calc1
+    expect:
+      values:
+        curval1: String8
+        calc1: '10'
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: String1
+      enum1: foo1
+      integer1: 10
+    - string1: String2
+      enum1: foo1
+      integer1: 10
+    - string1: String3
+      enum1: foo1
+      integer1: 10
+    - string1: String4
+      enum1: foo1
+      integer1: 10
+    - string1: String5
+      enum1: foo2
+      integer1: 10
+    - string1: String6
+      enum1: foo2
+      integer1: 10
+    - string1: String7
+      enum1: foo2
+      integer1: 10
+    - string1: String8
+      enum1: foo2
+      integer1: 10
+- layout:
+    op: update
+    sheet: cv
+    sort_layout: _id
+    sort_type: desc
+- sheet:
+    as: main
+    multivalue: 1
+    instance_id: 1
+    curval: cv
+    curval_fields:
+    - string1
+    calc_code: "function evaluate (L1curval1)\n            return_value = 0\n            if L1curval1[1] then\n                for _, v in pairs(L1curval1) do\n                    return_value = return_value + v.field_values.L2integer1\n                end\n                return return_value\n            end\n            return L1curval1.field_values.L2integer1\n        end"
+    data:
+    - string1: My project
+      curval1:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+    - string1: My project 2
+      curval1:
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      limit_rows: 4
+- held:
+    id: mv1 initial
+    op: find
+    as: a
+    sheet: main
+    current_id: 9
+    observe:
+    - curval1
+    - calc1
+    expect:
+      values:
+        curval1: String7; String6; String5; String4
+        calc1: '70'
+- search:
+    id: mv1 table
+    sheet: main
+    observe:
+    - curval1
+    - calc1
+    expect:
+      rows:
+      - curval1: String7; String6; String5; String4
+        calc1: '70'
+      - curval1: String6; String5; String4; String3
+        calc1: '50'
+- held:
+    op: single
+    as: s
+    sheet: main
+- held:
+    op: set
+    as: s
+    values:
+      curval1:
+      - 8
+- held:
+    id: mv1 edit curval
+    op: write
+    as: s
+    options:
+      no_alerts: 1
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      permissions:
+        default: []
+- held:
+    id: mv1 after edit
+    op: find
+    as: b
+    sheet: main
+    current_id: 9
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: String8; String7; String6; String5
+- held:
+    op: set
+    as: b
+    values:
+      curval1: '@own_ids'
+- held:
+    id: mv1 no-op edit
+    op: get
+    as: b
+    observe:
+    - calc1
+    expect:
+      values:
+        calc1: '80'
+- held:
+    op: set
+    as: b
+    values:
+      string1: Foobar
+- held:
+    id: mv1 write other
+    op: write
+    as: b
+    options:
+      no_alerts: 1
+- held:
+    id: mv1 after other write
+    op: find
+    as: c
+    sheet: main
+    current_id: 9
+    observe:
+    - curval1
+    - calc1
+    expect:
+      values:
+        curval1: String8; String7; String6; String5
+        calc1: '80'

@@ -1,0 +1,1201 @@
+name: 014_import
+source:
+- t/014_import.t
+description: CSV import of records (GADS::Import)
+steps:
+- sheet:
+    as: main
+    data: []
+- user:
+    op: insert_row
+    as: u1
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- user:
+    op: insert_row
+    as: u2
+    set:
+      email: test2@example.com
+      username: test2@example.com
+      password: test2
+- import:
+    id: version
+    sheet: main
+    content: 'string1,Last edited time,Last edited by
+
+      Foobar,2014-10-10 12:00,{user:u2}'
+    user: u1
+- search:
+    id: version written
+    sheet: main
+    observe:
+    - string1
+    - _version_user
+    - _version_datetime
+- db:
+    id: version createdby
+    op: select
+    table: record
+    where:
+      current_id: 1
+    columns:
+    - createdby
+    - created
+- reset: {}
+- sheet:
+    as: main
+    data: []
+- db:
+    id: deleted enum count
+    op: count
+    table: enumval
+    where:
+      value: foo1
+- db:
+    op: update
+    table: enumval
+    where:
+      value: foo1
+    set:
+      deleted: 1
+- db:
+    op: insert
+    table: enumval
+    set:
+      layout_id: '@column:main:enum1'
+      value: foo1
+      deleted: 0
+- import:
+    id: deleted enum
+    sheet: main
+    content: 'enum1
+
+      foo1'
+- search:
+    id: deleted enum written
+    sheet: main
+    observe:
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+- db:
+    id: deleted tree count
+    op: count
+    table: enumval
+    where:
+      value: tree1
+- db:
+    op: update
+    table: enumval
+    where:
+      value: tree1
+    set:
+      deleted: 1
+- db:
+    op: insert
+    table: enumval
+    set:
+      layout_id: '@column:main:tree1'
+      value: tree1
+      deleted: 0
+- import:
+    id: deleted tree
+    sheet: main
+    content: 'tree1
+
+      tree1'
+- search:
+    id: deleted tree written
+    sheet: main
+    observe:
+    - tree1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 0 None on
+    sheet: main
+    content: 'string1
+
+      String content'
+    user: u
+- search:
+    id: options 0 None on records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 0 None off
+    sheet: main
+    content: 'string1
+
+      String content'
+    user: u
+- search:
+    id: options 0 None off records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 1 None on
+    sheet: main
+    content: 'string1
+
+      Foo
+
+      Bar,FooBar'
+    user: u
+- search:
+    id: options 1 None on records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 1 None off
+    sheet: main
+    content: 'string1
+
+      Foo
+
+      Bar,FooBar'
+    user: u
+- search:
+    id: options 1 None off records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 2 dry_run on
+    sheet: main
+    content: 'string1
+
+      String content'
+    user: u
+    options:
+      dry_run: 1
+- search:
+    id: options 2 dry_run on records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 2 dry_run off
+    sheet: main
+    content: 'string1
+
+      String content'
+    user: u
+    options:
+      dry_run: 0
+- search:
+    id: options 2 dry_run off records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- import:
+    id: options 3 force_mandatory on
+    sheet: main
+    content: 'string1,integer1
+
+      String content,123
+
+      ,234'
+    user: u
+    options:
+      force_mandatory: 1
+- search:
+    id: options 3 force_mandatory on records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      optional: 0
+- import:
+    id: options 3 force_mandatory off
+    sheet: main
+    content: 'string1,integer1
+
+      String content,123
+
+      ,234'
+    user: u
+    options:
+      force_mandatory: 0
+- search:
+    id: options 3 force_mandatory off records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 4 blank_invalid_enum on
+    sheet: main
+    content: 'enum1
+
+      foo1
+
+      foobar'
+    user: u
+    options:
+      blank_invalid_enum: 1
+- search:
+    id: options 4 blank_invalid_enum on records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 4 blank_invalid_enum off
+    sheet: main
+    content: 'enum1
+
+      foo1
+
+      foobar'
+    user: u
+    options:
+      blank_invalid_enum: 0
+- search:
+    id: options 4 blank_invalid_enum off records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- column:
+    op: update
+    sheet: main
+    column: enum1
+    set:
+      enumvals:
+      - value: foo1
+      - value: duplicate
+      - value: duplicate
+- import:
+    id: options 5 take_first_enum on
+    sheet: main
+    content: 'enum1
+
+      foo1
+
+      duplicate'
+    user: u
+    options:
+      take_first_enum: 1
+- search:
+    id: options 5 take_first_enum on records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- column:
+    op: update
+    sheet: main
+    column: enum1
+    set:
+      enumvals:
+      - value: foo1
+      - value: duplicate
+      - value: duplicate
+- import:
+    id: options 5 take_first_enum off
+    sheet: main
+    content: 'enum1
+
+      foo1
+
+      duplicate'
+    user: u
+    options:
+      take_first_enum: 0
+- search:
+    id: options 5 take_first_enum off records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 6 split_multiple on
+    sheet: main
+    content: 'enum1
+
+      foo1
+
+      "foo1,foo2"'
+    user: u
+    options:
+      split_multiple: 1
+- search:
+    id: options 6 split_multiple on records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- db:
+    id: options 6 split_multiple on enum
+    op: select
+    table: enum
+    columns:
+    - value
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 6 split_multiple off
+    sheet: main
+    content: 'enum1
+
+      foo1
+
+      "foo1,foo2"'
+    user: u
+    options:
+      split_multiple: 0
+- search:
+    id: options 6 split_multiple off records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- db:
+    id: options 6 split_multiple off enum
+    op: select
+    table: enum
+    columns:
+    - value
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 7 ignore_string_zeros on
+    sheet: main
+    content: 'string1
+
+      foo
+
+      0'
+    user: u
+    options:
+      ignore_string_zeros: 1
+- search:
+    id: options 7 ignore_string_zeros on records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- db:
+    id: options 7 ignore_string_zeros on string
+    op: select
+    table: string
+    columns:
+    - value
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 7 ignore_string_zeros off
+    sheet: main
+    content: 'string1
+
+      foo
+
+      0'
+    user: u
+    options:
+      ignore_string_zeros: 0
+- search:
+    id: options 7 ignore_string_zeros off records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- db:
+    id: options 7 ignore_string_zeros off string
+    op: select
+    table: string
+    columns:
+    - value
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 8 round_integers on
+    sheet: main
+    content: 'integer1
+
+      100
+
+      12.7'
+    user: u
+    options:
+      round_integers: 1
+- search:
+    id: options 8 round_integers on records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- db:
+    id: options 8 round_integers on intgr
+    op: select
+    table: intgr
+    columns:
+    - value
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 8 round_integers off
+    sheet: main
+    content: 'integer1
+
+      100
+
+      12.7'
+    user: u
+    options:
+      round_integers: 0
+- search:
+    id: options 8 round_integers off records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - enum1
+- db:
+    id: options 8 round_integers off intgr
+    op: select
+    table: intgr
+    columns:
+    - value
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 9 None on
+    sheet: main
+    content: 'string1, ,integer1
+
+      Foo,Bar,123'
+    user: u
+    expect_error: Empty field name
+- reset: {}
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+- user:
+    op: insert_row
+    as: u
+    set:
+      email: test@example.com
+      username: test@example.com
+      password: test
+- import:
+    id: options 9 None off
+    sheet: main
+    content: 'string1, ,integer1
+
+      Foo,Bar,123'
+    user: u
+    expect_error: Empty field name
+- reset: {}
+- set_time:
+    time: '2014-10-10 01:00:00'
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    share_users: true
+- set_time:
+    time: '2015-05-05 01:00:00'
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      isunique: 1
+- import:
+    id: Update unique field with string
+    sheet: main
+    content: 'string1,integer1
+
+      Foo,100
+
+      Foo2,150'
+    options:
+      update_unique: string1
+- search:
+    id: Update unique field with string records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+- db:
+    id: Update unique field with string versions
+    op: count
+    table: record
+- reset: {}
+- set_time:
+    time: '2014-10-10 01:00:00'
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    share_users: true
+    data:
+    - string1: Foo
+      enum1: foo1
+    - string1: Bar
+      enum1: foo2
+- set_time:
+    time: '2015-05-05 01:00:00'
+- column:
+    op: update
+    sheet: main
+    column: enum1
+    set:
+      isunique: 1
+- import:
+    id: Update unique field with enum
+    sheet: main
+    content: 'string1,enum1
+
+      FooBar1,foo1
+
+      FooBar2,foo3'
+    options:
+      update_unique: enum1
+- search:
+    id: Update unique field with enum records
+    sheet: main
+    observe:
+    - string1
+    - enum1
+- db:
+    id: Update unique field with enum versions
+    op: count
+    table: record
+- reset: {}
+- set_time:
+    time: '2014-10-10 01:00:00'
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    share_users: true
+    data:
+    - string1: Foo
+      tree1: tree1
+    - string1: Bar
+      tree1: tree2
+- set_time:
+    time: '2015-05-05 01:00:00'
+- column:
+    op: update
+    sheet: main
+    column: tree1
+    set:
+      isunique: 1
+- import:
+    id: Update unique field with tree
+    sheet: main
+    content: 'string1,tree1
+
+      FooBar1,tree1
+
+      FooBar2,tree3'
+    options:
+      update_unique: tree1
+- search:
+    id: Update unique field with tree records
+    sheet: main
+    observe:
+    - string1
+    - tree1
+- db:
+    id: Update unique field with tree versions
+    op: count
+    table: record
+- reset: {}
+- set_time:
+    time: '2014-10-10 01:00:00'
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    share_users: true
+    data:
+    - string1: Foo
+      person1: 1
+- set_time:
+    time: '2015-05-05 01:00:00'
+- column:
+    op: update
+    sheet: main
+    column: person1
+    set:
+      isunique: 1
+- import:
+    id: Update unique field with person
+    sheet: main
+    content: 'string1,person1
+
+      Bar,"User1, User1"'
+    options:
+      update_unique: person1
+- search:
+    id: Update unique field with person records
+    sheet: main
+    observe:
+    - string1
+    - person1
+- db:
+    id: Update unique field with person versions
+    op: count
+    table: record
+- reset: {}
+- set_time:
+    time: '2014-10-10 01:00:00'
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    share_users: true
+    data:
+    - string1: Foo
+- set_time:
+    time: '2015-05-05 01:00:00'
+- import:
+    id: Update unique field with serial
+    sheet: main
+    content: 'string1,Serial
+
+      Bar2,1'
+    options:
+      update_unique: _serial
+- search:
+    id: Update unique field with serial records
+    sheet: main
+    observe:
+    - string1
+- db:
+    id: Update unique field with serial versions
+    op: count
+    table: record
+- reset: {}
+- set_time:
+    time: '2014-10-10 01:00:00'
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    share_users: true
+- set_time:
+    time: '2015-05-05 01:00:00'
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      isunique: 1
+- import:
+    id: Skip when existing unique value exists
+    sheet: main
+    content: 'string1,integer1
+
+      Foo,100
+
+      Foo2,150'
+    options:
+      skip_existing_unique: string1
+- search:
+    id: Skip when existing unique value exists records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+- db:
+    id: Skip when existing unique value exists versions
+    op: count
+    table: record
+- reset: {}
+- set_time:
+    time: '2014-10-10 01:00:00'
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    share_users: true
+    data:
+    - string1: Foo
+      integer1: 50
+      date1: ''
+    - string1: Bar
+      integer1: ''
+      date1: ''
+- set_time:
+    time: '2015-05-05 01:00:00'
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      isunique: 1
+- import:
+    id: No change of value unless blank
+    sheet: main
+    content: 'string1,integer1,date1
+
+      Foo,200,2010-10-10
+
+      Bar,300,2011-10-10'
+    options:
+      update_unique: string1
+      no_change_unless_blank: skip_new
+- search:
+    id: No change of value unless blank records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - date1
+- db:
+    id: No change of value unless blank versions
+    op: count
+    table: record
+- reset: {}
+- set_time:
+    time: '2014-10-10 01:00:00'
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    share_users: true
+    data:
+    - string1: Foo
+      integer1: 50
+      date1: '2010-10-10'
+      enum1: foo1
+      tree1: tree1
+      daterange1:
+      - '2010-10-10'
+      - '2010-11-10'
+      curval1: 1
+- set_time:
+    time: '2015-05-05 01:00:00'
+- import:
+    id: Invalid values
+    sheet: main
+    content: 'ID,integer1,date1,enum1,tree1,daterange1,curval1
+
+      3,XX,,,,,
+
+      3,,201-9,,,,
+
+      3,,,foo4,,,
+
+      3,,,,tree4,,
+
+      3,,,,,2012-10-10 FF 2013-10-10,
+
+      3,,,,,,9'
+    options:
+      update_unique: ID
+- search:
+    id: Invalid values records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - date1
+    - enum1
+    - tree1
+    - daterange1
+    - curval1
+- db:
+    id: Invalid values versions
+    op: count
+    table: record
+- reset: {}
+- set_time:
+    time: '2014-10-10 01:00:00'
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    share_users: true
+    data: []
+- set_time:
+    time: '2015-05-05 01:00:00'
+- import:
+    id: Attempt to update blank ID
+    sheet: main
+    content: 'ID,string1
+
+      ,FooBar'
+    options:
+      update_unique: ID
+- search:
+    id: Attempt to update blank ID records
+    sheet: main
+    observe:
+    - string1
+- db:
+    id: Attempt to update blank ID versions
+    op: count
+    table: record
+- reset: {}
+- set_time:
+    time: '2014-10-10 01:00:00'
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    share_users: true
+    data:
+    - string1: Foo
+- set_time:
+    time: '2015-05-05 01:00:00'
+- import:
+    id: Attempt to update ID from different table
+    sheet: main
+    content: 'ID,string1
+
+      1,Bar'
+    options:
+      update_unique: ID
+- search:
+    id: Attempt to update ID from different table records
+    sheet: main
+    observe:
+    - string1
+- db:
+    id: Attempt to update ID from different table versions
+    op: count
+    table: record
+- reset: {}
+- set_time:
+    time: '2014-10-10 01:00:00'
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    share_users: true
+    data:
+    - string1: Foo
+      integer1: 50
+      date1: '2010-10-10'
+      enum1: foo1
+      tree1: tree1
+      daterange1: &id001
+      - '2010-10-10'
+      - '2010-11-10'
+      curval1: 1
+    - string1: FooBar
+      integer1: 10
+      date1: '2010-10-10'
+      enum1: foo1
+      tree1: tree1
+      daterange1: *id001
+      curval1: 1
+    calc_code: "\n            function evaluate (_version_user, _version_datetime)\n\
+      \                return _version_user.firstname .. _version_user.surname\n \
+      \                   .. _version_datetime.year .. _version_datetime.month ..\
+      \ _version_datetime.day\n            end\n        "
+    calc_return_type: string
+- set_time:
+    time: '2015-05-05 01:00:00'
+- import:
+    id: Update existing records only
+    sheet: main
+    content: 'ID,string1,integer1,date1,enum1,tree1,daterange1,curval1
+
+      3,Bar,200,2011-10-10,foo2,tree2,2011-10-10 to 2011-11-10,2
+
+      4,,,,,,,'
+    options:
+      update_only: 1
+      update_unique: ID
+- search:
+    id: Update existing records only records
+    sheet: main
+    observe:
+    - string1
+    - integer1
+    - date1
+    - enum1
+    - tree1
+    - daterange1
+    - curval1
+    - calc1
+- db:
+    id: Update existing records only versions
+    op: count
+    table: record

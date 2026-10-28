@@ -1,0 +1,131 @@
+name: 205_web_record
+source:
+  - lib/GADS.pm (any /record|history|purge|purgehistory/:id, /:layout_name/record/, /edit/:id, _process_edit)
+  - lib/GADS/Role/Presentation/Record.pm, Datum.pm, Datum/*.pm
+  - views/edit.tt and the field templates
+description: >
+  The record page: viewing a record and a historic version, the form for a
+  new record, creating and updating records from the form (with
+  validation errors), the validation request of a curval edit, and deleting.
+steps:
+  - sheet:
+      as: cv
+      site_id: 1
+      instance_id: 2
+      data:
+        - { string1: foo1, integer1: 10 }
+        - { string1: foo2, integer1: 20 }
+  - sheet:
+      as: s
+      curval: cv
+      curval_fields: [string1, integer1]
+      data:
+        - string1: Foo
+          integer1: 50
+          enum1: foo1
+          tree1: tree1
+          date1: "2014-10-10"
+          daterange1: ["2000-10-10", "2001-10-10"]
+          person1: 1
+          curval1: 1
+        - string1: Bar
+          integer1: 99
+  - login: { user: superadmin }
+  - http:
+      id: record_view
+      as: superadmin
+      path: /record/3
+      expect: { status: 200 }
+  - http:
+      id: record_view_blank_values
+      as: superadmin
+      path: /record/4
+      expect: { status: 200 }
+  - http:
+      id: record_history
+      as: superadmin
+      path: /history/3
+      expect: { status: 200 }
+  - http:
+      id: record_not_found
+      as: superadmin
+      path: /record/999
+  - http:
+      id: edit_redirect
+      as: superadmin
+      path: /edit/3
+      expect: { status: 302 }
+  - http:
+      id: new_record_form
+      as: superadmin
+      path: "/{sheet:s}/record/"
+      expect: { status: 200 }
+  - http:
+      id: new_record_invalid
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/record/"
+      form:
+        submit: submit
+        "field{column:s:string1}": New one
+        "field{column:s:integer1}": notanumber
+  - http:
+      id: new_record_submit
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/record/"
+      form:
+        submit: submit
+        "field{column:s:string1}": New one
+        "field{column:s:integer1}": 77
+        "field{column:s:date1}": "2015-01-01"
+  - db:
+      id: records_after_create
+      op: select
+      table: current
+      columns: [id, instance_id, serial]
+  - http:
+      id: record_update
+      as: superadmin
+      method: POST
+      path: /record/4
+      form:
+        submit: submit-and-remain
+        "field{column:s:string1}": Bar updated
+        "field{column:s:integer1}": 98
+  - db:
+      id: strings_after_update
+      op: select
+      table: string
+      columns: [record_id, layout_id, value]
+  - http:
+      id: record_after_update
+      as: superadmin
+      path: /record/4
+      expect: { status: 200 }
+  - http:
+      id: record_validate
+      as: superadmin
+      method: POST
+      path: /record/4
+      form:
+        validate: 1
+        source: "{column:s:curval1}"
+        "field{column:s:integer1}": abc
+  - http:
+      id: record_delete
+      as: superadmin
+      method: POST
+      path: /record/4
+      form: { delete: 4 }
+  - db:
+      id: deleted
+      op: select
+      table: current
+      columns: [id, deleted]
+  - login: { user: normal1 }
+  - http:
+      id: record_view_normal
+      as: normal1
+      path: /record/3
+      expect: { status: 200 }

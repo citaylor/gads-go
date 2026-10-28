@@ -1,0 +1,247 @@
+{
+   "runner" : "perl",
+   "scenario" : "007_curval_recurse",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:add_autocur",
+         "observed" : {
+            "id" : "36",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:column",
+         "observed" : {
+            "id" : "37",
+            "name" : "calc_recurse"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "recursive calc",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "calc1" : "Test passed",
+               "curval1" : "Foo"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "54",
+               "date1" : "49",
+               "daterange1" : "50",
+               "enum1" : "47",
+               "file1" : "51",
+               "integer1" : "46",
+               "person1" : "52",
+               "rag1" : "53",
+               "string1" : "45",
+               "tree1" : "48"
+            },
+            "instance_id" : "3",
+            "internal" : {
+               "_created" : "43",
+               "_created_user" : "41",
+               "_deleted_by" : "42",
+               "_id" : "38",
+               "_serial" : "44",
+               "_version_datetime" : "39",
+               "_version_user" : "40"
+            },
+            "records" : [
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:column",
+         "observed" : {
+            "id" : "55",
+            "name" : "Subcurval"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write sub-record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:column",
+         "observed" : {
+            "id" : "56",
+            "name" : "calc_curval"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "values within values",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "calc_curval" : "FooBar1"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      }
+   ]
+}

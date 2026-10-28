@@ -1,0 +1,79 @@
+name: 221_web_record_body_chronology
+source:
+  - lib/GADS.pm (get /record_body/:id, get /chronology/:id?)
+  - lib/GADS/Record.pm (find_chronology_id)
+  - lib/GADS/Role/Presentation/Datum/Curcommon.pm (status and version_id of chronology values)
+  - views/chronology.tt, views/edit.tt (view_modal)
+description: >
+  The body of a record for a modal (of the current record or of one of its
+  versions), and the chronology of a record: the changes of each version,
+  with curval values marked as added, removed or changed, and only the
+  fields the user can read.
+steps:
+  - sheet:
+      as: cv
+      site_id: 1
+      instance_id: 2
+      data:
+        - { string1: Red }
+        - { string1: Blue }
+        - { string1: Green }
+  - sheet:
+      as: s
+      curval: cv
+      curval_fields: [string1]
+      data:
+        - { string1: Foo1, integer1: 10, curval1: 1 }
+  - held:
+      op: find
+      as: r
+      sheet: s
+      current_id: 4
+  - held:
+      op: set
+      as: r
+      values: { string1: Foo2, integer1: 20, curval1: 2 }
+  - held:
+      op: write
+      as: r
+      options: { no_alerts: 1 }
+  - held:
+      op: find
+      as: r
+      sheet: s
+      current_id: 4
+  - held:
+      op: set
+      as: r
+      values: { integer1: 30 }
+  - held:
+      op: write
+      as: r
+      options: { no_alerts: 1 }
+  - db:
+      id: versions
+      op: select
+      table: record
+      columns: [id, current_id, createdby]
+      where: { current_id: 4 }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  # Record bodies
+  - http: { id: record_body, as: normal1, path: /record_body/4 }
+  - http: { id: record_body_version, as: normal1, path: /record_body/4, query: { version_id: 4 } }
+  - http: { id: record_body_missing, as: normal1, path: /record_body/99 }
+  - http: { id: record_body_anon, path: /record_body/4 }
+  # Chronology
+  - http: { id: chronology, as: superadmin, path: /chronology/4 }
+  - http: { id: chronology_normal, as: normal1, path: /chronology/4 }
+  - column:
+      op: update
+      sheet: s
+      column: integer1
+      set:
+        permissions:
+          default: []
+  - http: { id: chronology_without_integer, as: normal1, path: /chronology/4 }
+  - http: { id: chronology_missing, as: normal1, path: /chronology/99 }
+  - http: { id: chronology_invalid, as: normal1, path: /chronology/abc }
+  - http: { id: chronology_no_id, as: normal1, path: /chronology/ }

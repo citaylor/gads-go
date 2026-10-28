@@ -1,0 +1,1872 @@
+{
+   "runner" : "perl",
+   "scenario" : "003_search_view_limits",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "33",
+               "curval2" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:column",
+         "observed" : {
+            "id" : "37",
+            "name" : "calc_int"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:create_records",
+         "observed" : {},
+         "pass" : true,
+         "type" : "create_records"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:add_autocur",
+         "observed" : {
+            "id" : "38",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:add_autocur",
+         "observed" : {
+            "id" : "39",
+            "name" : "autocur2"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "change enum of record 6",
+         "observed" : {
+            "current_id" : "6",
+            "record_id" : "10"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "56",
+               "date1" : "51",
+               "daterange1" : "52",
+               "enum1" : "49",
+               "file1" : "53",
+               "integer1" : "48",
+               "person1" : "54",
+               "rag1" : "55",
+               "string1" : "47",
+               "tree1" : "50"
+            },
+            "instance_id" : "3",
+            "internal" : {
+               "_created" : "45",
+               "_created_user" : "43",
+               "_deleted_by" : "44",
+               "_id" : "40",
+               "_serial" : "46",
+               "_version_datetime" : "41",
+               "_version_user" : "42"
+            },
+            "records" : [
+               "10",
+               "11"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:column",
+         "observed" : {
+            "id" : "57",
+            "name" : "curval3"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "set curval3",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "13"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "force string 3 undef",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "force string 4 empty",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 set multivalue",
+         "observed" : {},
+         "pass" : true,
+         "type" : "set_multivalue"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 table limit view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 limit to table view",
+         "observed" : {
+            "count" : "1",
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 user limit view",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 user limit replaces table limit",
+         "observed" : {
+            "count" : "2",
+            "first" : "5",
+            "ids" : [
+               "5",
+               "6"
+            ],
+            "last" : "6"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 normal view",
+         "observed" : {
+            "id" : "3"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 normal view plus limit",
+         "observed" : {
+            "count" : "1",
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "rows" : [
+               {
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "24:column",
+         "observed" : {
+            "id" : "29"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 limit without permission to field",
+         "observed" : {
+            "count" : "1",
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:column",
+         "observed" : {
+            "id" : "29"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 find current 5",
+         "observed" : {
+            "current_id" : "5",
+            "parent_id" : null,
+            "record_id" : "5",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 find record 5",
+         "observed" : {
+            "current_id" : "5",
+            "parent_id" : null,
+            "record_id" : "5",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv0 find current 4 not viewable",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv0 find record 4 not viewable",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv0 find deleted current 5",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv0 find deleted record 5",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "34:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 no columns find current 5",
+         "observed" : {
+            "current_id" : "5",
+            "parent_id" : null,
+            "record_id" : "5",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 no columns find record 5",
+         "observed" : {
+            "current_id" : "5",
+            "parent_id" : null,
+            "record_id" : "5",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv0 no columns find current 4 not viewable",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv0 no columns find record 4 not viewable",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "39:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv0 no columns find deleted current 5",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv0 no columns find deleted record 5",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "42:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 second limit view",
+         "observed" : {
+            "id" : "4"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "44:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 two view limits",
+         "observed" : {
+            "count" : "2",
+            "first" : "6",
+            "ids" : [
+               "6",
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 negative multivalue limit",
+         "observed" : {
+            "id" : "5"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "47:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 date1 view",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 negative multivalue limit with view",
+         "observed" : {
+            "count" : "1",
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "rows" : [
+               {
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search Foobar",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search -4",
+         "observed" : {
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search 8",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8"
+            ],
+            "last" : "8"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search 5",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "54:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search Foobar normal limit",
+         "observed" : {
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search 8 normal limit",
+         "observed" : {
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search 5 normal limit",
+         "observed" : {
+            "first" : "5",
+            "ids" : [
+               "5"
+            ],
+            "last" : "5"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 limit by enumval",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 limit with enumval",
+         "observed" : {
+            "count" : "2",
+            "first" : "6",
+            "ids" : [
+               "6",
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 find in enumval limit",
+         "observed" : {
+            "current_id" : "7",
+            "parent_id" : null,
+            "record_id" : "7",
+            "values" : {
+               "string1" : "FooBar"
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search date with enumval limit",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 limit by curval",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 limit with curval",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 find in curval limit",
+         "observed" : {
+            "current_id" : "3",
+            "parent_id" : null,
+            "record_id" : "3",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search foo1 with curval limit",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 limit by curval subfield and enum",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 limit with curval subfield",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search with curval subfield limit",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "1"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "69:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search 2014-10-10",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "5",
+               "6",
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search Foo",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5",
+               "6",
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search 99",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4",
+               "5"
+            ],
+            "last" : "5"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 quick search invalid date",
+         "observed" : {
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 find history record 3",
+         "observed" : {
+            "current_id" : "3",
+            "parent_id" : null,
+            "record_id" : "3",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 find current 3",
+         "observed" : {
+            "current_id" : "3",
+            "parent_id" : null,
+            "record_id" : "3",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 find history record 1 other sheet",
+         "observed" : {
+            "current_id" : "1",
+            "parent_id" : null,
+            "record_id" : "1",
+            "values" : {
+               "Created by" : "User1, User1",
+               "Created time" : "2014-10-10 02:00:00",
+               "ID" : "1",
+               "Last edited by" : "User1, User1",
+               "Last edited time" : "2014-10-10 02:00:00",
+               "Serial" : "1",
+               "calc1" : "",
+               "calc_int" : "",
+               "curval1" : "",
+               "curval2" : "",
+               "date1" : "",
+               "daterange1" : "",
+               "enum1" : "",
+               "file1" : "",
+               "integer1" : "",
+               "person1" : "",
+               "rag1" : "",
+               "string1" : "",
+               "tree1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv0 find current 1 other sheet",
+         "observed" : {
+            "current_id" : "1",
+            "parent_id" : null,
+            "record_id" : "13",
+            "values" : {
+               "Created by" : "User1, User1",
+               "Created time" : "2014-10-10 02:00:00",
+               "ID" : "1",
+               "Last edited by" : "User4, User4",
+               "Last edited time" : "2014-10-10 02:00:00",
+               "Serial" : "1",
+               "calc1" : "",
+               "calc_int" : "",
+               "curval1" : "",
+               "curval2" : "",
+               "date1" : "",
+               "daterange1" : "",
+               "enum1" : "",
+               "file1" : "",
+               "integer1" : "",
+               "person1" : "",
+               "rag1" : "",
+               "string1" : "",
+               "tree1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Record version ID 100 not found",
+         "failures" : [],
+         "id" : "vl mv0 find missing version",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Record ID 100 not found",
+         "failures" : [],
+         "id" : "vl mv0 find missing record",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Invalid record ID XYXY",
+         "failures" : [],
+         "id" : "vl mv0 find invalid record",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Invalid record ID 123XYXY",
+         "failures" : [],
+         "id" : "vl mv0 find invalid record 2",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 set multivalue",
+         "observed" : {},
+         "pass" : true,
+         "type" : "set_multivalue"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 table limit view",
+         "observed" : {
+            "id" : "7"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "84:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 limit to table view",
+         "observed" : {
+            "count" : "1",
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 user limit view",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "87:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 user limit replaces table limit",
+         "observed" : {
+            "count" : "2",
+            "first" : "5",
+            "ids" : [
+               "5",
+               "6"
+            ],
+            "last" : "6"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "89:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 normal view",
+         "observed" : {
+            "id" : "9"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 normal view plus limit",
+         "observed" : {
+            "count" : "1",
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "rows" : [
+               {
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "92:column",
+         "observed" : {
+            "id" : "29"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 limit without permission to field",
+         "observed" : {
+            "count" : "1",
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "94:column",
+         "observed" : {
+            "id" : "29"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 find current 5",
+         "observed" : {
+            "current_id" : "5",
+            "parent_id" : null,
+            "record_id" : "5",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 find record 5",
+         "observed" : {
+            "current_id" : "5",
+            "parent_id" : null,
+            "record_id" : "5",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv1 find current 4 not viewable",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv1 find record 4 not viewable",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "99:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv1 find deleted current 5",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv1 find deleted record 5",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "102:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 no columns find current 5",
+         "observed" : {
+            "current_id" : "5",
+            "parent_id" : null,
+            "record_id" : "5",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 no columns find record 5",
+         "observed" : {
+            "current_id" : "5",
+            "parent_id" : null,
+            "record_id" : "5",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv1 no columns find current 4 not viewable",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv1 no columns find record 4 not viewable",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "107:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv1 no columns find deleted current 5",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "vl mv1 no columns find deleted record 5",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "110:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 second limit view",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "112:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 two view limits",
+         "observed" : {
+            "count" : "2",
+            "first" : "6",
+            "ids" : [
+               "6",
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 negative multivalue limit",
+         "observed" : {
+            "id" : "11"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "115:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 date1 view",
+         "observed" : {
+            "id" : "12"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 negative multivalue limit with view",
+         "observed" : {
+            "count" : "1",
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "rows" : [
+               {
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search Foobar",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search -4",
+         "observed" : {
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search 8",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8"
+            ],
+            "last" : "8"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search 5",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "122:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search Foobar normal limit",
+         "observed" : {
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search 8 normal limit",
+         "observed" : {
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search 5 normal limit",
+         "observed" : {
+            "first" : "5",
+            "ids" : [
+               "5"
+            ],
+            "last" : "5"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 limit by enumval",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 limit with enumval",
+         "observed" : {
+            "count" : "2",
+            "first" : "6",
+            "ids" : [
+               "6",
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 find in enumval limit",
+         "observed" : {
+            "current_id" : "7",
+            "parent_id" : null,
+            "record_id" : "7",
+            "values" : {
+               "string1" : "FooBar"
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search date with enumval limit",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 limit by curval",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 limit with curval",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 find in curval limit",
+         "observed" : {
+            "current_id" : "3",
+            "parent_id" : null,
+            "record_id" : "3",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search foo1 with curval limit",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 limit by curval subfield and enum",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 limit with curval subfield",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search with curval subfield limit",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "1"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "137:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search 2014-10-10",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "5",
+               "6",
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search Foo",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5",
+               "6",
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search 99",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4",
+               "5"
+            ],
+            "last" : "5"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 quick search invalid date",
+         "observed" : {
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 find history record 3",
+         "observed" : {
+            "current_id" : "3",
+            "parent_id" : null,
+            "record_id" : "3",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 find current 3",
+         "observed" : {
+            "current_id" : "3",
+            "parent_id" : null,
+            "record_id" : "3",
+            "values" : {
+               "string1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 find history record 1 other sheet",
+         "observed" : {
+            "current_id" : "1",
+            "parent_id" : null,
+            "record_id" : "1",
+            "values" : {
+               "Created by" : "User1, User1",
+               "Created time" : "2014-10-10 02:00:00",
+               "ID" : "1",
+               "Last edited by" : "User1, User1",
+               "Last edited time" : "2014-10-10 02:00:00",
+               "Serial" : "1",
+               "calc1" : "",
+               "calc_int" : "",
+               "curval1" : "",
+               "curval2" : "",
+               "date1" : "",
+               "daterange1" : "",
+               "enum1" : "",
+               "file1" : "",
+               "integer1" : "",
+               "person1" : "",
+               "rag1" : "",
+               "string1" : "",
+               "tree1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vl mv1 find current 1 other sheet",
+         "observed" : {
+            "current_id" : "1",
+            "parent_id" : null,
+            "record_id" : "13",
+            "values" : {
+               "Created by" : "User1, User1",
+               "Created time" : "2014-10-10 02:00:00",
+               "ID" : "1",
+               "Last edited by" : "User4, User4",
+               "Last edited time" : "2014-10-10 02:00:00",
+               "Serial" : "1",
+               "calc1" : "",
+               "calc_int" : "",
+               "curval1" : "",
+               "curval2" : "",
+               "date1" : "",
+               "daterange1" : "",
+               "enum1" : "",
+               "file1" : "",
+               "integer1" : "",
+               "person1" : "",
+               "rag1" : "",
+               "string1" : "",
+               "tree1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Record version ID 100 not found",
+         "failures" : [],
+         "id" : "vl mv1 find missing version",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Record ID 100 not found",
+         "failures" : [],
+         "id" : "vl mv1 find missing record",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Invalid record ID XYXY",
+         "failures" : [],
+         "id" : "vl mv1 find invalid record",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Invalid record ID 123XYXY",
+         "failures" : [],
+         "id" : "vl mv1 find invalid record 2",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      }
+   ]
+}

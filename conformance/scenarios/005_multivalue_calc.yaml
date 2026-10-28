@@ -1,0 +1,32 @@
+name: 005_multivalue_calc
+source: [t/005_multivalue_calc.t]
+description: Multivalue calc fields returning string and integer arrays
+steps:
+- sheet:
+    as: main
+    multivalue: 1
+    calc_return_type: string
+    calc_code: |
+      function evaluate (L1string1)
+          return L1string1
+      end
+    data:
+    - string1: [Bar1, Bar2, Bar3]
+- column:
+    sheet: main
+    type: calc
+    name: calc2
+    return_type: integer
+    multivalue: 1
+    permissions: none
+    code: "function evaluate (_id) \n return {10,20,30} \nend"
+- record:
+    id: multivalue calc values
+    op: get
+    sheet: main
+    current_id: 1
+    observe: [calc1, calc2]
+    expect:
+      values:
+        calc1: Bar1, Bar2, Bar3
+        calc2: 10, 20, 30

@@ -1,0 +1,197 @@
+name: 207_api_dashboard
+source:
+  - lib/GADS/API.pm (/api/dashboard/:dashboard_id/... with and without a table prefix, _get_dashboard_write, _update_dashboard)
+  - lib/GADS/Schema/Result/Widget.pm (html, notice and table widgets)
+  - views/widget.tt
+description: >
+  The dashboard API: adding widgets to shared and personal dashboards,
+  rendering them, the edit form, updating their content and the layout of
+  a dashboard, deleting them, and the permission and not-found errors.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - view:
+      op: create
+      sheet: s
+      user: superadmin
+      as: v
+      name: Widget view
+      columns: [string1, integer1]
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { homepage_text: "<p>Site homepage</p>" }
+  - login: { user: superadmin }
+  # Creates the shared site dashboard (1) and the personal one (2)
+  - http:
+      id: home
+      as: superadmin
+      path: /
+      expect: { status: 200 }
+  - http:
+      id: add_notice
+      as: superadmin
+      method: POST
+      path: /api/dashboard/1/widget
+      query: { type: notice }
+      json: {}
+      capture: { notice: message }
+  - db:
+      id: widgets_after_add
+      op: select
+      table: widget
+      columns: [id, dashboard_id, type, title, static, h, w, x, y, content]
+  - http:
+      id: get_notice
+      as: superadmin
+      path: "/api/dashboard/1/widget/{var:notice}"
+  - http:
+      id: edit_notice_form
+      as: superadmin
+      path: "/api/dashboard/1/widget/{var:notice}/edit"
+  - http:
+      id: edit_notice
+      as: superadmin
+      method: PUT
+      path: "/api/dashboard/1/widget/{var:notice}/edit"
+      query: { static: 1 }
+      json: { title: My notice, content: "<p>Hello & welcome</p>" }
+  - http:
+      id: get_notice_after_edit
+      as: superadmin
+      path: "/api/dashboard/1/widget/{var:notice}"
+  - http:
+      id: update_layout
+      as: superadmin
+      method: PUT
+      path: /api/dashboard/1/dashboard/1
+      json:
+        - { i: "{var:notice}", h: 3, w: 4, x: 1, y: 2 }
+  - db:
+      id: widgets_after_layout
+      op: select
+      table: widget
+      columns: [id, dashboard_id, type, title, static, h, w, x, y, content]
+  # Personal dashboard, with a table widget needing configuration
+  - http:
+      id: add_table
+      as: superadmin
+      method: POST
+      path: /api/dashboard/2/widget
+      query: { type: table }
+      json: {}
+      capture: { table: message }
+  - http:
+      id: get_table_unconfigured
+      as: superadmin
+      path: "/api/dashboard/2/widget/{var:table}"
+  - http:
+      id: delete_table
+      as: superadmin
+      method: DELETE
+      path: "/api/dashboard/2/widget/{var:table}"
+  - http:
+      id: get_deleted
+      as: superadmin
+      path: "/api/dashboard/2/widget/{var:table}"
+  # Errors
+  - http:
+      id: dashboard_not_found
+      as: superadmin
+      method: POST
+      path: /api/dashboard/999/widget
+      query: { type: notice }
+      json: {}
+  - http:
+      id: widget_not_found
+      as: superadmin
+      path: /api/dashboard/1/widget/nosuchwidget
+  - http:
+      id: widget_of_other_dashboard
+      as: superadmin
+      path: "/api/dashboard/2/widget/{var:notice}"
+  - login: { user: normal1 }
+  - http:
+      id: normal_home
+      as: normal1
+      path: /
+  - http:
+      id: normal_add_shared_denied
+      as: normal1
+      method: POST
+      path: /api/dashboard/1/widget
+      query: { type: notice }
+      json: {}
+  - http:
+      id: normal_get_shared
+      as: normal1
+      path: "/api/dashboard/1/widget/{var:notice}"
+  - http:
+      id: normal_edit_shared_denied
+      as: normal1
+      path: "/api/dashboard/1/widget/{var:notice}/edit"
+  - http:
+      id: normal_delete_shared_denied
+      as: normal1
+      method: DELETE
+      path: "/api/dashboard/1/widget/{var:notice}"
+  - http:
+      id: normal_add_personal
+      as: normal1
+      method: POST
+      path: /api/dashboard/3/widget
+      query: { type: notice }
+      json: {}
+      capture: { normal: message }
+  - http:
+      id: normal_layout_superadmin_dashboard_denied
+      as: normal1
+      method: PUT
+      path: /api/dashboard/2/dashboard/2
+      json: []
+  - http:
+      id: not_logged_in
+      path: "/api/dashboard/1/widget/{var:notice}"
+  # Table dashboards (prefix routes)
+  - http:
+      id: table_page
+      as: superadmin
+      path: "/{sheet:s}"
+  - db:
+      id: dashboards
+      op: select
+      table: dashboard
+      columns: [id, instance_id, user_id]
+  - http:
+      id: add_table_widget
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/dashboard/4/widget"
+      query: { type: table }
+      json: {}
+      capture: { tablew: message }
+  - http:
+      id: edit_table_form
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/4/widget/{var:tablew}/edit"
+  - http:
+      id: edit_table
+      as: superadmin
+      method: PUT
+      path: "/{sheet:s}/api/dashboard/4/widget/{var:tablew}/edit"
+      json: { title: Records, rows: 5, view_id: "{view:v}" }
+  - db:
+      id: table_widget
+      op: select
+      table: widget
+      where: { dashboard_id: 4 }
+      columns: [type, title, rows, view_id, static]
+  - http:
+      id: unknown_table_prefix
+      as: superadmin
+      path: "/nosuchtable/api/dashboard/4/widget/{var:tablew}"
+  - db:
+      id: widgets_final
+      op: select
+      table: widget
+      columns: [id, dashboard_id, type, title, static, h, w, x, y]

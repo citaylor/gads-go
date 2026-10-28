@@ -1,0 +1,145 @@
+name: 008_child_curval
+source:
+- t/008_child_curval.t
+description: Child records with curval and autocur values, and show_add curval values written through a parent to its child
+steps:
+- sheet:
+    as: curval
+    instance_id: 2
+    site_id: 1
+- sheet:
+    as: main
+    instance_id: 1
+    site_id: 1
+    curval: curval
+    curval_fields: [integer1]
+    data:
+    - string1: Foo
+      date1: '2013-10-10'
+      daterange1: ['2014-03-21', '2015-03-01']
+      integer1: 10
+      enum1: foo1
+      curval1: 1
+# An autocur showing only a field that is not unique between parent and
+# child: the child is still shown so that all related records are listed
+- add_autocur:
+    sheet: curval
+    refers_to: main
+    related_field: curval1
+    curval_fields: [integer1]
+- column:
+    op: create
+    sheet: curval
+    type: calc
+    name: calc_curval
+    return_type: string
+    permissions: default
+    permissions_sheet: main
+    code: |-
+      function evaluate (L2autocur1)
+          return_value = ''
+          for _, v in pairs(L2autocur1) do
+              return_value = return_value .. v.field_values.L1integer1 .. v.field_values.L1string1
+          end
+          return return_value
+      end
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set: {can_child: 1}
+- clear_layouts: {}
+- held:
+    op: single
+    as: parent
+    sheet: main
+    user: normal1
+    layout_user: true
+- held:
+    op: new
+    as: child
+    sheet: main
+    user: normal1
+    layout_user: true
+    parent_id: '@held:parent'
+- held:
+    op: set
+    as: child
+    values: {string1: Foobar}
+- held:
+    op: write
+    as: child
+    options: {no_alerts: 1}
+- held:
+    op: find
+    as: parent
+    clear: true
+    current_id: '@held:parent'
+- held:
+    op: set
+    as: parent
+    values: {string1: Bar}
+- held:
+    op: write
+    as: parent
+    options: {no_alerts: 1}
+- search:
+    id: parent and child records exist
+    sheet: main
+    user: normal1
+    layout_user: true
+    observe: [string1, integer1, curval1]
+    expect: {count: '2'}
+- held:
+    id: autocur values
+    op: find
+    as: c
+    sheet: curval
+    user: normal1
+    layout_user: true
+    current_id: 1
+    observe: [autocur1, calc_curval]
+    expect:
+      values: {autocur1: 10; 10, calc_curval: 10Bar10Foobar}
+- db:
+    id: curval records before
+    op: count
+    table: current
+    where: {instance_id: '@instance:curval'}
+    expect: {count: '2'}
+# Writing a query value: the ID of the new curval record should be passed to
+# the child record, so that new curval records are not duplicated
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set: {show_add: 1}
+- clear_layouts: {}
+- held:
+    op: find
+    as: parent
+    clear: true
+    current_id: '@held:parent'
+- held:
+    op: set
+    as: parent
+    values: {string1: Foo2, curval1: ['@field:integer1=20']}
+- held:
+    op: write
+    as: parent
+    options: {no_alerts: 1}
+- held:
+    id: curval value in child after show_add write
+    op: find
+    as: child
+    clear: true
+    current_id: '@held:child'
+    observe: [string1, curval1]
+    expect:
+      values: {curval1: '20'}
+- db:
+    id: one new curval record created
+    op: count
+    table: current
+    where: {instance_id: '@instance:curval'}
+    expect: {count: '3'}

@@ -1,0 +1,298 @@
+name: 231_web_layout_submit
+source:
+  - lib/GADS.pm (/:layout_name/layout/?:id? submit)
+  - lib/GADS/Column.pm (write), lib/GADS/Column/*.pm (option and type attributes)
+  - views/layout.tt
+description: >
+  Submitting the field form: creating a field of each type (with its
+  permissions, options and type settings), updating fields (enum values
+  renamed, removed and added, display conditions, topics), the errors of
+  an invalid field and the written rows of each.
+steps:
+  - sheet:
+      as: cv
+      site_id: 1
+      instance_id: 2
+      data:
+        - { string1: Foo }
+  - sheet:
+      as: s
+      curval: cv
+      curval_fields: [string1]
+      data:
+        - { string1: Foo, integer1: 10 }
+  - db:
+      op: insert
+      table: topic
+      set: { name: My topic, instance_id: 1, click_to_edit: 0 }
+  - login: { user: superadmin }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http:
+      id: new_string
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: string
+        name: New string
+        name_short: newstring
+        description: A description
+        helptext: Some help
+        optional: 1
+        width: 50
+        textbox: 1
+        force_regex: "[a-z]+"
+        topic_id: 1
+        permission_read_1: 1
+        permission_write_new_1: 1
+        permission_write_existing_1: 1
+  - http:
+      id: new_enum
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: enum
+        name: New enum
+        width: 100
+        multivalue: 1
+        enumval: [alpha, beta, gamma]
+        enumval_id: ["", "", ""]
+        permission_read_1: 1
+  - clear_layouts: {}
+  - db:
+      id: enumvals_created
+      op: select
+      table: enumval
+      where: { layout_id: "@column:s:New enum" }
+      columns: [id, value, deleted, position]
+      order_by: [id]
+  - http:
+      id: update_enum_bad_id
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/{column:s:New enum}"
+      form:
+        submit: 1
+        id: "{column:s:New enum}"
+        name: New enum renamed
+        width: 100
+        ordering: asc
+        enumval: [alpha, betamax, delta]
+        enumval_id: ["@enumvals_created.0.id", "@enumvals_created.1.id", ""]
+  - http:
+      id: update_enum
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/{column:s:New enum}"
+      form:
+        submit: 1
+        id: "{column:s:New enum}"
+        name: New enum renamed
+        width: 100
+        ordering: asc
+        enumval: [alpha, betamax, delta]
+        enumval_id: ["13", "14", ""]
+  - db:
+      id: enumvals_updated
+      op: select
+      table: enumval
+      where: { layout_id: "@column:s:New enum" }
+      columns: [id, value, deleted, position]
+      order_by: [id]
+  - http:
+      id: new_calc
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: calc
+        name: New calc
+        width: 50
+        code_calc: "function evaluate (L1integer1) return L1integer1 * 2 end"
+        return_type: integer
+        show_in_edit: 0
+        permission_read_1: 1
+  - db:
+      id: calc_rows
+      op: select
+      table: calc
+      columns: [layout_id, code, return_format]
+      order_by: [layout_id]
+  - http:
+      id: new_rag
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: rag
+        name: New rag
+        width: 50
+        code_rag: "function evaluate (L1integer1) if L1integer1 > 5 then return 'b_red' else return 'c_amber' end end"
+        no_alerts_rag: 1
+  - db:
+      id: rag_rows
+      op: select
+      table: rag
+      columns: [layout_id, code]
+      order_by: [layout_id]
+  - http:
+      id: new_date
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: date
+        name: New date
+        width: 50
+        show_datepicker: 1
+        default_today: 1
+  - http:
+      id: new_tree
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: tree
+        name: New tree
+        width: 50
+        end_node_only: 1
+  - http:
+      id: new_file
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: file
+        name: New file
+        width: 50
+        filesize: 200
+  - http:
+      id: new_person
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: person
+        name: New person
+        width: 50
+        default_to_login: 1
+        notify_on_selection: 1
+        notify_on_selection_subject: Selected
+        notify_on_selection_message: You were selected
+  - http:
+      id: new_curval
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: curval
+        name: New curval
+        width: 50
+        refers_to_instance_id: 2
+        curval_field_ids: ["{column:cv:string1}", "{column:cv:integer1}"]
+        value_selector: typeahead
+        show_add: 1
+        limit_rows: 5
+        filter: '{"rules":[{"id":"{column:cv:string1}","type":"string","value":"Foo","operator":"equal"}],"condition":"AND"}'
+  - clear_layouts: {}
+  - db:
+      id: curval_fields_rows
+      op: select
+      table: curval_fields
+      where: { parent_id: "@column:s:New curval" }
+      columns: [parent_id, child_id]
+      order_by: [child_id]
+  - http:
+      id: new_autocur
+      as: superadmin
+      method: POST
+      path: "/{sheet:cv}/layout/"
+      form:
+        submit: 1
+        type: autocur
+        name: New autocur
+        width: 50
+        related_field_id: "{column:s:curval1}"
+        autocur_field_ids: ["{column:s:string1}"]
+  - http:
+      id: update_string
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/{column:s:string1}"
+      form:
+        submit: 1
+        id: "{column:s:string1}"
+        name: string1 renamed
+        width: 100
+        topic_id: 1
+        display_fields: '{"rules":[{"id":"{column:s:integer1}","type":"string","value":"10","operator":"equal"}],"condition":"OR"}'
+        notes: Some notes
+  - db:
+      id: display_field_rows
+      op: select
+      table: display_field
+      columns: [layout_id, display_field_id, regex, operator]
+      order_by: [layout_id, display_field_id]
+  - http:
+      id: error_no_name
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: string
+        name: ""
+        width: 50
+  - http:
+      id: error_bad_type
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: notatype
+        name: Bad
+        width: 50
+  - http:
+      id: error_curval_no_table
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/"
+      form:
+        submit: 1
+        type: curval
+        name: Curval none
+        width: 50
+  - db:
+      id: layout_rows
+      op: select
+      table: layout
+      columns: [id, name, name_short, type, instance_id, optional, multivalue, textbox, force_regex, end_node_only, ordering, topic_id, width, options, display_condition, notes, related_field, filter, description, helptext, permission]
+      order_by: [id]
+  - db:
+      id: file_option_rows
+      op: select
+      table: file_option
+      columns: [layout_id, filesize]
+      order_by: [layout_id]
+  - db:
+      id: layout_group_rows
+      op: select
+      table: layout_group
+      columns: [layout_id, group_id, permission]
+      order_by: [layout_id, group_id, permission]
+  - clear_layouts: {}
+  - http: { id: layouts_after, as: superadmin, path: "/{sheet:s}/layout" }
+  - http: { id: layout_curval_after, as: superadmin, path: "/{sheet:s}/layout/{column:s:New curval}" }
+  - http: { id: layout_person_after, as: superadmin, path: "/{sheet:s}/layout/{column:s:New person}" }
+  - http: { id: layout_enum_after, as: superadmin, path: "/{sheet:s}/layout/{column:s:New enum renamed}" }

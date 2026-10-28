@@ -1,0 +1,706 @@
+{
+   "runner" : "perl",
+   "scenario" : "004_group_mv1",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "33",
+               "curval2" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4",
+               "5",
+               "6"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:column",
+         "observed" : {
+            "id" : "25"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:column",
+         "observed" : {
+            "id" : "27"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:column",
+         "observed" : {
+            "id" : "28"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:column",
+         "observed" : {
+            "id" : "29"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:column",
+         "observed" : {
+            "id" : "30"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:column",
+         "observed" : {
+            "id" : "31"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:column",
+         "observed" : {
+            "id" : "32"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:column",
+         "observed" : {
+            "id" : "33"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:column",
+         "observed" : {
+            "id" : "34"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:column",
+         "observed" : {
+            "id" : "35"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:add_autocur",
+         "observed" : {
+            "id" : "37",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by string",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "id_counts" : [
+               "2",
+               "2"
+            ],
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "calc1" : "150",
+                  "curval1" : "1 unique",
+                  "curval2" : "1 unique",
+                  "date1" : "2 unique",
+                  "daterange1" : "2 unique",
+                  "enum1" : "3 unique",
+                  "integer1" : "75",
+                  "string1" : "foo1",
+                  "tree1" : "1 unique"
+               },
+               {
+                  "calc1" : "260",
+                  "curval1" : "1 unique",
+                  "curval2" : "1 unique",
+                  "date1" : "2 unique",
+                  "daterange1" : "2 unique",
+                  "enum1" : "1 unique",
+                  "integer1" : "130",
+                  "string1" : "foo2",
+                  "tree1" : "1 unique"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "grouped column not in view",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "integer1" : "75",
+                  "string1" : "foo1"
+               },
+               {
+                  "integer1" : "130",
+                  "string1" : "foo2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by string1",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "string1" : "foo1"
+               },
+               {
+                  "string1" : "foo2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by integer1",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null,
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "integer1" : "25"
+               },
+               {
+                  "integer1" : "50"
+               },
+               {
+                  "integer1" : "60"
+               },
+               {
+                  "integer1" : "70"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by enum1",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "enum1" : "foo1"
+               },
+               {
+                  "enum1" : "foo2"
+               },
+               {
+                  "enum1" : "foo3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by tree1",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "tree1" : "tree2"
+               },
+               {
+                  "tree1" : "tree3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by date1",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null,
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "date1" : "2008-10-10"
+               },
+               {
+                  "date1" : "2009-10-10"
+               },
+               {
+                  "date1" : "2011-10-10"
+               },
+               {
+                  "date1" : "2012-10-10"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by daterange1",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null,
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "daterange1" : "2000-01-02 to 2001-03-03"
+               },
+               {
+                  "daterange1" : "2001-01-02 to 2001-03-03"
+               },
+               {
+                  "daterange1" : "2004-01-02 to 2005-03-03"
+               },
+               {
+                  "daterange1" : "2007-01-02 to 2007-03-03"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by person1",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "person1" : "User1, User1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by curval1",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "curval1" : "Bar"
+               },
+               {
+                  "curval1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by curval2",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "curval2" : "Bar"
+               },
+               {
+                  "curval2" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by rag1",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "rag1" : "b_red"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by calc1",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null,
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "calc1" : "50"
+               },
+               {
+                  "calc1" : "100"
+               },
+               {
+                  "calc1" : "120"
+               },
+               {
+                  "calc1" : "140"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:column",
+         "observed" : {
+            "id" : "25"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "grouped column without permission",
+         "observed" : {
+            "columns_render" : [
+               "integer1"
+            ],
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "30:column",
+         "observed" : {
+            "id" : "37"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by string with autocur",
+         "observed" : {
+            "count" : "2",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "autocur1" : "2 unique"
+               },
+               {
+                  "autocur1" : "2 unique"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by curval",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "integer1" : "75"
+               },
+               {
+                  "integer1" : "130"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group by curval subfield",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "integer1" : "130"
+               },
+               {
+                  "integer1" : "75"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : "Unknown column curval2_string1",
+         "failures" : [],
+         "id" : "sort subfield without parent",
+         "observed" : null,
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sort subfield with parent",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "integer1" : "130"
+               },
+               {
+                  "integer1" : "75"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      }
+   ]
+}

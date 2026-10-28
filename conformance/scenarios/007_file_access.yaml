@@ -1,0 +1,70 @@
+name: 007_file_access
+source:
+- t/007_file_access.t
+description: Access to files limited by view limits and field permissions
+steps:
+- sheet:
+    as: main
+    data:
+    - string1: Foo
+      integer1: '100'
+      enum1: 1
+      file1: null
+    - string1: Bar
+      integer1: '200'
+      enum1: 2
+      file1: null
+- view:
+    op: create
+    sheet: main
+    name: Limit to view
+    global: 1
+    filter:
+      rules:
+      - name: enum1
+        type: string
+        value: foo1
+        operator: equal
+    as: vl
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl
+- clear_layouts: {}
+- held:
+    id: normal record
+    op: find
+    as: r
+    user: normal1
+    current_id: 1
+- held:
+    id: limited record
+    op: find
+    as: r
+    clear: true
+    current_id: 2
+    expect_error: not found
+- file_access:
+    id: limited file
+    current_id: 2
+    user: normal1
+    expect_error: not found
+- file_access:
+    id: accessible file
+    current_id: 1
+    user: normal1
+    expect:
+      found: '1'
+- column:
+    op: update
+    sheet: main
+    column: file1
+    set:
+      permissions:
+        default: []
+- file_access:
+    id: file without field permission
+    current_id: 1
+    user: normal1
+    expect_error: not have access

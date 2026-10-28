@@ -1,0 +1,116 @@
+name: 007_curval_recurse
+source:
+- t/007_curval_recurse.t
+description: Recursive curval/autocur code values do not loop, and values within values of curvals
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    data: []
+    curval: cv
+    curval_fields:
+    - string1
+    calc_return_type: string
+    calc_code: "function evaluate (L1curval1)\n        -- Check that we can recurse into values as far as the\n        -- own record's string value but not its curval\n        if L1curval1.field_values.L2autocur1[1].field_values.L1string1 == \"foo\"\n            and L1curval1.field_values.L2autocur1[1].field_values.L1curval1 == nil\n        then\n            return \"Test passed\"\n        else\n            return \"Unexpected values: \"\n                .. L1curval1.field_values.L2autocur1[1].field_values.L1string1\n                .. L1curval1.field_values.L2autocur1[1].field_values.L1curval1\n        end\n    end"
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- column:
+    op: create
+    sheet: cv
+    type: calc
+    name: calc_recurse
+    name_short: calc_recurse
+    return_type: integer
+    code: "function evaluate (L2autocur1) \n return 450 \nend"
+    permissions: none
+- held:
+    op: new
+    as: r
+    sheet: main
+    user: normal1
+- held:
+    op: set
+    as: r
+    values:
+      curval1: 1
+      string1: foo
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: recursive calc
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: '@held:r'
+    observe:
+    - calc1
+    - curval1
+    expect:
+      values:
+        calc1: Test passed
+        curval1: Foo
+- sheet:
+    as: cv2
+    instance_id: 3
+    data:
+    - string1: FooBar1
+- clear_layouts: {}
+- column:
+    op: create
+    sheet: cv
+    type: curval
+    name: Subcurval
+    name_short: L2curval1
+    refers_to: cv2
+    curval_fields:
+    - string1
+- held:
+    op: find
+    as: r2
+    sheet: main
+    user: normal1
+    current_id: 1
+- held:
+    op: set
+    as: r2
+    values:
+      cv:Subcurval: 4
+      cv:integer1: 333
+- held:
+    id: write sub-record
+    op: write
+    as: r2
+    options:
+      no_alerts: 1
+- column:
+    op: create
+    sheet: main
+    type: calc
+    name: calc_curval
+    name_short: calc_curval
+    return_type: string
+    permissions: none
+    code: "function evaluate (L1curval1)\n    return L1curval1.field_values.L2curval1.field_values.L3string1\nend"
+- held:
+    id: values within values
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: '@held:r'
+    observe:
+    - calc_curval
+    expect:
+      values:
+        calc_curval: FooBar1
+    clear_layout_first: true

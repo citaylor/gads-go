@@ -1,0 +1,158 @@
+{
+   "runner" : "perl",
+   "scenario" : "017_filter",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "hash from json",
+         "observed" : {
+            "as_hash" : {
+               "condition" : "AND",
+               "rules" : [
+                  {
+                     "id" : "1",
+                     "operator" : "equal",
+                     "type" : "string",
+                     "value" : "string1"
+                  }
+               ]
+            }
+         },
+         "pass" : true,
+         "type" : "filter_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "json from hash",
+         "observed" : {
+            "as_json" : {
+               "condition" : "AND",
+               "rules" : [
+                  {
+                     "id" : "1",
+                     "operator" : "equal",
+                     "type" : "string",
+                     "value" : "string1"
+                  }
+               ]
+            }
+         },
+         "pass" : true,
+         "type" : "filter_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "hash after same json",
+         "observed" : {
+            "as_hash" : {
+               "condition" : "AND",
+               "rules" : [
+                  {
+                     "id" : "1",
+                     "operator" : "equal",
+                     "type" : "string",
+                     "value" : "string1"
+                  }
+               ]
+            },
+            "changed" : "0"
+         },
+         "pass" : true,
+         "type" : "filter_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "hash after different json",
+         "observed" : {
+            "as_hash" : {
+               "condition" : "OR",
+               "rules" : [
+                  {
+                     "column_id" : "2",
+                     "id" : "2",
+                     "operator" : "equal",
+                     "type" : "string",
+                     "value" : "string2"
+                  }
+               ]
+            },
+            "changed" : "1",
+            "column_ids" : "2"
+         },
+         "pass" : true,
+         "type" : "filter_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "back by hash",
+         "observed" : {
+            "as_json" : {
+               "condition" : "AND",
+               "rules" : [
+                  {
+                     "id" : "1",
+                     "operator" : "equal",
+                     "type" : "string",
+                     "value" : "string1"
+                  }
+               ]
+            },
+            "changed" : "1",
+            "column_ids" : "1"
+         },
+         "pass" : true,
+         "type" : "filter_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blank filter",
+         "observed" : {},
+         "pass" : true,
+         "type" : "filter_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "build default",
+         "observed" : {
+            "as_json" : {}
+         },
+         "pass" : true,
+         "type" : "filter_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed after update after new",
+         "observed" : {
+            "changed" : "1"
+         },
+         "pass" : true,
+         "type" : "filter_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new from json",
+         "observed" : {},
+         "pass" : true,
+         "type" : "filter_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new filter changed",
+         "observed" : {
+            "changed" : "1"
+         },
+         "pass" : true,
+         "type" : "filter_held"
+      }
+   ]
+}

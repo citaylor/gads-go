@@ -1,0 +1,922 @@
+{
+   "runner" : "perl",
+   "scenario" : "220_web_files",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:column",
+         "observed" : {
+            "id" : "14"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filevals",
+         "observed" : [
+            {
+               "edit_user_id" : null,
+               "id" : "1",
+               "is_independent" : "0",
+               "mimetype" : "text/plain",
+               "name" : "myfile.txt"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_normal1",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "files_empty",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>files | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files nav__link--active\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n\n\n\n        \n<div class=\"d-flex justify-content-between align-items-end\">\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Files\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    <p>Below are all the files that have been uploaded for use on the dashboard or to share data with Ctrl O for support purposes, such as data imports or screen shots.</p>\n    <p><strong>Files uploaded to this file store can be accessed by all users of this system, irrespective of their permissions.</strong></p>\n    <p>It is provided as a repository for:\n      <ul>\n        <li>files that are linked on dashboards</li>\n        <li>securely sharing screenshots with Ctrl O for support purposes</li>\n        <li>retaining reference documents that do not have any secure storage requirements</li>\n      </ul>\n    </p>\n    \n    </div>\n  </div>\n  \n</div>\n<div class=\"list \">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-primary btn-upload\"\n        data-bs-toggle=\"modal\"\n        data-bs-target=\"#uploadFile\"\n      >\n        <span class=\"btn__title\">Upload a file</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n</div>\n\n<div class=\"content-block__main\">\n  \n\n<table\n  class=\"data-table  table \"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJJRCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJJRCJ9LHsibmFtZSI6Ik5hbWUgb2YgZmlsZSIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJOYW1lIG9mIGZpbGUiLCJ3aWR0aCI6Ijg1JSJ9LHsiY2xhc3NOYW1lIjoibWluLXRhYmxldC1sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IiIsIm9yZGVyYWJsZSI6MH0seyJjbGFzc05hbWUiOiJkdHItY29udHJvbCBkYXRhLXRhYmxlX19oZWFkZXItLWludmlzaWJsZSIsIm5hbWUiOiJUb2dnbGUgY2hpbGQgcm93Iiwib3JkZXJhYmxlIjowLCJ0YXJnZXRzIjotMX1dLCJpRGlzcGxheUxlbmd0aCI6LTEsImluZm8iOjEsImxhbmd1YWdlIjp7ImVtcHR5VGFibGUiOiJUaGVyZSBpcyBubyBkYXRhIGF2YWlsYWJsZSBpbiB0aGlzIHRhYmxlIn0sImxheW91dCI6IiIsIm9yZGVyIjpbXSwib3JkZXJpbmciOjEsInBhZ2luZyI6MSwicmVzcG9uc2l2ZSI6eyJkZXRhaWxzIjp7InRhcmdldCI6LTEsInR5cGUiOiJjb2x1bW4ifX0sInNjcm9sbFkiOiIifQ=='\n>\n  \n    <caption class=\"visually-hidden\">Table to show files</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    ID\n  </span>\n</th>\n\n<th >\n  <span>\n    Name of file\n  </span>\n</th>\n\n<th >\n  <span>\n    Delete\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n  </tbody>\n  \n  \n</table>\n\n</div><div class=\"modal\"  id=\"uploadFile\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"uploadFileLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"uploadFileLabel\">\n      Upload a file\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n\n      <form role=\"form\" method=\"post\" enctype=\"multipart/form-data\" action=\"?is_independent\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\">\n          <div class=\"modal-body\">\n            <div class=\"file-upload\">\n              <p class=\"mt-3\">File to upload:</p>\n              <div class=\"input input--file \">\n  \n  <div class=\"error-messages\">\n  </div>\n\n  <div class=\"input__label\">\n  \n  <label for=\"filename\">\n    <span class=\"input__file-label\" role=\"button\" aria-controls=\"filename\" tabindex=\"0\">\n      Choose file\n    </span>\n  </label>\n\n  <div class=\"file\">\n    <label class=\"file__name form-label\" for=\"filename\">\n      No file chosen\n    </label>\n    <button type=\"button\" class=\"file__delete close\" aria-label=\"Delete\">\n      <span aria-hidden=\"true\" class=\"hidden\">Delete file</span>\n    </button>\n  </div>\n</div>\n\n\n\n\n  <div class=\"input__field\">\n    <input\n      type=\"file\"\n      id=\"filename\"\n      name=\"file\"\n      class=\"form-control-file \"\n      tabindex=\"1\"\n    >\n  </div>\n</div>\n\n\n\n            </div>\n          </div>\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-primary\" name=\"submit\" value=\"submit\">\n    <span class=\"btn__title\">Submit</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n<div class=\"modal modal--delete\"  id=\"deleteFile\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteFile]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"deleteFileLabel\">\n      Delete file\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <form role=\"form\" method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\" >\n          <div class=\"modal-body\">\n            <p>Are you sure you want to delete this file? You cannot undo this step.</p>\n          </div>\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"delete\" value=\"delete\">\n    <span class=\"btn__title\">Delete</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "files_denied",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "upload",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/file/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/file/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "upload_bad_type",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "upload_no_extension",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "upload_bad_extension",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "upload_bad_name",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "files",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>files | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files nav__link--active\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    File has been uploaded as ID 2\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Files of mimetype application/octet-stream are not allowed\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Files without extensions cannot be uploaded\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Files with extension of html are not allowed\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    The filename my.notes.txt is not allowed. Filenames can only contain alphanumeric characters and a single dot\n  </div>\n  \n\n\n\n\n        \n<div class=\"d-flex justify-content-between align-items-end\">\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Files\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    <p>Below are all the files that have been uploaded for use on the dashboard or to share data with Ctrl O for support purposes, such as data imports or screen shots.</p>\n    <p><strong>Files uploaded to this file store can be accessed by all users of this system, irrespective of their permissions.</strong></p>\n    <p>It is provided as a repository for:\n      <ul>\n        <li>files that are linked on dashboards</li>\n        <li>securely sharing screenshots with Ctrl O for support purposes</li>\n        <li>retaining reference documents that do not have any secure storage requirements</li>\n      </ul>\n    </p>\n    \n    </div>\n  </div>\n  \n</div>\n<div class=\"list \">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-primary btn-upload\"\n        data-bs-toggle=\"modal\"\n        data-bs-target=\"#uploadFile\"\n      >\n        <span class=\"btn__title\">Upload a file</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n</div>\n\n<div class=\"content-block__main\">\n  \n\n<table\n  class=\"data-table  table \"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJJRCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJJRCJ9LHsibmFtZSI6Ik5hbWUgb2YgZmlsZSIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJOYW1lIG9mIGZpbGUiLCJ3aWR0aCI6Ijg1JSJ9LHsiY2xhc3NOYW1lIjoibWluLXRhYmxldC1sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IiIsIm9yZGVyYWJsZSI6MH0seyJjbGFzc05hbWUiOiJkdHItY29udHJvbCBkYXRhLXRhYmxlX19oZWFkZXItLWludmlzaWJsZSIsIm5hbWUiOiJUb2dnbGUgY2hpbGQgcm93Iiwib3JkZXJhYmxlIjowLCJ0YXJnZXRzIjotMX1dLCJpRGlzcGxheUxlbmd0aCI6LTEsImluZm8iOjEsImxhbmd1YWdlIjp7ImVtcHR5VGFibGUiOiJUaGVyZSBpcyBubyBkYXRhIGF2YWlsYWJsZSBpbiB0aGlzIHRhYmxlIn0sImxheW91dCI6IiIsIm9yZGVyIjpbXSwib3JkZXJpbmciOjEsInBhZ2luZyI6MSwicmVzcG9uc2l2ZSI6eyJkZXRhaWxzIjp7InRhcmdldCI6LTEsInR5cGUiOiJjb2x1bW4ifX0sInNjcm9sbFkiOiIifQ=='\n>\n  \n    <caption class=\"visually-hidden\">Table to show files</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    ID\n  </span>\n</th>\n\n<th >\n  <span>\n    Name of file\n  </span>\n</th>\n\n<th >\n  <span>\n    Delete\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  <a href='/file/2' class='link link--plain'>\n    2\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='/file/2' class='btn btn-download btn-sm'>\n    notes.txt\n  </a>\n  \n\n</td>\n\n<td >\n  <button\n    type=\"button\"\n    class=\"btn btn-delete btn-sm btn-js-delete\"\n    data-bs-toggle=\"modal\"\n    data-bs-target=\"#deleteFile\"\n    data-title=\"notes.txt\"\n    data-id=2\n  >\n    <span class=\"btn__title\">\n      Delete\n    </span>\n  </button>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n</div><div class=\"modal\"  id=\"uploadFile\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"uploadFileLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"uploadFileLabel\">\n      Upload a file\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n\n      <form role=\"form\" method=\"post\" enctype=\"multipart/form-data\" action=\"?is_independent\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\">\n          <div class=\"modal-body\">\n            <div class=\"file-upload\">\n              <p class=\"mt-3\">File to upload:</p>\n              <div class=\"input input--file \">\n  \n  <div class=\"error-messages\">\n  </div>\n\n  <div class=\"input__label\">\n  \n  <label for=\"filename\">\n    <span class=\"input__file-label\" role=\"button\" aria-controls=\"filename\" tabindex=\"0\">\n      Choose file\n    </span>\n  </label>\n\n  <div class=\"file\">\n    <label class=\"file__name form-label\" for=\"filename\">\n      No file chosen\n    </label>\n    <button type=\"button\" class=\"file__delete close\" aria-label=\"Delete\">\n      <span aria-hidden=\"true\" class=\"hidden\">Delete file</span>\n    </button>\n  </div>\n</div>\n\n\n\n\n  <div class=\"input__field\">\n    <input\n      type=\"file\"\n      id=\"filename\"\n      name=\"file\"\n      class=\"form-control-file \"\n      tabindex=\"1\"\n    >\n  </div>\n</div>\n\n\n\n            </div>\n          </div>\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-primary\" name=\"submit\" value=\"submit\">\n    <span class=\"btn__title\">Submit</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n<div class=\"modal modal--delete\"  id=\"deleteFile\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteFile]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"deleteFileLabel\">\n      Delete file\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <form role=\"form\" method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\" >\n          <div class=\"modal-body\">\n            <p>Are you sure you want to delete this file? You cannot undo this step.</p>\n          </div>\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"delete\" value=\"delete\">\n    <span class=\"btn__title\">Delete</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filevals_uploaded",
+         "observed" : [
+            {
+               "edit_user_id" : null,
+               "id" : "1",
+               "is_independent" : "0",
+               "mimetype" : "text/plain",
+               "name" : "myfile.txt"
+            },
+            {
+               "edit_user_id" : null,
+               "id" : "2",
+               "is_independent" : "1",
+               "mimetype" : "text/plain",
+               "name" : "notes.txt"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "download",
+         "observed" : {
+            "body" : "Some notes\n",
+            "content_type" : "text/plain",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Disposition" : "attachment; filename=\"notes.txt\"",
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "download_normal",
+         "observed" : {
+            "body" : "Some notes\n",
+            "content_type" : "text/plain",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Disposition" : "attachment; filename=\"notes.txt\"",
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "download_purged",
+         "observed" : {
+            "body" : "Purged File",
+            "content_type" : "text/plain",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Disposition" : "attachment; filename=\"purged\"",
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "download_missing",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "download_not_number",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "record_file_superadmin",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "record_file_no_permission",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_denied",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_missing_id",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_not_found",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/file/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/file/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "files_after_delete",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>files | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files nav__link--active\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    File ID 99 cannot be found\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    File ID abc cannot be found\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    You do not have access to file ID 1\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    File ID missing for deletion request\n  </div>\n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    File ID 99 cannot be found\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    File has been deleted successsfully\n  </div>\n  \n\n\n\n\n        \n<div class=\"d-flex justify-content-between align-items-end\">\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Files\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    <p>Below are all the files that have been uploaded for use on the dashboard or to share data with Ctrl O for support purposes, such as data imports or screen shots.</p>\n    <p><strong>Files uploaded to this file store can be accessed by all users of this system, irrespective of their permissions.</strong></p>\n    <p>It is provided as a repository for:\n      <ul>\n        <li>files that are linked on dashboards</li>\n        <li>securely sharing screenshots with Ctrl O for support purposes</li>\n        <li>retaining reference documents that do not have any secure storage requirements</li>\n      </ul>\n    </p>\n    \n    </div>\n  </div>\n  \n</div>\n<div class=\"list \">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-primary btn-upload\"\n        data-bs-toggle=\"modal\"\n        data-bs-target=\"#uploadFile\"\n      >\n        <span class=\"btn__title\">Upload a file</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n</div>\n\n<div class=\"content-block__main\">\n  \n\n<table\n  class=\"data-table  table \"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJJRCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJJRCJ9LHsibmFtZSI6Ik5hbWUgb2YgZmlsZSIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJOYW1lIG9mIGZpbGUiLCJ3aWR0aCI6Ijg1JSJ9LHsiY2xhc3NOYW1lIjoibWluLXRhYmxldC1sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IiIsIm9yZGVyYWJsZSI6MH0seyJjbGFzc05hbWUiOiJkdHItY29udHJvbCBkYXRhLXRhYmxlX19oZWFkZXItLWludmlzaWJsZSIsIm5hbWUiOiJUb2dnbGUgY2hpbGQgcm93Iiwib3JkZXJhYmxlIjowLCJ0YXJnZXRzIjotMX1dLCJpRGlzcGxheUxlbmd0aCI6LTEsImluZm8iOjEsImxhbmd1YWdlIjp7ImVtcHR5VGFibGUiOiJUaGVyZSBpcyBubyBkYXRhIGF2YWlsYWJsZSBpbiB0aGlzIHRhYmxlIn0sImxheW91dCI6IiIsIm9yZGVyIjpbXSwib3JkZXJpbmciOjEsInBhZ2luZyI6MSwicmVzcG9uc2l2ZSI6eyJkZXRhaWxzIjp7InRhcmdldCI6LTEsInR5cGUiOiJjb2x1bW4ifX0sInNjcm9sbFkiOiIifQ=='\n>\n  \n    <caption class=\"visually-hidden\">Table to show files</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    ID\n  </span>\n</th>\n\n<th >\n  <span>\n    Name of file\n  </span>\n</th>\n\n<th >\n  <span>\n    Delete\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n  </tbody>\n  \n  \n</table>\n\n</div><div class=\"modal\"  id=\"uploadFile\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"uploadFileLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"uploadFileLabel\">\n      Upload a file\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n\n      <form role=\"form\" method=\"post\" enctype=\"multipart/form-data\" action=\"?is_independent\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\">\n          <div class=\"modal-body\">\n            <div class=\"file-upload\">\n              <p class=\"mt-3\">File to upload:</p>\n              <div class=\"input input--file \">\n  \n  <div class=\"error-messages\">\n  </div>\n\n  <div class=\"input__label\">\n  \n  <label for=\"filename\">\n    <span class=\"input__file-label\" role=\"button\" aria-controls=\"filename\" tabindex=\"0\">\n      Choose file\n    </span>\n  </label>\n\n  <div class=\"file\">\n    <label class=\"file__name form-label\" for=\"filename\">\n      No file chosen\n    </label>\n    <button type=\"button\" class=\"file__delete close\" aria-label=\"Delete\">\n      <span aria-hidden=\"true\" class=\"hidden\">Delete file</span>\n    </button>\n  </div>\n</div>\n\n\n\n\n  <div class=\"input__field\">\n    <input\n      type=\"file\"\n      id=\"filename\"\n      name=\"file\"\n      class=\"form-control-file \"\n      tabindex=\"1\"\n    >\n  </div>\n</div>\n\n\n\n            </div>\n          </div>\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-primary\" name=\"submit\" value=\"submit\">\n    <span class=\"btn__title\">Submit</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n<div class=\"modal modal--delete\"  id=\"deleteFile\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteFile]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"deleteFileLabel\">\n      Delete file\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <form role=\"form\" method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\" >\n          <div class=\"modal-body\">\n            <p>Are you sure you want to delete this file? You cannot undo this step.</p>\n          </div>\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"delete\" value=\"delete\">\n    <span class=\"btn__title\">Delete</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "api_upload",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Missing column ID"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "api_upload_none",
+         "observed" : {
+            "body" : "{\"error\":\"No file was submitted\",\"is_ok\":0}",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "api_upload_bad_type",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Missing column ID"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filevals_api",
+         "observed" : [
+            {
+               "edit_user_id" : null,
+               "id" : "1",
+               "is_independent" : "0",
+               "mimetype" : "text/plain",
+               "name" : "myfile.txt"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "api_file_uploader",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "api_file_other",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rename_new",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "File ID 2 cannot be found"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rename_no_name",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Filename is required"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rename_bad_name",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "The filename bad/name.txt is not allowed. Filenames can only contain alphanumeric characters and a single dot"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rename_new_not_new",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Access to this file is not allowed as it is not a new file"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rename_existing",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "You do not have access to file ID 1"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "39:column",
+         "observed" : {
+            "id" : "14"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "record_file_with_permission",
+         "observed" : {
+            "body" : "My text file",
+            "content_type" : "text/plain",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Disposition" : "attachment; filename=\"myfile.txt\"",
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rename_existing_permitted",
+         "observed" : {
+            "content_type" : "application/json",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "id" : "2",
+               "is_ok" : "1",
+               "name" : "Copy.txt"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rename_existing_missing",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "File ID 99 cannot be found"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filevals_renamed",
+         "observed" : [
+            {
+               "edit_user_id" : null,
+               "id" : "1",
+               "is_independent" : "0",
+               "mimetype" : "text/plain",
+               "name" : "myfile.txt"
+            },
+            {
+               "edit_user_id" : "4",
+               "id" : "2",
+               "is_independent" : "0",
+               "mimetype" : "text/plain",
+               "name" : "Copy.txt"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "api_delete_denied",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "You do not have permission to delete files"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "api_delete",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/file/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/file/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filevals_final",
+         "observed" : [
+            {
+               "id" : "1",
+               "name" : "myfile.txt"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

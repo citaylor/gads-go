@@ -1,0 +1,71 @@
+{
+   "runner": "go",
+   "go": "go1.27.2",
+   "units": [
+      {
+         "name": "lua/simple",
+         "iterations": 135166,
+         "ns_per_op": 7398.3
+      },
+      {
+         "name": "lua/loop",
+         "iterations": 6085,
+         "ns_per_op": 164347.5
+      },
+      {
+         "name": "lua/strings",
+         "iterations": 78214,
+         "ns_per_op": 12785.6
+      },
+      {
+         "name": "tt/table_100",
+         "iterations": 7070,
+         "ns_per_op": 141458
+      },
+      {
+         "name": "json/encode_1000",
+         "iterations": 858,
+         "ns_per_op": 1165624.9
+      },
+      {
+         "name": "json/decode_1000",
+         "iterations": 433,
+         "ns_per_op": 2310995.7
+      },
+      {
+         "name": "csv/parse_1000",
+         "iterations": 4775,
+         "ns_per_op": 209458.9
+      },
+      {
+         "name": "csv/write_1000",
+         "iterations": 3795,
+         "ns_per_op": 263531.3
+      },
+      {
+         "name": "date/parse_cldr",
+         "iterations": 724464,
+         "ns_per_op": 1380.3
+      },
+      {
+         "name": "date/format_cldr",
+         "iterations": 1155529,
+         "ns_per_op": 865.4
+      },
+      {
+         "name": "filter/parse_json",
+         "iterations": 118283,
+         "ns_per_op": 8454.3
+      },
+      {
+         "name": "password/hash",
+         "iterations": 791786,
+         "ns_per_op": 1263
+      },
+      {
+         "name": "password/match",
+         "iterations": 571722,
+         "ns_per_op": 1749.1
+      }
+   ]
+}

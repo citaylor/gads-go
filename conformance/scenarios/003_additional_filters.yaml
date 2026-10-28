@@ -1,0 +1,438 @@
+name: 003_additional_filters
+source:
+- t/003_additional_filters.t
+description: Additional filters (as from table column filters) on each field type
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    curval_fields:
+    - string1
+    - enum1
+    calc_code: "function evaluate (L1string1) \n return L1string1 .. \"XX\" \nend"
+    calc_return_type: string
+    column_count:
+      enum: 2
+    data:
+    - string1: Foo
+      integer1: '100'
+      enum1: 7
+      enum2: 10
+      tree1: 13
+      date1: '2010-10-10'
+      daterange1:
+      - '2000-10-10'
+      - '2001-10-10'
+      curval1: 1
+      person1: 1
+      file1:
+        name: file1.txt
+        mimetype: text/plain
+        content: Text file1
+    - string1: Bar
+      integer1: '200'
+      enum1: 8
+      enum2: 10
+      tree1: 14
+      date1: '2011-10-10'
+      daterange1:
+      - '2000-11-11'
+      - '2001-11-11'
+      curval1: 2
+- search:
+    id: Enum
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: enum1
+      value:
+      - 8
+    expect:
+      count: '1'
+- search:
+    id: Enum multiple
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: enum1
+      value:
+      - 7
+      - 8
+    expect:
+      count: '2'
+- search:
+    id: Tree
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: tree1
+      value:
+      - 14
+    expect:
+      count: '1'
+- search:
+    id: Tree multiple
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: tree1
+      value:
+      - 13
+      - 14
+    expect:
+      count: '2'
+- search:
+    id: String match
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: string1
+      value:
+      - Bar
+    expect:
+      count: '1'
+- search:
+    id: String like
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: string1
+      value:
+      - Ba
+    expect:
+      count: '1'
+- search:
+    id: String multiple
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: string1
+      value:
+      - Foo
+      - Bar
+    expect:
+      count: '2'
+- search:
+    id: String no match
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: string1
+      value:
+      - foobar
+    expect:
+      count: '0'
+- search:
+    id: Integer
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: integer1
+      value:
+      - '200'
+    expect:
+      count: '1'
+- search:
+    id: Curval
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: curval1
+      value:
+      - '1'
+    expect:
+      count: '1'
+- search:
+    id: Date
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: date1
+      value:
+      - '2011-10-10'
+    expect:
+      count: '1'
+- search:
+    id: Date range
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: daterange1
+      value:
+      - 2000-11-11 to 2001-11-11
+    expect:
+      count: '1'
+- search:
+    id: File
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: file1
+      value:
+      - file1.txt
+    expect:
+      count: '1'
+- search:
+    id: File - begins with
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: file1
+      value:
+      - file
+    expect:
+      count: '1'
+- search:
+    id: Calc - begins with
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: calc1
+      value:
+      - Foox
+    expect:
+      count: '1'
+- search:
+    id: Rag
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: rag1
+      value:
+      - b_red
+    expect:
+      count: '2'
+- search:
+    id: Person
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+      - tree1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum2
+        type: string
+        value: foo1
+        operator: equal
+    additional_filters:
+    - name: person1
+      value:
+      - '1'
+    expect:
+      count: '1'

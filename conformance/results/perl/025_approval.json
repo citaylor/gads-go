@@ -1,0 +1,268 @@
+{
+   "runner" : "perl",
+   "scenario" : "025_approval",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records to begin",
+         "observed" : {
+            "count" : "4",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:column",
+         "observed" : {
+            "id" : "12"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write with approval",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal versions",
+         "observed" : {
+            "count" : "5"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "versions for approval",
+         "observed" : {
+            "count" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records after write",
+         "observed" : {
+            "count" : "4",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ],
+            "last" : "4",
+            "rows" : [
+               {
+                  "date1" : "2004-01-01",
+                  "string1" : "Foo5"
+               },
+               {
+                  "date1" : "2001-01-01",
+                  "string1" : "Foo4"
+               },
+               {
+                  "date1" : "2002-01-01",
+                  "string1" : "Foo3"
+               },
+               {
+                  "date1" : "2003-01-01",
+                  "string1" : "Foo2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sort by approval field",
+         "observed" : {
+            "count" : "4",
+            "first" : "2",
+            "ids" : [
+               "2",
+               "3",
+               "4",
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "date1" : "2001-01-01",
+                  "string1" : "Foo4"
+               },
+               {
+                  "date1" : "2002-01-01",
+                  "string1" : "Foo3"
+               },
+               {
+                  "date1" : "2003-01-01",
+                  "string1" : "Foo2"
+               },
+               {
+                  "date1" : "2004-01-01",
+                  "string1" : "Foo5"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "download sorted by approval field",
+         "observed" : {
+            "header" : "ID,string1,date1\n",
+            "lines" : [
+               "2,Foo4,2001-01-01\n",
+               "3,Foo3,2002-01-01\n",
+               "4,Foo2,2003-01-01\n",
+               "1,Foo5,2004-01-01\n"
+            ]
+         },
+         "pass" : true,
+         "type" : "download"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "live version in records",
+         "observed" : {
+            "count" : "4",
+            "first" : "2",
+            "ids" : [
+               "2",
+               "3",
+               "4",
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "date1" : "2001-01-01",
+                  "string1" : "Foo4"
+               },
+               {
+                  "date1" : "2002-01-01",
+                  "string1" : "Foo3"
+               },
+               {
+                  "date1" : "2003-01-01",
+                  "string1" : "Foo2"
+               },
+               {
+                  "date1" : "2004-01-01",
+                  "string1" : "Foo5"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "live version in record",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "date1" : "2004-01-01",
+               "string1" : "Foo5"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      }
+   ]
+}

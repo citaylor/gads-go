@@ -1,0 +1,93 @@
+name: 232_web_approval
+source:
+  - lib/GADS.pm (/:layout_name/approval/?:id?)
+  - lib/GADS/Approval.pm
+  - views/approval.tt, views/edit.tt
+description: >
+  The records awaiting approval: the list when there are none, the list
+  when there are some (which fails in this version, from a relationship of
+  the search that the schema lacks), the form of a record to approve and
+  approving it.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo1, date1: "2004-01-01" }
+  - login: { user: superadmin }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: approval_none, as: superadmin, path: "/{sheet:s}/approval" }
+  - column:
+      op: update
+      sheet: s
+      column: date1
+      set: { permissions: { default: [read, write_new, write_existing, approve_new, approve_existing] } }
+      write_options: { include_approval_perms: 1 }
+  - clear_layouts: {}
+  - held: { op: find, as: r, sheet: s, current_id: 1 }
+  - held: { op: set, as: r, values: { string1: Foo5, date1: "2000-01-02" } }
+  - held: { id: write_with_approval, op: write, as: r }
+  - db:
+      id: records
+      op: select
+      table: record
+      columns: [id, current_id, approval, record_id]
+      order_by: [id]
+  - http: { id: approval_list, as: superadmin, path: "/{sheet:s}/approval" }
+  - http: { id: approval_record, as: superadmin, path: "/{sheet:s}/approval/3" }
+  - http:
+      id: approval_submit
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/approval/3"
+      form: { submit: 1, current_id: 1, "field{column:s:date1}": "2000-01-03" }
+  - db:
+      id: records_after
+      op: select
+      table: record
+      columns: [id, current_id, approval, record_id]
+      order_by: [id]
+  - db:
+      id: dates_after
+      op: select
+      table: date
+      columns: [record_id, layout_id, value]
+      order_by: [record_id, layout_id]
+  - held: { op: new, as: n, sheet: s, user: normal1 }
+  - held: { op: set, as: n, values: { string1: New1, date1: "2001-02-03" } }
+  - held: { id: write_new_with_approval, op: write, as: n }
+  - db:
+      id: records_new
+      op: select
+      table: record
+      columns: [id, current_id, approval, record_id]
+      order_by: [id]
+  - http: { id: approval_list_new, as: superadmin, path: "/{sheet:s}/approval" }
+  - http: { id: approval_record_new, as: superadmin, path: "/{sheet:s}/approval/6" }
+  - http:
+      id: approval_submit_new
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/approval/6"
+      form: { submit: 1, current_id: 2, "field{column:s:date1}": "2001-02-04", "field{column:s:string1}": "New2" }
+  - db:
+      id: records_new_after
+      op: select
+      table: record
+      columns: [id, current_id, approval, record_id]
+      order_by: [id]
+  - db:
+      id: dates_new_after
+      op: select
+      table: date
+      columns: [record_id, layout_id, value]
+      order_by: [record_id, layout_id]
+  - http:
+      id: approval_submit_bad
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/approval/3"
+      form: { submit: 1, current_id: 1, "field{column:s:date1}": "notadate" }
+  - login: { user: normal2 }
+  - http: { id: approval_list_normal2, as: normal2, path: "/{sheet:s}/approval" }
+  - http: { id: approval_missing, as: superadmin, path: "/{sheet:s}/approval/9999" }

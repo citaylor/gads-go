@@ -1,0 +1,247 @@
+name: 210_api_table_request
+source:
+  - lib/GADS/API.pm (post /api/table_request, _post_table_request, _create_table)
+  - lib/GADS/Layout.pm (write, set_groups, write_rags)
+  - lib/GADS/Column.pm and its subclasses (write of each field type)
+description: >
+  The table request API of the table wizard: creating a table with its
+  table permissions, topics and fields of each type (with their settings
+  and field permissions), and the errors of the request, of permissions and
+  of invalid fields (which roll back the whole table).
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - db:
+      op: insert
+      table: group
+      set: { name: Wizard group, site_id: 1 }
+  - login: { user: superadmin }
+  - login: { user: useradmin }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: home_useradmin, as: useradmin, path: /, no_body: true }
+  - http:
+      id: not_json
+      as: superadmin
+      method: POST
+      path: /api/table_request
+      form: { name: Form table }
+  - http:
+      id: bad_json
+      as: superadmin
+      method: POST
+      path: /api/table_request
+      headers: { Content-Type: application/json }
+      body: "{not json"
+  - http:
+      id: not_superadmin
+      as: useradmin
+      method: POST
+      path: /api/table_request
+      json: { name: Useradmin table }
+  - http:
+      id: create
+      as: superadmin
+      method: POST
+      path: /api/table_request
+      json:
+        name: Wizard table
+        shortName: wizard_table
+        hide_in_selector: 0
+        table_permissions:
+          - group_id: 10
+            records: { delete_records: 1, purge_deleted_records: 0, download_records: 1, bulk_import_records: 1, bulk_update_records: 0, bulk_delete_records: 1, manage_linked_records: 1, manage_child_records: 0 }
+            views: { manage_views: 1, manage_group_views: 0, select_extra_view_limits: 1 }
+            fields: { manage_fields: 1 }
+        topics:
+          - { tempId: t1, name: First topic, description: The first, expanded: 1 }
+          - { tempId: t2, name: Second topic, description: The second, expanded: 0 }
+        fields:
+          - tempId: f1
+            name: Title
+            field_type: string
+            optional: 0
+            topic_tempid: t1
+            custom_field_permissions:
+              - group_id: 10
+                permissions: { create: 1, read: 1, update: 0 }
+            field_type_settings: { textbox: 1, force_regex: "[A-Z].*" }
+          - tempId: f2
+            name: Count
+            field_type: intgr
+            optional: 1
+            topic_tempid: t2
+            custom_field_permissions:
+              - group_id: 10
+                permissions: { create: 0, read: 1, update: 1 }
+            field_type_settings: { show_calculator: 1 }
+          - tempId: f3
+            name: Due
+            field_type: date
+            optional: 1
+            field_type_settings: { show_datepicker: 0, default_today: 1 }
+          - tempId: f4
+            name: Period
+            field_type: daterange
+            optional: 1
+            field_type_settings: { show_datepicker: 1 }
+          - tempId: f5
+            name: Colour
+            field_type: enum
+            optional: 1
+            field_type_settings:
+              dropdown_values: [{ enumval: Red }, { enumval: Green }, { enumval: Blue }]
+              ordering: asc
+          - tempId: f6
+            name: Category
+            field_type: tree
+            optional: 1
+            field_type_settings:
+              end_node_only: 1
+              dataJson:
+                - { text: Fruit, children: [{ text: Apple }, { text: Pear }] }
+                - { text: Vegetable }
+          - tempId: f7
+            name: Attachment
+            field_type: file
+            optional: 1
+            field_type_settings: { filesize: 100 }
+          - tempId: f8
+            name: Owner
+            field_type: person
+            optional: 1
+            field_type_settings: { default_to_login: 1, notify_on_selection: 1, notify_on_selection_subject: Selected, notify_on_selection_message: You were selected }
+          - tempId: f9
+            name: Status
+            field_type: rag
+            optional: 1
+            field_type_settings: { code_rag: "function evaluate (_id) return 'b_red' end" }
+          - tempId: f10
+            name: Double
+            field_type: calc
+            optional: 1
+            field_type_settings: { code_calc: "function evaluate (_id) return 2 end", return_type: integer, show_in_edit: 1 }
+          - tempId: f11
+            name: Linked
+            field_type: curval
+            optional: 1
+            field_type_settings: { refers_to_instance_id: "{instance:s}", curval_field_ids: ["{column:s:string1}"], override_permissions: 0, value_selector: noshow, show_add: 1, delete_not_used: 0, limit_rows: 10 }
+  - http:
+      id: get_dummy
+      as: superadmin
+      path: /
+      no_body: true
+  - db:
+      id: instances
+      op: select
+      table: instance
+      columns: [id, name, name_short, hide_in_selector, site_id, sort_type, sort_layout_id, homepage_text, homepage_text2, view_limit_id, default_view_limit_extra_id]
+      order_by: [id]
+  - db:
+      id: instance_groups
+      op: select
+      table: instance_group
+      where: { instance_id: 2 }
+      columns: [group_id, permission]
+      order_by: [group_id, permission]
+  - db:
+      id: rags
+      op: select
+      table: instance_rag
+      where: { instance_id: 2 }
+      columns: [rag, enabled, description]
+      order_by: [rag]
+  - db:
+      id: topics
+      op: select
+      table: topic
+      columns: [id, instance_id, name, description, initial_state, click_to_edit, prevent_edit_topic_id]
+      order_by: [id]
+  - db:
+      id: fields
+      op: select
+      table: layout
+      where: { instance_id: 2, internal: 0 }
+      columns: [id, name, name_short, type, optional, remember, isunique, textbox, typeahead, force_regex, position, ordering, end_node_only, multivalue, can_child, topic_id, filter, options, display_field, display_regex, display_condition, aggregate, group_display, permission, internal, width, related_field, link_parent, lookup_endpoint, lookup_group, notes, helptext, description]
+      order_by: [id]
+  - db:
+      id: layout_groups
+      op: select
+      table: layout_group
+      columns: [layout_id, group_id, permission]
+      order_by: [layout_id, group_id, permission]
+  - db:
+      id: enumvals
+      op: select
+      table: enumval
+      columns: [id, layout_id, value, parent, deleted, position]
+      order_by: [id]
+  - db:
+      id: calcs
+      op: select
+      table: calc
+      columns: [layout_id, code, return_format, decimal_places]
+      order_by: [layout_id]
+  - db:
+      id: rag_code
+      op: select
+      table: rag
+      columns: [layout_id, code]
+  - db:
+      id: curval_fields
+      op: select
+      table: curval_fields
+      columns: [parent_id, child_id]
+  - db:
+      id: file_options
+      op: select
+      table: file_option
+      columns: [layout_id, filesize]
+  # Errors
+  - http:
+      id: duplicate_short_name
+      as: superadmin
+      method: POST
+      path: /api/table_request
+      json: { name: Another table, shortName: wizard_table }
+  - http:
+      id: invalid_short_name
+      as: superadmin
+      method: POST
+      path: /api/table_request
+      json: { name: Another table, shortName: "bad name!" }
+  - http:
+      id: invalid_field_type
+      as: superadmin
+      method: POST
+      path: /api/table_request
+      json:
+        name: Rolled back table
+        fields:
+          - { tempId: f1, name: Good, field_type: string }
+          - { tempId: f2, name: Bad, field_type: nosuchtype }
+  - http:
+      id: field_without_name
+      as: superadmin
+      method: POST
+      path: /api/table_request
+      json:
+        name: Nameless field table
+        fields:
+          - { tempId: f1, field_type: string }
+  - http:
+      id: page_after_errors
+      as: superadmin
+      path: /
+      no_body: true
+  - db:
+      id: instances_final
+      op: select
+      table: instance
+      columns: [id, name, name_short]
+      order_by: [id]
+  - db:
+      id: fields_final
+      op: select
+      table: layout
+      where: { internal: 0 }
+      columns: [id, instance_id, name, type]
+      order_by: [id]

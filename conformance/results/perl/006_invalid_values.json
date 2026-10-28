@@ -1,0 +1,218 @@
+{
+   "runner" : "perl",
+   "scenario" : "006_invalid_values",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "one record",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:column",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "unchanged bad value only warns",
+         "messages" : [
+            "WARNING: Invalid value \"foobar\" for string1"
+         ],
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Invalid value \"foo\" for string1",
+         "failures" : [],
+         "id" : "changed bad value for force_regex",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "'bar' is not a valid integer for 'integer1'",
+         "failures" : [],
+         "id" : "non-integer value",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Invalid date '20-10-10' for date1. Please enter as yyyy-MM-dd.",
+         "failures" : [],
+         "id" : "invalid date",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Please enter 2 date values for 'daterange1'",
+         "failures" : [],
+         "id" : "daterange with missing date",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Start date must be before the end date for 'daterange1'",
+         "failures" : [],
+         "id" : "daterange dates in wrong order",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Invalid start date 20-10-10 for daterange1. Please enter as yyyy-MM-dd.",
+         "failures" : [],
+         "id" : "daterange with invalid date",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "'999' is not a valid enum ID for 'enum1'",
+         "failures" : [],
+         "id" : "invalid enum",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "'999' is not a valid tree node ID for 'tree1'",
+         "failures" : [],
+         "id" : "invalid tree",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:column",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Value \"foobarbazquux\" for string1 exceeds maximum length of 10 characters",
+         "failures" : [],
+         "id" : "string exceeding max_length",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string within max_length",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:column",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Value \"a\" for string1 exceeds maximum length of 0 characters",
+         "failures" : [],
+         "id" : "string exceeding max_length of 0",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      }
+   ]
+}

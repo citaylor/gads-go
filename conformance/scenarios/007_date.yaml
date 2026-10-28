@@ -1,0 +1,35 @@
+name: 007_date
+source:
+- t/007_date.t
+description: Date default to today for a new record, and blank values written without defaulting
+fixed_time: '2014-10-10 01:00:00'
+steps:
+- sheet: {as: main}
+- held: {op: new, as: rec}
+- held:
+    id: blank by default
+    op: get
+    as: rec
+    datum: [date1]
+    datum_props: [as_string]
+    expect: {datum: {date1: {as_string: ''}}}
+- column: {op: update, sheet: main, column: date1, set: {default_today: 1}}
+- held: {op: clear, as: rec}
+- held:
+    id: default today
+    op: initialise
+    as: rec
+    datum: [date1]
+    datum_props: [as_string]
+    expect: {datum: {date1: {as_string: '2014-10-10'}}}
+- held: {op: set, as: rec, values: {date1: ''}}
+- held: {op: write, as: rec, options: {no_alerts: 1}}
+- held:
+    id: blank after write
+    op: find
+    as: rec
+    current_id: '@held:rec'
+    clear: true
+    datum: [date1]
+    datum_props: [as_string]
+    expect: {datum: {date1: {as_string: ''}}}

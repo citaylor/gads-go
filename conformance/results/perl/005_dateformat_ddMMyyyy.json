@@ -1,0 +1,190 @@
+{
+   "runner" : "perl",
+   "scenario" : "005_dateformat_ddMMyyyy",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records for date search",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "date1" : "10-10-2010"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "date filter and additional calendar search",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records for daterange search",
+         "observed" : {
+            "count" : "2",
+            "first" : "2",
+            "ids" : [
+               "2",
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "daterange1" : "10-08-2009 to 10-10-2012"
+               },
+               {
+                  "daterange1" : "10-08-2008 to 10-10-2011"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "calc date search, format dd-MM-yyyy",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "quick search, format dd-MM-yyyy",
+         "observed" : {
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "quick search for calc, format dd-MM-yyyy",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : "Invalid date '2010-10-10' for date1. Please enter as dd-MM-yyyy.",
+         "failures" : [],
+         "id" : "filter with invalid date",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : "Date cannot be blank for date1.",
+         "failures" : [],
+         "id" : "filter with empty string",
+         "observed" : null,
+         "pass" : true,
+         "type" : "view"
+      }
+   ]
+}

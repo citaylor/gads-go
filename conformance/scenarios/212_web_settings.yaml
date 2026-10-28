@@ -1,0 +1,201 @@
+name: 212_web_settings
+source:
+  - lib/GADS.pm (/settings/, default_welcome_email, user_editable_personal_details, title, organisation, department and team overview/add/edit)
+  - lib/GADS/Schema/Result/Title.pm, Organisation.pm, Department.pm, Team.pm (delete_*), ResultSet (ordered)
+  - lib/GADS/Schema/Result/Site.pm (update_user_editable_fields)
+  - views/admin/admin_settings.tt, default_welcome_email.tt, user_editable_personal_details.tt, layouts/page_overview_name_only.tt, layouts/page_save_name_only.tt
+description: >
+  The system settings pages: the settings menu for each kind of
+  administrator, the welcome email and the user editable fields of the
+  site, and the lists of titles, organisations, departments and teams
+  (adding, renaming and deleting items, items in use by active or deleted
+  users, items that do not exist, and the site's names for them).
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - login: { user: superadmin }
+  - login: { user: useradmin }
+  - login: { user: normal1 }
+  - http: { id: settings_superadmin, as: superadmin, path: /settings/ }
+  - http: { id: settings_useradmin, as: useradmin, path: /settings }
+  - http: { id: settings_normal, as: normal1, path: /settings/ }
+  # Welcome email
+  - http: { id: welcome_form, as: superadmin, path: /settings/default_welcome_email/ }
+  - http:
+      id: welcome_update
+      as: superadmin
+      method: POST
+      path: /settings/default_welcome_email/
+      form: { update: 1, name: Our Site, email_welcome_subject: Welcome!, email_welcome_text: "Hello [NAME]\nGo to [URL]" }
+  - http: { id: welcome_after_update, as: superadmin, path: /settings/default_welcome_email/ }
+  - http: { id: welcome_useradmin, as: useradmin, path: /settings/default_welcome_email/ }
+  - db:
+      id: site_welcome
+      op: select
+      table: site
+      columns: [id, name, email_welcome_subject, email_welcome_text, user_editable_fields]
+  # User editable fields
+  - http: { id: editable_form, as: superadmin, path: /settings/user_editable_personal_details/ }
+  - http:
+      id: editable_update
+      as: superadmin
+      method: POST
+      path: /settings/user_editable_personal_details/
+      form: { update: 1, user_editable: [firstname, organisation] }
+  - http: { id: editable_after_update, as: superadmin, path: /settings/user_editable_personal_details/ }
+  - db:
+      id: site_editable
+      op: select
+      table: site
+      columns: [id, user_editable_fields]
+  # Titles
+  - http: { id: titles_empty, as: useradmin, path: /settings/title_overview/ }
+  - http: { id: title_add_form, as: useradmin, path: /settings/title_add/ }
+  - http:
+      id: title_add
+      as: useradmin
+      method: POST
+      path: /settings/title_add/
+      form: { submit: submit, name: Mr }
+  - http:
+      id: title_add2
+      as: useradmin
+      method: POST
+      path: /settings/title_add/
+      form: { submit: submit, name: Dr }
+  - http:
+      id: title_add3
+      as: useradmin
+      method: POST
+      path: /settings/title_add/
+      form: { submit: submit, name: Prof }
+  - http: { id: titles, as: useradmin, path: /settings/title_overview/ }
+  - http: { id: title_edit_form, as: useradmin, path: /settings/title_edit/1 }
+  - http:
+      id: title_rename
+      as: useradmin
+      method: POST
+      path: /settings/title_edit/1
+      form: { submit: submit, name: Mister }
+  - http: { id: title_edit_not_found, as: useradmin, path: /settings/title_edit/999 }
+  - db:
+      op: update
+      table: user
+      where: { id: 4 }
+      set: { title: 1 }
+  - db:
+      op: update
+      table: user
+      where: { id: 5 }
+      set: { title: 2, deleted: "2014-10-01 00:00:00" }
+  - http: { id: title_delete_in_use, as: useradmin, path: /settings/title_overview/, query: { delete: 1 } }
+  - http: { id: titles_after_in_use, as: useradmin, path: /settings/title_overview/ }
+  - http:
+      id: title_delete_deleted_user
+      as: useradmin
+      method: POST
+      path: /settings/title_edit/2
+      form: { delete: 1 }
+  - http: { id: title_delete_unused, as: useradmin, path: /settings/title_overview/, query: { delete: 3 } }
+  - http: { id: title_delete_not_found, as: useradmin, path: /settings/title_overview/, query: { delete: 999 } }
+  - db:
+      id: titles_db
+      op: select
+      table: title
+      columns: [id, name, deleted, site_id]
+      order_by: [id]
+  - http: { id: titles_normal_denied, as: normal1, path: /settings/title_overview/ }
+  # Organisations, with the site's name for them
+  - http: { id: organisations, as: useradmin, path: /settings/organisation_overview/ }
+  - http: { id: organisation_delete_in_use, as: useradmin, path: /settings/organisation_overview/, query: { delete: 1 } }
+  - http: { id: organisations_after_in_use, as: useradmin, path: /settings/organisation_overview/ }
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { register_organisation_name: Company }
+  - http: { id: companies, as: useradmin, path: /settings/organisation_overview/ }
+  - http: { id: company_add_form, as: useradmin, path: /settings/organisation_add/ }
+  - http:
+      id: company_add
+      as: useradmin
+      method: POST
+      path: /settings/organisation_add/
+      form: { submit: submit, name: Acme }
+  - http: { id: company_edit_form, as: useradmin, path: /settings/organisation_edit/2 }
+  - http:
+      id: company_rename
+      as: useradmin
+      method: POST
+      path: /settings/organisation_edit/2
+      form: { submit: submit, name: Acme Ltd }
+  - http:
+      id: company_delete
+      as: useradmin
+      method: POST
+      path: /settings/organisation_edit/2
+      form: { submit: submit, name: Ignored, delete: 1 }
+  - http:
+      id: company_rename_not_found
+      as: useradmin
+      method: POST
+      path: /settings/organisation_edit/999
+      form: { submit: submit, name: Nobody }
+  - http: { id: companies_final, as: useradmin, path: /settings/organisation_overview/ }
+  - db:
+      id: organisations_db
+      op: select
+      table: organisation
+      columns: [id, name, deleted, site_id]
+      order_by: [id]
+  # Departments and teams
+  - http:
+      id: department_add
+      as: useradmin
+      method: POST
+      path: /settings/department_add/
+      form: { submit: submit, name: Sales }
+  - http: { id: departments, as: useradmin, path: /settings/department_overview/ }
+  - http: { id: department_edit_form, as: useradmin, path: /settings/department_edit/1 }
+  - db:
+      op: update
+      table: user
+      where: { id: [2, 3] }
+      set: { department_id: 1 }
+  - http: { id: department_delete_in_use, as: useradmin, path: /settings/department_overview/, query: { delete: 1 } }
+  - http: { id: departments_after_in_use, as: useradmin, path: /settings/department_overview/ }
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { register_team_name: Squad }
+  - http:
+      id: team_add
+      as: useradmin
+      method: POST
+      path: /settings/team_add/
+      form: { submit: submit, name: Red }
+  - http: { id: teams, as: useradmin, path: /settings/team_overview/ }
+  - http:
+      id: team_rename
+      as: useradmin
+      method: POST
+      path: /settings/team_edit/1
+      form: { submit: submit, name: Blue }
+  - http: { id: teams_after_rename, as: useradmin, path: /settings/team_overview/ }
+  - http:
+      id: team_delete
+      as: useradmin
+      method: POST
+      path: /settings/team_edit/1
+      form: { delete: 1 }
+  - http: { id: teams_final, as: useradmin, path: /settings/team_overview/ }
+  - db:
+      id: lists_db
+      op: select
+      table: department
+      columns: [id, name, deleted, site_id]
+  - db:
+      id: teams_db
+      op: select
+      table: team
+      columns: [id, name, deleted, site_id]

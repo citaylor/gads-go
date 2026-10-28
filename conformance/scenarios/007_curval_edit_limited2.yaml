@@ -1,0 +1,544 @@
+name: 007_curval_edit_limited2
+source:
+- t/007_curval_edit_limited2.t
+description: Edits of curval values within a table limited by a view depending on main and curval table values
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: Newcastle
+      enum1: foo1
+    - string1: Liverpool
+      enum1: foo2
+    - string1: York
+      enum1: foo1
+- sheet:
+    as: main
+    multivalue: 1
+    instance_id: 1
+    data: []
+    curval: cv
+    curval_fields:
+    - string1
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      delete_not_used: 1
+      show_add: 1
+      value_selector: noshow
+    write_options:
+      no_alerts: 1
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- view:
+    op: create
+    sheet: cv
+    name: Limit to view
+    is_admin: 1
+    filter:
+      rules:
+      - name: autocur1_string1
+        type: string
+        value: Apples
+        operator: equal
+      - name: string1
+        type: string
+        value: Access
+        operator: begins_with
+      condition: OR
+    as: vl
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- held:
+    op: new
+    as: a
+    sheet: main
+    user: superadmin
+- held:
+    op: set
+    as: a
+    values:
+      string1: Apples
+      curval1:
+      - '@field:string1=Brown&@field:integer1=65'
+      - '@field:string1=Smith&@field:integer1=32'
+      - '@field:string1=Access&@field:integer1=93'
+      - '@field:string1=Access2&@field:integer1=44'
+- held:
+    id: delete_not_used admin write
+    op: write
+    as: a
+    options:
+      no_alerts: 1
+- held:
+    id: delete_not_used normal view
+    op: find
+    as: n
+    sheet: main
+    user: normal1
+    current_id: '@held:a'
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: Access; Access2; Brown; Smith
+- held:
+    op: set
+    as: n
+    values:
+    - integer1: '1234'
+    - curval1:
+        own_ids_matching: (?i)(access|brown)
+- held:
+    id: delete_not_used normal write
+    op: write
+    as: n
+    options:
+      no_alerts: 1
+- held:
+    id: delete_not_used normal after edit
+    op: find
+    as: n
+    clear: true
+    current_id: '@held:a'
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: Access; Access2; Brown
+- db:
+    id: delete_not_used curval records
+    op: select
+    table: current
+    where:
+      instance_id: 2
+    columns:
+    - id
+    - deleted
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: Newcastle
+      enum1: foo1
+    - string1: Liverpool
+      enum1: foo2
+    - string1: York
+      enum1: foo1
+- sheet:
+    as: main
+    multivalue: 1
+    instance_id: 1
+    data: []
+    curval: cv
+    curval_fields:
+    - string1
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      delete_not_used: 0
+      show_add: 1
+      value_selector: noshow
+    write_options:
+      no_alerts: 1
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- view:
+    op: create
+    sheet: cv
+    name: Limit to view
+    is_admin: 1
+    filter:
+      rules:
+      - name: autocur1_string1
+        type: string
+        value: Apples
+        operator: equal
+      - name: string1
+        type: string
+        value: Access
+        operator: begins_with
+      condition: OR
+    as: vl
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- held:
+    op: new
+    as: a
+    sheet: main
+    user: superadmin
+- held:
+    op: set
+    as: a
+    values:
+      string1: Apples
+      curval1:
+      - '@field:string1=Brown&@field:integer1=65'
+      - '@field:string1=Smith&@field:integer1=32'
+      - '@field:string1=Access&@field:integer1=93'
+      - '@field:string1=Access2&@field:integer1=44'
+- held:
+    id: normal admin write
+    op: write
+    as: a
+    options:
+      no_alerts: 1
+- held:
+    id: normal normal view
+    op: find
+    as: n
+    sheet: main
+    user: normal1
+    current_id: '@held:a'
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: Access; Access2; Brown; Smith
+- held:
+    op: set
+    as: n
+    values:
+    - integer1: '1234'
+    - curval1:
+        own_ids_matching: (?i)(access|brown)
+- held:
+    id: normal normal write
+    op: write
+    as: n
+    options:
+      no_alerts: 1
+- held:
+    id: normal normal after edit
+    op: find
+    as: n
+    clear: true
+    current_id: '@held:a'
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: Access; Access2; Brown
+- db:
+    id: normal curval records
+    op: select
+    table: current
+    where:
+      instance_id: 2
+    columns:
+    - id
+    - deleted
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: Newcastle
+      enum1: foo1
+    - string1: Liverpool
+      enum1: foo2
+    - string1: York
+      enum1: foo1
+- sheet:
+    as: main
+    multivalue: 1
+    instance_id: 1
+    data: []
+    curval: cv
+    curval_fields:
+    - string1
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      delete_not_used: 1
+      show_add: 1
+      value_selector: noshow
+    write_options:
+      no_alerts: 1
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- view:
+    op: create
+    sheet: cv
+    name: Limit to view
+    is_admin: 1
+    filter:
+      rules:
+      - name: autocur1_string1
+        type: string
+        value: Apples
+        operator: equal
+      - name: string1
+        type: string
+        value: Access
+        operator: begins_with
+      condition: OR
+    as: vl
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- held:
+    op: new
+    as: a
+    sheet: main
+    user: superadmin
+- held:
+    op: set
+    as: a
+    values:
+      string1: Bananas
+      curval1:
+      - '@field:string1=Brown&@field:integer1=65'
+      - '@field:string1=Smith&@field:integer1=32'
+      - '@field:string1=Access&@field:integer1=93'
+      - '@field:string1=Access2&@field:integer1=44'
+- held:
+    id: noaccess admin write
+    op: write
+    as: a
+    options:
+      no_alerts: 1
+- held:
+    id: noaccess normal view
+    op: find
+    as: n
+    sheet: main
+    user: normal1
+    current_id: '@held:a'
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: Access; Access2
+- held:
+    op: set
+    as: n
+    values:
+    - integer1: '1234'
+    - curval1:
+        own_ids_matching: (?i)access
+- held:
+    id: noaccess normal write
+    op: write
+    as: n
+    options:
+      no_alerts: 1
+- held:
+    id: noaccess normal after edit
+    op: find
+    as: n
+    clear: true
+    current_id: '@held:a'
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: Access; Access2
+- db:
+    id: noaccess curval records
+    op: select
+    table: current
+    where:
+      instance_id: 2
+    columns:
+    - id
+    - deleted
+- layout:
+    op: set_user
+    sheet: main
+    user: superadmin
+- held:
+    id: noaccess admin after edit
+    op: find
+    as: z
+    sheet: main
+    user: superadmin
+    current_id: '@held:a'
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: Access; Access2; Brown; Smith
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: Newcastle
+      enum1: foo1
+    - string1: Liverpool
+      enum1: foo2
+    - string1: York
+      enum1: foo1
+- sheet:
+    as: main
+    multivalue: 1
+    instance_id: 1
+    data: []
+    curval: cv
+    curval_fields:
+    - string1
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      delete_not_used: 1
+      show_add: 1
+      value_selector: noshow
+    write_options:
+      no_alerts: 1
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- view:
+    op: create
+    sheet: cv
+    name: Limit to view
+    is_admin: 1
+    filter:
+      rules:
+      - name: autocur1_string1
+        type: string
+        value: Apples
+        operator: equal
+      - name: string1
+        type: string
+        value: Access
+        operator: begins_with
+      condition: OR
+    as: vl
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- held:
+    op: new
+    as: a
+    sheet: main
+    user: superadmin
+- held:
+    op: set
+    as: a
+    values:
+      string1: Bananas
+      curval1:
+      - '@field:string1=Brown&@field:integer1=65'
+      - '@field:string1=Smith&@field:integer1=32'
+      - '@field:string1=Access&@field:integer1=93'
+      - '@field:string1=Access2&@field:integer1=44'
+- held:
+    id: noaccess_changed admin write
+    op: write
+    as: a
+    options:
+      no_alerts: 1
+- held:
+    id: noaccess_changed normal view
+    op: find
+    as: n
+    sheet: main
+    user: normal1
+    current_id: '@held:a'
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: Access; Access2
+- held:
+    op: set
+    as: n
+    values:
+    - integer1: '1234'
+    - curval1:
+        own_ids_matching: (?i)^access$
+- held:
+    id: noaccess_changed normal write
+    op: write
+    as: n
+    options:
+      no_alerts: 1
+- held:
+    id: noaccess_changed normal after edit
+    op: find
+    as: n
+    clear: true
+    current_id: '@held:a'
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: Access
+- db:
+    id: noaccess_changed curval records
+    op: select
+    table: current
+    where:
+      instance_id: 2
+    columns:
+    - id
+    - deleted
+- layout:
+    op: set_user
+    sheet: main
+    user: superadmin
+- held:
+    id: noaccess_changed admin after edit
+    op: find
+    as: z
+    sheet: main
+    user: superadmin
+    current_id: '@held:a'
+    observe:
+    - curval1
+    expect:
+      values:
+        curval1: Access; Brown; Smith

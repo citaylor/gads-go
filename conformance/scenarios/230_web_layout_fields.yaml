@@ -1,0 +1,105 @@
+name: 230_web_layout_fields
+source:
+  - lib/GADS.pm (/:layout_name/layout/?:id?)
+  - lib/GADS/Layout.pm (position, columns_for_display_condition, filtered_curvals, referred_by)
+  - lib/GADS/Column.pm (display_fields_summary, delete)
+  - views/layouts.tt, views/layout.tt
+description: >
+  The fields of a table: the list (with topics and display conditions),
+  saving the order of the fields, the form of each type of field, the form
+  of a new field, an invalid field, deleting a field (refused while other
+  fields depend on it) and the permission needed.
+steps:
+  - sheet:
+      as: cv
+      site_id: 1
+      instance_id: 2
+      data:
+        - { string1: Foo }
+  - sheet:
+      as: s
+      curval: cv
+      curval_fields: [string1]
+      data:
+        - { string1: Foo, integer1: 10 }
+  - db:
+      op: insert
+      table: topic
+      set: { name: My topic, instance_id: 1, click_to_edit: 0 }
+  - column:
+      op: update
+      sheet: s
+      column: integer1
+      set:
+        topic: null
+  - db:
+      op: update
+      table: layout
+      where: { id: "@column:s:integer1" }
+      set: { topic_id: 1 }
+  - column:
+      op: update
+      sheet: s
+      column: date1
+      set:
+        display_fields:
+          rules:
+            - { name: string1, type: string, value: Foo, operator: equal }
+          condition: AND
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { id: home_normal1, as: normal1, path: /, no_body: true }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: layouts_denied, as: normal1, path: "/{sheet:s}/layout" }
+  - http: { id: layouts_page, as: superadmin, path: "/{sheet:s}/layout" }
+  - http: { id: layout_new_page, as: superadmin, path: "/{sheet:s}/layout/0" }
+  - http: { id: layout_string, as: superadmin, path: "/{sheet:s}/layout/{column:s:string1}" }
+  - http: { id: layout_integer, as: superadmin, path: "/{sheet:s}/layout/{column:s:integer1}" }
+  - http: { id: layout_enum, as: superadmin, path: "/{sheet:s}/layout/{column:s:enum1}" }
+  - http: { id: layout_tree, as: superadmin, path: "/{sheet:s}/layout/{column:s:tree1}" }
+  - http: { id: layout_date, as: superadmin, path: "/{sheet:s}/layout/{column:s:date1}" }
+  - http: { id: layout_daterange, as: superadmin, path: "/{sheet:s}/layout/{column:s:daterange1}" }
+  - http: { id: layout_file, as: superadmin, path: "/{sheet:s}/layout/{column:s:file1}" }
+  - http: { id: layout_person, as: superadmin, path: "/{sheet:s}/layout/{column:s:person1}" }
+  - http: { id: layout_rag, as: superadmin, path: "/{sheet:s}/layout/{column:s:rag1}" }
+  - http: { id: layout_calc, as: superadmin, path: "/{sheet:s}/layout/{column:s:calc1}" }
+  - http: { id: layout_curval, as: superadmin, path: "/{sheet:s}/layout/{column:s:curval1}" }
+  - http: { id: layout_missing, as: superadmin, path: "/{sheet:s}/layout/9999" }
+  - http: { id: layout_other_table, as: superadmin, path: "/{sheet:s}/layout/{column:cv:string1}" }
+  - http:
+      id: saveposition
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout"
+      form: { saveposition: 1, position: ["{column:s:integer1}", "{column:s:string1}", "{column:s:enum1}"] }
+  - db:
+      id: positions
+      op: select
+      table: layout
+      where: { instance_id: 1 }
+      columns: [id, name, position]
+  - http:
+      id: saveposition_missing
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout"
+      form: { saveposition: 1, position: ["{column:s:integer1}", 9999] }
+  - http:
+      id: delete_conditional
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/{column:s:string1}"
+      form: { delete: 1 }
+  - http:
+      id: delete_field
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/layout/{column:s:file1}"
+      form: { delete: 1 }
+  - db:
+      id: audit_delete
+      op: select
+      table: audit
+      where: { type: user_action }
+      columns: [id, user_id, description, type, instance_id]
+  - http: { id: layouts_after, as: superadmin, path: "/{sheet:s}/layout/" }

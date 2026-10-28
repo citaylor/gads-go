@@ -1,0 +1,492 @@
+{
+   "runner" : "perl",
+   "scenario" : "004_aggregate_mv0",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "9",
+               "integer2" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "no aggregate results initially",
+         "observed" : {
+            "aggregate" : null,
+            "count" : "4",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:column",
+         "observed" : {
+            "id" : "9"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:column",
+         "observed" : {
+            "id" : "18"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter 0: sum aggregates",
+         "observed" : {
+            "aggregate" : {
+               "calc1" : "360",
+               "integer1" : "205"
+            },
+            "count" : "4",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ],
+            "last" : "4",
+            "rows" : [
+               {
+                  "calc1" : "50",
+                  "integer1" : "25",
+                  "person1" : "User1, User1",
+                  "string1" : "foo1"
+               },
+               {
+                  "calc1" : "10",
+                  "integer1" : "50",
+                  "person1" : "User1, User1",
+                  "string1" : "foo1"
+               },
+               {
+                  "calc1" : "100",
+                  "integer1" : "60",
+                  "person1" : "User1, User1",
+                  "string1" : "foo2"
+               },
+               {
+                  "calc1" : "200",
+                  "integer1" : "70",
+                  "person1" : "User1, User1",
+                  "string1" : "foo2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : "In order to recalculate this field from other aggregate values, all columns in its calculation need to have a defined aggregate. Currently column integer2 does not have an aggregate defined.",
+         "failures" : [],
+         "id" : "filter 0: cannot set recalc without all required aggregate fields",
+         "observed" : null,
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:column",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:column",
+         "observed" : {
+            "id" : "18"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : "The aggregate on this column cannot be removed, as the following columns have an aggregate type that recalculates based on the aggregate value of this column: calc1",
+         "failures" : [],
+         "id" : "filter 0: cannot remove aggregate with recalc in effect",
+         "observed" : null,
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter 0: recalc aggregate",
+         "observed" : {
+            "aggregate" : {
+               "calc1" : "32",
+               "integer1" : "205",
+               "integer2" : "645"
+            },
+            "count" : "4",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:column",
+         "observed" : {
+            "id" : "18"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:column",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter 0: grouped by enum",
+         "observed" : {
+            "aggregate" : {
+               "calc1" : "360",
+               "integer1" : "205"
+            },
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "calc1" : "50",
+                  "integer1" : "25",
+                  "person1" : "",
+                  "string1" : ""
+               },
+               {
+                  "calc1" : "110",
+                  "integer1" : "110",
+                  "person1" : "",
+                  "string1" : ""
+               },
+               {
+                  "calc1" : "200",
+                  "integer1" : "70",
+                  "person1" : "",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter 1: sum aggregates",
+         "observed" : {
+            "aggregate" : {
+               "calc1" : "160",
+               "integer1" : "135"
+            },
+            "count" : "3",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2",
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "calc1" : "50",
+                  "integer1" : "25",
+                  "person1" : "User1, User1",
+                  "string1" : "foo1"
+               },
+               {
+                  "calc1" : "10",
+                  "integer1" : "50",
+                  "person1" : "User1, User1",
+                  "string1" : "foo1"
+               },
+               {
+                  "calc1" : "100",
+                  "integer1" : "60",
+                  "person1" : "User1, User1",
+                  "string1" : "foo2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : "In order to recalculate this field from other aggregate values, all columns in its calculation need to have a defined aggregate. Currently column integer2 does not have an aggregate defined.",
+         "failures" : [],
+         "id" : "filter 1: cannot set recalc without all required aggregate fields",
+         "observed" : null,
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:column",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "24:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "25:column",
+         "observed" : {
+            "id" : "18"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : "The aggregate on this column cannot be removed, as the following columns have an aggregate type that recalculates based on the aggregate value of this column: calc1",
+         "failures" : [],
+         "id" : "filter 1: cannot remove aggregate with recalc in effect",
+         "observed" : null,
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter 1: recalc aggregate",
+         "observed" : {
+            "aggregate" : {
+               "calc1" : "22",
+               "integer1" : "135",
+               "integer2" : "610"
+            },
+            "count" : "3",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2",
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "30:column",
+         "observed" : {
+            "id" : "18"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:column",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter 1: grouped by enum",
+         "observed" : {
+            "aggregate" : {
+               "calc1" : "160",
+               "integer1" : "135"
+            },
+            "count" : "3",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "calc1" : "50",
+                  "integer1" : "25",
+                  "person1" : "",
+                  "string1" : ""
+               },
+               {
+                  "calc1" : "110",
+                  "integer1" : "110",
+                  "person1" : "",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      }
+   ]
+}

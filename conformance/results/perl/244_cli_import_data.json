@@ -1,0 +1,811 @@
+{
+   "runner" : "perl",
+   "scenario" : "244_cli_import_data",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:db",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:db",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:db",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:db",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:db",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:view",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:view",
+         "observed" : {
+            "id" : "3"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ex",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:db",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "no_users",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "notice: Creation: New group group1 to be created\nnotice: Creation: New group link_1 to be created\nnotice: Creation: New group delete_1 to be created\nnotice: Creation: New group purge_1 to be created\nnotice: Creation: New group view_group_1 to be created\nnotice: Creation: New group download_1 to be created\nnotice: Creation: New group view_limit_extra_1 to be created\nnotice: Creation: New group view_create_4 to be created\nnotice: Creation: New group view_create_5 to be created\nerror: User user1@example.com not found\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "report",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "notice: Creation: New group group1 to be created\nnotice: Creation: New group link_1 to be created\nnotice: Creation: New group delete_1 to be created\nnotice: Creation: New group purge_1 to be created\nnotice: Creation: New group view_group_1 to be created\nnotice: Creation: New group download_1 to be created\nnotice: Creation: New group view_limit_extra_1 to be created\nnotice: Creation: New group view_create_4 to be created\nnotice: Creation: New group view_create_5 to be created\nnotice: Creation: Instance name Layout1 created\nnotice: Adding permission link for group ID 11\nnotice: Adding permission delete for group ID 12\nnotice: Adding permission purge for group ID 13\nnotice: Adding permission view_group for group ID 14\nnotice: Adding permission download for group ID 15\nnotice: Adding permission view_limit_extra for group ID 16\nnotice: Adding permission view_create for group ID 17\nnotice: Adding permission view_create for group ID 18\nnotice: Creation: Topic My topic to be created\nnotice: Creation: Column string1 to be created\nnotice: Creation: Column integer1 to be created\nnotice: Creation: Column enum1 to be created\nnotice: Creation: Column tree1 to be created\nnotice: Creation: Column date1 to be created\nnotice: Creation: Column daterange1 to be created\nnotice: Creation: Column file1 to be created\nnotice: Creation: Column person1 to be created\nnotice: Creation: Column curval1 to be created\nnotice: Creation: Column rag1 to be created\nnotice: Creation: Column calc1 to be created\nnotice: Metrics are different for Targets. Will delete and recreate.\nnotice: Creation: Instance name Layout2 created\nnotice: Adding permission link for group ID 11\nnotice: Adding permission delete for group ID 12\nnotice: Adding permission purge for group ID 13\nnotice: Adding permission view_group for group ID 14\nnotice: Adding permission download for group ID 15\nnotice: Adding permission view_limit_extra for group ID 16\nnotice: Adding permission view_create for group ID 17\nnotice: Adding permission view_create for group ID 18\nnotice: Creation: Column enum1 to be created\nnotice: Creation: Column tree1 to be created\nnotice: Creation: Column date1 to be created\nnotice: Creation: Column daterange1 to be created\nnotice: Creation: Column file1 to be created\nnotice: Creation: Column person1 to be created\nnotice: Creation: Column rag1 to be created\nnotice: Creation: Column calc1 to be created\nnotice: Creation: Column string1 to be created\nnotice: Creation: Column integer1 to be created\nnotice: Graph to be created: Shared graph\nnotice: Updating title from undef to Shared graph for graph undef\nnotice: Updating y_axis from undef to 44 for graph Shared graph\nnotice: Updating y_axis_stack from undef to sum for graph Shared graph\nnotice: Updating x_axis from undef to 43 for graph Shared graph\nnotice: Updating from from undef to 2014-01-01T00:00:00 for graph Shared graph\nnotice: Updating to from undef to 2014-12-31T00:00:00 for graph Shared graph\nnotice: Updating x_axis_range from undef to custom for graph Shared graph\nnotice: Updating is_shared from 0 to 1 for graph Shared graph\nnotice: Updating type from undef to bar for graph Shared graph\nnotice: Updating metric_group_id from undef to 1 for graph Shared graph\nUse of uninitialized value in deleteUse of uninitialized value in hash elementnotice: Graph to be created: Personal graph\nnotice: Updating title from undef to Personal graph for graph undef\nnotice: Updating y_axis_stack from undef to count for graph Personal graph\nnotice: Updating x_axis from undef to 43 for graph Personal graph\nnotice: Updating user_id from undef to 9 for graph Personal graph\nnotice: Updating type from undef to line for graph Personal graph\nUse of uninitialized value in deletenotice: View to be created: Shared\nnotice: Updating global from 0 to 1 for view undef\nnotice: Updating name from undef to Shared for view undef\nUse of uninitialized value in deletenotice: View to be created: Admin view\nnotice: Updating is_admin from 0 to 1 for view undef\nnotice: Updating name from undef to Admin view for view undef\nUse of uninitialized value in delete",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "after_report",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "notice: Creation: New group group1 to be created\nnotice: Creation: New group link_1 to be created\nnotice: Creation: New group delete_1 to be created\nnotice: Creation: New group purge_1 to be created\nnotice: Creation: New group view_group_1 to be created\nnotice: Creation: New group download_1 to be created\nnotice: Creation: New group view_limit_extra_1 to be created\nnotice: Creation: New group view_create_4 to be created\nnotice: Creation: New group view_create_5 to be created\nnotice: Creation: Instance name Layout1 created\nnotice: Creation: Column string1 to be created\nnotice: Creation: Column integer1 to be created\nnotice: Creation: Column enum1 to be created\nnotice: Creation: Column tree1 to be created\nnotice: Creation: Column date1 to be created\nnotice: Creation: Column daterange1 to be created\nnotice: Creation: Column file1 to be created\nnotice: Creation: Column person1 to be created\nnotice: Creation: Column curval1 to be created\nnotice: Creation: Column rag1 to be created\nnotice: Creation: Column calc1 to be created\nnotice: Metrics are different for Targets. Will delete and recreate.\nnotice: Creation: Instance name Layout2 created\nnotice: Creation: Column enum1 to be created\nnotice: Creation: Column tree1 to be created\nnotice: Creation: Column date1 to be created\nnotice: Creation: Column daterange1 to be created\nnotice: Creation: Column file1 to be created\nnotice: Creation: Column person1 to be created\nnotice: Creation: Column rag1 to be created\nnotice: Creation: Column calc1 to be created\nnotice: Creation: Column string1 to be created\nnotice: Creation: Column integer1 to be created\nUse of uninitialized value in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in concatenation (.) or stringUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in concatenation (.) or stringUse of uninitialized value $record_id in hash elementUse of uninitialized value $record_id in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in concatenation (.) or stringUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in concatenation (.) or stringUse of uninitialized value $record_id in hash elementUse of uninitialized value $record_id in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in concatenation (.) or stringUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in concatenation (.) or stringUse of uninitialized value $record_id in hash elementUse of uninitialized value $record_id in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in concatenation (.) or stringUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in hash elementUse of uninitialized value $current_id in concatenation (.) or stringUse of uninitialized value $record_id in hash elementUse of uninitialized value $record_id in hash element",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user_groups",
+         "observed" : [
+            {
+               "group_id" : "10",
+               "user_id" : "6"
+            },
+            {
+               "group_id" : "11",
+               "user_id" : "6"
+            },
+            {
+               "group_id" : "12",
+               "user_id" : "6"
+            },
+            {
+               "group_id" : "13",
+               "user_id" : "6"
+            },
+            {
+               "group_id" : "14",
+               "user_id" : "6"
+            },
+            {
+               "group_id" : "15",
+               "user_id" : "6"
+            },
+            {
+               "group_id" : "16",
+               "user_id" : "6"
+            },
+            {
+               "group_id" : "10",
+               "user_id" : "7"
+            },
+            {
+               "group_id" : "10",
+               "user_id" : "8"
+            },
+            {
+               "group_id" : "10",
+               "user_id" : "9"
+            },
+            {
+               "group_id" : "17",
+               "user_id" : "9"
+            },
+            {
+               "group_id" : "10",
+               "user_id" : "10"
+            },
+            {
+               "group_id" : "18",
+               "user_id" : "10"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user_permissions",
+         "observed" : [
+            {
+               "permission_id" : "1",
+               "user_id" : "6"
+            },
+            {
+               "permission_id" : "2",
+               "user_id" : "7"
+            },
+            {
+               "permission_id" : "3",
+               "user_id" : "8"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "currents",
+         "observed" : [
+            {
+               "deleted" : null,
+               "deletedby" : null,
+               "draftuser_id" : null,
+               "id" : "5",
+               "instance_id" : "3",
+               "serial" : "1"
+            },
+            {
+               "deleted" : null,
+               "deletedby" : null,
+               "draftuser_id" : null,
+               "id" : "6",
+               "instance_id" : "3",
+               "serial" : "2"
+            },
+            {
+               "deleted" : null,
+               "deletedby" : null,
+               "draftuser_id" : null,
+               "id" : "7",
+               "instance_id" : "4",
+               "serial" : "1"
+            },
+            {
+               "deleted" : null,
+               "deletedby" : null,
+               "draftuser_id" : null,
+               "id" : "8",
+               "instance_id" : "4",
+               "serial" : "2"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records",
+         "observed" : [
+            {
+               "approval" : "0",
+               "approvedby" : null,
+               "created" : "2014-10-10 01:00:00",
+               "createdby" : "6",
+               "current_id" : "5",
+               "id" : "5"
+            },
+            {
+               "approval" : "0",
+               "approvedby" : null,
+               "created" : "2014-10-10 01:00:00",
+               "createdby" : "6",
+               "current_id" : "6",
+               "id" : "6"
+            },
+            {
+               "approval" : "0",
+               "approvedby" : null,
+               "created" : "2014-10-10 01:00:00",
+               "createdby" : "6",
+               "current_id" : "7",
+               "id" : "7"
+            },
+            {
+               "approval" : "0",
+               "approvedby" : null,
+               "created" : "2014-10-10 01:00:00",
+               "createdby" : "6",
+               "current_id" : "8",
+               "id" : "8"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "strings",
+         "observed" : [
+            {
+               "child_unique" : "0",
+               "layout_id" : "43",
+               "record_id" : "5",
+               "value" : "Foo1",
+               "value_index" : "foo1"
+            },
+            {
+               "child_unique" : "0",
+               "layout_id" : "43",
+               "record_id" : "6",
+               "value" : "Bar1",
+               "value_index" : "bar1"
+            },
+            {
+               "child_unique" : "0",
+               "layout_id" : "69",
+               "record_id" : "7",
+               "value" : "Foo",
+               "value_index" : "foo"
+            },
+            {
+               "child_unique" : "0",
+               "layout_id" : "69",
+               "record_id" : "8",
+               "value" : "Bar",
+               "value_index" : "bar"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "intgrs",
+         "observed" : [
+            {
+               "layout_id" : "44",
+               "record_id" : "5",
+               "value" : "10"
+            },
+            {
+               "layout_id" : "44",
+               "record_id" : "6",
+               "value" : null
+            },
+            {
+               "layout_id" : "70",
+               "record_id" : "7",
+               "value" : null
+            },
+            {
+               "layout_id" : "70",
+               "record_id" : "8",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enums",
+         "observed" : [
+            {
+               "layout_id" : "45",
+               "record_id" : "5",
+               "value" : "13"
+            },
+            {
+               "layout_id" : "45",
+               "record_id" : "5",
+               "value" : "14"
+            },
+            {
+               "layout_id" : "46",
+               "record_id" : "5",
+               "value" : "17"
+            },
+            {
+               "layout_id" : "45",
+               "record_id" : "6",
+               "value" : null
+            },
+            {
+               "layout_id" : "46",
+               "record_id" : "6",
+               "value" : null
+            },
+            {
+               "layout_id" : "61",
+               "record_id" : "7",
+               "value" : null
+            },
+            {
+               "layout_id" : "62",
+               "record_id" : "7",
+               "value" : null
+            },
+            {
+               "layout_id" : "61",
+               "record_id" : "8",
+               "value" : null
+            },
+            {
+               "layout_id" : "62",
+               "record_id" : "8",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dates",
+         "observed" : [
+            {
+               "layout_id" : "47",
+               "record_id" : "5",
+               "value" : "2014-10-10"
+            },
+            {
+               "layout_id" : "47",
+               "record_id" : "6",
+               "value" : null
+            },
+            {
+               "layout_id" : "63",
+               "record_id" : "7",
+               "value" : null
+            },
+            {
+               "layout_id" : "63",
+               "record_id" : "8",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dateranges",
+         "observed" : [
+            {
+               "from" : "2014-01-01",
+               "layout_id" : "48",
+               "record_id" : "5",
+               "to" : "2014-12-31",
+               "value" : "2014-01-01 to 2014-12-31"
+            },
+            {
+               "from" : null,
+               "layout_id" : "48",
+               "record_id" : "6",
+               "to" : null,
+               "value" : null
+            },
+            {
+               "from" : null,
+               "layout_id" : "64",
+               "record_id" : "7",
+               "to" : null,
+               "value" : null
+            },
+            {
+               "from" : null,
+               "layout_id" : "64",
+               "record_id" : "8",
+               "to" : null,
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "people",
+         "observed" : [
+            {
+               "layout_id" : "50",
+               "record_id" : "5",
+               "value" : "7"
+            },
+            {
+               "layout_id" : "50",
+               "record_id" : "6",
+               "value" : null
+            },
+            {
+               "layout_id" : "66",
+               "record_id" : "7",
+               "value" : null
+            },
+            {
+               "layout_id" : "66",
+               "record_id" : "8",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curvals",
+         "observed" : [
+            {
+               "layout_id" : "51",
+               "record_id" : "5",
+               "value" : "7"
+            },
+            {
+               "layout_id" : "51",
+               "record_id" : "5",
+               "value" : "8"
+            },
+            {
+               "layout_id" : "51",
+               "record_id" : "6",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "files",
+         "observed" : [
+            {
+               "layout_id" : "49",
+               "record_id" : "5",
+               "value" : "2"
+            },
+            {
+               "layout_id" : "49",
+               "record_id" : "6",
+               "value" : null
+            },
+            {
+               "layout_id" : "65",
+               "record_id" : "7",
+               "value" : null
+            },
+            {
+               "layout_id" : "65",
+               "record_id" : "8",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filevals",
+         "observed" : [
+            {
+               "id" : "1",
+               "mimetype" : "text/plain",
+               "name" : "file1.txt"
+            },
+            {
+               "id" : "2",
+               "mimetype" : "text/plain",
+               "name" : "file1.txt"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "calcvals",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ragvals",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "export_again",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "_export/groups/10" : "{\n   \"id\" : 10,\n   \"name\" : \"group1\"\n}\n",
+               "_export/groups/11" : "{\n   \"id\" : 11,\n   \"name\" : \"link_1\"\n}\n",
+               "_export/groups/12" : "{\n   \"id\" : 12,\n   \"name\" : \"delete_1\"\n}\n",
+               "_export/groups/13" : "{\n   \"id\" : 13,\n   \"name\" : \"purge_1\"\n}\n",
+               "_export/groups/14" : "{\n   \"id\" : 14,\n   \"name\" : \"view_group_1\"\n}\n",
+               "_export/groups/15" : "{\n   \"id\" : 15,\n   \"name\" : \"download_1\"\n}\n",
+               "_export/groups/16" : "{\n   \"id\" : 16,\n   \"name\" : \"view_limit_extra_1\"\n}\n",
+               "_export/groups/17" : "{\n   \"id\" : 17,\n   \"name\" : \"view_create_4\"\n}\n",
+               "_export/groups/18" : "{\n   \"id\" : 18,\n   \"name\" : \"view_create_5\"\n}\n",
+               "_export/instance3/graphs/00001_3" : "{\n   \"as_percent\" : 0,\n   \"description\" : null,\n   \"from\" : \"2014-01-01T00:00:00\",\n   \"group_by\" : null,\n   \"group_id\" : null,\n   \"is_shared\" : 1,\n   \"metric_group_id\" : 1,\n   \"stackseries\" : 0,\n   \"title\" : \"Shared graph\",\n   \"to\" : \"2014-12-31T00:00:00\",\n   \"trend\" : null,\n   \"type\" : \"bar\",\n   \"user_id\" : null,\n   \"x_axis\" : 43,\n   \"x_axis_grouping\" : null,\n   \"x_axis_link\" : null,\n   \"x_axis_range\" : \"custom\",\n   \"y_axis\" : 44,\n   \"y_axis_label\" : null,\n   \"y_axis_link\" : null,\n   \"y_axis_stack\" : \"sum\"\n}\n",
+               "_export/instance3/graphs/00002_4" : "{\n   \"as_percent\" : 0,\n   \"description\" : null,\n   \"from\" : null,\n   \"group_by\" : null,\n   \"group_id\" : null,\n   \"is_shared\" : 0,\n   \"metric_group_id\" : null,\n   \"stackseries\" : 0,\n   \"title\" : \"Personal graph\",\n   \"to\" : null,\n   \"trend\" : null,\n   \"type\" : \"line\",\n   \"user_id\" : 9,\n   \"x_axis\" : 43,\n   \"x_axis_grouping\" : null,\n   \"x_axis_link\" : null,\n   \"x_axis_range\" : null,\n   \"y_axis\" : null,\n   \"y_axis_label\" : null,\n   \"y_axis_link\" : null,\n   \"y_axis_stack\" : \"count\"\n}\n",
+               "_export/instance3/instance" : "{\n   \"default_view_limit_extra_id\" : null,\n   \"hide_in_selector\" : 0,\n   \"homepage_text\" : null,\n   \"homepage_text2\" : null,\n   \"name\" : \"Layout1\",\n   \"name_short\" : null,\n   \"permissions\" : [\n      {\n         \"group_id\" : 11,\n         \"permission\" : \"link\"\n      },\n      {\n         \"group_id\" : 12,\n         \"permission\" : \"delete\"\n      },\n      {\n         \"group_id\" : 13,\n         \"permission\" : \"purge\"\n      },\n      {\n         \"group_id\" : 14,\n         \"permission\" : \"view_group\"\n      },\n      {\n         \"group_id\" : 15,\n         \"permission\" : \"download\"\n      },\n      {\n         \"group_id\" : 16,\n         \"permission\" : \"view_limit_extra\"\n      },\n      {\n         \"group_id\" : 17,\n         \"permission\" : \"view_create\"\n      },\n      {\n         \"group_id\" : 18,\n         \"permission\" : \"view_create\"\n      }\n   ],\n   \"sort_layout_id\" : null,\n   \"sort_type\" : null,\n   \"view_limit_id\" : null\n}\n",
+               "_export/instance3/layout/00001_36" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : \"sum\",\n   \"helptext\" : null,\n   \"id\" : 36,\n   \"internal\" : 1,\n   \"isunique\" : 1,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"ID\",\n   \"name_short\" : \"_id\",\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"show_calculator\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"id\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00002_37" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_today\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 37,\n   \"internal\" : 1,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"Last edited time\",\n   \"name_short\" : \"_version_datetime\",\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"show_datepicker\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"createddate\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00003_38" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_to_login\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 38,\n   \"internal\" : 1,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"Last edited by\",\n   \"name_short\" : \"_version_user\",\n   \"notify_on_selection\" : 0,\n   \"notify_on_selection_message\" : null,\n   \"notify_on_selection_subject\" : null,\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"createdby\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00004_39" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_to_login\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 39,\n   \"internal\" : 1,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"Created by\",\n   \"name_short\" : \"_created_user\",\n   \"notify_on_selection\" : 0,\n   \"notify_on_selection_message\" : null,\n   \"notify_on_selection_subject\" : null,\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"createdby\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00005_41" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_today\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 41,\n   \"internal\" : 1,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"Created time\",\n   \"name_short\" : \"_created\",\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"show_datepicker\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"createddate\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00006_42" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : \"sum\",\n   \"helptext\" : null,\n   \"id\" : 42,\n   \"internal\" : 1,\n   \"isunique\" : 1,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"Serial\",\n   \"name_short\" : \"_serial\",\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"serial\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00007_43" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : \"A string\",\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"force_regex\" : null,\n   \"group_display\" : null,\n   \"helptext\" : \"Help\",\n   \"id\" : 43,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"max_length\" : null,\n   \"multivalue\" : 1,\n   \"name\" : \"string1\",\n   \"name_short\" : \"L1string1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 11,\n   \"remember\" : 0,\n   \"textbox\" : 0,\n   \"topic_id\" : 2,\n   \"type\" : \"string\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00008_44" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : \"sum\",\n   \"helptext\" : null,\n   \"id\" : 44,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 1,\n   \"name\" : \"integer1\",\n   \"name_short\" : \"L1integer1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 12,\n   \"remember\" : 0,\n   \"show_calculator\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"intgr\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00009_45" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"enumvals\" : [\n      {\n         \"deleted\" : 0,\n         \"html\" : \"foo1\",\n         \"id\" : 13,\n         \"position\" : 1,\n         \"selector_id\" : 13,\n         \"value\" : \"foo1\",\n         \"value_id\" : 13\n      },\n      {\n         \"deleted\" : 0,\n         \"html\" : \"foo2\",\n         \"id\" : 14,\n         \"position\" : 2,\n         \"selector_id\" : 14,\n         \"value\" : \"foo2\",\n         \"value_id\" : 14\n      },\n      {\n         \"deleted\" : 0,\n         \"html\" : \"foo3\",\n         \"id\" : 15,\n         \"position\" : 3,\n         \"selector_id\" : 15,\n         \"value\" : \"foo3\",\n         \"value_id\" : 15\n      }\n   ],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 45,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 1,\n   \"name\" : \"enum1\",\n   \"name_short\" : \"L1enum1\",\n   \"optional\" : 1,\n   \"ordering\" : null,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 13,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"enum\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00010_46" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"end_node_only\" : 0,\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 46,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 1,\n   \"name\" : \"tree1\",\n   \"name_short\" : \"L1tree1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 14,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"tree\" : [\n      {\n         \"id\" : 16,\n         \"text\" : \"tree1\"\n      },\n      {\n         \"children\" : [\n            {\n               \"id\" : 18,\n               \"text\" : \"tree3\"\n            }\n         ],\n         \"id\" : 17,\n         \"text\" : \"tree2\"\n      }\n   ],\n   \"type\" : \"tree\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00011_47" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_today\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 47,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 1,\n   \"name\" : \"date1\",\n   \"name_short\" : \"L1date1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 15,\n   \"remember\" : 0,\n   \"show_datepicker\" : 1,\n   \"topic_id\" : null,\n   \"type\" : \"date\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00012_48" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 48,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 1,\n   \"name\" : \"daterange1\",\n   \"name_short\" : \"L1daterange1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 16,\n   \"remember\" : 0,\n   \"show_datepicker\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"daterange\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00013_49" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filesize\" : null,\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 49,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 1,\n   \"name\" : \"file1\",\n   \"name_short\" : null,\n   \"optional\" : 1,\n   \"override_types\" : [],\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 17,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"file\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00014_50" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_to_login\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 50,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"person1\",\n   \"name_short\" : null,\n   \"notify_on_selection\" : 0,\n   \"notify_on_selection_message\" : \"\",\n   \"notify_on_selection_subject\" : \"\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 18,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"person\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00015_51" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"curval_field_ids\" : [\n      69\n   ],\n   \"delete_not_used\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 51,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"limit_rows\" : null,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 1,\n   \"name\" : \"curval1\",\n   \"name_short\" : \"L1curval1\",\n   \"optional\" : 1,\n   \"override_permissions\" : 0,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 19,\n   \"refers_to_instance_id\" : 4,\n   \"remember\" : 0,\n   \"show_add\" : 0,\n   \"show_view_all\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"curval\",\n   \"value_selector\" : \"dropdown\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00016_52" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"code\" : \"\\n        function evaluate (L1daterange1)\\n            if type(L1daterange1) == \\\"table\\\" and L1daterange1[1] then\\n                dr1 = L1daterange1[1]\\n            elseif type(L1daterange1) == \\\"table\\\" and next(L1daterange1) == nil then\\n                dr1 = nil\\n            else\\n                dr1 = L1daterange1\\n            end\\n            if dr1 == nil then return 'grey' end\\n            if dr1.from.year < 2012 then return 'red' end\\n            if dr1.from.year == 2012 then return 'amber' end\\n            if dr1.from.year > 2012 then return 'green' end\\n        end\\n    \",\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 52,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"rag1\",\n   \"name_short\" : null,\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 20,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"rag\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/layout/00017_53" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"code\" : \"function evaluate (L1daterange1)\\n        if type(L1daterange1) == \\\"table\\\" and L1daterange1[1] then\\n            dr1 = L1daterange1[1]\\n        elseif type(L1daterange1) == \\\"table\\\" and next(L1daterange1) == nil then\\n            dr1 = nil\\n        else\\n            dr1 = L1daterange1\\n        end\\n        if dr1 == null then return end\\n        return dr1.from.year\\n    end\",\n   \"decimal_places\" : null,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : \"sum\",\n   \"helptext\" : null,\n   \"id\" : 53,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 1,\n   \"name\" : \"calc1\",\n   \"name_short\" : \"L1calc1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 21,\n   \"remember\" : 0,\n   \"return_type\" : \"integer\",\n   \"show_in_edit\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"calc\",\n   \"width\" : 50\n}\n",
+               "_export/instance3/records/00001_5" : "{\n   \"deleted\" : null,\n   \"deletedby\" : null,\n   \"id\" : 5,\n   \"linked_id\" : null,\n   \"parent_id\" : null,\n   \"records\" : [\n      {\n         \"approval\" : 0,\n         \"approvedby\" : null,\n         \"created\" : \"2014-10-10T01:00:00\",\n         \"createdby\" : 6,\n         \"record_id\" : null,\n         \"values\" : [\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 51,\n               \"value\" : 7\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 51,\n               \"value\" : 8\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 47,\n               \"value\" : \"2014-10-10T00:00:00\"\n            },\n            {\n               \"child_unique\" : 0,\n               \"from\" : \"2014-01-01T00:00:00\",\n               \"layout_id\" : 48,\n               \"to\" : \"2014-12-31T00:00:00\",\n               \"value\" : \"2014-01-01 to 2014-12-31\"\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 45,\n               \"value\" : 13\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 45,\n               \"value\" : 14\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 46,\n               \"value\" : 17\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 44,\n               \"value\" : 10\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 50,\n               \"value\" : 7\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 43,\n               \"value\" : \"Foo1\",\n               \"value_index\" : \"foo1\"\n            },\n            {\n               \"child_unique\" : 0,\n               \"content\" : \"VGV4dCBmaWxlMSB3aXRoIGEgbGluZSBsb25nZXIgdGhhbiB0aGUgc2V2ZW50eSBzaXggY2hhcmFj\\ndGVycyBvZiBhIGJhc2U2NCBsaW5l\\n\",\n               \"layout_id\" : 49,\n               \"mimetype\" : \"text/plain\",\n               \"name\" : \"file1.txt\"\n            }\n         ]\n      }\n   ],\n   \"serial\" : 1\n}\n",
+               "_export/instance3/records/00002_6" : "{\n   \"deleted\" : null,\n   \"deletedby\" : null,\n   \"id\" : 6,\n   \"linked_id\" : null,\n   \"parent_id\" : null,\n   \"records\" : [\n      {\n         \"approval\" : 0,\n         \"approvedby\" : null,\n         \"created\" : \"2014-10-10T01:00:00\",\n         \"createdby\" : 6,\n         \"record_id\" : null,\n         \"values\" : [\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 51,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 47,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"from\" : null,\n               \"layout_id\" : 48,\n               \"to\" : null,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 45,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 46,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 44,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 50,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 43,\n               \"value\" : \"Bar1\",\n               \"value_index\" : \"bar1\"\n            },\n            {\n               \"child_unique\" : 0,\n               \"content\" : null,\n               \"layout_id\" : 49,\n               \"mimetype\" : null,\n               \"name\" : null\n            }\n         ]\n      }\n   ],\n   \"serial\" : 2\n}\n",
+               "_export/instance3/topics/2" : "{\n   \"click_to_edit\" : 1,\n   \"description\" : \"About it\",\n   \"id\" : 2,\n   \"initial_state\" : \"collapsed\",\n   \"instance_id\" : 3,\n   \"name\" : \"My topic\"\n}\n",
+               "_export/instance3/views/00001_4" : "{\n   \"columns\" : [\n      43,\n      44\n   ],\n   \"filter\" : {\n      \"rules\" : [\n         {\n            \"column_id\" : 25,\n            \"field\" : 43,\n            \"id\" : 43,\n            \"operator\" : \"equal\",\n            \"type\" : \"string\",\n            \"value\" : \"Foo1\"\n         }\n      ]\n   },\n   \"global\" : 1,\n   \"group_id\" : null,\n   \"groups\" : [],\n   \"id\" : 4,\n   \"is_admin\" : 0,\n   \"name\" : \"Shared\",\n   \"sorts\" : [\n      {\n         \"layout_id\" : 43,\n         \"order\" : 1,\n         \"parent_id\" : null,\n         \"type\" : \"desc\"\n      }\n   ]\n}\n",
+               "_export/instance3/views/00002_5" : "{\n   \"columns\" : [\n      43\n   ],\n   \"filter\" : {},\n   \"global\" : 1,\n   \"group_id\" : null,\n   \"groups\" : [],\n   \"id\" : 5,\n   \"is_admin\" : 1,\n   \"name\" : \"Admin view\",\n   \"sorts\" : []\n}\n",
+               "_export/instance3/views/00003_5" : "{\n   \"columns\" : [\n      43\n   ],\n   \"filter\" : {},\n   \"global\" : 1,\n   \"group_id\" : null,\n   \"groups\" : [],\n   \"id\" : 5,\n   \"is_admin\" : 1,\n   \"name\" : \"Admin view\",\n   \"sorts\" : []\n}\n",
+               "_export/instance4/instance" : "{\n   \"default_view_limit_extra_id\" : null,\n   \"hide_in_selector\" : 0,\n   \"homepage_text\" : null,\n   \"homepage_text2\" : null,\n   \"name\" : \"Layout2\",\n   \"name_short\" : null,\n   \"permissions\" : [\n      {\n         \"group_id\" : 11,\n         \"permission\" : \"link\"\n      },\n      {\n         \"group_id\" : 12,\n         \"permission\" : \"delete\"\n      },\n      {\n         \"group_id\" : 13,\n         \"permission\" : \"purge\"\n      },\n      {\n         \"group_id\" : 14,\n         \"permission\" : \"view_group\"\n      },\n      {\n         \"group_id\" : 15,\n         \"permission\" : \"download\"\n      },\n      {\n         \"group_id\" : 16,\n         \"permission\" : \"view_limit_extra\"\n      },\n      {\n         \"group_id\" : 17,\n         \"permission\" : \"view_create\"\n      },\n      {\n         \"group_id\" : 18,\n         \"permission\" : \"view_create\"\n      }\n   ],\n   \"sort_layout_id\" : null,\n   \"sort_type\" : null,\n   \"view_limit_id\" : null\n}\n",
+               "_export/instance4/layout/00001_54" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : \"sum\",\n   \"helptext\" : null,\n   \"id\" : 54,\n   \"internal\" : 1,\n   \"isunique\" : 1,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"ID\",\n   \"name_short\" : \"_id\",\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"show_calculator\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"id\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00002_55" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_today\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 55,\n   \"internal\" : 1,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"Last edited time\",\n   \"name_short\" : \"_version_datetime\",\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"show_datepicker\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"createddate\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00003_56" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_to_login\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 56,\n   \"internal\" : 1,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"Last edited by\",\n   \"name_short\" : \"_version_user\",\n   \"notify_on_selection\" : 0,\n   \"notify_on_selection_message\" : null,\n   \"notify_on_selection_subject\" : null,\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"createdby\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00004_57" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_to_login\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 57,\n   \"internal\" : 1,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"Created by\",\n   \"name_short\" : \"_created_user\",\n   \"notify_on_selection\" : 0,\n   \"notify_on_selection_message\" : null,\n   \"notify_on_selection_subject\" : null,\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"createdby\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00005_59" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_today\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 59,\n   \"internal\" : 1,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"Created time\",\n   \"name_short\" : \"_created\",\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"show_datepicker\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"createddate\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00006_60" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : \"sum\",\n   \"helptext\" : null,\n   \"id\" : 60,\n   \"internal\" : 1,\n   \"isunique\" : 1,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"Serial\",\n   \"name_short\" : \"_serial\",\n   \"optional\" : 0,\n   \"permissions\" : null,\n   \"position\" : null,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"serial\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00007_61" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"enumvals\" : [\n      {\n         \"deleted\" : 0,\n         \"html\" : \"foo1\",\n         \"id\" : 19,\n         \"position\" : 1,\n         \"selector_id\" : 19,\n         \"value\" : \"foo1\",\n         \"value_id\" : 19\n      },\n      {\n         \"deleted\" : 0,\n         \"html\" : \"foo2\",\n         \"id\" : 20,\n         \"position\" : 2,\n         \"selector_id\" : 20,\n         \"value\" : \"foo2\",\n         \"value_id\" : 20\n      },\n      {\n         \"deleted\" : 0,\n         \"html\" : \"foo3\",\n         \"id\" : 21,\n         \"position\" : 3,\n         \"selector_id\" : 21,\n         \"value\" : \"foo3\",\n         \"value_id\" : 21\n      }\n   ],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 61,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"enum1\",\n   \"name_short\" : \"L2enum1\",\n   \"optional\" : 1,\n   \"ordering\" : null,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 3,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"enum\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00008_62" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"end_node_only\" : 0,\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 62,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"tree1\",\n   \"name_short\" : \"L2tree1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 4,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"tree\" : [\n      {\n         \"id\" : 22,\n         \"text\" : \"tree1\"\n      },\n      {\n         \"children\" : [\n            {\n               \"id\" : 24,\n               \"text\" : \"tree3\"\n            }\n         ],\n         \"id\" : 23,\n         \"text\" : \"tree2\"\n      }\n   ],\n   \"type\" : \"tree\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00009_63" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_today\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 63,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"date1\",\n   \"name_short\" : \"L2date1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 5,\n   \"remember\" : 0,\n   \"show_datepicker\" : 1,\n   \"topic_id\" : null,\n   \"type\" : \"date\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00010_64" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 64,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"daterange1\",\n   \"name_short\" : \"L2daterange1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 6,\n   \"remember\" : 0,\n   \"show_datepicker\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"daterange\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00011_65" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filesize\" : null,\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 65,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"file1\",\n   \"name_short\" : null,\n   \"optional\" : 1,\n   \"override_types\" : [],\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 7,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"file\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00012_66" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"default_to_login\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 66,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"person1\",\n   \"name_short\" : null,\n   \"notify_on_selection\" : 0,\n   \"notify_on_selection_message\" : \"\",\n   \"notify_on_selection_subject\" : \"\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 8,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"person\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00013_67" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"code\" : \"\\n        function evaluate (L2daterange1)\\n            if type(L2daterange1) == \\\"table\\\" and L2daterange1[1] then\\n                dr1 = L2daterange1[1]\\n            elseif type(L2daterange1) == \\\"table\\\" and next(L2daterange1) == nil then\\n                dr1 = nil\\n            else\\n                dr1 = L2daterange1\\n            end\\n            if dr1 == nil then return 'grey' end\\n            if dr1.from.year < 2012 then return 'red' end\\n            if dr1.from.year == 2012 then return 'amber' end\\n            if dr1.from.year > 2012 then return 'green' end\\n        end\\n    \",\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 67,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"rag1\",\n   \"name_short\" : null,\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 9,\n   \"remember\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"rag\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00014_68" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"code\" : \"function evaluate (L2daterange1)\\n        if type(L2daterange1) == \\\"table\\\" and L2daterange1[1] then\\n            dr1 = L2daterange1[1]\\n        elseif type(L2daterange1) == \\\"table\\\" and next(L2daterange1) == nil then\\n            dr1 = nil\\n        else\\n            dr1 = L2daterange1\\n        end\\n        if dr1 == null then return end\\n        return dr1.from.year\\n    end\",\n   \"decimal_places\" : null,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : \"sum\",\n   \"helptext\" : null,\n   \"id\" : 68,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"calc1\",\n   \"name_short\" : \"L2calc1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 10,\n   \"remember\" : 0,\n   \"return_type\" : \"integer\",\n   \"show_in_edit\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"calc\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00015_69" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"force_regex\" : null,\n   \"group_display\" : null,\n   \"helptext\" : null,\n   \"id\" : 69,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"max_length\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"string1\",\n   \"name_short\" : \"L2string1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 1,\n   \"remember\" : 0,\n   \"textbox\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"string\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/layout/00016_70" : "{\n   \"aggregate\" : null,\n   \"can_child\" : 0,\n   \"description\" : null,\n   \"display_condition\" : null,\n   \"display_fields\" : [],\n   \"filter\" : \"{}\",\n   \"group_display\" : \"sum\",\n   \"helptext\" : null,\n   \"id\" : 70,\n   \"internal\" : 0,\n   \"isunique\" : 0,\n   \"link_parent\" : null,\n   \"lookup_endpoint\" : null,\n   \"lookup_group\" : null,\n   \"multivalue\" : 0,\n   \"name\" : \"integer1\",\n   \"name_short\" : \"L2integer1\",\n   \"optional\" : 1,\n   \"permissions\" : {\n      \"10\" : [\n         \"read\",\n         \"write_existing\",\n         \"write_existing_no_approval\",\n         \"write_new\",\n         \"write_new_no_approval\"\n      ]\n   },\n   \"position\" : 2,\n   \"remember\" : 0,\n   \"show_calculator\" : 0,\n   \"topic_id\" : null,\n   \"type\" : \"intgr\",\n   \"width\" : 50\n}\n",
+               "_export/instance4/records/00001_7" : "{\n   \"deleted\" : null,\n   \"deletedby\" : null,\n   \"id\" : 7,\n   \"linked_id\" : null,\n   \"parent_id\" : null,\n   \"records\" : [\n      {\n         \"approval\" : 0,\n         \"approvedby\" : null,\n         \"created\" : \"2014-10-10T01:00:00\",\n         \"createdby\" : 6,\n         \"record_id\" : null,\n         \"values\" : [\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 63,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"from\" : null,\n               \"layout_id\" : 64,\n               \"to\" : null,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 61,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 62,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 70,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 66,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 69,\n               \"value\" : \"Foo\",\n               \"value_index\" : \"foo\"\n            },\n            {\n               \"child_unique\" : 0,\n               \"content\" : null,\n               \"layout_id\" : 65,\n               \"mimetype\" : null,\n               \"name\" : null\n            }\n         ]\n      }\n   ],\n   \"serial\" : 1\n}\n",
+               "_export/instance4/records/00002_8" : "{\n   \"deleted\" : null,\n   \"deletedby\" : null,\n   \"id\" : 8,\n   \"linked_id\" : null,\n   \"parent_id\" : null,\n   \"records\" : [\n      {\n         \"approval\" : 0,\n         \"approvedby\" : null,\n         \"created\" : \"2014-10-10T01:00:00\",\n         \"createdby\" : 6,\n         \"record_id\" : null,\n         \"values\" : [\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 63,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"from\" : null,\n               \"layout_id\" : 64,\n               \"to\" : null,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 61,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 62,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 70,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 66,\n               \"value\" : null\n            },\n            {\n               \"child_unique\" : 0,\n               \"layout_id\" : 69,\n               \"value\" : \"Bar\",\n               \"value_index\" : \"bar\"\n            },\n            {\n               \"child_unique\" : 0,\n               \"content\" : null,\n               \"layout_id\" : 65,\n               \"mimetype\" : null,\n               \"name\" : null\n            }\n         ]\n      }\n   ],\n   \"serial\" : 2\n}\n",
+               "_export/users/00001_6" : "{\n   \"account_request\" : 0,\n   \"account_request_notes\" : null,\n   \"created\" : null,\n   \"created_by_id\" : null,\n   \"deleted\" : null,\n   \"email\" : \"user1@example.com\",\n   \"firstname\" : \"User1\",\n   \"freetext1\" : null,\n   \"freetext2\" : null,\n   \"groups\" : [\n      10,\n      11,\n      12,\n      13,\n      14,\n      15,\n      16\n   ],\n   \"id\" : 6,\n   \"lastlogin\" : null,\n   \"password\" : null,\n   \"permissions\" : [\n      \"superadmin\"\n   ],\n   \"pwchanged\" : null,\n   \"surname\" : \"User1\",\n   \"username\" : \"user1@example.com\",\n   \"value\" : \"User1, User1\"\n}\n",
+               "_export/users/00002_7" : "{\n   \"account_request\" : 0,\n   \"account_request_notes\" : null,\n   \"created\" : null,\n   \"created_by_id\" : null,\n   \"deleted\" : null,\n   \"email\" : \"user2@example.com\",\n   \"firstname\" : \"User2\",\n   \"freetext1\" : null,\n   \"freetext2\" : null,\n   \"groups\" : [\n      10\n   ],\n   \"id\" : 7,\n   \"lastlogin\" : null,\n   \"password\" : null,\n   \"permissions\" : [\n      \"audit\"\n   ],\n   \"pwchanged\" : null,\n   \"surname\" : \"User2\",\n   \"username\" : \"user2@example.com\",\n   \"value\" : \"User2, User2\"\n}\n",
+               "_export/users/00003_8" : "{\n   \"account_request\" : 0,\n   \"account_request_notes\" : null,\n   \"created\" : null,\n   \"created_by_id\" : null,\n   \"deleted\" : null,\n   \"email\" : \"user3@example.com\",\n   \"firstname\" : \"User3\",\n   \"freetext1\" : null,\n   \"freetext2\" : null,\n   \"groups\" : [\n      10\n   ],\n   \"id\" : 8,\n   \"lastlogin\" : null,\n   \"password\" : null,\n   \"permissions\" : [\n      \"useradmin\"\n   ],\n   \"pwchanged\" : null,\n   \"surname\" : \"User3\",\n   \"username\" : \"user3@example.com\",\n   \"value\" : \"User3, User3\"\n}\n",
+               "_export/users/00004_9" : "{\n   \"account_request\" : 0,\n   \"account_request_notes\" : null,\n   \"created\" : null,\n   \"created_by_id\" : null,\n   \"deleted\" : null,\n   \"email\" : \"user4@example.com\",\n   \"firstname\" : \"User4\",\n   \"freetext1\" : null,\n   \"freetext2\" : null,\n   \"groups\" : [\n      10,\n      17\n   ],\n   \"id\" : 9,\n   \"lastlogin\" : null,\n   \"password\" : null,\n   \"permissions\" : [],\n   \"pwchanged\" : null,\n   \"surname\" : \"User4\",\n   \"username\" : \"user4@example.com\",\n   \"value\" : \"User4, User4\"\n}\n",
+               "_export/users/00005_10" : "{\n   \"account_request\" : 0,\n   \"account_request_notes\" : null,\n   \"created\" : null,\n   \"created_by_id\" : null,\n   \"deleted\" : null,\n   \"email\" : \"user5@example.com\",\n   \"firstname\" : \"User5\",\n   \"freetext1\" : null,\n   \"freetext2\" : null,\n   \"groups\" : [\n      10,\n      18\n   ],\n   \"id\" : 10,\n   \"lastlogin\" : null,\n   \"password\" : null,\n   \"permissions\" : [],\n   \"pwchanged\" : null,\n   \"surname\" : \"User5\",\n   \"username\" : \"user5@example.com\",\n   \"value\" : \"User5, User5\"\n}\n"
+            },
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      }
+   ]
+}

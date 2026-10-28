@@ -1,0 +1,282 @@
+name: 206_api_oauth
+source:
+  - lib/GADS/API.pm (hook before, require_api_user, /clientcredentials, /api/token, /api/:sheet/record, /api/:sheet/record/:id, /api/record/:id, /api/:sheet/records/view/:id)
+  - Net::OAuth2::AuthorizationServer::PasswordGrant
+description: >
+  The OAuth2 password grant of the API: client credentials, access and
+  refresh tokens, and the record routes authenticated by a bearer token
+  (getting a record by serial or by the API index field, creating and
+  updating records, the records of a view), with their errors.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo, integer1: 10 }
+        - { string1: Bar, integer1: 20 }
+  - view:
+      op: create
+      sheet: s
+      user: superadmin
+      as: v
+      name: API view
+      columns: [string1]
+  - login: { user: superadmin }
+  - http:
+      id: credentials_not_logged_in
+      path: /clientcredentials
+  - http:
+      id: credentials
+      as: superadmin
+      path: /clientcredentials
+      expect: { status: 200 }
+  - http:
+      id: credentials_again
+      as: superadmin
+      path: /clientcredentials
+  - db:
+      id: clients
+      op: select
+      table: oauthclient
+      columns: [id, client_id, client_secret]
+  - http:
+      id: token_bad_grant
+      method: POST
+      path: /api/token
+      csrf: false
+      form: { grant_type: magic }
+  - http:
+      id: token_bad_client
+      method: POST
+      path: /api/token
+      csrf: false
+      form:
+        grant_type: password
+        client_id: nosuchclient
+        client_secret: nosuchsecret
+        username: user1@example.com
+        password: password
+  - http:
+      id: token_bad_password
+      method: POST
+      path: /api/token
+      csrf: false
+      form:
+        grant_type: password
+        client_id: T00000000003
+        client_secret: T00000000004
+        username: user1@example.com
+        password: wrong
+  - http:
+      id: token_basic_auth
+      method: POST
+      path: /api/token
+      csrf: false
+      headers: { Authorization: "Basic VDAwMDAwMDAwMDAzOlQwMDAwMDAwMDAwNA==" }
+      form:
+        grant_type: password
+        username: user1@example.com
+        password: password
+      capture: { access_basic: access_token, refresh_basic: refresh_token }
+  - http:
+      id: token
+      method: POST
+      path: /api/token
+      csrf: false
+      form:
+        grant_type: password
+        client_id: T00000000003
+        client_secret: T00000000004
+        username: user1@example.com
+        password: password
+      capture: { access: access_token, refresh: refresh_token }
+  - db:
+      id: tokens
+      op: select
+      table: oauthtoken
+      columns: [type, expires, oauthclient_id, user_id]
+      order_by: [type, expires]
+  - http:
+      id: record_no_token
+      path: "/api/{sheet:s}/record/1"
+  - http:
+      id: record_wrong_auth_type
+      path: "/api/{sheet:s}/record/1"
+      headers: { Authorization: "Token {var:access}" }
+  - http:
+      id: record_bad_token
+      path: "/api/{sheet:s}/record/1"
+      headers: { Authorization: "Bearer nosuchtoken" }
+  - http:
+      id: record_by_serial
+      path: "/api/{sheet:s}/record/1"
+      headers: { Authorization: "Bearer {var:access}" }
+  - http:
+      id: record_serial_not_found
+      path: "/api/{sheet:s}/record/99"
+      headers: { Authorization: "Bearer {var:access}" }
+  - http:
+      id: record_serial_invalid
+      path: "/api/{sheet:s}/record/abc"
+      headers: { Authorization: "Bearer {var:access}" }
+  - http:
+      id: record_unknown_sheet
+      path: /api/nosuchsheet/record/1
+      headers: { Authorization: "Bearer {var:access}" }
+  - http:
+      id: record_without_sheet
+      path: /api/record/1
+      headers: { Authorization: "Bearer {var:access}" }
+  - http:
+      id: records_of_view
+      path: "/api/{sheet:s}/records/view/{view:v}"
+      headers: { Authorization: "Bearer {var:access}" }
+  - http:
+      id: records_of_view_not_found
+      path: "/api/{sheet:s}/records/view/999"
+      headers: { Authorization: "Bearer {var:access}" }
+  - http:
+      id: create_needs_csrf
+      method: POST
+      path: "/api/{sheet:s}/record"
+      csrf: false
+      headers: { Authorization: "Bearer {var:access}" }
+      json: { L1string1: Created }
+  - http:
+      id: update_by_serial
+      method: PUT
+      path: "/api/{sheet:s}/record/2"
+      csrf: false
+      headers: { Authorization: "Bearer {var:access}" }
+      json: { L1string1: Bar via API, L1integer1: 21 }
+  - http:
+      id: update_unknown_column
+      method: PUT
+      path: "/api/{sheet:s}/record/2"
+      csrf: false
+      headers: { Authorization: "Bearer {var:access}" }
+      json: { nosuchfield: 1 }
+  - http:
+      id: update_invalid_value
+      method: PUT
+      path: "/api/{sheet:s}/record/2"
+      csrf: false
+      headers: { Authorization: "Bearer {var:access}" }
+      json: { L1integer1: notanumber }
+  - http:
+      id: record_after_update
+      path: "/api/{sheet:s}/record/2"
+      headers: { Authorization: "Bearer {var:access}" }
+  # Index the API by the string field
+  - db:
+      op: update
+      table: instance
+      where: { id: "@instance:s" }
+      set: { api_index_layout_id: "@column:s:string1" }
+  - http:
+      id: record_by_index
+      path: "/api/{sheet:s}/record/Foo"
+      headers: { Authorization: "Bearer {var:access}" }
+  - http:
+      id: record_by_index_not_found
+      path: "/api/{sheet:s}/record/Nothing"
+      headers: { Authorization: "Bearer {var:access}" }
+  - http:
+      id: update_by_index
+      method: PUT
+      path: "/api/{sheet:s}/record/Foo"
+      csrf: false
+      headers: { Authorization: "Bearer {var:access}" }
+      json: { L1integer1: 11 }
+  - http:
+      id: create_by_index
+      method: PUT
+      path: "/api/{sheet:s}/record/Baz"
+      csrf: false
+      headers: { Authorization: "Bearer {var:access}" }
+      json: { L1integer1: 30 }
+  - db:
+      id: strings
+      op: select
+      table: string
+      columns: [record_id, value]
+  - db:
+      id: integers
+      op: select
+      table: intgr
+      columns: [record_id, value]
+  # Perl's refresh grant fails: its token verification returns only the
+  # refresh token row (no client or user), after deleting the old access token
+  - http:
+      id: refresh
+      method: POST
+      path: /api/token
+      csrf: false
+      form:
+        grant_type: refresh_token
+        refresh_token: "{var:refresh}"
+  - db:
+      id: tokens_after_refresh
+      op: select
+      table: oauthtoken
+      columns: [type, expires, oauthclient_id, user_id]
+      order_by: [type, expires]
+  - http:
+      id: old_token_revoked
+      path: "/api/{sheet:s}/record/1"
+      headers: { Authorization: "Bearer {var:access}" }
+  - http:
+      id: refresh_again
+      method: POST
+      path: /api/token
+      csrf: false
+      form:
+        grant_type: refresh_token
+        refresh_token: "{var:refresh}"
+  - http:
+      id: refresh_unknown
+      method: POST
+      path: /api/token
+      csrf: false
+      form:
+        grant_type: refresh_token
+        refresh_token: nosuchtoken
+  # A new token replaces the refresh token of the client and user
+  - http:
+      id: token2
+      method: POST
+      path: /api/token
+      csrf: false
+      form:
+        grant_type: password
+        client_id: T00000000003
+        client_secret: T00000000004
+        username: user1@example.com
+        password: password
+      capture: { access2: access_token, refresh2: refresh_token }
+  - db:
+      id: tokens_after_token2
+      op: select
+      table: oauthtoken
+      columns: [type, expires, oauthclient_id, user_id]
+      order_by: [type, expires]
+  - http:
+      id: new_token
+      path: "/api/{sheet:s}/record/1"
+      headers: { Authorization: "Bearer {var:access2}" }
+  # Expired access tokens are deleted
+  - db:
+      op: update
+      table: oauthtoken
+      where: { type: access }
+      set: { expires: 1 }
+  - http:
+      id: expired_token
+      path: "/api/{sheet:s}/record/1"
+      headers: { Authorization: "Bearer {var:access2}" }
+  - db:
+      id: tokens_after_expiry
+      op: select
+      table: oauthtoken
+      columns: [type, oauthclient_id, user_id]
+      order_by: [type, expires]

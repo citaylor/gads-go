@@ -1,0 +1,165 @@
+name: 204_api_records
+source:
+  - lib/GADS/API.pm (any /api/:sheet/records, _get_records, fatal_handler)
+  - lib/GADS/Datum/*.pm (for_table)
+description: >
+  The records API that supplies the rows of the data table (DataTables
+  server-side processing): paging, quick search, sorting by a rendered
+  column, column filters, grouped views with record counts, aggregates, the
+  values of each column type, and JSON errors.
+steps:
+  - sheet:
+      as: cv
+      site_id: 1
+      instance_id: 2
+      data:
+        - { string1: foo1, integer1: 10 }
+        - { string1: foo2, integer1: 20 }
+  - sheet:
+      as: s
+      curval: cv
+      curval_fields: [string1, integer1]
+      data:
+        - string1: Foo
+          integer1: 50
+          enum1: foo1
+          tree1: tree1
+          date1: "2014-10-10"
+          daterange1: ["2000-10-10", "2001-10-10"]
+          person1: 1
+          curval1: 1
+        - string1: Bar
+          integer1: 99
+          enum1: foo2
+          tree1: tree2
+          date1: "2009-01-02"
+          daterange1: ["2008-10-10", "2009-10-10"]
+          curval1: 2
+        - string1: Foo
+          integer1: 10
+  - login: { user: superadmin }
+  - http:
+      id: data_page
+      as: superadmin
+      path: "/{sheet:s}/data"
+      no_body: true
+  - http:
+      id: records_default
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 1, start: 0, length: 10 }
+      expect: { status: 200 }
+  - http:
+      id: records_get
+      as: superadmin
+      path: "/api/{sheet:s}/records"
+      query: { draw: 2 }
+      expect: { status: 200 }
+  - http:
+      id: records_paged
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 3, start: 1, length: 1 }
+      expect: { status: 200 }
+  - http:
+      id: records_search
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 4, "search[value]": "  Bar  " }
+      expect: { status: 200 }
+  - http:
+      id: records_order
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 5, "order[0][column]": 2, "order[0][dir]": desc }
+      expect: { status: 200 }
+  - http:
+      id: records_order_last
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 5, "order[0][column]": -1, "order[0][dir]": asc }
+      expect: { status: 200 }
+  - http:
+      id: records_order_invalid
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 6, "order[0][column]": 99, "order[0][dir]": asc }
+      expect: { status: 400 }
+  - http:
+      id: records_column_filter
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form:
+        draw: 7
+        "columns[0][name]": "{column:string1}"
+        "columns[0][search][value]": Foo
+        "columns[1][name]": "{column:integer1}"
+        "columns[1][search][value]": ""
+      expect: { status: 200 }
+  - http:
+      id: unknown_sheet
+      as: superadmin
+      method: POST
+      path: /api/nosuchsheet/records
+      form: { draw: 1 }
+  - view:
+      sheet: s
+      user: superadmin
+      name: Grouped
+      columns: [string1, integer1]
+      groups: [string1]
+      as: grouped
+  - column: { op: update, sheet: s, column: integer1, set: { aggregate: sum } }
+  - http:
+      id: select_grouped
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { view: "{view:grouped}" }
+      no_body: true
+  - http:
+      id: records_grouped
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 8 }
+      expect: { status: 200 }
+  - http:
+      id: records_grouped_order
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 9, "order[0][column]": 1, "order[0][dir]": desc }
+      expect: { status: 200 }
+  - http:
+      id: records_group_filter
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      query: { group_filter: 1 }
+      form: { draw: 10 }
+      expect: { status: 200 }
+  - http:
+      id: data_grouped
+      as: superadmin
+      path: "/{sheet:s}/data"
+      expect: { status: 200 }
+  - http:
+      id: curval_sheet_records
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:cv}/records"
+      form: { draw: 11 }
+      expect: { status: 200 }
+  - http:
+      id: not_logged_in
+      method: POST
+      path: "/api/{sheet:s}/records"
+      csrf: 0
+      form: { draw: 1 }

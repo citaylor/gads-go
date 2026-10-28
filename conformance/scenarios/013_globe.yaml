@@ -1,0 +1,1723 @@
+name: 013_globe
+source:
+- t/013_globe.t
+description: Records plotted on a globe
+steps:
+- sheet:
+    data: &id002
+    - string1: France
+      integer1: 10
+      enum1: foo2
+    - string1: Great Britain
+      integer1: 15
+      enum1: foo3
+    calc_code: "function evaluate (L1string1) \n return L1string1 end"
+    calc_return_type: globe
+    as: main
+- globe:
+    id: simple
+    sheet: main
+- reset: {}
+- sheet:
+    data: &id001
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    - string1: Algeria
+      integer1: 10
+      enum1: foo1
+    - string1: Andorra
+      integer1: 10
+      enum1: foo2
+    - string1: Angola
+      integer1: 10
+      enum1: foo3
+    - string1: Australia
+      integer1: 10
+      enum1: foo1
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo2
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo3
+    - string1: Barbados
+      integer1: 10
+      enum1: foo1
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo2
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo3
+    - string1: Albania
+      integer1: 10
+      enum1: foo1
+    - string1: Algeria
+      integer1: 10
+      enum1: foo2
+    - string1: Andorra
+      integer1: 10
+      enum1: foo3
+    - string1: Angola
+      integer1: 10
+      enum1: foo1
+    - string1: Australia
+      integer1: 10
+      enum1: foo2
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo3
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo1
+    - string1: Barbados
+      integer1: 10
+      enum1: foo2
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo3
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo1
+    - string1: Albania
+      integer1: 10
+      enum1: foo2
+    - string1: Algeria
+      integer1: 10
+      enum1: foo3
+    - string1: Andorra
+      integer1: 10
+      enum1: foo1
+    - string1: Angola
+      integer1: 10
+      enum1: foo2
+    - string1: Australia
+      integer1: 10
+      enum1: foo3
+    - string1: Bahamas
+      integer1: 10
+      enum1: foo1
+    - string1: Bahrain
+      integer1: 10
+      enum1: foo2
+    - string1: Barbados
+      integer1: 10
+      enum1: foo3
+    - string1: Bermuda
+      integer1: 10
+      enum1: foo1
+    - string1: Bolivia
+      integer1: 10
+      enum1: foo2
+    - string1: Albania
+      integer1: 10
+      enum1: foo3
+    calc_code: "function evaluate (L1string1) \n return L1string1 end"
+    calc_return_type: globe
+    as: main
+- globe:
+    id: none group
+    sheet: main
+    group: enum1
+- globe:
+    id: none label
+    sheet: main
+    label: string1
+- globe:
+    id: none color
+    sheet: main
+    color: integer1
+- globe:
+    id: none color_count
+    sheet: main
+    color: -1
+- globe:
+    id: none group_numeric
+    sheet: main
+    group: integer1
+- globe:
+    id: none color_text
+    sheet: main
+    color: enum1
+- globe:
+    id: none label_numeric_group
+    sheet: main
+    label: integer1
+    group: enum1
+- globe:
+    id: none label_count
+    sheet: main
+    label: -1
+- globe:
+    id: none color_label_same
+    sheet: main
+    color: integer1
+    label: integer1
+    group: enum1
+    expect_error: No such column 'field\d+' on GADS::Schema::Result::Current
+- reset: {}
+- sheet:
+    data: *id001
+    calc_code: "function evaluate (L1string1) \n return L1string1 end"
+    calc_return_type: globe
+    as: main
+- view:
+    op: create
+    sheet: main
+    name: Test view
+    as: v
+    columns:
+    - calc1
+    groups:
+    - string1
+- globe:
+    id: with group
+    sheet: main
+    group: enum1
+    view_ref: v
+- globe:
+    id: with label
+    sheet: main
+    label: string1
+    view_ref: v
+- globe:
+    id: with color
+    sheet: main
+    color: integer1
+    view_ref: v
+- globe:
+    id: with color_count
+    sheet: main
+    color: -1
+    view_ref: v
+- globe:
+    id: with group_numeric
+    sheet: main
+    group: integer1
+    view_ref: v
+- reset: {}
+- sheet:
+    data: *id001
+    calc_code: "function evaluate (L1string1) \n return L1string1 end"
+    calc_return_type: globe
+    as: main
+- view:
+    op: create
+    sheet: main
+    name: Test view
+    as: v
+    columns:
+    - string1
+    groups:
+    - string1
+- globe:
+    id: without group
+    sheet: main
+    group: enum1
+    view_ref: v
+- globe:
+    id: without label
+    sheet: main
+    label: string1
+    view_ref: v
+- globe:
+    id: without color
+    sheet: main
+    color: integer1
+    view_ref: v
+- globe:
+    id: without color_count
+    sheet: main
+    color: -1
+    view_ref: v
+- globe:
+    id: without group_numeric
+    sheet: main
+    group: integer1
+    view_ref: v
+- reset: {}
+- sheet:
+    as: cv
+    data:
+    - string1: Foo
+      integer1: 250
+      enum1:
+      - foo1
+      - foo2
+    - string1: FooBar
+      integer1: 25
+      enum1:
+      - foo2
+      - foo3
+    - string1: Bar
+      integer1: 25
+      enum1:
+      - foo1
+    - string1: Foo
+      integer1: 25
+      enum1:
+      - foo2
+    multivalue: 1
+    instance_id: 2
+- held:
+    op: find
+    as: c1
+    sheet: cv
+    current_id: 1
+- held:
+    op: set
+    as: c1
+    values:
+      integer1: 25
+- held:
+    op: write
+    as: c1
+    options:
+      no_alerts: 1
+- sheet:
+    data:
+    - string1: France
+      curval1:
+      - 1
+      - 2
+    - string1: Germany
+      curval1: 3
+    - string1: Spain
+      curval1: 4
+    curval: cv
+    multivalue: 1
+    calc_code: "function evaluate (L1string1) \n return L1string1 end"
+    calc_return_type: globe
+    as: main
+- globe:
+    id: curval color
+    sheet: main
+    color:
+    - curval1
+    - cv:integer1
+- reset: {}
+- sheet:
+    data: *id002
+    calc_code: "function evaluate (L1string1) \n return L1string1 end"
+    calc_return_type: globe
+    as: main
+- globe:
+    id: invalid group
+    sheet: main
+    group: 999
+- globe:
+    id: invalid label
+    sheet: main
+    label: 999
+- globe:
+    id: invalid color
+    sheet: main
+    color: 999

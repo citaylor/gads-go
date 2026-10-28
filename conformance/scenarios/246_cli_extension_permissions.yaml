@@ -1,0 +1,43 @@
+name: 246_cli_extension_permissions
+source:
+  - bin/add-extension.pl
+  - bin/bulk_layout_permissions.pl
+description: >
+  GADS-dev scripts: adding an allowed file type (MIME type and extension)
+  to a file field, with its checks and confirmation, and the bulk import
+  and export of the group permissions of fields from and to CSV files.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - cli: { id: ae_none, script: add-extension.pl }
+  - cli: { id: ae_bad_int, script: add-extension.pl, args: [--mimetype=application/x-foo, --extension=foo, --instance=abc, "--layout={column:s:file1}"] }
+  - cli: { id: ae_allowed_type, script: add-extension.pl, args: [--mimetype=text/x-foo, --extension=foo, --instance=1, "--layout={column:s:file1}"] }
+  - cli: { id: ae_allowed_ext, script: add-extension.pl, args: [--mimetype=application/x-foo, --extension=PDF, --instance=1, "--layout={column:s:file1}"] }
+  - cli: { id: ae_not_file, script: add-extension.pl, args: [--mimetype=application/x-foo, --extension=foo, --instance=1, "--layout={column:s:string1}"], stdin: "y\n" }
+  - cli: { id: ae_no_column, script: add-extension.pl, args: [--mimetype=application/x-foo, --extension=foo, --instance=1, --layout=999], stdin: "y\n" }
+  - cli: { id: ae_cancel, script: add-extension.pl, args: [--mimetype=application/x-foo, --extension=foo, --instance=1, "--layout={column:s:file1}"], stdin: "no\n" }
+  - db: { id: ae_after_cancel, op: select, table: layout, where: { type: file }, columns: [id, options] }
+  - cli: { id: ae_add, script: add-extension.pl, args: [--mimetype=application/x-foo, --extension=foo, --instance=1, "--layout={column:s:file1}"], stdin: "Yes\n" }
+  - cli: { id: ae_add_again, script: add-extension.pl, args: [--mimetype=application/x-foo, --extension=foo, --instance=1, "--layout={column:s:file1}"], stdin: "y\n" }
+  - cli: { id: ae_add_second, script: add-extension.pl, args: [--mimetype=application/x-bar, --extension=bar, --instance=1, "--layout={column:s:file1}"], stdin: "y\n" }
+  - db: { id: ae_after_add, op: select, table: layout, where: { type: file }, columns: [id, options] }
+  - cli: { id: blp_none, script: bulk_layout_permissions.pl }
+  - cli: { id: blp_no_file, script: bulk_layout_permissions.pl, args: [--action, import] }
+  - cli: { id: blp_bad_action, script: bulk_layout_permissions.pl, args: [--action, other, --file, x.csv] }
+  - cli: { id: blp_bad_option, script: bulk_layout_permissions.pl, args: [--nope] }
+  - cli: { id: blp_import_missing, script: bulk_layout_permissions.pl, args: [--action, import, --file, "{file:missing.csv}"] }
+  - cli: { id: blp_import_bad_header, script: bulk_layout_permissions.pl, args: [--action, import, --file, "{file:p.csv}"], files: { p.csv: "layout_id,group_id\n8,1\n" } }
+  - cli: { id: blp_import_no_header, script: bulk_layout_permissions.pl, args: [--action, import, --file, "{file:p.csv}"], files: { p.csv: "" } }
+  - cli: { id: blp_import_bad_layout, script: bulk_layout_permissions.pl, args: [--action, import, --file, "{file:p.csv}"], files: { p.csv: "permission,layout_id,group_id\nread,8,1\nread,x8,1\n" } }
+  - cli: { id: blp_import_bad_group, script: bulk_layout_permissions.pl, args: [--action, import, --file, "{file:p.csv}"], files: { p.csv: "layout_id,group_id,permission\n8,g,read\n" } }
+  - cli: { id: blp_import_bad_permission, script: bulk_layout_permissions.pl, args: [--action, import, --file, "{file:p.csv}"], files: { p.csv: "layout_id,group_id,permission\n8,1,delete\n" } }
+  - cli: { id: blp_import_no_layout, script: bulk_layout_permissions.pl, args: [--action, import, --file, "{file:p.csv}"], files: { p.csv: "layout_id,group_id,permission\n999,1,read\n" } }
+  - cli: { id: blp_import_no_group, script: bulk_layout_permissions.pl, args: [--action, import, --file, "{file:p.csv}"], files: { p.csv: "layout_id,group_id,permission\n8,99,read\n" } }
+  - user: { op: group, name: second, users: [] }
+  - db: { id: blp_before, op: select, table: layout_group, where: { group_id: 10 }, columns: [layout_id, group_id, permission], order_by: [layout_id, group_id, permission] }
+  - cli: { id: blp_import, script: bulk_layout_permissions.pl, args: [--action, import, --file, "{file:p.csv}"], files: { p.csv: "layout_id,group_id,permission\n8,1,read\n8,10,read\n9,10,write_new_no_approval\n9,10,write_existing\n\"12\",10,write_existing_no_approval\n8,10,read\n" } }
+  - cli: { id: blp_import_partial, script: bulk_layout_permissions.pl, args: [--action, import, --file, "{file:p.csv}"], files: { p.csv: "layout_id,group_id,permission\n13,10,read\n13,10,bad\n" } }
+  - db: { id: blp_after, op: select, table: layout_group, where: { group_id: 10 }, columns: [layout_id, group_id, permission], order_by: [layout_id, group_id, permission] }
+  - db: { id: blp_after_partial, op: select, table: layout_group, where: { group_id: 10 }, columns: [layout_id, group_id, permission], order_by: [layout_id, group_id, permission] }
+  - cli: { id: blp_export_existing, script: bulk_layout_permissions.pl, args: [--action, export, --file, "{file:e.csv}"], files: { e.csv: "x" }, stdin: "10\n" }
+  - cli: { id: blp_export_bad_input, script: bulk_layout_permissions.pl, args: [--action, export, --file, "{file:out.csv}"], stdin: "10,a\n" }
+  - cli: { id: blp_export, script: bulk_layout_permissions.pl, args: [--action, export, --file, "{file:out.csv}"], stdin: " 10 , 99 \n", observe_files: content }

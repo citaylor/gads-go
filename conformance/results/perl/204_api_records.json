@@ -1,0 +1,3411 @@
+{
+   "runner" : "perl",
+   "scenario" : "204_api_records",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4",
+               "5"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "data_page",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_default",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "data" : [
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "3"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "1"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "50"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           "foo1"
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           [
+                              "tree1"
+                           ]
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : [
+                           "2014-10-10"
+                        ]
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : [
+                           "2000-10-10 to 2001-10-10"
+                        ]
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "3",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : [
+                           {
+                              "fields" : [
+                                 {
+                                    "column_id" : "8",
+                                    "name" : "string1",
+                                    "type" : "string",
+                                    "values" : [
+                                       "foo1"
+                                    ]
+                                 },
+                                 {
+                                    "column_id" : "9",
+                                    "name" : "integer1",
+                                    "type" : "intgr",
+                                    "values" : [
+                                       "10"
+                                    ]
+                                 }
+                              ],
+                              "record_id" : "1",
+                              "version_id" : null
+                           }
+                        ]
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "b_red"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : [
+                           "2000"
+                        ]
+                     },
+                     "_id" : "3"
+                  },
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "4"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "2"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Bar"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "99"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           "foo2"
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           [
+                              "tree2"
+                           ]
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : [
+                           "2009-01-02"
+                        ]
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : [
+                           "2008-10-10 to 2009-10-10"
+                        ]
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "4",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : [
+                           {
+                              "fields" : [
+                                 {
+                                    "column_id" : "8",
+                                    "name" : "string1",
+                                    "type" : "string",
+                                    "values" : [
+                                       "foo2"
+                                    ]
+                                 },
+                                 {
+                                    "column_id" : "9",
+                                    "name" : "integer1",
+                                    "type" : "intgr",
+                                    "values" : [
+                                       "20"
+                                    ]
+                                 }
+                              ],
+                              "record_id" : "2",
+                              "version_id" : null
+                           }
+                        ]
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "b_red"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : [
+                           "2008"
+                        ]
+                     },
+                     "_id" : "4"
+                  },
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "5"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "3"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "10"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           ""
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           []
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : []
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : []
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "5",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : []
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "a_grey"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : []
+                     },
+                     "_id" : "5"
+                  }
+               ],
+               "draw" : "1",
+               "recordsFiltered" : "3",
+               "recordsTotal" : "3"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_get",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "data" : [
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "3"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "1"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "50"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           "foo1"
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           [
+                              "tree1"
+                           ]
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : [
+                           "2014-10-10"
+                        ]
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : [
+                           "2000-10-10 to 2001-10-10"
+                        ]
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "3",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : [
+                           {
+                              "fields" : [
+                                 {
+                                    "column_id" : "8",
+                                    "name" : "string1",
+                                    "type" : "string",
+                                    "values" : [
+                                       "foo1"
+                                    ]
+                                 },
+                                 {
+                                    "column_id" : "9",
+                                    "name" : "integer1",
+                                    "type" : "intgr",
+                                    "values" : [
+                                       "10"
+                                    ]
+                                 }
+                              ],
+                              "record_id" : "1",
+                              "version_id" : null
+                           }
+                        ]
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "b_red"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : [
+                           "2000"
+                        ]
+                     },
+                     "_id" : "3"
+                  },
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "4"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "2"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Bar"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "99"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           "foo2"
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           [
+                              "tree2"
+                           ]
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : [
+                           "2009-01-02"
+                        ]
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : [
+                           "2008-10-10 to 2009-10-10"
+                        ]
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "4",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : [
+                           {
+                              "fields" : [
+                                 {
+                                    "column_id" : "8",
+                                    "name" : "string1",
+                                    "type" : "string",
+                                    "values" : [
+                                       "foo2"
+                                    ]
+                                 },
+                                 {
+                                    "column_id" : "9",
+                                    "name" : "integer1",
+                                    "type" : "intgr",
+                                    "values" : [
+                                       "20"
+                                    ]
+                                 }
+                              ],
+                              "record_id" : "2",
+                              "version_id" : null
+                           }
+                        ]
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "b_red"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : [
+                           "2008"
+                        ]
+                     },
+                     "_id" : "4"
+                  },
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "5"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "3"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "10"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           ""
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           []
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : []
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : []
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "5",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : []
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "a_grey"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : []
+                     },
+                     "_id" : "5"
+                  }
+               ],
+               "draw" : "2",
+               "recordsFiltered" : "3",
+               "recordsTotal" : "3"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_paged",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "data" : [
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "4"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "2"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Bar"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "99"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           "foo2"
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           [
+                              "tree2"
+                           ]
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : [
+                           "2009-01-02"
+                        ]
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : [
+                           "2008-10-10 to 2009-10-10"
+                        ]
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "4",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : [
+                           {
+                              "fields" : [
+                                 {
+                                    "column_id" : "8",
+                                    "name" : "string1",
+                                    "type" : "string",
+                                    "values" : [
+                                       "foo2"
+                                    ]
+                                 },
+                                 {
+                                    "column_id" : "9",
+                                    "name" : "integer1",
+                                    "type" : "intgr",
+                                    "values" : [
+                                       "20"
+                                    ]
+                                 }
+                              ],
+                              "record_id" : "2",
+                              "version_id" : null
+                           }
+                        ]
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "b_red"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : [
+                           "2008"
+                        ]
+                     },
+                     "_id" : "4"
+                  }
+               ],
+               "draw" : "3",
+               "recordsFiltered" : "3",
+               "recordsTotal" : "3"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_search",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "data" : [
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "4"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "2"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Bar"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "99"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           "foo2"
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           [
+                              "tree2"
+                           ]
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : [
+                           "2009-01-02"
+                        ]
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : [
+                           "2008-10-10 to 2009-10-10"
+                        ]
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "4",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : [
+                           {
+                              "fields" : [
+                                 {
+                                    "column_id" : "8",
+                                    "name" : "string1",
+                                    "type" : "string",
+                                    "values" : [
+                                       "foo2"
+                                    ]
+                                 },
+                                 {
+                                    "column_id" : "9",
+                                    "name" : "integer1",
+                                    "type" : "intgr",
+                                    "values" : [
+                                       "20"
+                                    ]
+                                 }
+                              ],
+                              "record_id" : "2",
+                              "version_id" : null
+                           }
+                        ]
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "b_red"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : [
+                           "2008"
+                        ]
+                     },
+                     "_id" : "4"
+                  }
+               ],
+               "draw" : "4",
+               "recordsFiltered" : "1",
+               "recordsTotal" : "1"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_order",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "data" : [
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "3"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "1"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "50"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           "foo1"
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           [
+                              "tree1"
+                           ]
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : [
+                           "2014-10-10"
+                        ]
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : [
+                           "2000-10-10 to 2001-10-10"
+                        ]
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "3",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : [
+                           {
+                              "fields" : [
+                                 {
+                                    "column_id" : "8",
+                                    "name" : "string1",
+                                    "type" : "string",
+                                    "values" : [
+                                       "foo1"
+                                    ]
+                                 },
+                                 {
+                                    "column_id" : "9",
+                                    "name" : "integer1",
+                                    "type" : "intgr",
+                                    "values" : [
+                                       "10"
+                                    ]
+                                 }
+                              ],
+                              "record_id" : "1",
+                              "version_id" : null
+                           }
+                        ]
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "b_red"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : [
+                           "2000"
+                        ]
+                     },
+                     "_id" : "3"
+                  },
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "4"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "2"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Bar"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "99"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           "foo2"
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           [
+                              "tree2"
+                           ]
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : [
+                           "2009-01-02"
+                        ]
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : [
+                           "2008-10-10 to 2009-10-10"
+                        ]
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "4",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : [
+                           {
+                              "fields" : [
+                                 {
+                                    "column_id" : "8",
+                                    "name" : "string1",
+                                    "type" : "string",
+                                    "values" : [
+                                       "foo2"
+                                    ]
+                                 },
+                                 {
+                                    "column_id" : "9",
+                                    "name" : "integer1",
+                                    "type" : "intgr",
+                                    "values" : [
+                                       "20"
+                                    ]
+                                 }
+                              ],
+                              "record_id" : "2",
+                              "version_id" : null
+                           }
+                        ]
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "b_red"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : [
+                           "2008"
+                        ]
+                     },
+                     "_id" : "4"
+                  },
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "5"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "3"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "10"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           ""
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           []
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : []
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : []
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "5",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : []
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "a_grey"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : []
+                     },
+                     "_id" : "5"
+                  }
+               ],
+               "draw" : "5",
+               "recordsFiltered" : "3",
+               "recordsTotal" : "3"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_order_last",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "data" : [
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "5"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "3"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "10"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           ""
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           []
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : []
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : []
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "5",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : []
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "a_grey"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : []
+                     },
+                     "_id" : "5"
+                  },
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "3"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "1"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "50"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           "foo1"
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           [
+                              "tree1"
+                           ]
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : [
+                           "2014-10-10"
+                        ]
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : [
+                           "2000-10-10 to 2001-10-10"
+                        ]
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "3",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : [
+                           {
+                              "fields" : [
+                                 {
+                                    "column_id" : "8",
+                                    "name" : "string1",
+                                    "type" : "string",
+                                    "values" : [
+                                       "foo1"
+                                    ]
+                                 },
+                                 {
+                                    "column_id" : "9",
+                                    "name" : "integer1",
+                                    "type" : "intgr",
+                                    "values" : [
+                                       "10"
+                                    ]
+                                 }
+                              ],
+                              "record_id" : "1",
+                              "version_id" : null
+                           }
+                        ]
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "b_red"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : [
+                           "2000"
+                        ]
+                     },
+                     "_id" : "3"
+                  },
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "4"
+                        ]
+                     },
+                     "19" : {
+                        "column_id" : "19",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "20" : {
+                        "column_id" : "20",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "21" : {
+                        "column_id" : "21",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "23" : {
+                        "column_id" : "23",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "24" : {
+                        "column_id" : "24",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "2"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Bar"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "99"
+                        ]
+                     },
+                     "27" : {
+                        "column_id" : "27",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           "foo2"
+                        ]
+                     },
+                     "28" : {
+                        "column_id" : "28",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           [
+                              "tree2"
+                           ]
+                        ]
+                     },
+                     "29" : {
+                        "column_id" : "29",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : [
+                           "2009-01-02"
+                        ]
+                     },
+                     "30" : {
+                        "column_id" : "30",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : [
+                           "2008-10-10 to 2009-10-10"
+                        ]
+                     },
+                     "31" : {
+                        "column_id" : "31",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "32" : {
+                        "column_id" : "32",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "33" : {
+                        "column_id" : "33",
+                        "curval_record_id" : "4",
+                        "limit_rows" : null,
+                        "name" : "curval1",
+                        "parent_layout_identifier" : "table2",
+                        "type" : "curval",
+                        "values" : [
+                           {
+                              "fields" : [
+                                 {
+                                    "column_id" : "8",
+                                    "name" : "string1",
+                                    "type" : "string",
+                                    "values" : [
+                                       "foo2"
+                                    ]
+                                 },
+                                 {
+                                    "column_id" : "9",
+                                    "name" : "integer1",
+                                    "type" : "intgr",
+                                    "values" : [
+                                       "20"
+                                    ]
+                                 }
+                              ],
+                              "record_id" : "2",
+                              "version_id" : null
+                           }
+                        ]
+                     },
+                     "34" : {
+                        "column_id" : "34",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "b_red"
+                        ]
+                     },
+                     "35" : {
+                        "column_id" : "35",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : [
+                           "2008"
+                        ]
+                     },
+                     "_id" : "4"
+                  }
+               ],
+               "draw" : "5",
+               "recordsFiltered" : "3",
+               "recordsTotal" : "3"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_order_invalid",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Invalid column ID for sort"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_column_filter",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "data" : [],
+               "draw" : "7",
+               "recordsFiltered" : "0",
+               "recordsTotal" : "0"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "unknown_sheet",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Table not found: nosuchsheet"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "select_grouped",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_grouped",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "aggregate" : {
+                  "26" : {
+                     "column_id" : "26",
+                     "name" : "integer1",
+                     "type" : "intgr",
+                     "values" : [
+                        "159"
+                     ]
+                  }
+               },
+               "data" : [
+                  {
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Bar"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "99"
+                        ]
+                     },
+                     "_count" : {
+                        "column_id" : "_count",
+                        "type" : "string",
+                        "url" : "group_filter=1&25=Bar",
+                        "values" : [
+                           "1 record"
+                        ]
+                     }
+                  },
+                  {
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "60"
+                        ]
+                     },
+                     "_count" : {
+                        "column_id" : "_count",
+                        "type" : "string",
+                        "url" : "group_filter=1&25=Foo",
+                        "values" : [
+                           "2 records"
+                        ]
+                     }
+                  }
+               ],
+               "draw" : "8",
+               "recordsFiltered" : "2",
+               "recordsTotal" : "2",
+               "recordsTotalUngrouped" : "3"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_grouped_order",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "aggregate" : {
+                  "26" : {
+                     "column_id" : "26",
+                     "name" : "integer1",
+                     "type" : "intgr",
+                     "values" : [
+                        "159"
+                     ]
+                  }
+               },
+               "data" : [
+                  {
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "60"
+                        ]
+                     },
+                     "_count" : {
+                        "column_id" : "_count",
+                        "type" : "string",
+                        "url" : "group_filter=1&25=Foo",
+                        "values" : [
+                           "2 records"
+                        ]
+                     }
+                  },
+                  {
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Bar"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "99"
+                        ]
+                     },
+                     "_count" : {
+                        "column_id" : "_count",
+                        "type" : "string",
+                        "url" : "group_filter=1&25=Bar",
+                        "values" : [
+                           "1 record"
+                        ]
+                     }
+                  }
+               ],
+               "draw" : "9",
+               "recordsFiltered" : "2",
+               "recordsTotal" : "2",
+               "recordsTotalUngrouped" : "3"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_group_filter",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "aggregate" : {
+                  "26" : {
+                     "column_id" : "26",
+                     "name" : "integer1",
+                     "type" : "intgr",
+                     "values" : [
+                        "159"
+                     ]
+                  }
+               },
+               "data" : [
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "3"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "50"
+                        ]
+                     },
+                     "_id" : "3"
+                  },
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "4"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Bar"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "99"
+                        ]
+                     },
+                     "_id" : "4"
+                  },
+                  {
+                     "18" : {
+                        "column_id" : "18",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "5"
+                        ]
+                     },
+                     "25" : {
+                        "column_id" : "25",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "Foo"
+                        ]
+                     },
+                     "26" : {
+                        "column_id" : "26",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "10"
+                        ]
+                     },
+                     "_id" : "5"
+                  }
+               ],
+               "draw" : "10",
+               "recordsFiltered" : "3",
+               "recordsTotal" : "3"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "data_grouped",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>data_table | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Table: Layout1</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom\">\n      <nav class=\"table-nav-tabs\">\n    <ul class=\"nav nav-tabs\">\n        <li class=\"nav-item\">\n            <a href=\"/table1/data?table_clear_state=1\" class=\"nav-link  active\"   aria-current=\"page\">\n            <span>Records</span>\n            </a>\n        </li>\n        <li class=\"nav-item\">\n            <a href=\"/table1/\" class=\"nav-link\">\n            <span>Dashboard</span>\n            </a>\n        </li>\n        \n            <li class=\"nav-item\">\n                <a href=\"/table1/edit\" class=\"nav-link\">\n                <span>Edit Table</span>\n                </a>\n            </li>\n            <li class=\"nav-item\">\n                <a href=\"/table1/report\" class=\"nav-link\">\n                <span>Reports</span>\n                </a>\n            </li>\n        \n    </ul>\n</nav>\n\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--lg-aside\" id=\"content-block\">\n        \n        <div class=\"content-block__navigation\">\n  <div class=\"content-block__navigation-left\">\n    <div class=\"list list--horizontal\">\n      <ul class=\"list__items\">\n      \n        <li class=\"list__item \">\n          <div class=\"dropdown dropdown--large\">\n  <button\n    class=\"dropdown-toggle dropdown__toggle\"\n    type=\"button\"\n    id=\"views\"\n    data-bs-toggle=\"dropdown\"\n    aria-haspopup=\"listbox\"\n    aria-expanded=\"false\"\n    aria-labelledby=\"=views\"\n  >\n    <span>Current view: Grouped</span>\n  </button>\n\n  <div class=\"dropdown-menu dropdown__menu\">\n    \n    <div class=\"dropdown__group\">\n      \n      <div class=\"dropdown__group-title\">\n        Personal views\n      </div>\n      \n      <ul class=\"dropdown__list\" role=\"listbox\" aria-labelledby=\"dropdown\">\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain  '\n               href='/table1/data?view=1&table_clear_state=1'\n            >\n              Grouped\n            </a>\n          \n        </li>\n        \n      </ul>\n    </div>\n    \n  </div>\n</div>\n\n\n        </li>\n      \n        \n        <li class=\"list__item \">\n          <div class=\"list list--horizontal list--no-borders\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <a href=\"?viewtype=table\" class=\"link link--primary link--table link--active\">\n        Table        \n      </a>\n      \n    </li>\n    \n    <li class=\"list__item\">\n      \n      <a href=\"?viewtype=graph\" class=\"link link--primary link--graph\">\n        Graph        \n      </a>\n      \n    </li>\n    \n    <li class=\"list__item\">\n      \n      <a href=\"?viewtype=timeline\" class=\"link link--primary link--timeline\">\n        Timeline        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n        </li>\n      </ul>\n    </div>\n  </div>\n  \n  <div class=\"content-block__navigation-right\">\n    <div class=\"dropdown \">\n  <button\n    class=\"dropdown-toggle dropdown__toggle\"\n    type=\"button\"\n    id=\"manage_views\"\n    data-bs-toggle=\"dropdown\"\n    aria-haspopup=\"listbox\"\n    aria-expanded=\"false\"\n    aria-labelledby=\"=manage_views\"\n  >\n    <span>Manage views</span>\n  </button>\n\n  <div class=\"dropdown-menu dropdown__menu dropdown-menu-right\">\n    \n    <div class=\"dropdown__group\">\n      \n      <ul class=\"dropdown__list\" role=\"listbox\" aria-labelledby=\"dropdown\">\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain link--add '\n               href='/table1/view/0'\n            >\n              Add a view\n            </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain  '\n               href='/table1/view/1'\n            >\n              Edit current view\n            </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain  '\n               href='/table1/view/0?clone=1'\n            >\n              Clone current view\n            </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n          <a role=\"menuitem\"\n             id=\"\"\n             class=\"link link--plain \"\n             tabindex=\"-1\"\n             data-bs-toggle=\"modal\"\n             data-bs-target=\"#alertMeModal\"\n          >\n            Alert me\n          </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n          <a role=\"menuitem\"\n             id=\"\"\n             class=\"link link--plain \"\n             tabindex=\"-1\"\n             data-bs-toggle=\"modal\"\n             data-bs-target=\"#viewsOfAnotherUserModal\"\n          >\n            Manage views of another user\n          </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n          <a role=\"menuitem\"\n             id=\"\"\n             class=\"link link--plain \"\n             tabindex=\"-1\"\n             data-bs-toggle=\"modal\"\n             data-bs-target=\"#historicViewModal\"\n          >\n            Historic view\n          </a>\n          \n        </li>\n        \n      </ul>\n    </div>\n    \n  </div>\n</div>\n\n<div class=\"dropdown \">\n  <button\n    class=\"dropdown-toggle dropdown__toggle\"\n    type=\"button\"\n    id=\"bulk_actions\"\n    data-bs-toggle=\"dropdown\"\n    aria-haspopup=\"listbox\"\n    aria-expanded=\"false\"\n    aria-labelledby=\"=bulk_actions\"\n  >\n    <span>Actions</span>\n  </button>\n\n  <div class=\"dropdown-menu dropdown__menu dropdown-menu-right\">\n    \n    <div class=\"dropdown__group\">\n      \n      <ul class=\"dropdown__list\" role=\"listbox\" aria-labelledby=\"dropdown\">\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain  '\n               href='/table1/link/'\n            >\n              Add a linked record\n            </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain  '\n               href='/table1/data?download'\n            >\n              Download records\n            </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain  '\n               href='/table1/purge/'\n            >\n              Manage deleted records\n            </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain  '\n               href='/table1/historic_purge/'\n            >\n              Field Data Purge\n            </a>\n          \n        </li>\n        \n      </ul>\n    </div>\n    \n  </div>\n</div>\n\n\n  </div>\n</div>\n\n\n\n<div class=\"content-block__head row\"> <div class=\"content-block__info col-lg-6\"></div> <div class=\"content-block__aside col-lg-6\"> <a href=\"/table1/record/\" class=\"btn btn-add btn-primary\"> Add a record </a> </div> </div> <div class=\"content-block__main\"> <div class=\"content-block__main-content\"> <table class=\"data-table table table-striped table-hover table-search\" data-href=\"/table1/record\" width=\"100%\" data-config='eyJhamF4Ijp7InR5cGUiOiJQT1NUIiwidXJsIjoiL2FwaS90YWJsZTEvcmVjb3Jkcz9jc3JmLXRva2VuPVQwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAyJmdyb3VwX2ZpbHRlcj0mY3VydmFsX2xheW91dF9pZD0mY3VydmFsX3JlY29yZF9pZD0ifSwiYXV0b1dpZHRoIjowLCJjb2x1bW5zIjpbeyJuYW1lIjoiX2NvdW50Iiwib3JkZXJhYmxlIjowLCJ0aXRsZSI6IlJlY29yZCBjb3VudCIsInR5cGUiOiJzdHJpbmcifSx7Im5hbWUiOiIyNSIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJzdHJpbmcxIiwidHlwZSI6InN0cmluZyJ9LHsibmFtZSI6IjI2Iiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6ImludGVnZXIxIiwidHlwZSI6ImludGdyIn0seyJjbGFzc05hbWUiOiJkdHItY29udHJvbCBkYXRhLXRhYmxlX19oZWFkZXItLWludmlzaWJsZSIsIm5hbWUiOiJUb2dnbGUgY2hpbGQgcm93Iiwib3JkZXJhYmxlIjowLCJ0YXJnZXRzIjotMX1dLCJpbmZvIjoxLCJsYW5ndWFnZSI6eyJlbXB0eVRhYmxlIjoiVGhlcmUgYXJlIG5vIHJlY29yZHMgYXZhaWxhYmxlIiwibGVuZ3RoTWVudSI6IlJvd3MgcGVyIHBhZ2UgX01FTlVfIiwicGFnaW5hdGUiOnsibmV4dCI6Ik5leHQgcGFnZSIsInByZXZpb3VzIjoiUHJldmlvdXMgcGFnZSJ9LCJzZWFyY2giOiI8c3BhbiBjbGFzcz1cInZpc3VhbGx5LWhpZGRlblwiPlNlYXJjaCBpbiB0YWJsZTo8L3NwYW4+Iiwic2VhcmNoUGxhY2Vob2xkZXIiOiJTZWFyY2ggaW4gdGhpcyB0YWJsZSJ9LCJsYXlvdXQiOnsiYm90dG9tRW5kIjoiaW5mbyIsImJvdHRvbVN0YXJ0IjoicGFnaW5nIiwidG9wRW5kIjpbeyJwYWdlTGVuZ3RoIjp7Im1lbnUiOlsxMCwyNSw1MCwxMDAsMjAwXX19LCJmdWxsc2NyZWVuIl0sInRvcFN0YXJ0Ijoic2VhcmNoIn0sIm9yZGVyIjpbXSwib3JkZXJpbmciOjEsInBhZ2VMZW5ndGgiOjUwLCJwYWdpbmciOjEsInByb2Nlc3NpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIiwic2VydmVyU2lkZSI6MSwic3RhdGVTYXZlIjoxfQ==' > <caption class=\"visually-hidden\">Table for records</caption> <thead> <tr > <th > <span> _count </span> </th> <th > <span> 25 </span> </th> <th > <span> 26 </span> </th> <th > <span> Toggle child row </span> </th> </tr> </thead> <tbody> </tbody> <tfoot> <tr > <td > </td> <td > </td> <td > </td> <td > </td> </tr> </tfoot> </table> </div> </div>\n<div class=\"modal modal--form\" id=\"alertMeModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"alertMeModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"alertMeModalLabel\">\n      Configure alert for view: Grouped\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n\n      <form method=\"post\" class=\"\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\">\n          <div class=\"modal-body\">\n            \n            <div role=\"alert\" class=\"alert alert-danger\">\n                It is not possible to configure alerts on views containing groups. Please use a view without a group.\n            </div>\n            \n          </div>\n\n          \n\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  </div>\n</div>\n\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n<div class=\"modal modal--form\" id=\"viewsOfAnotherUserModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"viewsOfAnotherUserModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"viewsOfAnotherUserModalLabel\">\n      Manage views of other user\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n\n      <form method=\"post\" class=\"\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n\n        <div class=\"modal-frame\">\n          <div class=\"modal-body\">\n            \n<div class=\"form-group mb-4\">\n\n  <div class=\"input  input--autocomplete typeahead__container \">\n    <div class=\"input__label\">\n  \n  <label for=\"views_other_user_id\" class=\"form-label\">\n    Name\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input type=\"hidden\" id=\"views_other_user_id\" name=\"views_other_user_id\" value=\"\">\n\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"views_other_user_id_typeahead\"\n        name=\"views_other_user_id_typeahead\"\n        placeholder=\"Start typing...\"\n        value=\"\"\n        autocomplete=\"off\"\n      >\n\n    </div>\n  </div>\n\n  \n\n\n</div>\n\n\n          </div>\n\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-primary\" name=\"modal_views_other_user\" value=\"submit\">\n    <span class=\"btn__title\">Submit</span>\n  </button>  </div>\n</div>\n\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n<div class=\"modal modal--form\" id=\"historicViewModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"historicViewModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"historicViewModalLabel\">\n       View data as it was at a previous date\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n\n      <form method=\"post\" class=\"\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n\n        <div class=\"modal-frame\">\n          <div class=\"modal-body\">\n\n            \n<div class=\"form-group\">\n\n  <div class=\"input input--datepicker\"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"rewind_date\" class=\"form-label\">\n    Date (yyyy-mm-dd)\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"rewind_date\"\n        name=\"rewind_date\"\n        placeholder=\"yyyy-mm-dd\"\n        value=\"\"\n        data-restore-value=\"\"\n        data-dateformat-datepicker=\"yyyy-mm-dd\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n\n<div class=\"form-group\">\n\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"rewind_time\" class=\"form-label\">\n    Time (HH:MM:SS)\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"rewind_time\"\n        name=\"rewind_time\"\n        placeholder=\"23:59:59\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n\n          </div>\n\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-primary\" name=\"modal_rewind\" value=\"submit\">\n    <span class=\"btn__title\">Submit</span>\n  </button>  </div>\n</div>\n\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n<div class=\"modal\" id=\"readMore\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"readMoreLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"readMoreLabel\">\n      Record\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <div class=\"modal-frame\">\n        <div class=\"modal-body\">\n          Loading ...\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"modal modal--form\" id=\"bulkDelete\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"bulkDeleteLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"bulkDeleteLabel\">\n      Delete records\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      \n      <form method=\"post\" class=\"\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\">\n          <div class=\"modal-body pb-0\">\n            <div role=\"alert\" class=\"alert alert-danger mt-0 mb-3 p-3\">\n              Are you sure you want to delete records?\n            </div>\n            <p>\n              Are you sure you want to delete all the records that are in the current view?\n            </p>\n          </div>\n          \n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"modal_delete\" value=\"submit\">\n    <span class=\"btn__title\">Delete</span>\n  </button>  </div>\n</div>\n\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval_sheet_records",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "data" : [
+                  {
+                     "1" : {
+                        "column_id" : "1",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "1"
+                        ]
+                     },
+                     "10" : {
+                        "column_id" : "10",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           ""
+                        ]
+                     },
+                     "11" : {
+                        "column_id" : "11",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           []
+                        ]
+                     },
+                     "12" : {
+                        "column_id" : "12",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : []
+                     },
+                     "13" : {
+                        "column_id" : "13",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : []
+                     },
+                     "14" : {
+                        "column_id" : "14",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "15" : {
+                        "column_id" : "15",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "16" : {
+                        "column_id" : "16",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "a_grey"
+                        ]
+                     },
+                     "17" : {
+                        "column_id" : "17",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : []
+                     },
+                     "2" : {
+                        "column_id" : "2",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "3" : {
+                        "column_id" : "3",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "4" : {
+                        "column_id" : "4",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "6" : {
+                        "column_id" : "6",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "7" : {
+                        "column_id" : "7",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "1"
+                        ]
+                     },
+                     "8" : {
+                        "column_id" : "8",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "foo1"
+                        ]
+                     },
+                     "9" : {
+                        "column_id" : "9",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "10"
+                        ]
+                     },
+                     "_id" : "1"
+                  },
+                  {
+                     "1" : {
+                        "column_id" : "1",
+                        "name" : "ID",
+                        "parent_id" : null,
+                        "type" : "id",
+                        "values" : [
+                           "2"
+                        ]
+                     },
+                     "10" : {
+                        "column_id" : "10",
+                        "name" : "enum1",
+                        "type" : "enum",
+                        "values" : [
+                           ""
+                        ]
+                     },
+                     "11" : {
+                        "column_id" : "11",
+                        "name" : "tree1",
+                        "type" : "tree",
+                        "values" : [
+                           []
+                        ]
+                     },
+                     "12" : {
+                        "column_id" : "12",
+                        "name" : "date1",
+                        "type" : "date",
+                        "values" : []
+                     },
+                     "13" : {
+                        "column_id" : "13",
+                        "name" : "daterange1",
+                        "type" : "daterange",
+                        "values" : []
+                     },
+                     "14" : {
+                        "column_id" : "14",
+                        "name" : "file1",
+                        "type" : "file",
+                        "values" : []
+                     },
+                     "15" : {
+                        "column_id" : "15",
+                        "name" : "person1",
+                        "type" : "person",
+                        "values" : []
+                     },
+                     "16" : {
+                        "column_id" : "16",
+                        "name" : "rag1",
+                        "type" : "rag",
+                        "values" : [
+                           "a_grey"
+                        ]
+                     },
+                     "17" : {
+                        "column_id" : "17",
+                        "name" : "calc1",
+                        "type" : "calc",
+                        "values" : []
+                     },
+                     "2" : {
+                        "column_id" : "2",
+                        "name" : "Last edited time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "3" : {
+                        "column_id" : "3",
+                        "name" : "Last edited by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "4" : {
+                        "column_id" : "4",
+                        "name" : "Created by",
+                        "type" : "createdby",
+                        "values" : [
+                           {
+                              "details" : [
+                                 {
+                                    "type" : "email",
+                                    "value" : "user1@example.com"
+                                 }
+                              ],
+                              "text" : "User1, User1"
+                           }
+                        ]
+                     },
+                     "6" : {
+                        "column_id" : "6",
+                        "name" : "Created time",
+                        "type" : "createddate",
+                        "values" : [
+                           "2014-10-10 02:00:00"
+                        ]
+                     },
+                     "7" : {
+                        "column_id" : "7",
+                        "name" : "Serial",
+                        "type" : "serial",
+                        "values" : [
+                           "2"
+                        ]
+                     },
+                     "8" : {
+                        "column_id" : "8",
+                        "name" : "string1",
+                        "type" : "string",
+                        "values" : [
+                           "foo2"
+                        ]
+                     },
+                     "9" : {
+                        "column_id" : "9",
+                        "name" : "integer1",
+                        "type" : "intgr",
+                        "values" : [
+                           "20"
+                        ]
+                     },
+                     "_id" : "2"
+                  }
+               ],
+               "draw" : "11",
+               "recordsFiltered" : "2",
+               "recordsTotal" : "2"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not_logged_in",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "json" : {
+               "is_error" : "true",
+               "message" : "csrf-token missing for uri /api/table1/records"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      }
+   ]
+}

@@ -1,0 +1,403 @@
+{
+   "runner" : "perl",
+   "scenario" : "221_web_record_body_chronology",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:held",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:held",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "6"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "versions",
+         "observed" : [
+            {
+               "createdby" : "1",
+               "current_id" : "4",
+               "id" : "4"
+            },
+            {
+               "createdby" : "1",
+               "current_id" : "4",
+               "id" : "5"
+            },
+            {
+               "createdby" : "1",
+               "current_id" : "4",
+               "id" : "6"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "record_body",
+         "observed" : {
+            "body" : "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<div class=\"content-block__main\">\n  <form\n    class=\"form-edit\"\n    method=\"post\"\n    enctype=\"multipart/form-data\"\n    data-current-id=\"4\"\n    \n    \n    >\n    <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n<input type=\"hidden\"\n       name=\"submission_token\"\n       value=\"T0000000000000000000000000000006\">\n<input type=\"hidden\"\n       name=\"current_id\"\n       value=\"4\">\n\n    \n    <fieldset class=\"fieldset\">\n      <div class=\"fieldset__legend fieldset__legend--hidden\">\n        <legend>\n          \n        </legend>\n      </div>\n\n      <div class=\"content-block__main-content\">\n        <div class=\"row\">\n          \n\n          <div class=\"content-block__right col-lg-12\">\n            \n  <style type=\"text/css\" rel=\"stylesheet\">\n    img.autosize {\n      max-height:200px;\n      max-width:200px;\n      height:auto;\n      width:auto;\n    }\n  </style>\n  \n  <div class=\"mb-3\">\n    <div class=\"card card--expandable card-primary card-inverse card--topic\">\n      <div class=\"card-header\">\n        <div class=\"card-header__toggle \" data-bs-toggle=\"collapse\" data-bs-target=\"#topic-modal\" role=\"button\" aria-expanded=\"true\">\n          <span class=\"card__title\">\n            Other\n          </span>\n        </div>\n        <div class=\"card__header-right\">\n          \n\n          <button\n            type=\"button\"\n            class=\"btn btn-view btn-js-view\"\n          >\n            <span class=\"btn__title\">View</span>\n          </button>\n\n          <span class=\"card__toggle \" data-bs-toggle=\"collapse\" data-bs-target=\"#topic-modal\" aria-expanded=\"true\">\n            <span>Toggle collapsible</span>\n          </span>\n        </div>\n      </div>\n      <div class=\"collapse show\" id=\"topic-modal\">\n        <div class=\"card__content card-body\">\n          \n          \n\n  \n  <div class=\"card__view-content\">\n    <div class=\"list list--vertical list--key-value list--no-borders list--fields\">\n      <ul class=\"list__items list-group list-group-flush\">\n        \n        <li class=\"list__item list-group-item\">\n          <span class=\"list__key\">string1</span>\n          <span class=\"list__value\">\n    \n        \n            <div class=\"hft-lines\">Foo2<br /></div>\n        \n    \n</span>\n        </li>\n        \n        <li class=\"list__item list-group-item\">\n          <span class=\"list__key\">integer1</span>\n          <span class=\"list__value\">30</span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">enum1</span>\n          <span class=\"list__value\">\n    \n        \n    \n</span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">tree1</span>\n          <span class=\"list__value\">\n    \n        \n    \n</span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">date1</span>\n          <span class=\"list__value\"></span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">daterange1</span>\n          <span class=\"list__value\"></span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">file1</span>\n          <span class=\"list__value\">\n    \n</span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">person1</span>\n          <span class=\"list__value\"></span>\n        </li>\n        \n        <li class=\"list__item list-group-item\">\n          <span class=\"list__key\">curval1</span>\n          <span class=\"list__value\">\n    \n        \n  \n    \n      <table class=\"table table-curcommon table-striped\">\n        <caption class=\"visually-hidden\">Table to show values in curval1</caption>\n        \n                <tr role=\"button\" tabindex=\"0\" class=\"record-popup even\" data-record-id=\"2\"\n                    >\n                    \n                    \n                        <td class=\"string\" title=\"string1\">\n                            \n    \n        \n            <div class=\"hft-lines\">Blue<br /></div>\n        \n    \n\n                        </td>\n                    \n                </tr>\n          \n        \n      </table>\n    \n    \n\n    \n</span>\n        </li>\n        \n        <li class=\"list__item list-group-item\">\n          <span class=\"list__key\">rag1</span>\n          <span class=\"list__value\">\n    \n    \n    \n        \n    \n        \n    \n        \n    \n        \n    \n        \n          \n        \n    \n        \n    \n    <span class=\"rag rag--undefined\" title=\"undefined\" aria-labelledby=\"rag_undefined_meaning\">\n      <span>&#x3f;</span>\n    </span>\n</span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">calc1</span>\n          <span class=\"list__value\">\n    \n        \n            <div class=\"hft-lines\"><br /></div>\n        \n    \n</span>\n        </li>\n        \n      </ul>\n    </div>\n  </div>\n\n  <div class=\"card__edit-content\">\n  \n  \n  </div>\n  \n\n        </div>\n      </div>\n    </div>\n  </div>\n\n          </div>\n        </div>\n      </div>\n\n      <footer class=\"content-block__footer\">\n        <div class=\"content-block__footer-container\">\n          \n<div class=\"row\">\n  \n    <div class=\"col-md-4 mb-3 mb-md-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-md-8 d-md-flex justify-content-md-end align-items-center\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n        </div>\n      </footer>\n    </fieldset>\n  </form>\n</div>\n\n\n<div class=\"modal-footer modal-footer_sticky mt-1 pb-0 px-0\">\n  <div class=\"modal-footer__left\"></div>\n  <div class=\"modal-footer__right\">\n    <a class=\"btn btn-primary my-3\" href=\"/record/4\" target=\"_blank\">Open full record</a>\n  </div>\n</div>\n\n\n\n    <div class=\"modal modal--curval\" id=\"curvalModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"curvalModal]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-lg modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"curvalModalLabel\">\n      \n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <div class=\"modal-frame\">\n        <div class=\"modal-body\"></div>\n      </div>\n    </div>\n  </div>\n</div>\n\n    <div class=\"modal\" id=\"detailsModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"detailsModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"detailsModalLabel\">\n      \n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <div class=\"modal-frame\">\n        <div class=\"modal-body\"></div>\n      </div>\n    </div>\n  </div>\n</div>\n\n    <div class=\"modal\" id=\"readMore\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"readMoreLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"readMoreLabel\">\n      Record\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <div class=\"modal-frame\">\n        <div class=\"modal-body\">\n          Loading ...\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "record_body_version",
+         "observed" : {
+            "body" : "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<div class=\"content-block__main\">\n  <form\n    class=\"form-edit\"\n    method=\"post\"\n    enctype=\"multipart/form-data\"\n    data-current-id=\"4\"\n    \n    \n    >\n    <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n<input type=\"hidden\"\n       name=\"submission_token\"\n       value=\"T0000000000000000000000000000011\">\n<input type=\"hidden\"\n       name=\"current_id\"\n       value=\"4\">\n\n    \n    <fieldset class=\"fieldset\">\n      <div class=\"fieldset__legend fieldset__legend--hidden\">\n        <legend>\n          \n        </legend>\n      </div>\n\n      <div class=\"content-block__main-content\">\n        <div class=\"row\">\n          \n\n          <div class=\"content-block__right col-lg-12\">\n            \n  <style type=\"text/css\" rel=\"stylesheet\">\n    img.autosize {\n      max-height:200px;\n      max-width:200px;\n      height:auto;\n      width:auto;\n    }\n  </style>\n  \n  <div class=\"mb-3\">\n    <div class=\"card card--expandable card-primary card-inverse card--topic\">\n      <div class=\"card-header\">\n        <div class=\"card-header__toggle \" data-bs-toggle=\"collapse\" data-bs-target=\"#topic-modal\" role=\"button\" aria-expanded=\"true\">\n          <span class=\"card__title\">\n            Other\n          </span>\n        </div>\n        <div class=\"card__header-right\">\n          \n\n          <button\n            type=\"button\"\n            class=\"btn btn-view btn-js-view\"\n          >\n            <span class=\"btn__title\">View</span>\n          </button>\n\n          <span class=\"card__toggle \" data-bs-toggle=\"collapse\" data-bs-target=\"#topic-modal\" aria-expanded=\"true\">\n            <span>Toggle collapsible</span>\n          </span>\n        </div>\n      </div>\n      <div class=\"collapse show\" id=\"topic-modal\">\n        <div class=\"card__content card-body\">\n          \n          \n\n  \n  <div class=\"card__view-content\">\n    <div class=\"list list--vertical list--key-value list--no-borders list--fields\">\n      <ul class=\"list__items list-group list-group-flush\">\n        \n        <li class=\"list__item list-group-item\">\n          <span class=\"list__key\">string1</span>\n          <span class=\"list__value\">\n    \n        \n            <div class=\"hft-lines\">Foo1<br /></div>\n        \n    \n</span>\n        </li>\n        \n        <li class=\"list__item list-group-item\">\n          <span class=\"list__key\">integer1</span>\n          <span class=\"list__value\">10</span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">enum1</span>\n          <span class=\"list__value\">\n    \n        \n    \n</span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">tree1</span>\n          <span class=\"list__value\">\n    \n        \n    \n</span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">date1</span>\n          <span class=\"list__value\"></span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">daterange1</span>\n          <span class=\"list__value\"></span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">file1</span>\n          <span class=\"list__value\">\n    \n</span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">person1</span>\n          <span class=\"list__value\"></span>\n        </li>\n        \n        <li class=\"list__item list-group-item\">\n          <span class=\"list__key\">curval1</span>\n          <span class=\"list__value\">\n    \n        \n  \n    \n      <table class=\"table table-curcommon table-striped\">\n        <caption class=\"visually-hidden\">Table to show values in curval1</caption>\n        \n                <tr role=\"button\" tabindex=\"0\" class=\"record-popup even\" data-record-id=\"1\"\n                    >\n                    \n                    \n                        <td class=\"string\" title=\"string1\">\n                            \n    \n        \n            <div class=\"hft-lines\">Red<br /></div>\n        \n    \n\n                        </td>\n                    \n                </tr>\n          \n        \n      </table>\n    \n    \n\n    \n</span>\n        </li>\n        \n        <li class=\"list__item list-group-item\">\n          <span class=\"list__key\">rag1</span>\n          <span class=\"list__value\">\n    \n    \n    \n        \n    \n        \n    \n        \n    \n        \n    \n        \n          \n        \n    \n        \n    \n    <span class=\"rag rag--undefined\" title=\"undefined\" aria-labelledby=\"rag_undefined_meaning\">\n      <span>&#x3f;</span>\n    </span>\n</span>\n        </li>\n        \n        <li class=\"list__item list__item--blank list-group-item\">\n          <span class=\"list__key\">calc1</span>\n          <span class=\"list__value\">\n    \n        \n            <div class=\"hft-lines\"><br /></div>\n        \n    \n</span>\n        </li>\n        \n      </ul>\n    </div>\n  </div>\n\n  <div class=\"card__edit-content\">\n  \n  \n  </div>\n  \n\n        </div>\n      </div>\n    </div>\n  </div>\n\n          </div>\n        </div>\n      </div>\n\n      <footer class=\"content-block__footer\">\n        <div class=\"content-block__footer-container\">\n          \n<div class=\"row\">\n  \n    <div class=\"col-md-4 mb-3 mb-md-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-md-8 d-md-flex justify-content-md-end align-items-center\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n        </div>\n      </footer>\n    </fieldset>\n  </form>\n</div>\n\n\n<div class=\"modal-footer modal-footer_sticky mt-1 pb-0 px-0\">\n  <div class=\"modal-footer__left\"></div>\n  <div class=\"modal-footer__right\">\n    <a class=\"btn btn-primary my-3\" href=\"/record/4\" target=\"_blank\">Open full record</a>\n  </div>\n</div>\n\n\n\n    <div class=\"modal modal--curval\" id=\"curvalModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"curvalModal]Label\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-lg modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"curvalModalLabel\">\n      \n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <div class=\"modal-frame\">\n        <div class=\"modal-body\"></div>\n      </div>\n    </div>\n  </div>\n</div>\n\n    <div class=\"modal\" id=\"detailsModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"detailsModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"detailsModalLabel\">\n      \n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <div class=\"modal-frame\">\n        <div class=\"modal-body\"></div>\n      </div>\n    </div>\n  </div>\n</div>\n\n    <div class=\"modal\" id=\"readMore\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"readMoreLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"readMoreLabel\">\n      Record\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <div class=\"modal-frame\">\n        <div class=\"modal-body\">\n          Loading ...\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "record_body_missing",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "record_body_anon",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"http://localhost/login?return_url=%2Frecord_body%2F4\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/login?return_url=%2Frecord_body%2F4",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chronology",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>chronology | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom\">\n      <nav class=\"table-nav-tabs\">\n    <ul class=\"nav nav-tabs\">\n        <li class=\"nav-item\">\n            <a href=\"/table1/data?table_clear_state=1\" class=\"nav-link\" >\n            <span>Records</span>\n            </a>\n        </li>\n        <li class=\"nav-item\">\n            <a href=\"/table1/\" class=\"nav-link\">\n            <span>Dashboard</span>\n            </a>\n        </li>\n        \n            <li class=\"nav-item\">\n                <a href=\"/table1/edit\" class=\"nav-link\">\n                <span>Edit Table</span>\n                </a>\n            </li>\n            <li class=\"nav-item\">\n                <a href=\"/table1/report\" class=\"nav-link\">\n                <span>Reports</span>\n                </a>\n            </li>\n        \n    </ul>\n</nav>\n\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--record\" id=\"content-block\">\n        \n\n\n\n        \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<div class=\"modal fade\" id=\"readmore_modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"readmore_modal_heading\" style=\"display:none\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header d-flex justify-content-between\">\n                \n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n                </button>\n            </div>\n\n            <div class=\"modal-body\">\n               \n\n            </div>\n            <div class=\"modal-footer\">\n            \n                \n                \n                \n            \n            </div>\n        \n        </div>\n    </div>\n</div>\n\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Chronology of edits for record 4\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    </div>\n  </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <div class=\"content-block__main-content\">\n    \n    <div class=\"card card-secondary\">\n      <div class=\"card-header\">\n        <h2 class=\"card__header\">\n          <span> 2014-10-10 02:00:00 -  record created by User1, User1 </span>\n        </h2>\n      </div>\n\n      <div class=\"card-body\">\n        <div class=\"card__content\">\n          <div class=\"list list--vertical list--key-value list--no-borders\">\n            <ul class=\"list__items\">\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> string1 </span>\n                <span class=\"list__value\"> \n    \n        \n            <div class=\"hft-lines\">Foo1<br /></div>\n        \n    \n  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> integer1 </span>\n                <span class=\"list__value\"> 10  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> curval1 </span>\n                <span class=\"list__value\"> \n    \n        \n  \n    \n      <table class=\"table table-curcommon table-striped\">\n        <caption class=\"visually-hidden\">Table to show values in curval1</caption>\n        \n                <tr role=\"button\" tabindex=\"0\" class=\"record-popup even\" data-record-id=\"1\"\n                    >\n                    \n                    \n                        <td class=\"string\" title=\"string1\">\n                            \n    \n        \n            <div class=\"hft-lines\">Red<br /></div>\n        \n    \n\n                        </td>\n                    \n                </tr>\n          \n        \n      </table>\n    \n    \n\n    \n  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> rag1 </span>\n                <span class=\"list__value\"> \n    \n    \n    \n    <span class=\"rag rag--undefined\" title=\"\" aria-labelledby=\"rag_undefined_meaning\">\n      <span>&#x3f;</span>\n    </span>\n  </span>\n              </li>\n              \n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>\n    \n    <div class=\"card card-secondary\">\n      <div class=\"card-header\">\n        <h2 class=\"card__header\">\n          <span> 2014-10-10 02:00:00 -  record updated by User1, User1 </span>\n        </h2>\n      </div>\n\n      <div class=\"card-body\">\n        <div class=\"card__content\">\n          <div class=\"list list--vertical list--key-value list--no-borders\">\n            <ul class=\"list__items\">\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> string1 </span>\n                <span class=\"list__value\"> changed to \n    \n        \n            <div class=\"hft-lines\">Foo2<br /></div>\n        \n    \n  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> integer1 </span>\n                <span class=\"list__value\"> changed to 20  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> curval1 </span>\n                <span class=\"list__value\"> \n    \n        \n  \n    \n      <table class=\"table table-curcommon table-striped\">\n        <caption class=\"visually-hidden\">Table to show values in curval1</caption>\n        \n                <tr role=\"button\" tabindex=\"0\" class=\"record-popup even\" data-record-id=\"1\"\n                    data-version-id=\"1\">\n                    \n                        <td><em>Removed:</em></td>\n                    \n                    \n                        <td class=\"string\" title=\"string1\">\n                            \n    \n        \n            <div class=\"hft-lines\">Red<br /></div>\n        \n    \n\n                        </td>\n                    \n                </tr>\n          \n        \n                <tr role=\"button\" tabindex=\"0\" class=\"record-popup odd\" data-record-id=\"2\"\n                    data-version-id=\"2\">\n                    \n                        <td><em>Added:</em></td>\n                    \n                    \n                        <td class=\"string\" title=\"string1\">\n                            \n    \n        \n            <div class=\"hft-lines\">Blue<br /></div>\n        \n    \n\n                        </td>\n                    \n                </tr>\n          \n        \n      </table>\n    \n    \n\n    \n  </span>\n              </li>\n              \n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>\n    \n    <div class=\"card card-secondary\">\n      <div class=\"card-header\">\n        <h2 class=\"card__header\">\n          <span> 2014-10-10 02:00:00 -  record updated by User1, User1 </span>\n        </h2>\n      </div>\n\n      <div class=\"card-body\">\n        <div class=\"card__content\">\n          <div class=\"list list--vertical list--key-value list--no-borders\">\n            <ul class=\"list__items\">\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> integer1 </span>\n                <span class=\"list__value\"> changed to 30  </span>\n              </li>\n              \n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>\n    \n  </div>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chronology_normal",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>chronology | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom\">\n      <nav class=\"table-nav-tabs\">\n    <ul class=\"nav nav-tabs\">\n        <li class=\"nav-item\">\n            <a href=\"/table1/data?table_clear_state=1\" class=\"nav-link\" >\n            <span>Records</span>\n            </a>\n        </li>\n        <li class=\"nav-item\">\n            <a href=\"/table1/\" class=\"nav-link\">\n            <span>Dashboard</span>\n            </a>\n        </li>\n        \n    </ul>\n</nav>\n\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--record\" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Record ID 99 not found\n  </div>\n  \n\n\n\n\n        \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<div class=\"modal fade\" id=\"readmore_modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"readmore_modal_heading\" style=\"display:none\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header d-flex justify-content-between\">\n                \n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n                </button>\n            </div>\n\n            <div class=\"modal-body\">\n               \n\n            </div>\n            <div class=\"modal-footer\">\n            \n                \n                \n                \n            \n            </div>\n        \n        </div>\n    </div>\n</div>\n\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Chronology of edits for record 4\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    </div>\n  </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <div class=\"content-block__main-content\">\n    \n    <div class=\"card card-secondary\">\n      <div class=\"card-header\">\n        <h2 class=\"card__header\">\n          <span> 2014-10-10 02:00:00 -  record created by User1, User1 </span>\n        </h2>\n      </div>\n\n      <div class=\"card-body\">\n        <div class=\"card__content\">\n          <div class=\"list list--vertical list--key-value list--no-borders\">\n            <ul class=\"list__items\">\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> string1 </span>\n                <span class=\"list__value\"> \n    \n        \n            <div class=\"hft-lines\">Foo1<br /></div>\n        \n    \n  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> integer1 </span>\n                <span class=\"list__value\"> 10  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> curval1 </span>\n                <span class=\"list__value\"> \n    \n        \n  \n    \n      <table class=\"table table-curcommon table-striped\">\n        <caption class=\"visually-hidden\">Table to show values in curval1</caption>\n        \n                <tr role=\"button\" tabindex=\"0\" class=\"record-popup even\" data-record-id=\"1\"\n                    >\n                    \n                    \n                        <td class=\"string\" title=\"string1\">\n                            \n    \n        \n            <div class=\"hft-lines\">Red<br /></div>\n        \n    \n\n                        </td>\n                    \n                </tr>\n          \n        \n      </table>\n    \n    \n\n    \n  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> rag1 </span>\n                <span class=\"list__value\"> \n    \n    \n    \n    <span class=\"rag rag--undefined\" title=\"\" aria-labelledby=\"rag_undefined_meaning\">\n      <span>&#x3f;</span>\n    </span>\n  </span>\n              </li>\n              \n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>\n    \n    <div class=\"card card-secondary\">\n      <div class=\"card-header\">\n        <h2 class=\"card__header\">\n          <span> 2014-10-10 02:00:00 -  record updated by User1, User1 </span>\n        </h2>\n      </div>\n\n      <div class=\"card-body\">\n        <div class=\"card__content\">\n          <div class=\"list list--vertical list--key-value list--no-borders\">\n            <ul class=\"list__items\">\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> string1 </span>\n                <span class=\"list__value\"> changed to \n    \n        \n            <div class=\"hft-lines\">Foo2<br /></div>\n        \n    \n  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> integer1 </span>\n                <span class=\"list__value\"> changed to 20  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> curval1 </span>\n                <span class=\"list__value\"> \n    \n        \n  \n    \n      <table class=\"table table-curcommon table-striped\">\n        <caption class=\"visually-hidden\">Table to show values in curval1</caption>\n        \n                <tr role=\"button\" tabindex=\"0\" class=\"record-popup even\" data-record-id=\"1\"\n                    data-version-id=\"1\">\n                    \n                        <td><em>Removed:</em></td>\n                    \n                    \n                        <td class=\"string\" title=\"string1\">\n                            \n    \n        \n            <div class=\"hft-lines\">Red<br /></div>\n        \n    \n\n                        </td>\n                    \n                </tr>\n          \n        \n                <tr role=\"button\" tabindex=\"0\" class=\"record-popup odd\" data-record-id=\"2\"\n                    data-version-id=\"2\">\n                    \n                        <td><em>Added:</em></td>\n                    \n                    \n                        <td class=\"string\" title=\"string1\">\n                            \n    \n        \n            <div class=\"hft-lines\">Blue<br /></div>\n        \n    \n\n                        </td>\n                    \n                </tr>\n          \n        \n      </table>\n    \n    \n\n    \n  </span>\n              </li>\n              \n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>\n    \n    <div class=\"card card-secondary\">\n      <div class=\"card-header\">\n        <h2 class=\"card__header\">\n          <span> 2014-10-10 02:00:00 -  record updated by User1, User1 </span>\n        </h2>\n      </div>\n\n      <div class=\"card-body\">\n        <div class=\"card__content\">\n          <div class=\"list list--vertical list--key-value list--no-borders\">\n            <ul class=\"list__items\">\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> integer1 </span>\n                <span class=\"list__value\"> changed to 30  </span>\n              </li>\n              \n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>\n    \n  </div>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chronology_without_integer",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>chronology | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom\">\n      <nav class=\"table-nav-tabs\">\n    <ul class=\"nav nav-tabs\">\n        <li class=\"nav-item\">\n            <a href=\"/table1/data?table_clear_state=1\" class=\"nav-link\" >\n            <span>Records</span>\n            </a>\n        </li>\n        <li class=\"nav-item\">\n            <a href=\"/table1/\" class=\"nav-link\">\n            <span>Dashboard</span>\n            </a>\n        </li>\n        \n    </ul>\n</nav>\n\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--record\" id=\"content-block\">\n        \n\n\n\n        \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<div class=\"modal fade\" id=\"readmore_modal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"readmore_modal_heading\" style=\"display:none\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header d-flex justify-content-between\">\n                \n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n                </button>\n            </div>\n\n            <div class=\"modal-body\">\n               \n\n            </div>\n            <div class=\"modal-footer\">\n            \n                \n                \n                \n            \n            </div>\n        \n        </div>\n    </div>\n</div>\n\n<div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      Chronology of edits for record 4\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      \n    </div>\n  </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <div class=\"content-block__main-content\">\n    \n    <div class=\"card card-secondary\">\n      <div class=\"card-header\">\n        <h2 class=\"card__header\">\n          <span> 2014-10-10 02:00:00 -  record created by User1, User1 </span>\n        </h2>\n      </div>\n\n      <div class=\"card-body\">\n        <div class=\"card__content\">\n          <div class=\"list list--vertical list--key-value list--no-borders\">\n            <ul class=\"list__items\">\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> string1 </span>\n                <span class=\"list__value\"> \n    \n        \n            <div class=\"hft-lines\">Foo1<br /></div>\n        \n    \n  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> curval1 </span>\n                <span class=\"list__value\"> \n    \n        \n  \n    \n      <table class=\"table table-curcommon table-striped\">\n        <caption class=\"visually-hidden\">Table to show values in curval1</caption>\n        \n                <tr role=\"button\" tabindex=\"0\" class=\"record-popup even\" data-record-id=\"1\"\n                    >\n                    \n                    \n                        <td class=\"string\" title=\"string1\">\n                            \n    \n        \n            <div class=\"hft-lines\">Red<br /></div>\n        \n    \n\n                        </td>\n                    \n                </tr>\n          \n        \n      </table>\n    \n    \n\n    \n  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> rag1 </span>\n                <span class=\"list__value\"> \n    \n    \n    \n    <span class=\"rag rag--undefined\" title=\"\" aria-labelledby=\"rag_undefined_meaning\">\n      <span>&#x3f;</span>\n    </span>\n  </span>\n              </li>\n              \n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>\n    \n    <div class=\"card card-secondary\">\n      <div class=\"card-header\">\n        <h2 class=\"card__header\">\n          <span> 2014-10-10 02:00:00 -  record updated by User1, User1 </span>\n        </h2>\n      </div>\n\n      <div class=\"card-body\">\n        <div class=\"card__content\">\n          <div class=\"list list--vertical list--key-value list--no-borders\">\n            <ul class=\"list__items\">\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> string1 </span>\n                <span class=\"list__value\"> changed to \n    \n        \n            <div class=\"hft-lines\">Foo2<br /></div>\n        \n    \n  </span>\n              </li>\n              \n              <li class=\"list__item \">\n                <span class=\"list__key\"> curval1 </span>\n                <span class=\"list__value\"> \n    \n        \n  \n    \n      <table class=\"table table-curcommon table-striped\">\n        <caption class=\"visually-hidden\">Table to show values in curval1</caption>\n        \n                <tr role=\"button\" tabindex=\"0\" class=\"record-popup even\" data-record-id=\"1\"\n                    data-version-id=\"1\">\n                    \n                        <td><em>Removed:</em></td>\n                    \n                    \n                        <td class=\"string\" title=\"string1\">\n                            \n    \n        \n            <div class=\"hft-lines\">Red<br /></div>\n        \n    \n\n                        </td>\n                    \n                </tr>\n          \n        \n                <tr role=\"button\" tabindex=\"0\" class=\"record-popup odd\" data-record-id=\"2\"\n                    data-version-id=\"2\">\n                    \n                        <td><em>Added:</em></td>\n                    \n                    \n                        <td class=\"string\" title=\"string1\">\n                            \n    \n        \n            <div class=\"hft-lines\">Blue<br /></div>\n        \n    \n\n                        </td>\n                    \n                </tr>\n          \n        \n      </table>\n    \n    \n\n    \n  </span>\n              </li>\n              \n            </ul>\n          </div>\n        </div>\n      </div>\n    </div>\n    \n  </div>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chronology_missing",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chronology_invalid",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chronology_no_id",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      }
+   ]
+}

@@ -1,0 +1,352 @@
+name: 007_code_cache
+source:
+- t/007_code_cache.t
+description: Cache of unique calc values (calc_unique) kept up to date on writes and return type changes
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data: []
+- sheet:
+    as: main
+    multivalue: 1
+    curval: cv
+    curval_fields:
+    - string1
+    calc_return_type: string
+    calc_code: "\n        function evaluate (L1string1)\n            return L1string1\n        end\n    "
+    data:
+    - string1:
+      - Albania
+      - Bar2
+      - Bar3
+    - string1:
+      - Bar4
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- column:
+    op: create
+    sheet: cv
+    type: calc
+    name: Calc to main table
+    name_short: L2calc2
+    return_type: string
+    code: "function evaluate (L2autocur1)\n        return L2autocur1[1].field_values.L1string1[1]\n    end"
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      show_add: 1
+      value_selector: noshow
+    write_options:
+      no_alerts: 1
+- db:
+    id: initial cache
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:main:calc1'
+    columns:
+    - value_text
+    expect:
+    - value_text: Albania
+    - value_text: Bar2
+    - value_text: Bar3
+    - value_text: Bar4
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 2
+- held:
+    op: set
+    as: r
+    values:
+      string1: Bar5
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- db:
+    id: after write
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:main:calc1'
+    columns:
+    - value_text
+    expect:
+    - value_text: Albania
+    - value_text: Bar2
+    - value_text: Bar3
+    - value_text: Bar5
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 2
+- held:
+    op: set
+    as: r
+    values:
+      string1: Bar3
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- db:
+    id: existing value
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:main:calc1'
+    columns:
+    - value_text
+    expect:
+    - value_text: Albania
+    - value_text: Bar2
+    - value_text: Bar3
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 2
+- held:
+    op: set
+    as: r
+    values:
+      string1: Bar6
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- db:
+    id: new value
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:main:calc1'
+    columns:
+    - value_text
+    expect:
+    - value_text: Albania
+    - value_text: Bar2
+    - value_text: Bar3
+    - value_text: Bar6
+- column:
+    op: update
+    sheet: main
+    column: calc1
+    set:
+      code: "function evaluate (L1string1) \n return L1string1 \nend"
+      return_type: globe
+- db:
+    id: globe
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:main:calc1'
+    columns:
+    - value_text
+    expect:
+    - value_text: Albania
+- column:
+    op: update
+    sheet: main
+    column: calc1
+    set:
+      code: "function evaluate (_id) \n return {10,20,30} \nend"
+      return_type: integer
+- db:
+    id: integer
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:main:calc1'
+    columns:
+    - value_int
+    expect:
+    - value_int: '10'
+    - value_int: '20'
+    - value_int: '30'
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 2
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - '@field:string1=foo55'
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- db:
+    id: curval edit
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:cv:Calc to main table'
+    columns:
+    - value_text
+    expect:
+    - value_text: Bar6
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 2
+- held:
+    op: set
+    as: r
+    values:
+      string1: Bar7
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- db:
+    id: curval main change
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:cv:Calc to main table'
+    columns:
+    - value_text
+    expect:
+    - value_text: Bar7
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - '@field:string1=foo56'
+      string1: Bar7
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- db:
+    id: curval second record
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:cv:Calc to main table'
+    columns:
+    - value_text
+    expect:
+    - value_text: Bar7
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 1
+- held:
+    op: set
+    as: r
+    values:
+      string1: Bar8
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- db:
+    id: curval second change
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:cv:Calc to main table'
+    columns:
+    - value_text
+    expect:
+    - value_text: Bar7
+    - value_text: Bar8
+# GADS-dev: long string values exceeding the length limit for caching. The
+# value is set on the record, the old value removed from the cache and the
+# new one not added
+- column:
+    op: update
+    sheet: main
+    column: calc1
+    set:
+      code: "function evaluate (L1string1) \n return L1string1 \n end"
+      return_type: string
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 2
+- held:
+    op: set
+    as: r
+    values:
+      string1: Sandwiches
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- db:
+    id: long string short value cached
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:main:calc1'
+    columns:
+    - value_text
+- held:
+    op: set
+    as: r
+    values:
+      string1: Y3EucBXt2aTYnHNb2hXJTrgAg0QqRieA1kxNo1ud2TbcyxrXMXqu/m83YtthBWYXiEdocydX69XqB/6IK+6NqGDZJgofxgjVxGJmP1HONBT651Yj/47mRf4+coC3gqvzh6vQ1nCeZyWeVKVuoiiG5INOuwanGJESPDgJrvichI00Czskjah5Ju6/tHOez+6p3hciNXUYuq76g6KFkTn4tbWegJd2Hh/bNVYqTX5yDW0MIQQQSoe2i+NLA5xi
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    op: find
+    id: long string values
+    as: r
+    sheet: main
+    clear: true
+    current_id: 2
+    observe:
+    - string1
+    - calc1
+- db:
+    id: long string not cached
+    op: select
+    table: calc_unique
+    where:
+      layout_id: '@column:main:calc1'
+    columns:
+    - value_text

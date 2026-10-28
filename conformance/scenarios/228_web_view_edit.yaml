@@ -1,0 +1,118 @@
+name: 228_web_view_edit
+source:
+  - lib/GADS.pm (/:layout_name/view/:id)
+  - lib/GADS/View.pm (write, delete, set_sorts, set_groups, sort_types), lib/GADS/Filter.pm (base64)
+  - views/view.tt, views/builder.tt
+description: >
+  The form to add, edit, clone and delete a view: the empty form, creating
+  a view with columns, a filter, sorts and groupings (becoming the current
+  view), validation errors (no name, an invalid sort type, an invalid
+  field), editing a view, a shared view, cloning a view, a view that does
+  not exist, an invalid view ID, the view of another user, deleting a view,
+  and the permission needed.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo, integer1: 10 }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { id: home_normal1, as: normal1, path: /, no_body: true }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: view_add_page, as: superadmin, path: "/{sheet:s}/view/0" }
+  - http:
+      id: view_no_name
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/view/0"
+      form: { update: 1, name: "", column: ["{column:s:string1}"] }
+  - http:
+      id: view_bad_sort_type
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/view/0"
+      form: { update: 1, name: View, column: ["{column:s:string1}"], sortfield: ["{column:s:string1}"], sorttype: [sideways] }
+  - http:
+      id: view_bad_field
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/view/0"
+      form: { update: 1, name: View, column: ["{column:s:string1}"], groupfield: [9999] }
+  - http:
+      id: view_create
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/view/0"
+      form:
+        update: 1
+        name: My <view>
+        column: ["{column:s:string1}", "{column:s:integer1}"]
+        filter: '{"rules":[{"id":"{column:s:string1}","type":"string","value":"Foo","operator":"equal"}],"condition":"AND"}'
+        sortfield: ["{column:s:integer1}", "{column:s:string1}"]
+        sorttype: [desc, asc]
+        groupfield: ["{column:s:string1}"]
+  - db:
+      id: views_created
+      op: select
+      table: view
+      columns: [id, name, global, is_admin, group_id, user_id, filter, instance_id]
+  - db:
+      id: sorts_created
+      op: select
+      table: sort
+      columns: [id, view_id, layout_id, parent_id, type, order]
+  - db:
+      id: groups_created
+      op: select
+      table: view_group
+      columns: [id, view_id, layout_id, parent_id, order]
+  - db:
+      id: view_layouts_created
+      op: select
+      table: view_layout
+      columns: [id, view_id, layout_id]
+  - http: { id: view_edit_page, as: superadmin, path: "/{sheet:s}/view/3" }
+  - http:
+      id: view_update
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/view/3"
+      form: { update: 1, name: Shared view, global: 1, viewType: global, group_id: 2, column: ["{column:s:integer1}"], filter: "", sortfield: [""], sorttype: [asc] }
+  - http: { id: view_edit_page_after, as: superadmin, path: "/{sheet:s}/view/3" }
+  - http: { id: view_clone_page, as: superadmin, path: "/{sheet:s}/view/0", query: { clone: 3 } }
+  - http:
+      id: view_clone
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/view/0"
+      query: { clone: 3 }
+      form: { update: 1, name: Cloned, column: ["{column:s:string1}"] }
+  - http: { id: view_missing, as: superadmin, path: "/{sheet:s}/view/99" }
+  - http: { id: view_invalid, as: superadmin, path: "/{sheet:s}/view/abc" }
+  - login: { user: normal2 }
+  - http: { id: view_normal, as: normal1, path: "/{sheet:s}/view/0" }
+  - http: { id: view_other_user, as: normal1, path: "/{sheet:s}/view/3" }
+  - http: { id: view_denied, as: normal2, path: "/{sheet:s}/view/0" }
+  - http:
+      id: view_delete
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/view/1"
+      form: { delete: 1 }
+  - db:
+      id: views_after
+      op: select
+      table: view
+      columns: [id, name, global, is_admin, group_id, user_id, filter]
+  - db:
+      id: view_layouts_after
+      op: select
+      table: view_layout
+      columns: [id, view_id, layout_id]
+  - http: { id: data_after, as: superadmin, path: "/{sheet:s}/data", no_body: true }
+  # A user without permission to create views
+  - user: { as: nothing }
+  - login: { user: nothing }
+  - http: { id: home_nothing, as: nothing, path: /, no_body: true }
+  - http: { id: view_no_permission, as: nothing, path: "/{sheet:s}/view/0" }

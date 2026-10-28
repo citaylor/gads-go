@@ -1,0 +1,78 @@
+name: 016_site
+source: [t/016_site.t]
+description: Records, columns and instances are limited to the site of the schema
+steps:
+- sheet: {as: site1, site_id: 1}
+# The site of the schema is used throughout the next data sheet creation
+- site: {id: 2}
+- sheet: {as: site2, instance_id: 2, curval_offset: 6}
+# Site 1
+- site: {id: 1}
+- search:
+    id: site 1 records
+    sheet: site1
+    user: '@sheet:site1'
+    expect: {count: 2, ids: [1, 2]}
+- record:
+    id: record from same site (1)
+    op: get
+    sheet: site1
+    user: '@sheet:site1'
+    current_id: 1
+    observe: []
+    expect: {current_id: 1}
+- record:
+    id: record from other site (2)
+    op: get
+    sheet: site1
+    user: '@sheet:site1'
+    current_id: 3
+    observe: []
+    expect_error: .
+# Site 2
+- site: {id: 2}
+- search:
+    id: site 2 records
+    sheet: site2
+    user: '@sheet:site2'
+    expect: {count: 2, ids: [3, 4]}
+- record:
+    id: record from same site (2)
+    op: get
+    sheet: site2
+    user: '@sheet:site2'
+    current_id: 3
+    observe: []
+    expect: {current_id: 3}
+- record:
+    id: record from other site (1)
+    op: get
+    sheet: site2
+    user: '@sheet:site2'
+    current_id: 1
+    observe: []
+    expect_error: .
+# Columns between layouts
+- layout:
+    id: column from other site by id
+    op: has_column
+    sheet: site2
+    column: site1:string1
+    expect: {exists: 0}
+- layout:
+    id: column from other site by id - reverse
+    op: has_column
+    sheet: site1
+    column: site2:string1
+    expect: {exists: 0}
+- layout:
+    id: column from other site by short name
+    op: has_column
+    sheet: site2
+    column: site1:string1
+    by: name_short
+    expect: {exists: 0}
+- instances:
+    id: only one instance for site (still site 2)
+    user: '@sheet:site1'
+    expect: {names: [Layout2]}

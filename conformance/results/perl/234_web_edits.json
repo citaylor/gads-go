@@ -1,0 +1,369 @@
+{
+   "runner" : "perl",
+   "scenario" : "234_web_edits",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:column",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_superadmin",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edits_date",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/data\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/data",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edits_daterange",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/data\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/data",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edits_bad_json",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/data\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/data",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edits_missing_q",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/data\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/data",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edits_write_fails",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/data\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/data",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "data_after_fail",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>data_table | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Table: Layout1</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom\">\n      <nav class=\"table-nav-tabs\">\n    <ul class=\"nav nav-tabs\">\n        <li class=\"nav-item\">\n            <a href=\"/table1/data?table_clear_state=1\" class=\"nav-link  active\"   aria-current=\"page\">\n            <span>Records</span>\n            </a>\n        </li>\n        <li class=\"nav-item\">\n            <a href=\"/table1/\" class=\"nav-link\">\n            <span>Dashboard</span>\n            </a>\n        </li>\n        \n            <li class=\"nav-item\">\n                <a href=\"/table1/edit\" class=\"nav-link\">\n                <span>Edit Table</span>\n                </a>\n            </li>\n            <li class=\"nav-item\">\n                <a href=\"/table1/report\" class=\"nav-link\">\n                <span>Reports</span>\n                </a>\n            </li>\n        \n    </ul>\n</nav>\n\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block content-block--lg-aside\" id=\"content-block\">\n        \n        <div class=\"content-block__navigation\">\n  <div class=\"content-block__navigation-left\">\n    <div class=\"list list--horizontal\">\n      <ul class=\"list__items\">\n      \n        <li class=\"list__item \">\n          <div class=\"dropdown dropdown--large\">\n  <button\n    class=\"dropdown-toggle dropdown__toggle\"\n    type=\"button\"\n    id=\"views\"\n    data-bs-toggle=\"dropdown\"\n    aria-haspopup=\"listbox\"\n    aria-expanded=\"false\"\n    aria-labelledby=\"=views\"\n  >\n    <span>Current view: All data</span>\n  </button>\n\n  <div class=\"dropdown-menu dropdown__menu\">\n    \n  </div>\n</div>\n\n\n        </li>\n      \n        \n        <li class=\"list__item \">\n          <div class=\"list list--horizontal list--no-borders\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <a href=\"?viewtype=table\" class=\"link link--primary link--table link--active\">\n        Table        \n      </a>\n      \n    </li>\n    \n    <li class=\"list__item\">\n      \n      <a href=\"?viewtype=graph\" class=\"link link--primary link--graph\">\n        Graph        \n      </a>\n      \n    </li>\n    \n    <li class=\"list__item\">\n      \n      <a href=\"?viewtype=timeline\" class=\"link link--primary link--timeline\">\n        Timeline        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n        </li>\n      </ul>\n    </div>\n  </div>\n  \n  <div class=\"content-block__navigation-right\">\n    <div class=\"dropdown \">\n  <button\n    class=\"dropdown-toggle dropdown__toggle\"\n    type=\"button\"\n    id=\"manage_views\"\n    data-bs-toggle=\"dropdown\"\n    aria-haspopup=\"listbox\"\n    aria-expanded=\"false\"\n    aria-labelledby=\"=manage_views\"\n  >\n    <span>Manage views</span>\n  </button>\n\n  <div class=\"dropdown-menu dropdown__menu dropdown-menu-right\">\n    \n    <div class=\"dropdown__group\">\n      \n      <ul class=\"dropdown__list\" role=\"listbox\" aria-labelledby=\"dropdown\">\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain link--add '\n               href='/table1/view/0'\n            >\n              Add a view\n            </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n          <a role=\"menuitem\"\n             id=\"\"\n             class=\"link link--plain \"\n             tabindex=\"-1\"\n             data-bs-toggle=\"modal\"\n             data-bs-target=\"#viewsOfAnotherUserModal\"\n          >\n            Manage views of another user\n          </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n          <a role=\"menuitem\"\n             id=\"\"\n             class=\"link link--plain \"\n             tabindex=\"-1\"\n             data-bs-toggle=\"modal\"\n             data-bs-target=\"#historicViewModal\"\n          >\n            Historic view\n          </a>\n          \n        </li>\n        \n      </ul>\n    </div>\n    \n  </div>\n</div>\n\n<div class=\"dropdown \">\n  <button\n    class=\"dropdown-toggle dropdown__toggle\"\n    type=\"button\"\n    id=\"bulk_actions\"\n    data-bs-toggle=\"dropdown\"\n    aria-haspopup=\"listbox\"\n    aria-expanded=\"false\"\n    aria-labelledby=\"=bulk_actions\"\n  >\n    <span>Actions</span>\n  </button>\n\n  <div class=\"dropdown-menu dropdown__menu dropdown-menu-right\">\n    \n    <div class=\"dropdown__group\">\n      \n      <ul class=\"dropdown__list\" role=\"listbox\" aria-labelledby=\"dropdown\">\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain  '\n               href='/table1/link/'\n            >\n              Add a linked record\n            </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain  '\n               href='/table1/data?download'\n            >\n              Download records\n            </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain  '\n               href='/table1/purge/'\n            >\n              Manage deleted records\n            </a>\n          \n        </li>\n        \n        <li class=\"dropdown__item\" role=\"option\">\n          \n            <a role=\"menuitem\"\n               \n               class='link link--plain  '\n               href='/table1/historic_purge/'\n            >\n              Field Data Purge\n            </a>\n          \n        </li>\n        \n      </ul>\n    </div>\n    \n  </div>\n</div>\n\n\n  </div>\n</div>\n\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Submission has been completed successfully\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Submission has been completed successfully\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Submission has been completed successfully\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Submission has been completed successfully\n  </div>\n  \n  <div class=\"alert alert-warning\" role=\"alert\">\n    MISTAKE:\n    &#39;string1&#39; is no longer optional, but was previously blank for this record.\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Submission has been completed successfully\n  </div>\n  \n\n\n\n<div class=\"content-block__head row\"> <div class=\"content-block__info col-lg-6\"></div> <div class=\"content-block__aside col-lg-6\"> <a href=\"/table1/record/\" class=\"btn btn-add btn-primary\"> Add a record </a> </div> </div> <div class=\"content-block__main\"> <div class=\"content-block__main-content\"> <div class=\"row mb-md-3\"> <aside role=\"complementary\" class=\"rag-legend rag-legend--horizontal\"> <span class=\"rag-legend__title\">RAG symbol legend:</span> <dl class=\"rag-legend__list\"> <dt class=\"rag-legend__item\"> <span class=\"rag rag--danger\" title=\"danger\" aria-labelledby=\"rag_danger_meaning\"> <span>&#x2717;</span> </span> </dt> <dd class=\"rag-legend__meaning\" id=\"rag_danger_meaning\"> danger </dd> <dt class=\"rag-legend__item\"> <span class=\"rag rag--warning\" title=\"warning\" aria-labelledby=\"rag_warning_meaning\"> <span>&#x26a0;</span> </span> </dt> <dd class=\"rag-legend__meaning\" id=\"rag_warning_meaning\"> warning </dd> <dt class=\"rag-legend__item\"> <span class=\"rag rag--advisory\" title=\"advisory\" aria-labelledby=\"rag_advisory_meaning\"> <span>&#x26a0;</span> </span> </dt> <dd class=\"rag-legend__meaning\" id=\"rag_advisory_meaning\"> advisory </dd> <dt class=\"rag-legend__item\"> <span class=\"rag rag--success\" title=\"success\" aria-labelledby=\"rag_success_meaning\"> <span>&#x2713;</span> </span> </dt> <dd class=\"rag-legend__meaning\" id=\"rag_success_meaning\"> success </dd> <dt class=\"rag-legend__item\"> <span class=\"rag rag--undefined\" title=\"undefined\" aria-labelledby=\"rag_undefined_meaning\"> <span>&#x3f;</span> </span> </dt> <dd class=\"rag-legend__meaning\" id=\"rag_undefined_meaning\"> undefined </dd> <dt class=\"rag-legend__item\"> <span class=\"rag rag--unexpected\" title=\"unexpected\" aria-labelledby=\"rag_unexpected_meaning\"> <span>&#x21;</span> </span> </dt> <dd class=\"rag-legend__meaning\" id=\"rag_unexpected_meaning\"> unexpected </dd> </dl> </aside> </div> <table class=\"data-table table table-striped table-hover table-search\" data-href=\"/table1/record\" width=\"100%\" data-config='eyJhamF4Ijp7InR5cGUiOiJQT1NUIiwidXJsIjoiL2FwaS90YWJsZTEvcmVjb3Jkcz9jc3JmLXRva2VuPVQwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAyJmdyb3VwX2ZpbHRlcj0mY3VydmFsX2xheW91dF9pZD0mY3VydmFsX3JlY29yZF9pZD0ifSwiYXV0b1dpZHRoIjowLCJjb2x1bW5zIjpbeyJuYW1lIjoiMSIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJJRCIsInR5cGUiOiJpZCJ9LHsibmFtZSI6IjEiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiSUQiLCJ0eXBlIjoiaWQifSx7Im5hbWUiOiIyIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6Ikxhc3QgZWRpdGVkIHRpbWUiLCJ0eXBlIjoiY3JlYXRlZGRhdGUifSx7Im5hbWUiOiIzIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6Ikxhc3QgZWRpdGVkIGJ5IiwidHlwZSI6ImNyZWF0ZWRieSIsInR5cGVhaGVhZCI6MX0seyJuYW1lIjoiNCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJDcmVhdGVkIGJ5IiwidHlwZSI6ImNyZWF0ZWRieSIsInR5cGVhaGVhZCI6MX0seyJuYW1lIjoiNiIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJDcmVhdGVkIHRpbWUiLCJ0eXBlIjoiY3JlYXRlZGRhdGUifSx7Im5hbWUiOiI3Iiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6IlNlcmlhbCIsInR5cGUiOiJzZXJpYWwifSx7Im5hbWUiOiI4Iiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6InN0cmluZzEiLCJ0eXBlIjoic3RyaW5nIn0seyJuYW1lIjoiOSIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJpbnRlZ2VyMSIsInR5cGUiOiJpbnRnciJ9LHsibmFtZSI6IjEwIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6ImVudW0xIiwidHlwZSI6ImVudW0iLCJ0eXBlYWhlYWQiOjF9LHsibmFtZSI6IjExIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6InRyZWUxIiwidHlwZSI6InRyZWUiLCJ0eXBlYWhlYWQiOjF9LHsibmFtZSI6IjEyIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6ImRhdGUxIiwidHlwZSI6ImRhdGUifSx7Im5hbWUiOiIxMyIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJkYXRlcmFuZ2UxIiwidHlwZSI6ImRhdGVyYW5nZSJ9LHsibmFtZSI6IjE0Iiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6ImZpbGUxIiwidHlwZSI6ImZpbGUifSx7Im5hbWUiOiIxNSIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJwZXJzb24xIiwidHlwZSI6InBlcnNvbiIsInR5cGVhaGVhZCI6MX0seyJuYW1lIjoiMTYiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoicmFnMSIsInR5cGUiOiJyYWcifSx7Im5hbWUiOiIxNyIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJjYWxjMSIsInR5cGUiOiJjYWxjIn0seyJjbGFzc05hbWUiOiJkdHItY29udHJvbCBkYXRhLXRhYmxlX19oZWFkZXItLWludmlzaWJsZSIsIm5hbWUiOiJUb2dnbGUgY2hpbGQgcm93Iiwib3JkZXJhYmxlIjowLCJ0YXJnZXRzIjotMX1dLCJpbmZvIjoxLCJsYW5ndWFnZSI6eyJlbXB0eVRhYmxlIjoiVGhlcmUgYXJlIG5vIHJlY29yZHMgYXZhaWxhYmxlIiwibGVuZ3RoTWVudSI6IlJvd3MgcGVyIHBhZ2UgX01FTlVfIiwicGFnaW5hdGUiOnsibmV4dCI6Ik5leHQgcGFnZSIsInByZXZpb3VzIjoiUHJldmlvdXMgcGFnZSJ9LCJzZWFyY2giOiI8c3BhbiBjbGFzcz1cInZpc3VhbGx5LWhpZGRlblwiPlNlYXJjaCBpbiB0YWJsZTo8L3NwYW4+Iiwic2VhcmNoUGxhY2Vob2xkZXIiOiJTZWFyY2ggaW4gdGhpcyB0YWJsZSJ9LCJsYXlvdXQiOnsiYm90dG9tRW5kIjoiaW5mbyIsImJvdHRvbVN0YXJ0IjoicGFnaW5nIiwidG9wRW5kIjpbeyJwYWdlTGVuZ3RoIjp7Im1lbnUiOlsxMCwyNSw1MCwxMDAsMjAwXX19LCJmdWxsc2NyZWVuIl0sInRvcFN0YXJ0Ijoic2VhcmNoIn0sIm9yZGVyIjpbWzAsImFzYyJdLFsxLCJhc2MiXV0sIm9yZGVyaW5nIjoxLCJwYWdlTGVuZ3RoIjo1MCwicGFnaW5nIjoxLCJwcm9jZXNzaW5nIjoxLCJyZXNwb25zaXZlIjp7ImRldGFpbHMiOnsidGFyZ2V0IjotMSwidHlwZSI6ImNvbHVtbiJ9fSwic2Nyb2xsWSI6IiIsInNlcnZlclNpZGUiOjEsInN0YXRlU2F2ZSI6MX0=' > <caption class=\"visually-hidden\">Table for records</caption> <thead> <tr > <th > <span> 1 </span> </th> <th > <span> 1 </span> </th> <th > <span> 2 </span> </th> <th > <span> 3 </span> </th> <th > <span> 4 </span> </th> <th > <span> 6 </span> </th> <th > <span> 7 </span> </th> <th > <span> 8 </span> </th> <th > <span> 9 </span> </th> <th > <span> 10 </span> </th> <th > <span> 11 </span> </th> <th > <span> 12 </span> </th> <th > <span> 13 </span> </th> <th > <span> 14 </span> </th> <th > <span> 15 </span> </th> <th > <span> 16 </span> </th> <th > <span> 17 </span> </th> <th > <span> Toggle child row </span> </th> </tr> </thead> <tbody> </tbody> </table> </div> </div>\n<div class=\"modal modal--form\" id=\"viewsOfAnotherUserModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"viewsOfAnotherUserModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"viewsOfAnotherUserModalLabel\">\n      Manage views of other user\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n\n      <form method=\"post\" class=\"\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n\n        <div class=\"modal-frame\">\n          <div class=\"modal-body\">\n            \n<div class=\"form-group mb-4\">\n\n  <div class=\"input  input--autocomplete typeahead__container \">\n    <div class=\"input__label\">\n  \n  <label for=\"views_other_user_id\" class=\"form-label\">\n    Name\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input type=\"hidden\" id=\"views_other_user_id\" name=\"views_other_user_id\" value=\"\">\n\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"views_other_user_id_typeahead\"\n        name=\"views_other_user_id_typeahead\"\n        placeholder=\"Start typing...\"\n        value=\"\"\n        autocomplete=\"off\"\n      >\n\n    </div>\n  </div>\n\n  \n\n\n</div>\n\n\n          </div>\n\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-primary\" name=\"modal_views_other_user\" value=\"submit\">\n    <span class=\"btn__title\">Submit</span>\n  </button>  </div>\n</div>\n\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n<div class=\"modal modal--form\" id=\"historicViewModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"historicViewModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered \" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"historicViewModalLabel\">\n       View data as it was at a previous date\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n\n      <form method=\"post\" class=\"\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n\n        <div class=\"modal-frame\">\n          <div class=\"modal-body\">\n\n            \n<div class=\"form-group\">\n\n  <div class=\"input input--datepicker\"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"rewind_date\" class=\"form-label\">\n    Date (yyyy-mm-dd)\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"rewind_date\"\n        name=\"rewind_date\"\n        placeholder=\"yyyy-mm-dd\"\n        value=\"\"\n        data-restore-value=\"\"\n        data-dateformat-datepicker=\"yyyy-mm-dd\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n\n<div class=\"form-group\">\n\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"rewind_time\" class=\"form-label\">\n    Time (HH:MM:SS)\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"rewind_time\"\n        name=\"rewind_time\"\n        placeholder=\"23:59:59\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n\n          </div>\n\n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-primary\" name=\"modal_rewind\" value=\"submit\">\n    <span class=\"btn__title\">Submit</span>\n  </button>  </div>\n</div>\n\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n<div class=\"modal\" id=\"readMore\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"readMoreLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"readMoreLabel\">\n      Record\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      <div class=\"modal-frame\">\n        <div class=\"modal-body\">\n          Loading ...\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"modal modal--form\" id=\"bulkDelete\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"bulkDeleteLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"bulkDeleteLabel\">\n      Delete records\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n      \n      <form method=\"post\" class=\"\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <div class=\"modal-frame\">\n          <div class=\"modal-body pb-0\">\n            <div role=\"alert\" class=\"alert alert-danger mt-0 mb-3 p-3\">\n              Are you sure you want to delete records?\n            </div>\n            <p>\n              Are you sure you want to delete all the records that are in the current view?\n            </p>\n          </div>\n          \n          <div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger\" name=\"modal_delete\" value=\"submit\">\n    <span class=\"btn__title\">Delete</span>\n  </button>  </div>\n</div>\n\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edits_again",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/data\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/data",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edits_fraction",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/data\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/data",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dates",
+         "observed" : [
+            {
+               "layout_id" : "12",
+               "record_id" : "1",
+               "value" : "2014-01-01"
+            },
+            {
+               "layout_id" : "12",
+               "record_id" : "2",
+               "value" : "2014-03-01"
+            },
+            {
+               "layout_id" : "12",
+               "record_id" : "3",
+               "value" : "2014-04-01"
+            },
+            {
+               "layout_id" : "12",
+               "record_id" : "4",
+               "value" : "2015-01-01"
+            },
+            {
+               "layout_id" : "12",
+               "record_id" : "5",
+               "value" : "2015-01-01"
+            },
+            {
+               "layout_id" : "12",
+               "record_id" : "6",
+               "value" : "2015-01-01"
+            },
+            {
+               "layout_id" : "12",
+               "record_id" : "7",
+               "value" : "2015-03-01"
+            },
+            {
+               "layout_id" : "12",
+               "record_id" : "8",
+               "value" : "2015-03-02"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dateranges",
+         "observed" : [
+            {
+               "from" : "2014-01-01",
+               "layout_id" : "13",
+               "record_id" : "1",
+               "to" : "2014-02-01",
+               "value" : "2014-01-01 to 2014-02-01"
+            },
+            {
+               "from" : null,
+               "layout_id" : "13",
+               "record_id" : "2",
+               "to" : null,
+               "value" : null
+            },
+            {
+               "from" : null,
+               "layout_id" : "13",
+               "record_id" : "3",
+               "to" : null,
+               "value" : null
+            },
+            {
+               "from" : "2014-01-01",
+               "layout_id" : "13",
+               "record_id" : "4",
+               "to" : "2014-02-01",
+               "value" : "2014-01-01 to 2014-02-01"
+            },
+            {
+               "from" : "2015-01-01",
+               "layout_id" : "13",
+               "record_id" : "5",
+               "to" : "2015-01-31",
+               "value" : "2015-01-01 to 2015-01-31"
+            },
+            {
+               "from" : null,
+               "layout_id" : "13",
+               "record_id" : "6",
+               "to" : null,
+               "value" : null
+            },
+            {
+               "from" : "2015-01-01",
+               "layout_id" : "13",
+               "record_id" : "7",
+               "to" : "2015-01-31",
+               "value" : "2015-01-01 to 2015-01-31"
+            },
+            {
+               "from" : null,
+               "layout_id" : "13",
+               "record_id" : "8",
+               "to" : null,
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

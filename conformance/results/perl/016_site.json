@@ -1,0 +1,216 @@
+{
+   "runner" : "perl",
+   "scenario" : "016_site",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : 2,
+         "observed" : {},
+         "pass" : true,
+         "type" : "site"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "33",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : 1,
+         "observed" : {},
+         "pass" : true,
+         "type" : "site"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "site 1 records",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "record from same site (1)",
+         "observed" : {
+            "current_id" : "1",
+            "parent_id" : null,
+            "record_id" : "1",
+            "values" : {}
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Can't call method \"link_parent\" on an undefined value",
+         "failures" : [],
+         "id" : "record from other site (2)",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : 2,
+         "observed" : {},
+         "pass" : true,
+         "type" : "site"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "site 2 records",
+         "observed" : {
+            "count" : "2",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4"
+            ],
+            "last" : "4"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "record from same site (2)",
+         "observed" : {
+            "current_id" : "3",
+            "parent_id" : null,
+            "record_id" : "3",
+            "values" : {}
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : "Can't call method \"link_parent\" on an undefined value",
+         "failures" : [],
+         "id" : "record from other site (1)",
+         "observed" : null,
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "column from other site by id",
+         "observed" : {
+            "exists" : "0"
+         },
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "column from other site by id - reverse",
+         "observed" : {
+            "exists" : "0"
+         },
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "column from other site by short name",
+         "observed" : {
+            "exists" : "0"
+         },
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "only one instance for site (still site 2)",
+         "observed" : {
+            "names" : [
+               "Layout2"
+            ]
+         },
+         "pass" : true,
+         "type" : "instances"
+      }
+   ]
+}

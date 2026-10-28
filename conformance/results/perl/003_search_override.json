@@ -1,0 +1,391 @@
+{
+   "runner" : "perl",
+   "scenario" : "003_search_override",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "full table",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "initial search sensitive",
+         "observed" : {
+            "count" : "1",
+            "first" : "2",
+            "ids" : [
+               "2"
+            ],
+            "last" : "2"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "initial filter sensitive",
+         "observed" : {
+            "count" : "1",
+            "first" : "2",
+            "ids" : [
+               "2"
+            ],
+            "last" : "2"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:view",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:view",
+         "observed" : {
+            "id" : "3"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user limited table",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "integer1" : "40",
+                  "string1" : "bob"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:view",
+         "observed" : {
+            "id" : "4"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user override",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2",
+            "record_columns" : [
+               [
+                  "ID",
+                  "integer1",
+                  "enum1"
+               ],
+               [
+                  "ID",
+                  "integer1",
+                  "enum1"
+               ]
+            ],
+            "rows" : [
+               {
+                  "string1" : "bob"
+               },
+               {
+                  "string1" : "boris"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "user open restricted record",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user override search sensitive",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user override filter sensitive",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:view",
+         "observed" : {
+            "id" : "5"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:view",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table limited table",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "integer1" : "40",
+                  "string1" : "bob"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:view",
+         "observed" : {
+            "id" : "7"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table override",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2",
+            "record_columns" : [
+               [
+                  "ID",
+                  "integer1",
+                  "enum1"
+               ],
+               [
+                  "ID",
+                  "integer1",
+                  "enum1"
+               ]
+            ],
+            "rows" : [
+               {
+                  "string1" : "bob"
+               },
+               {
+                  "string1" : "boris"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "table open restricted record",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table override search sensitive",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table override filter sensitive",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2"
+         },
+         "pass" : true,
+         "type" : "search"
+      }
+   ]
+}

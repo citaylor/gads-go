@@ -1,0 +1,43 @@
+name: 237_web_saml
+source:
+  - lib/GADS.pm (/login with a SAML provider, get /saml, post /saml)
+  - lib/GADS/SAML.pm
+  - Net::SAML2 0.89 (IdP->new_from_xml, AuthnRequest, Binding::Redirect, Binding::POST)
+description: >
+  Single sign-on with SAML: the login page redirects to the identity
+  provider (with a deflated AuthnRequest, observed decoded), the password
+  login is still available, the SSO URL redirects home, and the SSO callback
+  (which fails with this version of Net::SAML2, as GADS gives the POST
+  binding no certificate to verify the response with).
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+  - db:
+      op: insert
+      table: authentication
+      set:
+        site_id: 1
+        type: saml2
+        name: Example SSO
+        enabled: 1
+        error_messages: '{"user_not_found":"Unknown user {username}"}'
+        xml: >-
+          <md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://idp.example.com/idp">
+          <md:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+          <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat>
+          <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://idp.example.com/sso?realm=main"/>
+          <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://idp.example.com/sso/post"/>
+          </md:IDPSSODescriptor>
+          </md:EntityDescriptor>
+  - http: { id: login_redirect, as: anon, path: /login }
+  - http: { id: login_password, as: anon, path: /login, query: { password: 1 } }
+  - http: { id: saml_get, as: anon, path: /saml }
+  - http:
+      id: saml_post
+      as: anon
+      method: POST
+      path: /saml
+      csrf: false
+      form: { SAMLResponse: "PHNhbWxwOlJlc3BvbnNlLz4=" }
+  - http: { id: saml_post_page, as: anon, path: /login, query: { password: 1 } }

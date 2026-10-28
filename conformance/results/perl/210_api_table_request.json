@@ -1,0 +1,1505 @@
+{
+   "runner" : "perl",
+   "scenario" : "210_api_table_request",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:db",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_superadmin",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_useradmin",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not_json",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Body content must be application/json"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "bad_json",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "No body content received"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not_superadmin",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "You must be a super-administrator to create tables"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "create",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "Table created successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "get_dummy",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances",
+         "observed" : [
+            {
+               "default_view_limit_extra_id" : null,
+               "hide_in_selector" : "0",
+               "homepage_text" : null,
+               "homepage_text2" : null,
+               "id" : "1",
+               "name" : "Layout1",
+               "name_short" : null,
+               "site_id" : "1",
+               "sort_layout_id" : null,
+               "sort_type" : null,
+               "view_limit_id" : null
+            },
+            {
+               "default_view_limit_extra_id" : null,
+               "hide_in_selector" : "0",
+               "homepage_text" : null,
+               "homepage_text2" : null,
+               "id" : "2",
+               "name" : "Wizard table",
+               "name_short" : "wizard_table",
+               "site_id" : "1",
+               "sort_layout_id" : null,
+               "sort_type" : null,
+               "view_limit_id" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instance_groups",
+         "observed" : [
+            {
+               "group_id" : "10",
+               "permission" : "bulk_delete"
+            },
+            {
+               "group_id" : "10",
+               "permission" : "bulk_import"
+            },
+            {
+               "group_id" : "10",
+               "permission" : "delete"
+            },
+            {
+               "group_id" : "10",
+               "permission" : "download"
+            },
+            {
+               "group_id" : "10",
+               "permission" : "layout"
+            },
+            {
+               "group_id" : "10",
+               "permission" : "link"
+            },
+            {
+               "group_id" : "10",
+               "permission" : "view_create"
+            },
+            {
+               "group_id" : "10",
+               "permission" : "view_limit_extra"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rags",
+         "observed" : [
+            {
+               "description" : null,
+               "enabled" : "1",
+               "rag" : "advisory"
+            },
+            {
+               "description" : null,
+               "enabled" : "0",
+               "rag" : "attention"
+            },
+            {
+               "description" : null,
+               "enabled" : "0",
+               "rag" : "complete"
+            },
+            {
+               "description" : null,
+               "enabled" : "1",
+               "rag" : "danger"
+            },
+            {
+               "description" : null,
+               "enabled" : "1",
+               "rag" : "success"
+            },
+            {
+               "description" : null,
+               "enabled" : "0",
+               "rag" : "undefined"
+            },
+            {
+               "description" : null,
+               "enabled" : "0",
+               "rag" : "unexpected"
+            },
+            {
+               "description" : null,
+               "enabled" : "1",
+               "rag" : "warning"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "topics",
+         "observed" : [
+            {
+               "click_to_edit" : "0",
+               "description" : "The first",
+               "id" : "1",
+               "initial_state" : "open",
+               "instance_id" : "2",
+               "name" : "First topic",
+               "prevent_edit_topic_id" : null
+            },
+            {
+               "click_to_edit" : "0",
+               "description" : "The second",
+               "id" : "2",
+               "initial_state" : "collapsed",
+               "instance_id" : "2",
+               "name" : "Second topic",
+               "prevent_edit_topic_id" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "fields",
+         "observed" : [
+            {
+               "aggregate" : null,
+               "can_child" : "0",
+               "description" : null,
+               "display_condition" : null,
+               "display_field" : null,
+               "display_regex" : null,
+               "end_node_only" : "0",
+               "filter" : "{}",
+               "force_regex" : "[A-Z].*",
+               "group_display" : null,
+               "helptext" : null,
+               "id" : "25",
+               "internal" : "0",
+               "isunique" : "0",
+               "link_parent" : null,
+               "lookup_endpoint" : null,
+               "lookup_group" : null,
+               "multivalue" : "0",
+               "name" : "Title",
+               "name_short" : null,
+               "notes" : null,
+               "optional" : "0",
+               "options" : "{\"max_length\":null}",
+               "ordering" : null,
+               "permission" : "0",
+               "position" : "11",
+               "related_field" : null,
+               "remember" : "0",
+               "textbox" : "1",
+               "topic_id" : "1",
+               "type" : "string",
+               "typeahead" : "0",
+               "width" : "50"
+            },
+            {
+               "aggregate" : null,
+               "can_child" : "0",
+               "description" : null,
+               "display_condition" : null,
+               "display_field" : null,
+               "display_regex" : null,
+               "end_node_only" : "0",
+               "filter" : "{}",
+               "force_regex" : null,
+               "group_display" : "sum",
+               "helptext" : null,
+               "id" : "26",
+               "internal" : "0",
+               "isunique" : "0",
+               "link_parent" : null,
+               "lookup_endpoint" : null,
+               "lookup_group" : null,
+               "multivalue" : "0",
+               "name" : "Count",
+               "name_short" : null,
+               "notes" : null,
+               "optional" : "1",
+               "options" : "{\"show_calculator\":1}",
+               "ordering" : null,
+               "permission" : "0",
+               "position" : "12",
+               "related_field" : null,
+               "remember" : "0",
+               "textbox" : "0",
+               "topic_id" : "2",
+               "type" : "intgr",
+               "typeahead" : "0",
+               "width" : "50"
+            },
+            {
+               "aggregate" : null,
+               "can_child" : "0",
+               "description" : null,
+               "display_condition" : null,
+               "display_field" : null,
+               "display_regex" : null,
+               "end_node_only" : "0",
+               "filter" : "{}",
+               "force_regex" : null,
+               "group_display" : null,
+               "helptext" : null,
+               "id" : "27",
+               "internal" : "0",
+               "isunique" : "0",
+               "link_parent" : null,
+               "lookup_endpoint" : null,
+               "lookup_group" : null,
+               "multivalue" : "0",
+               "name" : "Due",
+               "name_short" : null,
+               "notes" : null,
+               "optional" : "1",
+               "options" : "{\"default_today\":1,\"show_datepicker\":0}",
+               "ordering" : null,
+               "permission" : "0",
+               "position" : "13",
+               "related_field" : null,
+               "remember" : "0",
+               "textbox" : "0",
+               "topic_id" : null,
+               "type" : "date",
+               "typeahead" : "0",
+               "width" : "50"
+            },
+            {
+               "aggregate" : null,
+               "can_child" : "0",
+               "description" : null,
+               "display_condition" : null,
+               "display_field" : null,
+               "display_regex" : null,
+               "end_node_only" : "0",
+               "filter" : "{}",
+               "force_regex" : null,
+               "group_display" : null,
+               "helptext" : null,
+               "id" : "28",
+               "internal" : "0",
+               "isunique" : "0",
+               "link_parent" : null,
+               "lookup_endpoint" : null,
+               "lookup_group" : null,
+               "multivalue" : "0",
+               "name" : "Period",
+               "name_short" : null,
+               "notes" : null,
+               "optional" : "1",
+               "options" : "{\"show_datepicker\":1}",
+               "ordering" : null,
+               "permission" : "0",
+               "position" : "14",
+               "related_field" : null,
+               "remember" : "0",
+               "textbox" : "0",
+               "topic_id" : null,
+               "type" : "daterange",
+               "typeahead" : "0",
+               "width" : "50"
+            },
+            {
+               "aggregate" : null,
+               "can_child" : "0",
+               "description" : null,
+               "display_condition" : null,
+               "display_field" : null,
+               "display_regex" : null,
+               "end_node_only" : "0",
+               "filter" : "{}",
+               "force_regex" : null,
+               "group_display" : null,
+               "helptext" : null,
+               "id" : "29",
+               "internal" : "0",
+               "isunique" : "0",
+               "link_parent" : null,
+               "lookup_endpoint" : null,
+               "lookup_group" : null,
+               "multivalue" : "0",
+               "name" : "Colour",
+               "name_short" : null,
+               "notes" : null,
+               "optional" : "1",
+               "options" : "{}",
+               "ordering" : "asc",
+               "permission" : "0",
+               "position" : "15",
+               "related_field" : null,
+               "remember" : "0",
+               "textbox" : "0",
+               "topic_id" : null,
+               "type" : "enum",
+               "typeahead" : "0",
+               "width" : "50"
+            },
+            {
+               "aggregate" : null,
+               "can_child" : "0",
+               "description" : null,
+               "display_condition" : null,
+               "display_field" : null,
+               "display_regex" : null,
+               "end_node_only" : "1",
+               "filter" : "{}",
+               "force_regex" : null,
+               "group_display" : null,
+               "helptext" : null,
+               "id" : "30",
+               "internal" : "0",
+               "isunique" : "0",
+               "link_parent" : null,
+               "lookup_endpoint" : null,
+               "lookup_group" : null,
+               "multivalue" : "0",
+               "name" : "Category",
+               "name_short" : null,
+               "notes" : null,
+               "optional" : "1",
+               "options" : "{}",
+               "ordering" : null,
+               "permission" : "0",
+               "position" : "16",
+               "related_field" : null,
+               "remember" : "0",
+               "textbox" : "0",
+               "topic_id" : null,
+               "type" : "tree",
+               "typeahead" : "0",
+               "width" : "50"
+            },
+            {
+               "aggregate" : null,
+               "can_child" : "0",
+               "description" : null,
+               "display_condition" : null,
+               "display_field" : null,
+               "display_regex" : null,
+               "end_node_only" : "0",
+               "filter" : "{}",
+               "force_regex" : null,
+               "group_display" : null,
+               "helptext" : null,
+               "id" : "31",
+               "internal" : "0",
+               "isunique" : "0",
+               "link_parent" : null,
+               "lookup_endpoint" : null,
+               "lookup_group" : null,
+               "multivalue" : "0",
+               "name" : "Attachment",
+               "name_short" : null,
+               "notes" : null,
+               "optional" : "1",
+               "options" : "{\"override_types\":[]}",
+               "ordering" : null,
+               "permission" : "0",
+               "position" : "17",
+               "related_field" : null,
+               "remember" : "0",
+               "textbox" : "0",
+               "topic_id" : null,
+               "type" : "file",
+               "typeahead" : "0",
+               "width" : "50"
+            },
+            {
+               "aggregate" : null,
+               "can_child" : "0",
+               "description" : null,
+               "display_condition" : null,
+               "display_field" : null,
+               "display_regex" : null,
+               "end_node_only" : "0",
+               "filter" : "{}",
+               "force_regex" : null,
+               "group_display" : null,
+               "helptext" : null,
+               "id" : "32",
+               "internal" : "0",
+               "isunique" : "0",
+               "link_parent" : null,
+               "lookup_endpoint" : null,
+               "lookup_group" : null,
+               "multivalue" : "0",
+               "name" : "Owner",
+               "name_short" : null,
+               "notes" : null,
+               "optional" : "1",
+               "options" : "{\"default_to_login\":1,\"notify_on_selection\":1,\"notify_on_selection_message\":\"You were selected\",\"notify_on_selection_subject\":\"Selected\"}",
+               "ordering" : null,
+               "permission" : "0",
+               "position" : "18",
+               "related_field" : null,
+               "remember" : "0",
+               "textbox" : "0",
+               "topic_id" : null,
+               "type" : "person",
+               "typeahead" : "0",
+               "width" : "50"
+            },
+            {
+               "aggregate" : null,
+               "can_child" : "0",
+               "description" : null,
+               "display_condition" : null,
+               "display_field" : null,
+               "display_regex" : null,
+               "end_node_only" : "0",
+               "filter" : "{}",
+               "force_regex" : null,
+               "group_display" : null,
+               "helptext" : null,
+               "id" : "33",
+               "internal" : "0",
+               "isunique" : "0",
+               "link_parent" : null,
+               "lookup_endpoint" : null,
+               "lookup_group" : null,
+               "multivalue" : "0",
+               "name" : "Status",
+               "name_short" : null,
+               "notes" : null,
+               "optional" : "1",
+               "options" : "{}",
+               "ordering" : null,
+               "permission" : "0",
+               "position" : "19",
+               "related_field" : null,
+               "remember" : "0",
+               "textbox" : "0",
+               "topic_id" : null,
+               "type" : "rag",
+               "typeahead" : "0",
+               "width" : "50"
+            },
+            {
+               "aggregate" : null,
+               "can_child" : "0",
+               "description" : null,
+               "display_condition" : null,
+               "display_field" : null,
+               "display_regex" : null,
+               "end_node_only" : "0",
+               "filter" : "{}",
+               "force_regex" : null,
+               "group_display" : "sum",
+               "helptext" : null,
+               "id" : "34",
+               "internal" : "0",
+               "isunique" : "0",
+               "link_parent" : null,
+               "lookup_endpoint" : null,
+               "lookup_group" : null,
+               "multivalue" : "0",
+               "name" : "Double",
+               "name_short" : null,
+               "notes" : null,
+               "optional" : "1",
+               "options" : "{\"show_in_edit\":1}",
+               "ordering" : null,
+               "permission" : "0",
+               "position" : "20",
+               "related_field" : null,
+               "remember" : "0",
+               "textbox" : "0",
+               "topic_id" : null,
+               "type" : "calc",
+               "typeahead" : "0",
+               "width" : "50"
+            },
+            {
+               "aggregate" : null,
+               "can_child" : "0",
+               "description" : null,
+               "display_condition" : null,
+               "display_field" : null,
+               "display_regex" : null,
+               "end_node_only" : "0",
+               "filter" : "{}",
+               "force_regex" : null,
+               "group_display" : null,
+               "helptext" : null,
+               "id" : "35",
+               "internal" : "0",
+               "isunique" : "0",
+               "link_parent" : null,
+               "lookup_endpoint" : null,
+               "lookup_group" : null,
+               "multivalue" : "1",
+               "name" : "Linked",
+               "name_short" : null,
+               "notes" : null,
+               "optional" : "1",
+               "options" : "{\"delete_not_used\":0,\"limit_rows\":10,\"override_permissions\":0,\"show_add\":1,\"show_view_all\":0,\"value_selector\":\"noshow\"}",
+               "ordering" : null,
+               "permission" : "0",
+               "position" : "21",
+               "related_field" : null,
+               "remember" : "0",
+               "textbox" : "0",
+               "topic_id" : null,
+               "type" : "curval",
+               "typeahead" : "0",
+               "width" : "50"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "layout_groups",
+         "observed" : [
+            {
+               "group_id" : "1",
+               "layout_id" : "8",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "8",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "8",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "8",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "8",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "9",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "9",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "9",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "9",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "9",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "10",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "10",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "10",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "10",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "10",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "11",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "11",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "11",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "11",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "11",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "12",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "12",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "12",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "12",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "12",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "13",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "13",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "13",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "13",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "13",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "14",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "14",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "14",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "14",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "14",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "15",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "15",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "15",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "15",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "15",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "16",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "16",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "16",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "16",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "16",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "17",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "17",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "17",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "17",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "17",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "25",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "25",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "25",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "26",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "26",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "26",
+               "permission" : "write_existing_no_approval"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enumvals",
+         "observed" : [
+            {
+               "deleted" : "0",
+               "id" : "1",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "1",
+               "value" : "foo1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "2",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "2",
+               "value" : "foo2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "3",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "3",
+               "value" : "foo3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "4",
+               "layout_id" : "11",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "5",
+               "layout_id" : "11",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "6",
+               "layout_id" : "11",
+               "parent" : "5",
+               "position" : null,
+               "value" : "tree3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "7",
+               "layout_id" : "29",
+               "parent" : null,
+               "position" : "1",
+               "value" : "Red"
+            },
+            {
+               "deleted" : "0",
+               "id" : "8",
+               "layout_id" : "29",
+               "parent" : null,
+               "position" : "2",
+               "value" : "Green"
+            },
+            {
+               "deleted" : "0",
+               "id" : "9",
+               "layout_id" : "29",
+               "parent" : null,
+               "position" : "3",
+               "value" : "Blue"
+            },
+            {
+               "deleted" : "0",
+               "id" : "10",
+               "layout_id" : "30",
+               "parent" : null,
+               "position" : null,
+               "value" : "Fruit"
+            },
+            {
+               "deleted" : "0",
+               "id" : "11",
+               "layout_id" : "30",
+               "parent" : "10",
+               "position" : null,
+               "value" : "Apple"
+            },
+            {
+               "deleted" : "0",
+               "id" : "12",
+               "layout_id" : "30",
+               "parent" : "10",
+               "position" : null,
+               "value" : "Pear"
+            },
+            {
+               "deleted" : "0",
+               "id" : "13",
+               "layout_id" : "30",
+               "parent" : null,
+               "position" : null,
+               "value" : "Vegetable"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "calcs",
+         "observed" : [
+            {
+               "code" : "function evaluate (L1daterange1)\n        if type(L1daterange1) == \"table\" and L1daterange1[1] then\n            dr1 = L1daterange1[1]\n        elseif type(L1daterange1) == \"table\" and next(L1daterange1) == nil then\n            dr1 = nil\n        else\n            dr1 = L1daterange1\n        end\n        if dr1 == null then return end\n        return dr1.from.year\n    end",
+               "decimal_places" : null,
+               "layout_id" : "17",
+               "return_format" : "integer"
+            },
+            {
+               "code" : "function evaluate (_id) return 2 end",
+               "decimal_places" : null,
+               "layout_id" : "34",
+               "return_format" : "integer"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rag_code",
+         "observed" : [
+            {
+               "code" : "\n        function evaluate (L1daterange1)\n            if type(L1daterange1) == \"table\" and L1daterange1[1] then\n                dr1 = L1daterange1[1]\n            elseif type(L1daterange1) == \"table\" and next(L1daterange1) == nil then\n                dr1 = nil\n            else\n                dr1 = L1daterange1\n            end\n            if dr1 == nil then return 'grey' end\n            if dr1.from.year < 2012 then return 'red' end\n            if dr1.from.year == 2012 then return 'amber' end\n            if dr1.from.year > 2012 then return 'green' end\n        end\n    ",
+               "layout_id" : "16"
+            },
+            {
+               "code" : "function evaluate (_id) return 'b_red' end",
+               "layout_id" : "33"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval_fields",
+         "observed" : [
+            {
+               "child_id" : "8",
+               "parent_id" : "35"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "file_options",
+         "observed" : [
+            {
+               "filesize" : null,
+               "layout_id" : "14"
+            },
+            {
+               "filesize" : "100",
+               "layout_id" : "31"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "duplicate_short_name",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "The short name wizard_table already exists for the table Wizard table"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "invalid_short_name",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Invalid short name for table \"bad name!\": short names can only contain alphanumeric characters and the underscore"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "invalid_field_type",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Invalid field type: nosuchtype"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field_without_name",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "An unexexpected error has occurred"
+            },
+            "status" : "500"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "page_after_errors",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances_final",
+         "observed" : [
+            {
+               "id" : "1",
+               "name" : "Layout1",
+               "name_short" : null
+            },
+            {
+               "id" : "2",
+               "name" : "Wizard table",
+               "name_short" : "wizard_table"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "fields_final",
+         "observed" : [
+            {
+               "id" : "8",
+               "instance_id" : "1",
+               "name" : "string1",
+               "type" : "string"
+            },
+            {
+               "id" : "9",
+               "instance_id" : "1",
+               "name" : "integer1",
+               "type" : "intgr"
+            },
+            {
+               "id" : "10",
+               "instance_id" : "1",
+               "name" : "enum1",
+               "type" : "enum"
+            },
+            {
+               "id" : "11",
+               "instance_id" : "1",
+               "name" : "tree1",
+               "type" : "tree"
+            },
+            {
+               "id" : "12",
+               "instance_id" : "1",
+               "name" : "date1",
+               "type" : "date"
+            },
+            {
+               "id" : "13",
+               "instance_id" : "1",
+               "name" : "daterange1",
+               "type" : "daterange"
+            },
+            {
+               "id" : "14",
+               "instance_id" : "1",
+               "name" : "file1",
+               "type" : "file"
+            },
+            {
+               "id" : "15",
+               "instance_id" : "1",
+               "name" : "person1",
+               "type" : "person"
+            },
+            {
+               "id" : "16",
+               "instance_id" : "1",
+               "name" : "rag1",
+               "type" : "rag"
+            },
+            {
+               "id" : "17",
+               "instance_id" : "1",
+               "name" : "calc1",
+               "type" : "calc"
+            },
+            {
+               "id" : "25",
+               "instance_id" : "2",
+               "name" : "Title",
+               "type" : "string"
+            },
+            {
+               "id" : "26",
+               "instance_id" : "2",
+               "name" : "Count",
+               "type" : "intgr"
+            },
+            {
+               "id" : "27",
+               "instance_id" : "2",
+               "name" : "Due",
+               "type" : "date"
+            },
+            {
+               "id" : "28",
+               "instance_id" : "2",
+               "name" : "Period",
+               "type" : "daterange"
+            },
+            {
+               "id" : "29",
+               "instance_id" : "2",
+               "name" : "Colour",
+               "type" : "enum"
+            },
+            {
+               "id" : "30",
+               "instance_id" : "2",
+               "name" : "Category",
+               "type" : "tree"
+            },
+            {
+               "id" : "31",
+               "instance_id" : "2",
+               "name" : "Attachment",
+               "type" : "file"
+            },
+            {
+               "id" : "32",
+               "instance_id" : "2",
+               "name" : "Owner",
+               "type" : "person"
+            },
+            {
+               "id" : "33",
+               "instance_id" : "2",
+               "name" : "Status",
+               "type" : "rag"
+            },
+            {
+               "id" : "34",
+               "instance_id" : "2",
+               "name" : "Double",
+               "type" : "calc"
+            },
+            {
+               "id" : "35",
+               "instance_id" : "2",
+               "name" : "Linked",
+               "type" : "curval"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

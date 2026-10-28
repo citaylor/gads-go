@@ -1,0 +1,47 @@
+name: 007_curval_code
+source:
+- t/007_curval_code.t
+description: All types of field used within a calc through a curval
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    site_id: 1
+    data:
+    - string1: foobar
+      person1: 1
+      integer1: 999
+      date1: '2020-03-03'
+      daterange1:
+      - '2019-01-02'
+      - '2019-02-01'
+      enum1: 1
+      tree1: 4
+- column:
+    op: update
+    sheet: cv
+    column: person1
+    set:
+      name_short: L2person1
+- sheet:
+    as: main
+    curval: cv
+    curval_fields:
+    - string1
+    calc_return_type: string
+    data:
+    - string1: Foobar
+      curval1: 1
+    calc_code: "function evaluate (L1curval1)\n        if L1curval1 == nil then\n            return \"test\"\n        end\n        return L1curval1.field_values.L2string1\n            .. L1curval1.field_values.L2integer1\n            .. L1curval1.field_values.L2person1.surname\n            .. L1curval1.field_values.L2date1.ymd\n            .. L1curval1.field_values.L2daterange1.to.ymd\n            .. L1curval1.field_values.L2enum1\n            .. L1curval1.field_values.L2tree1.value\n    end"
+- held:
+    id: main calc
+    op: find
+    as: rec
+    sheet: main
+    user: normal1
+    current_id: 2
+    observe:
+    - calc1
+    expect:
+      values:
+        calc1: foobar999User12020-03-032019-02-01foo1tree1

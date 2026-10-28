@@ -1,0 +1,112 @@
+name: 007_autocur_order
+source:
+- t/007_autocur_order.t
+description: Autocur values ordered by the sort of the referring table
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: foobar
+- sheet:
+    as: main
+    curval: cv
+    data:
+    - string1: foo1
+      curval1:
+      - 1
+    - string1: foo2
+      curval1:
+      - 1
+    - string1: foo3
+      curval1:
+      - 1
+    - string1: foo4
+      curval1:
+      - 1
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- db:
+    op: update
+    table: instance
+    where:
+      id: 1
+    set:
+      sort_layout_id: '@column:main:string1'
+      sort_type: asc
+- clear_layouts: {}
+- held:
+    id: find asc
+    op: find
+    as: fasc
+    sheet: cv
+    current_id: 1
+    datum:
+    - autocur1
+    datum_props:
+    - text_all
+    expect:
+      datum:
+        autocur1:
+          text_all: &id001
+          - foo1
+          - foo2
+          - foo3
+          - foo4
+- held:
+    id: single asc
+    op: single
+    as: sasc
+    sheet: cv
+    datum:
+    - autocur1
+    datum_props:
+    - text_all
+    expect:
+      datum:
+        autocur1:
+          text_all: *id001
+- db:
+    op: update
+    table: instance
+    where:
+      id: 1
+    set:
+      sort_layout_id: '@column:main:string1'
+      sort_type: desc
+- clear_layouts: {}
+- held:
+    id: find desc
+    op: find
+    as: fdesc
+    sheet: cv
+    current_id: 1
+    datum:
+    - autocur1
+    datum_props:
+    - text_all
+    expect:
+      datum:
+        autocur1:
+          text_all: &id002
+          - foo4
+          - foo3
+          - foo2
+          - foo1
+- held:
+    id: single desc
+    op: single
+    as: sdesc
+    sheet: cv
+    datum:
+    - autocur1
+    datum_props:
+    - text_all
+    expect:
+      datum:
+        autocur1:
+          text_all: *id002

@@ -1,0 +1,207 @@
+name: 227_web_graph_edit
+source:
+  - lib/GADS.pm (/:layout_name/graph/:id, /:layout_name/graphs)
+  - lib/GADS/Schema/Result/User.pm (graphs), lib/GADS/Graphs.pm
+  - lib/GADS/Graph.pm (setters, write, delete, writable, from_formatted)
+  - views/graph.tt, views/graphs.tt
+description: >
+  The form to add and edit a graph: the empty form, the validation of a
+  graph (title, Y-axis stacking, the sum of a field that is not numeric, a
+  custom range, the type, the metric group), creating a graph, editing it
+  (with a custom date range), a graph that does not exist
+  or has an invalid ID, the form of a normal user (a personal graph), and
+  deleting a graph; the list of graphs and selecting the graphs to show.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo, integer1: 10, date1: '2014-10-01' }
+  - db:
+      op: insert
+      table: metric_group
+      set: { name: Targets, instance_id: 1 }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { id: home_normal1, as: normal1, path: /, no_body: true }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: graph_add_page, as: superadmin, path: "/{sheet:s}/graph/0" }
+  - http:
+      id: graph_no_title
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/0"
+      form: { submit: 1, title: "", type: bar, y_axis_stack: count, set_x_axis: "{column:s:string1}" }
+  - http:
+      id: graph_no_stack
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/0"
+      form: { submit: 1, title: Graph, type: bar, y_axis_stack: "", set_x_axis: "{column:s:string1}" }
+  - http:
+      id: graph_sum_not_numeric
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/0"
+      form: { submit: 1, title: Graph, type: bar, y_axis_stack: sum, y_axis: "{column:s:string1}", set_x_axis: "{column:s:string1}" }
+  - http:
+      id: graph_custom_range
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/0"
+      form: { submit: 1, title: Graph, type: line, y_axis_stack: count, set_x_axis: "{column:s:date1}", x_axis_range: custom, from: '2014-10-01' }
+  - http:
+      id: graph_bad_type
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/0"
+      form: { submit: 1, title: Graph, type: radar, y_axis_stack: count, set_x_axis: "{column:s:string1}" }
+  - http:
+      id: graph_bad_metric
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/0"
+      form: { submit: 1, title: Graph, type: bar, y_axis_stack: count, set_x_axis: "{column:s:string1}", metric_group_id: 99 }
+  - http:
+      id: graph_create
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/0"
+      form:
+        submit: 1
+        title: My <graph>
+        description: ""
+        type: bar
+        y_axis_stack: sum
+        y_axis: "{column:s:integer1}"
+        y_axis_label: ""
+        set_x_axis: "{column:s:string1}"
+        x_axis_range: ""
+        x_axis_grouping: ""
+        group_by: ""
+        metric_group_id: 1
+        trend: ""
+        from: ""
+        to: ""
+        stackseries: 1
+  - http:
+      id: graph_create_shared
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/0"
+      form: { submit: 1, title: Shared, type: pie, y_axis_stack: count, set_x_axis: "{column:s:string1}", is_shared: 1, group_id: 2, as_percent: 1 }
+  - db:
+      id: graphs_created
+      op: select
+      table: graph
+      columns: [id, title, description, y_axis, y_axis_stack, y_axis_label, x_axis, x_axis_link, x_axis_grouping, group_by, stackseries, trend, from, to, x_axis_range, is_shared, user_id, group_id, as_percent, type, metric_group, instance_id]
+  - http: { id: graph_edit_page, as: superadmin, path: "/{sheet:s}/graph/1" }
+  - http: { id: graph_edit_shared_page, as: superadmin, path: "/{sheet:s}/graph/2" }
+  - http:
+      id: graph_update
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/1"
+      form:
+        submit: 1
+        title: Renamed
+        description: Some text
+        type: line
+        y_axis_stack: count
+        y_axis_label: Count
+        set_x_axis: "{column:s:date1}"
+        x_axis_range: custom
+        x_axis_grouping: month
+        from: '2014-01-01'
+        to: '2014-12-31'
+  - http:
+      id: graph_update_bad_range
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/1"
+      form: { submit: 1, title: Renamed, type: line, y_axis_stack: count, set_x_axis: "{column:s:date1}", x_axis_range: custom, x_axis_grouping: month, from: '2015-01-01', to: '2014-12-31' }
+  - http: { id: graph_edit_page_after, as: superadmin, path: "/{sheet:s}/graph/1" }
+  - db:
+      id: graph_updated
+      op: select
+      table: graph
+      where: { id: 1 }
+      columns: [id, title, description, y_axis, y_axis_stack, y_axis_label, x_axis, x_axis_link, x_axis_grouping, group_by, stackseries, trend, from, to, x_axis_range, is_shared, user_id, group_id, as_percent, type, metric_group]
+  - http: { id: graph_missing, as: superadmin, path: "/{sheet:s}/graph/99" }
+  - http: { id: graph_invalid_id, as: superadmin, path: "/{sheet:s}/graph/abc" }
+  - http: { id: graph_normal_page, as: normal1, path: "/{sheet:s}/graph/0" }
+  - http:
+      id: graph_normal_create
+      as: normal1
+      method: POST
+      path: "/{sheet:s}/graph/0"
+      form: { submit: 1, title: Mine, type: donut, y_axis_stack: count, set_x_axis: "{column:s:string1}" }
+  - http:
+      id: graph_normal_shared
+      as: normal1
+      method: POST
+      path: "/{sheet:s}/graph/0"
+      form: { submit: 1, title: Mine shared, type: donut, y_axis_stack: count, set_x_axis: "{column:s:string1}", is_shared: 1 }
+  - http:
+      id: graph_normal_delete_other
+      as: normal1
+      method: POST
+      path: "/{sheet:s}/graph/2"
+      form: { delete: 1 }
+  - http:
+      id: graph_delete
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/2"
+      form: { delete: 1 }
+  - db:
+      id: graphs_after
+      op: select
+      table: graph
+      columns: [id, title, user_id, is_shared]
+  # The list of graphs, and selecting graphs to show
+  - http:
+      id: graph_create_more
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graph/0"
+      form: { submit: 1, title: Grouped, type: scatter, y_axis_stack: sum, y_axis: "{column:s:integer1}", set_x_axis: "{column:s:string1}", group_by: "{column:s:enum1}" }
+  - http: { id: graphs_page, as: superadmin, path: "/{sheet:s}/graphs" }
+  - http: { id: graphs_page_normal, as: normal1, path: "/{sheet:s}/graphs/" }
+  - http:
+      id: graphs_select
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graphs"
+      form: { graphsubmit: 1, graphs: [1, 4] }
+  - db:
+      id: user_graphs_selected
+      op: select
+      table: user_graph
+      columns: [id, user_id, graph_id]
+  - http: { id: graphs_page_selected, as: superadmin, path: "/{sheet:s}/graphs" }
+  - http:
+      id: graphs_select_change
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/graphs"
+      form: { graphsubmit: 1, graphs: [4] }
+  - http:
+      id: graphs_select_none
+      as: normal1
+      method: POST
+      path: "/{sheet:s}/graphs"
+      form: { graphsubmit: 1 }
+  - db:
+      id: user_graphs_after
+      op: select
+      table: user_graph
+      columns: [id, user_id, graph_id]
+  # A graph that does not exist is only retrieved when first needed
+  - http: { id: missing_delete_admin, as: superadmin, method: POST, path: "/{sheet:s}/graph/99", form: { delete: 1 } }
+  - http: { id: missing_delete_normal, as: normal1, method: POST, path: "/{sheet:s}/graph/99", form: { delete: 1 } }
+  - http: { id: missing_submit_admin, as: superadmin, method: POST, path: "/{sheet:s}/graph/99", form: { submit: 1, title: T, type: bar, y_axis_stack: count, set_x_axis: "{column:s:string1}" } }
+  - http: { id: invalid_submit_admin, as: superadmin, method: POST, path: "/{sheet:s}/graph/abc", form: { submit: 1, title: T, type: bar, y_axis_stack: count } }
+  - http: { id: missing_submit_normal, as: normal1, method: POST, path: "/{sheet:s}/graph/99", form: { submit: 1, title: T, type: bar, y_axis_stack: count } }
+  - http: { id: missing_after_normal, as: normal1, path: "/{sheet:s}/graphs" }
+  - http: { id: missing_after_admin, as: superadmin, path: "/{sheet:s}/graphs" }

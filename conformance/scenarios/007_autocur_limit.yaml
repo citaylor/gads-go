@@ -1,0 +1,131 @@
+name: 007_autocur_limit
+source:
+- t/007_autocur_limit.t
+description: Autocur records are updated when the parent is written by a user without access to them
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: Foo
+      enum1: foo1
+    - string1: Bar
+      enum1: foo2
+- sheet:
+    as: main
+    multivalue: 1
+    curval: cv
+    curval_fields:
+    - string1
+    data:
+    - string1: allowed
+      tree1: tree1
+      curval1: 1
+    - string1: banned
+      tree1: tree2
+      curval1: 2
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- column:
+    op: update
+    sheet: cv
+    column: calc1
+    set:
+      code: "\n    function evaluate (L2autocur1)\n        ret = \"\"\n        for _,val in ipairs(L2autocur1) do\n            ret = ret .. val.field_values.L1tree1[1].value\n        end\n        return ret\n    end"
+      return_type: string
+- column:
+    op: update_cached
+    sheet: cv
+    column: calc1
+- view:
+    op: create
+    sheet: main
+    name: Limit to view
+    is_admin: 1
+    filter:
+      rules:
+      - name: string1
+        type: string
+        value: allowed
+        operator: equal
+    as: vl
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl
+- held:
+    id: initial first
+    op: find
+    as: a
+    sheet: main
+    current_id: 1
+    observe:
+    - cv:calc1
+    expect:
+      values:
+        cv:calc1: tree1
+- held:
+    id: initial second
+    op: find
+    as: a
+    clear: true
+    current_id: 2
+    observe:
+    - cv:calc1
+    expect:
+      values:
+        cv:calc1: tree2
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- held:
+    op: find
+    as: b
+    sheet: main
+    user: normal1
+    current_id: 3
+- held:
+    op: set
+    as: b
+    values:
+      curval1:
+      - 1
+      - 2
+- held:
+    id: limited write
+    op: write
+    as: b
+    options:
+      no_alerts: 1
+- layout:
+    op: set_user
+    sheet: main
+    user: superadmin
+- held:
+    id: after first
+    op: find
+    as: c
+    sheet: main
+    current_id: 1
+    observe:
+    - cv:calc1
+    expect:
+      values:
+        cv:calc1: tree1
+- held:
+    id: after second
+    op: find
+    as: c
+    clear: true
+    current_id: 2
+    observe:
+    - cv:calc1
+    expect:
+      values:
+        cv:calc1: tree1tree2

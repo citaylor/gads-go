@@ -1,0 +1,220 @@
+name: 007_curval_self
+source:
+- t/007_curval_self.t
+description: A curval field referring to its own table
+steps:
+- sheet:
+    as: main
+    multivalue: 0
+    data:
+    - string1: Foo
+      enum1: 1
+    - string1: Bar
+      enum1: 2
+- column:
+    op: create
+    sheet: main
+    type: curval
+    name: curval1
+    refers_to: main
+    curval_fields:
+    - string1
+    - enum1
+- layout:
+    op: position
+    sheet: main
+    columns:
+    - enum1
+    - curval1
+- held:
+    op: new
+    as: r
+- held:
+    op: set
+    as: r
+    values:
+      string1: foo3
+      curval1: 1
+      enum1: 3
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: mv0 rev0
+    op: find
+    as: r
+    clear: true
+    current_id: 3
+    observe:
+    - curval1
+    - enum1
+    expect:
+      values:
+        curval1: Foo, foo1
+        enum1: foo3
+- reset: {}
+- sheet:
+    as: main
+    multivalue: 0
+    data:
+    - string1: Foo
+      enum1: 1
+    - string1: Bar
+      enum1: 2
+- column:
+    op: create
+    sheet: main
+    type: curval
+    name: curval1
+    refers_to: main
+    curval_fields:
+    - string1
+    - enum1
+- layout:
+    op: position
+    sheet: main
+    columns:
+    - curval1
+    - enum1
+- held:
+    op: new
+    as: r
+- held:
+    op: set
+    as: r
+    values:
+      string1: foo3
+      curval1: 1
+      enum1: 3
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: mv0 rev1
+    op: find
+    as: r
+    clear: true
+    current_id: 3
+    observe:
+    - curval1
+    - enum1
+    expect:
+      values:
+        curval1: Foo, foo1
+        enum1: foo3
+- reset: {}
+- sheet:
+    as: main
+    multivalue: 1
+    data:
+    - string1: Foo
+      enum1:
+      - 1
+      - 2
+    - string1: Bar
+      enum1:
+      - 2
+      - 3
+- column:
+    op: create
+    sheet: main
+    type: curval
+    name: curval1
+    refers_to: main
+    curval_fields:
+    - string1
+    - enum1
+- layout:
+    op: position
+    sheet: main
+    columns:
+    - enum1
+    - curval1
+- held:
+    op: new
+    as: r
+- held:
+    op: set
+    as: r
+    values:
+      string1: foo3
+      curval1: 1
+      enum1: 3
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: mv1 rev0
+    op: find
+    as: r
+    clear: true
+    current_id: 3
+    observe:
+    - curval1
+    - enum1
+    expect:
+      values:
+        curval1: Foo, foo1, foo2
+        enum1: foo3
+- reset: {}
+- sheet:
+    as: main
+    multivalue: 1
+    data:
+    - string1: Foo
+      enum1:
+      - 1
+      - 2
+    - string1: Bar
+      enum1:
+      - 2
+      - 3
+- column:
+    op: create
+    sheet: main
+    type: curval
+    name: curval1
+    refers_to: main
+    curval_fields:
+    - string1
+    - enum1
+- layout:
+    op: position
+    sheet: main
+    columns:
+    - curval1
+    - enum1
+- held:
+    op: new
+    as: r
+- held:
+    op: set
+    as: r
+    values:
+      string1: foo3
+      curval1: 1
+      enum1: 3
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: mv1 rev1
+    op: find
+    as: r
+    clear: true
+    current_id: 3
+    observe:
+    - curval1
+    - enum1
+    expect:
+      values:
+        curval1: Foo, foo1, foo2
+        enum1: foo3

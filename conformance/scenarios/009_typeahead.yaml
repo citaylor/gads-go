@@ -1,0 +1,207 @@
+name: 009_typeahead
+source:
+- t/009_typeahead.t
+description: Typeahead values of enum, person (with filter), curval (with filters) and calc fields
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    site_id: 1
+- sheet:
+    as: main
+    curval: cv
+    data:
+    - string1: Foo
+      curval1: 2
+      daterange1:
+      - '2012-02-10'
+      - '2013-06-15'
+      person1: 1
+    - string1: Bar
+      curval1: 1
+      daterange1:
+      - '2012-02-10'
+      - '2013-06-15'
+- column:
+    id: enum foo
+    op: get
+    sheet: main
+    column: enum1
+    values_beginning_with: foo
+- column:
+    id: enum foo1
+    op: get
+    sheet: main
+    column: enum1
+    values_beginning_with: foo1
+- column:
+    id: enum blank
+    op: get
+    sheet: main
+    column: enum1
+    values_beginning_with: ''
+- column:
+    id: person User1
+    op: get
+    sheet: main
+    column: person1
+    values_beginning_with: User1
+- db:
+    op: insert
+    table: organisation
+    set:
+      name: Another Organisation
+- db:
+    id: orgs
+    op: select
+    table: organisation
+    columns:
+    - id
+    - name
+- db:
+    op: update
+    table: user
+    where:
+      id: 2
+    set:
+      organisation: 3
+- column:
+    op: update
+    sheet: main
+    column: person1
+    set:
+      filter:
+        rules:
+        - field: organisation
+          type: string
+          value: Another Organisation
+          operator: equal
+- column:
+    id: person filtered
+    op: get
+    sheet: main
+    column: person1
+    values_beginning_with: User
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      value_selector: typeahead
+- column:
+    id: curval typeahead no values
+    op: get
+    sheet: main
+    column: curval1
+    all_values: true
+    filtered_values: true
+- column:
+    id: curval bar
+    op: get
+    sheet: main
+    column: curval1
+    values_beginning_with: bar
+- column:
+    id: curval blank
+    op: get
+    sheet: main
+    column: curval1
+    values_beginning_with: ''
+- column:
+    id: curval bar foo
+    op: get
+    sheet: main
+    column: curval1
+    values_beginning_with: bar foo
+- column:
+    id: curval contains
+    op: get
+    sheet: main
+    column: curval1
+    values_beginning_with: ar oo
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      filter:
+        rules:
+        - name: integer1
+          type: string
+          value: '50'
+          operator: equal
+- column:
+    id: curval filter 50
+    op: get
+    sheet: main
+    column: curval1
+    values_beginning_with: '50'
+- column:
+    id: curval filter 99
+    op: get
+    sheet: main
+    column: curval1
+    values_beginning_with: '99'
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      filter:
+        rules:
+        - name: integer1
+          type: string
+          value: $L1string1
+          operator: equal
+- column:
+    id: curval record filter 50
+    op: get
+    sheet: main
+    column: curval1
+    values_beginning_with: '50'
+- column:
+    id: curval record filter 99
+    op: get
+    sheet: main
+    column: curval1
+    values_beginning_with: '99'
+- column:
+    id: calc integer
+    op: get
+    sheet: main
+    column: calc1
+    values_beginning_with: '2'
+- column:
+    op: update
+    sheet: main
+    column: calc1
+    set:
+      code: "function evaluate (L1string1) \n return L1string1 \nend"
+      return_type: string
+- column:
+    id: calc string
+    op: get
+    sheet: main
+    column: calc1
+    values_beginning_with: F
+- held:
+    op: find
+    as: r
+    sheet: main
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+      string1: Foo2
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- column:
+    id: calc string after write
+    op: get
+    sheet: main
+    column: calc1
+    values_beginning_with: F

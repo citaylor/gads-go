@@ -1,0 +1,156 @@
+name: 223_web_reports
+source:
+  - lib/GADS.pm (prefix /:layout_name/report: list and delete, add, edit:id)
+  - lib/GADS/Schema/ResultSet/Report.pm (create_report, load_for_edit), Result/Report.pm (validate, update_report, remove, fields_for_render, group_ids)
+  - lib/GADS/Layout.pm (reports, security_marking, set_marking)
+  - views/reports/view.tt, views/reports/edit.tt
+description: >
+  Managing the reports of a table: the list (with the table's security
+  marking, inherited from the site), creating reports with their fields and
+  groups, validation of the name and title, editing (fields and groups
+  added and removed), deleting, and the permission needed.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { security_marking: Site marking }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { id: home_normal1, as: normal1, path: /, no_body: true }
+  - http: { id: reports_denied, as: normal1, path: "/{sheet:s}/report" }
+  - http: { id: reports_empty, as: superadmin, path: "/{sheet:s}/report" }
+  - http: { id: add_page, as: superadmin, path: "/{sheet:s}/report/add" }
+  - http:
+      id: add_no_name
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/report/add"
+      form: { submit: 1, report_name: "", report_title: Title }
+  - http:
+      id: add_no_title
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/report/add"
+      form: { submit: 1, report_name: Name, report_title: "" }
+  - http:
+      id: add
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/report/add"
+      form:
+        submit: 1
+        report_name: My report
+        report_title: My title
+        report_description: A <b>description</b>
+        security_marking: Secret
+        checkboxes: ["{column:s:string1}", "{column:s:integer1}"]
+        groups: [1, 2]
+  - http:
+      id: add_second
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/report/add"
+      form: { submit: 1, report_name: Other, report_title: Other title, checkboxes: ["{column:s:enum1}"] }
+  - db:
+      id: reports_created
+      op: select
+      table: report
+      columns: [id, name, title, description, user_id, createdby, created, instance_id, deleted, security_marking]
+  - db:
+      id: report_layouts
+      op: select
+      table: report_layout
+      columns: [report_id, layout_id]
+      order_by: [id]
+  - db:
+      id: report_groups
+      op: select
+      table: report_group
+      columns: [report_id, group_id]
+      order_by: [id]
+  - http: { id: reports, as: superadmin, path: "/{sheet:s}/report" }
+  - http: { id: edit_page, as: superadmin, path: "/{sheet:s}/report/edit1" }
+  - http: { id: edit_missing, as: superadmin, path: "/{sheet:s}/report/edit99" }
+  - http:
+      id: edit
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/report/edit1"
+      form:
+        submit: 1
+        report_name: Renamed
+        report_title: New title
+        report_description: ""
+        checkboxes: ["{column:s:integer1}", "{column:s:date1}"]
+        groups: [3]
+  - http:
+      id: edit_no_title
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/report/edit1"
+      form: { submit: 1, report_name: Renamed, report_title: "" }
+  - http:
+      id: edit_none
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/report/edit2"
+      form: { submit: 1, report_name: Other, report_title: Other title }
+  - db:
+      id: reports_edited
+      op: select
+      table: report
+      columns: [id, name, title, description, security_marking]
+  - db:
+      id: report_layouts_edited
+      op: select
+      table: report_layout
+      columns: [report_id, layout_id]
+      order_by: [id]
+  - db:
+      id: report_groups_edited
+      op: select
+      table: report_group
+      columns: [report_id, group_id]
+      order_by: [id]
+  - http: { id: edit_page_after, as: superadmin, path: "/{sheet:s}/report/edit1" }
+  # Security marking of the table
+  - http:
+      id: marking
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/report"
+      form: { submit: 1, security_marking: Table marking }
+  - http: { id: reports_marking, as: superadmin, path: "/{sheet:s}/report" }
+  # Deleting
+  - http:
+      id: delete
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/report"
+      form: { delete: 2 }
+  - http:
+      id: delete_again
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/report"
+      form: { delete: 2 }
+  - http:
+      id: delete_missing
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/report"
+      form: { delete: 99 }
+  - http: { id: reports_after_delete, as: superadmin, path: "/{sheet:s}/report" }
+  - http: { id: edit_deleted, as: superadmin, path: "/{sheet:s}/report/edit2" }
+  - db:
+      id: reports_final
+      op: select
+      table: report
+      columns: [id, deleted]
+  - db:
+      id: instance_marking
+      op: select
+      table: instance
+      columns: [id, security_marking]

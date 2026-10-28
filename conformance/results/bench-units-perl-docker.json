@@ -1,0 +1,75 @@
+{
+   "backends" : {
+      "csv" : "Text::CSV_XS",
+      "json" : "JSON::Backend::XS"
+   },
+   "perl" : "5.40.5",
+   "runner" : "perl",
+   "units" : [
+      {
+         "iterations" : 158265,
+         "name" : "lua/simple",
+         "ns_per_op" : 6318.5
+      },
+      {
+         "iterations" : 5719,
+         "name" : "lua/loop",
+         "ns_per_op" : 174871.1
+      },
+      {
+         "iterations" : 77678,
+         "name" : "lua/strings",
+         "ns_per_op" : 12873.8
+      },
+      {
+         "iterations" : 1465,
+         "name" : "tt/table_100",
+         "ns_per_op" : 683030
+      },
+      {
+         "iterations" : 5424,
+         "name" : "json/encode_1000",
+         "ns_per_op" : 184377.6
+      },
+      {
+         "iterations" : 1646,
+         "name" : "json/decode_1000",
+         "ns_per_op" : 607597.8
+      },
+      {
+         "iterations" : 610,
+         "name" : "csv/parse_1000",
+         "ns_per_op" : 1641170.5
+      },
+      {
+         "iterations" : 957,
+         "name" : "csv/write_1000",
+         "ns_per_op" : 1045470.2
+      },
+      {
+         "iterations" : 5912,
+         "name" : "date/parse_cldr",
+         "ns_per_op" : 169168.3
+      },
+      {
+         "iterations" : 15757,
+         "name" : "date/format_cldr",
+         "ns_per_op" : 63465.6
+      },
+      {
+         "iterations" : 16572,
+         "name" : "filter/parse_json",
+         "ns_per_op" : 60345.5
+      },
+      {
+         "iterations" : 104018,
+         "name" : "password/hash",
+         "ns_per_op" : 9613.8
+      },
+      {
+         "iterations" : 51810,
+         "name" : "password/match",
+         "ns_per_op" : 19301.4
+      }
+   ]
+}

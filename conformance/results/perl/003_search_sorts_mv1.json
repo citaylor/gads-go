@@ -1,0 +1,3482 @@
+{
+   "runner" : "perl",
+   "scenario" : "003_search_sorts_mv1",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "33",
+               "curval2" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4",
+               "5",
+               "6",
+               "7",
+               "8",
+               "9"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:add_autocur",
+         "observed" : {
+            "id" : "37",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:add_autocur",
+         "observed" : {
+            "id" : "38",
+            "name" : "autocur2"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "55",
+               "date1" : "50",
+               "daterange1" : "51",
+               "enum1" : "48",
+               "file1" : "52",
+               "integer1" : "47",
+               "person1" : "53",
+               "rag1" : "54",
+               "string1" : "46",
+               "tree1" : "49"
+            },
+            "instance_id" : "3",
+            "internal" : {
+               "_created" : "44",
+               "_created_user" : "42",
+               "_deleted_by" : "43",
+               "_id" : "39",
+               "_serial" : "45",
+               "_version_datetime" : "40",
+               "_version_user" : "41"
+            },
+            "records" : [
+               "10",
+               "11"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:column",
+         "observed" : {
+            "id" : "56",
+            "name" : "curval3"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "12"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "default_sort asc",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5",
+               "6",
+               "7",
+               "8",
+               "9"
+            ],
+            "last" : "9"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "default_sort desc",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9",
+               "8",
+               "7",
+               "6",
+               "5",
+               "4",
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "default_sort integer1",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6",
+               "5",
+               "4",
+               "9",
+               "8",
+               "3",
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "standard sort",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6",
+               "5",
+               "4",
+               "9",
+               "8",
+               "3",
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "invalid sort falls back to default",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6",
+               "5",
+               "4",
+               "9",
+               "8",
+               "3",
+               "7"
+            ],
+            "last" : "7"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by ID descending (pass 1) override first",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by ID descending (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by ID descending (pass 2) full page",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9",
+               "8",
+               "7",
+               "6",
+               "5",
+               "4",
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               },
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1"
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "FooBar"
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by ID descending (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by ID descending (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by ID descending (pass 3) full page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5",
+               "6",
+               "7",
+               "8",
+               "9"
+            ],
+            "last" : "9",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "FooBar"
+               },
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1"
+               },
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by ID descending (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by ID descending (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column in view ascending (pass 1) override first",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column in view ascending (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column in view ascending (pass 2) full page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8",
+               "9",
+               "3",
+               "4",
+               "5",
+               "6",
+               "7"
+            ],
+            "last" : "7",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1"
+               },
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "FooBar"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column in view ascending (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8"
+            ],
+            "last" : "8",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column in view ascending (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "foo2",
+                  "string1" : "FooBar"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column in view ascending (pass 3) full page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6",
+               "7",
+               "3",
+               "4",
+               "5",
+               "8",
+               "9"
+            ],
+            "last" : "9",
+            "rows" : [
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "FooBar"
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1"
+               },
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column in view ascending (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column in view ascending (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (pass 1) override first",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (pass 2) full page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8",
+               "9",
+               "3",
+               "4",
+               "5",
+               "6",
+               "7"
+            ],
+            "last" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1",
+                  "tree1" : ""
+               },
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2",
+                  "tree1" : ""
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree1"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree3"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree2"
+               },
+               {
+                  "string1" : "Foo",
+                  "tree1" : "tree1"
+               },
+               {
+                  "string1" : "FooBar",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8"
+            ],
+            "last" : "8",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "FooBar",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (pass 3) full page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6",
+               "7",
+               "3",
+               "4",
+               "5",
+               "8",
+               "9"
+            ],
+            "last" : "9",
+            "rows" : [
+               {
+                  "string1" : "Foo",
+                  "tree1" : "tree1"
+               },
+               {
+                  "string1" : "FooBar",
+                  "tree1" : "tree2"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree1"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree3"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree2"
+               },
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1",
+                  "tree1" : ""
+               },
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Foo",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view descending (pass 1) override first",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view descending (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view descending (pass 2) full page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6",
+               "7",
+               "3",
+               "4",
+               "5",
+               "8",
+               "9"
+            ],
+            "last" : "9",
+            "rows" : [
+               {
+                  "string1" : "Foo",
+                  "tree1" : "tree1"
+               },
+               {
+                  "string1" : "FooBar",
+                  "tree1" : "tree2"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree1"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree3"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree2"
+               },
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1",
+                  "tree1" : ""
+               },
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view descending (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Foo",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view descending (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view descending (pass 3) full page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8",
+               "9",
+               "3",
+               "4",
+               "5",
+               "6",
+               "7"
+            ],
+            "last" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1",
+                  "tree1" : ""
+               },
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2",
+                  "tree1" : ""
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree1"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree3"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree2"
+               },
+               {
+                  "string1" : "Foo",
+                  "tree1" : "tree1"
+               },
+               {
+                  "string1" : "FooBar",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view descending (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8"
+            ],
+            "last" : "8",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view descending (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "FooBar",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (opposite enum columns) (pass 1) override first",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (opposite enum columns) (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (opposite enum columns) (pass 2) full page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8",
+               "9",
+               "3",
+               "6",
+               "5",
+               "7",
+               "4"
+            ],
+            "last" : "4",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1"
+               },
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "FooBar"
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (opposite enum columns) (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8"
+            ],
+            "last" : "8",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (opposite enum columns) (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (opposite enum columns) (pass 3) full page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4",
+               "5",
+               "7",
+               "3",
+               "6",
+               "8",
+               "9"
+            ],
+            "last" : "9",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "FooBar"
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               },
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1"
+               },
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (opposite enum columns) (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by single column not in view ascending (opposite enum columns) (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by two columns, one in view one not in view, asc then desc (pass 1) override first",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by two columns, one in view one not in view, asc then desc (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by two columns, one in view one not in view, asc then desc (pass 2) full page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8",
+               "9",
+               "5",
+               "3",
+               "4",
+               "6",
+               "7"
+            ],
+            "last" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1",
+                  "tree1" : ""
+               },
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2",
+                  "tree1" : ""
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree2"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree1"
+               },
+               {
+                  "string1" : "",
+                  "tree1" : "tree3"
+               },
+               {
+                  "string1" : "Foo",
+                  "tree1" : "tree1"
+               },
+               {
+                  "string1" : "FooBar",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by two columns, one in view one not in view, asc then desc (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8"
+            ],
+            "last" : "8",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by two columns, one in view one not in view, asc then desc (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "FooBar",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums (pass 1) override first",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums (pass 2) full page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "6"
+            ],
+            "last" : "6",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               },
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums (pass 3) full page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6",
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree1"
+               },
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums (pass 4) count",
+         "observed" : {
+            "count" : "2",
+            "ids" : [],
+            "rows" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums - opposite filter/sort combo (pass 1) override first",
+         "observed" : {
+            "first" : "5",
+            "ids" : [
+               "5"
+            ],
+            "last" : "5",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums - opposite filter/sort combo (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums - opposite filter/sort combo (pass 2) full page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "5",
+               "4"
+            ],
+            "last" : "4",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree2"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums - opposite filter/sort combo (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums - opposite filter/sort combo (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums - opposite filter/sort combo (pass 3) full page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4",
+               "5",
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree2"
+               },
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums - opposite filter/sort combo (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums - opposite filter/sort combo (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on enums - opposite filter/sort combo (pass 4) count",
+         "observed" : {
+            "count" : "3",
+            "ids" : [],
+            "rows" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on tree (pass 1) override first",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on tree (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on tree (pass 2) full page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "6"
+            ],
+            "last" : "6",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on tree (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on tree (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on tree (pass 3) full page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6",
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               },
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on tree (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on tree (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "2",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort with filter on tree (pass 4) count",
+         "observed" : {
+            "count" : "2",
+            "ids" : [],
+            "rows" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum that is after another enum in the fetched column (pass 1) override first",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum that is after another enum in the fetched column (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum that is after another enum in the fetched column (pass 2) full page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8",
+               "9",
+               "3",
+               "6",
+               "5",
+               "7",
+               "4"
+            ],
+            "last" : "4",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "",
+                  "tree1" : ""
+               },
+               {
+                  "curval1" : "",
+                  "enum1" : "",
+                  "tree1" : ""
+               },
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               },
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree1"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree2"
+               },
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree2"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum that is after another enum in the fetched column (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "8",
+            "ids" : [
+               "8"
+            ],
+            "last" : "8",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum that is after another enum in the fetched column (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum that is after another enum in the fetched column (pass 3) full page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4",
+               "5",
+               "7",
+               "3",
+               "6",
+               "8",
+               "9"
+            ],
+            "last" : "9",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree2"
+               },
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree2"
+               },
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo1",
+                  "tree1" : "tree1"
+               },
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree1"
+               },
+               {
+                  "curval1" : "",
+                  "enum1" : "",
+                  "tree1" : ""
+               },
+               {
+                  "curval1" : "",
+                  "enum1" : "",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum that is after another enum in the fetched column (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum that is after another enum in the fetched column (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum with filter on curval (pass 1) override first",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum with filter on curval (pass 1) override last",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum with filter on curval (pass 2) full page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4",
+               "5",
+               "7"
+            ],
+            "last" : "7",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree2"
+               },
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum with filter on curval (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum with filter on curval (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum with filter on curval (pass 3) full page",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7",
+               "4",
+               "5"
+            ],
+            "last" : "5",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree2"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree3"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum with filter on curval (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "7",
+            "ids" : [
+               "7"
+            ],
+            "last" : "7",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "enum1" : "foo2",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum with filter on curval (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "5",
+            "ids" : [
+               "5"
+            ],
+            "last" : "5",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "enum1" : "foo1",
+                  "tree1" : "tree2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by enum with filter on curval (pass 4) count",
+         "observed" : {
+            "count" : "3",
+            "ids" : [],
+            "rows" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval with filter on curval (pass 1) override first",
+         "observed" : {
+            "first" : "5",
+            "ids" : [
+               "5"
+            ],
+            "last" : "5",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval with filter on curval (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval with filter on curval (pass 2) full page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4",
+               "5",
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               },
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval with filter on curval (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval with filter on curval (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval with filter on curval (pass 3) full page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5"
+            ],
+            "last" : "5",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval with filter on curval (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval with filter on curval (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "5",
+            "ids" : [
+               "5"
+            ],
+            "last" : "5",
+            "pages" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval with filter on curval (pass 4) count",
+         "observed" : {
+            "count" : "3",
+            "ids" : [],
+            "rows" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval (pass 1) override first",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "curval2" : "",
+                  "enum1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval (pass 2) full page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6",
+               "7",
+               "8",
+               "9",
+               "4",
+               "5",
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "curval2" : "",
+                  "enum1" : "foo2"
+               },
+               {
+                  "curval1" : "",
+                  "curval2" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo2"
+               },
+               {
+                  "curval1" : "",
+                  "curval2" : "",
+                  "enum1" : ""
+               },
+               {
+                  "curval1" : "",
+                  "curval2" : "",
+                  "enum1" : ""
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               },
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "curval2" : "",
+                  "enum1" : "foo2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval (pass 3) full page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5",
+               "6",
+               "7",
+               "8",
+               "9"
+            ],
+            "last" : "9",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               },
+               {
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               },
+               {
+                  "curval1" : "",
+                  "curval2" : "",
+                  "enum1" : "foo2"
+               },
+               {
+                  "curval1" : "",
+                  "curval2" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "enum1" : "foo2"
+               },
+               {
+                  "curval1" : "",
+                  "curval2" : "",
+                  "enum1" : ""
+               },
+               {
+                  "curval1" : "",
+                  "curval2" : "",
+                  "enum1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "curval2" : "",
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "curval1" : "",
+                  "curval2" : "",
+                  "enum1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval (pass 4) count",
+         "observed" : {
+            "count" : "7",
+            "ids" : [],
+            "rows" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval without curval in view (pass 1) override first",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval without curval in view (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval without curval in view (pass 2) full page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6",
+               "7",
+               "8",
+               "9",
+               "4",
+               "5",
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "string1" : "Foo"
+               },
+               {
+                  "string1" : "FooBar"
+               },
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1"
+               },
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               },
+               {
+                  "string1" : ""
+               },
+               {
+                  "string1" : ""
+               },
+               {
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval without curval in view (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval without curval in view (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval without curval in view (pass 3) full page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5",
+               "6",
+               "7",
+               "8",
+               "9"
+            ],
+            "last" : "9",
+            "rows" : [
+               {
+                  "string1" : ""
+               },
+               {
+                  "string1" : ""
+               },
+               {
+                  "string1" : ""
+               },
+               {
+                  "string1" : "Foo"
+               },
+               {
+                  "string1" : "FooBar"
+               },
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum1"
+               },
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval without curval in view (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval without curval in view (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "string1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by curval without curval in view (pass 4) count",
+         "observed" : {
+            "count" : "7",
+            "ids" : [],
+            "rows" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval without curval in view (pass 1) override first",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "integer1" : "3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval without curval in view (pass 1) override last",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "integer1" : "-4"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval without curval in view (pass 2) full page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6",
+               "7",
+               "8",
+               "9",
+               "4",
+               "5",
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "integer1" : "7"
+               },
+               {
+                  "integer1" : ""
+               },
+               {
+                  "integer1" : "2"
+               },
+               {
+                  "integer1" : "3"
+               },
+               {
+                  "integer1" : "5"
+               },
+               {
+                  "integer1" : "6"
+               },
+               {
+                  "integer1" : "-4"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval without curval in view (pass 2) first of 1 per page",
+         "observed" : {
+            "first" : "6",
+            "ids" : [
+               "6"
+            ],
+            "last" : "6",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "integer1" : "7"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval without curval in view (pass 2) last of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "integer1" : "-4"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval without curval in view (pass 3) full page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5",
+               "6",
+               "7",
+               "8",
+               "9"
+            ],
+            "last" : "9",
+            "rows" : [
+               {
+                  "integer1" : "-4"
+               },
+               {
+                  "integer1" : "5"
+               },
+               {
+                  "integer1" : "6"
+               },
+               {
+                  "integer1" : "7"
+               },
+               {
+                  "integer1" : ""
+               },
+               {
+                  "integer1" : "2"
+               },
+               {
+                  "integer1" : "3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval without curval in view (pass 3) first of 1 per page",
+         "observed" : {
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "integer1" : "-4"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval without curval in view (pass 3) last of 1 per page",
+         "observed" : {
+            "first" : "9",
+            "ids" : [
+               "9"
+            ],
+            "last" : "9",
+            "pages" : "7",
+            "rows" : [
+               {
+                  "integer1" : "3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Sort by field in curval without curval in view (pass 4) count",
+         "observed" : {
+            "count" : "7",
+            "ids" : [],
+            "rows" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      }
+   ]
+}

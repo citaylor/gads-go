@@ -1,0 +1,193 @@
+name: 209_api_user_account
+source:
+  - lib/GADS/API.pm (post /api/user_account/?:id?, _post_add_user_account, _decode_json_body)
+  - lib/GADS/Schema/ResultSet/User.pm (create_user), Result/User.pm (update_user, send_welcome_email)
+  - lib/GADS.pm (welcome_text)
+description: >
+  The user account API of the user wizard: creating users (with their
+  groups, view limits and permissions, and the welcome email), updating
+  them, the permissions of user administrators and other users, and the
+  errors of the request body and of the user values.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - db:
+      op: insert
+      table: group
+      set: { name: Wizard group, site_id: 1 }
+  - view:
+      op: create
+      sheet: s
+      user: superadmin
+      as: v
+      name: Limit view
+      columns: [string1]
+  - login: { user: superadmin }
+  - login: { user: useradmin }
+  - login: { user: normal1 }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: home_useradmin, as: useradmin, path: /, no_body: true }
+  - http: { id: home_normal, as: normal1, path: /, no_body: true }
+  # Request body errors
+  - http:
+      id: not_json
+      as: superadmin
+      method: POST
+      path: /api/user_account
+      form: { email: form@example.com }
+  - http:
+      id: bad_json
+      as: superadmin
+      method: POST
+      path: /api/user_account
+      headers: { Content-Type: application/json }
+      body: "{not json"
+  # Creating users
+  - http:
+      id: create
+      as: superadmin
+      method: POST
+      path: /api/user_account
+      json:
+        firstname: New
+        surname: User
+        email: new@example.com
+        notes: Created by the wizard
+        groups: [10]
+        view_limits: ["{view:v}"]
+        permissions: [useradmin, audit]
+  - emails: { id: welcome_email }
+  - db:
+      id: users_after_create
+      op: select
+      table: user
+      where: { email: new@example.com }
+      columns: [id, username, email, firstname, surname, value, account_request, account_request_notes, resetpw, created, organisation, site_id]
+  - db:
+      id: groups_after_create
+      op: select
+      table: user_group
+      columns: [user_id, group_id]
+      order_by: [user_id, group_id]
+  - db:
+      id: view_limits_after_create
+      op: select
+      table: view_limit
+      columns: [user_id, view_id]
+  - db:
+      id: permissions_after_create
+      op: select
+      table: user_permission
+      columns: [user_id, permission_id]
+      order_by: [user_id, permission_id]
+  - http:
+      id: create_duplicate
+      as: superadmin
+      method: POST
+      path: /api/user_account
+      json: { email: new@example.com }
+  - http:
+      id: create_no_email
+      as: superadmin
+      method: POST
+      path: /api/user_account
+      json: { firstname: Nobody }
+  - http:
+      id: create_invalid_email
+      as: superadmin
+      method: POST
+      path: /api/user_account
+      json: { email: not-an-email }
+  - http:
+      id: create_long_name
+      as: superadmin
+      method: POST
+      path: /api/user_account
+      json: { email: long@example.com, firstname: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" }
+  - emails: { id: no_emails_on_errors }
+  # A custom welcome email of the site
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { name: My Site, email_welcome_subject: Welcome aboard, email_welcome_text: "Hello, welcome to [NAME].\nSet your password at [URL] today.\nContact admin@example.com with questions." }
+  - http:
+      id: create_useradmin
+      as: useradmin
+      method: POST
+      path: /api/user_account
+      json: { email: second@example.com, firstname: Second, surname: Person, permissions: [superadmin] }
+  - emails: { id: custom_welcome_email }
+  - db:
+      id: permissions_after_useradmin
+      op: select
+      table: user_permission
+      columns: [user_id, permission_id]
+      order_by: [user_id, permission_id]
+  # Updating users
+  - http:
+      id: update
+      as: superadmin
+      method: POST
+      path: /api/user_account/6
+      json: { email: renamed@example.com, firstname: Renamed, surname: User, groups: [], view_limits: [], permissions: [audit] }
+  - emails: { id: no_email_on_update }
+  - http:
+      id: update_not_found
+      as: superadmin
+      method: POST
+      path: /api/user_account/999
+      json: { email: x@example.com }
+  - http:
+      id: update_useradmin
+      as: useradmin
+      method: POST
+      path: /api/user_account/6
+      json: { email: renamed@example.com, firstname: Again, surname: User, permissions: [] }
+  - db:
+      id: users_final
+      op: select
+      table: user
+      columns: [id, username, email, firstname, surname, value]
+      order_by: [id]
+  - db:
+      id: groups_final
+      op: select
+      table: user_group
+      columns: [user_id, group_id]
+      order_by: [user_id, group_id]
+  - db:
+      id: view_limits_final
+      op: select
+      table: view_limit
+      columns: [user_id, view_id]
+  - db:
+      id: permissions_final
+      op: select
+      table: user_permission
+      columns: [user_id, permission_id]
+      order_by: [user_id, permission_id]
+  # Other users
+  - http:
+      id: normal_denied
+      as: normal1
+      method: POST
+      path: /api/user_account
+      json: { email: third@example.com }
+  - http:
+      id: normal_update_not_found
+      as: normal1
+      method: POST
+      path: /api/user_account/999
+      json: { email: third@example.com }
+  - http:
+      id: not_logged_in
+      method: POST
+      path: /api/user_account
+      json: { email: third@example.com }
+  - db:
+      id: audit
+      op: select
+      table: audit
+      where: { type: login_change }
+      columns: [user_id, type, description, datetime]
+      order_by: [id]

@@ -1,0 +1,619 @@
+{
+   "runner" : "perl",
+   "scenario" : "217_web_user_export_upload",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:db",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:db",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "export_page",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>user | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users nav__link--active\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info col-lg-6\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"/user_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Export users</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      In this window you can export the users from your system to a CSV file for download.\n    </div>\n  </div>\n  \n    <div class=\"content-block__aside col-lg-6\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <form method=\"post\" action=\"\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <button\n          type=\"submit\"\n          class=\"btn btn-primary\"\n          name=\"submit\"\n          value=\"submit\"\n        >\n          <span class=\"btn__title\">Start export</span>\n        </button>\n      </form>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n<div class=\"content-block__main\">\n  <div class=\"row justify-content-end\">\n    <div class=\"col-auto\">\n      <form method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <button\n          type=\"submit\"\n          class=\"btn btn-delete btn-sm btn-icon-close\"\n          name=\"clear\"\n          value=\"clear\"\n        >\n          <span class=\"btn__title\">Clear export logs</span>\n        </button>\n      </form>\n    </div>\n  </div>\n\n  \n\n<table\n  class=\"data-table  table \"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJTdGFydGVkIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6IlN0YXJ0ZWQiLCJ3aWR0aCI6IjIwJSJ9LHsibmFtZSI6IkNvbXBsZXRlZCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJDb21wbGV0ZWQiLCJ3aWR0aCI6IjIwJSJ9LHsibmFtZSI6IlN0YXR1cyIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJTdGF0dXMiLCJ3aWR0aCI6IjU1JSJ9LHsibmFtZSI6IiIsIm9yZGVyYWJsZSI6MCwidGl0bGUiOiIifSx7ImNsYXNzTmFtZSI6ImR0ci1jb250cm9sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IlRvZ2dsZSBjaGlsZCByb3ciLCJvcmRlcmFibGUiOjAsInRhcmdldHMiOi0xfV0sImlEaXNwbGF5TGVuZ3RoIjotMSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6Ik5vIGV4cG9ydHMgdG8gc2hvdyJ9LCJsYXlvdXQiOiIiLCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIn0='\n>\n  \n    <caption class=\"visually-hidden\">Table to show user exports</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Started\n  </span>\n</th>\n\n<th >\n  <span>\n    Completed\n  </span>\n</th>\n\n<th >\n  <span>\n    Status\n  </span>\n</th>\n\n<th >\n  <span>\n    \n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n  </tbody>\n  \n  \n</table>\n\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "export",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/user_export/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/user_export/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "export_page_after",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>user | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users nav__link--active\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    The export has been started successfully\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info col-lg-6\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"/user_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Export users</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      In this window you can export the users from your system to a CSV file for download.\n    </div>\n  </div>\n  \n    <div class=\"content-block__aside col-lg-6\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <form method=\"post\" action=\"\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <button\n          type=\"submit\"\n          class=\"btn btn-primary\"\n          name=\"submit\"\n          value=\"submit\"\n        >\n          <span class=\"btn__title\">Start export</span>\n        </button>\n      </form>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n<div class=\"content-block__main\">\n  <div class=\"row justify-content-end\">\n    <div class=\"col-auto\">\n      <form method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <button\n          type=\"submit\"\n          class=\"btn btn-delete btn-sm btn-icon-close\"\n          name=\"clear\"\n          value=\"clear\"\n        >\n          <span class=\"btn__title\">Clear export logs</span>\n        </button>\n      </form>\n    </div>\n  </div>\n\n  \n\n<table\n  class=\"data-table  table \"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJTdGFydGVkIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6IlN0YXJ0ZWQiLCJ3aWR0aCI6IjIwJSJ9LHsibmFtZSI6IkNvbXBsZXRlZCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJDb21wbGV0ZWQiLCJ3aWR0aCI6IjIwJSJ9LHsibmFtZSI6IlN0YXR1cyIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJTdGF0dXMiLCJ3aWR0aCI6IjU1JSJ9LHsibmFtZSI6IiIsIm9yZGVyYWJsZSI6MCwidGl0bGUiOiIifSx7ImNsYXNzTmFtZSI6ImR0ci1jb250cm9sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IlRvZ2dsZSBjaGlsZCByb3ciLCJvcmRlcmFibGUiOjAsInRhcmdldHMiOi0xfV0sImlEaXNwbGF5TGVuZ3RoIjotMSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6Ik5vIGV4cG9ydHMgdG8gc2hvdyJ9LCJsYXlvdXQiOiIiLCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIn0='\n>\n  \n    <caption class=\"visually-hidden\">Table to show user exports</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Started\n  </span>\n</th>\n\n<th >\n  <span>\n    Completed\n  </span>\n</th>\n\n<th >\n  <span>\n    Status\n  </span>\n</th>\n\n<th >\n  <span>\n    \n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  <a href='?download=1' class='link link--plain'>\n    \n  </a>\n  \n\n</td>\n\n<td >\n  <a href='?download=1' class='link link--plain'>\n    \n  </a>\n  \n\n</td>\n\n<td >\n  <a href='?download=1' class='link link--plain'>\n    Success\n  </a>\n  \n\n</td>\n\n<td >\n  <a href='?download=1' class='btn btn-download'>\n    \n  </a>\n  \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "download",
+         "observed" : {
+            "body" : "HEADER\nID,Surname,Forename,Email,Lastlogin,Created,Title,Organisation,Extra,Notes,Permissions,Groups,\"Page hits last month\",\"Last hit to table \"\"Layout1\"\"\"\n1,User1,User1,user1@example.com,\"2014-10-10 01:00:00\",,,\"My Organisation\",,,,\"group1; link_1; delete_1; purge_1; view_group_1; download_1; view_limit_extra_1\",1,\n2,User2,User2,user2@example.com,,,,\"My Organisation\",,,,group1,,\n3,User3,User3,user3@example.com,\"2014-10-10 01:00:00\",,,\"My Organisation\",,,,group1,3,\n4,User4,User4,user4@example.com,,,Dr,\"My Organisation\",SUM(A1),\"Notes here\",,\"group1; view_create_4\",1,\"2014-10-05 10:00:00\"\n5,User5,User5,user5@example.com,,,,\"My Organisation\",,,,\"group1; view_create_5\",,\n",
+            "content_type" : "text/csv; charset=\"utf-8\"",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Disposition" : "attachment; filename=\"2014-10-10T01:00:00-HEADER.csv\"",
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "download_not_found",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "exports",
+         "observed" : [
+            {
+               "completed" : "2014-10-10 01:00:00",
+               "id" : "1",
+               "mimetype" : "text/csv",
+               "result" : "Success",
+               "result_internal" : null,
+               "started" : "2014-10-10 01:00:00",
+               "type" : "users",
+               "user_id" : "3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "clear",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/user_export/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/user_export/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "export_page_cleared",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>user | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users nav__link--active\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Download not found\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    The export has been deleted successfully\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info col-lg-6\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"/user_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Export users</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      In this window you can export the users from your system to a CSV file for download.\n    </div>\n  </div>\n  \n    <div class=\"content-block__aside col-lg-6\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\">\n      \n      <form method=\"post\" action=\"\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <button\n          type=\"submit\"\n          class=\"btn btn-primary\"\n          name=\"submit\"\n          value=\"submit\"\n        >\n          <span class=\"btn__title\">Start export</span>\n        </button>\n      </form>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n<div class=\"content-block__main\">\n  <div class=\"row justify-content-end\">\n    <div class=\"col-auto\">\n      <form method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n        <button\n          type=\"submit\"\n          class=\"btn btn-delete btn-sm btn-icon-close\"\n          name=\"clear\"\n          value=\"clear\"\n        >\n          <span class=\"btn__title\">Clear export logs</span>\n        </button>\n      </form>\n    </div>\n  </div>\n\n  \n\n<table\n  class=\"data-table  table \"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJTdGFydGVkIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6IlN0YXJ0ZWQiLCJ3aWR0aCI6IjIwJSJ9LHsibmFtZSI6IkNvbXBsZXRlZCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJDb21wbGV0ZWQiLCJ3aWR0aCI6IjIwJSJ9LHsibmFtZSI6IlN0YXR1cyIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJTdGF0dXMiLCJ3aWR0aCI6IjU1JSJ9LHsibmFtZSI6IiIsIm9yZGVyYWJsZSI6MCwidGl0bGUiOiIifSx7ImNsYXNzTmFtZSI6ImR0ci1jb250cm9sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IlRvZ2dsZSBjaGlsZCByb3ciLCJvcmRlcmFibGUiOjAsInRhcmdldHMiOi0xfV0sImlEaXNwbGF5TGVuZ3RoIjotMSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6Ik5vIGV4cG9ydHMgdG8gc2hvdyJ9LCJsYXlvdXQiOiIiLCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIn0='\n>\n  \n    <caption class=\"visually-hidden\">Table to show user exports</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Started\n  </span>\n</th>\n\n<th >\n  <span>\n    Completed\n  </span>\n</th>\n\n<th >\n  <span>\n    Status\n  </span>\n</th>\n\n<th >\n  <span>\n    \n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n  </tbody>\n  \n  \n</table>\n\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "upload_page",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>user | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users nav__link--active\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"/user_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Import users</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      Use this page to import users by uploading a CSV file containing user information.\n    </div>\n  </div>\n  \n</div>\n<div class=\"content-block__main\">\n  <form role=\"form\" method=\"post\" enctype=\"multipart/form-data\">\n    <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n    <div class=\"row mb-4\">\n      <div class=\"col-lg-6\"><div class=\"input input--file \">\n  \n  <div class=\"error-messages\">\n  </div>\n\n  <div class=\"input__label\">\n  \n  <label for=\"file\">\n    <span class=\"input__file-label\" role=\"button\" aria-controls=\"file\" tabindex=\"0\">\n      Choose file\n    </span>\n  </label>\n\n  <div class=\"file\">\n    <label class=\"file__name form-label\" for=\"file\">\n      No file chosen\n    </label>\n    <button type=\"button\" class=\"file__delete close\" aria-label=\"Delete\">\n      <span aria-hidden=\"true\" class=\"hidden\">Delete file</span>\n    </button>\n  </div>\n</div>\n\n\n<p id=\"file-help\" class=\"form-text\">\n  The CSV file can contain columns for any of: Forename, Surname, Email address, Notes, Title, Organisation, Extra. Column headings in the CSV must exactly match these names. Only email address is mandatory.\n</p>\n\n\n\n  <div class=\"input__field\">\n    <input\n      type=\"file\"\n      id=\"file\"\n      name=\"file\"\n      class=\"form-control-file \"\n      tabindex=\"1\"\n      aria-describedby=\"file-help\"\n    >\n  </div>\n</div>\n\n\n      </div>\n    </div>\n\n    <div class=\"row mb-4\">\n      <div class=\"col-lg-6\">\n  <fieldset class=\"fieldset\" data-name=\"view_limits\">\n    <div class=\"fieldset__legend\">\n      <legend >\n        Only allow this user to see records in these views\n      </legend>\n      \n      <div class=\"popover-container \">\n  <div class=\"popover-content\" id=\"view_limits_popover-popover\">\n    \n  <p>By default, a user can see any record in Linkspace, and is only limited to what fields of that record he or she can view. This option makes it possible to also limit the records that a user can view. By selecting a view in the dropdown box, a user can only ever see records that meet the search criteria of that view (of the view's particular table), regardless of what other search criteria or views they may make themselves. By selecting multiple views, a user will only be able to see records contained in any of the listed views. Note that the limitation only applies to the particular table of the view(s). So if only View A from Table A is selected, the user will be limited to only View A's records in Table A, but will be able to see any record in Table B.</p>\n  <p>Views defined here are in addition to any view limitations applied to the relevant table. If a view is applied to a table and another view is applied here, then the user will be able to see records contained in either view.</p>\n  \n  </div>\n  <button class=\"btn btn-popover \" type=\"button\"\n    title=\"Limiting a user&#39;s access to records\" \n    aria-describedby=\"view_limits_popover-popover\"\n    data-bs-toggle=\"popover\">\n        <span>popover</span>\n  </button>\n</div>\n\n    </div>\n    \n    <div class=\"multiple-select\">\n      <div class=\"multiple-select__list\">        <div class=\"multiple-select__row\">\n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"view_limits\" class=\"form-label\">\n    Only allow this user to see records in this view\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-view_limits\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\">Select view</span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"view_limits\"\n      name=\"view_limits\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"Select view\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-view_limits\"\n      \n      role=\"listbox\"\n    >\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n          <button\n            type=\"button\"\n            class=\"btn btn-delete\"\n          >\n            <span class=\"btn__title\">Delete view</span>\n          </button>\n        </div>      </div>\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-add-link\"\n      >\n        <span class=\"btn__title\">Add a view</span>\n      </button>\n    </div>\n  </fieldset>\n</div>\n\n    </div>\n\n    <div class=\"row\">\n      <div class=\"col-lg-5\">\n  \n\n  <fieldset class=\"fieldset\" data-name=\"groups\">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"-label\">\n    Add this user to the following groups\n  </legend>\n  \n</div>\n\n\n    <div class=\"list list--vertical list--checkboxes\">\n      <ul class=\"list__items\" id=\"\">\n      \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_3\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"3\"\n    class=\"\"disabled    aria-labelledby=\"groups_3-label\"\n    data-value=\"delete_1\"\n    \n  >\n  <label for=\"groups_3\" id=\"groups_3-label\" class=\"checkbox-label form-label\">\n    delete_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_6\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"6\"\n    class=\"\"disabled    aria-labelledby=\"groups_6-label\"\n    data-value=\"download_1\"\n    \n  >\n  <label for=\"groups_6\" id=\"groups_6-label\" class=\"checkbox-label form-label\">\n    download_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_1\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"1\"\n    class=\"\"    aria-labelledby=\"groups_1-label\"\n    data-value=\"group1\"\n    \n  >\n  <label for=\"groups_1\" id=\"groups_1-label\" class=\"checkbox-label form-label\">\n    group1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_2\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"2\"\n    class=\"\"disabled    aria-labelledby=\"groups_2-label\"\n    data-value=\"link_1\"\n    \n  >\n  <label for=\"groups_2\" id=\"groups_2-label\" class=\"checkbox-label form-label\">\n    link_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_4\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"4\"\n    class=\"\"disabled    aria-labelledby=\"groups_4-label\"\n    data-value=\"purge_1\"\n    \n  >\n  <label for=\"groups_4\" id=\"groups_4-label\" class=\"checkbox-label form-label\">\n    purge_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_8\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"8\"\n    class=\"\"disabled    aria-labelledby=\"groups_8-label\"\n    data-value=\"view_create_4\"\n    \n  >\n  <label for=\"groups_8\" id=\"groups_8-label\" class=\"checkbox-label form-label\">\n    view_create_4\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_9\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"9\"\n    class=\"\"disabled    aria-labelledby=\"groups_9-label\"\n    data-value=\"view_create_5\"\n    \n  >\n  <label for=\"groups_9\" id=\"groups_9-label\" class=\"checkbox-label form-label\">\n    view_create_5\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_5\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"5\"\n    class=\"\"disabled    aria-labelledby=\"groups_5-label\"\n    data-value=\"view_group_1\"\n    \n  >\n  <label for=\"groups_5\" id=\"groups_5-label\" class=\"checkbox-label form-label\">\n    view_group_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_7\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"7\"\n    class=\"\"disabled    aria-labelledby=\"groups_7-label\"\n    data-value=\"view_limit_extra_1\"\n    \n  >\n  <label for=\"groups_7\" id=\"groups_7-label\" class=\"checkbox-label form-label\">\n    view_limit_extra_1\n  </label>\n  \n</div>\n\n        </li>\n              </ul>\n    </div>\n  </fieldset>\n  \n\n\n\n</div>\n\n    </div>\n    \n<div class=\"row mt-5\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/user_overview/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-sm-auto\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Import</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n  </form>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "upload_no_file",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>user | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users nav__link--active\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Please select a file to upload\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"/user_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Import users</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      Use this page to import users by uploading a CSV file containing user information.\n    </div>\n  </div>\n  \n</div>\n<div class=\"content-block__main\">\n  <form role=\"form\" method=\"post\" enctype=\"multipart/form-data\">\n    <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n    <div class=\"row mb-4\">\n      <div class=\"col-lg-6\"><div class=\"input input--file \">\n  \n  <div class=\"error-messages\">\n  </div>\n\n  <div class=\"input__label\">\n  \n  <label for=\"file\">\n    <span class=\"input__file-label\" role=\"button\" aria-controls=\"file\" tabindex=\"0\">\n      Choose file\n    </span>\n  </label>\n\n  <div class=\"file\">\n    <label class=\"file__name form-label\" for=\"file\">\n      No file chosen\n    </label>\n    <button type=\"button\" class=\"file__delete close\" aria-label=\"Delete\">\n      <span aria-hidden=\"true\" class=\"hidden\">Delete file</span>\n    </button>\n  </div>\n</div>\n\n\n<p id=\"file-help\" class=\"form-text\">\n  The CSV file can contain columns for any of: Forename, Surname, Email address, Notes, Title, Organisation, Extra. Column headings in the CSV must exactly match these names. Only email address is mandatory.\n</p>\n\n\n\n  <div class=\"input__field\">\n    <input\n      type=\"file\"\n      id=\"file\"\n      name=\"file\"\n      class=\"form-control-file \"\n      tabindex=\"1\"\n      aria-describedby=\"file-help\"\n    >\n  </div>\n</div>\n\n\n      </div>\n    </div>\n\n    <div class=\"row mb-4\">\n      <div class=\"col-lg-6\">\n  <fieldset class=\"fieldset\" data-name=\"view_limits\">\n    <div class=\"fieldset__legend\">\n      <legend >\n        Only allow this user to see records in these views\n      </legend>\n      \n      <div class=\"popover-container \">\n  <div class=\"popover-content\" id=\"view_limits_popover-popover\">\n    \n  <p>By default, a user can see any record in Linkspace, and is only limited to what fields of that record he or she can view. This option makes it possible to also limit the records that a user can view. By selecting a view in the dropdown box, a user can only ever see records that meet the search criteria of that view (of the view's particular table), regardless of what other search criteria or views they may make themselves. By selecting multiple views, a user will only be able to see records contained in any of the listed views. Note that the limitation only applies to the particular table of the view(s). So if only View A from Table A is selected, the user will be limited to only View A's records in Table A, but will be able to see any record in Table B.</p>\n  <p>Views defined here are in addition to any view limitations applied to the relevant table. If a view is applied to a table and another view is applied here, then the user will be able to see records contained in either view.</p>\n  \n  </div>\n  <button class=\"btn btn-popover \" type=\"button\"\n    title=\"Limiting a user&#39;s access to records\" \n    aria-describedby=\"view_limits_popover-popover\"\n    data-bs-toggle=\"popover\">\n        <span>popover</span>\n  </button>\n</div>\n\n    </div>\n    \n    <div class=\"multiple-select\">\n      <div class=\"multiple-select__list\">        <div class=\"multiple-select__row\">\n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"view_limits\" class=\"form-label\">\n    Only allow this user to see records in this view\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-view_limits\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\">Select view</span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"view_limits\"\n      name=\"view_limits\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"Select view\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-view_limits\"\n      \n      role=\"listbox\"\n    >\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n          <button\n            type=\"button\"\n            class=\"btn btn-delete\"\n          >\n            <span class=\"btn__title\">Delete view</span>\n          </button>\n        </div>      </div>\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-add-link\"\n      >\n        <span class=\"btn__title\">Add a view</span>\n      </button>\n    </div>\n  </fieldset>\n</div>\n\n    </div>\n\n    <div class=\"row\">\n      <div class=\"col-lg-5\">\n  \n\n  <fieldset class=\"fieldset\" data-name=\"groups\">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"-label\">\n    Add this user to the following groups\n  </legend>\n  \n</div>\n\n\n    <div class=\"list list--vertical list--checkboxes\">\n      <ul class=\"list__items\" id=\"\">\n      \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_3\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"3\"\n    class=\"\"disabled    aria-labelledby=\"groups_3-label\"\n    data-value=\"delete_1\"\n    \n  >\n  <label for=\"groups_3\" id=\"groups_3-label\" class=\"checkbox-label form-label\">\n    delete_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_6\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"6\"\n    class=\"\"disabled    aria-labelledby=\"groups_6-label\"\n    data-value=\"download_1\"\n    \n  >\n  <label for=\"groups_6\" id=\"groups_6-label\" class=\"checkbox-label form-label\">\n    download_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_1\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"1\"\n    class=\"\"    aria-labelledby=\"groups_1-label\"\n    data-value=\"group1\"\n    \n  >\n  <label for=\"groups_1\" id=\"groups_1-label\" class=\"checkbox-label form-label\">\n    group1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_2\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"2\"\n    class=\"\"disabled    aria-labelledby=\"groups_2-label\"\n    data-value=\"link_1\"\n    \n  >\n  <label for=\"groups_2\" id=\"groups_2-label\" class=\"checkbox-label form-label\">\n    link_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_4\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"4\"\n    class=\"\"disabled    aria-labelledby=\"groups_4-label\"\n    data-value=\"purge_1\"\n    \n  >\n  <label for=\"groups_4\" id=\"groups_4-label\" class=\"checkbox-label form-label\">\n    purge_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_8\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"8\"\n    class=\"\"disabled    aria-labelledby=\"groups_8-label\"\n    data-value=\"view_create_4\"\n    \n  >\n  <label for=\"groups_8\" id=\"groups_8-label\" class=\"checkbox-label form-label\">\n    view_create_4\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_9\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"9\"\n    class=\"\"disabled    aria-labelledby=\"groups_9-label\"\n    data-value=\"view_create_5\"\n    \n  >\n  <label for=\"groups_9\" id=\"groups_9-label\" class=\"checkbox-label form-label\">\n    view_create_5\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_5\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"5\"\n    class=\"\"disabled    aria-labelledby=\"groups_5-label\"\n    data-value=\"view_group_1\"\n    \n  >\n  <label for=\"groups_5\" id=\"groups_5-label\" class=\"checkbox-label form-label\">\n    view_group_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_7\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"7\"\n    class=\"\"disabled    aria-labelledby=\"groups_7-label\"\n    data-value=\"view_limit_extra_1\"\n    \n  >\n  <label for=\"groups_7\" id=\"groups_7-label\" class=\"checkbox-label form-label\">\n    view_limit_extra_1\n  </label>\n  \n</div>\n\n        </li>\n              </ul>\n    </div>\n  </fieldset>\n  \n\n\n\n</div>\n\n    </div>\n    \n<div class=\"row mt-5\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/user_overview/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-sm-auto\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Import</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n  </form>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "upload_no_email_column",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>user | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users nav__link--active\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    There must be an email address column in the uploaded CSV\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"/user_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Import users</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      Use this page to import users by uploading a CSV file containing user information.\n    </div>\n  </div>\n  \n</div>\n<div class=\"content-block__main\">\n  <form role=\"form\" method=\"post\" enctype=\"multipart/form-data\">\n    <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n    <div class=\"row mb-4\">\n      <div class=\"col-lg-6\"><div class=\"input input--file \">\n  \n  <div class=\"error-messages\">\n  </div>\n\n  <div class=\"input__label\">\n  \n  <label for=\"file\">\n    <span class=\"input__file-label\" role=\"button\" aria-controls=\"file\" tabindex=\"0\">\n      Choose file\n    </span>\n  </label>\n\n  <div class=\"file\">\n    <label class=\"file__name form-label\" for=\"file\">\n      No file chosen\n    </label>\n    <button type=\"button\" class=\"file__delete close\" aria-label=\"Delete\">\n      <span aria-hidden=\"true\" class=\"hidden\">Delete file</span>\n    </button>\n  </div>\n</div>\n\n\n<p id=\"file-help\" class=\"form-text\">\n  The CSV file can contain columns for any of: Forename, Surname, Email address, Notes, Title, Organisation, Extra. Column headings in the CSV must exactly match these names. Only email address is mandatory.\n</p>\n\n\n\n  <div class=\"input__field\">\n    <input\n      type=\"file\"\n      id=\"file\"\n      name=\"file\"\n      class=\"form-control-file \"\n      tabindex=\"1\"\n      aria-describedby=\"file-help\"\n    >\n  </div>\n</div>\n\n\n      </div>\n    </div>\n\n    <div class=\"row mb-4\">\n      <div class=\"col-lg-6\">\n  <fieldset class=\"fieldset\" data-name=\"view_limits\">\n    <div class=\"fieldset__legend\">\n      <legend >\n        Only allow this user to see records in these views\n      </legend>\n      \n      <div class=\"popover-container \">\n  <div class=\"popover-content\" id=\"view_limits_popover-popover\">\n    \n  <p>By default, a user can see any record in Linkspace, and is only limited to what fields of that record he or she can view. This option makes it possible to also limit the records that a user can view. By selecting a view in the dropdown box, a user can only ever see records that meet the search criteria of that view (of the view's particular table), regardless of what other search criteria or views they may make themselves. By selecting multiple views, a user will only be able to see records contained in any of the listed views. Note that the limitation only applies to the particular table of the view(s). So if only View A from Table A is selected, the user will be limited to only View A's records in Table A, but will be able to see any record in Table B.</p>\n  <p>Views defined here are in addition to any view limitations applied to the relevant table. If a view is applied to a table and another view is applied here, then the user will be able to see records contained in either view.</p>\n  \n  </div>\n  <button class=\"btn btn-popover \" type=\"button\"\n    title=\"Limiting a user&#39;s access to records\" \n    aria-describedby=\"view_limits_popover-popover\"\n    data-bs-toggle=\"popover\">\n        <span>popover</span>\n  </button>\n</div>\n\n    </div>\n    \n    <div class=\"multiple-select\">\n      <div class=\"multiple-select__list\">        <div class=\"multiple-select__row\">\n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"view_limits\" class=\"form-label\">\n    Only allow this user to see records in this view\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-view_limits\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\">Select view</span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"view_limits\"\n      name=\"view_limits\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"Select view\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-view_limits\"\n      \n      role=\"listbox\"\n    >\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n          <button\n            type=\"button\"\n            class=\"btn btn-delete\"\n          >\n            <span class=\"btn__title\">Delete view</span>\n          </button>\n        </div>      </div>\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-add-link\"\n      >\n        <span class=\"btn__title\">Add a view</span>\n      </button>\n    </div>\n  </fieldset>\n</div>\n\n    </div>\n\n    <div class=\"row\">\n      <div class=\"col-lg-5\">\n  \n\n  <fieldset class=\"fieldset\" data-name=\"groups\">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"-label\">\n    Add this user to the following groups\n  </legend>\n  \n</div>\n\n\n    <div class=\"list list--vertical list--checkboxes\">\n      <ul class=\"list__items\" id=\"\">\n      \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_3\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"3\"\n    class=\"\"disabled    aria-labelledby=\"groups_3-label\"\n    data-value=\"delete_1\"\n    \n  >\n  <label for=\"groups_3\" id=\"groups_3-label\" class=\"checkbox-label form-label\">\n    delete_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_6\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"6\"\n    class=\"\"disabled    aria-labelledby=\"groups_6-label\"\n    data-value=\"download_1\"\n    \n  >\n  <label for=\"groups_6\" id=\"groups_6-label\" class=\"checkbox-label form-label\">\n    download_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_1\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"1\"\n    class=\"\"    aria-labelledby=\"groups_1-label\"\n    data-value=\"group1\"\n    \n  >\n  <label for=\"groups_1\" id=\"groups_1-label\" class=\"checkbox-label form-label\">\n    group1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_2\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"2\"\n    class=\"\"disabled    aria-labelledby=\"groups_2-label\"\n    data-value=\"link_1\"\n    \n  >\n  <label for=\"groups_2\" id=\"groups_2-label\" class=\"checkbox-label form-label\">\n    link_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_4\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"4\"\n    class=\"\"disabled    aria-labelledby=\"groups_4-label\"\n    data-value=\"purge_1\"\n    \n  >\n  <label for=\"groups_4\" id=\"groups_4-label\" class=\"checkbox-label form-label\">\n    purge_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_8\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"8\"\n    class=\"\"disabled    aria-labelledby=\"groups_8-label\"\n    data-value=\"view_create_4\"\n    \n  >\n  <label for=\"groups_8\" id=\"groups_8-label\" class=\"checkbox-label form-label\">\n    view_create_4\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_9\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"9\"\n    class=\"\"disabled    aria-labelledby=\"groups_9-label\"\n    data-value=\"view_create_5\"\n    \n  >\n  <label for=\"groups_9\" id=\"groups_9-label\" class=\"checkbox-label form-label\">\n    view_create_5\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_5\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"5\"\n    class=\"\"disabled    aria-labelledby=\"groups_5-label\"\n    data-value=\"view_group_1\"\n    \n  >\n  <label for=\"groups_5\" id=\"groups_5-label\" class=\"checkbox-label form-label\">\n    view_group_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_7\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"7\"\n    class=\"\"disabled    aria-labelledby=\"groups_7-label\"\n    data-value=\"view_limit_extra_1\"\n    \n  >\n  <label for=\"groups_7\" id=\"groups_7-label\" class=\"checkbox-label form-label\">\n    view_limit_extra_1\n  </label>\n  \n</div>\n\n        </li>\n              </ul>\n    </div>\n  </fieldset>\n  \n\n\n\n</div>\n\n    </div>\n    \n<div class=\"row mt-5\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/user_overview/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-sm-auto\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Import</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n  </form>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "upload_errors",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>user | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users nav__link--active\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    The upload failed with errors on the following lines: Ann,Able,ann@example.com,Dr (error: You do not have permission to set global user permissions\n); Bob,Baker,user1@example.com,Dr (error: User user1@example.com already exists\n); Cat,Cole,cat@example.com,Prof (Title &quot;Prof&quot; not found); Cat,Cole,cat@example.com,Prof (error: You do not have permission to set global user permissions\n)\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"/user_overview/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">Import users</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      Use this page to import users by uploading a CSV file containing user information.\n    </div>\n  </div>\n  \n</div>\n<div class=\"content-block__main\">\n  <form role=\"form\" method=\"post\" enctype=\"multipart/form-data\">\n    <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n    <div class=\"row mb-4\">\n      <div class=\"col-lg-6\"><div class=\"input input--file \">\n  \n  <div class=\"error-messages\">\n  </div>\n\n  <div class=\"input__label\">\n  \n  <label for=\"file\">\n    <span class=\"input__file-label\" role=\"button\" aria-controls=\"file\" tabindex=\"0\">\n      Choose file\n    </span>\n  </label>\n\n  <div class=\"file\">\n    <label class=\"file__name form-label\" for=\"file\">\n      No file chosen\n    </label>\n    <button type=\"button\" class=\"file__delete close\" aria-label=\"Delete\">\n      <span aria-hidden=\"true\" class=\"hidden\">Delete file</span>\n    </button>\n  </div>\n</div>\n\n\n<p id=\"file-help\" class=\"form-text\">\n  The CSV file can contain columns for any of: Forename, Surname, Email address, Notes, Title, Organisation, Extra. Column headings in the CSV must exactly match these names. Only email address is mandatory.\n</p>\n\n\n\n  <div class=\"input__field\">\n    <input\n      type=\"file\"\n      id=\"file\"\n      name=\"file\"\n      class=\"form-control-file \"\n      tabindex=\"1\"\n      aria-describedby=\"file-help\"\n    >\n  </div>\n</div>\n\n\n      </div>\n    </div>\n\n    <div class=\"row mb-4\">\n      <div class=\"col-lg-6\">\n  <fieldset class=\"fieldset\" data-name=\"view_limits\">\n    <div class=\"fieldset__legend\">\n      <legend >\n        Only allow this user to see records in these views\n      </legend>\n      \n      <div class=\"popover-container \">\n  <div class=\"popover-content\" id=\"view_limits_popover-popover\">\n    \n  <p>By default, a user can see any record in Linkspace, and is only limited to what fields of that record he or she can view. This option makes it possible to also limit the records that a user can view. By selecting a view in the dropdown box, a user can only ever see records that meet the search criteria of that view (of the view's particular table), regardless of what other search criteria or views they may make themselves. By selecting multiple views, a user will only be able to see records contained in any of the listed views. Note that the limitation only applies to the particular table of the view(s). So if only View A from Table A is selected, the user will be limited to only View A's records in Table A, but will be able to see any record in Table B.</p>\n  <p>Views defined here are in addition to any view limitations applied to the relevant table. If a view is applied to a table and another view is applied here, then the user will be able to see records contained in either view.</p>\n  \n  </div>\n  <button class=\"btn btn-popover \" type=\"button\"\n    title=\"Limiting a user&#39;s access to records\" \n    aria-describedby=\"view_limits_popover-popover\"\n    data-bs-toggle=\"popover\">\n        <span>popover</span>\n  </button>\n</div>\n\n    </div>\n    \n    <div class=\"multiple-select\">\n      <div class=\"multiple-select__list\">        <div class=\"multiple-select__row\">\n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"view_limits\" class=\"form-label\">\n    Only allow this user to see records in this view\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-view_limits\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\">Select view</span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"view_limits\"\n      name=\"view_limits\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"Select view\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-view_limits\"\n      \n      role=\"listbox\"\n    >\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n          <button\n            type=\"button\"\n            class=\"btn btn-delete\"\n          >\n            <span class=\"btn__title\">Delete view</span>\n          </button>\n        </div>      </div>\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-add-link\"\n      >\n        <span class=\"btn__title\">Add a view</span>\n      </button>\n    </div>\n  </fieldset>\n</div>\n\n    </div>\n\n    <div class=\"row\">\n      <div class=\"col-lg-5\">\n  \n\n  <fieldset class=\"fieldset\" data-name=\"groups\">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"-label\">\n    Add this user to the following groups\n  </legend>\n  \n</div>\n\n\n    <div class=\"list list--vertical list--checkboxes\">\n      <ul class=\"list__items\" id=\"\">\n      \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_3\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"3\"\n    class=\"\"disabled    aria-labelledby=\"groups_3-label\"\n    data-value=\"delete_1\"\n    \n  >\n  <label for=\"groups_3\" id=\"groups_3-label\" class=\"checkbox-label form-label\">\n    delete_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_6\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"6\"\n    class=\"\"disabled    aria-labelledby=\"groups_6-label\"\n    data-value=\"download_1\"\n    \n  >\n  <label for=\"groups_6\" id=\"groups_6-label\" class=\"checkbox-label form-label\">\n    download_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_1\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"1\"\n    class=\"\"    aria-labelledby=\"groups_1-label\"\n    data-value=\"group1\"\n    \n  >\n  <label for=\"groups_1\" id=\"groups_1-label\" class=\"checkbox-label form-label\">\n    group1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_2\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"2\"\n    class=\"\"disabled    aria-labelledby=\"groups_2-label\"\n    data-value=\"link_1\"\n    \n  >\n  <label for=\"groups_2\" id=\"groups_2-label\" class=\"checkbox-label form-label\">\n    link_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_4\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"4\"\n    class=\"\"disabled    aria-labelledby=\"groups_4-label\"\n    data-value=\"purge_1\"\n    \n  >\n  <label for=\"groups_4\" id=\"groups_4-label\" class=\"checkbox-label form-label\">\n    purge_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_8\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"8\"\n    class=\"\"disabled    aria-labelledby=\"groups_8-label\"\n    data-value=\"view_create_4\"\n    \n  >\n  <label for=\"groups_8\" id=\"groups_8-label\" class=\"checkbox-label form-label\">\n    view_create_4\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_9\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"9\"\n    class=\"\"disabled    aria-labelledby=\"groups_9-label\"\n    data-value=\"view_create_5\"\n    \n  >\n  <label for=\"groups_9\" id=\"groups_9-label\" class=\"checkbox-label form-label\">\n    view_create_5\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_5\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"5\"\n    class=\"\"disabled    aria-labelledby=\"groups_5-label\"\n    data-value=\"view_group_1\"\n    \n  >\n  <label for=\"groups_5\" id=\"groups_5-label\" class=\"checkbox-label form-label\">\n    view_group_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_7\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"7\"\n    class=\"\"disabled    aria-labelledby=\"groups_7-label\"\n    data-value=\"view_limit_extra_1\"\n    \n  >\n  <label for=\"groups_7\" id=\"groups_7-label\" class=\"checkbox-label form-label\">\n    view_limit_extra_1\n  </label>\n  \n</div>\n\n        </li>\n              </ul>\n    </div>\n  </fieldset>\n  \n\n\n\n</div>\n\n    </div>\n    \n<div class=\"row mt-5\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/user_overview/\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-sm-auto\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"submit\"\n        name=\"submit\"\n        value=\"submit\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n      >\n        <span class=\"btn__title\">Import</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n  </form>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "users_after_errors",
+         "observed" : [
+            {
+               "email" : "user1@example.com",
+               "id" : "1"
+            },
+            {
+               "email" : "user2@example.com",
+               "id" : "2"
+            },
+            {
+               "email" : "user3@example.com",
+               "id" : "3"
+            },
+            {
+               "email" : "user4@example.com",
+               "id" : "4"
+            },
+            {
+               "email" : "user5@example.com",
+               "id" : "5"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "upload_page_superadmin",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "upload",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/user_overview/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/user_overview/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "welcome_emails",
+         "observed" : [
+            {
+               "html" : "<div class=\"hft-lines\">An account for Linkspace has been created for you. Please<br />\nclick on the following link to retrieve your password:<br />\n<br />\n<a href=\"http://localhost/resetpw/T0000000000000000000000000000007\" class=\"hft-urls\">http://localhost/resetpw/T0000000000000000000000000000007</a><br /></div>",
+               "reply_to" : null,
+               "subject" : "Your new account details",
+               "text" : "An account for Linkspace has been created for you. Please\nclick on the following link to retrieve your password:\n\nhttp://localhost/resetpw/T0000000000000000000000000000007\n",
+               "to" : [
+                  "ann@example.com"
+               ]
+            },
+            {
+               "html" : "<div class=\"hft-lines\">An account for Linkspace has been created for you. Please<br />\nclick on the following link to retrieve your password:<br />\n<br />\n<a href=\"http://localhost/resetpw/T0000000000000000000000000000008\" class=\"hft-urls\">http://localhost/resetpw/T0000000000000000000000000000008</a><br /></div>",
+               "reply_to" : null,
+               "subject" : "Your new account details",
+               "text" : "An account for Linkspace has been created for you. Please\nclick on the following link to retrieve your password:\n\nhttp://localhost/resetpw/T0000000000000000000000000000008\n",
+               "to" : [
+                  "bob@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "users_uploaded",
+         "observed" : [
+            {
+               "email" : "user1@example.com",
+               "firstname" : "User1",
+               "freetext1" : null,
+               "id" : "1",
+               "resetpw" : null,
+               "site_id" : "1",
+               "surname" : "User1",
+               "title" : null,
+               "username" : "user1@example.com",
+               "value" : "User1, User1"
+            },
+            {
+               "email" : "user2@example.com",
+               "firstname" : "User2",
+               "freetext1" : null,
+               "id" : "2",
+               "resetpw" : null,
+               "site_id" : "1",
+               "surname" : "User2",
+               "title" : null,
+               "username" : "user2@example.com",
+               "value" : "User2, User2"
+            },
+            {
+               "email" : "user3@example.com",
+               "firstname" : "User3",
+               "freetext1" : null,
+               "id" : "3",
+               "resetpw" : null,
+               "site_id" : "1",
+               "surname" : "User3",
+               "title" : null,
+               "username" : "user3@example.com",
+               "value" : "User3, User3"
+            },
+            {
+               "email" : "user4@example.com",
+               "firstname" : "User4",
+               "freetext1" : "=SUM(A1)",
+               "id" : "4",
+               "resetpw" : null,
+               "site_id" : "1",
+               "surname" : "User4",
+               "title" : "1",
+               "username" : "user4@example.com",
+               "value" : "User4, User4"
+            },
+            {
+               "email" : "user5@example.com",
+               "firstname" : "User5",
+               "freetext1" : null,
+               "id" : "5",
+               "resetpw" : null,
+               "site_id" : "1",
+               "surname" : "User5",
+               "title" : null,
+               "username" : "user5@example.com",
+               "value" : "User5, User5"
+            },
+            {
+               "email" : "ann@example.com",
+               "firstname" : "Ann",
+               "freetext1" : "Free",
+               "id" : "6",
+               "resetpw" : "T0000000000000000000000000000007",
+               "site_id" : "1",
+               "surname" : "Able",
+               "title" : "1",
+               "username" : "ann@example.com",
+               "value" : "Able, Ann"
+            },
+            {
+               "email" : "bob@example.com",
+               "firstname" : "Bob, Jr",
+               "freetext1" : "",
+               "id" : "7",
+               "resetpw" : "T0000000000000000000000000000008",
+               "site_id" : "1",
+               "surname" : "Baker",
+               "title" : "1",
+               "username" : "bob@example.com",
+               "value" : "Baker, Bob, Jr"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "groups_uploaded",
+         "observed" : [
+            {
+               "group_id" : "1",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "2",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "3",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "4",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "5",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "6",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "7",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "2"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "3"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "4"
+            },
+            {
+               "group_id" : "8",
+               "user_id" : "4"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "5"
+            },
+            {
+               "group_id" : "9",
+               "user_id" : "5"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "6"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "7"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "overview_after_upload",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      }
+   ]
+}

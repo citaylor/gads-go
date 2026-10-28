@@ -1,0 +1,3969 @@
+{
+   "runner" : "perl",
+   "scenario" : "013_globe",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "simple",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "France",
+                        "text" : "France<br><br><b>ID:</b> 1<br><b>ID:</b> 1<br><b>enum1:</b> foo2<br><b>integer1:</b> 10<br><b>string1:</b> France",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Great Britain",
+                        "text" : "Great Britain<br><br><b>ID:</b> 2<br><b>ID:</b> 2<br><b>enum1:</b> foo3<br><b>integer1:</b> 15<br><b>string1:</b> Great Britain",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : {
+                     "line" : {
+                        "width" : "2"
+                     },
+                     "size" : "15"
+                  },
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "scattergeo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3",
+               "4",
+               "5",
+               "6",
+               "7",
+               "8",
+               "9",
+               "10",
+               "11",
+               "12",
+               "13",
+               "14",
+               "15",
+               "16",
+               "17",
+               "18",
+               "19",
+               "20",
+               "21",
+               "22",
+               "23",
+               "24",
+               "25",
+               "26",
+               "27",
+               "28",
+               "29",
+               "30",
+               "31",
+               "32",
+               "33",
+               "34",
+               "35",
+               "36",
+               "37",
+               "38",
+               "39",
+               "40",
+               "41",
+               "42",
+               "43",
+               "44",
+               "45",
+               "46",
+               "47",
+               "48",
+               "49",
+               "50",
+               "51",
+               "52",
+               "53",
+               "54",
+               "55",
+               "56",
+               "57",
+               "58",
+               "59",
+               "60",
+               "61",
+               "62",
+               "63",
+               "64",
+               "65",
+               "66",
+               "67",
+               "68",
+               "69",
+               "70",
+               "71",
+               "72",
+               "73",
+               "74",
+               "75",
+               "76",
+               "77",
+               "78",
+               "79",
+               "80",
+               "81",
+               "82",
+               "83",
+               "84",
+               "85",
+               "86",
+               "87",
+               "88",
+               "89",
+               "90",
+               "91",
+               "92",
+               "93",
+               "94",
+               "95",
+               "96",
+               "97",
+               "98",
+               "99",
+               "100",
+               "101",
+               "102",
+               "103",
+               "104",
+               "105",
+               "106",
+               "107",
+               "108",
+               "109",
+               "110",
+               "111",
+               "112",
+               "113",
+               "114",
+               "115",
+               "116",
+               "117",
+               "118",
+               "119",
+               "120",
+               "121",
+               "122",
+               "123",
+               "124",
+               "125",
+               "126",
+               "127",
+               "128",
+               "129",
+               "130",
+               "131",
+               "132",
+               "133",
+               "134",
+               "135",
+               "136",
+               "137",
+               "138",
+               "139",
+               "140",
+               "141",
+               "142",
+               "143",
+               "144",
+               "145",
+               "146",
+               "147",
+               "148",
+               "149",
+               "150",
+               "151",
+               "152",
+               "153",
+               "154",
+               "155",
+               "156",
+               "157",
+               "158",
+               "159",
+               "160",
+               "161",
+               "162",
+               "163",
+               "164",
+               "165",
+               "166",
+               "167",
+               "168",
+               "169",
+               "170",
+               "171",
+               "172",
+               "173",
+               "174",
+               "175",
+               "176",
+               "177",
+               "178",
+               "179",
+               "180",
+               "181",
+               "182",
+               "183",
+               "184",
+               "185",
+               "186",
+               "187",
+               "188",
+               "189",
+               "190",
+               "191",
+               "192",
+               "193",
+               "194",
+               "195",
+               "196",
+               "197",
+               "198",
+               "199",
+               "200",
+               "201",
+               "202",
+               "203",
+               "204",
+               "205",
+               "206",
+               "207",
+               "208",
+               "209",
+               "210",
+               "211",
+               "212",
+               "213",
+               "214",
+               "215",
+               "216",
+               "217",
+               "218",
+               "219",
+               "220",
+               "221",
+               "222",
+               "223",
+               "224",
+               "225",
+               "226",
+               "227",
+               "228",
+               "229",
+               "230",
+               "231",
+               "232",
+               "233",
+               "234",
+               "235",
+               "236",
+               "237",
+               "238",
+               "239",
+               "240",
+               "241",
+               "242",
+               "243",
+               "244",
+               "245",
+               "246",
+               "247",
+               "248",
+               "249",
+               "250",
+               "251",
+               "252",
+               "253",
+               "254",
+               "255",
+               "256",
+               "257",
+               "258",
+               "259",
+               "260",
+               "261",
+               "262",
+               "263",
+               "264",
+               "265",
+               "266",
+               "267",
+               "268",
+               "269",
+               "270",
+               "271",
+               "272",
+               "273",
+               "274",
+               "275",
+               "276",
+               "277",
+               "278",
+               "279",
+               "280",
+               "281",
+               "282",
+               "283",
+               "284",
+               "285",
+               "286",
+               "287",
+               "288",
+               "289",
+               "290",
+               "291",
+               "292",
+               "293",
+               "294",
+               "295",
+               "296",
+               "297",
+               "298",
+               "299",
+               "300",
+               "301",
+               "302",
+               "303",
+               "304",
+               "305",
+               "306",
+               "307",
+               "308",
+               "309",
+               "310",
+               "311",
+               "312",
+               "313",
+               "314",
+               "315",
+               "316",
+               "317",
+               "318",
+               "319",
+               "320",
+               "321",
+               "322",
+               "323",
+               "324",
+               "325",
+               "326",
+               "327",
+               "328",
+               "329",
+               "330",
+               "331",
+               "332",
+               "333",
+               "334",
+               "335",
+               "336",
+               "337",
+               "338",
+               "339",
+               "340",
+               "341",
+               "342",
+               "343",
+               "344",
+               "345",
+               "346",
+               "347",
+               "348",
+               "349",
+               "350",
+               "351",
+               "352",
+               "353",
+               "354",
+               "355",
+               "356",
+               "357",
+               "358",
+               "359",
+               "360",
+               "361",
+               "362",
+               "363",
+               "364",
+               "365",
+               "366",
+               "367",
+               "368",
+               "369",
+               "370",
+               "371",
+               "372",
+               "373",
+               "374",
+               "375",
+               "376",
+               "377",
+               "378",
+               "379",
+               "380",
+               "381",
+               "382",
+               "383",
+               "384",
+               "385",
+               "386",
+               "387",
+               "388",
+               "389",
+               "390",
+               "391",
+               "392",
+               "393",
+               "394",
+               "395",
+               "396",
+               "397",
+               "398",
+               "399",
+               "400",
+               "401",
+               "402",
+               "403",
+               "404",
+               "405",
+               "406",
+               "407",
+               "408",
+               "409",
+               "410",
+               "411",
+               "412",
+               "413",
+               "414",
+               "415",
+               "416",
+               "417",
+               "418",
+               "419",
+               "420",
+               "421",
+               "422",
+               "423",
+               "424",
+               "425",
+               "426",
+               "427",
+               "428",
+               "429",
+               "430",
+               "431",
+               "432",
+               "433",
+               "434",
+               "435",
+               "436",
+               "437",
+               "438",
+               "439",
+               "440",
+               "441",
+               "442",
+               "443",
+               "444",
+               "445",
+               "446",
+               "447",
+               "448",
+               "449",
+               "450",
+               "451",
+               "452",
+               "453",
+               "454",
+               "455",
+               "456",
+               "457",
+               "458",
+               "459",
+               "460",
+               "461",
+               "462",
+               "463",
+               "464",
+               "465",
+               "466",
+               "467",
+               "468",
+               "469",
+               "470",
+               "471",
+               "472",
+               "473",
+               "474",
+               "475",
+               "476",
+               "477",
+               "478",
+               "479",
+               "480",
+               "481",
+               "482",
+               "483",
+               "484",
+               "485",
+               "486",
+               "487",
+               "488",
+               "489",
+               "490",
+               "491",
+               "492",
+               "493",
+               "494",
+               "495",
+               "496",
+               "497",
+               "498",
+               "499",
+               "500"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "none group",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Albania",
+                        "text" : "Albania<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Angola",
+                        "text" : "Angola<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Australia",
+                        "text" : "Australia<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "none label",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Albania",
+                        "text" : "Albania<br>Albania: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Algeria: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Andorra: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Angola",
+                        "text" : "Angola<br>Angola: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Australia",
+                        "text" : "Australia<br>Australia: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Bahamas: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Bahrain: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Barbados: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Bermuda: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Bolivia: 50",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               },
+               {
+                  "countrycolors" : null,
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "hovertext" : "Albania<br>Albania: 50",
+                        "location" : "Albania",
+                        "text" : "Albania: 50"
+                     },
+                     {
+                        "hovertext" : "Algeria<br>Algeria: 50",
+                        "location" : "Algeria",
+                        "text" : "Algeria: 50"
+                     },
+                     {
+                        "hovertext" : "Andorra<br>Andorra: 50",
+                        "location" : "Andorra",
+                        "text" : "Andorra: 50"
+                     },
+                     {
+                        "hovertext" : "Angola<br>Angola: 50",
+                        "location" : "Angola",
+                        "text" : "Angola: 50"
+                     },
+                     {
+                        "hovertext" : "Australia<br>Australia: 50",
+                        "location" : "Australia",
+                        "text" : "Australia: 50"
+                     },
+                     {
+                        "hovertext" : "Bahamas<br>Bahamas: 50",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas: 50"
+                     },
+                     {
+                        "hovertext" : "Bahrain<br>Bahrain: 50",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain: 50"
+                     },
+                     {
+                        "hovertext" : "Barbados<br>Barbados: 50",
+                        "location" : "Barbados",
+                        "text" : "Barbados: 50"
+                     },
+                     {
+                        "hovertext" : "Bermuda<br>Bermuda: 50",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda: 50"
+                     },
+                     {
+                        "hovertext" : "Bolivia<br>Bolivia: 50",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia: 50"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : "text",
+                  "showscale" : null,
+                  "type" : "scattergeo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "none color",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "0",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "location" : "Albania",
+                        "text" : "Albania<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Angola",
+                        "text" : "Angola<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Australia",
+                        "text" : "Australia<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Total: 500",
+                        "z" : "500"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "1",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "none color_count",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "0",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "location" : "Albania",
+                        "text" : "Albania<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Angola",
+                        "text" : "Angola<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Australia",
+                        "text" : "Australia<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Total: 50",
+                        "z" : "50"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "1",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "none group_numeric",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Albania",
+                        "text" : "Albania<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Angola",
+                        "text" : "Angola<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Australia",
+                        "text" : "Australia<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Total: 500",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "none color_text",
+         "observed" : {
+            "colors" : "3",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "grey",
+                        "location" : "Albania",
+                        "text" : "Albania<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "grey",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "grey",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "grey",
+                        "location" : "Angola",
+                        "text" : "Angola<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "grey",
+                        "location" : "Australia",
+                        "text" : "Australia<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "grey",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "grey",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "grey",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "grey",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "grey",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "none label_numeric_group",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Albania",
+                        "text" : "Albania<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Angola",
+                        "text" : "Angola<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Australia",
+                        "text" : "Australia<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               },
+               {
+                  "countrycolors" : null,
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "hovertext" : "Albania<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "location" : "Albania",
+                        "text" : "foo1: 10<br>foo2: 10<br>foo3: 10"
+                     },
+                     {
+                        "hovertext" : "Algeria<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "location" : "Algeria",
+                        "text" : "foo1: 10<br>foo2: 10<br>foo3: 10"
+                     },
+                     {
+                        "hovertext" : "Andorra<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "location" : "Andorra",
+                        "text" : "foo1: 10<br>foo2: 10<br>foo3: 10"
+                     },
+                     {
+                        "hovertext" : "Angola<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "location" : "Angola",
+                        "text" : "foo1: 10<br>foo2: 10<br>foo3: 10"
+                     },
+                     {
+                        "hovertext" : "Australia<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "location" : "Australia",
+                        "text" : "foo1: 10<br>foo2: 10<br>foo3: 10"
+                     },
+                     {
+                        "hovertext" : "Bahamas<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "location" : "Bahamas",
+                        "text" : "foo1: 10<br>foo2: 10<br>foo3: 10"
+                     },
+                     {
+                        "hovertext" : "Bahrain<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "location" : "Bahrain",
+                        "text" : "foo1: 10<br>foo2: 10<br>foo3: 10"
+                     },
+                     {
+                        "hovertext" : "Barbados<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "location" : "Barbados",
+                        "text" : "foo1: 10<br>foo2: 10<br>foo3: 10"
+                     },
+                     {
+                        "hovertext" : "Bermuda<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "location" : "Bermuda",
+                        "text" : "foo1: 10<br>foo2: 10<br>foo3: 10"
+                     },
+                     {
+                        "hovertext" : "Bolivia<br>foo1: 10<br>foo2: 10<br>foo3: 10",
+                        "location" : "Bolivia",
+                        "text" : "foo1: 10<br>foo2: 10<br>foo3: 10"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : "text",
+                  "showscale" : null,
+                  "type" : "scattergeo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "none label_count",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Albania",
+                        "text" : "Albania<br>50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Angola",
+                        "text" : "Angola<br>50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Australia",
+                        "text" : "Australia<br>50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>50",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               },
+               {
+                  "countrycolors" : null,
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "hovertext" : "Albania<br>50",
+                        "location" : "Albania",
+                        "text" : "50"
+                     },
+                     {
+                        "hovertext" : "Algeria<br>50",
+                        "location" : "Algeria",
+                        "text" : "50"
+                     },
+                     {
+                        "hovertext" : "Andorra<br>50",
+                        "location" : "Andorra",
+                        "text" : "50"
+                     },
+                     {
+                        "hovertext" : "Angola<br>50",
+                        "location" : "Angola",
+                        "text" : "50"
+                     },
+                     {
+                        "hovertext" : "Australia<br>50",
+                        "location" : "Australia",
+                        "text" : "50"
+                     },
+                     {
+                        "hovertext" : "Bahamas<br>50",
+                        "location" : "Bahamas",
+                        "text" : "50"
+                     },
+                     {
+                        "hovertext" : "Bahrain<br>50",
+                        "location" : "Bahrain",
+                        "text" : "50"
+                     },
+                     {
+                        "hovertext" : "Barbados<br>50",
+                        "location" : "Barbados",
+                        "text" : "50"
+                     },
+                     {
+                        "hovertext" : "Bermuda<br>50",
+                        "location" : "Bermuda",
+                        "text" : "50"
+                     },
+                     {
+                        "hovertext" : "Bolivia<br>50",
+                        "location" : "Bolivia",
+                        "text" : "50"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : "text",
+                  "showscale" : null,
+                  "type" : "scattergeo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : "No such column 'field9' on GADS::Schema::Result::Current",
+         "failures" : [],
+         "id" : "none color_label_same",
+         "observed" : null,
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3",
+               "4",
+               "5",
+               "6",
+               "7",
+               "8",
+               "9",
+               "10",
+               "11",
+               "12",
+               "13",
+               "14",
+               "15",
+               "16",
+               "17",
+               "18",
+               "19",
+               "20",
+               "21",
+               "22",
+               "23",
+               "24",
+               "25",
+               "26",
+               "27",
+               "28",
+               "29",
+               "30",
+               "31",
+               "32",
+               "33",
+               "34",
+               "35",
+               "36",
+               "37",
+               "38",
+               "39",
+               "40",
+               "41",
+               "42",
+               "43",
+               "44",
+               "45",
+               "46",
+               "47",
+               "48",
+               "49",
+               "50",
+               "51",
+               "52",
+               "53",
+               "54",
+               "55",
+               "56",
+               "57",
+               "58",
+               "59",
+               "60",
+               "61",
+               "62",
+               "63",
+               "64",
+               "65",
+               "66",
+               "67",
+               "68",
+               "69",
+               "70",
+               "71",
+               "72",
+               "73",
+               "74",
+               "75",
+               "76",
+               "77",
+               "78",
+               "79",
+               "80",
+               "81",
+               "82",
+               "83",
+               "84",
+               "85",
+               "86",
+               "87",
+               "88",
+               "89",
+               "90",
+               "91",
+               "92",
+               "93",
+               "94",
+               "95",
+               "96",
+               "97",
+               "98",
+               "99",
+               "100",
+               "101",
+               "102",
+               "103",
+               "104",
+               "105",
+               "106",
+               "107",
+               "108",
+               "109",
+               "110",
+               "111",
+               "112",
+               "113",
+               "114",
+               "115",
+               "116",
+               "117",
+               "118",
+               "119",
+               "120",
+               "121",
+               "122",
+               "123",
+               "124",
+               "125",
+               "126",
+               "127",
+               "128",
+               "129",
+               "130",
+               "131",
+               "132",
+               "133",
+               "134",
+               "135",
+               "136",
+               "137",
+               "138",
+               "139",
+               "140",
+               "141",
+               "142",
+               "143",
+               "144",
+               "145",
+               "146",
+               "147",
+               "148",
+               "149",
+               "150",
+               "151",
+               "152",
+               "153",
+               "154",
+               "155",
+               "156",
+               "157",
+               "158",
+               "159",
+               "160",
+               "161",
+               "162",
+               "163",
+               "164",
+               "165",
+               "166",
+               "167",
+               "168",
+               "169",
+               "170",
+               "171",
+               "172",
+               "173",
+               "174",
+               "175",
+               "176",
+               "177",
+               "178",
+               "179",
+               "180",
+               "181",
+               "182",
+               "183",
+               "184",
+               "185",
+               "186",
+               "187",
+               "188",
+               "189",
+               "190",
+               "191",
+               "192",
+               "193",
+               "194",
+               "195",
+               "196",
+               "197",
+               "198",
+               "199",
+               "200",
+               "201",
+               "202",
+               "203",
+               "204",
+               "205",
+               "206",
+               "207",
+               "208",
+               "209",
+               "210",
+               "211",
+               "212",
+               "213",
+               "214",
+               "215",
+               "216",
+               "217",
+               "218",
+               "219",
+               "220",
+               "221",
+               "222",
+               "223",
+               "224",
+               "225",
+               "226",
+               "227",
+               "228",
+               "229",
+               "230",
+               "231",
+               "232",
+               "233",
+               "234",
+               "235",
+               "236",
+               "237",
+               "238",
+               "239",
+               "240",
+               "241",
+               "242",
+               "243",
+               "244",
+               "245",
+               "246",
+               "247",
+               "248",
+               "249",
+               "250",
+               "251",
+               "252",
+               "253",
+               "254",
+               "255",
+               "256",
+               "257",
+               "258",
+               "259",
+               "260",
+               "261",
+               "262",
+               "263",
+               "264",
+               "265",
+               "266",
+               "267",
+               "268",
+               "269",
+               "270",
+               "271",
+               "272",
+               "273",
+               "274",
+               "275",
+               "276",
+               "277",
+               "278",
+               "279",
+               "280",
+               "281",
+               "282",
+               "283",
+               "284",
+               "285",
+               "286",
+               "287",
+               "288",
+               "289",
+               "290",
+               "291",
+               "292",
+               "293",
+               "294",
+               "295",
+               "296",
+               "297",
+               "298",
+               "299",
+               "300",
+               "301",
+               "302",
+               "303",
+               "304",
+               "305",
+               "306",
+               "307",
+               "308",
+               "309",
+               "310",
+               "311",
+               "312",
+               "313",
+               "314",
+               "315",
+               "316",
+               "317",
+               "318",
+               "319",
+               "320",
+               "321",
+               "322",
+               "323",
+               "324",
+               "325",
+               "326",
+               "327",
+               "328",
+               "329",
+               "330",
+               "331",
+               "332",
+               "333",
+               "334",
+               "335",
+               "336",
+               "337",
+               "338",
+               "339",
+               "340",
+               "341",
+               "342",
+               "343",
+               "344",
+               "345",
+               "346",
+               "347",
+               "348",
+               "349",
+               "350",
+               "351",
+               "352",
+               "353",
+               "354",
+               "355",
+               "356",
+               "357",
+               "358",
+               "359",
+               "360",
+               "361",
+               "362",
+               "363",
+               "364",
+               "365",
+               "366",
+               "367",
+               "368",
+               "369",
+               "370",
+               "371",
+               "372",
+               "373",
+               "374",
+               "375",
+               "376",
+               "377",
+               "378",
+               "379",
+               "380",
+               "381",
+               "382",
+               "383",
+               "384",
+               "385",
+               "386",
+               "387",
+               "388",
+               "389",
+               "390",
+               "391",
+               "392",
+               "393",
+               "394",
+               "395",
+               "396",
+               "397",
+               "398",
+               "399",
+               "400",
+               "401",
+               "402",
+               "403",
+               "404",
+               "405",
+               "406",
+               "407",
+               "408",
+               "409",
+               "410",
+               "411",
+               "412",
+               "413",
+               "414",
+               "415",
+               "416",
+               "417",
+               "418",
+               "419",
+               "420",
+               "421",
+               "422",
+               "423",
+               "424",
+               "425",
+               "426",
+               "427",
+               "428",
+               "429",
+               "430",
+               "431",
+               "432",
+               "433",
+               "434",
+               "435",
+               "436",
+               "437",
+               "438",
+               "439",
+               "440",
+               "441",
+               "442",
+               "443",
+               "444",
+               "445",
+               "446",
+               "447",
+               "448",
+               "449",
+               "450",
+               "451",
+               "452",
+               "453",
+               "454",
+               "455",
+               "456",
+               "457",
+               "458",
+               "459",
+               "460",
+               "461",
+               "462",
+               "463",
+               "464",
+               "465",
+               "466",
+               "467",
+               "468",
+               "469",
+               "470",
+               "471",
+               "472",
+               "473",
+               "474",
+               "475",
+               "476",
+               "477",
+               "478",
+               "479",
+               "480",
+               "481",
+               "482",
+               "483",
+               "484",
+               "485",
+               "486",
+               "487",
+               "488",
+               "489",
+               "490",
+               "491",
+               "492",
+               "493",
+               "494",
+               "495",
+               "496",
+               "497",
+               "498",
+               "499",
+               "500"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "with group",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "1",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Albania",
+                        "text" : "Albania<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Angola",
+                        "text" : "Angola<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Australia",
+                        "text" : "Australia<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "with label",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "1",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Albania",
+                        "text" : "Albania<br>Albania: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Algeria: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Andorra: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Angola",
+                        "text" : "Angola<br>Angola: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Australia",
+                        "text" : "Australia<br>Australia: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Bahamas: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Bahrain: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Barbados: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Bermuda: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Bolivia: 50",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               },
+               {
+                  "countrycolors" : null,
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "hovertext" : "Albania<br>Albania: 50",
+                        "location" : "Albania",
+                        "text" : "Albania: 50"
+                     },
+                     {
+                        "hovertext" : "Algeria<br>Algeria: 50",
+                        "location" : "Algeria",
+                        "text" : "Algeria: 50"
+                     },
+                     {
+                        "hovertext" : "Andorra<br>Andorra: 50",
+                        "location" : "Andorra",
+                        "text" : "Andorra: 50"
+                     },
+                     {
+                        "hovertext" : "Angola<br>Angola: 50",
+                        "location" : "Angola",
+                        "text" : "Angola: 50"
+                     },
+                     {
+                        "hovertext" : "Australia<br>Australia: 50",
+                        "location" : "Australia",
+                        "text" : "Australia: 50"
+                     },
+                     {
+                        "hovertext" : "Bahamas<br>Bahamas: 50",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas: 50"
+                     },
+                     {
+                        "hovertext" : "Bahrain<br>Bahrain: 50",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain: 50"
+                     },
+                     {
+                        "hovertext" : "Barbados<br>Barbados: 50",
+                        "location" : "Barbados",
+                        "text" : "Barbados: 50"
+                     },
+                     {
+                        "hovertext" : "Bermuda<br>Bermuda: 50",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda: 50"
+                     },
+                     {
+                        "hovertext" : "Bolivia<br>Bolivia: 50",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia: 50"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : "text",
+                  "showscale" : null,
+                  "type" : "scattergeo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "with color",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "1",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "0",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "location" : "Albania",
+                        "text" : "Albania<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Angola",
+                        "text" : "Angola<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Australia",
+                        "text" : "Australia<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Total: 500",
+                        "z" : "500"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "1",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "with color_count",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "1",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "0",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "location" : "Albania",
+                        "text" : "Albania<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Angola",
+                        "text" : "Angola<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Australia",
+                        "text" : "Australia<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Total: 50",
+                        "z" : "50"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "1",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "with group_numeric",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "1",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Albania",
+                        "text" : "Albania<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Angola",
+                        "text" : "Angola<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Australia",
+                        "text" : "Australia<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Total: 500",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3",
+               "4",
+               "5",
+               "6",
+               "7",
+               "8",
+               "9",
+               "10",
+               "11",
+               "12",
+               "13",
+               "14",
+               "15",
+               "16",
+               "17",
+               "18",
+               "19",
+               "20",
+               "21",
+               "22",
+               "23",
+               "24",
+               "25",
+               "26",
+               "27",
+               "28",
+               "29",
+               "30",
+               "31",
+               "32",
+               "33",
+               "34",
+               "35",
+               "36",
+               "37",
+               "38",
+               "39",
+               "40",
+               "41",
+               "42",
+               "43",
+               "44",
+               "45",
+               "46",
+               "47",
+               "48",
+               "49",
+               "50",
+               "51",
+               "52",
+               "53",
+               "54",
+               "55",
+               "56",
+               "57",
+               "58",
+               "59",
+               "60",
+               "61",
+               "62",
+               "63",
+               "64",
+               "65",
+               "66",
+               "67",
+               "68",
+               "69",
+               "70",
+               "71",
+               "72",
+               "73",
+               "74",
+               "75",
+               "76",
+               "77",
+               "78",
+               "79",
+               "80",
+               "81",
+               "82",
+               "83",
+               "84",
+               "85",
+               "86",
+               "87",
+               "88",
+               "89",
+               "90",
+               "91",
+               "92",
+               "93",
+               "94",
+               "95",
+               "96",
+               "97",
+               "98",
+               "99",
+               "100",
+               "101",
+               "102",
+               "103",
+               "104",
+               "105",
+               "106",
+               "107",
+               "108",
+               "109",
+               "110",
+               "111",
+               "112",
+               "113",
+               "114",
+               "115",
+               "116",
+               "117",
+               "118",
+               "119",
+               "120",
+               "121",
+               "122",
+               "123",
+               "124",
+               "125",
+               "126",
+               "127",
+               "128",
+               "129",
+               "130",
+               "131",
+               "132",
+               "133",
+               "134",
+               "135",
+               "136",
+               "137",
+               "138",
+               "139",
+               "140",
+               "141",
+               "142",
+               "143",
+               "144",
+               "145",
+               "146",
+               "147",
+               "148",
+               "149",
+               "150",
+               "151",
+               "152",
+               "153",
+               "154",
+               "155",
+               "156",
+               "157",
+               "158",
+               "159",
+               "160",
+               "161",
+               "162",
+               "163",
+               "164",
+               "165",
+               "166",
+               "167",
+               "168",
+               "169",
+               "170",
+               "171",
+               "172",
+               "173",
+               "174",
+               "175",
+               "176",
+               "177",
+               "178",
+               "179",
+               "180",
+               "181",
+               "182",
+               "183",
+               "184",
+               "185",
+               "186",
+               "187",
+               "188",
+               "189",
+               "190",
+               "191",
+               "192",
+               "193",
+               "194",
+               "195",
+               "196",
+               "197",
+               "198",
+               "199",
+               "200",
+               "201",
+               "202",
+               "203",
+               "204",
+               "205",
+               "206",
+               "207",
+               "208",
+               "209",
+               "210",
+               "211",
+               "212",
+               "213",
+               "214",
+               "215",
+               "216",
+               "217",
+               "218",
+               "219",
+               "220",
+               "221",
+               "222",
+               "223",
+               "224",
+               "225",
+               "226",
+               "227",
+               "228",
+               "229",
+               "230",
+               "231",
+               "232",
+               "233",
+               "234",
+               "235",
+               "236",
+               "237",
+               "238",
+               "239",
+               "240",
+               "241",
+               "242",
+               "243",
+               "244",
+               "245",
+               "246",
+               "247",
+               "248",
+               "249",
+               "250",
+               "251",
+               "252",
+               "253",
+               "254",
+               "255",
+               "256",
+               "257",
+               "258",
+               "259",
+               "260",
+               "261",
+               "262",
+               "263",
+               "264",
+               "265",
+               "266",
+               "267",
+               "268",
+               "269",
+               "270",
+               "271",
+               "272",
+               "273",
+               "274",
+               "275",
+               "276",
+               "277",
+               "278",
+               "279",
+               "280",
+               "281",
+               "282",
+               "283",
+               "284",
+               "285",
+               "286",
+               "287",
+               "288",
+               "289",
+               "290",
+               "291",
+               "292",
+               "293",
+               "294",
+               "295",
+               "296",
+               "297",
+               "298",
+               "299",
+               "300",
+               "301",
+               "302",
+               "303",
+               "304",
+               "305",
+               "306",
+               "307",
+               "308",
+               "309",
+               "310",
+               "311",
+               "312",
+               "313",
+               "314",
+               "315",
+               "316",
+               "317",
+               "318",
+               "319",
+               "320",
+               "321",
+               "322",
+               "323",
+               "324",
+               "325",
+               "326",
+               "327",
+               "328",
+               "329",
+               "330",
+               "331",
+               "332",
+               "333",
+               "334",
+               "335",
+               "336",
+               "337",
+               "338",
+               "339",
+               "340",
+               "341",
+               "342",
+               "343",
+               "344",
+               "345",
+               "346",
+               "347",
+               "348",
+               "349",
+               "350",
+               "351",
+               "352",
+               "353",
+               "354",
+               "355",
+               "356",
+               "357",
+               "358",
+               "359",
+               "360",
+               "361",
+               "362",
+               "363",
+               "364",
+               "365",
+               "366",
+               "367",
+               "368",
+               "369",
+               "370",
+               "371",
+               "372",
+               "373",
+               "374",
+               "375",
+               "376",
+               "377",
+               "378",
+               "379",
+               "380",
+               "381",
+               "382",
+               "383",
+               "384",
+               "385",
+               "386",
+               "387",
+               "388",
+               "389",
+               "390",
+               "391",
+               "392",
+               "393",
+               "394",
+               "395",
+               "396",
+               "397",
+               "398",
+               "399",
+               "400",
+               "401",
+               "402",
+               "403",
+               "404",
+               "405",
+               "406",
+               "407",
+               "408",
+               "409",
+               "410",
+               "411",
+               "412",
+               "413",
+               "414",
+               "415",
+               "416",
+               "417",
+               "418",
+               "419",
+               "420",
+               "421",
+               "422",
+               "423",
+               "424",
+               "425",
+               "426",
+               "427",
+               "428",
+               "429",
+               "430",
+               "431",
+               "432",
+               "433",
+               "434",
+               "435",
+               "436",
+               "437",
+               "438",
+               "439",
+               "440",
+               "441",
+               "442",
+               "443",
+               "444",
+               "445",
+               "446",
+               "447",
+               "448",
+               "449",
+               "450",
+               "451",
+               "452",
+               "453",
+               "454",
+               "455",
+               "456",
+               "457",
+               "458",
+               "459",
+               "460",
+               "461",
+               "462",
+               "463",
+               "464",
+               "465",
+               "466",
+               "467",
+               "468",
+               "469",
+               "470",
+               "471",
+               "472",
+               "473",
+               "474",
+               "475",
+               "476",
+               "477",
+               "478",
+               "479",
+               "480",
+               "481",
+               "482",
+               "483",
+               "484",
+               "485",
+               "486",
+               "487",
+               "488",
+               "489",
+               "490",
+               "491",
+               "492",
+               "493",
+               "494",
+               "495",
+               "496",
+               "497",
+               "498",
+               "499",
+               "500"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "24:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "without group",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "1",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Albania",
+                        "text" : "Albania<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Angola",
+                        "text" : "Angola<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Australia",
+                        "text" : "Australia<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>foo1: 16<br>foo2: 17<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>foo1: 17<br>foo2: 16<br>foo3: 17",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>foo1: 17<br>foo2: 17<br>foo3: 16",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "without label",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "1",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Albania",
+                        "text" : "Albania<br>Albania: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Algeria: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Andorra: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Angola",
+                        "text" : "Angola<br>Angola: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Australia",
+                        "text" : "Australia<br>Australia: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Bahamas: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Bahrain: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Barbados: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Bermuda: 50",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Bolivia: 50",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               },
+               {
+                  "countrycolors" : null,
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "hovertext" : "Albania<br>Albania: 50",
+                        "location" : "Albania",
+                        "text" : "Albania: 50"
+                     },
+                     {
+                        "hovertext" : "Algeria<br>Algeria: 50",
+                        "location" : "Algeria",
+                        "text" : "Algeria: 50"
+                     },
+                     {
+                        "hovertext" : "Andorra<br>Andorra: 50",
+                        "location" : "Andorra",
+                        "text" : "Andorra: 50"
+                     },
+                     {
+                        "hovertext" : "Angola<br>Angola: 50",
+                        "location" : "Angola",
+                        "text" : "Angola: 50"
+                     },
+                     {
+                        "hovertext" : "Australia<br>Australia: 50",
+                        "location" : "Australia",
+                        "text" : "Australia: 50"
+                     },
+                     {
+                        "hovertext" : "Bahamas<br>Bahamas: 50",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas: 50"
+                     },
+                     {
+                        "hovertext" : "Bahrain<br>Bahrain: 50",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain: 50"
+                     },
+                     {
+                        "hovertext" : "Barbados<br>Barbados: 50",
+                        "location" : "Barbados",
+                        "text" : "Barbados: 50"
+                     },
+                     {
+                        "hovertext" : "Bermuda<br>Bermuda: 50",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda: 50"
+                     },
+                     {
+                        "hovertext" : "Bolivia<br>Bolivia: 50",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia: 50"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : "text",
+                  "showscale" : null,
+                  "type" : "scattergeo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "without color",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "1",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "0",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "location" : "Albania",
+                        "text" : "Albania<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Angola",
+                        "text" : "Angola<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Australia",
+                        "text" : "Australia<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Total: 500",
+                        "z" : "500"
+                     },
+                     {
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Total: 500",
+                        "z" : "500"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "1",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "without color_count",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "1",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "0",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "location" : "Albania",
+                        "text" : "Albania<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Angola",
+                        "text" : "Angola<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Australia",
+                        "text" : "Australia<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Total: 50",
+                        "z" : "50"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "1",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "without group_numeric",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "1",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Albania",
+                        "text" : "Albania<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Algeria",
+                        "text" : "Algeria<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Andorra",
+                        "text" : "Andorra<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Angola",
+                        "text" : "Angola<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Australia",
+                        "text" : "Australia<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahamas",
+                        "text" : "Bahamas<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bahrain",
+                        "text" : "Bahrain<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Barbados",
+                        "text" : "Barbados<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bermuda",
+                        "text" : "Bermuda<br>Total: 500",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Bolivia",
+                        "text" : "Bolivia<br>Total: 500",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "30:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "33:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "34:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "35:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "5",
+               "6",
+               "7"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval color",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field35"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "0",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "location" : "France",
+                        "text" : "France<br>Total: 50",
+                        "z" : "50"
+                     },
+                     {
+                        "location" : "Germany",
+                        "text" : "Germany<br>Total: 25",
+                        "z" : "25"
+                     },
+                     {
+                        "location" : "Spain",
+                        "text" : "Spain<br>Total: 25",
+                        "z" : "25"
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : null,
+                  "mode" : null,
+                  "showscale" : "1",
+                  "type" : "choropleth"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "37:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "38:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "invalid group",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "France",
+                        "text" : "France<br><br><b>ID:</b> 1<br><b>ID:</b> 1<br><b>enum1:</b> foo2<br><b>integer1:</b> 10<br><b>string1:</b> France",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Great Britain",
+                        "text" : "Great Britain<br><br><b>ID:</b> 2<br><b>ID:</b> 2<br><b>enum1:</b> foo3<br><b>integer1:</b> 15<br><b>string1:</b> Great Britain",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : {
+                     "line" : {
+                        "width" : "2"
+                     },
+                     "size" : "15"
+                  },
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "scattergeo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "invalid label",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "France",
+                        "text" : "France<br><br><b>ID:</b> 1<br><b>ID:</b> 1<br><b>enum1:</b> foo2<br><b>integer1:</b> 10<br><b>string1:</b> France",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Great Britain",
+                        "text" : "Great Britain<br><br><b>ID:</b> 2<br><b>ID:</b> 2<br><b>enum1:</b> foo3<br><b>integer1:</b> 15<br><b>string1:</b> Great Britain",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : {
+                     "line" : {
+                        "width" : "2"
+                     },
+                     "size" : "15"
+                  },
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "scattergeo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "invalid color",
+         "observed" : {
+            "colors" : "0",
+            "params" : {
+               "default_view_limit_extra_id" : null,
+               "globe_fields" : [
+                  "field17"
+               ],
+               "has_view" : "0",
+               "layout_identifier" : "table1"
+            },
+            "traces" : [
+               {
+                  "countrycolors" : "1",
+                  "hoverinfo" : "text",
+                  "items" : [
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "France",
+                        "text" : "France<br><br><b>ID:</b> 1<br><b>ID:</b> 1<br><b>enum1:</b> foo2<br><b>integer1:</b> 10<br><b>string1:</b> France",
+                        "z" : null
+                     },
+                     {
+                        "countrycolor" : "#D3D3D3",
+                        "location" : "Great Britain",
+                        "text" : "Great Britain<br><br><b>ID:</b> 2<br><b>ID:</b> 2<br><b>enum1:</b> foo3<br><b>integer1:</b> 15<br><b>string1:</b> Great Britain",
+                        "z" : null
+                     }
+                  ],
+                  "locationmode" : "country names",
+                  "marker" : {
+                     "line" : {
+                        "width" : "2"
+                     },
+                     "size" : "15"
+                  },
+                  "mode" : null,
+                  "showscale" : "0",
+                  "type" : "scattergeo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "globe"
+      }
+   ]
+}

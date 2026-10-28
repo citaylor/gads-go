@@ -1,0 +1,213 @@
+name: 220_web_files
+source:
+  - lib/GADS.pm (get /file/?, get /file/:id?, post /file/:id?, put /api/file/:id, post /api/file/?)
+  - lib/GADS/Filecheck.pm (check_file, check_name)
+  - lib/GADS/Schema/ResultSet/Fileval.pm (independent, find_with_permission)
+  - views/files.tt
+description: >
+  The files of a site: the management page of independent files (upload,
+  download and delete, superadmins only), files of records (with the access
+  of the user to the field), files uploaded during a record edit (only for
+  the uploader until attached) and renaming them, and the checks of the
+  type, extension and name of uploads.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo, file1: null }
+  - column:
+      op: update
+      sheet: s
+      column: file1
+      set:
+        permissions:
+          default: []
+  - db:
+      id: filevals
+      op: select
+      table: fileval
+      columns: [id, name, mimetype, is_independent, edit_user_id]
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { id: home_normal1, as: normal1, path: /, no_body: true }
+  # The management page
+  - http: { id: files_empty, as: superadmin, path: /file/ }
+  - http: { id: files_denied, as: normal1, path: /file/ }
+  - http:
+      id: upload
+      as: superadmin
+      method: POST
+      path: /file/
+      upload:
+        file: { filename: notes.txt, content: "Some notes\n", content_type: text/plain }
+  - http:
+      id: upload_bad_type
+      as: superadmin
+      method: POST
+      path: /file/
+      upload:
+        file: { filename: data.txt, content_b64: "AAECAwQFBgc=", content_type: application/octet-stream }
+  - http:
+      id: upload_no_extension
+      as: superadmin
+      method: POST
+      path: /file/
+      upload:
+        file: { filename: notes, content: "Some notes\n", content_type: text/plain }
+  - http:
+      id: upload_bad_extension
+      as: superadmin
+      method: POST
+      path: /file/
+      upload:
+        file: { filename: notes.html, content: "Some notes\n", content_type: text/plain }
+  - http:
+      id: upload_bad_name
+      as: superadmin
+      method: POST
+      path: /file/
+      upload:
+        file: { filename: "my.notes.txt", content: "Some notes\n", content_type: text/plain }
+  - http: { id: files, as: superadmin, path: /file/ }
+  - db:
+      id: filevals_uploaded
+      op: select
+      table: fileval
+      columns: [id, name, mimetype, is_independent, edit_user_id]
+      order_by: [id]
+  - http: { id: download, as: superadmin, path: /file/2 }
+  - http: { id: download_normal, as: normal1, path: /file/2 }
+  - http: { id: download_purged, as: normal1, path: "/file/-1" }
+  - http: { id: download_missing, as: superadmin, path: /file/99 }
+  - http: { id: download_not_number, as: superadmin, path: /file/abc }
+  - http: { id: record_file_superadmin, as: superadmin, path: /file/1 }
+  - http: { id: record_file_no_permission, as: normal1, path: /file/1 }
+  # Deleting
+  - http:
+      id: delete_denied
+      as: normal1
+      method: POST
+      path: /file/
+      form: { delete: 2 }
+  - http:
+      id: delete_missing_id
+      as: superadmin
+      method: POST
+      path: /file/
+      form: {}
+  - http:
+      id: delete_not_found
+      as: superadmin
+      method: POST
+      path: /file/
+      form: { delete: 99 }
+  - http:
+      id: delete
+      as: superadmin
+      method: POST
+      path: /file/
+      form: { delete: 2 }
+  - http: { id: files_after_delete, as: superadmin, path: /file/ }
+  # Files of record edits
+  - http:
+      id: api_upload
+      as: normal1
+      method: POST
+      path: /api/file/
+      upload:
+        file: { filename: "my report!.txt", content: "Report\n", content_type: text/plain }
+  - http:
+      id: api_upload_none
+      as: normal1
+      method: POST
+      path: /api/file/
+      form: {}
+  - http:
+      id: api_upload_bad_type
+      as: normal1
+      method: POST
+      path: /api/file/
+      upload:
+        file: { filename: data.txt, content_b64: "AAECAwQFBgc=", content_type: application/octet-stream }
+  - db:
+      id: filevals_api
+      op: select
+      table: fileval
+      columns: [id, name, mimetype, is_independent, edit_user_id]
+      order_by: [id]
+  - http: { id: api_file_uploader, as: normal1, path: /file/2 }
+  - http: { id: api_file_other, as: superadmin, path: /file/2 }
+  # Renaming
+  - http:
+      id: rename_new
+      as: normal1
+      method: PUT
+      path: /api/file/2
+      form: { is_new: 1, filename: Renamed.txt }
+  - http:
+      id: rename_no_name
+      as: normal1
+      method: PUT
+      path: /api/file/2
+      form: { is_new: 1 }
+  - http:
+      id: rename_bad_name
+      as: normal1
+      method: PUT
+      path: /api/file/2
+      form: { is_new: 1, filename: "bad/name.txt" }
+  - http:
+      id: rename_new_not_new
+      as: superadmin
+      method: PUT
+      path: /api/file/1
+      form: { is_new: 1, filename: Other.txt }
+  - http:
+      id: rename_existing
+      as: superadmin
+      method: PUT
+      path: /api/file/1
+      form: { filename: Copy.txt }
+  - column:
+      op: update
+      sheet: s
+      column: file1
+      set: { permissions: default }
+  - http: { id: record_file_with_permission, as: normal1, path: /file/1 }
+  - http:
+      id: rename_existing_permitted
+      as: normal1
+      method: PUT
+      path: /api/file/1
+      form: { filename: Copy.txt }
+  - http:
+      id: rename_existing_missing
+      as: superadmin
+      method: PUT
+      path: /api/file/99
+      form: { filename: Copy.txt }
+  - db:
+      id: filevals_renamed
+      op: select
+      table: fileval
+      columns: [id, name, mimetype, is_independent, edit_user_id]
+      order_by: [id]
+  - http:
+      id: api_delete_denied
+      as: normal1
+      method: POST
+      path: /api/file/
+      form: { delete: 2 }
+  - http:
+      id: api_delete
+      as: superadmin
+      method: POST
+      path: /api/file/
+      form: { delete: 2 }
+  - db:
+      id: filevals_final
+      op: select
+      table: fileval
+      columns: [id, name]
+      order_by: [id]

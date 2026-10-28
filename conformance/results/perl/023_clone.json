@@ -1,0 +1,896 @@
+{
+   "runner" : "perl",
+   "scenario" : "023_clone",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:add_autocur",
+         "observed" : {
+            "id" : "36",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "values to begin with",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo"
+               },
+               "string1" : {
+                  "as_string" : "Foobar"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval ids to begin with",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "ids" : [
+                     "1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "clone pre-write (reload 0)",
+         "observed" : {
+            "current_id" : null,
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo",
+                  "text_all" : [
+                     "Foo"
+                  ]
+               },
+               "date1" : {
+                  "as_string" : "2010-01-01",
+                  "text_all" : [
+                     "2010-01-01"
+                  ]
+               },
+               "daterange1" : {
+                  "as_string" : "2011-02-02 to 2012-02-02",
+                  "text_all" : [
+                     "2011-02-02 to 2012-02-02"
+                  ]
+               },
+               "enum1" : {
+                  "as_string" : "foo1",
+                  "text_all" : [
+                     "foo1"
+                  ]
+               },
+               "integer1" : {
+                  "as_string" : "150",
+                  "text_all" : [
+                     "150"
+                  ]
+               },
+               "string1" : {
+                  "as_string" : "Foobar",
+                  "text_all" : [
+                     "Foobar"
+                  ]
+               },
+               "tree1" : {
+                  "as_string" : "tree1",
+                  "text_all" : [
+                     "tree1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write clone (reload 0)",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "clone after write (reload 0)",
+         "observed" : {
+            "current_id" : "4",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo",
+                  "text_all" : [
+                     "Foo"
+                  ]
+               },
+               "date1" : {
+                  "as_string" : "2010-01-01",
+                  "text_all" : [
+                     "2010-01-01"
+                  ]
+               },
+               "daterange1" : {
+                  "as_string" : "2011-02-02 to 2012-02-02",
+                  "text_all" : [
+                     "2011-02-02 to 2012-02-02"
+                  ]
+               },
+               "enum1" : {
+                  "as_string" : "foo1",
+                  "text_all" : [
+                     "foo1"
+                  ]
+               },
+               "integer1" : {
+                  "as_string" : "150",
+                  "text_all" : [
+                     "150"
+                  ]
+               },
+               "string1" : {
+                  "as_string" : "Foobar",
+                  "text_all" : [
+                     "Foobar"
+                  ]
+               },
+               "tree1" : {
+                  "as_string" : "tree1",
+                  "text_all" : [
+                     "tree1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "clone curval ids (reload 0)",
+         "observed" : {
+            "current_id" : "4",
+            "datum" : {
+               "curval1" : {
+                  "ids" : [
+                     "1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "clone pre-write (reload 1)",
+         "observed" : {
+            "current_id" : null,
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo",
+                  "text_all" : [
+                     "Foo"
+                  ]
+               },
+               "date1" : {
+                  "as_string" : "2010-01-01",
+                  "text_all" : [
+                     "2010-01-01"
+                  ]
+               },
+               "daterange1" : {
+                  "as_string" : "2011-02-02 to 2012-02-02",
+                  "text_all" : [
+                     "2011-02-02 to 2012-02-02"
+                  ]
+               },
+               "enum1" : {
+                  "as_string" : "foo1",
+                  "text_all" : [
+                     "foo1"
+                  ]
+               },
+               "integer1" : {
+                  "as_string" : "150",
+                  "text_all" : [
+                     "150"
+                  ]
+               },
+               "string1" : {
+                  "as_string" : "Foobar",
+                  "text_all" : [
+                     "Foobar"
+                  ]
+               },
+               "tree1" : {
+                  "as_string" : "tree1",
+                  "text_all" : [
+                     "tree1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write clone (reload 1)",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "clone after write (reload 1)",
+         "observed" : {
+            "current_id" : "5",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo",
+                  "text_all" : [
+                     "Foo"
+                  ]
+               },
+               "date1" : {
+                  "as_string" : "2010-01-01",
+                  "text_all" : [
+                     "2010-01-01"
+                  ]
+               },
+               "daterange1" : {
+                  "as_string" : "2011-02-02 to 2012-02-02",
+                  "text_all" : [
+                     "2011-02-02 to 2012-02-02"
+                  ]
+               },
+               "enum1" : {
+                  "as_string" : "foo1",
+                  "text_all" : [
+                     "foo1"
+                  ]
+               },
+               "integer1" : {
+                  "as_string" : "150",
+                  "text_all" : [
+                     "150"
+                  ]
+               },
+               "string1" : {
+                  "as_string" : "Foobar",
+                  "text_all" : [
+                     "Foobar"
+                  ]
+               },
+               "tree1" : {
+                  "as_string" : "tree1",
+                  "text_all" : [
+                     "tree1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "clone curval ids (reload 1)",
+         "observed" : {
+            "current_id" : "5",
+            "datum" : {
+               "curval1" : {
+                  "ids" : [
+                     "1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:column",
+         "observed" : {
+            "id" : "33"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write clone with no updates",
+         "observed" : {
+            "current_id" : "6",
+            "record_id" : "6"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "clone with no updates",
+         "observed" : {
+            "current_id" : "6",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo"
+               },
+               "string1" : {
+                  "as_string" : "Foobar"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "clone with no updates curval ids",
+         "observed" : {
+            "current_id" : "6",
+            "datum" : {
+               "curval1" : {
+                  "ids" : [
+                     "7"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone no changes (reload 0)",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "html_form" : [
+                     "1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write form clone no changes (reload 0)",
+         "observed" : {
+            "current_id" : "8",
+            "record_id" : "8"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone no changes after write (reload 0)",
+         "observed" : {
+            "current_id" : "8",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo"
+               },
+               "string1" : {
+                  "as_string" : "Foobar"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone no changes curval ids (reload 0)",
+         "observed" : {
+            "current_id" : "8",
+            "datum" : {
+               "curval1" : {
+                  "ids" : [
+                     "9"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone no changes (reload 1)",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "html_form" : [
+                     "1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "34:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "35:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "36:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write form clone no changes (reload 1)",
+         "observed" : {
+            "current_id" : "10",
+            "record_id" : "10"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone no changes after write (reload 1)",
+         "observed" : {
+            "current_id" : "10",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo"
+               },
+               "string1" : {
+                  "as_string" : "Foobar"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone no changes curval ids (reload 1)",
+         "observed" : {
+            "current_id" : "10",
+            "datum" : {
+               "curval1" : {
+                  "ids" : [
+                     "11"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "40:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone changes (reload 0)",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "html_form" : [
+                     "1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "42:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write form clone changes (reload 0)",
+         "observed" : {
+            "current_id" : "12",
+            "record_id" : "12"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone changes after write (reload 0)",
+         "observed" : {
+            "current_id" : "12",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo2"
+               },
+               "string1" : {
+                  "as_string" : "Foobar"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone changes curval ids (reload 0)",
+         "observed" : {
+            "current_id" : "12",
+            "datum" : {
+               "curval1" : {
+                  "ids" : [
+                     "13"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "46:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone changes (reload 1)",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "html_form" : [
+                     "1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "48:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "49:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "50:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write form clone changes (reload 1)",
+         "observed" : {
+            "current_id" : "14",
+            "record_id" : "14"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone changes after write (reload 1)",
+         "observed" : {
+            "current_id" : "14",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo2"
+               },
+               "string1" : {
+                  "as_string" : "Foobar"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "form clone changes curval ids (reload 1)",
+         "observed" : {
+            "current_id" : "14",
+            "datum" : {
+               "curval1" : {
+                  "ids" : [
+                     "15"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      }
+   ]
+}

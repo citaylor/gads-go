@@ -1,0 +1,184 @@
+name: 218_web_account
+source:
+  - lib/GADS.pm (/register, /myaccount, /resetpw, /resetpw/:code, reset_text, _random_pw)
+  - lib/GADS/Users.pm (register, user_exists, all_admins)
+  - Dancer2::Plugin::Auth::Extensible (user_password, password_reset_send)
+  - views/register.tt, user/my_account.tt, reset_password_*.tt
+description: >
+  Self-service account requests (with the email to the user administrators,
+  the site's optional fields, an existing user getting the welcome email
+  again, and requests being disabled), password reset requests and the
+  reset itself (the landing page, the new password, an invalid code), and
+  the user's own account page (changing the password and the details).
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - db:
+      op: insert
+      table: title
+      set: { name: Dr, site_id: 1 }
+  # Account requests
+  - http: { id: register_page, path: /register }
+  - http:
+      id: register_invalid_email
+      method: POST
+      path: /register
+      form: { register: 1, firstname: ann, surname: able, email: notanemail }
+  - http:
+      id: register
+      method: POST
+      path: /register
+      form: { register: 1, firstname: ann, surname: able, email: ann@example.com, account_request_notes: Please, title: 1, freetext1: Ignored }
+  - http: { id: home_after_register, path: /login }
+  - emails: { id: register_emails }
+  - db:
+      id: requests
+      op: select
+      table: user
+      columns: [id, username, email, firstname, surname, value, title, freetext1, account_request, account_request_notes, site_id]
+      where: { account_request: 1 }
+  - http:
+      id: register_existing
+      method: POST
+      path: /register
+      form: { register: 1, firstname: x, surname: y, email: user4@example.com }
+  - emails: { id: register_existing_emails }
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { register_show_title: 1, register_freetext1_name: Extra, register_show_organisation: 1, register_organisation_name: Company, name: My Site }
+  - http: { id: register_page_fields, path: /register }
+  - http:
+      id: register_fields
+      method: POST
+      path: /register
+      form: { register: 1, firstname: bob, surname: baker, email: bob@example.com, title: 1, freetext1: Free text, organisation: 1, account_request_notes: "" }
+  - emails: { id: register_fields_emails }
+  - db:
+      id: requests_fields
+      op: select
+      table: user
+      columns: [id, email, firstname, surname, title, freetext1, organisation, account_request_notes]
+      where: { account_request: 1 }
+      order_by: [id]
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { hide_account_request: 1 }
+  - http:
+      id: register_hidden
+      method: POST
+      path: /register
+      form: { register: 1, firstname: c, surname: d, email: cat@example.com }
+  - db:
+      id: audit_register
+      op: select
+      table: audit
+      columns: [user_id, description, type]
+      where: { type: login_change }
+  # Password resets
+  - http: { id: resetpw_page, path: /resetpw }
+  - http:
+      id: resetpw_no_email
+      method: POST
+      path: /resetpw
+      form: { resetpwd: 1 }
+  - http:
+      id: resetpw_invalid_email
+      method: POST
+      path: /resetpw
+      form: { resetpwd: 1, emailreset: "bad email" }
+  - http:
+      id: resetpw_unknown
+      method: POST
+      path: /resetpw
+      form: { resetpwd: 1, emailreset: nobody@example.com }
+  - http:
+      id: resetpw
+      method: POST
+      path: /resetpw
+      form: { resetpwd: 1, emailreset: user4@example.com }
+  - http: { id: resetpw_messages, path: /resetpw }
+  - emails: { id: reset_emails }
+  - db:
+      id: reset_code
+      op: select
+      table: user
+      columns: [id, resetpw]
+      where: { id: 4 }
+  - http: { id: reset_invalid_code, path: /resetpw/nosuchcode }
+  - http: { id: reset_landing, path: /resetpw/T0000000000000000000000000000004 }
+  - http:
+      id: reset_execute
+      method: POST
+      path: /resetpw/T0000000000000000000000000000004
+      form: { execute_reset: 1 }
+  - db:
+      id: reset_done
+      op: select
+      table: user
+      columns: [id, resetpw, failcount, pwchanged]
+      where: { id: 4 }
+  - http: { id: reset_used, path: /resetpw/T0000000000000000000000000000004 }
+  - http: { id: login_page, as: newpw, path: /login, no_body: true }
+  - http:
+      id: login_new_password
+      as: newpw
+      method: POST
+      path: /login
+      form: { username: user4@example.com, password: Pw0005, signin: 1 }
+      no_body: true
+  - http: { id: resetpw_logged_in, as: newpw, path: /resetpw }
+  # The user's own account
+  - login: { user: normal2 }
+  - http: { id: myaccount, as: normal2, path: /myaccount }
+  - http:
+      id: myaccount_wrong_password
+      as: normal2
+      method: POST
+      path: /myaccount
+      form: { newpassword: 1, oldpassword: wrong }
+  - http:
+      id: myaccount_new_password
+      as: normal2
+      method: POST
+      path: /myaccount
+      form: { newpassword: 1, oldpassword: password }
+  - http: { id: myaccount_messages, as: normal2, path: /myaccount }
+  - http:
+      id: myaccount_update
+      as: normal2
+      method: POST
+      path: /myaccount
+      form: { submit: 1, firstname: Newname, surname: Newsurname, email: user5@example.com, title: 1, freetext1: Mine, organisation: "" }
+  - http: { id: myaccount_updated, as: normal2, path: /myaccount }
+  - db:
+      id: user_updated
+      op: select
+      table: user
+      columns: [id, username, email, firstname, surname, value, title, freetext1, organisation, pwchanged]
+      where: { id: 5 }
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { user_editable_fields: '{"firstname":1,"surname":0,"email":0,"title":0,"freetext1":0,"organisation":0}' }
+  - http:
+      id: myaccount_update_restricted
+      as: normal2
+      method: POST
+      path: /myaccount
+      form: { submit: 1, firstname: Again, surname: Changed }
+  - db:
+      id: user_restricted
+      op: select
+      table: user
+      columns: [id, firstname, surname, title]
+      where: { id: 5 }
+  - db:
+      id: audit_account
+      op: select
+      table: audit
+      columns: [user_id, description, type]
+      where: { type: login_change }

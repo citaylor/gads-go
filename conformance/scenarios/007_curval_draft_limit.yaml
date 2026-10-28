@@ -1,0 +1,87 @@
+name: 007_curval_draft_limit
+source:
+- t/007_curval_draft_limit.t
+description: Sub-records of a draft are returned when reloading it, regardless of view limits
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    calc_return_type: string
+    calc_code: "function evaluate (_id)\n    -- Just return a constant that can be matched in a filter\n    return \"foobar\"\nend"
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- layout:
+    op: set_user
+    sheet: cv
+    user: normal1
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      show_add: 1
+      value_selector: noshow
+    write_options:
+      no_alerts: 1
+- held:
+    op: new
+    as: r
+    sheet: main
+    user: normal1
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - '@field:string1=foo10'
+      integer1: 10
+- held:
+    id: write draft
+    op: write
+    as: r
+    options:
+      draft: 1
+- view_held:
+    op: new
+    as: vl
+    sheet: cv
+    name: Limit to view
+    global: 0
+    filter:
+      rules:
+      - name: calc1
+        type: string
+        value: foobar
+        operator: equal
+- view_held:
+    op: write
+    as: vl
+    view_as: vl
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl
+- held:
+    op: clear
+    as: r
+- held:
+    id: reload draft
+    op: load_remembered_values
+    as: r
+    datum:
+    - curval1
+    datum_props:
+    - blank
+    - html_form_query
+    expect:
+      datum:
+        curval1:
+          blank: '0'
+          html_form_query:
+          - field8=foo10&field9=&field10=&field15=

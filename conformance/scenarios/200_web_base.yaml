@@ -1,0 +1,29 @@
+name: 200_web_base
+source:
+  - t/001_base.t
+  - t/002_index_route.t
+description: >
+  The web application loads and serves its index and login routes: an
+  anonymous request for / redirects to the login page, which renders.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - http:
+      id: ping
+      path: /ping
+      expect: { status: 200, body: alive }
+  - http:
+      id: index_redirects
+      path: /
+      expect: { status: 302, location: "/login?return_url=%2F" }
+  - http:
+      id: login_page
+      path: /login?return_url
+      expect: { status: 200 }
+  - http:
+      id: other_host_redirects
+      host: example.com
+      path: /login
+      expect: { status: 302 }
+  - http:
+      id: unknown_route
+      path: /no/such/route/here

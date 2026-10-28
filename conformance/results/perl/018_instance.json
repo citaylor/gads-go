@@ -1,0 +1,901 @@
+{
+   "runner" : "perl",
+   "scenario" : "018_instance",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "one instance",
+         "observed" : {
+            "count" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:user",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:layout",
+         "observed" : {
+            "instance_id" : "2"
+         },
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "two instances",
+         "observed" : {
+            "count" : "2"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "admin tables",
+         "observed" : {
+            "names" : [
+               "Layout1",
+               "Table2"
+            ]
+         },
+         "pass" : true,
+         "type" : "instances"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal tables",
+         "observed" : {
+            "is_valid" : [
+               "1",
+               "0"
+            ],
+            "names" : [
+               "Layout1"
+            ]
+         },
+         "pass" : true,
+         "type" : "instances"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:column",
+         "observed" : {
+            "id" : "25",
+            "name" : "string1"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal tables after field",
+         "observed" : {
+            "names" : [
+               "Layout1",
+               "Table2"
+            ]
+         },
+         "pass" : true,
+         "type" : "instances"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:column",
+         "observed" : {
+            "deleted" : "25"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instance purged",
+         "observed" : {
+            "count" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "33",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new delete pass 1",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to delete records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new delete pass 2",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to delete records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new delete pass 3",
+         "observed" : {
+            "errors" : [
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new delete pass 4",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to delete records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new purge pass 1",
+         "observed" : {
+            "errors" : [
+               "You do not have access to this deleted record",
+               "You do not have access to this deleted record",
+               "You do not have permission to purge records",
+               "You do not have permission to purge records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new purge pass 2",
+         "observed" : {
+            "errors" : [
+               "You do not have access to this deleted record",
+               "You do not have access to this deleted record",
+               "You do not have permission to purge records",
+               "You do not have permission to purge records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new purge pass 3",
+         "observed" : {
+            "errors" : [
+               null,
+               null,
+               "Cannot purge record that is not already deleted",
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new purge pass 4",
+         "observed" : {
+            "errors" : [
+               "You do not have access to this deleted record",
+               "You do not have access to this deleted record",
+               "You do not have permission to purge records",
+               "You do not have permission to purge records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new download pass 1",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to download data",
+               "You do not have permission to download data"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new download pass 2",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to download data",
+               "You do not have permission to download data"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new download pass 3",
+         "observed" : {
+            "errors" : [
+               null,
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new download pass 4",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to download data",
+               "You do not have permission to download data"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new layout pass 1",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to manage fields"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new layout pass 2",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to manage fields"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new layout pass 3",
+         "observed" : {
+            "errors" : [
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new layout pass 4",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to manage fields"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new view_create pass 1",
+         "observed" : {
+            "errors" : [
+               "User 4 does not have permission to create new views"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new view_create pass 2",
+         "observed" : {
+            "errors" : [
+               "User 4 does not have permission to create new views"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "36:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new view_create pass 3",
+         "observed" : {
+            "errors" : [
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new view_create pass 4",
+         "observed" : {
+            "errors" : [
+               "User 4 does not have permission to create new views"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new link pass 1",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to link records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new link pass 2",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to link records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "41:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new link pass 3",
+         "observed" : {
+            "errors" : [
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new link pass 4",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to link records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances delete pass 1",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to delete records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances delete pass 2",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to delete records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "46:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances delete pass 3",
+         "observed" : {
+            "errors" : [
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances delete pass 4",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to delete records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances purge pass 1",
+         "observed" : {
+            "errors" : [
+               "You do not have access to this deleted record",
+               "You do not have access to this deleted record",
+               "You do not have permission to purge records",
+               "You do not have permission to purge records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances purge pass 2",
+         "observed" : {
+            "errors" : [
+               "You do not have access to this deleted record",
+               "You do not have access to this deleted record",
+               "You do not have permission to purge records",
+               "You do not have permission to purge records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "51:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances purge pass 3",
+         "observed" : {
+            "errors" : [
+               null,
+               null,
+               "Cannot purge record that is not already deleted",
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances purge pass 4",
+         "observed" : {
+            "errors" : [
+               "You do not have access to this deleted record",
+               "You do not have access to this deleted record",
+               "You do not have permission to purge records",
+               "You do not have permission to purge records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances download pass 1",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to download data",
+               "You do not have permission to download data"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances download pass 2",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to download data",
+               "You do not have permission to download data"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "56:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances download pass 3",
+         "observed" : {
+            "errors" : [
+               null,
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances download pass 4",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to download data",
+               "You do not have permission to download data"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances layout pass 1",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to manage fields"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances layout pass 2",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to manage fields"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "61:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances layout pass 3",
+         "observed" : {
+            "errors" : [
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances layout pass 4",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to manage fields"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances view_create pass 1",
+         "observed" : {
+            "errors" : [
+               "User 4 does not have permission to create new views"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances view_create pass 2",
+         "observed" : {
+            "errors" : [
+               "User 4 does not have permission to create new views"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "66:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances view_create pass 3",
+         "observed" : {
+            "errors" : [
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances view_create pass 4",
+         "observed" : {
+            "errors" : [
+               "User 4 does not have permission to create new views"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances link pass 1",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to link records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances link pass 2",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to link records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "71:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances link pass 3",
+         "observed" : {
+            "errors" : [
+               null
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances link pass 4",
+         "observed" : {
+            "errors" : [
+               "You do not have permission to link records"
+            ]
+         },
+         "pass" : true,
+         "type" : "table_permission"
+      }
+   ]
+}

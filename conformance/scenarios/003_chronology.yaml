@@ -1,0 +1,116 @@
+name: 003_chronology
+source:
+- t/003_chronology.t
+description: Chronology of a record (changes in each version), including permissions
+steps:
+- sheet:
+    as: main
+    has_rag: 0
+    data:
+    - string1: Foo1
+      integer1: 10
+- held:
+    id: initial
+    op: find
+    as: r
+    current_id: 1
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+      string1: Foo2
+      integer1: 20
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: first change
+    op: find
+    as: r
+    current_id: 1
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+      integer1: 30
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: second change
+    op: find
+    as: r
+    current_id: 1
+    observe:
+    - integer1
+- held:
+    op: clear
+    as: r
+- held:
+    id: chronology full user
+    op: find
+    as: r
+    current_id: 1
+    chronology: true
+# GADS-dev: view limits on the user restrict the versions in the chronology,
+# and a record whose latest version is outside them is not found
+- view:
+    op: create
+    sheet: main
+    name: limit to view
+    as: vl1
+    filter:
+      rules:
+      - {name: string1, type: string, operator: equal, value: Foo2}
+- user: {op: view_limits, user: '@sheet:main', views: [vl1]}
+- clear_layouts: {}
+- held:
+    id: chronology within view limit
+    op: find
+    as: r
+    clear: true
+    current_id: 1
+    chronology: true
+- view:
+    op: create
+    sheet: main
+    name: limit to view
+    as: vl2
+    filter:
+      rules:
+      - {name: string1, type: string, operator: less, value: '20'}
+- user: {op: view_limits, user: '@sheet:main', views: [vl2]}
+- clear_layouts: {}
+- held:
+    id: chronology latest version outside view limit
+    op: find
+    as: r
+    clear: true
+    current_id: 1
+    chronology: true
+    expect_error: record not found
+- user: {op: view_limits, user: '@sheet:main', views: []}
+- clear_layouts: {}
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      permissions:
+        default: []
+- held:
+    id: chronology without integer
+    op: find
+    as: r
+    current_id: 1
+    chronology: true

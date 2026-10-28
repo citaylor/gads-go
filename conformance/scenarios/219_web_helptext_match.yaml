@@ -1,0 +1,56 @@
+name: 219_web_helptext_match
+source:
+  - lib/GADS.pm (get /helptext/:id?, get /match/user/, get /:layout_name/match/user/, post /:layout_name/match/layout/:layout_id)
+  - lib/GADS/Schema/ResultSet/User.pm (match)
+  - lib/GADS/Column.pm (values_beginning_with)
+  - views/helptext.tt
+description: >
+  The help text of a field (escaped, as paragraphs), searching users by
+  name, email or username (with the audit and layout permissions needed),
+  and the typeahead values of a table's fields.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Apple, enum1: 1 }
+        - { string1: Apricot, enum1: 2 }
+        - { string1: Banana, enum1: 3 }
+        - { string1: "50%_off" }
+  - column:
+      op: update
+      sheet: s
+      column: string1
+      set: { helptext: "Some <b>help</b>\n\nSecond para & more" }
+  - db:
+      op: update
+      table: user
+      where: { id: 5 }
+      set: { firstname: Zed, surname: Zebra }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - login: { user: audit }
+  - http: { id: helptext, as: normal1, path: "/helptext/{column:s:string1}" }
+  - http: { id: helptext_none, as: normal1, path: "/helptext/{column:s:integer1}" }
+  - http: { id: helptext_missing, as: normal1, path: /helptext/9999 }
+  - http: { id: helptext_no_id, as: normal1, path: /helptext/ }
+  - http: { id: helptext_anon, path: "/helptext/{column:s:string1}" }
+  # Users
+  - http: { id: match_user, as: audit, path: /match/user/, query: { q: zeb } }
+  - http: { id: match_user_email, as: audit, path: /match/user/, query: { q: "user4@" } }
+  - http: { id: match_user_all, as: audit, path: /match/user/, query: { q: "" } }
+  - http: { id: match_user_none, as: audit, path: /match/user/, query: { q: nothing } }
+  - http: { id: match_user_denied, as: normal1, path: /match/user/, query: { q: zeb } }
+  - http: { id: layout_match_user, as: superadmin, path: "/{sheet:s}/match/user/", query: { q: User } }
+  - http: { id: layout_match_user_denied, as: normal1, path: "/{sheet:s}/match/user/", query: { q: User } }
+  # Typeahead values
+  - http: { id: match_string_get, as: normal1, path: "/{sheet:s}/match/layout/{column:s:string1}", query: { q: Ap } }
+  - http: { id: match_string, as: normal1, method: POST, path: "/{sheet:s}/match/layout/{column:s:string1}", query: { q: Ap } }
+  - http: { id: match_string_all, as: normal1, method: POST, path: "/{sheet:s}/match/layout/{column:s:string1}", query: { q: "" } }
+  - http: { id: match_string_noempty, as: normal1, method: POST, path: "/{sheet:s}/match/layout/{column:s:string1}", query: { q: "", noempty: 1 } }
+  - http: { id: match_string_escaped, as: normal1, method: POST, path: "/{sheet:s}/match/layout/{column:s:string1}", query: { q: "50%_" } }
+  - http: { id: match_string_wildcard, as: normal1, method: POST, path: "/{sheet:s}/match/layout/{column:s:string1}", query: { q: "%" } }
+  - http: { id: match_enum, as: normal1, method: POST, path: "/{sheet:s}/match/layout/{column:s:enum1}", query: { q: foo } }
+  - http: { id: match_person, as: normal1, method: POST, path: "/{sheet:s}/match/layout/{column:s:person1}", query: { q: User } }
+  - http: { id: match_integer, as: normal1, method: POST, path: "/{sheet:s}/match/layout/{column:s:integer1}", query: { q: 1 } }
+  - http: { id: match_missing_column, as: normal1, method: POST, path: "/{sheet:s}/match/layout/9999", query: { q: a } }

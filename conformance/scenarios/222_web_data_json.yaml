@@ -1,0 +1,121 @@
+name: 222_web_data_json
+source:
+  - lib/GADS.pm (get /:layout_name/data_calendar/:time, get and post /:layout_name/data_timeline, get /:layout_name/data_graph/:id/:time, post /print, _data_graph)
+  - lib/GADS/Graph/Data.pm (labels_encoded)
+description: >
+  The JSON of the calendar (with the period of the request remembered),
+  of the timeline (its range remembered for the session, dashboard views,
+  exclusive ranges) and of graphs (with the labels HTML-encoded), and the
+  print route.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: "Foo <b>", enum1: 1, date1: "2014-10-01", daterange1: ['2014-10-05', '2014-10-12'] }
+        - { string1: Bar, enum1: 2, date1: "2014-10-15", integer1: 42 }
+        - { string1: Baz, enum1: 1, date1: "2014-12-25" }
+  # Graph colours are fixed: otherwise Perl picks them in hash order
+  - db:
+      op: insert
+      table: graph_color
+      set: { name: "Last edited time", color: 7A221B }
+  - db:
+      op: insert
+      table: graph_color
+      set: { name: "Created", color: D1D3D4 }
+  - db:
+      op: insert
+      table: graph_color
+      set: { name: "date1", color: 34C3E0 }
+  - db:
+      op: insert
+      table: graph_color
+      set: { name: "daterange1", color: FFDD00 }
+  - db:
+      op: insert
+      table: graph_color
+      set: { name: "Foo <b>", color: 9F6512 }
+  - db:
+      op: insert
+      table: graph_color
+      set: { name: "Bar", color: F0679E }
+  - db:
+      op: insert
+      table: graph_color
+      set: { name: "Baz", color: 2C4269 }
+  - db:
+      op: insert
+      table: graph_color
+      set: { name: "Created time", color: 7F3F98 }
+  - graph:
+      sheet: s
+      user: superadmin
+      title: Strings by enum
+      type: bar
+      x_axis: enum1
+      y_axis: string1
+      y_axis_stack: count
+      group_by: string1
+      is_shared: 1
+      no_data: true
+  - graph:
+      sheet: s
+      user: superadmin
+      title: Pie graph
+      type: pie
+      x_axis: string1
+      y_axis: string1
+      y_axis_stack: count
+      is_shared: 1
+      no_data: true
+  - login: { user: normal1 }
+  - http: { id: home, as: normal1, path: /, no_body: true }
+  # Calendar
+  - http: { id: calendar_month, as: normal1, path: "/{sheet:s}/data_calendar/123", query: { from: 1412121600000, to: 1414800000000 } }
+  - http: { id: calendar_week, as: normal1, path: "/{sheet:s}/data_calendar/123", query: { from: 1412467200000, to: 1413072000000 } }
+  - http: { id: calendar_day, as: normal1, path: "/{sheet:s}/data_calendar/123", query: { from: 1412377200000, to: 1412463600000 } }
+  - http: { id: calendar_year, as: normal1, path: "/{sheet:s}/data_calendar/123", query: { from: 1388534400000, to: 1420070400000 } }
+  - http: { id: calendar_nothing, as: normal1, path: "/{sheet:s}/data_calendar/123", query: { from: 1000000000000, to: 1000086400000 } }
+  - http: { id: calendar_no_table, as: normal1, path: "/nosuchtable/data_calendar/123", query: { from: 1, to: 2 } }
+  # Timeline
+  - http: { id: timeline, as: normal1, path: "/{sheet:s}/data_timeline/123", query: { from: 1412121600000, to: 1414800000000 } }
+  - http: { id: timeline_exclusive, as: normal1, path: "/{sheet:s}/data_timeline/123", query: { from: 1412121600000, to: 1414800000000, exclusive: from } }
+  - http:
+      id: timeline_remember
+      as: normal1
+      method: POST
+      path: "/{sheet:s}/data_timeline"
+      form: { from: 1412121600000, to: 1414800000000 }
+      no_body: true
+  # The page body is not compared: Perl orders the colour legend by hash order
+  - http: { id: timeline_page, as: normal1, path: "/{sheet:s}/data", query: { viewtype: timeline }, no_body: true }
+  # Graphs
+  - http: { id: graph_bar, as: normal1, path: "/{sheet:s}/data_graph/1/123" }
+  - http: { id: graph_pie, as: normal1, path: "/{sheet:s}/data_graph/2/123" }
+  - http: { id: graph_missing, as: normal1, path: "/{sheet:s}/data_graph/99/123" }
+  - view:
+      op: create
+      sheet: s
+      name: Only Bar
+      user: normal1
+      columns: [string1, date1]
+      filter:
+        rules:
+          - { name: string1, type: string, value: Bar, operator: equal }
+  - http: { id: timeline_dashboard_view, as: normal1, path: "/{sheet:s}/data_timeline/123", query: { from: 1412121600000, to: 1420070400000, dashboard: 1, view: "{view:Only Bar}" } }
+  - http:
+      id: set_view
+      as: normal1
+      path: "/{sheet:s}/data"
+      query: { view: "{view:Only Bar}" }
+      no_body: true
+  - http: { id: graph_bar_view, as: normal1, path: "/{sheet:s}/data_graph/1/123" }
+  - http: { id: calendar_view, as: normal1, path: "/{sheet:s}/data_calendar/123", query: { from: 1412121600000, to: 1414800000000 } }
+  # Print
+  - http:
+      id: print_no_html
+      as: normal1
+      method: POST
+      path: /print
+      form: {}

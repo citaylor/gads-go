@@ -1,0 +1,209 @@
+name: 012_graph_permissions
+source:
+- t/012_graph_permissions.t
+description: Visibility and sharing permissions of graphs, and groups viewable for sharing
+steps:
+- sheet:
+    as: main
+- user:
+    op: group
+    name: group2
+    users: [normal1]
+- db:
+    id: no graphs created
+    op: count
+    table: graph
+    expect: {count: '0'}
+# Shared graph for all users created by superadmin
+- graph:
+    id: superadmin shared graph
+    sheet: main
+    title: Test
+    type: bar
+    x_axis: string1
+    y_axis: enum1
+    y_axis_stack: count
+    is_shared: 1
+    no_data: true
+- db:
+    op: count
+    table: graph
+    expect: {count: '1'}
+- graphs:
+    id: normal user can see graph
+    sheet: main
+    user: normal1
+    expect: {count: '1'}
+# Personal graph by superadmin
+- graph:
+    sheet: main
+    title: Test
+    type: bar
+    x_axis: string1
+    y_axis: enum1
+    y_axis_stack: count
+    is_shared: 0
+    no_data: true
+- graphs:
+    id: normal user can see same graphs
+    sheet: main
+    user: normal1
+    expect: {count: '1'}
+# Shared group graph by superadmin
+- graph:
+    sheet: main
+    title: Test
+    type: bar
+    x_axis: string1
+    y_axis: enum1
+    y_axis_stack: count
+    is_shared: 1
+    group: group2
+    no_data: true
+- graphs:
+    id: first user can see shared graph
+    sheet: main
+    user: normal1
+    expect: {count: '2'}
+- graphs:
+    id: second user cannot
+    sheet: main
+    user: normal2
+    expect: {count: '1'}
+- graph:
+    id: unable to create shared graph as normal user
+    sheet: main
+    user: normal1
+    layout_user: true
+    title: Test
+    type: bar
+    x_axis: string1
+    y_axis: enum1
+    y_axis_stack: count
+    is_shared: 1
+    group: default
+    no_data: true
+    expect_error: do not have permission
+# Add group graph creation to normal user and try again
+- db:
+    op: insert
+    table: instance_group
+    set:
+      instance_id: '@instance:main'
+      group_id: '@group:default'
+      permission: view_group
+- graph:
+    id: normal user creates group shared graph
+    sheet: main
+    user: normal1
+    layout_user: true
+    title: Test
+    type: bar
+    x_axis: string1
+    y_axis: enum1
+    y_axis_stack: count
+    is_shared: 1
+    group: default
+    no_data: true
+- graphs:
+    id: normal user can see other user shared graph
+    sheet: main
+    user: normal2
+    layout_user: true
+    expect: {count: '2'}
+- graph:
+    id: unable to create all user shared graph as group user
+    sheet: main
+    user: normal1
+    layout_user: true
+    title: Test
+    type: bar
+    x_axis: string1
+    y_axis: enum1
+    y_axis_stack: count
+    is_shared: 1
+    no_data: true
+    expect_error: do not have permission
+# Groups that each user can see for sharing. A new table with 2 new groups,
+# which should not be shown to anyone but superadmin to begin with
+- sheet:
+    as: sheet2
+    instance_id: 2
+    data: []
+- user:
+    op: group
+    name: group3
+- db:
+    op: count
+    table: instance
+    expect: {count: '2'}
+# group3 has normal read permissions on a field in the table
+- db:
+    op: insert
+    table: layout_group
+    set:
+      group_id: '@group:group3'
+      layout_id: '@column:sheet2:string1'
+      permission: read
+# group4 has layout permissions on the new table
+- user:
+    op: group
+    name: group4
+- db:
+    op: insert
+    table: instance_group
+    set:
+      instance_id: '@instance:sheet2'
+      group_id: '@group:group4'
+      permission: layout
+# A third sheet with its own group, only shown to superadmin
+- sheet:
+    as: sheet3
+    instance_id: 3
+    data: []
+- user:
+    op: group
+    name: group5
+- db:
+    op: count
+    table: instance
+    expect: {count: '3'}
+- db:
+    op: insert
+    table: layout_group
+    set:
+      group_id: '@group:group5'
+      layout_id: '@column:sheet3:string1'
+      permission: read
+- user:
+    id: first normal user groups
+    op: groups_viewable
+    match: ^group
+    user: normal1
+    expect: [group1, group2]
+- user:
+    id: second normal user groups
+    op: groups_viewable
+    match: ^group
+    user: normal2
+    expect: [group1]
+- user:
+    id: superadmin groups
+    op: groups_viewable
+    match: ^group
+    user: superadmin
+    expect: [group1, group2, group3, group4, group5]
+# Adding group4 to the normal user allows it to see group3, which is used in
+# the table that group4 has layout permission on
+- db:
+    op: insert
+    table: user_group
+    set:
+      user_id: '@user:normal1'
+      group_id: '@group:group4'
+- user:
+    id: normal user has access to groups in its tables
+    op: groups_viewable
+    match: ^group
+    user: normal1
+    expect: [group1, group2, group3, group4]

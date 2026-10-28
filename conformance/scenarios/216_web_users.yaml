@@ -1,0 +1,152 @@
+name: 216_web_users
+source:
+  - lib/GADS.pm (/user_overview/, /user_requests/, /user/:id)
+  - lib/GADS/Users.pm (all, all_in_groups, titles etc., permissions, register_requests)
+  - lib/GADS/Schema/Result/User.pm (update_user, retire), lib/GADS/Email.pm (message)
+  - views/user/user_overview.tt, user_request.tt, user_edit.tt and their snippets
+description: >
+  The user administration pages: the overview (and emailing all users or
+  the users of groups), account requests (rejecting one sends an email),
+  editing a user (values, groups, view limits and, for superadmins,
+  permissions), deleting users (not oneself; with the site's deletion
+  email), and the errors for users that do not exist.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - view:
+      op: create
+      sheet: s
+      user: superadmin
+      as: v
+      name: Global view
+      global: 1
+      columns: [string1]
+  - db:
+      op: insert
+      table: user
+      set: { email: request@example.com, username: request@example.com, firstname: Re, surname: Quest, value: "Quest, Re", account_request: 1, account_request_notes: Please, site_id: 1 }
+  - db:
+      op: insert
+      table: group
+      set: { name: Empty group, site_id: 1 }
+  - db:
+      op: insert
+      table: title
+      set: { name: Dr, site_id: 1 }
+  - login: { user: superadmin }
+  - login: { user: useradmin }
+  - login: { user: normal1 }
+  - http: { id: overview_superadmin, as: superadmin, path: /user_overview/ }
+  - http: { id: overview_useradmin, as: useradmin, path: /user_overview/ }
+  - http: { id: overview_normal, as: normal1, path: /user_overview/ }
+  # Emailing users
+  - http:
+      id: email_all
+      as: useradmin
+      method: POST
+      path: /user_overview/
+      form: { sendemail: 1, email_subject: Hello all, email_text: "A message  \n\n" }
+  - http:
+      id: email_group
+      as: useradmin
+      method: POST
+      path: /user_overview/
+      form: { sendemail: 1, group_ids: [1, 2], email_subject: Hello group, email_text: Group message }
+  - http:
+      id: email_empty_group
+      as: useradmin
+      method: POST
+      path: /user_overview/
+      form: { sendemail: 1, group_ids: 10, email_subject: Nobody, email_text: Nothing }
+  - emails: { id: emails_sent }
+  # Account requests
+  - http: { id: requests, as: useradmin, path: /user_requests/ }
+  - http: { id: request_edit_form, as: useradmin, path: /user/6 }
+  - http: { id: reject_request, as: useradmin, path: /user_requests/, query: { delete: 6 } }
+  - http: { id: reject_missing, as: useradmin, path: /user_requests/, query: { delete: 999 } }
+  - http: { id: reject_self, as: useradmin, path: /user_requests/, query: { delete: 3 } }
+  - emails: { id: reject_email }
+  # Editing users
+  - http: { id: edit_form, as: superadmin, path: /user/4 }
+  - http:
+      id: edit
+      as: superadmin
+      method: POST
+      path: /user/4
+      form: { submit: 1, firstname: Norma, surname: Normal, email: normal@example.com, title: 1, organisation: "", department_id: "", team_id: "", account_request: 0, groups: [1, 10], view_limits: ["{view:v}", ""], permission: [audit] }
+  - db:
+      id: edited_user
+      op: select
+      table: user
+      where: { id: 4 }
+      columns: [id, firstname, surname, email, username, value, title, organisation, department_id, team_id]
+  - db:
+      id: edited_groups
+      op: select
+      table: user_group
+      where: { user_id: 4 }
+      columns: [group_id]
+      order_by: [group_id]
+  - db:
+      id: edited_view_limits
+      op: select
+      table: view_limit
+      columns: [user_id, view_id]
+  - db:
+      id: edited_permissions
+      op: select
+      table: user_permission
+      where: { user_id: 4 }
+      columns: [permission_id]
+  - http: { id: edit_form_after, as: useradmin, path: /user/4 }
+  - http:
+      id: edit_useradmin
+      as: useradmin
+      method: POST
+      path: /user/4
+      form: { submit: 1, firstname: Norma, surname: Normal, email: normal@example.com, groups: [1], permission: [superadmin] }
+  - db:
+      id: useradmin_permissions
+      op: select
+      table: user_permission
+      where: { user_id: 4 }
+      columns: [permission_id]
+  - http:
+      id: edit_invalid_email
+      as: superadmin
+      method: POST
+      path: /user/4
+      form: { submit: 1, firstname: Norma, surname: Normal, email: invalid }
+  - http: { id: edit_not_found, as: superadmin, path: /user/999 }
+  - http: { id: edit_not_a_number, as: superadmin, path: /user/abc }
+  # Deleting users
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { email_delete_subject: Goodbye, email_delete_text: Your account has gone }
+  - http:
+      id: delete_self
+      as: superadmin
+      method: POST
+      path: /user/4
+      form: { delete: 1 }
+  - http:
+      id: delete_user
+      as: superadmin
+      method: POST
+      path: /user/4
+      form: { delete: 5 }
+  - emails: { id: delete_email }
+  - db:
+      id: users_final
+      op: select
+      table: user
+      columns: [id, email, deleted, account_request, lastview]
+      order_by: [id]
+  - db:
+      id: audit
+      op: select
+      table: audit
+      where: { type: login_change }
+      columns: [user_id, description]
+      order_by: [id]

@@ -1,0 +1,10797 @@
+name: 100_tt_language
+source:
+- Template Toolkit (views/*.tt rendering)
+description: 'Template Toolkit language conformance scenarios.
+
+
+  GADS renders its HTML with Template Toolkit (views/*.tt). The Go port
+
+  renders the same templates with its own TT implementation (internal/tt), so
+
+  these scenarios pin down the TT language behaviour that the GADS views rely
+
+  on: directives, chomping, expressions, interpolation, virtual methods and
+
+  filters. Each case renders a template with the Dancer2 engine options
+
+  (ANYCASE, ABSOLUTE, ENCODING UTF-8).'
+steps:
+- template:
+    id: text
+    template: Hello
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: get_var
+    template: Hello [% name %]!
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: get_explicit
+    template: '[% GET name %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: get_lowercase
+    template: '[% get name %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: undef_var
+    template: '[[% missing %]]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: undef_deep
+    template: '[[% missing.foo.bar %]]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: number
+    template: '[% num %] [% neg %] [% float %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: zero
+    template: '[% zero %][% szero %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: utf8
+    template: '[% utf %] ü'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: hash_dot
+    template: '[% hash.one %]-[% hash.two %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: nested_dot
+    template: '[% nested.a.b.c %] [% nested.l.1.x %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: list_index
+    template: '[% list.0 %][% list.2 %][% list.5 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: dynamic_key
+    template: '[% k = "two"; hash.$k %] [% hash.${k} %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: comment
+    template: a[%# a comment %]b
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: comment_multi
+    template: "a[% # comment\n name %]b"
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: chomp_pre
+    template: "a\n  [%- name %]"
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: chomp_post
+    template: "[% name -%]\n  b"
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: chomp_both
+    template: 'a
+
+      [%- name -%]
+
+      b'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: chomp_none
+    template: 'a
+
+      [% name %]
+
+      b'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: chomp_tilde
+    template: 'a
+
+
+      [%~ name ~%]
+
+
+      b'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: chomp_plus
+    template: 'a
+
+      [%+ name +%]
+
+      b'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: chomp_post_spaces
+    template: "[% name -%]   \nb"
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: chomp_post_nonl
+    template: '[% name -%]   b'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: chomp_pre_multi
+    template: "a\n\n   [%- name %]"
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: chomp_if_block
+    template: "<ul>\n  [%- IF 1 %]\n  <li>x</li>\n  [%- END %]\n</ul>"
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: set
+    template: '[% SET x = 5 %][% x %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: set_implicit
+    template: '[% x = "hi" %][% x %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: set_multi
+    template: '[% a = 1 b = 2 %][% a %][% b %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: set_semicolon
+    template: '[% a = 1; b = a + 1; b %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: set_dotted
+    template: '[% foo.bar = 3; foo.bar %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: set_hash_key
+    template: '[% h = {}; h.x = 1; h.y = "2"; h.x _ h.y %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: default
+    template: '[% DEFAULT x = "dflt" %][% x %] [% name = "keep"; DEFAULT name = "no"; name %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: default_empty
+    template: '[% e = ""; DEFAULT e = "set"; e %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: call
+    template: '[% CALL list.push("z") %][% list.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: list_literal
+    template: '[% l = [1, 2, 3] %][% l.size %][% l.1 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: list_literal_nocomma
+    template: '[% l = [1 2 3] %][% l.join("-") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: list_range
+    template: '[% l = [1..4] %][% l.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: hash_literal
+    template: '[% h = { a => 1, "b" = 2, c => "x" } %][% h.a %][% h.b %][% h.c %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: hash_literal_nested
+    template: '[% h = { a => { b => [1, { c => "d" }] } } %][% h.a.b.1.c %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: string_single
+    template: '[% ''a $name b'' %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: string_double
+    template: '[% "a $name b" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: string_double_braces
+    template: '[% "a ${name}b ${hash.one}" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: string_double_dotted
+    template: '[% "x $hash.two y" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: string_escapes
+    template: '[% "tab\there\nnl \"q\" \$name" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: string_single_escape
+    template: '[% ''it\''s \\ \n'' %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: concat
+    template: '[% name _ "!" _ num %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: concat_assign
+    template: '[% s = "a"; s = s _ "b"; s %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: arith
+    template: '[% 1 + 2 %] [% 7 - 10 %] [% 3 * 4 %] [% 7 / 2 %] [% 7 % 3 %] [% 7 mod 3 %] [% 7 div 2 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: arith_prec
+    template: '[% 1 + 2 * 3 %] [% (1 + 2) * 3 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: arith_float
+    template: '[% 10 / 3 %] [% 0.1 + 0.2 %] [% 2.50 %] [% 1.5 * 2 %] [% 22 / 7 * 1000 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: arith_exp_parse
+    template: '[% 1e3 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: arith_strings
+    template: '[% "3" + "4" %] [% "abc" + 1 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: compare_num
+    template: '[% IF 10 > 9 %]y[% END %][% IF 2 >= 2 %]y[% END %][% IF 1 < 0 %]n[% END %][% IF 3 <= 3 %]y[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: compare_str
+    template: '[% IF "abc" == "abc" %]eq[% END %][% IF "a" != "b" %]ne[% END %][% IF "10" == "10.0" %]num[% ELSE %]str[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: compare_lt_str
+    template: '[% IF "10" < "9" %]strcmp[% ELSE %]numcmp[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: logic
+    template: '[% IF 1 && 0 %]a[% END %][% IF 1 || 0 %]b[% END %][% IF !0 %]c[% END %][% IF 1 and 1 %]d[% END %][% IF 0 or 1 %]e[% END %][% IF not 0 %]f[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: logic_upper
+    template: '[% IF 1 AND 1 %]a[% END %][% IF 0 OR 1 %]b[% END %][% IF NOT 0 %]c[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: or_value
+    template: '[% missing || "fallback" %] [% name || "no" %] [% zero || "z" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: and_value
+    template: '[% name && "yes" %]|[% zero && "yes" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: ternary
+    template: '[% num > 10 ? "big" : "small" %] [% zero ? "t" : "f" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: ternary_nested
+    template: '[% x = 5; x < 3 ? "a" : x < 6 ? "b" : "c" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: not_prec
+    template: '[% IF !missing && name %]ok[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: truth
+    template: '[% FOREACH v IN [0, "0", "", "0.0", "00", " ", "a", 1] %][% v ? "T" : "F" %][% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: truth_list
+    template: '[% IF empty_list %]T[% ELSE %]F[% END %][% IF list %]T[% END %][% IF hash %]T[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: if_else
+    template: '[% IF zero %]a[% ELSIF num == 42 %]b[% ELSE %]c[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: if_else_lower
+    template: '[% if zero %]a[% elsif num == 1 %]b[% else %]c[% end %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: unless
+    template: '[% UNLESS zero %]u[% END %][% UNLESS num %]n[% ELSE %]e[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: if_postfix
+    template: '[% "yes" IF num %][% "no" IF zero %][% "u" UNLESS zero %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: if_nested
+    template: '[% IF 1 %][% IF 0 %]x[% ELSE %][% IF 1 %]deep[% END %][% END %][% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: switch
+    template: '[% SWITCH name %][% CASE "a" %]A[% CASE ["x", "World"] %]W[% CASE %]D[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: switch_default
+    template: '[% SWITCH num %][% CASE 1 %]one[% CASE DEFAULT %]other[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: switch_lower
+    template: '[% switch "b" %][% case "a" %]A[% case "b" %]B[% end %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach
+    template: '[% FOREACH i IN list %][% i %],[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_eq
+    template: '[% FOREACH i = nums %][% i %] [% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_lower
+    template: '[% foreach i in list %][% i %][% end %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: for
+    template: '[% FOR i IN [1,2] %][% i %][% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_noloopvar
+    template: '[% FOREACH people %][% name %];[% END %][% name %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_loop
+    template: '[% FOREACH i IN list %][% loop.index %]/[% loop.count %]/[% loop.size %]/[% loop.max %]/[% loop.first %]/[% loop.last %]/[% loop.prev %]/[% loop.next %] [% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_loop_parity
+    template: '[% FOREACH i IN list %][% loop.parity %][% loop.odd %][% loop.even %] [% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_hash
+    template: '[% FOREACH p IN hash %][% p.key %]=[% p.value %];[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_hash_pairs
+    template: '[% FOREACH p IN hash.pairs %][% p.key %]=[% p.value %];[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_hash_keys
+    template: '[% FOREACH k IN hash.keys.sort %][% k %][% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_scalar
+    template: '[% FOREACH i IN name %][% i %][% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_undef
+    template: '[% FOREACH i IN missing %][% i %][% END %]x'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_postfix
+    template: '[% i _ "," FOREACH i IN list %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_next_last
+    template: '[% FOREACH i IN [1..6] %][% NEXT IF i == 2 %][% LAST IF i == 5 %][% i %][% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_nested_loop
+    template: '[% FOREACH a IN [1,2] %][% FOREACH b IN ["x","y"] %][% loop.index %][% a %][% b %] [% END %][% loop.index %]|[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_var_restored
+    template: '[% i = "orig" %][% FOREACH i IN [1,2] %][% END %][% i %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: foreach_assign_inside
+    template: '[% total = 0 %][% FOREACH n IN nums %][% total = total + n %][% END %][% total %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: while
+    template: '[% i = 0 %][% WHILE i < 3 %][% i %][% i = i + 1 %][% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: block_process
+    template: '[% BLOCK b %]in-b [% x %][% END %][% x = 1 %][% PROCESS b %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: block_include_args
+    template: '[% BLOCK b %][% x %]-[% y %][% END %][% INCLUDE b x = "X" y = name %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: include_localises
+    template: '[% BLOCK b %][% x = "changed" %][% END %][% x = "orig" %][% INCLUDE b %][% x %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: process_shares
+    template: '[% BLOCK b %][% x = "changed" %][% END %][% x = "orig" %][% PROCESS b %][% x %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: include_file
+    template: '[% INCLUDE inc.tt v = 3 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      inc.tt: file:[% v %]:[% name %]
+- template:
+    id: include_file_subdir
+    template: '[% INCLUDE sub/inc.tt %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      sub/inc.tt: sub [% name %]
+- template:
+    id: include_file_quoted
+    template: '[% INCLUDE "inc.tt" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      inc.tt: q
+- template:
+    id: include_dynamic
+    template: '[% f = "inc.tt" %][% INCLUDE $f %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      inc.tt: dyn
+- template:
+    id: include_interp
+    template: '[% f = "inc" %][% INCLUDE "$f.tt" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      inc.tt: interp
+- template:
+    id: include_file_trailing_nl
+    template: '[[% INCLUDE inc.tt %]]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      inc.tt: 'with nl
+
+        '
+- template:
+    id: include_hash_arg_deep
+    template: '[% INCLUDE inc.tt h.a = 1 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      inc.tt: '[% h.a %]'
+- template:
+    id: process_file_vars
+    template: '[% PROCESS inc.tt %][% set_in_inc %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      inc.tt: '[% set_in_inc = "leaked" %]'
+- template:
+    id: include_block_in_file
+    template: '[% PROCESS lib.tt %][% INCLUDE fromlib %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      lib.tt: '[% BLOCK fromlib %]lib-block[% END %]'
+- template:
+    id: include_missing
+    template: '[% INCLUDE nonexist.tt %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: wrapper
+    template: '[% WRAPPER w %]inner[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: wrapper_block
+    template: '[% BLOCK w %]<[% content %]>[% END %][% WRAPPER w %]inner [% name %][% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: wrapper_file_args
+    template: '[% WRAPPER wrap.tt title = "T" %]body[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      wrap.tt: <h1>[% title %]</h1>[% content %]
+- template:
+    id: macro
+    template: '[% MACRO m(a, b) BLOCK %][% a %]+[% b %][% END %][% m(1, 2) %] [% m("x") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: macro_directive
+    template: '[% MACRO up(s) GET s.upper %][% up("abc") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: macro_named_args
+    template: '[% MACRO m(a) BLOCK %][% a %][% b %][% END %][% m(1, b = 2) %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: macro_noargs
+    template: '[% MACRO hello BLOCK %]hello [% name %][% END %][% hello %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: macro_localises
+    template: '[% MACRO m BLOCK %][% x = 2 %][% END %][% x = 1 %][% m %][% x %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: return
+    template: '[% BLOCK b %]a[% RETURN %]b[% END %][% INCLUDE b %]c'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: stop
+    template: a[% STOP %]b
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: insert
+    template: '[% INSERT inc.tt %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      inc.tt: raw [% name %]
+- template:
+    id: include_list_arg
+    template: '[% INCLUDE inc.tt items = [1, 2] %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      inc.tt: '[% items.size %]'
+- template:
+    id: include_multiline_args
+    template: "[% INCLUDE inc.tt\n    a = 1\n    b = \"two\"\n%]"
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+    files:
+      inc.tt: '[% a %][% b %]'
+- template:
+    id: filter_html
+    template: '[% html | html %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_html_entity
+    template: '[% utf | html_entity %] [% html | html_entity %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_uri
+    template: '[% "a b&c/d?e=fé" | uri %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_url
+    template: '[% "a b&c/d?e=f" | url %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_upper_lower
+    template: '[% name | upper %] [% name | lower %] [% "abc" | ucfirst %] [% "ABC" | lcfirst %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_trim_collapse
+    template: '[[% "  a  b  " | trim %]] [[% "  a   b  " | collapse %]]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_replace
+    template: '[% "a.b.c" | replace("\.", "-") %] [% "foo" | replace("o", "0") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_html_para
+    template: '[% multiline | html_para %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_html_break
+    template: '[% multiline | html_break %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_html_line_break
+    template: '[% multiline | html_line_break %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_chain
+    template: '[% "<b>" | upper | html %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_block
+    template: '[% FILTER html %]<p>[% name %]</p>[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_block_upper
+    template: '[% FILTER upper %]abc[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_postfix
+    template: '[% name FILTER upper %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_null
+    template: '[% "x" | null %]y'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_format
+    template: '[% 3.14159 | format("%.2f") %] [% 5 | format("%03d") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_truncate
+    template: '[% text | truncate(10) %] [% text | truncate(10, "..") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_repeat
+    template: '[% "ab" | repeat(3) %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_remove
+    template: '[% "a1b2c3" | remove("[0-9]") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_indent
+    template: '[% multiline | indent(2) %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_indent_str
+    template: '[% "a
+
+      b" | indent("> ") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_squote
+    template: '[% "it''s" | squote %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_xml
+    template: '[% html | xml %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_undef
+    template: '[[% missing | html %]]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: filter_unknown
+    template: '[% name | nofilter %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_length
+    template: '[% name.length %] [% utf.length %] [% num.length %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_upper
+    template: '[% name.upper %] [% name.lower %] [% s = "abc"; s.ucfirst %] [% s = "ABC"; s.lcfirst %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_defined
+    template: '[% name.defined ? "d" : "u" %][% missing.defined ? "d" : "u" %][% empty.defined ? "d" : "u" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_match
+    template: '[% IF name.match("^W") %]m[% END %][% d = "2020-10-05"; m = d.match("(\d+)-(\d+)") %][% m.0 %]/[% m.1 %][% IF name.match("x") %]n[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_match_global
+    template: '[% d = "a1b22c333"; m = d.match("(\d+)", 1) %][% m.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_match_nocapture
+    template: '[% d = "abc"; m = d.match("b") %][% m.size %]:[% m.0 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_search
+    template: '[% s = "abc"; s.search("b") ? "y" : "n" %][% s.search("^b") ? "y" : "n" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_replace
+    template: '[% s = "a-b-c"; s.replace("-", "+") %] [% s = "aaa"; s.replace("a", "$0b") %] [% s = "x1y2"; s.replace("(\d)", "<$1>") %] [% s = "a.b"; s.replace(".", "_") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_split
+    template: '[% x = "a,b,,c,,"; s = x.split(",") %][% s.size %]:[% s.join("|") %] [% x = " a b  c"; x.split.join("|") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_split_limit
+    template: '[% x = "a:b:c:d"; x.split(":", 2).join("|") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_substr
+    template: '[% text.substr(4, 5) %] [% text.substr(16) %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_repeat
+    template: '[% x = "-"; x.repeat(5) %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_trim
+    template: '[% x = "  x y  " %][[% x.trim %]] [% x = "  a   b " %][[% x.collapse %]]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_chunk
+    template: '[% x = "abcdefg"; x.chunk(3).join(",") %] [% x.chunk(-3).join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_on_scalar
+    template: '[% name.list.size %] [% name.list.0 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_item
+    template: '[% name.item %] [% hash.item("two") %] [% list.item(1) %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_html
+    template: '[% html.html %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_dquote
+    template: '[% x = "a\"b\nc"; x.dquote %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_size_scalar
+    template: '[% name.size %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_on_scalar
+    template: '[% name.hash.value %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_size
+    template: '[% list.size %] [% list.max %] [% empty_list.size %] [% empty_list.max %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_first_last
+    template: '[% list.first %] [% list.last %] [% nums.first(2).join(",") %] [% nums.last(2).join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_join
+    template: '[% list.join %]|[% list.join(", ") %]|[% nums.join("") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_sort
+    template: '[% list.sort.join(",") %] [% nums.sort.join(",") %] [% nums.nsort.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_sort_key
+    template: '[% FOREACH p IN people.sort("name") %][% p.name %] [% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_sort_case
+    template: '[% l = ["b", "A", "c", "B"]; l.sort.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_nsort_key
+    template: '[% FOREACH p IN people.nsort("age") %][% p.age %] [% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_reverse
+    template: '[% list.reverse.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_push_pop
+    template: '[% l = [1,2]; l.push(3); l.unshift(0); l.join(",") %] [% l.pop %][% l.shift %] [% l.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_push_multi
+    template: '[% l = []; l.push(1, 2); CALL l.push("a"); l.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_push_output
+    template: '[[% l = []; l.push(1) %]]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_grep
+    template: '[% l = ["apple", "banana", "cherry"]; l.grep("an").join(",") %] [% l = ["a1", "b", "c2"]; l.grep("\d").size %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_unique
+    template: '[% l = [1, 2, 1, 3, 2]; l.unique.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_merge
+    template: '[% l = [1, 2]; l.merge([3], [4, 5]).join(",") %] [% l.size %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_slice
+    template: '[% l = [0..9]; l.slice(2, 4).join(",") %] [% l = [0..5]; l.slice(3).join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_splice
+    template: '[% l = [1..5]; CALL l.splice(1, 2); l.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_defined
+    template: '[% list.defined(1) ? "y" : "n" %][% list.defined(7) ? "y" : "n" %][% list.defined ? "y" : "n" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_hash
+    template: '[% l = ["a", 1, "b", 2]; h = l.hash; h.b %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_import
+    template: '[% l = [1]; CALL l.import([2, 3]); l.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_item_neg
+    template: '[% list.-1 %] [% list.item(-2) %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_exists
+    template: '[% list.exists(1) ? "y" : "n" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_list_column
+    template: '[% nested.l.0.x %][% nested.l.1.x %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_keys
+    template: '[% hash.keys.sort.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_values
+    template: '[% hash.values.nsort.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_size
+    template: '[% hash.size %] [% e = {}; e.size %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_exists
+    template: '[% hash.exists("one") ? "y" : "n" %][% hash.exists("nine") ? "y" : "n" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_defined
+    template: '[% hash.defined("one") ? "y" : "n" %][% hash.defined("x") ? "y" : "n" %][% hash.defined ? "y" : "n" %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_delete
+    template: '[% h = { a => 1, b => 2 }; h.delete("a"); h.keys.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_each
+    template: '[% h = { a => 1 }; h.each.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_sort
+    template: '[% hash.sort.join(",") %] [% hash.nsort.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_pairs
+    template: '[% h = { b => 2, a => 1 }; FOREACH p IN h.pairs %][% p.key %][% p.value %][% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_list
+    template: '[% h = { a => 1 }; FOREACH p IN h.list %][% p.key %]=[% p.value %][% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_import
+    template: '[% h = { a => 1 }; h.import({ b => 2 }); h.keys.sort.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_item
+    template: '[% hash.item("three") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: vm_hash_dot_size_key
+    template: '[% h = { size => "key-wins" }; h.size %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: hash_stringify
+    template: '[% x = hash ? "T" : "F" %][% x %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: multi_directive
+    template: '[% IF 1; "a"; ELSE; "b"; END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: multi_directive_newlines
+    template: "[%\n  x = 1;\n  y = 2;\n  IF x < y;\n    \"lt\";\n  END;\n%]"
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: block_in_if
+    template: '[% IF 1 %][% BLOCK later %]L[% END %][% END %][% INCLUDE later %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: block_defined_after
+    template: '[% INCLUDE after %][% BLOCK after %]after-def[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: nested_includes
+    template: '[% BLOCK o %]o([% INCLUDE i %])[% END %][% BLOCK i %]i[% x %][% END %][% INCLUDE o x = 9 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: method_on_literal
+    template: '[% "abc".length %] [% [3, 1, 2].sort.0 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: negative_number
+    template: '[% x = -5; x %] [% 3 - -2 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: chained_vmethods
+    template: '[% text.split(" ").reverse.join(" ").upper %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: param_from_var
+    template: '[% n = 2; list.$n %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: list_in_string
+    template: '[% "x" _ list.size %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: equals_undef
+    template: '[% IF missing == "" %]eq[% END %][% IF !missing %]false[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: string_number_eq
+    template: '[% IF num == "42" %]y[% END %][% IF "1.0" == "1" %]y[% ELSE %]n[% END %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: assign_list_element
+    template: '[% l = [1,2,3]; l.1 = "x"; l.join(",") %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: numeric_string_output
+    template: '[% x = "007" %][% x %] [% x + 0 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: large_numbers
+    template: '[% 1000000 * 1000000 %] [% 2 / 3 %] [% 1 / 4 %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: increment
+    template: '[% i = 1; i = i + 1; i %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: quote_in_html_attr
+    template: <input value="[% html | html %]">
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: text_with_percent
+    template: 100% done [% "50%" %]
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: unclosed_tag
+    template: a [% name
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: parse_error
+    template: '[% IF %]'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true
+- template:
+    id: missing_end
+    template: '[% IF 1 %]a'
+    vars:
+      name: World
+      zero: 0
+      szero: '0'
+      empty: ''
+      num: 42
+      neg: -3
+      float: 3.5
+      html: <a href="x">Tom & "Jerry"</a>
+      list:
+      - b
+      - a
+      - c
+      nums:
+      - 10
+      - 2
+      - 33
+      - 4
+      empty_list: []
+      hash:
+        one: 1
+        two: 2
+        three: 3
+      nested:
+        a:
+          b:
+            c: deep
+        l:
+        - x: 1
+        - x: 2
+      people:
+      - name: Zoe
+        age: 30
+      - name: adam
+        age: 25
+      - name: Bob
+        age: 40
+      text: The quick brown fox
+      multiline: 'line1
+
+        line2
+
+
+        line4'
+      utf: café ☃
+    allow_error: true

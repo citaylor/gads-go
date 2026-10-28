@@ -1,0 +1,158 @@
+name: 007_curval_perms
+source:
+- t/007_curval_perms.t
+description: Curval values limited by sub-field permissions, ignoring permissions and override_permissions
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: Foo
+      integer1: 50
+      date1: '2014-10-10'
+      daterange1:
+      - '2012-02-10'
+      - '2013-06-15'
+      enum1: 1
+- sheet:
+    as: main
+    multivalue: 1
+    curval: cv
+    curval_fields:
+    - string1
+    - integer1
+    data:
+    - string1: Foo
+      curval1: 1
+- held:
+    id: single full perms
+    op: single
+    as: single_full_perms
+    sheet: main
+    user: normal1
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        curval1:
+          as_string: Foo, 50
+- held:
+    id: find full perms
+    op: find
+    as: find_full_perms
+    sheet: main
+    user: normal1
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        curval1:
+          as_string: Foo, 50
+    current_id: 2
+- column:
+    op: update
+    sheet: cv
+    column: integer1
+    set:
+      permissions: none
+- held:
+    id: single limited perms
+    op: single
+    as: single_limited_perms
+    sheet: main
+    user: normal1
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        curval1:
+          as_string: Foo
+- held:
+    id: find limited perms
+    op: find
+    as: find_limited_perms
+    sheet: main
+    user: normal1
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        curval1:
+          as_string: Foo
+    current_id: 2
+- held:
+    id: single ignore permissions
+    op: single
+    as: single_ignore_permissions
+    sheet: main
+    user: none
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        curval1:
+          as_string: Foo, 50
+    layout_user: true
+    ignore_permissions: true
+- held:
+    id: find ignore permissions
+    op: find
+    as: find_ignore_permissions
+    sheet: main
+    user: none
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        curval1:
+          as_string: Foo, 50
+    current_id: 2
+    layout_user: true
+    ignore_permissions: true
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      override_permissions: 1
+- held:
+    id: single override
+    op: single
+    as: single_override
+    sheet: main
+    user: normal1
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        curval1:
+          as_string: Foo, 50
+- held:
+    id: find override
+    op: find
+    as: find_override
+    sheet: main
+    user: normal1
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        curval1:
+          as_string: Foo, 50
+    current_id: 2

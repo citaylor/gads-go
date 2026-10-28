@@ -1,0 +1,134 @@
+name: 007_curval_autocur_calc
+source:
+- t/007_curval_autocur_calc.t
+description: Calc fields of autocur records updated when the referring record changes, and only then
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: bar1
+    - string1: bar2
+- sheet:
+    as: main
+    multivalue: 1
+    curval: cv
+    curval_fields:
+    - string1
+    create_records: false
+    data:
+    - string1: foo1
+      date1: '2010-10-10'
+      curval1:
+      - 1
+      - 2
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- column:
+    op: update
+    sheet: cv
+    column: calc1
+    set:
+      code: "\n    function evaluate (L2autocur1)\n        ret = \"\"\n        for _,val in ipairs(L2autocur1) do\n            ret = ret .. val.field_values.L1string1[1]\n        end\n        return ret\n    end"
+      return_type: string
+- column:
+    op: create
+    sheet: cv
+    type: calc
+    name: calc2
+    name_short: L2calc2
+    return_type: string
+    code: "function evaluate (L2autocur1)\n    return os.time()\nend"
+- create_records:
+    sheet: main
+- column:
+    op: update
+    sheet: cv
+    column: integer1
+    set:
+      optional: 0
+- held:
+    id: initial
+    op: find
+    as: a
+    sheet: cv
+    current_id: 1
+    observe:
+    - calc1
+    expect:
+      values:
+        calc1: foo1
+- held:
+    op: find
+    as: m
+    sheet: main
+    current_id: 3
+- held:
+    op: set
+    as: m
+    values:
+      string1: foo2
+- held:
+    id: write main
+    op: write
+    as: m
+    options:
+      no_alerts: 1
+- held:
+    id: first updated
+    op: find
+    as: b
+    sheet: cv
+    current_id: 1
+    observe:
+    - calc1
+    expect:
+      values:
+        calc1: foo2
+- held:
+    id: second updated
+    op: find
+    as: c
+    sheet: cv
+    current_id: 2
+    observe:
+    - calc1
+    expect:
+      values:
+        calc1: foo2
+- sleep:
+    seconds: 3
+- held:
+    op: find
+    as: m
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: m
+    values:
+      date1: '2022-04-03'
+- held:
+    id: write unrelated
+    op: write
+    as: m
+    options:
+      no_alerts: 1
+- held:
+    id: not re-evaluated
+    op: find
+    as: d
+    sheet: cv
+    current_id: 2
+    same_as:
+      as: c
+      columns:
+      - calc2
+    expect:
+      same_as:
+        calc2: '1'

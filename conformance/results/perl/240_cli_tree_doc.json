@@ -1,0 +1,348 @@
+{
+   "runner" : "perl",
+   "scenario" : "240_cli_tree_doc",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "et_usage",
+         "observed" : {
+            "died" : "Usage: bin/export-tree.pl layout-id",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "et_missing",
+         "observed" : {
+            "died" : "Layout ID 999 not found in database",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "et_default",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "Using field tree1\n",
+            "stdout" : "\"tree1\"\n\"tree2\",\"tree3\"\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "it_usage",
+         "observed" : {
+            "died" : "Usage: bin/import-tree.pl layout-id [parent-id] (use STDIN for the CSV data)",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "it_missing",
+         "observed" : {
+            "died" : "Layout ID 999 not found in database",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "it_top",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "Using field tree1\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "it_under",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "Using field tree1\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "it_bad_csv",
+         "observed" : {
+            "died" : "Failed to parse link a\"b,c\n",
+            "exit" : "255",
+            "stderr" : "Using field tree1\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enumvals",
+         "observed" : [
+            {
+               "deleted" : "0",
+               "id" : "4",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "5",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "6",
+               "parent" : "5",
+               "position" : null,
+               "value" : "tree3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "7",
+               "parent" : null,
+               "position" : null,
+               "value" : "Europe"
+            },
+            {
+               "deleted" : "0",
+               "id" : "8",
+               "parent" : "7",
+               "position" : null,
+               "value" : "UK"
+            },
+            {
+               "deleted" : "0",
+               "id" : "9",
+               "parent" : "8",
+               "position" : null,
+               "value" : "London"
+            },
+            {
+               "deleted" : "0",
+               "id" : "10",
+               "parent" : "8",
+               "position" : null,
+               "value" : "Manchester"
+            },
+            {
+               "deleted" : "0",
+               "id" : "11",
+               "parent" : "7",
+               "position" : null,
+               "value" : "France"
+            },
+            {
+               "deleted" : "0",
+               "id" : "12",
+               "parent" : "11",
+               "position" : null,
+               "value" : "Paris"
+            },
+            {
+               "deleted" : "0",
+               "id" : "13",
+               "parent" : null,
+               "position" : null,
+               "value" : "Asia"
+            },
+            {
+               "deleted" : "0",
+               "id" : "14",
+               "parent" : "13",
+               "position" : null,
+               "value" : "Japan, the"
+            },
+            {
+               "deleted" : "0",
+               "id" : "15",
+               "parent" : "14",
+               "position" : null,
+               "value" : "Tokyo"
+            },
+            {
+               "deleted" : "0",
+               "id" : "16",
+               "parent" : "13",
+               "position" : null,
+               "value" : "Zero"
+            },
+            {
+               "deleted" : "0",
+               "id" : "17",
+               "parent" : "11",
+               "position" : null,
+               "value" : "Child A"
+            },
+            {
+               "deleted" : "0",
+               "id" : "18",
+               "parent" : "17",
+               "position" : null,
+               "value" : "Grandchild"
+            },
+            {
+               "deleted" : "0",
+               "id" : "19",
+               "parent" : "11",
+               "position" : null,
+               "value" : "Child B"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "et_after",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "Using field tree1\n",
+            "stdout" : "\"Asia\",\"Japan, the\",\"Tokyo\"\n,\"Zero\"\n\"Europe\",\"France\",\"Child A\",\"Grandchild\"\n,,\"Child B\"\n,,\"Paris\"\n,\"UK\",\"London\"\n,,\"Manchester\"\n\"tree1\"\n\"tree2\",\"tree3\"\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "id_usage",
+         "observed" : {
+            "died" : "Usage: bin/import-doc.pl filename",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "id_missing",
+         "observed" : {
+            "died" : "read_file '{tmp}/nothere.pdf' - open: No such file or directory",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "id_pdf",
+         "observed" : {
+            "died" : "DBIx::Class::Row::store_column(): No such column 'content' on GADS::Schema::Result::Fileval",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "id_upper",
+         "observed" : {
+            "died" : "DBIx::Class::Row::store_column(): No such column 'content' on GADS::Schema::Result::Fileval",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "id_noext",
+         "observed" : {
+            "died" : "DBIx::Class::Row::store_column(): No such column 'content' on GADS::Schema::Result::Fileval",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filevals",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

@@ -1,0 +1,68 @@
+name: 011_alert_description
+source:
+- t/011_alert_description.t
+description: Descriptions and links of records in alert emails, for users with full and limited read access
+steps:
+- sheet:
+    as: main
+# A group with read access to only one field
+- user:
+    op: group
+    name: Limited
+    users: [normal1]
+- user:
+    op: remove_from_group
+    user: normal1
+    group: default
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      permissions:
+        default: [read, write_new, write_existing, write_new_no_approval, write_existing_no_approval]
+        Limited: [read, write_new, write_existing, write_new_no_approval, write_existing_no_approval]
+- layout: {op: set_alert_columns, sheet: main, columns: [string1, enum1]}
+- alert_description:
+    id: columns, one record
+    sheet: main
+    current_ids: 1
+    users: [superadmin, normal1]
+    expect:
+    - description: Foo, foo1
+      link: <a href="http://localhost/record/1">Foo, foo1</a>
+    - description: Foo
+      link: <a href="http://localhost/record/1">Foo</a>
+- layout: {op: set_alert_columns, sheet: main, columns: []}
+- alert_description:
+    id: id only, one record
+    sheet: main
+    current_ids: 1
+    users: [superadmin, normal1]
+    expect:
+    - description: record ID 1
+      link: record <a href="http://localhost/record/1">ID 1</a>
+    - description: record ID 1
+      link: record <a href="http://localhost/record/1">ID 1</a>
+- layout: {op: set_alert_columns, sheet: main, columns: [string1, enum1]}
+- alert_description:
+    id: columns, two records
+    sheet: main
+    current_ids: [1, 2]
+    users: [superadmin, normal1]
+    expect:
+    - description: Foo, foo1; Bar, foo2
+      link: <a href="http://localhost/record/1">Foo, foo1</a>; <a href="http://localhost/record/2">Bar, foo2</a>
+    - description: Foo; Bar
+      link: <a href="http://localhost/record/1">Foo</a>; <a href="http://localhost/record/2">Bar</a>
+- layout: {op: set_alert_columns, sheet: main, columns: []}
+- alert_description:
+    id: id only, two records
+    sheet: main
+    current_ids: [1, 2]
+    users: [superadmin, normal1]
+    expect:
+    - description: record IDs 1, 2
+      link: records <a href="http://localhost/record/1">ID 1</a>, <a href="http://localhost/record/2">ID 2</a>
+    - description: record IDs 1, 2
+      link: records <a href="http://localhost/record/1">ID 1</a>, <a href="http://localhost/record/2">ID 2</a>

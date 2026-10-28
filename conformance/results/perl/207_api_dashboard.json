@@ -1,0 +1,881 @@
+{
+   "runner" : "perl",
+   "scenario" : "207_api_dashboard",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>index | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard nav__link--active\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block ps-0\" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__main pt-0\">\n  <div class=\"content-block__main-content\">\n    <div id=\"ld-app\"\n         class=\"dashboard\"\n         data-dashboard-id=\"1\"\n         data-current-dashboard=\"{&quot;download_url&quot;:&quot;/?did=1&amp;download=pdf&quot;,&quot;name&quot;:&quot;Home dashboard (shared)&quot;}\"\n         data-dashboard-endpoint=\"/api/dashboard/1\"\n         \n         data-widget-types='[\"notice\"]'\n         \n         data-dashboard-read-only=\"false\"\n         data-dashboard-hide-menu=\"false\"\n         data-dashboard-include-h1=\"true\"\n         data-dashboard-no-download=\"false\"\n         data-dashboards=\"[{&quot;id&quot;:1,&quot;name&quot;:&quot;Home dashboard (shared)&quot;,&quot;url&quot;:&quot;/?did=1&quot;},{&quot;id&quot;:2,&quot;name&quot;:&quot;Home dashboard (personal)&quot;,&quot;url&quot;:&quot;/?did=2&quot;}]\"\n    >\n      \n      <div class=\"ld-widget-container\" data-grid='{&quot;h&quot;:6,&quot;i&quot;:&quot;T0000000000000000000000000000003&quot;,&quot;static&quot;:false,&quot;w&quot;:12,&quot;x&quot;:0,&quot;y&quot;:0}'>\n        <h4></h4>\n\n\n    <p>Site homepage</p>\n\n\n      </div>\n      \n    </div>\n  </div>\n  \n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add_notice",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "{var:notice}"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "widgets_after_add",
+         "observed" : [
+            {
+               "content" : "<p>Site homepage</p>",
+               "dashboard_id" : "1",
+               "h" : "6",
+               "id" : "1",
+               "static" : "0",
+               "title" : null,
+               "type" : "notice",
+               "w" : "12",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "content" : "<p>Welcome to your personal dashboard</p>\n            <p>Create widgets using the Add Widget menu. Edit widgets using their\n            edit button (including this one). Drag and resize widgets as required.</p>",
+               "dashboard_id" : "2",
+               "h" : "6",
+               "id" : "2",
+               "static" : "0",
+               "title" : null,
+               "type" : "notice",
+               "w" : "6",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "content" : "This is a new notice widget - click edit to update the contents",
+               "dashboard_id" : "1",
+               "h" : "0",
+               "id" : "3",
+               "static" : "0",
+               "title" : null,
+               "type" : "notice",
+               "w" : "0",
+               "x" : "0",
+               "y" : "0"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "get_notice",
+         "observed" : {
+            "body" : "<h4></h4>\n\n\n    This is a new notice widget - click edit to update the contents\n\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edit_notice_form",
+         "observed" : {
+            "body" : "{\"content\":\"<div class=\\\"row\\\">\\n    <div class=\\\"col-md-12\\\">\\n        <form action=\\\"/widget/{var:notice}/edit\\\">\\n            <div class=\\\"form-group mb-4\\\">\\n                <label class=\\\"form-label\\\" for=\\\"title\\\">Title (optional):</label>\\n                <input type=\\\"text\\\" class=\\\"form-control\\\" id=\\\"title\\\" name=\\\"title\\\" value=\\\"\\\">\\n            </div>\\n            \\n                <div class=\\\"summernote\\\"></div>\\n                <input type=\\\"hidden\\\" class=\\\"summernote_content\\\" name=\\\"content\\\" value=\\\"This is a new notice widget - click edit to update the contents\\\">\\n            \\n            \\n              <div class=\\\"checkbox \\\">\\n  <input\\n    id=\\\"static\\\"\\n    type=\\\"checkbox\\\"\\n    name=\\\"static\\\"\\n    value=\\\"static\\\"\\n    class=\\\"\\\"    aria-labelledby=\\\"static-label\\\"\\n    data-value=\\\"Fix in place for all dashboards\\\"\\n    \\n  >\\n  <label for=\\\"static\\\" id=\\\"static-label\\\" class=\\\"checkbox-label form-label\\\">\\n    Fix in place for all dashboards\\n  </label>\\n  \\n</div>\\n\\n            \\n        </form>\\n    </div>\\n</div>\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\",\"is_error\":0}",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edit_notice",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "Widget updated successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "get_notice_after_edit",
+         "observed" : {
+            "body" : "<h4>My notice</h4>\n\n\n    <p>Hello & welcome</p>\n\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "update_layout",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "Dashboard updated successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "widgets_after_layout",
+         "observed" : [
+            {
+               "content" : "<p>Site homepage</p>",
+               "dashboard_id" : "1",
+               "h" : "6",
+               "id" : "1",
+               "static" : "0",
+               "title" : null,
+               "type" : "notice",
+               "w" : "12",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "content" : "<p>Welcome to your personal dashboard</p>\n            <p>Create widgets using the Add Widget menu. Edit widgets using their\n            edit button (including this one). Drag and resize widgets as required.</p>",
+               "dashboard_id" : "2",
+               "h" : "6",
+               "id" : "2",
+               "static" : "0",
+               "title" : null,
+               "type" : "notice",
+               "w" : "6",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "content" : "<p>Hello & welcome</p>",
+               "dashboard_id" : "1",
+               "h" : "3",
+               "id" : "3",
+               "static" : "1",
+               "title" : "My notice",
+               "type" : "notice",
+               "w" : "4",
+               "x" : "1",
+               "y" : "2"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add_table",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "{var:table}"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "get_table_unconfigured",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "An unexexpected error has occurred"
+            },
+            "status" : "500"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete_table",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "Widget deleted successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "get_deleted",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Widget ID {var:table} not found"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dashboard_not_found",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Dashboard 999 not found"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "widget_not_found",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Widget ID nosuchwidget not found"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "widget_of_other_dashboard",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Widget ID {var:notice} not found"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_home",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>index | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard nav__link--active\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block ps-0\" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__main pt-0\">\n  <div class=\"content-block__main-content\">\n    <div id=\"ld-app\"\n         class=\"dashboard\"\n         data-dashboard-id=\"1\"\n         data-current-dashboard=\"{&quot;download_url&quot;:&quot;/?did=1&amp;download=pdf&quot;,&quot;name&quot;:&quot;Home dashboard (shared)&quot;}\"\n         data-dashboard-endpoint=\"/api/dashboard/1\"\n         \n         data-widget-types='[\"notice\"]'\n         \n         data-dashboard-read-only=\"true\"\n         data-dashboard-hide-menu=\"false\"\n         data-dashboard-include-h1=\"true\"\n         data-dashboard-no-download=\"false\"\n         data-dashboards=\"[{&quot;id&quot;:1,&quot;name&quot;:&quot;Home dashboard (shared)&quot;,&quot;url&quot;:&quot;/?did=1&quot;},{&quot;id&quot;:3,&quot;name&quot;:&quot;Home dashboard (personal)&quot;,&quot;url&quot;:&quot;/?did=3&quot;}]\"\n    >\n      \n      <div class=\"ld-widget-container\" data-grid='{&quot;h&quot;:6,&quot;i&quot;:&quot;T0000000000000000000000000000003&quot;,&quot;static&quot;:false,&quot;w&quot;:12,&quot;x&quot;:0,&quot;y&quot;:0}'>\n        <h4></h4>\n\n\n    <p>Site homepage</p>\n\n\n      </div>\n      \n      <div class=\"ld-widget-container\" data-grid='{&quot;h&quot;:3,&quot;i&quot;:&quot;{var:notice}&quot;,&quot;static&quot;:false,&quot;w&quot;:4,&quot;x&quot;:1,&quot;y&quot;:2}'>\n        <h4>My notice</h4>\n\n\n    <p>Hello & welcome</p>\n\n\n      </div>\n      \n    </div>\n  </div>\n  \n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_add_shared_denied",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "User does not have write access to dashboard ID 1"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_get_shared",
+         "observed" : {
+            "body" : "<h4>My notice</h4>\n\n\n    <p>Hello & welcome</p>\n\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_edit_shared_denied",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "User does not have write access to dashboard ID 1"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_delete_shared_denied",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "User does not have write access to dashboard ID 1"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_add_personal",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "{var:normal}"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_layout_superadmin_dashboard_denied",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "User does not have write access to dashboard ID 2"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not_logged_in",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"http://localhost/login?return_url=%2Fapi%2Fdashboard%2F1%2Fwidget%2F{var:notice}\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/login?return_url=%2Fapi%2Fdashboard%2F1%2Fwidget%2F{var:notice}",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table_page",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>table_index | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Dashboard</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom\">\n      <nav class=\"table-nav-tabs\">\n    <ul class=\"nav nav-tabs\">\n        <li class=\"nav-item\">\n            <a href=\"/table1/data?table_clear_state=1\" class=\"nav-link\" >\n            <span>Records</span>\n            </a>\n        </li>\n        <li class=\"nav-item\">\n            <a href=\"/table1/\" class=\"nav-link  active\">\n            <span>Dashboard</span>\n            </a>\n        </li>\n        \n            <li class=\"nav-item\">\n                <a href=\"/table1/edit\" class=\"nav-link\">\n                <span>Edit Table</span>\n                </a>\n            </li>\n            <li class=\"nav-item\">\n                <a href=\"/table1/report\" class=\"nav-link\">\n                <span>Reports</span>\n                </a>\n            </li>\n        \n    </ul>\n</nav>\n\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block ps-0\" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__main pt-0\">\n  <div class=\"content-block__main-content\">\n    <div id=\"ld-app\"\n         class=\"dashboard\"\n         data-dashboard-id=\"4\"\n         data-current-dashboard=\"{&quot;download_url&quot;:&quot;/table1?did=4&amp;download=pdf&quot;,&quot;name&quot;:&quot;Layout1 dashboard (shared)&quot;}\"\n         data-dashboard-endpoint=\"/table1/api/dashboard/4\"\n         \n         data-widget-types='[\"notice\", \"graph\", \"table\", \"timeline\", \"globe\"]'\n         \n         data-dashboard-read-only=\"false\"\n         data-dashboard-hide-menu=\"false\"\n         data-dashboard-include-h1=\"false\"\n         data-dashboard-no-download=\"false\"\n         data-dashboards=\"[{&quot;id&quot;:4,&quot;name&quot;:&quot;Layout1 dashboard (shared)&quot;,&quot;url&quot;:&quot;/table1?did=4&quot;},{&quot;id&quot;:5,&quot;name&quot;:&quot;Layout1 dashboard (personal)&quot;,&quot;url&quot;:&quot;/table1?did=5&quot;}]\"\n    >\n      \n    </div>\n  </div>\n  \n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dashboards",
+         "observed" : [
+            {
+               "id" : "1",
+               "instance_id" : null,
+               "user_id" : null
+            },
+            {
+               "id" : "2",
+               "instance_id" : null,
+               "user_id" : "1"
+            },
+            {
+               "id" : "3",
+               "instance_id" : null,
+               "user_id" : "4"
+            },
+            {
+               "id" : "4",
+               "instance_id" : "1",
+               "user_id" : null
+            },
+            {
+               "id" : "5",
+               "instance_id" : "1",
+               "user_id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add_table_widget",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "{var:tablew}"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edit_table_form",
+         "observed" : {
+            "body" : "{\"content\":\"<div class=\\\"row\\\">\\n    <div class=\\\"col-md-12\\\">\\n        <form action=\\\"/widget/{var:tablew}/edit\\\">\\n            <div class=\\\"form-group mb-4\\\">\\n                <label class=\\\"form-label\\\" for=\\\"title\\\">Title (optional):</label>\\n                <input type=\\\"text\\\" class=\\\"form-control\\\" id=\\\"title\\\" name=\\\"title\\\" value=\\\"\\\">\\n            </div>\\n            \\n                \\n    \\n    <div class=\\\"form-group mb-4\\\">\\n        <label class=\\\"form-label\\\" for=\\\"view_id\\\">View</label>\\n        <select class=\\\"form-control\\\" id=\\\"view_id\\\" name=\\\"view_id\\\">\\n            \\n                <option></option>\\n            \\n            \\n                <optgroup label=\\\"Personal views\\\">\\n                    \\n                        <option value=\\\"1\\\" >\\n                            Widget view\\n                        </option>\\n                    \\n                </optgroup>\\n            \\n            \\n            \\n        </select>\\n    </div>\\n\\n    <div class=\\\"form-group\\\">\\n        <label for=\\\"rows\\\">Number of rows to display in table</label>\\n        <input type=\\\"text\\\" class=\\\"form-control\\\" name=\\\"rows\\\" id=\\\"rows\\\" value=\\\"\\\">\\n    </div>\\n\\n            \\n            \\n              <div class=\\\"checkbox \\\">\\n  <input\\n    id=\\\"static\\\"\\n    type=\\\"checkbox\\\"\\n    name=\\\"static\\\"\\n    value=\\\"static\\\"\\n    class=\\\"\\\"    aria-labelledby=\\\"static-label\\\"\\n    data-value=\\\"Fix in place for all dashboards\\\"\\n    \\n  >\\n  <label for=\\\"static\\\" id=\\\"static-label\\\" class=\\\"checkbox-label form-label\\\">\\n    Fix in place for all dashboards\\n  </label>\\n  \\n</div>\\n\\n            \\n        </form>\\n    </div>\\n</div>\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\",\"is_error\":0}",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edit_table",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "Widget updated successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table_widget",
+         "observed" : [
+            {
+               "rows" : "5",
+               "static" : "0",
+               "title" : "Records",
+               "type" : "table",
+               "view_id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "unknown_table_prefix",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        <p>Sorry, the page you requested does not exist. You may want to <a href=\"/\">go back to the home page</a>. </p>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "status" : "404"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "widgets_final",
+         "observed" : [
+            {
+               "dashboard_id" : "1",
+               "h" : "6",
+               "id" : "1",
+               "static" : "0",
+               "title" : null,
+               "type" : "notice",
+               "w" : "12",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "dashboard_id" : "2",
+               "h" : "6",
+               "id" : "2",
+               "static" : "0",
+               "title" : null,
+               "type" : "notice",
+               "w" : "6",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "dashboard_id" : "1",
+               "h" : "3",
+               "id" : "3",
+               "static" : "1",
+               "title" : "My notice",
+               "type" : "notice",
+               "w" : "4",
+               "x" : "1",
+               "y" : "2"
+            },
+            {
+               "dashboard_id" : "3",
+               "h" : "6",
+               "id" : "4",
+               "static" : "0",
+               "title" : null,
+               "type" : "notice",
+               "w" : "6",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "dashboard_id" : "3",
+               "h" : "0",
+               "id" : "5",
+               "static" : "0",
+               "title" : null,
+               "type" : "notice",
+               "w" : "0",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "dashboard_id" : "5",
+               "h" : "6",
+               "id" : "6",
+               "static" : "0",
+               "title" : null,
+               "type" : "notice",
+               "w" : "6",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "dashboard_id" : "4",
+               "h" : "0",
+               "id" : "7",
+               "static" : "0",
+               "title" : "Records",
+               "type" : "table",
+               "w" : "0",
+               "x" : "0",
+               "y" : "0"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

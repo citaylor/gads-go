@@ -1,0 +1,47 @@
+name: 021_topic
+source: [t/021_topic.t]
+description: Topics of fields, and preventing editing of a topic until the fields of another are completed
+steps:
+- sheet: {as: main}
+# Summary fields, and an authorisation field that can only be edited once
+# the summary is completed
+- topic: {sheet: main, name: Summary, as: summary, expect: {id: 1}}
+- topic: {sheet: main, name: Authorisation, as: authorisation, expect: {id: 2}}
+- db: {id: topics, op: count, table: topic, expect: {count: 2}}
+- column: {op: update, sheet: main, column: string1, set: {topic: summary, optional: 0}}
+- column: {op: update, sheet: main, column: integer1, set: {topic: summary, optional: 0}}
+- column: {op: update, sheet: main, column: enum1, set: {topic: authorisation}}
+- db: {id: topics added to fields, op: count, table: layout, where: {topic_id: [1, 2]}, expect: {count: 3}}
+- topic: {op: update, as: summary, prevent_edit: authorisation}
+- clear_layouts: {}
+- db: {id: record count, op: count, table: current}
+- held: {op: new, as: r, sheet: main}
+- held: {op: set, as: r, values: {enum1: foo2}}
+- held: {id: missing values, op: write, as: r, expect_error: 'until the following fields have been completed.*string1.*integer1'}
+- db: {id: no new records, op: count, table: current}
+- held: {op: set, as: r, values: {string1: Foobar}}
+- held: {id: missing integer1, op: write, as: r, expect_error: 'until the following fields have been completed.*integer1'}
+- held: {op: set, as: r, values: {integer1: 100}}
+- held: {id: written after values completed, op: write, as: r}
+- db: {id: new record, op: count, table: current}
+- held:
+    id: values after write
+    op: find
+    as: r
+    current_id: '@held:r'
+    clear: true
+    observe: [integer1, string1, enum1]
+    expect: {values: {integer1: '100', string1: Foobar, enum1: foo2}}
+# Blank a value: cannot write again
+- held: {op: set, as: r, values: {integer1: ''}}
+- held: {id: blank value, op: write, as: r, expect_error: 'until the following fields have been completed.*integer1'}
+# Remove the enum value: can write
+- held: {op: set, as: r, values: {enum1: ''}}
+- held: {id: written with dependent value blank, op: write, as: r}
+# Deletion of a table containing only topics
+- db: {id: instances, op: count, table: instance}
+- layout: {op: create_table, sheet: main, name: Temp, as: temp}
+- db: {id: table created, op: count, table: instance}
+- topic: {table: temp, name: Temp, as: temp}
+- layout: {op: delete_table, sheet: main, table: temp}
+- db: {id: table deleted, op: count, table: instance}

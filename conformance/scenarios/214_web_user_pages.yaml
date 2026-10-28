@@ -1,0 +1,79 @@
+name: 214_web_user_pages
+source:
+  - lib/GADS.pm (/aup, /aup_text, /user_status, /settings/report_defaults/)
+  - lib/GADS/Schema/Result/Site.pm (read_security_marking)
+  - views/aup.tt, user_status.tt, layouts/page_reporting_overview.tt
+description: >
+  The acceptable use policy (accepting it records the time), its text
+  (which has no template), the status page with the time of the last
+  login (and continuing to the last table when the site remembers it), and
+  the report defaults (security marking and logo) of the site.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - db:
+      op: update
+      table: user
+      where: { id: 4 }
+      set: { lastlogin: "2014-09-01 12:30:00" }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { id: aup, as: normal1, path: /aup }
+  - http:
+      id: aup_accept
+      as: normal1
+      method: POST
+      path: /aup
+      form: { accepted: 1 }
+  - db:
+      id: aup_accepted
+      op: select
+      table: user
+      where: { id: 4 }
+      columns: [id, aup_accepted]
+  - http: { id: aup_text, as: normal1, path: /aup_text }
+  - http: { id: user_status, as: normal1, path: /user_status }
+  - http: { id: user_status_first_login, as: superadmin, path: /user_status }
+  - http:
+      id: user_status_continue
+      as: normal1
+      method: POST
+      path: /user_status
+      form: { accepted: 1 }
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { remember_user_location: 1 }
+  - http: { id: visit_table, as: normal1, path: "/{sheet:s}/data", no_body: true }
+  - http:
+      id: user_status_continue_table
+      as: normal1
+      method: POST
+      path: /user_status
+      form: { accepted: 1 }
+  # Report defaults
+  - http: { id: report_defaults, as: superadmin, path: /settings/report_defaults/ }
+  - http:
+      id: report_defaults_set
+      as: superadmin
+      method: POST
+      path: /settings/report_defaults/
+      form: { submit: submit, security_marking: OFFICIAL }
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { site_logo: "GIF89a" }
+  - http: { id: report_defaults_after, as: superadmin, path: /settings/report_defaults/ }
+  - http:
+      id: report_defaults_clear
+      as: superadmin
+      method: POST
+      path: /settings/report_defaults/
+      form: { submit: submit, security_marking: "" }
+  - http: { id: report_defaults_normal, as: normal1, path: /settings/report_defaults/ }
+  - db:
+      id: site_marking
+      op: select
+      table: site
+      columns: [id, security_marking, remember_user_location]

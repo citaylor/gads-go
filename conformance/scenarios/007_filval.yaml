@@ -1,0 +1,510 @@
+name: 007_filval
+source:
+- t/007_filval.t
+description: Filval fields store the filtered values of a curval field at submission
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: Foo
+      integer1: 40
+      date1: '2014-10-10'
+      daterange1:
+      - '2012-02-10'
+      - '2013-06-15'
+      enum1: 1
+    - string1: Foo
+      integer1: 50
+      date1: '2014-10-10'
+      daterange1:
+      - '2012-02-10'
+      - '2013-06-15'
+      enum1: 1
+    - string1: Foo
+      integer1: 55
+      date1: '2014-10-10'
+      daterange1:
+      - '2012-02-10'
+      - '2013-06-15'
+      enum1: 1
+    - string1: Bar
+      integer1: 99
+      date1: '2009-01-02'
+      daterange1:
+      - '2008-05-04'
+      - '2008-07-14'
+      enum1: 2
+    - string1: Bar
+      integer1: 200
+      date1: '2009-01-02'
+      daterange1:
+      - '2008-05-04'
+      - '2008-07-14'
+      enum1: ''
+    - string1: FooBar
+      integer1: 150
+      date1: '2000-01-02'
+      daterange1:
+      - '2001-05-12'
+      - '2002-03-22'
+      enum1: 3
+    calc_code: "function evaluate (_created)\n    if _created == nil then\n      \
+      \  return\n    end\n    return 1000\nend"
+- sheet:
+    as: main
+    data: []
+    multivalue: 1
+    curval: cv
+    curval_fields:
+    - string1
+    calc_code: "function evaluate (_created)\n    if _created == nil then\n      \
+      \  return\n    end\n    return 1000\nend"
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      filter:
+        rules:
+        - name: string1
+          type: string
+          value: $L1string1
+          operator: equal
+        - name: calc1
+          type: string
+          value: $L1calc1
+          operator: equal
+        condition: AND
+- column:
+    op: create
+    sheet: main
+    type: filval
+    name: curval filter storage
+    refers_to: cv
+    curval_fields:
+    - integer1
+    related_field: curval1
+- held:
+    op: new
+    as: r0
+    sheet: main
+- held:
+    op: set
+    as: r0
+    values:
+      string1: Bar
+- held:
+    id: 'new: filtered values'
+    op: get
+    as: r0
+    filtered_values: curval1
+    submission_token: true
+- held:
+    op: set
+    as: r0
+    values:
+      curval1:
+      - 4
+- held:
+    op: write
+    as: r0
+    options:
+      submission_token: 1
+- held:
+    id: new
+    op: find
+    as: r0
+    sheet: main
+    clear: true
+    current_id: '@held:r0'
+    observe:
+    - curval filter storage
+    - curval1
+    - string1
+- clear_layouts: {}
+- held:
+    op: new
+    as: r1
+    sheet: main
+- held:
+    op: set
+    as: r1
+    values:
+      string1: Bar
+- held:
+    op: write
+    as: r1
+    options:
+      draft: 1
+- held:
+    op: clear
+    as: r1
+- held:
+    op: load_remembered_values
+    as: r1
+- held:
+    op: set
+    as: r1
+    values:
+      curval1:
+      - 4
+- held:
+    op: write
+    as: r1
+    options:
+      submission_token: 1
+- held:
+    id: draft
+    op: find
+    as: r1
+    sheet: main
+    clear: true
+    current_id: '@held:r1'
+    observe:
+    - curval filter storage
+    - curval1
+    - string1
+- clear_layouts: {}
+- held:
+    op: new
+    as: r2
+    sheet: main
+- held:
+    op: set
+    as: r2
+    values:
+      string1: Bar
+- held:
+    op: write
+    as: r2
+    options:
+      draft: 1
+- held:
+    op: clear
+    as: r2
+- held:
+    op: load_remembered_values
+    as: r2
+- held:
+    op: write
+    as: r2
+    options:
+      submission_token: 1
+- held:
+    id: draft and no set value
+    op: find
+    as: r2
+    sheet: main
+    clear: true
+    current_id: '@held:r2'
+    observe:
+    - curval filter storage
+    - curval1
+    - string1
+- clear_layouts: {}
+- held:
+    op: find
+    as: r3
+    sheet: main
+    current_id: '@held:r2'
+- held:
+    op: set
+    as: r3
+    values:
+      string1: Foo
+- held:
+    id: 'edit: filtered values'
+    op: get
+    as: r3
+    filtered_values: curval1
+    submission_token: true
+- held:
+    op: set
+    as: r3
+    values:
+      curval1:
+      - 2
+- held:
+    op: write
+    as: r3
+    options:
+      submission_token: 1
+- held:
+    id: edit
+    op: find
+    as: r3
+    sheet: main
+    clear: true
+    current_id: '@held:r3'
+    observe:
+    - curval filter storage
+    - curval1
+    - string1
+- clear_layouts: {}
+- record:
+    op: delete
+    sheet: cv
+    current_id: 2
+- held:
+    op: find
+    as: r4
+    sheet: main
+    current_id: '@held:r3'
+- held:
+    op: set
+    as: r4
+    values:
+      string1: Foo
+      date1: '2017-01-01'
+- held:
+    id: 'unchanged, including curval: filtered values'
+    op: get
+    as: r4
+    filtered_values: curval1
+    submission_token: true
+- held:
+    op: set
+    as: r4
+    values:
+      curval1:
+      - 2
+- held:
+    op: write
+    as: r4
+    options:
+      submission_token: 1
+- held:
+    id: unchanged, including curval
+    op: find
+    as: r4
+    sheet: main
+    clear: true
+    current_id: '@held:r4'
+    observe:
+    - curval filter storage
+    - curval1
+    - string1
+- record:
+    op: restore
+    sheet: cv
+    current_id: 2
+    find_options:
+      deleted: 1
+- clear_layouts: {}
+- record:
+    op: delete
+    sheet: cv
+    current_id: 2
+- held:
+    op: find
+    as: r5
+    sheet: main
+    current_id: '@held:r4'
+- held:
+    op: set
+    as: r5
+    values:
+      string1: Foo
+      date1: '2018-05-01'
+- held:
+    id: 'unchanged sub-values, changed curval: filtered values'
+    op: get
+    as: r5
+    filtered_values: curval1
+    submission_token: true
+- held:
+    op: set
+    as: r5
+    values:
+      curval1:
+      - 1
+- held:
+    op: write
+    as: r5
+    options:
+      submission_token: 1
+- held:
+    id: unchanged sub-values, changed curval
+    op: find
+    as: r5
+    sheet: main
+    clear: true
+    current_id: '@held:r5'
+    observe:
+    - curval filter storage
+    - curval1
+    - string1
+- record:
+    op: restore
+    sheet: cv
+    current_id: 2
+    find_options:
+      deleted: 1
+- clear_layouts: {}
+- search:
+    id: search filval enum
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+    filter:
+      rules:
+      - name: curval filter storage_enum1
+        type: string
+        value: foo1
+        operator: equal
+    observe:
+    - string1
+- search:
+    id: search filval id
+    sheet: main
+    view:
+      name: Test view
+      columns:
+      - string1
+    filter:
+      rules:
+      - name: curval filter storage
+        type: string
+        value: '5'
+        operator: equal
+    observe:
+    - string1
+- column:
+    op: update
+    sheet: main
+    column: date1
+    set:
+      display_fields:
+        condition: AND
+        rules:
+        - name: curval1
+          operator: not_contains
+          value: '40'
+        - name: curval filter storage
+          operator: contains
+          value: '40'
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      curval_fields:
+      - string1
+      - integer1
+- clear_layouts: {}
+- held:
+    op: new
+    as: d0
+    sheet: main
+- held:
+    op: set
+    as: d0
+    values:
+      string1: Foo
+      date1: '2016-01-01'
+      curval1:
+      - 1
+- held:
+    op: write
+    as: d0
+    options:
+      submission_token: 1
+- held:
+    id: display 0
+    op: find
+    as: d0
+    sheet: main
+    clear: true
+    current_id: '@held:d0'
+    observe:
+    - date1
+    - curval filter storage
+- clear_layouts: {}
+- held:
+    op: new
+    as: d1
+    sheet: main
+- held:
+    op: set
+    as: d1
+    values:
+      string1: Foo
+      date1: '2016-01-01'
+      curval1:
+      - 2
+- held:
+    op: write
+    as: d1
+    options:
+      submission_token: 1
+- held:
+    id: display 1
+    op: find
+    as: d1
+    sheet: main
+    clear: true
+    current_id: '@held:d1'
+    observe:
+    - date1
+    - curval filter storage
+- clear_layouts: {}
+- held:
+    op: new
+    as: d2
+    sheet: main
+- held:
+    op: set
+    as: d2
+    values:
+      string1: Foo
+      date1: '2016-01-01'
+      curval1:
+      - 1
+      - 2
+- held:
+    op: write
+    as: d2
+    options:
+      submission_token: 1
+- held:
+    id: display 2
+    op: find
+    as: d2
+    sheet: main
+    clear: true
+    current_id: '@held:d2'
+    observe:
+    - date1
+    - curval filter storage
+- clear_layouts: {}
+- held:
+    op: new
+    as: d3
+    sheet: main
+- held:
+    op: set
+    as: d3
+    values:
+      string1: Bar
+      date1: '2016-01-01'
+      curval1:
+      - 5
+- held:
+    op: write
+    as: d3
+    options:
+      submission_token: 1
+- held:
+    id: display 3
+    op: find
+    as: d3
+    sheet: main
+    clear: true
+    current_id: '@held:d3'
+    observe:
+    - date1
+    - curval filter storage
+- clear_layouts: {}

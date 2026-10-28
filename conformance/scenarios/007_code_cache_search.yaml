@@ -1,0 +1,44 @@
+name: 007_code_cache_search
+source:
+- t/007_code_cache_search.t
+description: Filtering on calc values longer than the calc cache limit (GADS-dev)
+steps:
+- sheet:
+    as: main
+    multivalue: 0
+    calc_return_type: string
+    calc_code: "\n            function evaluate (L1string1)\n                return L1string1\n            end\n        "
+    data:
+    - string1:
+      - &long Y3EucBXt2aTYnHNb2hXJTrgAg0QqRieA1kxNo1ud2TbcyxrXMXqu/m83YtthBWYXiEdocydX69XqB/6IK+6NqGDZJgofxgjVxGJmP1HONBT651Yj/47mRf4+coC3gqvzh6vQ1nCeZyWeVKVuoiiG5INOuwanGJESPDgJrvichI00Czskjah5Ju6/tHOez+6p3hciNXUYuq76g6KFkTn4tbWegJd2Hh/bNVYqTX5yDW0MIQQQSoe2i+NLA5xi
+    - string1:
+      - The quick brown fox jumps over the lazy dog.
+- search:
+    id: long string in calc field
+    sheet: main
+    user: normal1
+    filter:
+      rules:
+      - {name: calc1, type: string, operator: equal, value: *long}
+    expect: {count: 1, ids: [1]}
+- search:
+    id: word in calc field
+    sheet: main
+    user: normal1
+    filter:
+      rules:
+      - {name: calc1, type: string, operator: contains, value: brown}
+    expect: {count: 1, ids: [2]}
+- search:
+    id: no filter
+    sheet: main
+    user: normal1
+    expect: {count: 2}
+- search:
+    id: non-existing string
+    sheet: main
+    user: normal1
+    filter:
+      rules:
+      - {name: calc1, type: string, operator: equal, value: non-existing string}
+    expect: {count: 0}

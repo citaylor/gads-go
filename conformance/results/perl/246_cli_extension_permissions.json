@@ -1,0 +1,471 @@
+{
+   "runner" : "perl",
+   "scenario" : "246_cli_extension_permissions",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_none",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Usage bin/add-extension.pl --mimetype=<mimetype> --extension=<extension> --layout=<layout_id> --instance=<instance_id>\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_bad_int",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "Value \"abc\" invalid for option instance (integer number expected)\nerror: Usage bin/add-extension.pl --mimetype=<mimetype> --extension=<extension> --layout=<layout_id> --instance=<instance_id>\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_allowed_type",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Mimetype text/x-foo already allowed\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_allowed_ext",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Extension PDF already allowed\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_not_file",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Invalid column for properties to be set on\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_no_column",
+         "observed" : {
+            "died" : "Can't call method \"type\" on an undefined value",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_cancel",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "notice: Addition of extension cancelled\n",
+            "stdout" : "Do you want to add mime type application/x-foo with extension foo to file1 (y/n): "
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_after_cancel",
+         "observed" : [
+            {
+               "id" : "14",
+               "options" : "{\"override_types\":[]}"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_add",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "notice: Extension and mime type added\n",
+            "stdout" : "Do you want to add mime type application/x-foo with extension foo to file1 (y/n): "
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_add_again",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "notice: Extension and mime type added\n",
+            "stdout" : "Do you want to add mime type application/x-foo with extension foo to file1 (y/n): "
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_add_second",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "notice: Extension and mime type added\n",
+            "stdout" : "Do you want to add mime type application/x-bar with extension bar to file1 (y/n): "
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ae_after_add",
+         "observed" : [
+            {
+               "id" : "14",
+               "options" : "{\"override_types\":[{\"extension\":\"foo\",\"name\":\"application/x-foo\"},{\"extension\":\"bar\",\"name\":\"application/x-bar\"}]}"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_none",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Please state if you want to import/export group permissions with --action\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_no_file",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Please provide the file you want to import/export to/from with --file\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_bad_action",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: You must state if you want to import or export with --action\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_bad_option",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "Unknown option: nope\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_import_missing",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: File '{file}' does not exist\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_import_bad_header",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Invalid CSV header/s. Import must consist of 3 columns: layout_id, group_id and permission\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_import_no_header",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Invalid CSV header/s. Import must consist of 3 columns: layout_id, group_id and permission\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_import_bad_layout",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: ERROR: Invalid Layout ID 'x8' on row 3.\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_import_bad_group",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: ERROR: Invalid Group ID 'g' on row 2.\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_import_bad_permission",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Invalid Permission 'delete' on row 2. Value must be read, write_new, write_existing, or write_existing_no_approval.\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_import_no_layout",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Layout ID '999' does not exist\n\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_import_no_group",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Group ID '99' does not exist\n\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:user",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_before",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_import",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_import_partial",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Invalid Permission 'bad' on row 3. Value must be read, write_new, write_existing, or write_existing_no_approval.\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_after",
+         "observed" : [
+            {
+               "group_id" : "10",
+               "layout_id" : "8",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "9",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "9",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "12",
+               "permission" : "write_existing_no_approval"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_after_partial",
+         "observed" : [
+            {
+               "group_id" : "10",
+               "layout_id" : "8",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "9",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "9",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "10",
+               "layout_id" : "12",
+               "permission" : "write_existing_no_approval"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_export_existing",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: {tmp}/e.csv already exists, unable to overwrite file!\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_export_bad_input",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: You need to enter a number or a comma-separated list of numbers.\n\n",
+            "stdout" : "Enter the group IDs you're looking to export (e.g. 1,2,3): \n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blp_export",
+         "observed" : {
+            "exit" : "0",
+            "files" : {
+               "out.csv" : "instance_id,layout_name,layout_id,group_id,permission\n1,string1,8,10,read\n1,integer1,9,10,write_new_no_approval\n1,integer1,9,10,write_existing\n1,date1,12,10,write_existing_no_approval\n"
+            },
+            "stderr" : "DBIx::Class::Storage::DBI::SQLite::_dbi_attrs_for_bind(): Non-integer value supplied for column 'me.group_id' despite the integer datatype",
+            "stdout" : "Enter the group IDs you're looking to export (e.g. 1,2,3): \n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      }
+   ]
+}

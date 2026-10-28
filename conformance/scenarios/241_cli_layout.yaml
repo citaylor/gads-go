@@ -1,0 +1,33 @@
+name: 241_cli_layout
+source:
+  - bin/move-layout.pl
+  - bin/generate.pl
+description: >
+  Moving the fields and global views of a table between systems: its
+  checks of the options, dumping the global and admin views to YAML (the
+  dump and load of fields fail for every field in GADS, as do loads of
+  views, as their setters no longer exist), and generating a CSV of random
+  records for a table (only its header and number of lines are compared).
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - cli: { id: ml_none, script: move-layout.pl }
+  - cli: { id: ml_nosite, script: move-layout.pl, args: [--instance-id, 1] }
+  - cli: { id: ml_nofile, script: move-layout.pl, args: [--instance-id, 1, --site-id, 1] }
+  - cli: { id: ml_load_empty, script: move-layout.pl, args: [--instance-id, 1, --site-id, 1, --load-file, "{file:l.yaml}"], files: { l.yaml: "--- []\n" } }
+  - db: { id: layout_rows, op: select, table: layout, columns: [id, name, type, position, options], order_by: [id] }
+  - cli: { id: ml_load_existing, script: move-layout.pl, args: [--instance-id, 1, --site-id, 1, --load-file, "{file:l.yaml}"], files: { l.yaml: "---\n- id: 8\n  name: Renamed\n  type: string\n" } }
+  - cli: { id: ml_load_missing, script: move-layout.pl, args: [--instance-id, 1, --site-id, 1, --load-file, "{file:l.yaml}"], files: { l.yaml: "---\n- id: 100\n  name: New\n  type: string\n- id: 99\n  name: New2\n  type: intgr\n" } }
+  - cli: { id: ml_load_badtype, script: move-layout.pl, args: [--instance-id, 1, --site-id, 1, --load-file, "{file:l.yaml}"], files: { l.yaml: "---\n- id: 100\n  name: New\n  type: nope\n" } }
+  - cli: { id: ml_load_views, script: move-layout.pl, args: [--instance-id, 1, --site-id, 1, --global-views, --load-file, "{file:v.yaml}"], files: { v.yaml: "---\n- id: 5\n  name: Imported\n  is_admin: 1\n  global: 0\n  filter: '{}'\n  columns: [8, 9]\n  sorts:\n    - { layout_id: 8, type: desc }\n" } }
+  - db: { id: views, op: select, table: view, columns: [id, name, global, is_admin, user_id, filter, instance_id], order_by: [id] }
+  - db: { id: view_layouts, op: select, table: view_layout, columns: [view_id, layout_id, order], order_by: [view_id, layout_id] }
+  - db: { id: sorts, op: select, table: sort, columns: [view_id, layout_id, type], order_by: [id] }
+  - view: { op: create, sheet: s, as: v, name: "view: one", global: 1, columns: [string1, calc1] }
+  - view: { op: create, sheet: s, as: v2, name: "Admin's", is_admin: 1, columns: [], filter: { rules: [{ name: string1, type: string, operator: equal, value: Foo }] } }
+  - view: { op: create, sheet: s, as: v3, name: "personal", global: 0, columns: [string1] }
+  - cli: { id: gen, script: generate.pl, args: [--instance-id, 1, --site-id, 1], observe_files: lines }
+  - cli: { id: gen_none, script: generate.pl }
+  - cli: { id: ml_dump, script: move-layout.pl, args: [--instance-id, 1, --site-id, 1, --dump-file, "{file:layout.yaml}"], observe_files: content }
+  - cli: { id: ml_views, script: move-layout.pl, args: [--instance-id, 1, --site-id, 1, --dump-file, "{file:views.yaml}", --global-views], observe_files: content }
+  - cli: { id: ml_views_none, script: move-layout.pl, args: [--instance-id, 2, --site-id, 1, --dump-file, "{file:views.yaml}", --global-views], observe_files: content }
+  - cli: { id: ml_load_views_empty, script: move-layout.pl, args: [--instance-id, 1, --site-id, 1, --global-views, --load-file, "{file:v.yaml}"], files: { v.yaml: "--- []\n" } }

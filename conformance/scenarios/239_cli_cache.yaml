@@ -1,0 +1,89 @@
+name: 239_cli_cache
+source:
+  - bin/update-cached.pl
+  - bin/send-alerts.pl
+  - bin/update-alertcache.pl
+  - bin/date-format.pl
+  - bin/fix-curval-times.pl
+  - bin/update-snapshot.pl
+description: >
+  The overnight scripts: recalculating the cached calc values after a
+  change of their code (and the alerts of the changes, also from a record
+  ID), sending the alert emails, rebuilding the alert caches, rewriting the
+  dates of view filters in a new format, and the report of curval records
+  edited with their parent record.
+steps:
+  - sheet:
+      as: cv
+      site_id: 1
+      instance_id: 2
+      data:
+        - { string1: Foo }
+  - sheet:
+      as: s
+      curval: cv
+      curval_fields: [string1]
+      calc_code: "function evaluate (L1integer1) return L1integer1 end"
+      calc_return_type: integer
+      data:
+        - { string1: Foo1, integer1: 10, date1: "2014-10-10", curval1: 1 }
+        - { string1: Bar1, integer1: 20, curval1: 1 }
+        - { string1: Baz1, integer1: 30 }
+  - view:
+      op: create
+      sheet: s
+      as: v
+      name: view1
+      global: 1
+      columns: [string1, calc1]
+  - alert: { sheet: s, view: v, user: superadmin, frequency: 24 }
+  - alert: { sheet: s, view: v, user: normal1, frequency: 24 }
+  - view:
+      op: create
+      sheet: s
+      as: vdate
+      name: Dated
+      global: 1
+      columns: [string1]
+      filter:
+        rules:
+          - { name: date1, type: date, operator: equal, value: "2014-10-10" }
+          - { name: string1, type: string, operator: equal, value: Foo1 }
+  - emails: {}
+  - db: { id: calcvals_before, op: select, table: calcval, columns: [record_id, value_int], order_by: [record_id] }
+  - db:
+      op: update
+      table: calc
+      where: { layout_id: "@column:s:calc1" }
+      set: { code: "function evaluate (L1integer1) if L1integer1 > 15 then return L1integer1 * 2 end return L1integer1 end" }
+  - cli: { id: uc_bad_option, script: update-cached.pl, args: [--nope] }
+  - cli: { id: uc_from, script: update-cached.pl, args: [--from-record-id, 2] }
+  - db: { id: calcvals_from, op: select, table: calcval, columns: [record_id, value_int], order_by: [record_id] }
+  - cli: { id: uc_all, script: update-cached.pl }
+  - db: { id: calcvals_all, op: select, table: calcval, columns: [record_id, value_int], order_by: [record_id] }
+  - db: { id: alert_sends, op: select, table: alert_send, columns: [layout_id, alert_id, current_id, status], order_by: [alert_id, current_id, layout_id] }
+  - cli: { id: uc_again, script: update-cached.pl }
+  - db: { id: alert_send_count, op: count, table: alert_send }
+  - db: { op: insert, table: alert_send, set: { layout_id: "@column:s:string1", alert_id: 1, current_id: 3, status: changed } }
+  - db: { op: insert, table: alert_send, set: { alert_id: 1, current_id: 2, status: gone } }
+  - db: { op: insert, table: alert_send, set: { alert_id: 2, current_id: 4, status: arrived } }
+  - cli: { id: sa_send, script: send-alerts.pl }
+  - emails: { id: sa_emails }
+  - db: { id: alert_send_after, op: count, table: alert_send }
+  - cli: { id: sa_nothing, script: send-alerts.pl }
+  - emails: { id: sa_no_emails }
+  - db: { op: delete, table: alert_cache }
+  - db: { op: insert, table: alert_cache, set: { layout_id: "@column:s:string1", view_id: 2, current_id: 3 } }
+  - cli: { id: uac, script: update-alertcache.pl }
+  - db: { id: alert_cache_rebuilt, op: select, table: alert_cache, columns: [layout_id, view_id, current_id, user_id], order_by: [view_id, current_id, layout_id, user_id] }
+  - cli: { id: df_no_format, script: date-format.pl }
+  - cli: { id: df_to, script: date-format.pl, args: [--to, dd-MM-yyyy] }
+  - db: { id: view_filters, op: select, table: view, columns: [id, name, filter], order_by: [id] }
+  - cli: { id: us_none, script: update-snapshot.pl }
+  - cli: { id: fct_none, script: fix-curval-times.pl }
+  - db: { op: update, table: record, where: { id: 1 }, set: { created: "2014-10-10 01:00:10" } }
+  - cli: { id: fct_no_audit, script: fix-curval-times.pl }
+  - db: { op: insert, table: audit, set: { user_id: 1, url: /record/2, method: POST, datetime: "2014-10-10 00:59:50", type: user_action, description: edit } }
+  - cli: { id: fct_report, script: fix-curval-times.pl }
+  - db: { op: insert, table: audit, set: { user_id: 1, url: /record/1, method: POST, datetime: "2014-10-10 01:00:20", type: user_action, description: edit } }
+  - cli: { id: fct_direct, script: fix-curval-times.pl }

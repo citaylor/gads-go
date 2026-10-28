@@ -1,0 +1,70 @@
+name: 003_span
+source:
+- t/003_span.t
+description: Fields spanning several pages of column retrieval with a sort and filter on other fields
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    instance_id: 1
+    column_count:
+      string: 5
+    data:
+    - string1: Foo
+      integer1: 10
+      date1: '2010-10-10'
+      enum1: foo1
+      tree1: tree1
+      curval1: 1
+    - string1: Bar
+      integer1: 20
+      date1: '2012-10-10'
+      enum1: foo2
+      tree1: tree3
+      curval1: 2
+- layout:
+    op: position
+    sheet: main
+    columns:
+    - enum1
+    - string1
+    - string2
+    - string3
+    - string4
+    - string5
+    - integer1
+    - date1
+    - daterange1
+    - tree1
+    - curval1
+- search:
+    id: span
+    sheet: main
+    view:
+      name: Test view
+      columns: &id001
+      - string1
+      - string2
+      - string3
+      - string4
+      - string5
+      - integer1
+      - date1
+      - daterange1
+      - tree1
+      - curval1
+      sorts:
+      - name: enum1
+        type: asc
+    filter:
+      rules:
+      - name: enum1
+        type: string
+        value: foo1
+        operator: equal
+    observe: *id001
+    expect:
+      count: 1

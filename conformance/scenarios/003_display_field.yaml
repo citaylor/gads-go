@@ -1,0 +1,1955 @@
+name: 003_display_field
+source:
+- t/003_display_field.t
+description: Fields blanked when their display conditions are not met
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    curval_fields:
+    - string1
+    multivalue: 1
+    multivalue_columns:
+    - string
+    - tree
+    column_count:
+      integer: 2
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: equal
+          value: foobar
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    id: initial
+    sheet: main
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: equal
+          value: foobar
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - string1: foobar
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 0 equal: normal'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1: xxfoobarxx
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 0 equal: blank'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: contains
+          value: foobar
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - string1: xxfoobarxx
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 1 contains: normal'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1: foo
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 1 contains: blank'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: not_equal
+          value: foobar
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - string1: foo
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 2 not_equal: normal'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1: foobar
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 2 not_equal: blank'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: not_contains
+          value: foobar
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - string1: foo
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 3 not_contains: normal'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1: xxfoobarxx
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 3 not_contains: blank'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: equal
+          value: foobar
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - string1:
+      - foo
+      - bar
+      - foobar
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 4 equal: normal'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1:
+      - xxfoobarxx
+      - abc
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 4 equal: blank'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: contains
+          value: foobar
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - string1:
+      - foo
+      - bar
+      - xxfoobarxx
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 5 contains: normal'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1: fo
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 5 contains: blank'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: not_equal
+          value: foobar
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - string1:
+      - foo
+      - foobarx
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 6 not_equal: normal'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1:
+      - foobar
+      - foobar2
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 6 not_equal: blank'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: not_contains
+          value: foobar
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - string1:
+      - fo
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 7 not_contains: normal'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1:
+      - foo
+      - bar
+      - xxfoobarxx
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: 'single 7 not_contains: blank'
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: AND
+        rules:
+        - name: string1
+          operator: equal
+          value: foobar
+        - name: enum1
+          operator: equal
+          value: foo1
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - string1: foobar
+    - enum1: 7
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: multi AND 0 normal
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1: xxfoobarxx
+    - enum1: 8
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: multi AND 0 blank
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1: foobar
+    - enum1: 8
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: multi AND 1 blank
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1: xxfoobarxx
+    - enum1: 7
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: multi AND 2 blank
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: OR
+        rules:
+        - name: string1
+          operator: equal
+          value: foobar
+        - name: enum1
+          operator: equal
+          value: foo1
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - string1: foobar
+    - enum1: 7
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: multi OR 0 normal
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1: xxfoobarxx
+    - enum1: 8
+    - integer1: '200'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: multi OR 0 blank
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1: foobar
+    - enum1: 8
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: multi OR 1 normal
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - string1: xxfoobarxx
+    - enum1: 7
+    - integer1: '150'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: multi OR 2 normal
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: equal
+          value: foobar
+- clear_layouts: {}
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: new
+    as: m
+    sheet: main
+- held:
+    op: set
+    as: m
+    values:
+    - string1: foobar
+    - integer1: ''
+- held:
+    op: write
+    as: m
+    id: shown mandatory blank
+    expect_error: is not optional
+- held:
+    op: set
+    as: m
+    values:
+    - string1: foo
+    - integer1: ''
+- held:
+    op: write
+    as: m
+    id: hidden mandatory blank
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      optional: 1
+- clear_layouts: {}
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: equal
+          value: apples
+- clear_layouts: {}
+- held:
+    op: new
+    as: f_string1
+    sheet: main
+- held:
+    op: set
+    as: f_string1
+    values:
+    - string1: foobar
+    - integer1: 838
+- held:
+    op: write
+    as: f_string1
+    allow_error: true
+- held:
+    op: find
+    as: f_string1
+    id: field string1 blank
+    sheet: main
+    clear: true
+    current_id: '@held:f_string1'
+    observe:
+    - integer1
+- held:
+    op: clear
+    as: f_string1
+- held:
+    op: initialise
+    as: f_string1
+- held:
+    op: set
+    as: f_string1
+    values:
+    - string1: apples
+    - integer1: 839
+- held:
+    op: write
+    as: f_string1
+    allow_error: true
+- held:
+    op: find
+    as: f_string1
+    id: field string1 match
+    sheet: main
+    clear: true
+    current_id: '@held:f_string1'
+    observe:
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: enum1
+          operator: equal
+          value: foo3
+- clear_layouts: {}
+- held:
+    op: new
+    as: f_enum1
+    sheet: main
+- held:
+    op: set
+    as: f_enum1
+    values:
+    - enum1: 8
+    - integer1: 838
+- held:
+    op: write
+    as: f_enum1
+    allow_error: true
+- held:
+    op: find
+    as: f_enum1
+    id: field enum1 blank
+    sheet: main
+    clear: true
+    current_id: '@held:f_enum1'
+    observe:
+    - integer1
+- held:
+    op: clear
+    as: f_enum1
+- held:
+    op: initialise
+    as: f_enum1
+- held:
+    op: set
+    as: f_enum1
+    values:
+    - enum1: 9
+    - integer1: 839
+- held:
+    op: write
+    as: f_enum1
+    allow_error: true
+- held:
+    op: find
+    as: f_enum1
+    id: field enum1 match
+    sheet: main
+    clear: true
+    current_id: '@held:f_enum1'
+    observe:
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: tree1
+          operator: equal
+          value: tree1
+- clear_layouts: {}
+- held:
+    op: new
+    as: f_tree1
+    sheet: main
+- held:
+    op: set
+    as: f_tree1
+    values:
+    - tree1: 11
+    - integer1: 838
+- held:
+    op: write
+    as: f_tree1
+    allow_error: true
+- held:
+    op: find
+    as: f_tree1
+    id: field tree1 blank
+    sheet: main
+    clear: true
+    current_id: '@held:f_tree1'
+    observe:
+    - integer1
+- held:
+    op: clear
+    as: f_tree1
+- held:
+    op: initialise
+    as: f_tree1
+- held:
+    op: set
+    as: f_tree1
+    values:
+    - tree1: 10
+    - integer1: 839
+- held:
+    op: write
+    as: f_tree1
+    allow_error: true
+- held:
+    op: find
+    as: f_tree1
+    id: field tree1 match
+    sheet: main
+    clear: true
+    current_id: '@held:f_tree1'
+    observe:
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: integer2
+          operator: equal
+          value: '250'
+- clear_layouts: {}
+- held:
+    op: new
+    as: f_integer2
+    sheet: main
+- held:
+    op: set
+    as: f_integer2
+    values:
+    - integer2: '240'
+    - integer1: 838
+- held:
+    op: write
+    as: f_integer2
+    allow_error: true
+- held:
+    op: find
+    as: f_integer2
+    id: field integer2 blank
+    sheet: main
+    clear: true
+    current_id: '@held:f_integer2'
+    observe:
+    - integer1
+- held:
+    op: clear
+    as: f_integer2
+- held:
+    op: initialise
+    as: f_integer2
+- held:
+    op: set
+    as: f_integer2
+    values:
+    - integer2: '250'
+    - integer1: 839
+- held:
+    op: write
+    as: f_integer2
+    allow_error: true
+- held:
+    op: find
+    as: f_integer2
+    id: field integer2 match
+    sheet: main
+    clear: true
+    current_id: '@held:f_integer2'
+    observe:
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: curval1
+          operator: equal
+          value: Bar
+- clear_layouts: {}
+- held:
+    op: new
+    as: f_curval1
+    sheet: main
+- held:
+    op: set
+    as: f_curval1
+    values:
+    - curval1: 1
+    - integer1: 838
+- held:
+    op: write
+    as: f_curval1
+    allow_error: true
+- held:
+    op: find
+    as: f_curval1
+    id: field curval1 blank
+    sheet: main
+    clear: true
+    current_id: '@held:f_curval1'
+    observe:
+    - integer1
+- held:
+    op: clear
+    as: f_curval1
+- held:
+    op: initialise
+    as: f_curval1
+- held:
+    op: set
+    as: f_curval1
+    values:
+    - curval1: 2
+    - integer1: 839
+- held:
+    op: write
+    as: f_curval1
+    allow_error: true
+- held:
+    op: find
+    as: f_curval1
+    id: field curval1 match
+    sheet: main
+    clear: true
+    current_id: '@held:f_curval1'
+    observe:
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: date1
+          operator: equal
+          value: '2010-10-10'
+- clear_layouts: {}
+- held:
+    op: new
+    as: f_date1
+    sheet: main
+- held:
+    op: set
+    as: f_date1
+    values:
+    - date1: '2011-10-10'
+    - integer1: 838
+- held:
+    op: write
+    as: f_date1
+    allow_error: true
+- held:
+    op: find
+    as: f_date1
+    id: field date1 blank
+    sheet: main
+    clear: true
+    current_id: '@held:f_date1'
+    observe:
+    - integer1
+- held:
+    op: clear
+    as: f_date1
+- held:
+    op: initialise
+    as: f_date1
+- held:
+    op: set
+    as: f_date1
+    values:
+    - date1: '2010-10-10'
+    - integer1: 839
+- held:
+    op: write
+    as: f_date1
+    allow_error: true
+- held:
+    op: find
+    as: f_date1
+    id: field date1 match
+    sheet: main
+    clear: true
+    current_id: '@held:f_date1'
+    observe:
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: daterange1
+          operator: equal
+          value: 2010-12-01 to 2011-12-02
+- clear_layouts: {}
+- held:
+    op: new
+    as: f_daterange1
+    sheet: main
+- held:
+    op: set
+    as: f_daterange1
+    values:
+    - daterange1:
+      - '2011-01-01'
+      - '2012-01-01'
+    - integer1: 838
+- held:
+    op: write
+    as: f_daterange1
+    allow_error: true
+- held:
+    op: find
+    as: f_daterange1
+    id: field daterange1 blank
+    sheet: main
+    clear: true
+    current_id: '@held:f_daterange1'
+    observe:
+    - integer1
+- held:
+    op: clear
+    as: f_daterange1
+- held:
+    op: initialise
+    as: f_daterange1
+- held:
+    op: set
+    as: f_daterange1
+    values:
+    - daterange1:
+      - '2010-12-01'
+      - '2011-12-02'
+    - integer1: 839
+- held:
+    op: write
+    as: f_daterange1
+    allow_error: true
+- held:
+    op: find
+    as: f_daterange1
+    id: field daterange1 match
+    sheet: main
+    clear: true
+    current_id: '@held:f_daterange1'
+    observe:
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: person1
+          operator: equal
+          value: User1, User1
+- clear_layouts: {}
+- held:
+    op: new
+    as: f_person1
+    sheet: main
+- held:
+    op: set
+    as: f_person1
+    values:
+    - person1: 2
+    - integer1: 838
+- held:
+    op: write
+    as: f_person1
+    allow_error: true
+- held:
+    op: find
+    as: f_person1
+    id: field person1 blank
+    sheet: main
+    clear: true
+    current_id: '@held:f_person1'
+    observe:
+    - integer1
+- held:
+    op: clear
+    as: f_person1
+- held:
+    op: initialise
+    as: f_person1
+- held:
+    op: set
+    as: f_person1
+    values:
+    - person1: 1
+    - integer1: 839
+- held:
+    op: write
+    as: f_person1
+    allow_error: true
+- held:
+    op: find
+    as: f_person1
+    id: field person1 match
+    sheet: main
+    clear: true
+    current_id: '@held:f_person1'
+    observe:
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: equal
+          value: ''
+- clear_layouts: {}
+- held:
+    op: new
+    as: b1
+    sheet: main
+- held:
+    op: set
+    as: b1
+    values:
+    - string1: ''
+    - integer1: 789
+- held:
+    op: write
+    as: b1
+- held:
+    op: find
+    as: b1
+    id: blank regex match
+    sheet: main
+    clear: true
+    current_id: '@held:b1'
+    observe:
+    - integer1
+- held:
+    op: new
+    as: b2
+    sheet: main
+- held:
+    op: set
+    as: b2
+    values:
+    - string1: foo
+    - integer1: 234
+- held:
+    op: write
+    as: b2
+- held:
+    op: find
+    as: b2
+    id: blank regex no match
+    sheet: main
+    clear: true
+    current_id: '@held:b2'
+    observe:
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: tree1
+          operator: equal
+          value: (.*#)?tree3
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - tree1: 10
+    - integer1: '250'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: tree blank
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - tree1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - tree1: 12
+    - integer1: '350'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: tree match
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - tree1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - tree1:
+      - 10
+      - 12
+    - integer1: '360'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: tree multi
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - tree1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: tree1
+          operator: equal
+          value: tree2#tree3
+- clear_layouts: {}
+- held:
+    op: set
+    as: r
+    values:
+    - tree1: 12
+    - integer1: '400'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: tree full path
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - tree1
+    - integer1
+- held:
+    op: set
+    as: r
+    values:
+    - tree1: 11
+    - integer1: '500'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: tree full path reversed
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - tree1
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: tree1
+          operator: contains
+          value: tree2#
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+    - tree1: 12
+    - integer1: '600'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: tree higher level
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - tree1
+    - integer1
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+      string1: Foobar
+- held:
+    op: write
+    as: r
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: equal
+          value: Foobar
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      permissions:
+        default: []
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+      integer1: '250'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: depends on non-visible
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: not_equal
+          value: Foobar
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+      integer1: '250'
+- held:
+    op: write
+    as: r
+- held:
+    op: find
+    as: r
+    id: depends on non-visible reverse
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: equal
+          value: ABC
+      permissions:
+        default: []
+- clear_layouts: {}
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+      date1: '2018-06-01'
+- held:
+    op: write
+    as: r
+    id: no write access
+    expect_error: You do not have permission to edit field integer1
+- held:
+    op: find
+    as: r
+    id: no write access unchanged
+    sheet: main
+    clear: true
+    current_id: 3
+    observe:
+    - string1
+    - integer1
+    - date1
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      permissions: default
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      permissions: default
+- clear_layouts: {}
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: equal
+          value: Foobar
+- clear_layouts: {}
+- held:
+    op: new
+    as: d
+    sheet: main
+- held:
+    op: set
+    as: d
+    values:
+    - string1: Foobar
+    - integer1: '100'
+- held:
+    op: write
+    as: d
+- held:
+    op: find
+    as: d
+    id: dns shown
+    sheet: main
+    clear: true
+    current_id: '@held:d'
+    datum: &id001
+    - string1
+    - integer1
+    datum_props: &id002
+    - dependent_not_shown
+- held:
+    op: set
+    as: d
+    values:
+    - string1: Foo
+    - integer1: '200'
+- held:
+    op: write
+    as: d
+    id: dns not shown
+    datum: *id001
+    datum_props: *id002
+- held:
+    op: set
+    as: d
+    values:
+    - string1: Foobarbar
+    - integer1: '200'
+- held:
+    op: write
+    as: d
+    id: dns not shown 2
+    datum: *id001
+    datum_props: *id002
+- search:
+    id: dns in table view
+    sheet: main
+    columns:
+    - integer1
+    single: true
+    single_dependent_not_shown: integer1
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields: null
+- clear_layouts: {}
+- column:
+    op: update
+    sheet: main
+    column: curval1
+    set:
+      show_add: 1
+    write_options:
+      no_alerts: 1
+- clear_layouts: {}
+- column:
+    op: create
+    sheet: cv
+    type: curval
+    refers_to: main
+    curval_fields:
+    - string1
+    name: Curval back to main table
+    name_short: L2curval1
+- clear_layouts: {}
+- column:
+    op: update
+    sheet: cv
+    column: L2curval1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: contains
+          value: Apple
+- clear_layouts: {}
+- held:
+    op: new
+    as: c
+    sheet: main
+- held:
+    op: set
+    as: c
+    values:
+    - string1: Master
+    - curval1:
+      - '@field:string1=Apple&@field:integer1=100&@field:L2curval1=4'
+- held:
+    op: write
+    as: c
+- held:
+    op: find
+    as: c
+    id: curval master written
+    sheet: main
+    clear: true
+    current_id: '@held:c'
+    datum:
+    - curval1
+    datum_props:
+    - as_string
+    - ids
+- held:
+    op: find
+    as: cr
+    id: curval record
+    sheet: cv
+    current_id: 26
+    observe:
+    - string1
+    - integer1
+    - L2curval1
+- column:
+    op: update
+    sheet: cv
+    column: L2curval1
+    set:
+      permissions:
+        default:
+        - read
+        - write_existing
+        - write_existing_no_approval
+- clear_layouts: {}
+- held:
+    op: find
+    as: c
+    sheet: main
+    clear: true
+    current_id: '@held:c'
+- held:
+    op: set
+    as: c
+    values:
+    - string1: Master2
+    - curval1:
+      - query: '@field:string1=Apples&@field:integer1=200&@field:L2curval1=3'
+        own_id: Apple
+- held:
+    op: write
+    as: c
+- held:
+    op: find
+    as: cr
+    id: curval record updated
+    sheet: cv
+    clear: true
+    current_id: 26
+    observe:
+    - string1
+    - L2curval1
+- column:
+    op: update
+    sheet: cv
+    column: integer1
+    set:
+      display_fields: null
+- clear_layouts: {}
+- held:
+    op: new
+    as: p
+    sheet: main
+- held:
+    op: set
+    as: p
+    values:
+      string1: Foo1
+- held:
+    op: write
+    as: p
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      optional: 0
+- clear_layouts: {}
+- held:
+    op: find
+    as: p
+    sheet: main
+    clear: true
+    current_id: '@held:p'
+- held:
+    op: set
+    as: p
+    values:
+    - string1: Foo2
+    - integer1: ''
+- held:
+    op: write
+    as: p
+    id: no longer optional warning
+    expect_messages_match: no longer optional
+- column:
+    op: update
+    sheet: main
+    column: integer1
+    set:
+      display_fields:
+        condition: null
+        rules:
+        - name: string1
+          operator: equal
+          value: Foobar
+- clear_layouts: {}
+- held:
+    op: find
+    as: p
+    sheet: main
+    clear: true
+    current_id: '@held:p'
+- held:
+    op: set
+    as: p
+    values:
+      string1: Foo3
+- held:
+    op: write
+    as: p
+    id: mandatory not shown
+- held:
+    op: find
+    as: p
+    sheet: main
+    clear: true
+    current_id: '@held:p'
+- held:
+    op: set
+    as: p
+    values:
+    - string1: Foobar
+    - integer1: ''
+- held:
+    op: write
+    as: p
+    id: mandatory now shown
+    expect_error: is not optional
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set:
+      display_fields:
+        condition: OR
+        rules:
+        - name: string1
+          operator: equal
+          value: Foobar
+        - name: date1
+          operator: equal
+          value: '2013-02-02'
+- clear_layouts: {}
+- held:
+    op: new
+    as: q
+    sheet: main
+- held:
+    op: set
+    as: q
+    values:
+    - string1: Foobar
+    - date1: '2013-02-02'
+    - integer1: '1234'
+- held:
+    op: write
+    as: q
+- held:
+    op: find
+    as: q
+    id: recursive initial
+    sheet: main
+    clear: true
+    current_id: '@held:q'
+    observe:
+    - string1
+- held:
+    op: set
+    as: q
+    values:
+      date1: '2013-02-01'
+- held:
+    op: write
+    as: q
+- held:
+    op: find
+    as: q
+    id: recursive first removed
+    sheet: main
+    clear: true
+    current_id: '@held:q'
+    observe:
+    - string1
+- held:
+    op: set
+    as: q
+    values:
+      string1: Foobar2
+- held:
+    op: write
+    as: q
+- held:
+    op: find
+    as: q
+    id: recursive second removed
+    sheet: main
+    clear: true
+    current_id: '@held:q'
+    observe:
+    - string1
+- column:
+    id: delete depended field
+    op: delete
+    sheet: main
+    column: string1
+    expect_error: remove these conditions before deletion
+- column:
+    id: delete independent field
+    op: delete
+    sheet: main
+    column: integer1

@@ -1,0 +1,136 @@
+name: 224_web_purge_tree
+source:
+  - lib/GADS.pm (/:layout_name/purge, /:layout_name/historic_purge/, /:layout_name/tree:any?/:layout_id)
+  - lib/GADS/Schema/ResultSet/Current.pm (historic_purge), Result/Current.pm (historic_purge)
+  - lib/GADS/Record.pm (purge_current, restore), lib/GADS/Column/Tree.pm (json, update)
+  - views/purge.tt, views/historic_purge/initial.tt, views/historic_purge/confirm.tt
+description: >
+  Managing deleted records (the list, purging and restoring them, with no
+  records selected and without permission), purging the values of fields
+  from the records of the current view (the fields, their values to
+  confirm, the purge and its errors), and the JSON of a tree field (with
+  selected nodes, of a field that is not a tree, an invalid field) and
+  updating it.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo, integer1: 10 }
+        - { string1: Bar, integer1: 20 }
+        - { string1: "", integer1: 30 }
+        - { string1: Qux, integer1: 40 }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { id: home_normal1, as: normal1, path: /, no_body: true }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  # Deleted records
+  - http: { id: purge_none, as: superadmin, path: "/{sheet:s}/purge" }
+  - db:
+      op: update
+      table: current
+      where: { id: 1 }
+      set: { deleted: '2014-10-09 10:00:00', deletedby: 1 }
+  - db:
+      op: update
+      table: current
+      where: { id: 2 }
+      set: { deleted: '2014-10-09 11:30:00', deletedby: 4 }
+  - db:
+      op: update
+      table: current
+      where: { id: 3 }
+      set: { deleted: '2014-10-09 12:00:00' }
+  - http: { id: purge_list, as: superadmin, path: "/{sheet:s}/purge/" }
+  - http: { id: purge_denied, as: normal1, path: "/{sheet:s}/purge" }
+  - http:
+      id: purge_nothing_selected
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/purge"
+      form: { purge: 1 }
+  - http:
+      id: restore
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/purge"
+      form: { restore: 1, record: [2] }
+  - http:
+      id: purge
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/purge"
+      form: { purge: 1, record: [1, 3] }
+  - http: { id: purge_list_after, as: superadmin, path: "/{sheet:s}/purge" }
+  - db:
+      id: current_after
+      op: select
+      table: current
+      columns: [id, deleted, deletedby]
+  # Historic purge
+  - http: { id: historic_denied, as: normal1, path: "/{sheet:s}/historic_purge/" }
+  - http: { id: historic_initial, as: superadmin, path: "/{sheet:s}/historic_purge/" }
+  - http:
+      id: historic_stage1
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/historic_purge/"
+      form: { stage1: 1, column_id: ["{column:s:string1}", "{column:s:integer1}"] }
+  - http:
+      id: historic_no_records
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/historic_purge/"
+      form: { purge: 1, columns_selected: ["{column:s:string1}"] }
+  - http:
+      id: historic_no_columns
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/historic_purge/"
+      form: { purge: 1, current_id: [2, 4] }
+  - http:
+      id: historic_purge
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/historic_purge/"
+      form: { purge: 1, current_id: [4, 2], columns_selected: ["{column:s:string1}"] }
+  - db:
+      id: strings_after
+      op: select
+      table: string
+      columns: [id, record_id, layout_id, value, purged_by, purged_on]
+  - http:
+      id: historic_stage1_after
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/historic_purge/"
+      form: { stage1: 1, column_id: ["{column:s:string1}"] }
+  # Trees
+  - http: { id: tree, as: superadmin, path: "/{sheet:s}/tree/{column:s:tree1}" }
+  - http: { id: tree_nocache, as: normal1, path: "/{sheet:s}/tree12345/{column:s:tree1}/" }
+  - http:
+      id: tree_selected
+      as: superadmin
+      path: "/{sheet:s}/tree/{column:s:tree1}"
+      query: { ids: [5, 6] }
+  - http: { id: tree_not_tree, as: superadmin, path: "/{sheet:s}/tree/{column:s:string1}" }
+  - http: { id: tree_invalid, as: superadmin, path: "/{sheet:s}/tree/99999" }
+  - http:
+      id: tree_update_denied
+      as: normal1
+      method: POST
+      path: "/{sheet:s}/tree/{column:s:tree1}"
+      form: { data: '[{"text":"New"}]' }
+  - http:
+      id: tree_update
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/tree/{column:s:tree1}"
+      form: { data: '[{"id":"4","text":"tree1 renamed","children":[{"text":"child"}]},{"id":"6","text":"tree3"}]' }
+  - db:
+      id: enumvals_after
+      op: select
+      table: enumval
+      where: { layout_id: 11 }
+      columns: [id, value, parent, deleted]
+  - http: { id: tree_after, as: superadmin, path: "/{sheet:s}/tree/{column:s:tree1}" }

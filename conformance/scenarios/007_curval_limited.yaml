@@ -1,0 +1,175 @@
+name: 007_curval_limited
+source:
+- t/007_curval_limited.t
+description: Curval values from a table the user only has limited access to
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: Newcastle
+      enum1: foo1
+    - string1: Liverpool
+      enum1: foo2
+    - string1: York
+      enum1: foo1
+- layout:
+    op: update
+    sheet: cv
+    sort_layout: string1
+- sheet:
+    as: main
+    multivalue: 0
+    instance_id: 1
+    curval: cv
+    curval_fields:
+    - string1
+    data:
+    - string1: Project 1
+      curval1:
+      - 2
+- view:
+    op: create
+    sheet: cv
+    name: Limit to view
+    is_admin: 1
+    filter:
+      rules:
+      - name: enum1
+        type: string
+        value: foo1
+        operator: equal
+    as: vl
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- held:
+    id: mv0 initial
+    op: find
+    as: a
+    sheet: main
+    user: normal1
+    current_id: 4
+    observe:
+    - curval1
+- held:
+    op: set
+    as: a
+    values:
+      curval1:
+      - 1
+- held:
+    op: write
+    as: a
+    options:
+      no_alerts: 1
+- held:
+    id: mv0 normal after edit
+    op: find
+    as: b
+    sheet: main
+    user: normal1
+    current_id: 4
+    observe:
+    - curval1
+- held:
+    id: mv0 admin after edit
+    op: find
+    as: c
+    sheet: main
+    user: superadmin
+    current_id: 4
+    observe:
+    - curval1
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+    data:
+    - string1: Newcastle
+      enum1: foo1
+    - string1: Liverpool
+      enum1: foo2
+    - string1: York
+      enum1: foo1
+- layout:
+    op: update
+    sheet: cv
+    sort_layout: string1
+- sheet:
+    as: main
+    multivalue: 1
+    instance_id: 1
+    curval: cv
+    curval_fields:
+    - string1
+    data:
+    - string1: Project 1
+      curval1:
+      - 2
+      - 3
+- view:
+    op: create
+    sheet: cv
+    name: Limit to view
+    is_admin: 1
+    filter:
+      rules:
+      - name: enum1
+        type: string
+        value: foo1
+        operator: equal
+    as: vl
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- held:
+    id: mv1 initial
+    op: find
+    as: a
+    sheet: main
+    user: normal1
+    current_id: 4
+    observe:
+    - curval1
+- held:
+    op: set
+    as: a
+    values:
+      curval1:
+      - 1
+- held:
+    op: write
+    as: a
+    options:
+      no_alerts: 1
+- held:
+    id: mv1 normal after edit
+    op: find
+    as: b
+    sheet: main
+    user: normal1
+    current_id: 4
+    observe:
+    - curval1
+- held:
+    id: mv1 admin after edit
+    op: find
+    as: c
+    sheet: main
+    user: superadmin
+    current_id: 4
+    observe:
+    - curval1

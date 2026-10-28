@@ -1,0 +1,121 @@
+name: 226_web_metrics
+source:
+  - lib/GADS.pm (/:layout_name/metrics, /:layout_name/metric/:id)
+  - lib/GADS/MetricGroup.pm, lib/GADS/MetricGroups.pm, lib/GADS/Metric.pm
+  - views/metrics.tt, views/metric.tt
+description: >
+  Managing the metrics of a table: the list of metric groups (by name),
+  creating a group (and without a name), renaming it, adding metrics to it
+  (sorted by their values, with an invalid target), editing and deleting a
+  metric, deleting a group (refused while a graph uses it), a group that
+  does not exist, and the permission needed.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - login: { user: superadmin }
+  - login: { user: normal1 }
+  - http: { id: home_normal1, as: normal1, path: /, no_body: true }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http: { id: metrics_denied, as: normal1, path: "/{sheet:s}/metrics" }
+  - http: { id: metric_denied, as: normal1, path: "/{sheet:s}/metric/0" }
+  - http: { id: metrics_empty, as: superadmin, path: "/{sheet:s}/metrics/" }
+  - http: { id: metric_add_page, as: superadmin, path: "/{sheet:s}/metric/0" }
+  - http:
+      id: metric_add_no_name
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/0"
+      form: { submit: 1, name: "" }
+  - http:
+      id: metric_add
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/0"
+      form: { submit: 1, name: Zeta <targets> }
+  - http:
+      id: metric_add_second
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/0"
+      form: { submit: 1, name: Alpha }
+  - http: { id: metrics_list, as: superadmin, path: "/{sheet:s}/metrics" }
+  - http:
+      id: metric_rename
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/1"
+      form: { submit: 1, name: Beta }
+  - http:
+      id: metric_item_bad_target
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/1"
+      form: { update_metric: 1, x_axis_value: Foo, y_axis_grouping_value: "", target: ten }
+  - http:
+      id: metric_item_add
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/1"
+      form: { update_metric: 1, x_axis_value: Foo, y_axis_grouping_value: Bar, target: 10 }
+  - http:
+      id: metric_item_add2
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/1"
+      form: { update_metric: 1, metric_id: "", x_axis_value: Apple, y_axis_grouping_value: Z, target: 5 }
+  - http:
+      id: metric_item_add3
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/1"
+      form: { update_metric: 1, x_axis_value: Apple, y_axis_grouping_value: A, target: 7 }
+  - http:
+      id: metric_item_edit
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/1"
+      form: { update_metric: 1, metric_id: 1, x_axis_value: Foo <b>, y_axis_grouping_value: Bar, target: 20 }
+  - http:
+      id: metric_item_missing
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/1"
+      form: { update_metric: 1, metric_id: 99, x_axis_value: X, y_axis_grouping_value: Y, target: 1 }
+  - http: { id: metric_edit_page, as: superadmin, path: "/{sheet:s}/metric/1" }
+  - http:
+      id: metric_item_delete
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/1"
+      form: { delete_metric: 1, metric_id: 2 }
+  - db:
+      id: metrics_after_items
+      op: select
+      table: metric
+      columns: [id, metric_group, x_axis_value, y_axis_grouping_value, target]
+  - db:
+      op: insert
+      table: graph
+      set: { title: Graph one, type: bar, instance_id: 1, metric_group: 1 }
+  - db:
+      op: insert
+      table: graph
+      set: { title: Graph two, type: bar, instance_id: 1, metric_group: 1 }
+  - http:
+      id: metric_delete_in_use
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/1"
+      form: { delete_all: 1 }
+  - http:
+      id: metric_delete
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/metric/2"
+      form: { delete_all: 1 }
+  - http: { id: metric_missing, as: superadmin, path: "/{sheet:s}/metric/99" }
+  - db:
+      id: groups_after
+      op: select
+      table: metric_group
+      columns: [id, name, instance_id]
+  - http: { id: metrics_after, as: superadmin, path: "/{sheet:s}/metrics" }

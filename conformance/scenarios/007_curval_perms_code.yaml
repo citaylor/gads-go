@@ -1,0 +1,264 @@
+name: 007_curval_perms_code
+source:
+- t/007_curval_perms_code.t
+description: Code values of curvals include all fields regardless of user permissions
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    curval_fields: &id001
+    - string1
+    - integer1
+    - enum1
+    - tree1
+    - date1
+    - daterange1
+    - file1
+    - person1
+    - rag1
+    - calc1
+    calc_return_type: string
+    data:
+    - string1: foo
+      curval1: 1
+    calc_code: "function evaluate (L1curval1)\n    return L1curval1.field_values.L2string1 .. L1curval1.field_values.L2integer1 .. L1curval1.field_values.L2enum1\nend"
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- held:
+    op: find
+    as: r
+    sheet: main
+    user: normal1
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+      curval1: 2
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: normal
+    op: find
+    as: r
+    clear: true
+    sheet: main
+    current_id: 3
+    datum:
+    - calc1
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        calc1:
+          as_string: Bar99foo2
+        curval1:
+          as_string: Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    curval_fields: *id001
+    calc_return_type: string
+    data:
+    - string1: foo
+      curval1: 1
+    calc_code: "function evaluate (L1curval1)\n    return L1curval1.field_values.L2string1 .. L1curval1.field_values.L2integer1 .. L1curval1.field_values.L2enum1\nend"
+- column:
+    op: update
+    sheet: cv
+    column: string1
+    set:
+      permissions:
+        default: []
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- held:
+    op: find
+    as: r
+    sheet: main
+    user: normal1
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+      curval1: 2
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: limited_in
+    op: find
+    as: r
+    clear: true
+    sheet: main
+    current_id: 3
+    datum:
+    - calc1
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        calc1:
+          as_string: Bar99foo2
+        curval1:
+          as_string: 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    curval_fields:
+    - integer1
+    - enum1
+    - tree1
+    - date1
+    - daterange1
+    - file1
+    - person1
+    - rag1
+    - calc1
+    calc_return_type: string
+    data:
+    - string1: foo
+      curval1: 1
+    calc_code: "function evaluate (L1curval1)\n    return L1curval1.field_values.L2string1 .. L1curval1.field_values.L2integer1 .. L1curval1.field_values.L2enum1\nend"
+- column:
+    op: update
+    sheet: cv
+    column: string1
+    set:
+      permissions:
+        default: []
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- held:
+    op: find
+    as: r
+    sheet: main
+    user: normal1
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+      curval1: 2
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: limited_out
+    op: find
+    as: r
+    clear: true
+    sheet: main
+    current_id: 3
+    datum:
+    - calc1
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        calc1:
+          as_string: Bar99foo2
+        curval1:
+          as_string: 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008
+- reset: {}
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    curval: cv
+    curval_fields:
+    - integer1
+    - enum1
+    - tree1
+    - date1
+    - daterange1
+    - file1
+    - person1
+    - rag1
+    - calc1
+    calc_return_type: string
+    data:
+    - string1: foo
+      curval1: 1
+    calc_code: "function evaluate (L1curval1)\n    return L1curval1.field_values.L2string1 .. L1curval1.field_values.L2integer1 .. L1curval1.field_values.L2enum1\nend"
+- column:
+    op: update
+    sheet: cv
+    column: string1
+    set:
+      permissions:
+        default: []
+- column:
+    op: update
+    sheet: cv
+    column: enum1
+    set:
+      permissions:
+        default: []
+- layout:
+    op: set_user
+    sheet: main
+    user: normal1
+- held:
+    op: find
+    as: r
+    sheet: main
+    user: normal1
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+      curval1: 2
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: limited_both
+    op: find
+    as: r
+    clear: true
+    sheet: main
+    current_id: 3
+    datum:
+    - calc1
+    - curval1
+    datum_props:
+    - as_string
+    expect:
+      datum:
+        calc1:
+          as_string: Bar99foo2
+        curval1:
+          as_string: 99, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008

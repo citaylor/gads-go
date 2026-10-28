@@ -1,0 +1,35 @@
+name: 240_cli_tree_doc
+source:
+  - bin/export-tree.pl
+  - bin/import-tree.pl
+  - bin/import-doc.pl
+description: >
+  Tree fields to and from CSV (a column for each level of the tree, under
+  a parent value or at the top), and uploading a document as an
+  independent file (its MIME type from its name or its contents).
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - cli: { id: et_usage, script: export-tree.pl }
+  - cli: { id: et_missing, script: export-tree.pl, args: [999] }
+  - cli: { id: et_default, script: export-tree.pl, args: ["{column:s:tree1}"] }
+  - cli: { id: it_usage, script: import-tree.pl }
+  - cli: { id: it_missing, script: import-tree.pl, args: [999] }
+  - cli:
+      id: it_top
+      script: import-tree.pl
+      args: ["{column:s:tree1}"]
+      stdin: "Europe,UK,London\n,,Manchester\n,France,Paris\nAsia,\"Japan, the\",Tokyo\n0,Zero\n"
+  - cli:
+      id: it_under
+      script: import-tree.pl
+      args: ["{column:s:tree1}", 11]
+      stdin: "Child A,Grandchild\nChild B\n"
+  - cli: { id: it_bad_csv, script: import-tree.pl, args: ["{column:s:tree1}"], stdin: "a\"b,c\n" }
+  - db: { id: enumvals, op: select, table: enumval, where: { layout_id: "@column:s:tree1" }, columns: [id, value, parent, deleted, position], order_by: [id] }
+  - cli: { id: et_after, script: export-tree.pl, args: ["{column:s:tree1}"] }
+  - cli: { id: id_usage, script: import-doc.pl }
+  - cli: { id: id_missing, script: import-doc.pl, args: ["{file:nothere.pdf}"] }
+  - cli: { id: id_pdf, script: import-doc.pl, args: ["{file:report.pdf}"], files: { report.pdf: "%PDF-1.4 not really" } }
+  - cli: { id: id_upper, script: import-doc.pl, args: ["{file:NOTES.TXT}"], files: { NOTES.TXT: "Some notes" } }
+  - cli: { id: id_noext, script: import-doc.pl, args: ["{file:README}"], files: { README: "Read me\n" } }
+  - db: { id: filevals, op: select, table: fileval, columns: [id, name, mimetype, is_independent], order_by: [id] }

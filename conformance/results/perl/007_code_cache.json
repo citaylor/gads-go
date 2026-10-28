@@ -1,0 +1,613 @@
+{
+   "runner" : "perl",
+   "scenario" : "007_code_cache",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:add_autocur",
+         "observed" : {
+            "id" : "36",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:column",
+         "observed" : {
+            "id" : "37",
+            "name" : "Calc to main table"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:column",
+         "observed" : {
+            "id" : "33"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "initial cache",
+         "observed" : [
+            {
+               "value_text" : "Albania"
+            },
+            {
+               "value_text" : "Bar2"
+            },
+            {
+               "value_text" : "Bar3"
+            },
+            {
+               "value_text" : "Bar4"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:held",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "after write",
+         "observed" : [
+            {
+               "value_text" : "Albania"
+            },
+            {
+               "value_text" : "Bar2"
+            },
+            {
+               "value_text" : "Bar3"
+            },
+            {
+               "value_text" : "Bar5"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:held",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "existing value",
+         "observed" : [
+            {
+               "value_text" : "Albania"
+            },
+            {
+               "value_text" : "Bar2"
+            },
+            {
+               "value_text" : "Bar3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:held",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new value",
+         "observed" : [
+            {
+               "value_text" : "Albania"
+            },
+            {
+               "value_text" : "Bar2"
+            },
+            {
+               "value_text" : "Bar3"
+            },
+            {
+               "value_text" : "Bar6"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:column",
+         "messages" : [
+            "MISTAKE: Failed to produce globe location: unknown country Bar2",
+            "MISTAKE: Failed to produce globe location: unknown country Bar3",
+            "MISTAKE: Failed to produce globe location: unknown country Bar6"
+         ],
+         "observed" : {
+            "id" : "35"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "globe",
+         "observed" : [
+            {
+               "value_text" : "Albania"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:column",
+         "observed" : {
+            "id" : "35"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "integer",
+         "observed" : [
+            {
+               "value_int" : "10"
+            },
+            {
+               "value_int" : "20"
+            },
+            {
+               "value_int" : "30"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "24:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "25:held",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "6"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval edit",
+         "observed" : [
+            {
+               "value_text" : "Bar6"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "29:held",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "8"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval main change",
+         "observed" : [
+            {
+               "value_text" : "Bar7"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "33:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval second record",
+         "observed" : [
+            {
+               "value_text" : "Bar7"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "35:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "36:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "37:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "11"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval second change",
+         "observed" : [
+            {
+               "value_text" : "Bar7"
+            },
+            {
+               "value_text" : "Bar8"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "39:column",
+         "observed" : {
+            "id" : "35"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "40:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "41:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "42:held",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "12"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "long string short value cached",
+         "observed" : [
+            {
+               "value_text" : "Bar8"
+            },
+            {
+               "value_text" : "Sandwiches"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "44:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "45:held",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "13"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "long string values",
+         "observed" : {
+            "current_id" : "2",
+            "values" : {
+               "calc1" : "Y3EucBXt2aTYnHNb2hXJTrgAg0QqRieA1kxNo1ud2TbcyxrXMXqu/m83YtthBWYXiEdocydX69XqB/6IK+6NqGDZJgofxgjVxGJmP1HONBT651Yj/47mRf4+coC3gqvzh6vQ1nCeZyWeVKVuoiiG5INOuwanGJESPDgJrvichI00Czskjah5Ju6/tHOez+6p3hciNXUYuq76g6KFkTn4tbWegJd2Hh/bNVYqTX5yDW0MIQQQSoe2i+NLA5xi",
+               "string1" : "Y3EucBXt2aTYnHNb2hXJTrgAg0QqRieA1kxNo1ud2TbcyxrXMXqu/m83YtthBWYXiEdocydX69XqB/6IK+6NqGDZJgofxgjVxGJmP1HONBT651Yj/47mRf4+coC3gqvzh6vQ1nCeZyWeVKVuoiiG5INOuwanGJESPDgJrvichI00Czskjah5Ju6/tHOez+6p3hciNXUYuq76g6KFkTn4tbWegJd2Hh/bNVYqTX5yDW0MIQQQSoe2i+NLA5xi"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "long string not cached",
+         "observed" : [
+            {
+               "value_text" : "Bar8"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

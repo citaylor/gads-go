@@ -1,0 +1,509 @@
+{
+   "runner" : "perl",
+   "scenario" : "238_cli_records",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:held",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "drv_no_args",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Please provide the record version ID with --record-id\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "drv_missing",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Record ID not found\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "drv_bad_option",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "Unknown option: nope\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "drv_abbrev",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "panic: DBI Exception: DBD::SQLite::st execute failed: FOREIGN KEY constraint failed [for Statement \"DELETE FROM \"record\" WHERE ( \"id\" = ? )\" with ParamValues: 1=3]\n",
+            "stdout" : "This will purge the version 3 from record 1 created by User1, User1 at 2014-10-10T01:00:00. Press any key to continue.\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records_after_purge",
+         "observed" : [
+            {
+               "current_id" : "1",
+               "id" : "1"
+            },
+            {
+               "current_id" : "2",
+               "id" : "2"
+            },
+            {
+               "current_id" : "1",
+               "id" : "3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "df_usage",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "",
+            "stdout" : "Usage: ./delete-file.pl <current_id> <layout_id> [<layout id>...]\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "df_usage_one",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "",
+            "stdout" : "Usage: ./delete-file.pl <current_id> <layout_id> [<layout id>...]\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "df_decline",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : "Found 2 files to purge.\nThese are...\nfile1.txt\nfile1.txt\nDo you wish to continue? [y/N] "
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "files_declined",
+         "observed" : [
+            {
+               "id" : "1",
+               "mimetype" : "text/plain",
+               "name" : "file1.txt"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "df_none",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : "Found 1 files to purge.\nThese are...\nDo you wish to continue? [y/N] Deleted 2\n\n"
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "df_confirm",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "panic: bless( {'msg' => 'DBIx::Class::Row::get_column(): No such column \\'content\\' on GADS::Schema::Result::Fileval'}, 'DBIx::Class::Exception' )\n",
+            "stdout" : "Found 2 files to purge.\nThese are...\nfile1.txt\nfile1.txt\nDo you wish to continue? [y/N] "
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "files_purged",
+         "observed" : [
+            {
+               "id" : "1",
+               "mimetype" : "text/plain",
+               "name" : "file1.txt"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:db",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:db",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "iu_usage",
+         "observed" : {
+            "died" : "Usage: bin/import-user.pl filename",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "iu_bad_title",
+         "observed" : {
+            "died" : "Title \"Prof\" not found",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "iu_bad_org",
+         "observed" : {
+            "died" : "Organisation \"Nope\" not found",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "iu_bad_group",
+         "observed" : {
+            "died" : "Group \"nogroup\" not found",
+            "exit" : "255",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "iu_ok",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "Finished\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "users_imported",
+         "observed" : [
+            {
+               "email" : "user1@example.com",
+               "firstname" : "User1",
+               "freetext1" : null,
+               "freetext2" : null,
+               "id" : "1",
+               "organisation" : "1",
+               "surname" : "User1",
+               "title" : null,
+               "username" : "user1@example.com"
+            },
+            {
+               "email" : "user2@example.com",
+               "firstname" : "User2",
+               "freetext1" : null,
+               "freetext2" : null,
+               "id" : "2",
+               "organisation" : "1",
+               "surname" : "User2",
+               "title" : null,
+               "username" : "user2@example.com"
+            },
+            {
+               "email" : "user3@example.com",
+               "firstname" : "User3",
+               "freetext1" : null,
+               "freetext2" : null,
+               "id" : "3",
+               "organisation" : "1",
+               "surname" : "User3",
+               "title" : null,
+               "username" : "user3@example.com"
+            },
+            {
+               "email" : "user4@example.com",
+               "firstname" : "User4",
+               "freetext1" : null,
+               "freetext2" : null,
+               "id" : "4",
+               "organisation" : "1",
+               "surname" : "User4",
+               "title" : null,
+               "username" : "user4@example.com"
+            },
+            {
+               "email" : "user5@example.com",
+               "firstname" : "User5",
+               "freetext1" : null,
+               "freetext2" : null,
+               "id" : "5",
+               "organisation" : "1",
+               "surname" : "User5",
+               "title" : null,
+               "username" : "user5@example.com"
+            },
+            {
+               "email" : "jo@example.com",
+               "firstname" : "Jo",
+               "freetext1" : "f1",
+               "freetext2" : "f2",
+               "id" : "6",
+               "organisation" : "2",
+               "surname" : "Bloggs",
+               "title" : "1",
+               "username" : "jo@example.com"
+            },
+            {
+               "email" : "ann@example.com",
+               "firstname" : "Ann, Q",
+               "freetext1" : "",
+               "freetext2" : "x \"y\"",
+               "id" : "7",
+               "organisation" : "2",
+               "surname" : "Smith",
+               "title" : "1",
+               "username" : "ann@example.com"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user_groups",
+         "observed" : [
+            {
+               "group_id" : "1",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "2",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "3",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "4",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "5",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "6",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "7",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "2"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "3"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "4"
+            },
+            {
+               "group_id" : "8",
+               "user_id" : "4"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "5"
+            },
+            {
+               "group_id" : "9",
+               "user_id" : "5"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "6"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "7"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "fixtimes",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "created_fixed",
+         "observed" : [
+            {
+               "created" : "2020-04-01 09:00:00",
+               "id" : "1"
+            },
+            {
+               "created" : "2014-10-10 01:00:00",
+               "id" : "2"
+            },
+            {
+               "created" : "2014-10-10 01:00:00",
+               "id" : "3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

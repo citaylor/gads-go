@@ -1,0 +1,179 @@
+name: 007_curval_edit_limited
+source:
+- t/007_curval_edit_limited.t
+description: Curval-edit values limited by a view based on autocur values of a calc on the main record
+steps:
+- sheet:
+    as: office
+    instance_id: 3
+    site_id: 1
+    data:
+    - string1: Newcastle
+      enum1: foo1
+    - string1: Liverpool
+      enum1: foo2
+    - string1: York
+      enum1: foo1
+- held:
+    id: newcastle
+    op: find
+    as: newcastle
+    sheet: office
+    current_id: 1
+    observe:
+    - string1
+    expect:
+      values:
+        string1: Newcastle
+- sheet:
+    as: staff
+    instance_id: 2
+    data: []
+    curval: office
+    curval_fields:
+    - string1
+- sheet:
+    as: tasks
+    instance_id: 4
+    data: []
+    curval: staff
+    curval_fields:
+    - string1
+- sheet:
+    as: project
+    curval: office
+    data: []
+    curval_fields:
+    - string1
+- clear_layouts: {}
+- column:
+    op: create
+    sheet: project
+    type: curval
+    name: Staff involved
+    name_short: staff_involved
+    refers_to: staff
+    curval_fields:
+    - string1
+    delete_not_used: 1
+    show_add: 1
+    value_selector: noshow
+    write_options:
+      no_alerts: 1
+- column:
+    op: create
+    sheet: project
+    type: curval
+    name: Tasks
+    refers_to: tasks
+    curval_fields:
+    - string1
+    delete_not_used: 1
+    show_add: 1
+    value_selector: noshow
+    write_options:
+      no_alerts: 1
+- column:
+    op: create
+    sheet: project
+    type: calc
+    name: Staff ages
+    return_type: integer
+    code: "function evaluate (staff_involved)\n        if staff_involved == nil then\n            return nil\n        end\n        ages = 0\n        for _,staff in ipairs(staff_involved) do\n            if staff.field_values.L2integer1 then\n                ages = ages + staff.field_values.L2integer1\n            end\n        end\n        return ages\n    end"
+- column:
+    op: create
+    sheet: project
+    type: calc
+    name: Project region
+    return_type: string
+    code: "function evaluate (L1curval1)\n        if L1curval1 == nil then\n            return\n        end\n        -- Return region (enum1) from office sheet (instance 3)\n        return L1curval1.field_values.L3enum1\n    end"
+- add_autocur:
+    sheet: staff
+    refers_to: project
+    related_field: Staff involved
+    curval_fields:
+    - string1
+- view:
+    op: create
+    sheet: staff
+    name: Limit to view
+    is_admin: 1
+    filter:
+      rules:
+      - name: autocur1_Project region
+        type: string
+        value: foo1
+        operator: equal
+    as: vl
+- user:
+    op: view_limits
+    user: normal1
+    views:
+    - vl
+- layout:
+    op: set_user
+    sheet: project
+    user: normal1
+- held:
+    op: new
+    as: p
+    sheet: project
+    user: normal1
+- held:
+    op: set
+    as: p
+    values:
+      string1: My project
+      curval1: 1
+      Staff involved:
+      - '@field:string1=Smith&@field:integer1=65'
+- held:
+    id: write project
+    op: write
+    as: p
+    options:
+      no_alerts: 1
+- held:
+    id: written
+    op: find
+    as: q
+    sheet: project
+    user: normal1
+    current_id: '@held:p'
+    observe:
+    - Staff ages
+    datum:
+    - Staff involved
+    datum_props:
+    - ids
+    expect:
+      values:
+        Staff ages: '65'
+- held:
+    op: set
+    as: q
+    values:
+    - string1: New project name
+    - Staff involved: '@own_ids'
+    - Tasks:
+      - '@field:string1=MyTask&@field:curval1=5'
+- held:
+    id: edit project
+    op: write
+    as: q
+    options:
+      no_alerts: 1
+- held:
+    id: after edit
+    op: find
+    as: r
+    sheet: project
+    user: normal1
+    current_id: '@held:p'
+    observe:
+    - Staff ages
+    - Tasks
+    expect:
+      values:
+        Staff ages: '65'
+        Tasks: MyTask

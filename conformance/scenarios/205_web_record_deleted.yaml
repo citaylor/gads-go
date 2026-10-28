@@ -1,0 +1,64 @@
+name: 205_web_record_deleted
+source:
+  - views/edit.tt (the combined enum and person select, GADS-dev #1830)
+  - lib/GADS/Role/Presentation/Column/Enum.pm, Column/Person.pm, Datum/Enum.pm, Datum/Person.pm
+  - lib/GADS/Datum/Person.pm (deleted_values)
+description: >
+  The record edit form of enum and person fields whose values have since
+  been deleted (the deleted values are retained in the select), and a new
+  record defaulting a person field to the logged-in user.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo, enum1: 1, person1: 4 }
+        - { string1: Bar, enum1: 2, person1: 1 }
+  - login: { user: superadmin }
+  - http:
+      id: edit_before_delete
+      as: superadmin
+      path: /record/1
+      expect: { status: 200 }
+  - column:
+      op: update
+      sheet: s
+      column: enum1
+      set:
+        enumvals:
+          - { value: foo2, id: 2 }
+          - { value: foo3, id: 3 }
+  - http:
+      id: retire_user
+      as: superadmin
+      method: POST
+      path: /user/4
+      form: { delete: 4 }
+  - db:
+      id: user_retired
+      op: select
+      table: user
+      where: { id: 4 }
+      columns: [account_request]
+  - clear_layouts: {}
+  - http:
+      id: edit_deleted_values
+      as: superadmin
+      path: /record/1
+      expect: { status: 200 }
+  - http:
+      id: edit_current_values
+      as: superadmin
+      path: /record/2
+      expect: { status: 200 }
+  - column:
+      op: update
+      sheet: s
+      column: person1
+      set: { default_to_login: 1 }
+  - clear_layouts: {}
+  - http:
+      id: new_record_default_to_login
+      as: superadmin
+      path: "/{sheet:s}/record/"
+      expect: { status: 200 }

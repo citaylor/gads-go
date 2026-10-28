@@ -1,0 +1,88 @@
+name: 024_user
+source: [t/024_user.t]
+description: Creating users, unique usernames and mandatory user fields of the site
+steps:
+- sheet: {as: main, site_id: 1}
+- user:
+    id: user created
+    op: create_user
+    as: joe
+    params: {surname: Bloggs, firstname: Joe, email: joe@example.com}
+    expect: {value: 'Bloggs, Joe', username: joe@example.com}
+# The first user of the site, whose username is used below
+- db:
+    id: first user
+    op: select
+    table: user
+    where: {id: 1}
+    columns: [username]
+    expect: [{username: user1@example.com}]
+- user:
+    id: rename to existing username
+    op: update_row
+    user: joe
+    set: {email: user1@example.com}
+    expect_error: already exists
+- user:
+    id: create with existing username
+    op: create_user
+    params: {surname: Bloggs, firstname: Joe, email: user1@example.com}
+    expect_error: already exists
+- user:
+    id: create row with existing username
+    op: insert_row
+    set: {email: user1@example.com, username: user1@example.com}
+    expect_error: already exists
+- db:
+    op: update
+    table: site
+    where: {id: 1}
+    set: {register_organisation_mandatory: 1}
+- user:
+    id: missing organisation
+    op: create_user
+    params: {surname: Bloggs, firstname: Joe, email: joe1@example.com}
+    expect_error: Please select a Organisation
+- db:
+    id: create organisation
+    expect: {id: 2}
+    op: insert
+    table: organisation
+    set: {name: Org, site_id: 1}
+- db:
+    op: update
+    table: site
+    where: {id: 1}
+    set: {register_team_mandatory: 1}
+- user:
+    id: missing team
+    op: create_user
+    params: {surname: Bloggs, firstname: Joe, email: joe1@example.com, organisation: 2}
+    expect_error: Please select a Team
+- db:
+    id: create team
+    expect: {id: 3}
+    op: insert
+    table: team
+    set: {name: Team, site_id: 1}
+- db:
+    op: update
+    table: site
+    where: {id: 1}
+    set: {register_department_mandatory: 1}
+- user:
+    id: missing department
+    op: create_user
+    params: {surname: Bloggs, firstname: Joe, email: joe1@example.com, organisation: 2, team_id: 3}
+    expect_error: Please select a Department
+# Users and audit records left (failed creations are rolled back)
+- db:
+    id: users
+    op: select
+    table: user
+    columns: [id, username, email, value, site_id, created]
+- db:
+    id: audit
+    op: select
+    table: audit
+    columns: [user_id, description, type, datetime, site_id]

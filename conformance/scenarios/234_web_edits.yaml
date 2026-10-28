@@ -1,0 +1,87 @@
+name: 234_web_edits
+source:
+  - lib/GADS.pm (post /:layout_name/edits)
+  - lib/GADS/DateTime.pm (parse_daterange subtract_days_end)
+description: >
+  The changes of dates made by dragging items on the timeline: a date, a
+  date range (whose end is a day earlier than reported), invalid or
+  missing JSON (taken as no records, as Perl clears the error), a
+  record that fails to write (redirected to the data) and a time with a
+  fraction of a second. Several records in one request are taken in the
+  order of a Perl hash, so are not compared.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo1, date1: "2014-01-01", daterange1: ["2014-01-01", "2014-02-01"] }
+        - { string1: "", date1: "2014-03-01" }
+        - { string1: Foo3, date1: "2014-04-01" }
+  - column:
+      op: update
+      sheet: s
+      column: string1
+      set: { optional: 0 }
+  - clear_layouts: {}
+  - login: { user: superadmin }
+  - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
+  - http:
+      id: edits_date
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/edits"
+      form:
+        q: '{"item1":{"current_id":1,"column":{column:s:date1},"from":1420070400000}}'
+  - http:
+      id: edits_daterange
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/edits"
+      form:
+        q: '{"item1":{"current_id":1,"column":{column:s:daterange1},"from":1420070400000,"to":1422748800000}}'
+  - http:
+      id: edits_bad_json
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/edits"
+      form: { q: "not json" }
+  - http:
+      id: edits_missing_q
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/edits"
+      form: { other: 1 }
+  - http:
+      id: edits_write_fails
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/edits"
+      form:
+        q: '{"item2":{"current_id":2,"column":{column:s:date1},"from":1420070400000}}'
+  - http: { id: data_after_fail, as: superadmin, path: "/{sheet:s}/data" }
+  - http:
+      id: edits_again
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/edits"
+      form:
+        q: '{"item1":{"current_id":1,"column":{column:s:date1},"from":1425168000000}}'
+  - http:
+      id: edits_fraction
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/edits"
+      form:
+        q: '{"item3":{"current_id":3,"column":{column:s:date1},"from":1425254400500}}'
+  - db:
+      id: dates
+      op: select
+      table: date
+      columns: [record_id, layout_id, value]
+      order_by: [record_id, layout_id]
+  - db:
+      id: dateranges
+      op: select
+      table: daterange
+      columns: [record_id, layout_id, from, to, value]
+      order_by: [record_id, layout_id]

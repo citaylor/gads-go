@@ -1,0 +1,108 @@
+name: 006_invalid_values
+source: [t/006_invalid_values.t]
+description: Setting invalid values on datums
+steps:
+- sheet:
+    as: main
+    data:
+    - string1: foobar
+      integer1: ''
+      enum1: ''
+      tree1: ''
+      date1: ''
+      daterange1: ['', '']
+- search:
+    id: one record
+    sheet: main
+    expect: {count: 1}
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set: {force_regex: '[0-9]+'}
+- held: {op: single, as: r, sheet: main}
+- held:
+    id: unchanged bad value only warns
+    op: set
+    as: r
+    values: {string1: foobar}
+    capture_warnings: true
+    expect_messages_match: Invalid value
+- held:
+    id: changed bad value for force_regex
+    op: set
+    as: r
+    values: {string1: foo}
+    expect_error: Invalid value
+- held:
+    id: non-integer value
+    op: set
+    as: r
+    values: {integer1: bar}
+    expect_error: .
+- held:
+    id: invalid date
+    op: set
+    as: r
+    values: {date1: 20-10-10}
+    expect_error: .
+- held:
+    id: daterange with missing date
+    op: set
+    as: r
+    values: {daterange1: ['2010-10-10', '']}
+    expect_error: .
+- held:
+    id: daterange dates in wrong order
+    op: set
+    as: r
+    values: {daterange1: ['2015-10-10', '2011-10-10']}
+    expect_error: .
+- held:
+    id: daterange with invalid date
+    op: set
+    as: r
+    values: {daterange1: ['20-10-10', '2011-10-10']}
+    expect_error: .
+- held:
+    id: invalid enum
+    op: set
+    as: r
+    values: {enum1: 999}
+    expect_error: is not a valid enum
+- held:
+    id: invalid tree
+    op: set
+    as: r
+    values: {tree1: 999}
+    expect_error: not a valid tree node
+# GADS-dev string max_length
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set: {force_regex: null, max_length: 10}
+- held: {op: single, as: r2, sheet: main}
+- held:
+    id: string exceeding max_length
+    op: set
+    as: r2
+    values: {string1: foobarbazquux}
+    expect_error: .
+- held:
+    id: string within max_length
+    op: set
+    as: r2
+    values: {string1: foobarbaz}
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set: {max_length: 0}
+- held: {op: single, as: r3, sheet: main}
+- held:
+    id: string exceeding max_length of 0
+    op: set
+    as: r3
+    values: {string1: a}
+    expect_error: .

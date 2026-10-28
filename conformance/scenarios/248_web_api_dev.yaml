@@ -1,0 +1,93 @@
+name: 248_web_api_dev
+source:
+  - lib/GADS/API.pm (_get_records: curval_record_id, view_limit_override_id, sort parent_id, group_cols, full_id; /api/users created_by; get /api/get_key; post /api/script_error)
+description: >
+  GADS-dev changes to the API: the records of a curval's "show all"
+  link ignore the current view, grouping by and sorting on a curval
+  sub-field (the data keyed by the full IDs of the columns, the group
+  filter links by the IDs of the group columns), the users list sorted by
+  who created them, the key of the user for encryption and the logging of
+  script errors.
+steps:
+  - sheet:
+      as: cv
+      site_id: 1
+      instance_id: 2
+      data:
+        - { string1: foo1, integer1: 10 }
+        - { string1: foo2, integer1: 20 }
+  - sheet:
+      as: s
+      curval: cv
+      curval_fields: [string1, integer1]
+      data:
+        - { string1: Foo, integer1: 50, curval1: 1 }
+        - { string1: Bar, integer1: 99, curval1: 2 }
+        - { string1: Baz, integer1: 10, curval1: 1 }
+  - login: { user: superadmin }
+  - view:
+      op: create
+      sheet: s
+      name: Foo only
+      columns: [string1, integer1]
+      filter: { rules: [{ name: string1, type: string, operator: equal, value: Foo }] }
+      as: fooonly
+  - http: { id: select_foo, as: superadmin, path: "/{sheet:s}/data", query: { view: "{view:fooonly}" }, no_body: true }
+  - http:
+      id: records_view
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 1 }
+  - http:
+      id: records_curval_show_all
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      query: { curval_record_id: 1, curval_layout_id: "{column:s:curval1}" }
+      form: { draw: 2 }
+  - view:
+      op: create
+      sheet: s
+      name: Grouped by subfield
+      columns: [curval1, integer1]
+      groups: [curval1_string1]
+      as: subgroup
+  - column: { op: update, sheet: s, column: integer1, set: { aggregate: sum } }
+  - http: { id: select_subgroup, as: superadmin, path: "/{sheet:s}/data", query: { view: "{view:subgroup}" }, no_body: true }
+  - http:
+      id: records_subgroup
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 3 }
+  - http:
+      id: records_subgroup_order
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 4, "order[0][column]": 1, "order[0][dir]": desc }
+  - http:
+      id: records_subgroup_order_asc
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/records"
+      form: { draw: 5, "order[0][column]": 1, "order[0][dir]": asc }
+  - http:
+      id: users_sort_created_by
+      as: superadmin
+      path: /api/users
+      query: { "order[0][column]": 0, "order[0][dir]": desc, "columns[0][name]": Created by }
+  - http: { id: get_key, as: superadmin, path: /api/get_key }
+  - http:
+      id: script_error
+      as: superadmin
+      method: POST
+      path: /api/script_error
+      json: { url: "http://localhost/table1/data", description: "TypeError: x is undefined" }
+  - http:
+      id: script_error_not_logged_in
+      method: POST
+      path: /api/script_error
+      csrf: 0
+      json: { url: "http://localhost/", description: "Error" }

@@ -1,0 +1,88 @@
+name: 007_curval_autocur
+source:
+- t/007_curval_autocur.t
+description: Two autocur fields back to the same sheet, each used by a calc
+steps:
+- sheet:
+    as: cv
+    instance_id: 2
+- sheet:
+    as: main
+    multivalue: 1
+    curval: cv
+    curval_fields:
+    - string1
+    create_records: false
+    data:
+    - string1: foo1
+      date1: '2010-10-10'
+      curval1: 1
+    - string1: foo2
+      date1: '2009-10-10'
+      curval1: 2
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - string1
+- add_autocur:
+    sheet: cv
+    refers_to: main
+    related_field: curval1
+    curval_fields:
+    - date1
+- column:
+    op: update
+    sheet: cv
+    column: calc1
+    set:
+      code: "\n    function evaluate (L2autocur1)\n        ret = \"\"\n        for _,val in ipairs(L2autocur1) do\n            ret = ret .. val.field_values.L1string1[1]\n        end\n        return ret\n    end"
+      return_type: string
+- column:
+    op: create
+    sheet: cv
+    type: calc
+    name: calc2
+    name_short: L2calc2
+    return_type: string
+    code: "function evaluate (L2autocur2)\n        ret = \"\"\n        for _,val in ipairs(L2autocur2) do\n            ret = ret .. val.field_values.L1string1[1]\n        end\n        return ret\n    end"
+- create_records:
+    sheet: main
+- held:
+    id: initial
+    op: find
+    as: r
+    sheet: main
+    current_id: 2
+    observe:
+    - cv:calc1
+    - cv:calc2
+- held:
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 3
+- held:
+    op: set
+    as: r
+    values:
+      curval1:
+      - 1
+      - 2
+- held:
+    op: write
+    as: r
+    options:
+      no_alerts: 1
+- held:
+    id: referred twice
+    op: find
+    as: r
+    sheet: main
+    clear: true
+    current_id: 2
+    observe:
+    - cv:calc1
+    - cv:calc2
