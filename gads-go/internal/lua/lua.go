@@ -15,9 +15,96 @@ package lua
 
 extern int goLuaCallback(lua_State *L, int id);
 
+// The limits of a state, its allocator's user data: the memory in use and
+// its limit, and the instructions run by the current call and their limit
+// (a limit of 0 is none)
+typedef struct {
+	size_t used, limit;
+	long long steps, maxsteps;
+} gads_limits;
+
+// gads_alloc is the standard allocator (l_alloc of lauxlib) refusing to
+// grow beyond the memory limit (Lua then raises "not enough memory")
+static void *gads_alloc(void *ud, void *ptr, size_t osize, size_t nsize) {
+	gads_limits *l = (gads_limits *)ud;
+	if (ptr == NULL) osize = 0; // (osize is then the type of the object)
+	if (nsize == 0) {
+		free(ptr);
+		l->used -= osize;
+		return NULL;
+	}
+	if (l->limit && nsize > osize && l->used + (nsize - osize) > l->limit) return NULL;
+	void *p = realloc(ptr, nsize);
+	if (p != NULL) l->used += nsize - osize;
+	return p;
+}
+
+static gads_limits *gads_getlimits(lua_State *L) {
+	void *ud;
+	lua_getallocf(L, &ud);
+	return (gads_limits *)ud;
+}
+
+// The instruction count is checked every GADS_HOOK_COUNT instructions; once
+// over the limit, at every instruction, so that a pcall in the code cannot
+// keep it running
+#define GADS_HOOK_COUNT 10000
+
+static void gads_hook(lua_State *L, lua_Debug *ar) {
+	gads_limits *l = gads_getlimits(L);
+	l->steps += GADS_HOOK_COUNT;
+	if (l->maxsteps && l->steps > l->maxsteps) {
+		lua_sethook(L, gads_hook, LUA_MASKCOUNT, 1);
+		lua_pushfstring(L, "code stopped after running more than %I instructions", (lua_Integer)l->maxsteps);
+		lua_error(L);
+	}
+}
+
+static int gads_atpanic(lua_State *L) {
+	lua_writestringerror("PANIC: unprotected error in call to Lua API (%s)\n", lua_tostring(L, -1));
+	return 0;
+}
+
+static lua_State *gads_newstate(void) {
+	gads_limits *l = calloc(1, sizeof(gads_limits));
+	if (l == NULL) return NULL;
+	lua_State *L = lua_newstate(gads_alloc, l);
+	if (L == NULL) {
+		free(l);
+		return NULL;
+	}
+	lua_atpanic(L, gads_atpanic);
+	return L;
+}
+
+static void gads_close(lua_State *L) {
+	gads_limits *l = gads_getlimits(L);
+	lua_close(L);
+	free(l);
+}
+
+// gads_limited_pcall is lua_pcall with the limits applied to the code run
+static int gads_limited_pcall(lua_State *L, int nargs, int nresults, size_t memlimit, long long maxsteps) {
+	gads_limits *l = gads_getlimits(L);
+	l->steps = 0;
+	l->maxsteps = maxsteps;
+	l->limit = memlimit;
+	lua_sethook(L, gads_hook, maxsteps ? LUA_MASKCOUNT : 0, GADS_HOOK_COUNT);
+	int r = lua_pcall(L, nargs, nresults, 0);
+	lua_sethook(L, NULL, 0, 0);
+	l->limit = 0;
+	if (r == LUA_ERRMEM) lua_gc(L, LUA_GCCOLLECT, 0);
+	return r;
+}
+
 static int gads_trampoline(lua_State *L) {
 	int id = (int)lua_tointeger(L, lua_upvalueindex(1));
+	// No limit while in Go: an error raised there would unwind Go frames
+	gads_limits *l = gads_getlimits(L);
+	size_t limit = l->limit;
+	l->limit = 0;
 	int r = goLuaCallback(L, id);
+	l->limit = limit;
 	if (r < 0) {
 		return lua_error(L);
 	}
@@ -172,7 +259,21 @@ type Interpreter struct {
 	callbacks map[int]Func
 	nextID    int
 	cbErr     error
+
+	// MaxInstructions stops a Run after about this many Lua instructions,
+	// and MaxMemory limits the memory of the interpreter while code runs
+	// (0 for no limit). GADS has neither: these keep code that never ends,
+	// or that takes all memory, from holding up the whole application.
+	MaxInstructions int64
+	MaxMemory       int64
 }
+
+// The default limits of an interpreter: some seconds of computing, and
+// memory far above that of any reasonable calculation
+const (
+	DefaultMaxInstructions = 1_000_000_000
+	DefaultMaxMemory       = 512 << 20
+)
 
 var (
 	registryMu sync.Mutex
@@ -182,12 +283,13 @@ var (
 // New creates an interpreter with the standard libraries and the GADS
 // lua_run function loaded.
 func New() (*Interpreter, error) {
-	L := C.luaL_newstate()
+	L := C.gads_newstate()
 	if L == nil {
 		return nil, fmt.Errorf("unable to create Lua state")
 	}
 	C.luaL_openlibs(L)
-	it := &Interpreter{L: L, callbacks: map[int]Func{}}
+	it := &Interpreter{L: L, callbacks: map[int]Func{},
+		MaxInstructions: DefaultMaxInstructions, MaxMemory: DefaultMaxMemory}
 	registryMu.Lock()
 	registry[L] = it
 	registryMu.Unlock()
@@ -210,7 +312,7 @@ func (it *Interpreter) Close() {
 	registryMu.Lock()
 	delete(registry, it.L)
 	registryMu.Unlock()
-	C.lua_close(it.L)
+	C.gads_close(it.L)
 }
 
 func (it *Interpreter) tostring(idx int) string {
@@ -257,7 +359,7 @@ func (it *Interpreter) Run(code string, vars map[string]any, wdd, wda Func) (*Ru
 	it.pushVal(vars)
 	it.pushVal(wdd)
 	it.pushVal(wda)
-	status := C.gads_pcall(L, 4, C.LUA_MULTRET)
+	status := C.gads_limited_pcall(L, 4, C.LUA_MULTRET, C.size_t(it.MaxMemory), C.longlong(it.MaxInstructions))
 	// Remove callbacks registered for this call
 	defer func() { it.callbacks = map[int]Func{} }()
 	if status != 0 {
@@ -443,7 +545,7 @@ func goLuaCallback(L *C.lua_State, id C.int) C.int {
 	if f == nil {
 		return 0
 	}
-	res, err := f(args)
+	res, err := callGo(f, args)
 	if err != nil {
 		it.cbErr = err
 		msg := err.Error()
@@ -456,6 +558,17 @@ func goLuaCallback(L *C.lua_State, id C.int) C.int {
 		it.pushVal(r)
 	}
 	return C.int(len(res))
+}
+
+// callGo calls a callback, giving a panic as its error: a Go panic must
+// not unwind through the C frames of Lua
+func callGo(f Func, args []any) (res []any, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			res, err = nil, fmt.Errorf("%v", r)
+		}
+	}()
+	return f(args)
 }
 
 // FormatG formats a float in the style of C's printf("%.<prec>g").

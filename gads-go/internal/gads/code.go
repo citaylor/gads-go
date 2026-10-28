@@ -258,6 +258,10 @@ func (e *Engine) workingDaysDiffLua(args []any) ([]any, error) {
 	return []any{lua.Int(res)}, nil
 }
 
+// maxWorkingDaysAdd is the most days working_days_add adds (about 400
+// years, well beyond the bank holidays known)
+const maxWorkingDaysAdd = 100000
+
 func (e *Engine) workingDaysAddLua(args []any) ([]any, error) {
 	var res int64
 	err := Try(func() {
@@ -278,6 +282,14 @@ func (e *Engine) workingDaysAddLua(args []any) ([]any, error) {
 		days := int64(perl.Numify(anyToString(args[1])))
 		if f, ok := args[1].(float64); ok {
 			days = int64(f)
+		}
+		// Deviation: Perl's loop never ends for these (it counts down to
+		// zero a day at a time), holding up the whole Go application
+		if days < 0 {
+			Fail("Number of days for working_days_add cannot be negative")
+		}
+		if days > maxWorkingDaysAdd {
+			Fail("Number of days for working_days_add cannot be more than %d", maxWorkingDaysAdd)
 		}
 		for days != 0 {
 			start = start.AddDate(0, 0, 1)

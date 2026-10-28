@@ -255,6 +255,9 @@ func (m perlMatcher) MatchString(s string) bool {
 	return ok
 }
 
+// regexMatchTimeout limits the time of matching a user's regex
+const regexMatchTimeout = time.Second
+
 // perlRegex compiles a (user supplied) Perl regex, returning nil if it
 // cannot be compiled.
 func perlRegex(re string) *perlMatcher {
@@ -264,6 +267,11 @@ func perlRegex(re string) *perlMatcher {
 		r, err = regexp2.Compile(re, regexp2.None)
 		if err != nil {
 			r = nil
+		} else {
+			// Deviation: a pattern that backtracks without end (as
+			// (a+)+$) does not match, rather than holding up the
+			// application
+			r.MatchTimeout = regexMatchTimeout
 		}
 		regexCache[re] = r
 	}
