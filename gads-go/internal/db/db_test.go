@@ -85,3 +85,35 @@ func TestPopulate(t *testing.T) {
 		t.Errorf("rows before the failure: %d", n)
 	}
 }
+
+// A savepoint needs a transaction (as DBIC); RollbackAll leaves any nesting
+func TestSavepointsAndRollbackAll(t *testing.T) {
+	d, err := OpenMemory()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer d.Close()
+	func() {
+		defer func() {
+			if recover() == nil {
+				t.Error("savepoint outside a transaction allowed")
+			}
+		}()
+		d.SavepointBegin()
+	}()
+	if d.InTxn() {
+		t.Error("savepoint opened a transaction")
+	}
+	d.Exec(`CREATE TABLE "rt" ("a" integer)`)
+	d.Begin()
+	d.Begin()
+	d.Exec(`INSERT INTO "rt" ("a") VALUES (1)`)
+	d.RollbackAll()
+	if d.InTxn() {
+		t.Error("transaction still open")
+	}
+	if n, _ := d.QueryInt64(`SELECT COUNT(*) FROM "rt"`); n != 0 {
+		t.Errorf("%d rows after the rollback", n)
+	}
+	d.RollbackAll()
+}

@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -108,19 +109,22 @@ func Open(driver, dsn string) (*DB, error) {
 	raw.SetMaxOpenConns(1)
 	conn, err := raw.Conn(context.Background())
 	if err != nil {
+		raw.Close()
 		return nil, err
 	}
 	d := &DB{raw: raw, conn: conn}
 	if driver == "postgres" || driver == "pgx" {
 		d.Dialect = Postgres
-	} else {
-		// Equivalent of on_connect_call => 'use_foreign_keys'
-		if _, err := conn.ExecContext(context.Background(), "PRAGMA foreign_keys = ON"); err != nil {
-			return nil, err
-		}
-		if err := d.addSQLiteIndexes(); err != nil {
-			return nil, err
-		}
+		return d, nil
+	}
+	// Equivalent of on_connect_call => 'use_foreign_keys'
+	if _, err := conn.ExecContext(context.Background(), "PRAGMA foreign_keys = ON"); err != nil {
+		d.Close()
+		return nil, err
+	}
+	if err := d.addSQLiteIndexes(); err != nil {
+		d.Close()
+		return nil, err
 	}
 	return d, nil
 }
@@ -383,7 +387,10 @@ func (d *DB) TryQueryCol(q string, args ...any) ([]any, error) {
 		}
 		out = append(out, v)
 	}
-	return out, rs.Err()
+	if err := rs.Err(); err != nil {
+		return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
+	}
+	return out, nil
 }
 
 // QueryInt64s returns the first column as int64 values (NULLs skipped).
@@ -422,11 +429,7 @@ func (d *DB) TryInsert(table string, cols []string, vals ...any) (int64, error) 
 	sb.WriteString("INSERT INTO ")
 	sb.WriteString(Q(table))
 	if len(cols) == 0 {
-		if d.Dialect == Postgres {
-			sb.WriteString(" DEFAULT VALUES")
-		} else {
-			sb.WriteString(" DEFAULT VALUES")
-		}
+		sb.WriteString(" DEFAULT VALUES")
 	} else {
 		sb.WriteString(" ( ")
 		for i, c := range cols {
@@ -571,20 +574,12 @@ func sortedKV(m map[string]any) ([]string, []any) {
 	for k := range m {
 		keys = append(keys, k)
 	}
-	sortStrings(keys)
+	sort.Strings(keys)
 	vals := make([]any, len(keys))
 	for i, k := range keys {
 		vals[i] = m[k]
 	}
 	return keys, vals
-}
-
-func sortStrings(s []string) {
-	for i := 1; i < len(s); i++ {
-		for j := i; j > 0 && s[j] < s[j-1]; j-- {
-			s[j], s[j-1] = s[j-1], s[j]
-		}
-	}
 }
 
 // Placeholders returns "?, ?, ?" with n entries.
@@ -635,6 +630,15 @@ func (d *DB) Rollback() {
 	d.TryExec("ROLLBACK")
 }
 
+// RollbackAll rolls back any transaction still open, whatever its depth
+// (the state between requests of the web application)
+func (d *DB) RollbackAll() {
+	if d.depth > 0 {
+		d.depth = 1
+		d.Rollback()
+	}
+}
+
 // InTxn reports whether a transaction is active.
 func (d *DB) InTxn() bool { return d.depth > 0 }
 
@@ -653,18 +657,20 @@ func (d *DB) Txn(f func()) {
 	ok = true
 }
 
-// SavepointBegin starts a savepoint (DBIC svp_begin).
+// SavepointBegin starts a savepoint (DBIC svp_begin), which as in DBIC
+// needs a transaction.
 func (d *DB) SavepointBegin() string {
+	if d.depth == 0 {
+		panic(errors.New("DBIx::Class::Storage::svp_begin(): You can't use savepoints outside a transaction"))
+	}
 	d.svp++
 	name := fmt.Sprintf("savepoint_%d", d.svp-1)
-	if d.depth == 0 {
-		d.Begin()
-	}
 	d.Exec("SAVEPOINT " + name)
 	return name
 }
 
-// SavepointRollback rolls back to and releases a savepoint.
+// SavepointRollback rolls back to a savepoint (SavepointRelease then
+// releases it).
 func (d *DB) SavepointRollback(name string) {
 	d.Exec("ROLLBACK TO SAVEPOINT " + name)
 }
