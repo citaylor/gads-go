@@ -8,12 +8,13 @@ requires identical observations.
 - `conformance/`: scenarios, the Perl reference runner and the Perl golden results
 - `CLAUDE.md`: the workspace guide (conventions, build, test, Docker, security)
 
-The Perl GADS is not part of this repository. Clone it beside the other
-directories before running the suite or building the Docker images:
+The Perl GADS is included as submodules, pinned to the commits the golden
+results come from:
+
+- `upstream/GADS-dev`: ctrlo/GADS `dev` at `fddd4a15`, the reference
+- `upstream/GADS`: ctrlo/GADS `master` at `571f2bd`, the old reference
 
 ```sh
-git clone https://github.com/ctrlo/GADS.git upstream/GADS-dev
-git -C upstream/GADS-dev checkout fddd4a15     # the dev commit the golden results come from
-git clone https://github.com/ctrlo/GADS.git upstream/GADS
-git -C upstream/GADS checkout 571f2bd          # old master reference (optional)
+git clone --recurse-submodules https://github.com/citaylor/gads-go.git
+git submodule update --init      # in an existing clone without them
 ```

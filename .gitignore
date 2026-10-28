@@ -3,9 +3,6 @@
 .env
 !.env.example
 
-# Upstream Perl GADS: separate public clones (see README.md)
-/upstream/
-
 # Build output
 /gads-go/bin/
 /gads-go/gads

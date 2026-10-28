@@ -1,0 +1,8 @@
+[submodule "upstream/GADS-dev"]
+	path = upstream/GADS-dev
+	url = https://github.com/ctrlo/GADS.git
+	branch = dev
+[submodule "upstream/GADS"]
+	path = upstream/GADS
+	url = https://github.com/ctrlo/GADS.git
+	branch = master

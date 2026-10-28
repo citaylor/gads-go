@@ -26,11 +26,17 @@ identical.
     contains `sudo-creds`.
 - **Version control.** This directory is the git repository
   `github.com/citaylor/gads-go` (private, branch `main`, pushed over HTTPS
-  with `gh`). `.gitignore` keeps out `sudo-creds`, `.env`, `upstream/`
-  (separate clones of ctrlo/GADS, see README.md), binaries, caches and the
-  regenerated results; only `results/perl` and `results/perl-pg` are
-  committed. Commit with the GitHub noreply address: pushes with a private
-  email are refused.
+  with `gh`). `.gitignore` keeps out `sudo-creds`, `.env`, binaries,
+  caches and the regenerated results; only `results/perl` and
+  `results/perl-pg` are committed. Commit with the GitHub noreply address:
+  pushes with a private email are refused.
+- **Upstream submodules.** `upstream/GADS-dev` (branch `dev`) and
+  `upstream/GADS` (branch `master`) are submodules of
+  `https://github.com/ctrlo/GADS.git`, pinned to the commits the golden
+  results come from. To move to a newer dev:
+  1. `git -C upstream/GADS-dev pull`.
+  2. Rerun Perl to refresh `results/perl`, then run Go and compare.
+  3. Commit the new submodule pointer together with the new golden results.
 
 ## Layout
 
