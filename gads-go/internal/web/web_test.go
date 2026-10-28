@@ -229,6 +229,23 @@ func TestMessagesToTemplate(t *testing.T) {
 	}
 }
 
+// A body over the limit is refused
+func TestBodyLimit(t *testing.T) {
+	c := testCtx()
+	c.s.Config.MaxBodyBytes = 10
+	c.uploads = map[string][]*Upload{}
+	c.body = newMultiValue()
+	c.Req = httptest.NewRequest("POST", "/", strings.NewReader("a=0123456789"))
+	if c.readBody(httptest.NewRecorder()) {
+		t.Error("body over the limit accepted")
+	}
+	c.Req = httptest.NewRequest("POST", "/", strings.NewReader("a=01234567"))
+	c.Req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	if !c.readBody(httptest.NewRecorder()) || c.ParamS("a") != "01234567" {
+		t.Error("body at the limit refused")
+	}
+}
+
 func testCtx() *Ctx {
 	s := &Server{Config: DefaultConfig(), sessions: newSessionStore(0)}
 	s.E = &gads.Engine{}
@@ -540,7 +557,9 @@ func TestUpload(t *testing.T) {
 	c.Req.Header.Set("Content-Type", "multipart/form-data; boundary=X")
 	c.uploads = map[string][]*Upload{}
 	c.body = newMultiValue()
-	c.readBody()
+	if !c.readBody(httptest.NewRecorder()) {
+		t.Fatal("body refused")
+	}
 	u := c.Upload("file")
 	if u == nil || u.Filename != "a.gif" || string(u.Content) != "GIF89a" || u.Type != "image/gif" {
 		t.Fatalf("upload %#v", u)

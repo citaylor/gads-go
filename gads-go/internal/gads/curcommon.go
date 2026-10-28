@@ -478,15 +478,17 @@ func (c *Column) getRows(ids []int64, o idsToValuesOptions) []*Record {
 			ret = append(ret, cache[id])
 		}
 	} else {
-		e := c.e
-		oldIP, oldIPS := e.IgnorePermissions, e.IgnorePermissionsSearch
-		if c.OverridePermissions() {
-			e.IgnorePermissions = true
-		}
-		e.IgnorePermissionsSearch = true
-		recs := c.recordsFromDB(ids, true, false, true, o.rewind)
-		ret = recs.Results()
-		e.IgnorePermissions, e.IgnorePermissionsSearch = oldIP, oldIPS
+		// (local in Perl: restored even when the search fails)
+		func() {
+			e := c.e
+			oldIP, oldIPS := e.IgnorePermissions, e.IgnorePermissionsSearch
+			defer func() { e.IgnorePermissions, e.IgnorePermissionsSearch = oldIP, oldIPS }()
+			if c.OverridePermissions() {
+				e.IgnorePermissions = true
+			}
+			e.IgnorePermissionsSearch = true
+			ret = c.recordsFromDB(ids, true, false, true, o.rewind).Results()
+		}()
 		for _, r := range ret {
 			cache[r.currentID] = r
 		}

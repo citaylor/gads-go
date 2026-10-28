@@ -7,6 +7,7 @@ package web
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"mime"
@@ -39,7 +40,14 @@ type Config struct {
 	BehindProxy bool
 	// Session is the cookie of the session engine
 	Session SessionConfig
+	// MaxBodyBytes limits the size of a request body (0 is
+	// DefaultMaxBodyBytes). Larger requests are refused with 413.
+	MaxBodyBytes int64
 }
+
+// DefaultMaxBodyBytes is the default limit of a request body: room for the
+// largest upload GADS accepts (50 MB) with its encoding
+const DefaultMaxBodyBytes = 100 << 20
 
 // SessionConfig is the configuration of the Dancer2 session engine
 // (engines: session: ENGINE:) that applies to its cookie.
@@ -498,20 +506,34 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	}
 	c.query = parseQuery(req.URL.RawQuery)
 	c.body = newMultiValue()
-	c.readBody()
+	if !c.readBody(w) {
+		http.Error(w, "Request Entity Too Large", http.StatusRequestEntityTooLarge)
+		return
+	}
 	res := &bufferedResponse{header: http.Header{}, status: http.StatusOK}
 	s.mu.Lock()
 	func() {
 		defer s.mu.Unlock()
 		siteID := s.E.SiteID
-		s.E.SiteID = 0
-		s.E.Reports = nil
+		// Whatever a failed request left behind does not reach the next
+		defer s.resetEngine(siteID)
+		s.resetEngine(0)
 		c.dispatch()
 		c.flushReports()
-		s.E.SiteID = siteID
 		c.write(res)
 	}()
 	res.sendTo(w)
+}
+
+// resetEngine returns the engine to its state between requests: the
+// permission overrides off, no transaction open, no reports
+func (s *Server) resetEngine(siteID int64) {
+	e := s.E
+	e.SiteID = siteID
+	e.Reports = nil
+	e.IgnorePermissions = false
+	e.IgnorePermissionsSearch = false
+	e.DB.RollbackAll()
 }
 
 // bufferedResponse holds a response until the engine lock is released
@@ -553,11 +575,21 @@ func (s *Server) serveStatic(w http.ResponseWriter, req *http.Request) bool {
 	return true
 }
 
-func (c *Ctx) readBody() {
+// readBody reads the request body (parameters and uploads). It returns
+// false if the body is over the size limit.
+func (c *Ctx) readBody(w http.ResponseWriter) bool {
 	if c.Req.Body == nil {
-		return
+		return true
 	}
-	b, _ := io.ReadAll(c.Req.Body)
+	limit := c.s.Config.MaxBodyBytes
+	if limit <= 0 {
+		limit = DefaultMaxBodyBytes
+	}
+	b, err := io.ReadAll(http.MaxBytesReader(w, c.Req.Body, limit))
+	var tooLarge *http.MaxBytesError
+	if errors.As(err, &tooLarge) {
+		return false
+	}
 	c.rawBody = b
 	ct, params, _ := mime.ParseMediaType(c.Req.Header.Get("Content-Type"))
 	switch ct {
@@ -582,6 +614,7 @@ func (c *Ctx) readBody() {
 			c.body.add(p.FormName(), string(data))
 		}
 	}
+	return true
 }
 
 // RequestContentType is request->content_type
