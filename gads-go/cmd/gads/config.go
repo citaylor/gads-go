@@ -200,9 +200,10 @@ func (c *appConfig) sessionConfig(cfg web.SessionConfig) web.SessionConfig {
 		cfg.SameSite = http.SameSiteNoneMode
 	}
 	cfg.CookieDuration = parseDuration(asString(e["cookie_duration"]))
-	cfg.IdleTimeout = cfg.CookieDuration
 	if d := parseDuration(asString(e["session_duration"])); d > 0 {
 		cfg.IdleTimeout = d
+	} else if cfg.CookieDuration > 0 {
+		cfg.IdleTimeout = cfg.CookieDuration
 	}
 	return cfg
 }

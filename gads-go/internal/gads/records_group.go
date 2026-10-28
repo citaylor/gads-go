@@ -572,9 +572,9 @@ func (r *Records) getAggregate(column *Column, operator string, a aggOpts) *aggF
 }
 
 // groupRawValues returns the raw values of a column from a group row.
-func (rec *Record) groupRawValues(c *Column) ([]rawValue, bool) {
-	row := rec.groupRow
-	key := rec.records.aggregateName(c, nil, "")
+func (r *Record) groupRawValues(c *Column) ([]rawValue, bool) {
+	row := r.groupRow
+	key := r.records.aggregateName(c, nil, "")
 	v, ok := row[key]
 	if !ok {
 		return nil, false

@@ -545,7 +545,16 @@ func goLuaCallback(L *C.lua_State, id C.int) C.int {
 	if f == nil {
 		return 0
 	}
-	res, err := callGo(f, args)
+	// A Go panic must not unwind through the C frames of Lua: it is the
+	// error of the callback
+	res, err := func() (res []any, err error) {
+		defer func() {
+			if r := recover(); r != nil {
+				res, err = nil, fmt.Errorf("%v", r)
+			}
+		}()
+		return f(args)
+	}()
 	if err != nil {
 		it.cbErr = err
 		msg := err.Error()
@@ -558,17 +567,6 @@ func goLuaCallback(L *C.lua_State, id C.int) C.int {
 		it.pushVal(r)
 	}
 	return C.int(len(res))
-}
-
-// callGo calls a callback, giving a panic as its error: a Go panic must
-// not unwind through the C frames of Lua
-func callGo(f Func, args []any) (res []any, err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			res, err = nil, fmt.Errorf("%v", r)
-		}
-	}()
-	return f(args)
 }
 
 // FormatG formats a float in the style of C's printf("%.<prec>g").

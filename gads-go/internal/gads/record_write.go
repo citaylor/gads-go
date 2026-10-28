@@ -71,7 +71,7 @@ func (r *Record) findUnique(col *Column, value string, ignoreCurrentID int64, re
 }
 
 // FindUnique returns a records object searching for a unique value.
-func (rs *Records) FindUnique(col *Column, value string, ignoreCurrentID int64, retrieve []int64) *Records {
+func (r *Records) FindUnique(col *Column, value string, ignoreCurrentID int64, retrieve []int64) *Records {
 	rules := []any{map[string]any{
 		"field":       col.ID,
 		"id":          col.ID,
@@ -81,7 +81,7 @@ func (rs *Records) FindUnique(col *Column, value string, ignoreCurrentID int64, 
 		"operator":    "equal",
 	}}
 	if ignoreCurrentID != 0 {
-		cid := rs.Layout.ColumnID().ID
+		cid := r.Layout.ColumnID().ID
 		rules = append(rules, map[string]any{
 			"field":    cid,
 			"id":       cid,
@@ -90,11 +90,11 @@ func (rs *Records) FindUnique(col *Column, value string, ignoreCurrentID int64, 
 			"operator": "not_equal",
 		})
 	}
-	view := rs.e.NewTempView(rs.Layout, NewFilterHash(map[string]any{"rules": rules, "condition": "AND"}, nil))
+	view := r.e.NewTempView(r.Layout, NewFilterHash(map[string]any{"rules": rules, "condition": "AND"}, nil))
 	if len(retrieve) == 0 {
 		retrieve = []int64{col.ID}
 	}
-	n := rs.e.NewRecords(rs.Layout, rs.User)
+	n := r.e.NewRecords(r.Layout, r.User)
 	n.Rows = 1
 	n.View = view
 	n.SetColumns(retrieve)
@@ -103,17 +103,17 @@ func (rs *Records) FindUnique(col *Column, value string, ignoreCurrentID int64, 
 
 // Exists reports whether the search matches any records (used for unique
 // checks with a cached query).
-func (rs *Records) Exists(value string) bool {
+func (r *Records) Exists(value string) bool {
 	// Replace the value of the first rule and run a count
-	if rs.View != nil {
-		if rules, ok := rs.View.Filter().AsHash()["rules"].([]any); ok && len(rules) > 0 {
+	if r.View != nil {
+		if rules, ok := r.View.Filter().AsHash()["rules"].([]any); ok && len(rules) > 0 {
 			if m, ok := rules[0].(map[string]any); ok {
 				m["value"] = value
 			}
 		}
 	}
-	rs.Clear()
-	return rs.Count() > 0
+	r.Clear()
+	return r.Count() > 0
 }
 
 // SubmissionToken returns a submission token for the record form.

@@ -59,7 +59,8 @@ type SessionConfig struct {
 	// it a browser-session cookie
 	CookieDuration time.Duration
 	// IdleTimeout drops sessions unused for that long (session_duration,
-	// otherwise cookie_duration); 0 keeps them for the life of the process
+	// otherwise cookie_duration, otherwise DefaultSessionIdle); 0 keeps
+	// them for the life of the process
 	IdleTimeout time.Duration
 	Secure      bool          // is_secure
 	HTTPOnly    bool          // is_http_only
@@ -75,9 +76,15 @@ func DefaultConfig() *Config {
 			"url":            "http://localhost/",
 		},
 		PasswordExpiryDays: 60,
-		Session:            SessionConfig{CookieName: "dancer.session", CookiePath: "/", HTTPOnly: true},
+		Session: SessionConfig{CookieName: "dancer.session", CookiePath: "/", HTTPOnly: true,
+			IdleTimeout: DefaultSessionIdle},
 	}
 }
+
+// DefaultSessionIdle is how long an unused session is kept without a
+// session_duration. Deviation: Dancer2::Session::Simple keeps sessions for
+// the life of the process, so that anyone could fill its memory.
+const DefaultSessionIdle = 7 * 24 * time.Hour
 
 // Server is the GADS web application.
 type Server struct {

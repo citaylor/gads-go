@@ -10,7 +10,13 @@ import (
 	"github.com/ctrlo/gads-go/internal/gads"
 )
 
-var csrfExemptRe = regexp.MustCompile(`^(/api/token|/print|/saml)$`)
+var (
+	csrfExemptRe = regexp.MustCompile(`^(/api/token|/print|/saml)$`)
+	// Requests not audited (record views are audited by their routes)
+	noAuditRe = regexp.MustCompile(`^/(record|record_body)/`)
+	// Pages open to a user who has not accepted the user status
+	userStatusOpenRe = regexp.MustCompile(`^/(user_status|aup|mfa)`)
+)
 
 // beforeHook is the GADS before hook (lib/GADS.pm hook before)
 func (s *Server) beforeHook(c *Ctx) {
@@ -92,7 +98,7 @@ func (s *Server) beforeHook(c *Ctx) {
 		}
 	}
 
-	if !regexp.MustCompile(`^/(record|record_body)/`).MatchString(c.Path()) {
+	if !noAuditRe.MatchString(c.Path()) {
 		c.auditLog()
 	}
 
@@ -111,7 +117,7 @@ func (s *Server) beforeHook(c *Ctx) {
 			}
 		}
 		if truthy(s.Config.Gads["user_status"]) && !truthy(c.SessionGet("status_accepted")) {
-			if !regexp.MustCompile(`^/(user_status|aup|mfa)`).MatchString(c.URI()) {
+			if !userStatusOpenRe.MatchString(c.URI()) {
 				c.Redirect("/user_status")
 			}
 		} else if c.passwordExpired() && !truthy(c.SessionGet("is_sso")) {

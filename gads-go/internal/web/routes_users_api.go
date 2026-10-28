@@ -86,7 +86,6 @@ func (s *Server) hAPIUsers(c *Ctx) string {
 	if sortBy != "" {
 		for _, f := range site.UserFields() {
 			if f.Description == sortBy {
-				f := f
 				field = &f
 				break
 			}

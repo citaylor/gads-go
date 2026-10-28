@@ -210,8 +210,8 @@ func (e *Engine) Notice(format string, args ...any) {
 	e.addReport(Report{Level: LevelNotice, Msg: sprintf(format, args...)})
 }
 
-// Try runs f, recovering GADS errors and database errors into an error
-// value. Other panics are re-raised.
+// Try runs f, recovering its panic as an error: GADS and database errors as
+// they are, any other (a runtime error) as an internal error (LevelPanic).
 func Try(f func()) (err error) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -235,8 +235,7 @@ func Try(f func()) (err error) {
 	return nil
 }
 
-// TryKeep is like Try but for use where a transaction must be rolled back
-// on failure.
+// TxnTry is Try of f in a transaction, rolled back on failure.
 func (e *Engine) TxnTry(f func()) error {
 	return Try(func() { e.DB.Txn(f) })
 }

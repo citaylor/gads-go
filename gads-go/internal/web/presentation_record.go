@@ -387,7 +387,7 @@ func (c *Ctx) curvalRowHash(col *gads.Column, rec *gads.Record) *tt.Hash {
 	for _, s := range v.Values {
 		vals.Items = append(vals.Items, s)
 	}
-	var valueID any = nilIfZero(v.ID)
+	valueID := nilIfZero(v.ID)
 	if v.AsQuery != "" {
 		valueID = v.AsQuery
 	}

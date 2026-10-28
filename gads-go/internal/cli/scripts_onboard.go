@@ -567,7 +567,7 @@ func onboardUpdateFields(fields []onboardField, input map[int64]any, record *gad
 			}
 			continue
 		}
-		var value any = newv
+		value := newv
 		if n, ok := newv.(int64); ok {
 			value = strconv.FormatInt(n, 10)
 		}

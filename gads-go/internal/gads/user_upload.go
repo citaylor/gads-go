@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/csv"
 	"fmt"
+	"sort"
 	"strings"
 )
 
@@ -50,6 +51,8 @@ func (e *Engine) UploadUsers(content []byte, haveFile bool, o UploadUsersOptions
 			for f := range userFields {
 				valid = append(valid, f)
 			}
+			// (in Perl's hash order, which varies: sorted here)
+			sort.Strings(valid)
 			Fail("The following column headings were found which are invalid: %s. Only the following fields can be used: %s",
 				strings.Join(invalid, ", "), strings.Join(valid, ", "))
 		}

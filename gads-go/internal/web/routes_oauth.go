@@ -12,6 +12,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/ctrlo/gads-go/internal/db"
 	"github.com/ctrlo/gads-go/internal/gads"
@@ -194,9 +195,10 @@ func (s *Server) apiBeforeHook(c *Ctx) {
 	if !ok {
 		return
 	}
-	// $client->user (the related user row, whatever its state)
+	// $client->user. Deviation: Perl takes the user whatever its state, so
+	// that the token of a deleted user works until it expires
 	if uid, ok := db.AsInt64(at["user_id"]); ok {
-		if u := s.E.FindUser(uid); u != nil {
+		if u := s.E.FindUser(uid); u != nil && u.Row["deleted"] == nil && !truthy(u.Row["account_request"]) {
 			c.SetVar("api_user", u)
 		}
 	}
@@ -220,7 +222,7 @@ func (s *Server) hAPIToken(c *Ctx) string {
 	var clientIDSubmit, clientSecret *string
 	// RFC6749 says try auth header first, then fall back to body params
 	if auth, _ := c.RequestHeader("Authorization"); auth != "" {
-		if m := regexp.MustCompile(`^Basic (.+)`).FindStringSubmatch(auth); m != nil {
+		if m := basicAuthRe.FindStringSubmatch(auth); m != nil {
 			if decoded := perlDecodeBase64(m[1]); decoded != "" {
 				f := perlSplit(`:`, decoded)
 				if len(f) > 0 {
@@ -278,9 +280,18 @@ func (s *Server) hAPIToken(c *Ctx) string {
 	return gads.EncodeJSON(response)
 }
 
+var basicAuthRe = regexp.MustCompile(`^Basic (.+)`)
+
+// splitRegexps caches the patterns of perlSplit (literals of the code)
+var splitRegexps sync.Map
+
 // perlSplit is Perl split with a regexp: trailing empty fields are removed
 func perlSplit(pattern, s string) []string {
-	parts := regexp.MustCompile(pattern).Split(s, -1)
+	re, ok := splitRegexps.Load(pattern)
+	if !ok {
+		re, _ = splitRegexps.LoadOrStore(pattern, regexp.MustCompile(pattern))
+	}
+	parts := re.(*regexp.Regexp).Split(s, -1)
 	for len(parts) > 0 && parts[len(parts)-1] == "" {
 		parts = parts[:len(parts)-1]
 	}
@@ -380,7 +391,7 @@ func apiUpdateRecord(record *gads.Record, request map[string]any) {
 
 // apiSerial is the serial of find_serial_id (which errors on an invalid ID)
 func apiSerial(id string) int64 {
-	if !regexp.MustCompile(`^[0-9]+$`).MatchString(id) {
+	if !reDigitsOnly.MatchString(id) {
 		gads.Fail("Invalid serial ID %s", id)
 	}
 	n, _ := strconv.ParseInt(id, 10, 64)

@@ -650,7 +650,7 @@ func (im *importer) run(updateCached bool) {
 				var sorts, groups []map[string]any
 				for _, s := range listOf(v["sorts"]) {
 					sh := hashOf(s)
-					var parent any = sh["parent_id"]
+					parent := sh["parent_id"]
 					if jtrue(parent) {
 						parent = mappedOrNil(im.columnMapping, parent)
 					}
@@ -658,7 +658,7 @@ func (im *importer) run(updateCached bool) {
 				}
 				for _, s := range listOf(v["groups"]) {
 					sh := hashOf(s)
-					var parent any = sh["parent_id"]
+					parent := sh["parent_id"]
 					if jtrue(parent) {
 						parent = mappedOrNil(im.columnMapping, parent)
 					}
