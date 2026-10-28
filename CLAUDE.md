@@ -24,9 +24,13 @@ identical.
   - Never print `gads-go/.env`, which holds passwords. Its mode is 600.
   - Keep this parent directory out of Docker build contexts, because it
     contains `sudo-creds`.
-- **No version control.** None of these directories is a git repository.
-  Snapshot what you are about to change, for example by copying it to the
-  scratchpad, before a broad edit.
+- **Version control.** This directory is the git repository
+  `github.com/citaylor/gads-go` (private, branch `main`, pushed over HTTPS
+  with `gh`). `.gitignore` keeps out `sudo-creds`, `.env`, `upstream/`
+  (separate clones of ctrlo/GADS, see README.md), binaries, caches and the
+  regenerated results; only `results/perl` and `results/perl-pg` are
+  committed. Commit with the GitHub noreply address: pushes with a private
+  email are refused.
 
 ## Layout
 
