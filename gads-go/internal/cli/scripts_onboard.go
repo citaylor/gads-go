@@ -462,7 +462,7 @@ func Onboard(env *Env) {
 		}
 	}
 	if !perlFalse(invalidCSV) {
-		if err := os.WriteFile(env.Path(invalidCSV), []byte(invalid.String()), 0o666); err != nil {
+		if err := os.WriteFile(env.Path(invalidCSV), []byte(invalid.String()), 0o666); err != nil { // #nosec G306 -- as Perl creates the file (0666, less the umask)
 			Die("Failed to create %s: %s", invalidCSV, perlIOError(err))
 		}
 	}

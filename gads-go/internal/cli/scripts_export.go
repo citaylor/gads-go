@@ -45,16 +45,16 @@ func Export(env *Env) {
 		gads.Fail("Please provide site ID with --site-id")
 	}
 	mkdir := func(dir, what string) {
-		if err := os.Mkdir(env.Path(dir), 0o777); err != nil {
+		if err := os.Mkdir(env.Path(dir), 0o777); err != nil { // #nosec G301 -- Perl's mkdir default (0777, less the umask)
 			gads.Fail("Unable to create %s directory: %s", what, perlErr(err))
 		}
 	}
 	write := func(file string, v any) {
-		if err := os.WriteFile(env.Path(file), []byte(perljson.Pretty(v)), 0o666); err != nil {
+		if err := os.WriteFile(env.Path(file), []byte(perljson.Pretty(v)), 0o666); err != nil { // #nosec G306 -- as Perl creates the file (0666, less the umask)
 			gads.Fail("Error opening %s for write: %s", file, perlErr(err))
 		}
 	}
-	if err := os.Mkdir(env.Path("_export"), 0o777); err != nil {
+	if err := os.Mkdir(env.Path("_export"), 0o777); err != nil { // #nosec G301 -- Perl's mkdir default (0777, less the umask)
 		gads.Fail("Unable to create export directory: %s", perlErr(err))
 	}
 	e := env.E

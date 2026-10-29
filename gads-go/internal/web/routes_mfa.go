@@ -30,7 +30,7 @@ func (s *Server) mfaBeforeHook(c *Ctx) {
 
 // refreshRecentMFACookie is _refresh_recent_mfa_cookie
 func (c *Ctx) refreshRecentMFACookie(key string) {
-	c.SetCookie(&http.Cookie{Name: "MFATOKEN", Value: key, Path: "/", Secure: true, HttpOnly: true,
+	c.SetCookie(&http.Cookie{Name: "MFATOKEN", Value: key, Path: "/", Secure: true, HttpOnly: true, // #nosec G124 -- Secure and HttpOnly; SameSite is the browser's default, as Perl
 		Expires: c.E.Now().Add(48 * time.Hour)})
 }
 

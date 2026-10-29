@@ -134,7 +134,7 @@ func ImportUser(env *Env) {
 		Die("Usage: %s filename", "bin/import-user.pl")
 	}
 	file := env.Args[0]
-	content, err := os.ReadFile(file)
+	content, err := os.ReadFile(file) // #nosec G304 -- a file named on the script's command line
 	if err != nil {
 		Die("%s: %s", file, perlIOError(err))
 	}

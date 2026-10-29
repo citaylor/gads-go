@@ -1,10 +1,10 @@
 package web
 
 import (
-	"crypto/md5"
+	"crypto/md5" // #nosec G501 -- checks the legacy Crypt::SaltedHash formats of Perl GADS
 	"crypto/pbkdf2"
 	"crypto/rand"
-	"crypto/sha1"
+	"crypto/sha1" // #nosec G505 -- checks the legacy Crypt::SaltedHash formats of Perl GADS
 	"crypto/sha256"
 	"crypto/sha512"
 	"crypto/subtle"

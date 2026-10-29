@@ -448,7 +448,7 @@ func perlSprintf(format string, args []any) string {
 			}
 		case 'u':
 			v, _ := perlInt(next()).(int64)
-			fmt.Fprintf(&b, spec+"d", uint64(v))
+			fmt.Fprintf(&b, spec+"d", uint64(v)) // #nosec G115 -- Perl's %u of a negative number
 		case 'f', 'F', 'e', 'E', 'g', 'G':
 			fmt.Fprintf(&b, spec+string(conv), Float(next()))
 		case 'x', 'X', 'o', 'b', 'B':
@@ -457,10 +457,10 @@ func perlSprintf(format string, args []any) string {
 			if c == 'B' {
 				c = 'b'
 			}
-			fmt.Fprintf(&b, spec+string(c), uint64(v))
+			fmt.Fprintf(&b, spec+string(c), uint64(v)) // #nosec G115 -- Perl's %x/%o/%b of a negative number
 		case 'c':
 			v, _ := perlInt(next()).(int64)
-			b.WriteRune(rune(v))
+			b.WriteRune(rune(v)) // #nosec G115 -- Perl's %c; an invalid code point is written as U+FFFD
 		default:
 			b.WriteString(format[i : j+1])
 		}

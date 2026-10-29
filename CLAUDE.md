@@ -33,8 +33,15 @@ identical.
 - **CI.** `.github/workflows/ci.yml` runs on every push and weekly. It runs
   the tests (with parity and the hardened scenarios) and the race detector,
   the linters of "Build and test" (versions pinned there), and the hardened
-  scenarios on PostgreSQL. Keep it passing, and update its pins with the
-  local tools.
+  scenarios on PostgreSQL. Its `security` job runs gosec, gitleaks on the
+  whole history and Trivy on the built image and the Docker files
+  (pinned releases checked by SHA-256), and sends gosec and Trivy results
+  to the Security tab, beside CodeQL. Keep it passing, and update its pins
+  with the local tools.
+- **Code scanning.** The repository is public. CodeQL (default setup),
+  Dependabot, secret scanning and push protection are on. An alert that
+  is not a defect is dismissed on GitHub with its reason; a gosec finding
+  of that kind gets `// #nosec Gnnn -- reason` on its line.
 - **Upstream submodules.** `upstream/GADS-dev` (branch `dev`) and
   `upstream/GADS` (branch `master`) are submodules of
   `https://github.com/ctrlo/GADS.git`, pinned to the commits the golden
@@ -96,6 +103,9 @@ go build ./...                          # everything (cgo)
 go build -o bin/gads ./cmd/gads         # the application binary
 go vet ./... && staticcheck ./...       # staticcheck.conf disables ST1005 and SA6005, with reasons
 govulncheck ./...                       # must report no vulnerabilities
+gosec -exclude=G104 -exclude-generated -exclude-dir=conformance \
+  -exclude-dir=cmd/gads-bench -exclude-dir=cmd/gads-conformance \
+  -exclude-dir=cmd/gads-compare ./...   # as CI: no issues (G104 is the errors Perl ignores)
 go test ./...                           # unit tests, all scenarios against the Perl golden, and the hardened scenarios (about 25 s)
 go test ./conformance -run 'TestConformance/205_'   # one scenario
 ```

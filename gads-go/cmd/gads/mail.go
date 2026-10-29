@@ -260,7 +260,7 @@ func sendmailTo(envelopeFrom, to string, msg []byte) error {
 	if envelopeFrom != "" {
 		args = append(args, "-f", envelopeFrom)
 	}
-	cmd := exec.Command(path, args...)
+	cmd := exec.Command(path, args...) // #nosec G204 -- sendmail from PATH; the sender is always the argument of -f
 	cmd.Stdin = bytes.NewReader(msg)
 	if out, err := cmd.CombinedOutput(); err != nil {
 		return fmt.Errorf("%s: %s", err, strings.TrimSpace(string(out)))

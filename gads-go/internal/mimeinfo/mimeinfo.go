@@ -54,7 +54,7 @@ func load() {
 var extRe = regexp.MustCompile(`^\*\.([\p{L}\p{N}_]+(?:\.[\p{L}\p{N}_]+)*)$`)
 
 func hashGlobs(file string) {
-	f, err := os.Open(file)
+	f, err := os.Open(file) // #nosec G304 -- the shared-mime-info database files
 	if err != nil {
 		return
 	}
@@ -130,7 +130,7 @@ func fromGlobs(name string) (string, bool) {
 // fromContents is File::MimeInfo default: plain text unless the start of
 // the file has control characters
 func fromContents(file string) string {
-	f, err := os.Open(file)
+	f, err := os.Open(file) // #nosec G304 -- the shared-mime-info database files
 	if err != nil {
 		return ""
 	}

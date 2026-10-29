@@ -244,7 +244,7 @@ func MoveLayout(env *Env) {
 	if out == nil {
 		out = []any{}
 	}
-	if err := os.WriteFile(env.Path(dumpFile), []byte(yamlxs.Dump(out)), 0o666); err != nil {
+	if err := os.WriteFile(env.Path(dumpFile), []byte(yamlxs.Dump(out)), 0o666); err != nil { // #nosec G306 -- as Perl creates the file (0666, less the umask)
 		Die("YAML::XS::DumpFile Can't open '%s' for output:\n%s", dumpFile, perlErr(err))
 	}
 }

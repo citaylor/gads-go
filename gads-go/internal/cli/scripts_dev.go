@@ -118,7 +118,7 @@ func importPermissions(env *Env, file string) {
 		// The message is not translated, so its placeholder remains
 		gads.Fail("File '{file}' does not exist")
 	}
-	content, err := os.ReadFile(file)
+	content, err := os.ReadFile(file) // #nosec G304 -- a file named on the script's command line
 	if err != nil {
 		permissionsFault(env, "Unable to open file {file}", err)
 	}
@@ -180,7 +180,7 @@ func exportPermissions(env *Env, file string) {
 		gads.Fail("You need to enter a number or a comma-separated list of numbers.\n")
 	}
 	groups := reListSplit.Split(input, -1)
-	f, err := os.Create(file)
+	f, err := os.Create(file) // #nosec G304 -- a file named on the script's command line
 	if err != nil {
 		permissionsFault(env, file, err)
 	}

@@ -438,7 +438,7 @@ func (c *Ctx) Cookie(name string) (string, bool) {
 // (expired)
 func (c *Ctx) sessionCookie(id string, destroyed bool) *http.Cookie {
 	cfg := c.s.Config.Session
-	ck := &http.Cookie{Name: cfg.CookieName, Value: id, Path: cfg.CookiePath, Domain: cfg.CookieDomain,
+	ck := &http.Cookie{Name: cfg.CookieName, Value: id, Path: cfg.CookiePath, Domain: cfg.CookieDomain, // #nosec G124 -- Secure, HttpOnly and SameSite come from the session engine's configuration, as Dancer2
 		Secure: cfg.Secure, HttpOnly: cfg.HTTPOnly, SameSite: cfg.SameSite}
 	// Hardened: SameSite=Lax unless configured (H-1, M-8)
 	if ck.SameSite == 0 && c.E.Config.Hardened {
@@ -626,14 +626,14 @@ func (s *Server) serveStatic(w http.ResponseWriter, req *http.Request) bool {
 		return false
 	}
 	full := filepath.Join(s.Public, p)
-	st, err := os.Stat(full)
+	st, err := os.Stat(full) // #nosec G703 -- the path is cleaned from / first, so it stays in Public
 	if err != nil || st.IsDir() {
 		return false
 	}
 	if s.E != nil && s.E.Config.Hardened {
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 	}
-	http.ServeFile(w, req, full)
+	http.ServeFile(w, req, full) // #nosec G703 -- the path is cleaned from / first, so it stays in Public
 	return true
 }
 

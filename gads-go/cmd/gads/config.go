@@ -31,7 +31,7 @@ func loadConfig(dir, environment string) (*appConfig, error) {
 	}
 	found := false
 	for i, f := range files {
-		b, err := os.ReadFile(f)
+		b, err := os.ReadFile(f) // #nosec G304 -- the configuration directory given to gads
 		if err != nil {
 			if os.IsNotExist(err) && i > 0 {
 				continue

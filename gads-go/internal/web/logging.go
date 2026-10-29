@@ -229,7 +229,7 @@ func (s *Server) checkHealth(ctx context.Context) error {
 	}
 	if h.running == nil {
 		h.running = make(chan struct{})
-		go s.runHealthCheck(h.running)
+		go s.runHealthCheck(h.running) // #nosec G118 -- the shared check outlives the request that started it
 	}
 	done := h.running
 	h.mu.Unlock()

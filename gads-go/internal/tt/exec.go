@@ -111,7 +111,7 @@ func (e *Engine) load(path string) ([]byte, error) {
 	if e.Load != nil {
 		return e.Load(path)
 	}
-	return os.ReadFile(path)
+	return os.ReadFile(path) // #nosec G304 -- template names come from GADS's views; ../ is refused
 }
 
 var relativePathRe = regexp.MustCompile(`(?:^|/)\.+/`)

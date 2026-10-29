@@ -172,7 +172,7 @@ func (s *Server) oauthNewToken() string {
 		n, _ := rand.Int(rand.Reader, big.NewInt(int64(len(chars))))
 		b[i] = chars[n.Int64()]
 	}
-	raw := fmt.Sprintf("%d-%d-%v-%s", now.Unix(), now.Nanosecond()/1000, mrand.Float64(), string(b))
+	raw := fmt.Sprintf("%d-%d-%v-%s", now.Unix(), now.Nanosecond()/1000, mrand.Float64(), string(b)) // #nosec G404 -- the token's randomness is the 30 crypto/rand characters; this is Perl's rand()
 	return base64.StdEncoding.EncodeToString([]byte(raw))
 }
 

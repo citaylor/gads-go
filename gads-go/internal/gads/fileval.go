@@ -59,7 +59,7 @@ func (e *Engine) FilevalCreate(row map[string]any, content []byte) int64 {
 		if err := os.MkdirAll(filepath.Dir(path), 0o750); err != nil {
 			Fail("mkdir %s: %s", filepath.Dir(path), err)
 		}
-		if err := os.WriteFile(path, content, 0o640); err != nil {
+		if err := os.WriteFile(path, content, 0o640); err != nil { // #nosec G306 -- 0640 as the other upload files (the group is the web server's)
 			Fail("Can't write to file '%s': %s", path, err)
 		}
 	})
@@ -70,7 +70,7 @@ func (e *Engine) FilevalCreate(row map[string]any, content []byte) int64 {
 // stored file
 func (e *Engine) FilevalContent(id int64) []byte {
 	path := e.FilevalPath(id)
-	b, err := os.ReadFile(path)
+	b, err := os.ReadFile(path) // #nosec G304 -- the path is made from the numeric file ID
 	if err != nil {
 		Fail("File not found!")
 	}

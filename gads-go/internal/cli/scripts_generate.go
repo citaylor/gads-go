@@ -50,7 +50,7 @@ func randomValue(e *gads.Engine, col *gads.Column) (string, bool) {
 			// A tree with no values loops for ever in GADS
 			return "", true
 		}
-		return vals[rand.Intn(len(vals))], true
+		return vals[rand.Intn(len(vals))], true // #nosec G404 -- random test data
 	case "curval":
 		var ids []int64
 		if ref := col.RefersToInstanceID(); ref != nil {
@@ -59,13 +59,13 @@ func randomValue(e *gads.Engine, col *gads.Column) (string, bool) {
 		if len(ids) == 0 {
 			return "", true
 		}
-		return strconv.FormatInt(ids[rand.Intn(len(ids))], 10), true
+		return strconv.FormatInt(ids[rand.Intn(len(ids))], 10), true // #nosec G404 -- random test data
 	case "person":
 		people := col.People()
 		if len(people) == 0 {
 			Die(`Can't call method "value" on an undefined value`)
 		}
-		return people[rand.Intn(len(people))].Value, true
+		return people[rand.Intn(len(people))].Value, true // #nosec G404 -- random test data
 	}
 	return "", false
 }
@@ -102,7 +102,7 @@ func Generate(env *Env) {
 	start := time.Date(2013, 10, 16, 0, 0, 0, 0, time.UTC)
 	end := time.Date(2020, 8, 23, 0, 0, 0, 0, time.UTC)
 	randomDate := func() time.Time {
-		return start.Add(time.Duration(rand.Int63n(int64(end.Sub(start)))))
+		return start.Add(time.Duration(rand.Int63n(int64(end.Sub(start))))) // #nosec G404 -- random test data
 	}
 	format := e.Config.DateFormat
 	if format == "" {
@@ -119,7 +119,7 @@ func Generate(env *Env) {
 			}
 			switch col.Type {
 			case "intgr":
-				row = append(row, strconv.Itoa(rand.Intn(100000)))
+				row = append(row, strconv.Itoa(rand.Intn(100000))) // #nosec G404 -- random test data
 			case "date":
 				row = append(row, cldr.Format(randomDate(), format))
 			case "daterange":
@@ -134,7 +134,7 @@ func Generate(env *Env) {
 		}
 		out.WriteString(csvLine(row))
 	}
-	if err := os.WriteFile(env.Path("new.csv"), []byte(out.String()), 0o666); err != nil {
+	if err := os.WriteFile(env.Path("new.csv"), []byte(out.String()), 0o666); err != nil { // #nosec G306 -- as Perl creates the file (0666, less the umask)
 		Die("new.csv: %s", perlErr(err))
 	}
 }

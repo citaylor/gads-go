@@ -63,10 +63,10 @@ func (s *Server) successfulLogin(c *Ctx, username, realm string) {
 	c.SessionSet("logged_in_user_realm", realm)
 	c.clearUserCache()
 	if v, _ := c.Param("remember_me"); truthy(v) {
-		c.SetCookie(&http.Cookie{Name: "remember_me", Value: url.QueryEscape(username), Path: "/",
+		c.SetCookie(&http.Cookie{Name: "remember_me", Value: url.QueryEscape(username), Path: "/", // #nosec G124 -- Secure on HTTPS and HttpOnly, as Perl
 			Expires: s.E.Now().Add(60 * 24 * time.Hour), Secure: c.Scheme() == "https", HttpOnly: true})
 	} else if _, ok := c.Cookie("remember_me"); ok {
-		c.SetCookie(&http.Cookie{Name: "remember_me", Value: "", Path: "/", Expires: s.E.Now().Add(-24 * time.Hour)})
+		c.SetCookie(&http.Cookie{Name: "remember_me", Value: "", Path: "/", Expires: s.E.Now().Add(-24 * time.Hour)}) // #nosec G124 -- an expired, empty cookie that clears remember_me
 	}
 	user := c.LoggedInUser()
 	s.E.Audit(map[string]any{

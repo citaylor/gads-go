@@ -231,12 +231,12 @@ func Num(v any) any {
 	case string:
 		return numifyString(t)
 	case *List, *Hash, Code, *Iterator:
-		return int64(reflectPointer(t))
+		return int64(reflectPointer(t)) // #nosec G115 -- a pointer as a number, as Perl numifies a reference
 	}
 	if s, ok := v.(Stringer); ok {
 		return numifyString(s.TTString())
 	}
-	return int64(reflectPointer(v))
+	return int64(reflectPointer(v)) // #nosec G115 -- a pointer as a number, as Perl numifies a reference
 }
 
 func numifyString(s string) any {

@@ -151,7 +151,7 @@ func ImportDoc(env *Env) {
 	}
 	path := env.Path(file)
 	mime := mimeinfo.Mimetype(path)
-	content, err := os.ReadFile(path)
+	content, err := os.ReadFile(path) // #nosec G304 -- a file named on the script's command line
 	if err != nil {
 		Die("read_file '%s' - open: %s", file, perlErr(err))
 	}

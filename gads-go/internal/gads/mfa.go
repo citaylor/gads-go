@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"crypto/hmac"
 	"crypto/rand"
-	"crypto/sha1"
+	"crypto/sha1" // #nosec G505 -- TOTP (RFC 6238) and Yubikey OTPs are HMAC-SHA1
 	"encoding/base32"
 	"encoding/base64"
 	"encoding/binary"
@@ -179,7 +179,7 @@ func (u *User) KeyQRBase64(key string) string {
 // totp is Authen::OATH totp (SHA1, 6 digits, 30 second steps)
 func totp(secret []byte, now time.Time) string {
 	var msg [8]byte
-	binary.BigEndian.PutUint64(msg[:], uint64(now.Unix()/30))
+	binary.BigEndian.PutUint64(msg[:], uint64(now.Unix()/30)) // #nosec G115 -- the time step is positive
 	h := hmac.New(sha1.New, secret)
 	h.Write(msg[:])
 	sum := h.Sum(nil)
