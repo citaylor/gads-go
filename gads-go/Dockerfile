@@ -56,6 +56,10 @@ RUN apt-get update \
 COPY --from=build /out/gads /usr/local/bin/gads
 COPY --from=gads-upstream views /usr/share/gads/views
 COPY --from=gads-upstream public /usr/share/gads/public
+# The licences: the AGPL (GADS's LICENSE, the same text as this project's),
+# and NOTICE with the third-party licence texts
+COPY --from=gads-upstream LICENSE /usr/share/doc/gads/LICENSE
+COPY THIRD-PARTY-LICENSES /usr/share/doc/gads/THIRD-PARTY-LICENSES
 COPY docker/config.yml /etc/gads/config.yml
 COPY docker/entrypoint.sh /usr/local/bin/gads-entrypoint
 # The entrypoint writes the database settings to environments/docker.yml

@@ -54,6 +54,9 @@ jobs:
           go install golang.org/x/vuln/cmd/govulncheck@v1.9.0
           go install golang.org/x/tools/cmd/deadcode@v0.52.0
       - run: staticcheck ./...
+      # The licence texts for the binary must match go.mod and NOTICE
+      - name: THIRD-PARTY-LICENSES is current
+        run: ./third-party-licenses.sh && git diff --exit-code THIRD-PARTY-LICENSES
       - run: govulncheck ./...
       # goLuaCallback is a cgo export, which deadcode cannot see called
       - name: deadcode

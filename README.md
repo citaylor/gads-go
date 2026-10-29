@@ -110,6 +110,10 @@ Report a vulnerability in this port privately through
 ## Licence
 
 GADS is licensed under the GNU Affero General Public License version 3,
-and so is this port: see [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
+and so is this port: see [`LICENSE`](LICENSE). [`NOTICE`](NOTICE) lists
+GADS, what this repository takes or generates from it, and every other
+work it includes, with their licences; the licence texts of the code in
+the binary are in
+[`gads-go/THIRD-PARTY-LICENSES`](gads-go/THIRD-PARTY-LICENSES).
 If you run a modified version as a network service, the AGPL requires you
 to offer its source to its users.

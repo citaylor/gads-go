@@ -1,10 +1,129 @@
 GADS Go port
+https://github.com/citaylor/gads-go
 
-A port to Go of GADS (https://github.com/ctrlo/GADS), Copyright Ctrl O Ltd
-and contributors, which is licensed under the GNU Affero General Public
-License version 3. This port, which renders the GADS templates and
-reproduces its behaviour, is distributed under the same licence: see
-LICENSE.
+This project is licensed under the GNU Affero General Public License
+version 3 (LICENSE). It contains, is derived from, or reproduces the work
+listed below, each under its own licence. The full licence texts of the
+code compiled into the gads binary are in gads-go/THIRD-PARTY-LICENSES,
+which the Docker image installs in /usr/share/doc/gads/.
 
-The vendored Lua 5.3.6 in gads-go/internal/lua is under the MIT licence
-(Copyright Lua.org, PUC-Rio), as stated in its own sources.
+This is an independent project. It is not made, endorsed or supported by
+Ctrl O Ltd.
+
+
+1. GADS
+-------
+
+GADS (Globally Accessible Data Store)
+https://github.com/ctrlo/GADS
+Copyright (C) Ctrl O Ltd and the GADS contributors
+Licence: GNU Affero General Public License version 3
+
+The Go code is a port of GADS: its classes, routes, messages, SQL and
+behaviour follow the Perl code, and doc comments name the Perl original.
+Material taken or generated from GADS:
+
+- upstream/GADS-dev and upstream/GADS: GADS itself, as git submodules
+  (references to the GADS repository at fixed commits, not copies).
+- gads-go/internal/db/sql_sqlite.sql and sql_postgres.sql: the GADS
+  database schema, the tables that its DBIx::Class classes
+  (lib/GADS/Schema) define, as SQL for each database.
+- gads-go/internal/web/routes.go: the route table of lib/GADS.pm and
+  lib/GADS/API.pm.
+- gads-go/conformance/datasheet.go: a port of GADS's test library
+  t/lib/Test/GADS/DataSheet.pm.
+- conformance/results/perl*: output recorded from running GADS,
+  including HTML rendered from its templates.
+- The Docker image: the GADS views (views/) and public files (public/),
+  copied unchanged from the GADS repository at build time. The public
+  files include GADS's compiled JavaScript and CSS, which bundle
+  third-party libraries under their own licences (see GADS's
+  package.json), and fonts (Open Sans, Summernote's icons and GADS's
+  linkspace-font) under their own licences.
+
+
+2. Code compiled into gads
+--------------------------
+
+Lua 5.3.6, vendored in gads-go/internal/lua
+  Copyright (C) 1994-2020 Lua.org, PUC-Rio.
+  MIT License.
+
+SQLite 3.53.4 (in github.com/mattn/go-sqlite3, and translated to Go in
+modernc.org/sqlite)
+  Public domain.
+
+The Go standard library
+  Copyright 2009 The Go Authors. BSD 3-Clause License.
+
+Go modules (versions as in gads-go/go.mod):
+  github.com/jackc/pgx/v5, pgpassfile, pgservicefile, puddle/v2
+      Copyright (c) Jack Christensen. MIT License.
+  github.com/mattn/go-sqlite3
+      Copyright (c) 2014 Yasuhiro Matsumoto. MIT License.
+  github.com/dlclark/regexp2
+      Copyright (c) Doug Clark. MIT License.
+  github.com/aymerick/douceur
+      Copyright (c) 2015 Aymerick JEHANNE. MIT License.
+  github.com/dustin/go-humanize
+      Copyright (c) 2005-2008 Dustin Sallings. MIT License.
+  gopkg.in/yaml.v3
+      Copyright (c) 2006-2011 Kirill Simonov; Copyright 2011-2016
+      Canonical Ltd. MIT License and Apache License 2.0. Its NOTICE:
+      "Copyright 2011-2016 Canonical Ltd. Licensed under the Apache
+      License, Version 2.0."
+  github.com/microcosm-cc/bluemonday
+      Copyright (c) 2014, David Kitchen. BSD 3-Clause License.
+  github.com/gorilla/css
+      Copyright (c) 2023 The Gorilla Authors. BSD 3-Clause License.
+  github.com/google/uuid
+      Copyright (c) 2009,2014 Google Inc. BSD 3-Clause License.
+  golang.org/x/net, x/sync, x/sys, x/text
+      Copyright 2009 The Go Authors. BSD 3-Clause License.
+  rsc.io/qr
+      Copyright (c) 2009 The Go Authors. BSD 3-Clause License.
+  modernc.org/sqlite, libc, mathutil, memory (with -tags modernc)
+      Copyright (c) The Sqlite, Libc, mathutil and Memory Authors.
+      BSD 3-Clause License.
+  github.com/remyoudompheng/bigfft (with -tags modernc)
+      Copyright (c) 2012 The Go Authors. BSD 3-Clause License.
+
+
+3. Data generated from other works
+----------------------------------
+
+gads-go/internal/gads/eff_large.txt
+  EFF's long word list for passphrases, as used by GADS through
+  CtrlO::Crypt::XkcdPassword. Copyright Electronic Frontier Foundation,
+  https://www.eff.org/dice. Creative Commons Attribution 3.0 United
+  States (CC BY 3.0 US).
+
+gads-go/internal/gads/holidays_gb.go
+  Generated from Date::Holidays::GB 0.025 (Michael Jemmeson; Perl 5
+  licence). Its dates come from GOV.UK: contains public sector
+  information licensed under the Open Government Licence v3.0.
+
+gads-go/internal/tt/grammar_tables.go
+  Parser tables generated from Template::Grammar in the Template Toolkit
+  3.106 (Andy Wardley; Perl 5 licence, which is the Artistic License or
+  the GNU GPL version 1 or later).
+
+gads-go/internal/tt/entities_gen.go
+  The entity table of HTML::Entities in HTML-Parser 3.86 (Gisle Aas;
+  Perl 5 licence).
+
+
+4. Behaviour reproduced (no code copied)
+----------------------------------------
+
+To behave as GADS does, the Go code reimplements the behaviour of these
+Perl modules and data, without copying their code. All are under the
+Perl 5 licence unless stated.
+
+  Dancer2, DBIx::Class, Log::Report, Template Toolkit,
+  JSON::PP, YAML::XS (YAML-LibYAML), Text::CSV,
+  DateTime::Format::CLDR and DateTime::Locale (en-US CLDR names; the
+  Unicode CLDR data is under the Unicode License),
+  Net::SAML2, Crypt::SaltedHash, Authen::OATH, Inline::Lua (ctrlo fork),
+  File::MimeInfo (reads the freedesktop.org shared-mime-info database
+  installed on the system, which is not included).

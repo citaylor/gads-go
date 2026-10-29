@@ -30,6 +30,13 @@ identical.
   caches and the regenerated results; only `results/perl` and
   `results/perl-pg` are committed. Commit with the GitHub noreply address:
   pushes with a private email are refused.
+- **Licences.** `LICENSE` is the AGPL text, unchanged. `NOTICE` lists
+  GADS (and what is taken or generated from it) and every other work in
+  the repository or the binary, with its licence. After changing
+  `go.mod` or `NOTICE`, or adding anything from another project, update
+  `NOTICE` and run `gads-go/third-party-licenses.sh`, which regenerates
+  `gads-go/THIRD-PARTY-LICENSES` (NOTICE and the licence texts, installed
+  in the image's `/usr/share/doc/gads`). CI checks that it is current.
 - **CI.** `.github/workflows/ci.yml` runs on every push and weekly. It runs
   the tests (with parity and the hardened scenarios) and the race detector,
   the linters of "Build and test" (versions pinned there), and the hardened
