@@ -167,6 +167,11 @@ func (c *Ctx) logError(msg *Message, runtimePanic bool) {
 // table with the short name healthz.
 const healthPath = "/healthz"
 
+// healthRateLimit is how many health checks a client address may make in
+// each rateWindow, hardened or not: Docker's make 2 a minute (30 while the
+// container starts)
+const healthRateLimit = 60
+
 // healthTimeout is how long the health check waits for the engine and the
 // database, and healthCache how long its result is kept
 var (
@@ -189,9 +194,17 @@ type healthState struct {
 // most one check runs at a time, and its result is kept for healthCache,
 // so that calls cannot queue for the engine.
 func (s *Server) health(w http.ResponseWriter, req *http.Request) {
-	err := s.checkHealth(req.Context())
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Header().Set("Cache-Control", "no-store")
+	if !s.healthLimiter.allow(s.clientAddr(req), time.Now()) {
+		w.Header().Set("Retry-After", "60")
+		w.WriteHeader(http.StatusTooManyRequests)
+		if req.Method != "HEAD" {
+			w.Write([]byte("too many requests\n"))
+		}
+		return
+	}
+	err := s.checkHealth(req.Context())
 	if err != nil {
 		w.WriteHeader(http.StatusServiceUnavailable)
 		if req.Method != "HEAD" {

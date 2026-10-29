@@ -149,6 +149,33 @@ func TestErrorLog(t *testing.T) {
 	}
 }
 
+// Health checks are limited per client address
+func TestHealthRateLimit(t *testing.T) {
+	s := testServer(t)
+	get := func(addr string) int {
+		req := httptest.NewRequest("GET", healthPath, nil)
+		req.RemoteAddr = addr + ":1234"
+		w := httptest.NewRecorder()
+		s.ServeHTTP(w, req)
+		return w.Code
+	}
+	for i := 0; i < healthRateLimit; i++ {
+		if code := get("10.0.0.1"); code != 200 {
+			t.Fatalf("check %d: %d", i+1, code)
+		}
+	}
+	if code := get("10.0.0.1"); code != http.StatusTooManyRequests {
+		t.Errorf("check over the limit: %d", code)
+	}
+	if code := get("10.0.0.2"); code != 200 {
+		t.Errorf("other address: %d", code)
+	}
+	// Login posts keep their own limit
+	if s.limiter.limit != 0 || !s.limiter.allow("10.0.0.1", time.Now()) {
+		t.Error("health checks counted in the login limit")
+	}
+}
+
 // Health checks share one check, whose result is kept for healthCache, so
 // that calls do not queue for the engine
 func TestHealthShared(t *testing.T) {

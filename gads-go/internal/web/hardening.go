@@ -92,6 +92,8 @@ const (
 var rateLimited = regexp.MustCompile(`^/(login|register|resetpw(/.*)?|api/token)$`)
 
 type rateLimiter struct {
+	// limit is the number of requests allowed in a window (0: rateLimit)
+	limit  int
 	mu     sync.Mutex
 	start  time.Time
 	counts map[string]int
@@ -105,7 +107,11 @@ func (r *rateLimiter) allow(addr string, now time.Time) bool {
 		r.start, r.counts = now, map[string]int{}
 	}
 	r.counts[addr]++
-	return r.counts[addr] <= rateLimit
+	limit := r.limit
+	if limit == 0 {
+		limit = rateLimit
+	}
+	return r.counts[addr] <= limit
 }
 
 // clientAddr is the address of the client (the one the proxy reports,

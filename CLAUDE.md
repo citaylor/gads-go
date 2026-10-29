@@ -253,6 +253,8 @@ Configuration works as in Dancer2:
 - `GET /healthz` (no login) answers `ok` when the engine is free within
   10 s and the database answers, otherwise 503. One check runs at a time
   and its result is kept for 1 s, so calls can't queue for the engine.
+  Each client address may make 60 checks a minute (then 429), hardened
+  or not; Docker's own checks come from 127.0.0.1 and count apart.
   `gads healthcheck [-url URL]` checks it (the default URL follows
   `GADS_LISTEN`), for the image's `HEALTHCHECK`.
 - On PostgreSQL, a connection the server dropped (a restart) is replaced

@@ -103,8 +103,9 @@ type Server struct {
 	router   *Router
 	sessions *sessionStore
 	limiter  rateLimiter
-	// healthState is the health check
-	healthState healthState
+	// healthState is the health check, and healthLimiter its rate limit
+	healthState   healthState
+	healthLimiter rateLimiter
 	// GADS (as Perl Dancer2 with a single worker) processes one request at
 	// a time: the engine is not safe for concurrent use
 	mu sync.Mutex
@@ -125,6 +126,7 @@ func New(e *gads.Engine, cfg *Config, views, public string) *Server {
 		router:   &Router{},
 		sessions: newSessionStore(cfg.Session.IdleTimeout),
 	}
+	s.healthLimiter.limit = healthRateLimit
 	s.TT = tt.NewEngine(views)
 	s.TT.Filters = map[string]func(string) string{}
 	s.routes()
