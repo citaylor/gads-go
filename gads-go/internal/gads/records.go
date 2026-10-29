@@ -1378,7 +1378,17 @@ func (r *Records) orderBy(o orderByOpts) []orderTerm {
 			terms = append(terms, orderTerm{random: true})
 			continue
 		}
-		dir := strings.ToUpper(s.Type)
+		// The direction goes into the SQL, so only these two (the URL, view
+		// and table sorts are all checked before they get here)
+		var dir string
+		switch strings.ToUpper(s.Type) {
+		case "ASC":
+			dir = "ASC"
+		case "DESC":
+			dir = "DESC"
+		default:
+			Panic("Invalid sort type %s", s.Type)
+		}
 		column := r.Layout.ColumnPerm(s.ID, "read")
 		if column == nil {
 			continue
