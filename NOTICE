@@ -1,0 +1,10 @@
+GADS Go port
+
+A port to Go of GADS (https://github.com/ctrlo/GADS), Copyright Ctrl O Ltd
+and contributors, which is licensed under the GNU Affero General Public
+License version 3. This port, which renders the GADS templates and
+reproduces its behaviour, is distributed under the same licence: see
+LICENSE.
+
+The vendored Lua 5.3.6 in gads-go/internal/lua is under the MIT licence
+(Copyright Lua.org, PUC-Rio), as stated in its own sources.
