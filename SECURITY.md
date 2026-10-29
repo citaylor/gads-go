@@ -1,21 +1,53 @@
-# Security Policy
+# Security policy
 
-## Supported Versions
+## Supported versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+This project has no releases yet. Security fixes go to the `main` branch
+only, so run the latest `main`.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+## Reporting a vulnerability
 
-## Reporting a Vulnerability
+Report a vulnerability in this Go port privately, through
+[GitHub's private vulnerability reporting](https://github.com/citaylor/gads-go/security/advisories/new)
+(the **Report a vulnerability** button on the Security tab). Please don't
+open a public issue for it.
 
-Use this section to tell people how to report a vulnerability.
+Include what you can of:
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+- the affected route, script or package, and the commit you tested;
+- the steps to reproduce it, or a proof of concept;
+- the configuration that matters, for example `gads: hardened: 0` or the
+  database used.
+
+This is a project maintained by one person in their spare time. You can
+expect:
+
+- an acknowledgement within 7 days;
+- an assessment (accepted or declined, with the reason) within 30 days;
+- for an accepted report, a fix on `main` and a published advisory that
+  credits you, unless you prefer not to be named.
+
+## Scope
+
+In scope: the Go code in `gads-go/`, the Docker setup in `gads-go/docker/`
+and `docker-compose.yml`, and the CI workflows.
+
+Out of scope:
+
+- **Perl GADS.** The Perl application in `upstream/` belongs to the
+  [GADS project](https://github.com/ctrlo/GADS). Report its
+  vulnerabilities to its maintainers, Ctrl O, not here.
+- **Behaviour that is Perl's on purpose.** With `gads: hardened: 0`, the
+  port reproduces Perl GADS exactly, including the weaknesses that
+  hardened mode fixes. Those are documented in
+  [`CLAUDE.md`](CLAUDE.md#security), and so are the findings that are
+  deliberately not fixed.
+- **The test tools.** The conformance runner, the benchmark tools and the
+  scenarios are for development, not deployment.
+
+## Hardened mode
+
+The application runs in hardened mode unless `gads: hardened: 0` is set.
+It fixes the critical, high and medium findings of a security review of
+Perl GADS, which is in
+[`GADS-security-report-verified.md`](GADS-security-report-verified.md).
