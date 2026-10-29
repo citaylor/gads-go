@@ -8,6 +8,10 @@ layout: "main"
 charset: "UTF-8"
 template: "template_toolkit"
 logger: LogReport
+# gads serve logs each request and error to stdout (docker compose logs),
+# at this Dancer2 level: core or debug, info (the default), warning (no
+# request lines) or error. gads: log_format: json writes JSON lines.
+# log: info
 
 # Set to 1 when served behind a reverse proxy (X-Forwarded-* headers)
 behind_proxy: 0

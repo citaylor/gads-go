@@ -179,6 +179,9 @@ func (d *DB) Close() error {
 	return d.raw.Close()
 }
 
+// Ping checks that the database answers on the session's connection
+func (d *DB) Ping(ctx context.Context) error { return d.conn.PingContext(ctx) }
+
 // Deploy creates all GADS tables (as DBIx::Class deploy does).
 func (d *DB) Deploy() error {
 	schema := sqliteSchema

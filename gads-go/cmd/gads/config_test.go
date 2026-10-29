@@ -1,9 +1,12 @@
 package main
 
 import (
+	"context"
+	"log/slog"
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -123,4 +126,47 @@ func TestSessionConfig(t *testing.T) {
 	if got := (&appConfig{raw: map[string]any{}}).webConfig().Session; got != web.DefaultConfig().Session {
 		t.Errorf("default session config %+v", got)
 	}
+}
+
+// The log of serve takes the Dancer2 log level and gads: log_format
+func TestLogger(t *testing.T) {
+	for _, tc := range []struct {
+		raw  map[string]any
+		want string // what a warning and an info message write, or "error"
+	}{
+		{map[string]any{}, "level=WARN msg=w\nlevel=INFO msg=i\n"},
+		{map[string]any{"log": "warning"}, "level=WARN msg=w\n"},
+		{map[string]any{"log": "core"}, "level=WARN msg=w\nlevel=INFO msg=i\n"},
+		{map[string]any{"gads": map[string]any{"log_format": "json"}}, `{"level":"WARN","msg":"w"}` + "\n" + `{"level":"INFO","msg":"i"}` + "\n"},
+		{map[string]any{"log": "loud"}, "error"},
+		{map[string]any{"gads": map[string]any{"log_format": "xml"}}, "error"},
+	} {
+		var out strings.Builder
+		l, err := (&appConfig{raw: tc.raw}).logger(&out)
+		if err != nil {
+			if tc.want != "error" {
+				t.Errorf("%v: %v", tc.raw, err)
+			}
+			continue
+		}
+		if tc.want == "error" {
+			t.Errorf("%v: no error", tc.raw)
+			continue
+		}
+		// Without the time, for a fixed output
+		l = slog.New(withoutTime{l.Handler()})
+		l.Warn("w")
+		l.Info("i")
+		if out.String() != tc.want {
+			t.Errorf("%v: %q, want %q", tc.raw, out.String(), tc.want)
+		}
+	}
+}
+
+// withoutTime drops the time of log records
+type withoutTime struct{ slog.Handler }
+
+func (h withoutTime) Handle(ctx context.Context, r slog.Record) error {
+	r.Time = time.Time{}
+	return h.Handler.Handle(ctx, r)
 }

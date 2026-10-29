@@ -10,6 +10,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log/slog"
 	"mime"
 	"mime/multipart"
 	"net/http"
@@ -43,6 +44,9 @@ type Config struct {
 	// MaxBodyBytes limits the size of a request body (0 is
 	// DefaultMaxBodyBytes). Larger requests are refused with 413.
 	MaxBodyBytes int64
+	// Logger, if set, receives a line for each request and each error
+	// (Go only: gads serve logs to stdout)
+	Logger *slog.Logger
 }
 
 // DefaultMaxBodyBytes is the default limit of a request body: room for the
@@ -145,8 +149,10 @@ type Ctx struct {
 	uploads map[string][]*Upload
 	rawBody []byte
 
-	vars    map[string]any
-	session *Session
+	vars map[string]any
+	// requestID identifies the request in the log
+	requestID string
+	session   *Session
 	// session destroyed in this request
 	destroyed *Session
 
@@ -501,10 +507,24 @@ func (c *Ctx) ChangeSessionID() {
 
 // ServeHTTP handles a request
 func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	if req.URL.Path == healthPath && (req.Method == "GET" || req.Method == "HEAD") {
+		s.health(w, req)
+		return
+	}
+	var rl *requestLog
+	if s.Config.Logger != nil {
+		rl = s.newRequestLog(w, req)
+		sw := &statusWriter{ResponseWriter: w}
+		w = sw
+		defer s.logRequest(rl, sw, req)
+	}
 	// Only the dispatch holds the engine lock: static files, the request
 	// body and the response are transferred without it, so that a slow
 	// client does not hold up others
 	if s.serveStatic(w, req) {
+		if rl != nil {
+			rl.static = true
+		}
 		return
 	}
 	if s.rateLimit(req) {
@@ -519,6 +539,9 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		headers: http.Header{},
 		status:  200,
 		uploads: map[string][]*Upload{},
+	}
+	if rl != nil {
+		c.requestID = rl.id
 	}
 	c.query = parseQuery(req.URL.RawQuery)
 	c.body = newMultiValue()
@@ -540,6 +563,9 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		c.dispatch()
 		c.flushReports()
 		c.write(res)
+		if rl != nil {
+			rl.user = c.logUser()
+		}
 	}()
 	res.sendTo(w)
 }
@@ -715,6 +741,7 @@ func (c *Ctx) run(f func()) {
 // session and the user is forwarded home (Dancer2::Plugin::LogReport)
 func (c *Ctx) handleError(r any) {
 	var msg *Message
+	runtimePanic := false
 	switch x := r.(type) {
 	case *gads.Error:
 		if x.Level == gads.LevelError {
@@ -729,7 +756,9 @@ func (c *Ctx) handleError(r any) {
 			fmt.Fprintf(os.Stderr, "%v\n%s\n", r, debug.Stack())
 		}
 		msg = &Message{Reason: "PANIC", Text: fmt.Sprint(r)}
+		runtimePanic = true
 	}
+	c.logError(msg, runtimePanic)
 	if os.Getenv("GADS_WEB_ERRORS") != "" {
 		fmt.Fprintf(os.Stderr, "web error (%s): %s\n", msg.Reason, msg.Text)
 	}

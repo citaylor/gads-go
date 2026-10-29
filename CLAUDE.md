@@ -233,6 +233,18 @@ Configuration works as in Dancer2:
 - Mail settings are in `gads: mail:` (via sendmail or smtp, host, port,
   security starttls/tls/none, username, password, helo, timeout).
 - Uploaded files are stored on disk under `gads: uploads`.
+- `serve` logs to stdout with `log/slog` (`cmd/gads/logging.go`,
+  `internal/web/logging.go`): one line per request (ID, method, path
+  without query or reset code, status, bytes, duration, client, user),
+  and each route error (a PANIC as `level=ERROR`, with the Go stack of a
+  runtime panic). Static files are logged only when they fail; health
+  checks are not logged. The level is Dancer2's `log:` (core/debug, info
+  by default, warning, error); `gads: log_format: json` writes JSON. Each
+  response has `X-Request-ID`, taken from the proxy with `behind_proxy`.
+  `web.Config.Logger` nil (the conformance runner) logs nothing.
+- `GET /healthz` (no login) answers `ok` when the engine is free within
+  10 s and the database answers, otherwise 503. `gads healthcheck
+  [-url URL]` checks it, for the image's `HEALTHCHECK`.
 - The security fixes are on unless `gads: hardened: 0` is set
   (`perl_password_hashes: 1` keeps Perl's hashes; see Security).
 
@@ -268,6 +280,9 @@ docker compose restart dev                 # rebuild and rerun after a change
   - Waits for the database.
   - Seeds it once, with `gads seed-database`.
   - Sets the password of `GADS_ADMIN_EMAIL` from `GADS_ADMIN_PASSWORD`.
+- **Health.** The image's `HEALTHCHECK` runs `gads healthcheck` every
+  30 s, so `docker compose ps` shows `app` as healthy or unhealthy (a
+  request holding the engine for over 10 s, or a lost database).
 - **Configuration.**
   - The image's configuration is `docker/config.yml`. Mount a replacement at
     `/etc/gads/config.yml` to change it.
@@ -384,5 +399,7 @@ Not fixed:
   - Savepoints need a transaction, as in DBIC. This is not a deviation:
     Go used to begin a transaction that was never committed.
   - Hardened mode, on in the application: see Security.
+  - `/healthz` is answered before routing, so it shadows a table whose
+    short name is `healthz`.
 - PostgreSQL parity is 160 of 166 (master era). The remaining differences
   are Perl's own plan-dependent row order and fixture ID collisions.

@@ -40,7 +40,8 @@ any other host name.
 
 | Command (in `gads-go/`) | Does |
 |---|---|
-| `docker compose logs -f app` | Follow the log |
+| `docker compose logs -f app` | Follow the log: a line per request and per error, with the request's `X-Request-ID` |
+| `docker compose ps` | Show whether `app` is healthy (its health check is `/healthz`) |
 | `docker compose up -d --build` | Rebuild after a code change |
 | `docker compose --profile build up -d dev` | Run your working copy on port 3001 (`docker compose restart dev` after edits) |
 | `docker compose down` | Stop, keeping the data |

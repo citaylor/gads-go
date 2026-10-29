@@ -6,6 +6,7 @@ import (
 	"crypto/tls"
 	"encoding/hex"
 	"fmt"
+	"log/slog"
 	"mime"
 	"net"
 	"net/mail"
@@ -168,7 +169,7 @@ func (m *mailer) deliver(e gads.Email) {
 	}
 	for _, to := range e.To {
 		if err := m.send(envelope, to, buildMessage(m.from, to, e)); err != nil {
-			fmt.Fprintf(os.Stderr, "Failed to send email to %s: %s\n", to, err)
+			slog.Error("Failed to send email", "to", to, "error", err.Error())
 		}
 	}
 }

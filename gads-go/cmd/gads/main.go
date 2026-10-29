@@ -16,6 +16,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"os"
 	"os/signal"
@@ -41,6 +42,8 @@ Commands:
   deploy [-config DIR]
                  create the tables of the database
   list           list the scripts
+  healthcheck [-url URL]
+                 check that a running server is healthy (exit status 0)
   <script>       run a script of bin (as export.pl or export), with its
                  options; GADS_CONFIG is the configuration directory
 `)
@@ -57,6 +60,8 @@ func main() {
 		os.Exit(serve(args))
 	case "deploy":
 		os.Exit(deploy(args))
+	case "healthcheck":
+		os.Exit(healthcheck(args))
 	case "list":
 		for _, n := range cli.Names() {
 			fmt.Println(n)
@@ -153,8 +158,16 @@ func serve(args []string) int {
 	}); err != nil {
 		return fail(err)
 	}
-	srv := web.New(e, cfg.webConfig(), *views, *public)
-	fmt.Fprintf(os.Stderr, "GADS listening on %s\n", *listen)
+	logger, err := cfg.logger(os.Stdout)
+	if err != nil {
+		return fail(err)
+	}
+	// Other log output (log.Printf, mail failures) goes to the same log
+	slog.SetDefault(logger)
+	wcfg := cfg.webConfig()
+	wcfg.Logger = logger
+	srv := web.New(e, wcfg, *views, *public)
+	logger.Info("GADS listening", "address", *listen)
 	server := &http.Server{
 		Addr:    *listen,
 		Handler: srv,
@@ -174,7 +187,7 @@ func serve(args []string) int {
 		return fail(err)
 	case <-ctx.Done():
 	}
-	fmt.Fprintln(os.Stderr, "GADS shutting down")
+	logger.Info("GADS shutting down")
 	sctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	if err := server.Shutdown(sctx); err != nil {
