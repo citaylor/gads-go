@@ -151,21 +151,23 @@ jobs:
           trivy config -q --severity HIGH,CRITICAL --format sarif -o trivy-config.sarif .
           trivy image -q --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 gads-go:ci
           trivy config -q --severity HIGH,CRITICAL --exit-code 1 .
-      # (not for pull requests from forks, which may not write alerts)
+      # Only for main, the branch the Security tab follows (a pull request
+      # from a fork may not write alerts, and a short-lived branch may be
+      # gone by the time of the upload)
       - name: Upload gosec results
-        if: ${{ !cancelled() && github.event_name != 'pull_request' && hashFiles('gads-go/gosec.sarif') != '' }}
+        if: ${{ !cancelled() && github.ref == 'refs/heads/main' && hashFiles('gads-go/gosec.sarif') != '' }}
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: gads-go/gosec.sarif
           category: gosec
       - name: Upload Trivy results
-        if: ${{ !cancelled() && github.event_name != 'pull_request' && hashFiles('gads-go/trivy-image.sarif') != '' }}
+        if: ${{ !cancelled() && github.ref == 'refs/heads/main' && hashFiles('gads-go/trivy-image.sarif') != '' }}
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: gads-go/trivy-image.sarif
           category: trivy-image
       - name: Upload Trivy configuration results
-        if: ${{ !cancelled() && github.event_name != 'pull_request' && hashFiles('gads-go/trivy-config.sarif') != '' }}
+        if: ${{ !cancelled() && github.ref == 'refs/heads/main' && hashFiles('gads-go/trivy-config.sarif') != '' }}
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: gads-go/trivy-config.sarif
