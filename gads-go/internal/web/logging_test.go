@@ -2,12 +2,15 @@ package web
 
 import (
 	"bytes"
+	"context"
 	"errors"
+	"io"
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 
@@ -27,6 +30,8 @@ func testServer(t *testing.T) *Server {
 	if err := d.Deploy(); err != nil {
 		t.Fatal(err)
 	}
+	// The site of httptest's requests
+	d.InsertMap("site", map[string]any{"id": int64(1), "host": "example.com"})
 	e, err := gads.NewEngine(d, gads.DefaultConfig())
 	if err != nil {
 		t.Fatal(err)
@@ -54,8 +59,8 @@ func TestHealth(t *testing.T) {
 	}
 
 	// A request that holds the engine makes it unhealthy
-	defer func(d time.Duration) { healthTimeout = d }(healthTimeout)
-	healthTimeout = 50 * time.Millisecond
+	defer func(d, c time.Duration) { healthTimeout, healthCache = d, c }(healthTimeout, healthCache)
+	healthTimeout, healthCache = 50*time.Millisecond, 0
 	s.mu.Lock()
 	w := get("GET")
 	s.mu.Unlock()
@@ -74,7 +79,7 @@ func TestHealth(t *testing.T) {
 func TestRequestLog(t *testing.T) {
 	s := testServer(t)
 	var out bytes.Buffer
-	s.Config.Logger = slog.New(slog.NewTextHandler(&out, nil))
+	s.Config.AccessLogger = slog.New(slog.NewTextHandler(&out, nil))
 
 	w := httptest.NewRecorder()
 	s.ServeHTTP(w, httptest.NewRequest("GET", "/resetpw/SECRETCODE?token=QSECRET", nil))
@@ -110,7 +115,7 @@ func TestRequestLog(t *testing.T) {
 	}
 
 	// Without a logger, nothing is added to the response
-	s.Config.Logger = nil
+	s.Config.AccessLogger = nil
 	w = httptest.NewRecorder()
 	s.ServeHTTP(w, httptest.NewRequest("GET", "/resetpw/x", nil))
 	if w.Header().Get("X-Request-ID") != "" {
@@ -141,5 +146,79 @@ func TestErrorLog(t *testing.T) {
 		if got := strings.Contains(line, "stack="); got != tc.stack {
 			t.Errorf("%v: stack logged %v: %s", tc.err, got, line)
 		}
+	}
+}
+
+// Health checks share one check, whose result is kept for healthCache, so
+// that calls do not queue for the engine
+func TestHealthShared(t *testing.T) {
+	s := testServer(t)
+	defer func(d, c time.Duration) { healthTimeout, healthCache = d, c }(healthTimeout, healthCache)
+	healthTimeout, healthCache = 200*time.Millisecond, time.Hour
+	if err := s.checkHealth(context.Background()); err != nil {
+		t.Fatal(err)
+	}
+	// The kept result is answered while the engine is busy
+	s.mu.Lock()
+	start := time.Now()
+	err := s.checkHealth(context.Background())
+	if err != nil || time.Since(start) > 50*time.Millisecond {
+		t.Errorf("kept result not used: %v after %s", err, time.Since(start))
+	}
+	// Once it is old, concurrent calls wait for one check
+	healthCache = 0
+	s.healthState.at = time.Time{}
+	var wg sync.WaitGroup
+	errs := make([]error, 20)
+	for i := range errs {
+		wg.Add(1)
+		go func() { defer wg.Done(); errs[i] = s.checkHealth(context.Background()) }()
+	}
+	wg.Wait()
+	s.mu.Unlock()
+	for _, err := range errs {
+		if err == nil {
+			t.Fatal("engine busy, but healthy")
+		}
+	}
+}
+
+// The request log has the user when the request came, and the user after
+// it when that changed (a logout)
+func TestRequestLogUsers(t *testing.T) {
+	s := testServer(t)
+	var out bytes.Buffer
+	s.Config.AccessLogger = slog.New(slog.NewTextHandler(&out, nil))
+	sess := &Session{ID: newSessionID(), Data: map[string]any{"logged_in_user": "alice@example.com"}}
+	s.sessions.put(sess)
+	get := func(path string) string {
+		out.Reset()
+		req := httptest.NewRequest("GET", path, nil)
+		req.AddCookie(&http.Cookie{Name: s.Config.Session.CookieName, Value: sess.ID})
+		s.ServeHTTP(httptest.NewRecorder(), req)
+		return out.String()
+	}
+	if line := get("/healthz-not"); !strings.Contains(line, "user=alice@example.com") || strings.Contains(line, "user_after") {
+		t.Errorf("request: %s", line)
+	}
+	if line := get("/logout"); !strings.Contains(line, "user=alice@example.com user_after=\"\"") {
+		t.Errorf("logout: %s", line)
+	}
+}
+
+// A request too large closes its connection, with the request log on
+func TestRequestTooLarge(t *testing.T) {
+	s := testServer(t)
+	s.Config.MaxBodyBytes = 10
+	s.Config.AccessLogger = slog.New(slog.NewTextHandler(io.Discard, nil))
+	srv := httptest.NewServer(s)
+	defer srv.Close()
+	res, err := http.Post(srv.URL+"/login", "application/x-www-form-urlencoded", strings.NewReader(strings.Repeat("a=b&", 100)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	res.Body.Close()
+	if res.StatusCode != http.StatusRequestEntityTooLarge || !res.Close {
+		t.Errorf("status %d, connection closed %v", res.StatusCode, res.Close)
 	}
 }

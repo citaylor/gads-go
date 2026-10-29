@@ -64,15 +64,17 @@ RUN mkdir -p /etc/gads/environments && chown gads /etc/gads/environments \
     && mkdir -p /var/lib/gads/uploads && chown gads:gads /var/lib/gads/uploads \
     && chmod 755 /usr/local/bin/gads-entrypoint
 
+# GADS_LISTEN is the address of gads serve and of its health check
 ENV GADS_CONFIG=/etc/gads \
     DANCER_ENVIRONMENT=docker \
+    GADS_LISTEN=:3000 \
     TZ=UTC
 USER gads
 WORKDIR /var/lib/gads
 EXPOSE 3000
 # GET /healthz: the engine is free within 10 s and the database answers.
 # The start period covers waiting for and seeding the database.
-HEALTHCHECK --interval=30s --timeout=20s --start-period=2m --retries=3 \
+HEALTHCHECK --interval=30s --timeout=20s --start-period=2m --start-interval=2s --retries=3 \
     CMD ["gads", "healthcheck"]
 ENTRYPOINT ["/usr/local/bin/gads-entrypoint"]
-CMD ["gads", "serve", "-listen", ":3000", "-views", "/usr/share/gads/views", "-public", "/usr/share/gads/public"]
+CMD ["gads", "serve", "-views", "/usr/share/gads/views", "-public", "/usr/share/gads/public"]

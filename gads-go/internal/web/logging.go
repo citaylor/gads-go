@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"regexp"
 	"runtime/debug"
+	"sync"
 	"time"
 )
 
@@ -42,10 +43,12 @@ func (w *statusWriter) Unwrap() http.ResponseWriter { return w.ResponseWriter }
 
 // requestLog is the log entry of one request, written when it ends
 type requestLog struct {
-	start  time.Time
-	id     string
-	user   string
-	static bool
+	start time.Time
+	id    string
+	// user is the user logged in when the request came, and userAfter the
+	// one when it ended (they differ for a login or a logout)
+	user, userAfter string
+	static          bool
 }
 
 // requestIDRe is a request ID that a proxy may pass in X-Request-ID
@@ -79,6 +82,9 @@ func logPath(req *http.Request) string {
 // logRequest writes the log entry of a finished request. Static files that
 // were served are not logged, as a page loads many of them.
 func (s *Server) logRequest(l *requestLog, w *statusWriter, req *http.Request) {
+	if s.Config.AccessLogger == nil {
+		return
+	}
 	status := w.status
 	if status == 0 {
 		status = http.StatusOK
@@ -90,7 +96,7 @@ func (s *Server) logRequest(l *requestLog, w *statusWriter, req *http.Request) {
 	if status >= 500 {
 		level = slog.LevelError
 	}
-	s.Config.Logger.LogAttrs(req.Context(), level, "request",
+	attrs := []slog.Attr{
 		slog.String("id", l.id),
 		slog.String("method", req.Method),
 		slog.String("path", logPath(req)),
@@ -99,7 +105,11 @@ func (s *Server) logRequest(l *requestLog, w *statusWriter, req *http.Request) {
 		slog.Duration("duration", time.Since(l.start)),
 		slog.String("client", s.clientAddr(req)),
 		slog.String("user", l.user),
-	)
+	}
+	if l.userAfter != l.user {
+		attrs = append(attrs, slog.String("user_after", l.userAfter))
+	}
+	s.Config.AccessLogger.LogAttrs(req.Context(), level, "request", attrs...)
 }
 
 // logUser is the user of a request as logged, from a session that the
@@ -109,6 +119,21 @@ func (c *Ctx) logUser() string {
 		return ""
 	}
 	u, _ := c.session.Data["logged_in_user"].(string)
+	return u
+}
+
+// cookieUser is the user of the session of the request's cookie, before
+// the request runs (without loading the session or marking it used)
+func (c *Ctx) cookieUser() string {
+	id, ok := c.Cookie(c.s.Config.Session.CookieName)
+	if !ok {
+		return ""
+	}
+	sess := c.s.sessions.peek(id)
+	if sess == nil {
+		return ""
+	}
+	u, _ := sess.Data["logged_in_user"].(string)
 	return u
 }
 
@@ -143,15 +168,72 @@ func (c *Ctx) logError(msg *Message, runtimePanic bool) {
 const healthPath = "/healthz"
 
 // healthTimeout is how long the health check waits for the engine and the
-// database
-var healthTimeout = 10 * time.Second
+// database, and healthCache how long its result is kept
+var (
+	healthTimeout = 10 * time.Second
+	healthCache   = time.Second
+)
+
+// healthState is the last health check, and the one running
+type healthState struct {
+	mu      sync.Mutex
+	at      time.Time
+	err     error
+	running chan struct{}
+}
 
 // health answers the health check: 200 when the engine is free within
 // healthTimeout and the database answers, otherwise 503. A request that
 // holds the engine for longer (or a lost database) makes the service
-// unhealthy.
+// unhealthy. The route needs no login, so that anyone can call it: at
+// most one check runs at a time, and its result is kept for healthCache,
+// so that calls cannot queue for the engine.
 func (s *Server) health(w http.ResponseWriter, req *http.Request) {
-	ctx, cancel := context.WithTimeout(req.Context(), healthTimeout)
+	err := s.checkHealth(req.Context())
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Header().Set("Cache-Control", "no-store")
+	if err != nil {
+		w.WriteHeader(http.StatusServiceUnavailable)
+		if req.Method != "HEAD" {
+			w.Write([]byte("unavailable\n"))
+		}
+		return
+	}
+	if req.Method != "HEAD" {
+		w.Write([]byte("ok\n"))
+	}
+}
+
+// checkHealth is the result of a recent check, or of a new one (shared by
+// the calls that wait for it)
+func (s *Server) checkHealth(ctx context.Context) error {
+	h := &s.healthState
+	h.mu.Lock()
+	if !h.at.IsZero() && time.Since(h.at) < healthCache {
+		err := h.err
+		h.mu.Unlock()
+		return err
+	}
+	if h.running == nil {
+		h.running = make(chan struct{})
+		go s.runHealthCheck(h.running)
+	}
+	done := h.running
+	h.mu.Unlock()
+	select {
+	case <-done:
+		h.mu.Lock()
+		defer h.mu.Unlock()
+		return h.err
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// runHealthCheck checks the engine and the database, records the result
+// and closes done
+func (s *Server) runHealthCheck(done chan struct{}) {
+	ctx, cancel := context.WithTimeout(context.Background(), healthTimeout)
 	defer cancel()
 	res := make(chan error, 1)
 	go func() {
@@ -169,19 +251,12 @@ func (s *Server) health(w http.ResponseWriter, req *http.Request) {
 	case <-ctx.Done():
 		err = ctx.Err()
 	}
-	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-	w.Header().Set("Cache-Control", "no-store")
-	if err != nil {
-		if s.Config.Logger != nil {
-			s.Config.Logger.Error("health check failed", "error", err.Error())
-		}
-		w.WriteHeader(http.StatusServiceUnavailable)
-		if req.Method != "HEAD" {
-			w.Write([]byte("unavailable\n"))
-		}
-		return
+	if err != nil && s.Config.Logger != nil {
+		s.Config.Logger.Error("health check failed", "error", err.Error())
 	}
-	if req.Method != "HEAD" {
-		w.Write([]byte("ok\n"))
-	}
+	h := &s.healthState
+	h.mu.Lock()
+	h.at, h.err, h.running = time.Now(), err, nil
+	h.mu.Unlock()
+	close(done)
 }

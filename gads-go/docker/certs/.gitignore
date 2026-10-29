@@ -1,0 +1,3 @@
+# Your own certificate and key for the proxy service (GADS_TLS)
+*
+!.gitignore

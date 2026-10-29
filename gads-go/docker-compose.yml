@@ -3,8 +3,9 @@
 #   cp .env.example .env    # then set the passwords in .env
 #   docker compose up -d --build
 #
-# The application is then at http://localhost:3000/ (GADS_PORT), with the
-# user GADS_ADMIN_EMAIL / GADS_ADMIN_PASSWORD created on first start.
+# The application is then at https://localhost/ (GADS_HOST, through the
+# proxy service), with the user GADS_ADMIN_EMAIL / GADS_ADMIN_PASSWORD
+# created on first start. The app itself is not published.
 name: gads
 
 services:
@@ -52,13 +53,48 @@ services:
       SMTP_USERNAME: ${SMTP_USERNAME:-}
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       SMTP_HELO: ${SMTP_HELO:-}
+      # Served through the proxy service: X-Forwarded-* headers are
+      # trusted, the session cookie is Secure, and links in emails are https
+      GADS_BEHIND_PROXY: ${GADS_BEHIND_PROXY:-1}
+      GADS_SECURE_COOKIES: ${GADS_SECURE_COOKIES:-1}
+      GADS_URL: ${GADS_URL:-https://${GADS_HOST:-localhost}/}
     volumes:
       # Uploaded files (gads.uploads)
       - uploads:/var/lib/gads/uploads
-    ports:
-      - "${GADS_PORT:-3000}:3000"
+    # Not published: requests come through the proxy, and with
+    # behind_proxy a client reaching the app directly could forge its
+    # address. Uncomment to reach it from this host only (for debugging).
+    # ports:
+    #   - "127.0.0.1:3000:3000"
     depends_on:
       db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # HTTPS in front of the app (docker/Caddyfile): TLS for GADS_HOST,
+  # HTTP redirected to HTTPS. GADS_TLS chooses the certificate: internal
+  # (Caddy's own CA, the default), an email address (Let's Encrypt), or
+  # "/certs/cert.pem /certs/key.pem" (your own, in GADS_CERTS).
+  proxy:
+    image: caddy:2.10.2-alpine
+    environment:
+      GADS_HOST: ${GADS_HOST:-localhost}
+      GADS_TLS: ${GADS_TLS:-internal}
+      GADS_HTTP_PORT: ${GADS_HTTP_PORT:-80}
+      GADS_HTTPS_PORT: ${GADS_HTTPS_PORT:-443}
+    # The same ports inside and out, so that Caddy's redirects name them
+    ports:
+      - "${GADS_HTTP_PORT:-80}:${GADS_HTTP_PORT:-80}"
+      - "${GADS_HTTPS_PORT:-443}:${GADS_HTTPS_PORT:-443}"
+      - "${GADS_HTTPS_PORT:-443}:${GADS_HTTPS_PORT:-443}/udp"
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ${GADS_CERTS:-./docker/certs}:/certs:ro
+      # Certificates and keys (Let's Encrypt or Caddy's CA)
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      app:
         condition: service_healthy
     restart: unless-stopped
 
@@ -123,4 +159,6 @@ services:
 volumes:
   db-data:
   uploads:
+  caddy-data:
+  caddy-config:
   go-build-cache:

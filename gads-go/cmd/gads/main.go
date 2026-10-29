@@ -131,7 +131,7 @@ func fail(err error) int {
 func serve(args []string) int {
 	fs := flag.NewFlagSet("serve", flag.ExitOnError)
 	conf := fs.String("config", "", "configuration directory (with config.yml)")
-	listen := fs.String("listen", ":3000", "address to listen on")
+	listen := fs.String("listen", listenAddress(), "address to listen on (default GADS_LISTEN, or :3000)")
 	views := fs.String("views", "", "directory of the views (default <config>/views)")
 	public := fs.String("public", "", "directory of the static files (default <config>/public)")
 	fs.Parse(args)
@@ -158,14 +158,14 @@ func serve(args []string) int {
 	}); err != nil {
 		return fail(err)
 	}
-	logger, err := cfg.logger(os.Stdout)
+	logger, access, err := cfg.loggers(os.Stdout)
 	if err != nil {
 		return fail(err)
 	}
 	// Other log output (log.Printf, mail failures) goes to the same log
 	slog.SetDefault(logger)
 	wcfg := cfg.webConfig()
-	wcfg.Logger = logger
+	wcfg.Logger, wcfg.AccessLogger = logger, access
 	srv := web.New(e, wcfg, *views, *public)
 	logger.Info("GADS listening", "address", *listen)
 	server := &http.Server{

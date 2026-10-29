@@ -44,9 +44,9 @@ type Config struct {
 	// MaxBodyBytes limits the size of a request body (0 is
 	// DefaultMaxBodyBytes). Larger requests are refused with 413.
 	MaxBodyBytes int64
-	// Logger, if set, receives a line for each request and each error
-	// (Go only: gads serve logs to stdout)
-	Logger *slog.Logger
+	// Logger, if set, receives each error, and AccessLogger a line for each
+	// request (Go only: gads serve logs to stdout)
+	Logger, AccessLogger *slog.Logger
 }
 
 // DefaultMaxBodyBytes is the default limit of a request body: room for the
@@ -103,6 +103,8 @@ type Server struct {
 	router   *Router
 	sessions *sessionStore
 	limiter  rateLimiter
+	// healthState is the health check
+	healthState healthState
 	// GADS (as Perl Dancer2 with a single worker) processes one request at
 	// a time: the engine is not safe for concurrent use
 	mu sync.Mutex
@@ -511,8 +513,11 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		s.health(w, req)
 		return
 	}
+	// orig is the server's own writer: http.MaxBytesReader closes the
+	// connection of a request too large only through it
+	orig := w
 	var rl *requestLog
-	if s.Config.Logger != nil {
+	if s.Config.Logger != nil || s.Config.AccessLogger != nil {
 		rl = s.newRequestLog(w, req)
 		sw := &statusWriter{ResponseWriter: w}
 		w = sw
@@ -545,7 +550,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	}
 	c.query = parseQuery(req.URL.RawQuery)
 	c.body = newMultiValue()
-	if !c.readBody(w) {
+	if !c.readBody(orig) {
 		http.Error(w, "Request Entity Too Large", http.StatusRequestEntityTooLarge)
 		return
 	}
@@ -560,11 +565,18 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		if s.E.Config.Hardened && safeMethod(req.Method) {
 			defer s.readOnly()()
 		}
+		if rl != nil {
+			rl.user = c.cookieUser()
+		}
 		c.dispatch()
 		c.flushReports()
 		c.write(res)
 		if rl != nil {
-			rl.user = c.logUser()
+			// A request that used no session left its user as it was
+			rl.userAfter = rl.user
+			if c.session != nil || c.destroyed != nil {
+				rl.userAfter = c.logUser()
+			}
 		}
 	}()
 	res.sendTo(w)

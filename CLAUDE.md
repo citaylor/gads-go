@@ -233,18 +233,32 @@ Configuration works as in Dancer2:
 - Mail settings are in `gads: mail:` (via sendmail or smtp, host, port,
   security starttls/tls/none, username, password, helo, timeout).
 - Uploaded files are stored on disk under `gads: uploads`.
+- `serve` listens on `-listen`, otherwise `GADS_LISTEN`, otherwise `:3000`.
 - `serve` logs to stdout with `log/slog` (`cmd/gads/logging.go`,
-  `internal/web/logging.go`): one line per request (ID, method, path
-  without query or reset code, status, bytes, duration, client, user),
-  and each route error (a PANIC as `level=ERROR`, with the Go stack of a
-  runtime panic). Static files are logged only when they fail; health
-  checks are not logged. The level is Dancer2's `log:` (core/debug, info
-  by default, warning, error); `gads: log_format: json` writes JSON. Each
-  response has `X-Request-ID`, taken from the proxy with `behind_proxy`.
-  `web.Config.Logger` nil (the conformance runner) logs nothing.
+  `internal/web/logging.go`):
+  - The request log (`web.Config.AccessLogger`): one line per request with
+    its ID, method, path (without query or reset code), status, bytes,
+    duration, client, `user` when it came and `user_after` when that
+    changed (login, logout). Static files are logged only when they fail;
+    health checks are not logged. It ignores the log level, so that GADS's
+    `production.yml` (`log: warning`) keeps it; `gads: access_log: 0`
+    turns it off.
+  - The error log (`web.Config.Logger`): each route error (a PANIC as
+    `level=ERROR`, with the Go stack of a runtime panic) and other
+    messages, at Dancer2's `log:` level (core/debug, info by default,
+    warning, error).
+  - `gads: log_format: json` writes JSON. Each response has
+    `X-Request-ID`, taken from the proxy with `behind_proxy`. With both
+    loggers nil (the conformance runner) nothing is logged or added.
 - `GET /healthz` (no login) answers `ok` when the engine is free within
-  10 s and the database answers, otherwise 503. `gads healthcheck
-  [-url URL]` checks it, for the image's `HEALTHCHECK`.
+  10 s and the database answers, otherwise 503. One check runs at a time
+  and its result is kept for 1 s, so calls can't queue for the engine.
+  `gads healthcheck [-url URL]` checks it (the default URL follows
+  `GADS_LISTEN`), for the image's `HEALTHCHECK`.
+- On PostgreSQL, a connection the server dropped (a restart) is replaced
+  outside a transaction and the statement run again, as DBIC does
+  (`db.withConn`): only `driver.ErrBadConn`, where nothing was sent. The
+  statement that finds it broken may fail.
 - The security fixes are on unless `gads: hardened: 0` is set
   (`perl_password_hashes: 1` keeps Perl's hashes; see Security).
 
@@ -257,7 +271,8 @@ parent directory is never sent to the build.
 | Service | Purpose |
 |---|---|
 | `db` | postgres:16-alpine, volume `db-data`. Not published to the host. |
-| `app` | Image `gads-go:latest` on `${GADS_PORT:-3000}`, volume `uploads` at `/var/lib/gads/uploads`. Seeds the database on first start. |
+| `app` | Image `gads-go:latest`, not published (port 3000 inside the network), volume `uploads` at `/var/lib/gads/uploads`. Seeds the database on first start. |
+| `proxy` | `caddy:2.10.2-alpine` with `docker/Caddyfile`: HTTPS for `GADS_HOST` on `${GADS_HTTPS_PORT:-443}`, HTTP on `${GADS_HTTP_PORT:-80}` redirected, volumes `caddy-data` and `caddy-config`. Starts once `app` is healthy. |
 | `builder` (profile `build`) | Image `gads-go-builder`: Go and gcc, with the source mounted at `/src`, and the conformance suite and GADS-dev mounted read-only. |
 | `dev` (profile `build`) | Builds from the mounted source and runs on `${GADS_DEV_PORT:-3001}` with its own database, `gads_dev`. |
 
@@ -286,8 +301,21 @@ docker compose restart dev                 # rebuild and rerun after a change
 - **Configuration.**
   - The image's configuration is `docker/config.yml`. Mount a replacement at
     `/etc/gads/config.yml` to change it.
-  - For HTTPS, set `engines: session: Simple: is_secure: 1`. Behind a proxy,
-    also set `behind_proxy: 1`.
+  - HTTPS is the `proxy` service, as Perl GADS runs behind a TLS web
+    server. `GADS_TLS` chooses the certificate: `internal` (Caddy's own
+    CA, the default), an email address (Let's Encrypt, for a public
+    `GADS_HOST` with ports 80 and 443 open), or
+    `/certs/cert.pem /certs/key.pem` (your own, in `docker/certs` or
+    `GADS_CERTS`).
+  - The entrypoint sets `behind_proxy: 1` (`GADS_BEHIND_PROXY`), the
+    Secure session cookie (`GADS_SECURE_COOKIES`) and `gads: url`
+    (`GADS_URL`, default `https://GADS_HOST/`). Compose sets the first two
+    to 1 for `app`; `dev` stays plain HTTP on :3001.
+  - The app is not published, because with `behind_proxy` a client
+    reaching it directly could forge `X-Forwarded-For`. Caddy replaces
+    the header that a client sends.
+  - A database seeded with another host needs
+    `UPDATE site SET host = 'NEW'`, as GADS redirects other hosts.
 - **Rebuilding.** A change to the Go code reaches the `app` container only
   after `docker compose up -d --build`.
 - **Other compose files.**

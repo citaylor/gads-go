@@ -34,13 +34,30 @@ cp .env.example .env && chmod 600 .env   # set POSTGRES_PASSWORD and GADS_ADMIN_
 docker compose up -d --build
 ```
 
-Open <http://localhost:3000/> and log in as `admin@localhost` with
+Open <https://localhost/> and log in as `admin@localhost` with
 `GADS_ADMIN_PASSWORD`. Use `localhost` in the URL, because GADS redirects
-any other host name.
+any other host name. HTTP is redirected to HTTPS.
+
+The `proxy` service (Caddy) serves HTTPS, as Perl GADS runs behind a TLS
+web server; the app itself is not published. By default its certificate
+comes from Caddy's own CA, which browsers don't know. Trust its root
+certificate once, or accept the browser's warning:
+
+```sh
+docker compose cp proxy:/data/caddy/pki/authorities/local/root.crt caddy-root.crt
+curl --cacert caddy-root.crt https://localhost/healthz    # ok
+```
+
+For a real server, set `GADS_HOST` to its name and `GADS_TLS` in `.env`:
+an email address for a Let's Encrypt certificate (ports 80 and 443 must be
+reachable from the internet), or `/certs/cert.pem /certs/key.pem` for your
+own certificate, placed in `gads-go/docker/certs`. A database first seeded
+with another host needs `UPDATE site SET host = 'NEW'`.
 
 | Command (in `gads-go/`) | Does |
 |---|---|
 | `docker compose logs -f app` | Follow the log: a line per request and per error, with the request's `X-Request-ID` |
+| `docker compose logs -f proxy` | Follow the proxy's log (JSON), with the same request IDs |
 | `docker compose ps` | Show whether `app` is healthy (its health check is `/healthz`) |
 | `docker compose up -d --build` | Rebuild after a code change |
 | `docker compose --profile build up -d dev` | Run your working copy on port 3001 (`docker compose restart dev` after edits) |

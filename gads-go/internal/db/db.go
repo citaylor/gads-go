@@ -7,6 +7,7 @@ package db
 import (
 	"context"
 	"database/sql"
+	"database/sql/driver"
 	_ "embed"
 	"errors"
 	"fmt"
@@ -180,7 +181,41 @@ func (d *DB) Close() error {
 }
 
 // Ping checks that the database answers on the session's connection
-func (d *DB) Ping(ctx context.Context) error { return d.conn.PingContext(ctx) }
+// (replacing a lost one, as withConn)
+func (d *DB) Ping(ctx context.Context) error {
+	return d.withConn(func(c *sql.Conn) error { return c.PingContext(ctx) })
+}
+
+// lostConn is whether an error is that of a connection that was lost
+// before the statement was sent: driver.ErrBadConn (which a driver
+// returns only when nothing was sent, as pgx for a closed connection), or
+// a connection that database/sql has closed after it
+func lostConn(err error) bool {
+	return errors.Is(err, driver.ErrBadConn) || errors.Is(err, sql.ErrConnDone)
+}
+
+// withConn runs f on the session's connection. Go only: when PostgreSQL
+// has dropped the connection (a restart of the server), and no transaction
+// is open, the connection is replaced by a new one and f is run again
+// once, so the application recovers without a restart. The statement that
+// found the connection broken may fail; nothing is retried that could
+// have run. (Perl's DBIx::Class reconnects too, outside transactions.) A
+// SQLite connection is never replaced: an in-memory database would be
+// lost.
+func (d *DB) withConn(f func(*sql.Conn) error) error {
+	err := f(d.conn)
+	if err == nil || d.depth > 0 || d.Dialect != Postgres || !lostConn(err) {
+		return err
+	}
+	conn, cerr := d.raw.Conn(context.Background())
+	if cerr != nil {
+		return err
+	}
+	d.conn.Close()
+	d.conn = conn
+	d.svp = 0
+	return f(d.conn)
+}
 
 // Deploy creates all GADS tables (as DBIx::Class deploy does).
 func (d *DB) Deploy() error {
@@ -284,7 +319,11 @@ func (d *DB) TryExec(q string, args ...any) (sql.Result, error) {
 	d.checkWrite(q)
 	args = convertArgs(args)
 	d.trace(q, args)
-	r, err := d.conn.ExecContext(context.Background(), d.rebind(q), args...)
+	var r sql.Result
+	err := d.withConn(func(c *sql.Conn) (err error) {
+		r, err = c.ExecContext(context.Background(), d.rebind(q), args...)
+		return err
+	})
 	if err != nil {
 		return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
 	}
@@ -308,7 +347,11 @@ func (d *DB) TryQuery(q string, args ...any) ([]Row, error) {
 	d.checkWrite(q)
 	args = convertArgs(args)
 	d.trace(q, args)
-	rs, err := d.conn.QueryContext(context.Background(), d.rebind(q), args...)
+	var rs *sql.Rows
+	err := d.withConn(func(c *sql.Conn) (err error) {
+		rs, err = c.QueryContext(context.Background(), d.rebind(q), args...)
+		return err
+	})
 	if err != nil {
 		return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
 	}
@@ -393,7 +436,11 @@ func (d *DB) TryQueryCol(q string, args ...any) ([]any, error) {
 	d.checkWrite(q)
 	args = convertArgs(args)
 	d.trace(q, args)
-	rs, err := d.conn.QueryContext(context.Background(), d.rebind(q), args...)
+	var rs *sql.Rows
+	err := d.withConn(func(c *sql.Conn) (err error) {
+		rs, err = c.QueryContext(context.Background(), d.rebind(q), args...)
+		return err
+	})
 	if err != nil {
 		return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
 	}

@@ -21,6 +21,11 @@ larger concurrency work is done.
 
 ## 1. Serve it over HTTPS
 
+> **Done** (2026-10-29): the `proxy` service of `gads-go/docker-compose.yml`
+> and `gads-go/docker/Caddyfile`, configured by `GADS_HOST`, `GADS_TLS`,
+> `GADS_BEHIND_PROXY`, `GADS_SECURE_COOKIES` and `GADS_URL`. See
+> `GETTING-STARTED.md`.
+
 Put a Caddy container in front of the app to terminate TLS with automatic
 Let's Encrypt certificates, and stop publishing the app's port. Today the app
 listens on plain HTTP at :3000, so passwords, session cookies and the CSRF

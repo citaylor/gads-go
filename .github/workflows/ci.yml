@@ -89,3 +89,5 @@ jobs:
       # enforces
       - name: Hardened scenarios on PostgreSQL
         run: go test ./conformance -run TestHardened
+      - name: Reconnecting after PostgreSQL drops the connection
+        run: go test ./internal/db -run TestReconnect

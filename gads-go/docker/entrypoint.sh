@@ -27,12 +27,26 @@ plugins:
       user: $(yq "$POSTGRES_USER")
       password: $(yq "$POSTGRES_PASSWORD")
 EOF
-# The sender and transport of emails: SMTP if SMTP_HOST is set, otherwise
-# sendmail (which the image does not include)
-# and the directory of uploaded files if GADS_UPLOADS is set
-if [ -n "${GADS_EMAIL_FROM:-}" ] || [ -n "${SMTP_HOST:-}" ] || [ -n "${GADS_UPLOADS:-}" ]; then
+# Behind the proxy service: X-Forwarded-* trusted (GADS_BEHIND_PROXY), and
+# a Secure session cookie (GADS_SECURE_COOKIES)
+case "${GADS_BEHIND_PROXY:-0}" in
+    1 | true | yes) echo "behind_proxy: 1" >> "$GADS_CONFIG/environments/$DANCER_ENVIRONMENT.yml" ;;
+esac
+case "${GADS_SECURE_COOKIES:-0}" in
+    1 | true | yes)
+        printf 'engines:\n  session:\n    Simple:\n      is_secure: 1\n' \
+            >> "$GADS_CONFIG/environments/$DANCER_ENVIRONMENT.yml"
+        ;;
+esac
+# The site's URL in emails (GADS_URL), the sender and transport of emails
+# (SMTP if SMTP_HOST is set, otherwise sendmail, which the image does not
+# include), and the directory of uploaded files if GADS_UPLOADS is set
+if [ -n "${GADS_URL:-}" ] || [ -n "${GADS_EMAIL_FROM:-}" ] || [ -n "${SMTP_HOST:-}" ] || [ -n "${GADS_UPLOADS:-}" ]; then
     {
         echo "gads:"
+        if [ -n "${GADS_URL:-}" ]; then
+            echo "  url: $(yq "$GADS_URL")"
+        fi
         if [ -n "${GADS_UPLOADS:-}" ]; then
             echo "  uploads: $(yq "$GADS_UPLOADS")"
         fi

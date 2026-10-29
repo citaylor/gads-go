@@ -128,21 +128,24 @@ func TestSessionConfig(t *testing.T) {
 	}
 }
 
-// The log of serve takes the Dancer2 log level and gads: log_format
-func TestLogger(t *testing.T) {
+// The logs of serve take the Dancer2 log level and gads: log_format; the
+// request log ignores the level, and gads: access_log: 0 turns it off
+func TestLoggers(t *testing.T) {
 	for _, tc := range []struct {
-		raw  map[string]any
-		want string // what a warning and an info message write, or "error"
+		raw    map[string]any
+		want   string // what a warning and an info message write, or "error"
+		access bool
 	}{
-		{map[string]any{}, "level=WARN msg=w\nlevel=INFO msg=i\n"},
-		{map[string]any{"log": "warning"}, "level=WARN msg=w\n"},
-		{map[string]any{"log": "core"}, "level=WARN msg=w\nlevel=INFO msg=i\n"},
-		{map[string]any{"gads": map[string]any{"log_format": "json"}}, `{"level":"WARN","msg":"w"}` + "\n" + `{"level":"INFO","msg":"i"}` + "\n"},
-		{map[string]any{"log": "loud"}, "error"},
-		{map[string]any{"gads": map[string]any{"log_format": "xml"}}, "error"},
+		{map[string]any{}, "level=WARN msg=w\nlevel=INFO msg=i\n", true},
+		{map[string]any{"log": "warning"}, "level=WARN msg=w\n", true},
+		{map[string]any{"log": "core"}, "level=WARN msg=w\nlevel=INFO msg=i\n", true},
+		{map[string]any{"gads": map[string]any{"log_format": "json"}}, `{"level":"WARN","msg":"w"}` + "\n" + `{"level":"INFO","msg":"i"}` + "\n", true},
+		{map[string]any{"gads": map[string]any{"access_log": 0}}, "level=WARN msg=w\nlevel=INFO msg=i\n", false},
+		{map[string]any{"log": "loud"}, "error", false},
+		{map[string]any{"gads": map[string]any{"log_format": "xml"}}, "error", false},
 	} {
 		var out strings.Builder
-		l, err := (&appConfig{raw: tc.raw}).logger(&out)
+		l, access, err := (&appConfig{raw: tc.raw}).loggers(&out)
 		if err != nil {
 			if tc.want != "error" {
 				t.Errorf("%v: %v", tc.raw, err)
@@ -159,6 +162,25 @@ func TestLogger(t *testing.T) {
 		l.Info("i")
 		if out.String() != tc.want {
 			t.Errorf("%v: %q, want %q", tc.raw, out.String(), tc.want)
+		}
+		if (access != nil) != tc.access {
+			t.Errorf("%v: request log %v", tc.raw, access != nil)
+		} else if access != nil && !access.Enabled(context.Background(), slog.LevelInfo) {
+			t.Errorf("%v: request log below its level", tc.raw)
+		}
+	}
+}
+
+func TestHealthURL(t *testing.T) {
+	for addr, want := range map[string]string{
+		":3000":         "http://127.0.0.1:3000/healthz",
+		"0.0.0.0:8080":  "http://127.0.0.1:8080/healthz",
+		"[::]:8080":     "http://127.0.0.1:8080/healthz",
+		"10.0.0.5:3000": "http://10.0.0.5:3000/healthz",
+		"[::1]:3000":    "http://[::1]:3000/healthz",
+	} {
+		if got := healthURL(addr); got != want {
+			t.Errorf("healthURL(%q) = %q, want %q", addr, got, want)
 		}
 	}
 }

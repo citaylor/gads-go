@@ -50,6 +50,18 @@ func (st *sessionStore) get(id string) *Session {
 	return s
 }
 
+// peek is the session of an ID that has not expired, without marking it
+// used
+func (st *sessionStore) peek(id string) *Session {
+	st.mu.Lock()
+	defer st.mu.Unlock()
+	s := st.data[id]
+	if s == nil || st.expired(s, time.Now()) {
+		return nil
+	}
+	return s
+}
+
 func (st *sessionStore) put(s *Session) {
 	st.mu.Lock()
 	defer st.mu.Unlock()
