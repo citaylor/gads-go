@@ -1,0 +1,100 @@
+name: 253_web_chrome_pdf
+requires: [chromium, pdftotext]
+source:
+  - "lib/GADS.pm (_page_as_mech; get / download; post /print; get /:layout_name/ download; any /:layout_name/data graph png, timeline png and modal_pdf)"
+  - WWW::Mechanize::Chrome (viewport_size, get_local, content_as_pdf, content_as_png)
+description: >
+  The PDFs and images that GADS makes with headless Chrome: the page is
+  rendered with page_as_mech, written to a file and printed by Chrome (A3
+  landscape). PDFs are observed as their text, PNGs as their size. The
+  site and table dashboards (blank: their widgets are loaded by scripts,
+  which a file cannot reach), the HTML sent to /print (and the error
+  without it, and without a login), the timeline as a PNG and as a PDF
+  at a zoom, and no_download_pdf showing the page instead. The PNG of a
+  graph fails in GADS dev: the page that do_plot_json draws on does not
+  load jqplot, so Chrome reports "Cannot read properties of undefined
+  (reading 'BarRenderer')", which GADS shows as an unexpected error.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo, date1: "2014-10-10", enum1: foo1, integer1: 5 }
+        - { string1: Bar, date1: "2014-11-15", enum1: foo2, integer1: 7 }
+  - login: { user: superadmin }
+  - http:
+      id: site_dashboard_pdf
+      as: superadmin
+      path: /
+      query: { download: pdf }
+      expect: { status: 200, content_type: application/pdf }
+  - http:
+      id: table_dashboard_pdf
+      as: superadmin
+      path: "/{sheet:s}/"
+      query: { download: pdf }
+      expect: { status: 200, content_type: application/pdf }
+  - http:
+      id: print
+      as: superadmin
+      method: POST
+      path: /print
+      form: { html: "<html><head><title>Printed</title></head><body><h1>A printed page</h1><p>Some text to print, with &amp; an entity.</p></body></html>" }
+      expect: { status: 200, content_type: application/pdf }
+  - http:
+      id: print_missing_html
+      as: superadmin
+      method: POST
+      path: /print
+      form: { other: 1 }
+      expect: { status: 302 }
+  - http: { id: print_missing_html_message, as: superadmin, path: /, expect_body_contains: ["Missing body parameter: html"] }
+  - http:
+      id: print_anon
+      method: POST
+      path: /print
+      form: { html: "<p>x</p>" }
+      expect: { status: 302 }
+  - view:
+      sheet: s
+      user: superadmin
+      name: Dates
+      columns: [string1, date1]
+      as: v
+  - http:
+      id: timeline_png
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { viewtype: timeline, view: "{view:v}", png: 1 }
+      expect: { status: 200, content_type: image/png }
+  - http:
+      id: timeline_pdf
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { viewtype: timeline, view: "{view:v}", modal_pdf: 1, pdf_zoom: 80 }
+      expect: { status: 200, content_type: application/pdf }
+  - graph:
+      sheet: s
+      user: superadmin
+      title: Integers by enum
+      type: bar
+      x_axis: enum1
+      y_axis: integer1
+      y_axis_stack: sum
+      is_shared: 1
+      no_data: true
+  - http:
+      id: graph_png
+      as: superadmin
+      path: "/{sheet:s}/data"
+      query: { viewtype: graph, png: 1 }
+      expect: { status: 302 }
+  - http: { id: graph_png_message, as: superadmin, path: /, expect_body_contains: [An unexpected error has occurred] }
+  # Downloads not allowed
+  - db:
+      op: update
+      table: instance
+      where: { id: "@instance:s" }
+      set: { no_download_pdf: 1 }
+  - http: { id: table_dashboard_no_download, as: superadmin, path: "/{sheet:s}/", query: { download: pdf }, no_body: true, expect: { status: 200, content_type: text/html; charset=utf-8 } }
+  - http: { id: timeline_no_download, as: superadmin, path: "/{sheet:s}/data", query: { viewtype: timeline, view: "{view:v}", modal_pdf: 1 }, no_body: true, expect: { status: 200, content_type: text/html; charset=utf-8 } }

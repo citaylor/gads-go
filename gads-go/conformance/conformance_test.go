@@ -2,10 +2,46 @@ package conformance
 
 import (
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"gopkg.in/yaml.v3"
 )
+
+// missingRequirements are the programs that a scenario needs (its requires
+// key) and that are not installed: chromium, as GADS runs it, and
+// pdftotext, which observes PDFs
+func missingRequirements(t *testing.T, file string) []string {
+	t.Helper()
+	data, err := os.ReadFile(file)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var scenario struct {
+		Requires []string `yaml:"requires"`
+	}
+	if err := yaml.Unmarshal(data, &scenario); err != nil {
+		t.Fatal(err)
+	}
+	var missing []string
+	for _, r := range scenario.Requires {
+		found := false
+		switch r {
+		case "chromium":
+			st, err := os.Stat("/usr/bin/chromium")
+			found = err == nil && st.Mode()&0o111 != 0
+		case "pdftotext":
+			_, err := exec.LookPath("pdftotext")
+			found = err == nil
+		}
+		if !found {
+			missing = append(missing, r)
+		}
+	}
+	return missing
+}
 
 // goldenDir is the directory of the Perl reference results
 func goldenDir() string {
@@ -29,6 +65,9 @@ func TestConformance(t *testing.T) {
 		f := f
 		name := strings.TrimSuffix(filepath.Base(f), ".yaml")
 		t.Run(name, func(t *testing.T) {
+			if missing := missingRequirements(t, f); len(missing) > 0 {
+				t.Skipf("needs %s", strings.Join(missing, ", "))
+			}
 			res := RunFile(f)
 			if res.Fatal != "" {
 				t.Fatalf("fatal: %s", res.Fatal)
@@ -73,6 +112,9 @@ func TestHardened(t *testing.T) {
 	for _, f := range scenarios {
 		name := strings.TrimSuffix(filepath.Base(f), ".yaml")
 		t.Run(name, func(t *testing.T) {
+			if missing := missingRequirements(t, f); len(missing) > 0 {
+				t.Skipf("needs %s", strings.Join(missing, ", "))
+			}
 			res := RunFile(f)
 			if res.Fatal != "" {
 				t.Fatalf("fatal: %s", res.Fatal)

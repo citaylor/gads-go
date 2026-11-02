@@ -96,7 +96,12 @@ type Server struct {
 	Config *Config
 	Views  string
 	Public string
-	TT     *tt.Engine
+	// AppPublic is the public directory of the application (Perl
+	// appdir/public), that pages printed by Chrome link to: Public when
+	// empty. The conformance runner serves no static files, but prints
+	// pages as Perl does.
+	AppPublic string
+	TT        *tt.Engine
 	// ttDefault renders templates as a Template object with default options
 	ttDefault *tt.Engine
 
@@ -139,6 +144,8 @@ func New(e *gads.Engine, cfg *Config, views, public string) *Server {
 
 // Ctx is the context of one request (the Dancer2 DSL in a route).
 type Ctx struct {
+	// browser is a page for Chrome, run once the engine is released
+	browser *browserJob
 	// tokenMessages is the messages token of the template being prepared
 	tokenMessages *tt.List
 	// colObjs are the template objects of the columns of the request
@@ -572,7 +579,9 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		}
 		c.dispatch()
 		c.flushReports()
-		c.write(res)
+		if c.browser == nil {
+			c.write(res)
+		}
 		if rl != nil {
 			// A request that used no session left its user as it was
 			rl.userAfter = rl.user
@@ -581,6 +590,9 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 			}
 		}
 	}()
+	if c.browser != nil {
+		res = s.finishBrowser(c, req)
+	}
 	res.sendTo(w)
 }
 

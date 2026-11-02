@@ -88,8 +88,9 @@ const (
 	rateWindow = time.Minute
 )
 
-// rateLimited are the endpoints limited (the posts to them)
-var rateLimited = regexp.MustCompile(`^/(login|register|resetpw(/.*)?|api/token)$`)
+// rateLimited are the endpoints limited (the posts to them): /print runs
+// a browser (H-2)
+var rateLimited = regexp.MustCompile(`^/(login|register|resetpw(/.*)?|api/token|print)$`)
 
 type rateLimiter struct {
 	// limit is the number of requests allowed in a window (0: rateLimit)

@@ -29,6 +29,7 @@ file** (JSON) containing one entry per step. Two checks prove equivalence:
 | `fixed_time` | `YYYY-MM-DD HH:MM:SS` UTC time to freeze the clock at (Test::MockTime equivalent). Omitted = frozen at `2014-10-10 01:00:00` for determinism. |
 | `config`     | GADS config overrides, e.g. `{dateformat: dd-MM-yyyy}` |
 | `steps`      | ordered list of steps |
+| `requires`   | programs the scenario needs: `chromium` (`/usr/bin/chromium`, which GADS runs for PDFs and images of pages) and `pdftotext` (observing PDFs). The Go tests and the exported Perl tests skip a scenario when one is missing; the runners run it anyway. |
 | `hardened`   | Go only: run with the security fixes of hardened mode (the scenarios of `hardened/`, which Perl does not run) |
 
 ## Steps
@@ -455,6 +456,8 @@ fails). Both runners need poppler's `pdftotext`. The PDF bytes themselves
 differ (object order, compression, creation date), so the text is what is
 compared, and the Go unit tests of `internal/pdf` compare the position of
 every word with Perl's.
+A PNG response (`image/png`) is observed as `png`: `{width, height}` from
+its header, as the pixels of a screenshot depend on the browser.
 The CSRF token of a client is taken from each page (`data-csrf` or a
 `csrf_token` field).
 

@@ -1,0 +1,37 @@
+name: h2_print
+hardened: 1
+requires: [chromium, pdftotext]
+description: >
+  H-2: the HTML sent to /print loads only from a server of the public
+  files on the loopback interface: a local file and another server are
+  not shown in the PDF (in Perl, the page is a file:// URL and both are).
+  /print needs the CSRF token, which its form sends.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - login: { user: superadmin }
+  - http:
+      id: print_without_token
+      as: superadmin
+      method: POST
+      path: /print
+      csrf: false
+      form: { html: "<p>No token</p>" }
+      expect: { status: 302 }
+  - http:
+      id: print_without_token_message
+      as: superadmin
+      path: /
+      expect_body_contains: [csrf-token missing]
+  - http:
+      id: print_isolated
+      as: superadmin
+      method: POST
+      path: /print
+      form:
+        html: >-
+          <html><body><p>Printed</p>
+          <iframe src="file:///etc/os-release"></iframe>
+          <iframe src="http://127.0.0.1:9/"></iframe>
+          <img src="https://example.com/x.png">
+          </body></html>
+      expect: { status: 200, content_type: application/pdf, pdf: { pages: [Printed] } }

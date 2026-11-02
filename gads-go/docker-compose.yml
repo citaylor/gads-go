@@ -34,6 +34,9 @@ services:
       context: .
       additional_contexts:
         gads-upstream: ../upstream/GADS-dev
+      args:
+        # 1: Chromium, for PDFs and images of pages (see the Dockerfile)
+        WITH_CHROMIUM: ${GADS_WITH_CHROMIUM:-0}
     image: gads-go:latest
     environment:
       POSTGRES_HOST: db

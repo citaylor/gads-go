@@ -61,7 +61,7 @@ func (s *Server) hIndex(c *Ctx) string {
 	if dl, _ := c.Param("download"); truthy(dl) {
 		params.Set("readonly", int64(1))
 		if dl == "pdf" {
-			gads.Panic("PDF download of dashboards is not supported")
+			c.sendPDF(c.pageAsMech("index", params, mechOptions{PDF: true}))
 		}
 	}
 	return c.Template("index", params, nil)
@@ -95,7 +95,7 @@ func (s *Server) hTableIndex(c *Ctx) string {
 	if dl, _ := c.Param("download"); truthy(dl) {
 		params.Set("readonly", int64(1))
 		if dl == "pdf" && !truthy(layout.Row()["no_download_pdf"]) {
-			gads.Panic("PDF download of dashboards is not supported")
+			c.sendPDF(c.pageAsMech("index", params, mechOptions{PDF: true}))
 		}
 	}
 	return c.Template("index", params, nil)

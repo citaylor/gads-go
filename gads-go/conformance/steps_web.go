@@ -81,6 +81,7 @@ func (r *Runner) web() *webHarness {
 	}
 	dir := r.gadsDir()
 	srv := web.New(r.e, cfg, filepath.Join(dir, "views"), "")
+	srv.AppPublic = filepath.Join(dir, "public")
 	// ensure_site
 	if n, _ := r.db.QueryInt64(`SELECT COUNT(*) FROM "site"`); n == 0 {
 		r.db.InsertMap("site", map[string]any{"host": "localhost"})
@@ -370,6 +371,8 @@ func (r *Runner) webObserve(client *webClient, res *http.Response, content strin
 		}
 	} else if strings.HasPrefix(ct, "application/pdf") && !noBody {
 		obs["pdf"] = pdfText([]byte(content))
+	} else if strings.HasPrefix(ct, "image/png") && !noBody {
+		obs["png"] = pngSize([]byte(content))
 	} else if !noBody {
 		if client.csrf != "" {
 			content = strings.ReplaceAll(content, client.csrf, "{csrf}")

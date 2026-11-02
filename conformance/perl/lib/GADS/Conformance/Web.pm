@@ -219,6 +219,13 @@ sub _observe
     {
         $obs->{pdf} = pdf_text($content);
     }
+    elsif ($ct =~ m!^image/png! && !$args{no_body})
+    {
+        # A screenshot's pixels depend on the browser: its size is observed
+        $obs->{png} = $content =~ /\A\x89PNG\r\n\x1a\n....IHDR(....)(....)/s
+            ? { width => unpack('N', $1), height => unpack('N', $2) }
+            : { error => 'not a PNG' };
+    }
     elsif (!$args{no_body})
     {
         $content =~ s/\Q$client->{csrf}\E/{csrf}/g if $client->{csrf};

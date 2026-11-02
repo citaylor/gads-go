@@ -163,6 +163,18 @@ our (@OUTGOING, %OUTGOING_ANSWERS, $YUBI_KEY);
     };
 }
 
+# The programs that a scenario needs (its requires key) and that are not
+# installed: chromium, as GADS runs it, and pdftotext, which observes PDFs
+sub missing_requirements
+{   my $file = shift;
+    my $scenario = YAML::XS::LoadFile($file);
+    my %found = (
+        chromium  => sub { -x '/usr/bin/chromium' },
+        pdftotext => sub { grep -x "$_/pdftotext", split /:/, $ENV{PATH} // '' },
+    );
+    grep { !($found{$_} || sub { 0 })->() } @{$scenario->{requires} || []};
+}
+
 sub new
 {   my ($class, %args) = @_;
     bless {

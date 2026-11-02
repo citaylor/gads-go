@@ -4,7 +4,7 @@ This workspace ports [ctrlo GADS](https://github.com/ctrlo/GADS), a Perl and
 Dancer2 application, to Go. A language-neutral conformance suite proves that
 the port behaves the same: every scenario runs against the original Perl
 code and against Go, and the two sets of observations must be identical.
-As of 2026-11-02, against GADS `dev` at `b6e4c45b` (schema 115), all 180
+As of 2026-11-02, against GADS `dev` at `b6e4c45b` (schema 115), all 181
 scenarios are identical.
 
 ## Rules
@@ -87,6 +87,7 @@ Go packages, under `gads-go/`:
 | `internal/cli` | Ports of the `bin/*.pl` scripts. The `Commands` map is keyed by script name. |
 | `internal/db` | Database access with the same DDL as GADS (`sql_sqlite.sql`, `sql_postgres.sql`, generated from `GADS::Schema` by `gen/gen_ddl.pl`). `Upgrade` applies GADS's schema migrations to an older database (`upgrade.go`). Drivers: mattn/go-sqlite3 (cgo), or `-tags modernc` for modernc.org/sqlite; pgx for PostgreSQL. |
 | `internal/pdf` | Record and report PDFs: ports of CtrlO::PDF, PDF::Table and GADS::PDFGenerator, with the same text flow, wrapping, pagination and errors, and a PDF writer embedding Liberation Sans (Perl uses the system's). `testdata/perl_golden.pl` makes the Perl word positions the tests compare. |
+| `internal/chrome` | Headless Chrome for `_page_as_mech` (WWW::Mechanize::Chrome): loads a page and prints it to PDF or captures a PNG, over the DevTools protocol on a pipe, with WMC's switches. |
 | `internal/lua` | Lua 5.3.6, vendored and called through cgo, used for calc and RAG fields. Same sandbox as Inline::Lua in GADS. |
 | `internal/perl`, `perljson`, `yamlxs`, `cldr`, `mimeinfo`, `saml` | Behaviour of Perl and CPAN modules (truthiness, JSON::PP, YAML::XS, CLDR dates, File::MimeInfo, Net::SAML2). |
 | `conformance/` | Go runner and DataSheet port. `go test ./conformance` runs every scenario against the Perl golden. |
@@ -109,6 +110,11 @@ Go packages, under `gads-go/`:
   `/usr/share/fonts/truetype/liberation/` (links to
   `/usr/share/fonts/liberation-sans/` here), and both runners observe
   PDFs with poppler's `pdftotext` (installed; CI installs poppler-utils).
+- Chrome: GADS runs `/usr/bin/chromium` (here a link to
+  `/usr/bin/google-chrome`). Scenarios that need it or `pdftotext` say so
+  with `requires:`, and the Go and exported Perl tests skip them when
+  either is missing, as in CI (which has no `/usr/bin/chromium`; the
+  `internal/chrome` tests use its `google-chrome`).
 - Docker CE runs as a system service, and `ctaylor` is in the `docker`
   group. In an older login session, use `sg docker -c '...'`. The host's own
   PostgreSQL is disabled; use the containers instead.
@@ -264,6 +270,10 @@ Configuration works as in Dancer2:
 - Mail settings are in `gads: mail:` (via sendmail or smtp, host, port,
   security starttls/tls/none, username, password, helo, timeout).
 - Uploaded files are stored on disk under `gads: uploads`.
+- PDFs and images of pages (dashboards, `/print`, timelines, graphs) run
+  Chromium: `gads: chromium` is its path (default `/usr/bin/chromium`,
+  as Perl), and `chromium_no_sandbox: 1` runs it without its sandbox
+  (set in the Docker image, whose seccomp profile does not allow it).
 - `serve` listens on `-listen`, otherwise `GADS_LISTEN`, otherwise `:3000`.
 - `serve` logs to stdout with `log/slog` (`cmd/gads/logging.go`,
   `internal/web/logging.go`):
@@ -350,6 +360,11 @@ docker compose restart dev                 # rebuild and rerun after a change
     the header that a client sends.
   - A database seeded with another host needs
     `UPDATE site SET host = 'NEW'`, as GADS redirects other hosts.
+- **Chromium.** `GADS_WITH_CHROMIUM=1 docker compose up -d --build`
+  (build argument `WITH_CHROMIUM`) adds Chromium and its fonts, for the
+  PDFs and images of pages; the image's config runs it without its
+  sandbox. It is off by default, as it triples the image and Trivy fails
+  CI on its unfixed issues.
 - **Rebuilding.** A change to the Go code reaches the `app` container only
   after `docker compose up -d --build`.
 - **Other compose files.**
@@ -374,7 +389,10 @@ Changes made in the Go code that don't affect parity:
 - Session cookie settings follow Dancer2: Secure, SameSite, duration, and an
   idle expiry.
 - Server timeouts: read-header 30 s, read 10 min, idle 2 min.
-- The engine lock no longer covers network I/O.
+- The engine lock no longer covers network I/O, nor Chrome: a page is
+  rendered under the lock, then loaded and printed after it, at most two
+  browsers at once and for at most two minutes each. Chrome is driven
+  over a pipe, not WMC's port 9222 with `--remote-allow-origins=*`.
 - Line breaks are stripped from mail address headers, so they can't add
   headers.
 - Plain passwords are compared in constant time.
@@ -389,8 +407,7 @@ Changes made in the Go code that don't affect parity:
   (see Deviations).
 
 SAML responses are always rejected, as in Perl with Net::SAML2 0.89, so the
-Perl authentication bypass (C-1) does not exist in Go. Nor does H-2
-(`/print` runs no browser in Go).
+Perl authentication bypass (C-1) does not exist in Go.
 
 **Hardened mode** (`gads.Config.Hardened`) fixes the other critical, high
 and medium findings of `GADS-security-report-verified.md`. All of them were
@@ -412,6 +429,7 @@ code.
 | Finding | Fix (web layer: `internal/web/hardening.go`) |
 |---|---|
 | H-1 CSRF | A GET request cannot change data: `DB.WriteCheck` allows only the writes of showing a page (audit, `session_settings`, default dashboards and RAG settings, submission tokens, the OAuth client, expired tokens), and mail fails. PUT, PATCH and DELETE need the token in a session. The cookie is SameSite=Lax unless configured. |
+| H-2 | Pages printed by Chrome (`/print`, dashboards, timelines, graphs) load from a server of the public files on the loopback interface, at a random path, instead of `file://`: every other request is refused (`Fetch`), and a CSP keeps connections to that origin. `/print` needs the CSRF token, and its POSTs are rate-limited as M-7's. |
 | H-3 | Only a superadmin changes or retires a superadmin (`User.CheckCanManage`). |
 | H-4 | A historic purge takes only records that the user sees in this table's view, and the columns the page offers. |
 | H-5 | Dashboards are changed by their own scope: the site's by superadmins, a table's with `layout` on that table, a personal one by its owner, who is also the only one who can read it (M-2). Notice HTML is sanitised (bluemonday). |
@@ -419,7 +437,7 @@ code.
 | M-3 | Only superadmins upload independent files. |
 | M-4 | PBKDF2-SHA512 (210000 iterations, 91 characters), upgraded at login. The user's `encryption_key` changes with the hash, as it does on a password change. |
 | M-5 | The password grant has the lockout and audit of `/login`. Retiring a user revokes their tokens. |
-| M-7 | Pages are at most 1000 rows. POSTs to `/login`, `/register`, `/resetpw` and `/api/token` are limited to 20 a minute per address (429). |
+| M-7 | Pages are at most 1000 rows. POSTs to `/login`, `/register`, `/resetpw`, `/api/token` and `/print` are limited to 20 a minute per address (429). |
 | M-8 | CSP with `object-src`, `base-uri` and `frame-ancestors` on every response, plus nosniff, Referrer-Policy and HSTS (with `is_secure`). |
 | M-9 | A request for an existing account resends the pending reset code. Long names and notes are refused. |
 | M-11 | CSV downloads quote a cell that starts with `= + - @`, a tab or a CR, unless it is a number. |
@@ -435,9 +453,6 @@ Not fixed:
 ## Deviations and not ported
 
 - Not ported:
-  - The PDFs and images that Perl makes with headless Chrome
-    (WWW::Mechanize::Chrome): dashboard PDFs (`?download=pdf`), `/print`,
-    and the timeline and graph PNG and PDF downloads.
   - The scripts `update-many-records` (which doesn't compile in Perl),
     `api-example`, `export-pdf`, `migrate-db` (`gads upgrade` applies the
     upgrades instead), `seed-large`, and the shell scripts.

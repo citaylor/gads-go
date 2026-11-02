@@ -62,7 +62,9 @@ func (s *Server) beforeHook(c *Ctx) {
 	// in a session (an API client authenticates with its bearer token)
 	checkCSRF := c.IsPost() || (e.Config.Hardened && !safeMethod(c.Method()) &&
 		c.LoggedInUser() != nil && c.Var("api_user") == nil)
-	if checkCSRF && !csrfExemptRe.MatchString(c.Path()) {
+	// Hardened (H-2): /print needs the token, which its form sends
+	exempt := csrfExemptRe.MatchString(c.Path()) && !(e.Config.Hardened && c.Path() == "/print")
+	if checkCSRF && !exempt {
 		var token string
 		if c.RequestContentType() == "application/json" {
 			var body map[string]any

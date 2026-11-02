@@ -1,6 +1,7 @@
 package conformance
 
 import (
+	"encoding/binary"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -37,4 +38,16 @@ func pdfText(content []byte) map[string]any {
 		pages = append(pages, strings.TrimRight(p, "\n"))
 	}
 	return map[string]any{"pages": pages}
+}
+
+// pngSize is the size of a PNG, from its header (the observation of a PNG
+// response: its pixels depend on the browser)
+func pngSize(content []byte) map[string]any {
+	if len(content) < 24 || string(content[:8]) != "\x89PNG\r\n\x1a\n" || string(content[12:16]) != "IHDR" {
+		return map[string]any{"error": "not a PNG"}
+	}
+	return map[string]any{
+		"width":  int64(binary.BigEndian.Uint32(content[16:])),
+		"height": int64(binary.BigEndian.Uint32(content[20:])),
+	}
 }

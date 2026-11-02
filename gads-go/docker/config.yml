@@ -49,6 +49,11 @@ gads:
   # Uploaded files are stored on disk here (the uploads volume of
   # docker-compose.yml); GADS_UPLOADS overrides it
   uploads: /var/lib/gads/uploads
+  # Chromium (an image built with WITH_CHROMIUM=1) runs without its
+  # sandbox, which Docker's default seccomp profile does not allow: the
+  # container isolates it, and hardened mode lets pages load nothing but
+  # their own files
+  chromium_no_sandbox: 1
   # How emails are sent: sendmail (the default) or smtp. In the container
   # the entrypoint sets this from the SMTP_* environment variables.
   # mail:

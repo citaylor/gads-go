@@ -205,8 +205,16 @@ func (s *Server) hDataTimelinePost(c *Ctx) string {
 // get '/:layout_name/data_graph/:id/:time' (GADS.pm:2283)
 func (s *Server) hDataGraphJSON(c *Ctx) string {
 	idS, _ := c.RouteParam("id")
+	_, data := s.dataGraph(c, c.Layout(), idS)
+	c.Header("Cache-Control", "max-age=0, must-revalidate, private")
+	c.ContentType("application/json")
+	return graphDataJSON(data)
+}
+
+// dataGraph is GADS.pm _data_graph: the graph's data for the user's view
+// and search
+func (s *Server) dataGraph(c *Ctx, layout *gads.Layout, idS string) (*gads.Graph, *gads.GraphData) {
 	id, _ := toInt64(idS)
-	layout := c.Layout()
 	user := c.LoggedInUser()
 	view := c.CurrentView(layout)
 	records := s.E.NewRecordsGraph(layout, user)
@@ -216,9 +224,12 @@ func (s *Server) hDataGraphJSON(c *Ctx) string {
 	records.ViewLimitExtraID = c.currentViewLimitExtraID(layout)
 	records.ViewLimitOverrideID = c.currentViewLimitOverrideID(layout)
 	records.Rewind = sessionRewind(c)
-	data := s.E.LoadGraph(id, layout, user).Data(records, view)
-	c.Header("Cache-Control", "max-age=0, must-revalidate, private")
-	c.ContentType("application/json")
+	g := s.E.LoadGraph(id, layout, user)
+	return g, g.Data(records, view)
+}
+
+// graphDataJSON is Graph::Data as_json
+func graphDataJSON(data *gads.GraphData) string {
 	return gads.EncodeJSON(map[string]any{
 		"points":  data.Points,
 		"labels":  data.LabelsEncoded(),
@@ -233,6 +244,6 @@ func (s *Server) hPrint(c *Ctx) string {
 	if !truthy(html) {
 		gads.Fail("Missing body parameter: html")
 	}
-	gads.Panic("PDF printing is not supported")
+	c.sendPDF(c.pageAsMech("", nil, mechOptions{HTML: html}))
 	return ""
 }

@@ -55,6 +55,12 @@ sub run
     my $golden_file = "$here/golden/$name.json";
     my $json = JSON->new->canonical->utf8;
 
+    # The programs that the scenario needs (requires)
+    if (my @missing = GADS::Conformance::Runner::missing_requirements($file))
+    {
+        plan skip_all => "$name needs @missing";
+    }
+
     my $runner = GADS::Conformance::Runner->new(file => $file, gads => $root);
     my $result = eval { $runner->run };
     if (!$result)

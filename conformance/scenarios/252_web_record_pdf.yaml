@@ -1,4 +1,5 @@
 name: 252_web_record_pdf
+requires: [pdftotext]
 source:
   - lib/GADS.pm (any /record/:id: pdf and report)
   - lib/GADS/PDFGenerator.pm (build)

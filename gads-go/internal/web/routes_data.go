@@ -322,7 +322,7 @@ func (s *Server) hData(c *Ctx) string {
 
 	switch viewtype {
 	case "graph":
-		s.dataGraph(c, layout, user, params)
+		s.dataGraphView(c, layout, user, params)
 	case "timeline":
 		s.dataTimeline(c, layout, user, view, params)
 	case "calendar", "globe":
@@ -569,12 +569,29 @@ func uriEscapeUTF8(s string) string {
 
 var _ = url.QueryEscape
 
-// dataGraph is the graph view type of the data page
-func (s *Server) dataGraph(c *Ctx, layout *gads.Layout, user *gads.User, params *tt.Hash) {
+// dataGraphView is the graph view type of the data page
+func (s *Server) dataGraphView(c *Ctx, layout *gads.Layout, user *gads.User, params *tt.Hash) {
 	params.Set("page", "data_graph")
 	params.Set("viewtype", "graph")
 	if png := c.ParamS("png"); truthy(png) {
-		gads.Panic("PNG images of graphs are not supported")
+		g, data := s.dataGraph(c, layout, png)
+		json := base64.StdEncoding.EncodeToString([]byte(graphDataJSON(data)))
+		// Graph as_json
+		var label any
+		if g.YAxisLabel != "" {
+			label = g.YAxisLabel
+		}
+		options := base64.StdEncoding.EncodeToString([]byte(gads.EncodeJSON(map[string]any{
+			"type": g.Type, "x_axis_name": g.XAxisName(), "y_axis_label": label,
+			"stackseries": g.Stackseries, "showlegend": g.Showlegend(), "id": png,
+		})))
+		params.Set("graph_id", png)
+		job := c.pageAsMech("data_graph", params, mechOptions{})
+		job.eval = "(function(plotData, options_in){do_plot_json(plotData, options_in)})('" + json + "','" + options + "');"
+		// Sent as an inline image, to make copy and paste easier
+		job.png, job.width, job.height = true, 630, 400
+		job.ctype, job.disposition = "image/png", "inline"
+		c.sendBrowser(job)
 	}
 	if csv := c.ParamS("csv"); truthy(csv) {
 		gads.Panic("CSV downloads of graphs are not yet supported")
@@ -639,10 +656,18 @@ func (s *Server) dataTimeline(c *Ctx, layout *gads.Layout, user *gads.User, view
 	params.Set("viewtype", "timeline")
 	params.Set("search_limit_reached", int64(records.SearchLimitReached()))
 	if truthy(c.ParamS("png")) {
-		gads.Panic("PNG images of timelines are not supported")
+		job := c.pageAsMech("data_timeline", params, mechOptions{})
+		job.png, job.ctype = true, "image/png"
+		c.sendBrowser(job)
 	}
 	if truthy(c.ParamS("modal_pdf")) && !truthy(layout.Row()["no_download_pdf"]) {
-		gads.Panic("PDF downloads of timelines are not supported")
+		var zoom any
+		if v, ok := c.Param("pdf_zoom"); ok {
+			zoom = v
+		}
+		tl["pdf_zoom"] = zoom
+		params.Set("tl_options", ttValue(tl))
+		c.sendPDF(c.pageAsMech("data_timeline", params, mechOptions{PDF: true, Zoom: zoom}))
 	}
 }
 
