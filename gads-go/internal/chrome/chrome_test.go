@@ -241,4 +241,9 @@ func TestTailWriter(t *testing.T) {
 	if got := w.lastError(); got != "[3:3:ERROR:b.cc:2] Last" {
 		t.Errorf("error %q", got)
 	}
+	// A fatal error comes before later errors
+	w.Write([]byte("[4:4:FATAL:zygote.cc:228] Zygote exited\n[5:5:ERROR:file_io.cc:145] open cpufreq\n"))
+	if got := w.lastError(); got != "[4:4:FATAL:zygote.cc:228] Zygote exited" {
+		t.Errorf("error %q", got)
+	}
 }

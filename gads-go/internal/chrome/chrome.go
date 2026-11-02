@@ -70,14 +70,16 @@ func (w *tailWriter) Write(p []byte) (int, error) {
 	return len(p), nil
 }
 
-// lastError is the browser's last line of error, if any
+// lastError is the browser's last fatal error, else its last error
 func (w *tailWriter) lastError() string {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 	lines := strings.Split(strings.TrimSpace(string(w.data)), "\n")
-	for i := len(lines) - 1; i >= 0; i-- {
-		if strings.Contains(lines[i], "ERROR") || strings.Contains(lines[i], "FATAL") {
-			return strings.TrimSpace(lines[i])
+	for _, level := range []string{":FATAL:", ":ERROR:"} {
+		for i := len(lines) - 1; i >= 0; i-- {
+			if strings.Contains(lines[i], level) {
+				return strings.TrimSpace(lines[i])
+			}
 		}
 	}
 	return ""

@@ -38,6 +38,10 @@ jobs:
       # pdftotext observes the PDFs that the scenarios download
       - name: Install poppler-utils
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils
+      # Ubuntu's AppArmor keeps Chromium from making the user namespaces of
+      # its sandbox
+      - name: Allow Chromium's sandbox
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Tests, Perl parity and the hardened scenarios
         run: go test ./...
       - name: Race detector
@@ -96,6 +100,10 @@ jobs:
       # pdftotext observes the PDFs that the scenarios download
       - name: Install poppler-utils
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils
+      # Ubuntu's AppArmor keeps Chromium from making the user namespaces of
+      # its sandbox
+      - name: Allow Chromium's sandbox
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Hardened scenarios on PostgreSQL
         run: go test ./conformance -run TestHardened
       - name: Reconnecting after PostgreSQL drops the connection
