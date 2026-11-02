@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
+	"net/http"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -115,6 +116,7 @@ type Runner struct {
 	webh        *webHarness
 	tokens      int
 	emails      []any // emails captured since the last emails step
+	outgoing    *outgoingHTTP
 }
 
 // RunFile runs a scenario file and returns its result.
@@ -238,6 +240,19 @@ func (r *Runner) newDatabase() error {
 		if df, ok := c["dateformat"].(string); ok {
 			cfg.DateFormat = df
 		}
+		strMap := func(v any) map[string]string {
+			m, ok := v.(map[string]any)
+			if !ok {
+				return nil
+			}
+			out := map[string]string{}
+			for k, x := range m {
+				out[k] = str(x)
+			}
+			return out
+		}
+		cfg.SMS = strMap(c["sms"])
+		cfg.Yubi = strMap(c["yubi"])
 	}
 	e, err := gads.NewEngine(d, cfg)
 	if err != nil {
@@ -262,6 +277,10 @@ func (r *Runner) newDatabase() error {
 	}
 	// As run_perl.sh sets GADS_NO_FORK
 	e.NoFork = true
+	// Requests to other services are answered (the outgoing_http step)
+	r.outgoing = &outgoingHTTP{r: r}
+	r.outgoing.reset()
+	e.HTTPClient = &http.Client{Transport: r.outgoing}
 	// Emails are captured instead of sent (the emails step)
 	r.emails = []any{}
 	e.Emailer = func(m gads.Email) {
@@ -366,6 +385,7 @@ func (r *Runner) runStep(id, typ string, args map[string]any) StepResult {
 		"alert":             r.stepAlert,
 		"alert_send":        r.stepAlertSend,
 		"emails":            r.stepEmails,
+		"outgoing_http":     r.stepOutgoingHTTP,
 		"cli":               r.stepCLI,
 		"alert_description": r.stepAlertDescription,
 		"views":             r.stepViews,

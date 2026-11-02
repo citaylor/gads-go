@@ -450,6 +450,29 @@ each element sorted (Perl builds them from a hash). The parameter is
 The CSRF token of a client is taken from each page (`data-csrf` or a
 `csrf_token` field).
 
+### `outgoing_http`
+The requests that GADS makes to other services are answered by the runner
+instead of sent (Perl: `LWP::UserAgent::request` is replaced; Go: the
+transport of the engine's `HTTPClient`). These are the SMS messages of the
+BulkSMS API (`send_sms`, configured by the scenario's `config: sms:
+{username, password, from}`) and the OTP checks of the Yubico API
+(Auth::Yubikey_WebClient, `config: yubi: {id, key}`). Any other host is
+answered 404.
+Options set the answers of later requests, until changed:
+* `sms` – the JSON answer of the SMS gateway (default
+  `[{status: {type: ACCEPTED}}]`), with `sms_status` its HTTP status
+  (default 201);
+* `yubico` – the `status` of the Yubico answer (default `OK`). The answer
+  repeats the request's `nonce` and `otp`, with `t` the time
+  `2014-10-10T01:00:00Z0000`, and is signed (`h`) with the HMAC-SHA1 of the
+  base64-decoded `config.yubi.key`, unless `yubico_signature: bad` (back with
+  `good`).
+Observes the list of requests made since the scenario started or the last
+`outgoing_http` step, each `{method, url (scheme, host and path), query (a
+hash, the last value of a repeated parameter), authorization, content_type,
+json (the decoded JSON body, else null)}`, and clears it. The 6-digit SMS
+codes of Session::Token come from the predictable tokens (`T00005`).
+
 ### `login`
 Log in as a user: sets the user's password, fetches `/login` and posts the
 login form. Options: `user`, `as` (client name, default the user name),

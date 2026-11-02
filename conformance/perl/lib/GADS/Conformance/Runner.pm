@@ -104,6 +104,65 @@ our @EMAILS;
     };
 }
 
+# Requests to other services (the BulkSMS API of send_sms, the Yubico API
+# of Auth::Yubikey_WebClient) are answered by the runner instead of sent
+# (see the outgoing_http step), as the Go runner's HTTP client does
+our (@OUTGOING, %OUTGOING_ANSWERS, $YUBI_KEY);
+{
+    no warnings 'redefine';
+    require LWP::UserAgent;
+    require HTTP::Response;
+    require URI;
+    require Digest::HMAC_SHA1;
+    require MIME::Base64;
+    *LWP::UserAgent::request = sub {
+        my ($ua, $request) = @_;
+        my $uri = URI->new($request->uri);
+        my %query = $uri->query_form;
+        my $body = $request->content;
+        my $json = length $body ? eval { JSON::PP->new->utf8->decode($body) } : undef;
+        push @OUTGOING, {
+            method        => $request->method,
+            url           => $uri->scheme.'://'.$uri->host.$uri->path,
+            query         => \%query,
+            authorization => scalar $request->header('Authorization'),
+            content_type  => scalar $request->header('Content-Type'),
+            json          => $json,
+        };
+        my $answer = sub {
+            my ($status, $type, $content) = @_;
+            my $response = HTTP::Response->new($status, undef, ['Content-Type' => $type], $content);
+            $response->request($request);
+            $response;
+        };
+        if ($uri->host eq 'api.bulksms.com')
+        {
+            my $content = exists $OUTGOING_ANSWERS{sms} ? $OUTGOING_ANSWERS{sms}
+                : [ { status => { type => 'ACCEPTED' } } ];
+            return $answer->($OUTGOING_ANSWERS{sms_status} // 201, 'application/json',
+                JSON::PP->new->utf8->canonical->encode($content));
+        }
+        elsif ($uri->host eq 'api2.yubico.com')
+        {
+            # A Yubico answer signed with the API key of the configuration
+            my %fields = (
+                nonce  => $query{nonce},
+                otp    => $query{otp},
+                status => $OUTGOING_ANSWERS{yubico} // 'OK',
+                t      => '2014-10-10T01:00:00Z0000',
+            );
+            my $data = join '&', map "$_=$fields{$_}", sort keys %fields;
+            my $h = MIME::Base64::encode_base64(
+                Digest::HMAC_SHA1::hmac_sha1($data, MIME::Base64::decode_base64($YUBI_KEY // '')), '');
+            $h = 'AAAAAAAAAAAAAAAAAAAAAAAAAAA='
+                if ($OUTGOING_ANSWERS{yubico_signature} // '') eq 'bad';
+            return $answer->(200, 'text/plain',
+                join("\r\n", "h=$h", map "$_=$fields{$_}", sort keys %fields)."\r\n\r\n");
+        }
+        return $answer->(404, 'text/plain', 'Not Found');
+    };
+}
+
 sub new
 {   my ($class, %args) = @_;
     bless {
@@ -252,6 +311,9 @@ sub run
 
     $GADS::Conformance::TOKENS = 0;
     @EMAILS = ();
+    @OUTGOING = ();
+    %OUTGOING_ANSWERS = ();
+    $YUBI_KEY = $scenario->{config} && $scenario->{config}->{yubi} && $scenario->{config}->{yubi}->{key};
     my $i = 0;
     foreach my $step (@{$scenario->{steps} || []})
     {
@@ -3107,6 +3169,18 @@ sub _view_attrs
 }
 
 # An alert on a view (GADS::Alert). frequency null removes the alert
+# Sets the answers of later requests to other services (sms, sms_status,
+# yubico, yubico_signature), and observes the requests made since the
+# scenario started or the last outgoing_http step
+sub step_outgoing_http
+{   my ($self, $args) = @_;
+    exists $args->{$_} and $OUTGOING_ANSWERS{$_} = $args->{$_}
+        foreach qw/sms sms_status yubico yubico_signature/;
+    my @requests = @OUTGOING;
+    @OUTGOING = ();
+    return \@requests;
+}
+
 # The emails sent since the last emails step
 sub step_emails
 {   my ($self, $args) = @_;

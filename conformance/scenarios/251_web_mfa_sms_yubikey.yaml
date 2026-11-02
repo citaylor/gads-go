@@ -1,0 +1,73 @@
+name: 251_web_mfa_sms_yubikey
+source:
+  - lib/GADS/MFA.pm (/mfa)
+  - lib/GADS/Schema/Result/User.pm (send_mfa_sms, send_sms, need_mobile_verification, verify_mobile, get_yubikey, check_token)
+  - lib/GADS/Config.pm (sms_config, yubi_config)
+  - Auth::Yubikey_WebClient (yubikey_webclient)
+description: >
+  Multi-factor authentication with the network services configured: the
+  SMS codes sent through the BulkSMS API (the verification of the mobile
+  number, then a code at each authentication, and the errors of the
+  gateway), and Yubikeys checked with the Yubico API (setting up the key,
+  bad OTPs, a wrong signature and a replayed OTP, then authentication).
+  The runners answer the requests to these services (outgoing_http), and
+  the Yubico answers are signed with the configured API key.
+config:
+  sms: { username: smsuser, password: smspass, from: LinkSpace }
+  yubi: { id: "12345", key: c2VjcmV0a2V5MTIz }
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - login: { user: normal1 }
+  - http: { id: no_mfa, as: normal1, path: /mfa }
+  - db: { op: update, table: site, where: { id: 1 }, set: { force_mfa: any } }
+  - http: { id: mfa_redirect, as: normal1, path: / }
+  - http: { id: logout, as: normal1, path: /logout, no_body: true }
+  - login: { user: normal1 }
+  - http: { id: choose, as: normal1, path: /mfa }
+  # SMS: the mobile number is verified with a code sent to it
+  - http: { id: choose_sms, as: normal1, method: POST, path: /mfa, form: { choose_mfa: sms } }
+  - http: { id: sms_mobile, as: normal1, method: POST, path: /mfa, form: { mobile: "+441234567890" } }
+  - http: { id: sms_verification_page, as: normal1, path: /mfa }
+  - outgoing_http: { id: sms_verification_sent, expect: [ { method: POST, url: "https://api.bulksms.com/v1/messages", authorization: "Basic c21zdXNlcjpzbXNwYXNz", json: { to: "+441234567890", from: LinkSpace, body: "~T00005" } } ] }
+  - db: { id: sms_verification_token, op: select, table: user, where: { id: "@user:normal1" }, columns: [mobile, mobile_verified, mfa_sms_token, mfa_sms_created] }
+  - http: { id: sms_verify, as: normal1, method: POST, path: /mfa, form: { token: T00005 } }
+  - db: { id: sms_verified, op: select, table: user, where: { id: "@user:normal1" }, columns: [mobile, mobile_verified, mfa_token_previous_type, mfa_failcount], expect: [ { mobile_verified: 1, mfa_token_previous_type: sms } ] }
+  - outgoing_http: { id: nothing_sent_on_verify, expect: [] }
+  # The MFA cookie is secure, so not sent back over http: each visit asks
+  # for a code, sent by SMS
+  - http: { id: sms_code_page, as: normal1, path: /mfa }
+  - outgoing_http: { id: sms_code_sent, expect: [ { method: POST, url: "https://api.bulksms.com/v1/messages", authorization: "Basic c21zdXNlcjpzbXNwYXNz", json: { to: "+441234567890", from: LinkSpace, body: "~T00007" } } ] }
+  - http: { id: sms_wrong_code, as: normal1, method: POST, path: /mfa, form: { token: "000000" } }
+  - outgoing_http: { id: sms_code_resent, expect: [ { method: POST, url: "https://api.bulksms.com/v1/messages", authorization: "Basic c21zdXNlcjpzbXNwYXNz", json: { to: "+441234567890", from: LinkSpace, body: "~T00008" } } ] }
+  - db: { id: sms_after_wrong, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_sms_token, mfa_failcount], expect: [ { mfa_sms_token: T00008, mfa_failcount: 1 } ] }
+  - http: { id: sms_correct_code, as: normal1, method: POST, path: /mfa, form: { token: T00008 }, expect: { status: 302 } }
+  - db: { id: sms_after_correct, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_failcount, mfa_token_previous, mfa_token_previous_type] }
+  # Errors of the gateway
+  - outgoing_http: { id: gateway_refuses, sms_status: 401, sms: { title: Unauthorized, detail: Invalid credentials } }
+  - http: { id: sms_gateway_refused, as: normal1, path: /mfa }
+  - outgoing_http: { id: gateway_fails, sms_status: 201, sms: [ { status: { type: FAILED } } ] }
+  - http: { id: sms_gateway_failed, as: normal1, path: /mfa }
+  - outgoing_http: { id: gateway_requests, sms: [ { status: { type: ACCEPTED } } ] }
+  # The message of the last error is shown on the next page
+  - http: { id: sms_error_shown, as: normal1, path: /mfa, expect_body_contains: [ An unexpected error has occurred ] }
+  - outgoing_http: { id: sms_sent_again }
+  # Yubikey: the key is set up with an OTP checked by Yubico
+  - db: { op: update, table: user, where: { id: "@user:normal1" }, set: { mfa_type: yub, mfa_secret: null } }
+  - http: { id: yub_setup, as: normal1, path: /mfa }
+  - http: { id: yub_bad_otp, as: normal1, method: POST, path: /mfa, form: { get_key: abc } }
+  - outgoing_http: { id: yub_bad_otp_not_sent, yubico_signature: bad, expect: [] }
+  - http: { id: yub_bad_signature, as: normal1, method: POST, path: /mfa, form: { get_key: ccccccbcgujhingjrdejhgfnuetrgigvejhhgbkugded } }
+  - outgoing_http: { id: yub_bad_signature_request, yubico_signature: good, yubico: REPLAYED_OTP }
+  - http: { id: yub_replayed, as: normal1, method: POST, path: /mfa, form: { get_key: ccccccbcgujhingjrdejhgfnuetrgigvejhhgbkugded } }
+  - outgoing_http: { id: yub_replayed_request, yubico: OK }
+  - db: { id: yub_no_secret, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_type, mfa_secret], expect: [ { mfa_secret: null } ] }
+  - http: { id: yub_key_added, as: normal1, method: POST, path: /mfa, form: { get_key: ccccccbcgujhingjrdejhgfnuetrgigvejhhgbkugded } }
+  - outgoing_http: { id: yub_key_added_request, expect: [ { method: GET, url: "https://api2.yubico.com/wsapi/2.0/verify", query: { id: "12345", otp: ccccccbcgujhingjrdejhgfnuetrgigvejhhgbkugded } } ] }
+  - db: { id: yub_secret, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_type, mfa_secret], expect: [ { mfa_type: yub, mfa_secret: ccccccbcgujh } ] }
+  # Authentication with another OTP of the same key, then with a key of
+  # someone else
+  - http: { id: yub_code_page, as: normal1, path: /mfa }
+  - http: { id: yub_other_key, as: normal1, method: POST, path: /mfa, form: { token: ccccccdddddddingjrdejhgfnuetrgigvejhhgbkugded }, expect_body_contains: [ Incorrect or invalid token entered ] }
+  - http: { id: yub_correct, as: normal1, method: POST, path: /mfa, form: { token: ccccccbcgujhkkkkrdejhgfnuetrgigvejhhgbkugded } }
+  - outgoing_http: { id: yub_auth_requests }
+  - db: { id: yub_after, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_failcount, mfa_token_previous, mfa_token_previous_type], expect: [ { mfa_failcount: 0, mfa_token_previous: ccccccbcgujhkkkkrdejhgfnuetrgigvejhhgbkugded, mfa_token_previous_type: yub } ] }

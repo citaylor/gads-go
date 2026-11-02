@@ -4,7 +4,7 @@ This workspace ports [ctrlo GADS](https://github.com/ctrlo/GADS), a Perl and
 Dancer2 application, to Go. A language-neutral conformance suite proves that
 the port behaves the same: every scenario runs against the original Perl
 code and against Go, and the two sets of observations must be identical.
-As of 2026-11-02, against GADS `dev` at `b6e4c45b` (schema 115), all 178
+As of 2026-11-02, against GADS `dev` at `b6e4c45b` (schema 115), all 179
 scenarios are identical.
 
 ## Rules
@@ -13,7 +13,9 @@ scenarios are identical.
   `upstream/GADS` (master) must run exactly as upstream ships them, including
   in benchmarks. Only the runtime patches applied by the test harness are
   allowed: `conformance/perl/lib/GADS/Conformance/Patches.pm` freezes the
-  clock, makes JSON canonical and makes tokens predictable. Offer any Perl
+  clock, makes JSON canonical and makes tokens predictable, and the runner
+  (`Runner.pm`) captures emails and answers outgoing HTTP requests (the SMS
+  gateway and Yubico, `outgoing_http`) instead of sending them. Offer any Perl
   fix separately, as a file in `conformance/patches/`.
 - **Go reproduces Perl's behaviour, quirks included.** This covers messages,
   SQL shape, row order and bugs. A deliberate deviation must be commented
@@ -197,6 +199,8 @@ Debugging environment variables:
 - **Determinism hooks** on `gads.Engine`:
   - `Clock`, `TokenGenerator`, `PasswordGenerator` and `SAMLIDGenerator`
     are replaced by the runner.
+  - `HTTPClient` makes the requests to other services (the SMS gateway and
+    the Yubico API); the runner's transport answers them.
   - `NoFork` is GADS_NO_FORK.
   - `IgnorePermissions` is the server-side admin context used by the
     scripts.
@@ -427,7 +431,6 @@ Not fixed:
 
 - Not ported:
   - PDF output: PDFGenerator, and record, report and dashboard PDFs.
-  - SMS and Yubikey network calls. Only the "not configured" paths exist.
   - The scripts `update-many-records` (which doesn't compile in Perl),
     `api-example`, `export-pdf`, `migrate-db` (`gads upgrade` applies the
     upgrades instead), `seed-large`, and the shell scripts.

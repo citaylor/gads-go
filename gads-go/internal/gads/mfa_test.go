@@ -4,6 +4,7 @@ import (
 	"crypto/hmac"
 	"crypto/sha1"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -69,14 +70,121 @@ func TestYubikeyWebclient(t *testing.T) {
 		}
 	}))
 	defer srv.Close()
-	if got := yubikeyWebclient(otp, "1", api, "abcdefghijklmnopqrstuvwxyz123456", srv.URL); got != "OK" {
+	if got := yubikeyWebclient(mfaHTTP, otp, "1", api, "abcdefghijklmnopqrstuvwxyz123456", srv.URL); got != "OK" {
 		t.Errorf("valid otp = %s", got)
 	}
 	status = "REPLAYED_OTP"
-	if got := yubikeyWebclient(otp, "1", api, "abcdefghijklmnopqrstuvwxyz123456", srv.URL); got != "ERR_REPLAYED_OTP" {
+	if got := yubikeyWebclient(mfaHTTP, otp, "1", api, "abcdefghijklmnopqrstuvwxyz123456", srv.URL); got != "ERR_REPLAYED_OTP" {
 		t.Errorf("replayed otp = %s", got)
 	}
-	if got := yubikeyWebclient("short", "1", api, "n", srv.URL); got != "ERR_BAD_OTP" {
+	if got := yubikeyWebclient(mfaHTTP, "short", "1", api, "n", srv.URL); got != "ERR_BAD_OTP" {
 		t.Errorf("bad otp = %s", got)
+	}
+}
+
+func TestYubikeyWebclientSignature(t *testing.T) {
+	api := base64.StdEncoding.EncodeToString([]byte("secretkey123"))
+	otp := "ccccccbcgujhingjrdejhgfnuetrgigvejhhgbkugded"
+	var answer string
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, answer)
+	}))
+	defer srv.Close()
+	// A signature made with another key
+	answer = "h=AAAAAAAAAAAAAAAAAAAAAAAAAAA=\r\nnonce=n0123456789\r\notp=" + otp + "\r\nstatus=OK\r\n"
+	if got := yubikeyWebclient(srv.Client(), otp, "1", api, "n0123456789", srv.URL); got != "ERR_HMAC" {
+		t.Errorf("bad signature = %s", got)
+	}
+	// An answer for another request
+	if got := yubikeyWebclient(srv.Client(), otp, "1", api, "other", srv.URL); got != "ERR_MSG_AUTH" {
+		t.Errorf("other nonce = %s", got)
+	}
+	// No answer
+	answer = ""
+	if got := yubikeyWebclient(srv.Client(), otp, "1", api, "n0123456789", srv.URL); got != "ERR_" {
+		t.Errorf("no answer = %s", got)
+	}
+	if err := Try(func() { yubikeyWebclient(srv.Client(), otp, "1", "abc", "n", srv.URL) }); err == nil || err.Error() != "Your API key must be in 4 byte lengths" {
+		t.Errorf("short key: %v", err)
+	}
+}
+
+func TestSendSMS(t *testing.T) {
+	var status int
+	var answer, gotAuth, gotType string
+	var gotBody map[string]string
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		gotAuth = r.Header.Get("Authorization")
+		gotType = r.Header.Get("Content-Type")
+		gotBody = nil
+		json.NewDecoder(r.Body).Decode(&gotBody)
+		w.WriteHeader(status)
+		fmt.Fprint(w, answer)
+	}))
+	defer srv.Close()
+	e := &Engine{Config: &Config{SMS: map[string]string{"username": "u", "password": "p", "from": "GADS", "url": srv.URL}}, HTTPClient: srv.Client()}
+	send := func() error { return Try(func() { e.SendSMS("+441234567890", "code") }) }
+
+	status, answer = 201, `[{"status":{"type":"ACCEPTED"}}]`
+	if err := send(); err != nil {
+		t.Fatalf("accepted: %v", err)
+	}
+	if gotAuth != "Basic dTpw" || gotType != "application/json" {
+		t.Errorf("headers %q %q", gotAuth, gotType)
+	}
+	want := map[string]string{"from": "GADS", "to": "+441234567890", "body": "code", "encoding": "UNICODE"}
+	if fmt.Sprint(gotBody) != fmt.Sprint(want) {
+		t.Errorf("body %v", gotBody)
+	}
+	for _, c := range []struct {
+		status int
+		answer string
+		msg    string
+	}{
+		{401, `{"title":"Unauthorized","detail":"Invalid credentials"}`, "Failed to send SMS message: Unauthorized (Invalid credentials)"},
+		{201, `[{"status":{"type":"FAILED"}}]`, "Failed to send SMS message - unknown reason"},
+		{201, `[]`, "Failed to send SMS message - unknown reason"},
+		{500, `not json`, "Failed to send SMS message - unknown response"},
+	} {
+		status, answer = c.status, c.answer
+		err := send()
+		if err == nil || err.Error() != c.msg || err.(*Error).Level != LevelPanic {
+			t.Errorf("%s: %v", c.answer, err)
+		}
+	}
+	// The configuration is checked before sending
+	for key, msg := range map[string]string{"username": "SMS username not defined", "password": "SMS password not defined", "from": "SMS sender configuration not defined"} {
+		e.Config.SMS = map[string]string{"username": "u", "password": "p", "from": "GADS"}
+		delete(e.Config.SMS, key)
+		if err := send(); err == nil || err.Error() != msg {
+			t.Errorf("without %s: %v", key, err)
+		}
+	}
+	e.Config.SMS = nil
+	if err := send(); err == nil || err.Error() != "SMS not configured" {
+		t.Errorf("not configured: %v", err)
+	}
+}
+
+func TestNewDigits(t *testing.T) {
+	e := &Engine{}
+	for i := 0; i < 20; i++ {
+		d := e.NewDigits(6)
+		if len(d) != 6 || strings.Trim(d, "0123456789") != "" {
+			t.Fatalf("NewDigits = %q", d)
+		}
+	}
+	// The runners' predictable tokens
+	e.TokenGenerator = func(n int) string { return fmt.Sprintf("T%05d", n) }
+	if d := e.NewDigits(6); d != "T00006" {
+		t.Errorf("NewDigits with TokenGenerator = %q", d)
+	}
+	if e.httpClient() != mfaHTTP || mfaHTTP.Timeout != 10*time.Second {
+		t.Errorf("default client")
+	}
+	c := &http.Client{}
+	e.HTTPClient = c
+	if e.httpClient() != c {
+		t.Errorf("HTTPClient not used")
 	}
 }

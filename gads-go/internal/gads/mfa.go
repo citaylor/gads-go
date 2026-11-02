@@ -238,14 +238,9 @@ func (u *User) RecentMFA(keyFromCookie string) bool {
 
 // SendMFASMS is send_mfa_sms: a new SMS token sent to the user's mobile
 func (u *User) SendMFASMS() {
-	b := make([]byte, 6)
-	rand.Read(b)
-	code := make([]byte, 6)
-	for i := range b {
-		code[i] = '0' + b[i]%10
-	}
-	u.updateMFA(map[string]any{"mfa_sms_token": string(code), "mfa_sms_created": u.e.Now()})
-	u.e.SendSMS(u.Mobile(), "“"+string(code)+"” is your LinkSpace access code")
+	code := u.e.NewDigits(6)
+	u.updateMFA(map[string]any{"mfa_sms_token": code, "mfa_sms_created": u.e.Now()})
+	u.e.SendSMS(u.Mobile(), "“"+code+"” is your LinkSpace access code")
 }
 
 // NeedMobileVerification is need_mobile_verification (which sends the
@@ -283,6 +278,30 @@ func (u *User) ResetMFA() {
 // mfaHTTP is the client of the Yubikey and SMS web services
 var mfaHTTP = &http.Client{Timeout: 10 * time.Second}
 
+// httpClient is the client of requests to other services
+func (e *Engine) httpClient() *http.Client {
+	if e.HTTPClient != nil {
+		return e.HTTPClient
+	}
+	return mfaHTTP
+}
+
+// NewDigits is Session::Token with the alphabet 0-9: a random code of n
+// digits (from TokenGenerator when set, as the runners' predictable tokens
+// ignore the alphabet)
+func (e *Engine) NewDigits(n int) string {
+	if e.TokenGenerator != nil {
+		return e.TokenGenerator(n)
+	}
+	b := make([]byte, n)
+	rand.Read(b)
+	code := make([]byte, n)
+	for i := range b {
+		code[i] = '0' + b[i]%10
+	}
+	return string(code)
+}
+
 // GetYubikey is get_yubikey: the Yubikey ID of a valid OTP
 // (Auth::Yubikey_WebClient against the Yubico web API)
 func (u *User) GetYubikey(otp string) string {
@@ -304,13 +323,13 @@ func (u *User) GetYubikey(otp string) string {
 	if len(yubiID) > 12 {
 		yubiID = yubiID[:12]
 	}
-	if yubikeyWebclient(otp, y["id"], y["key"], nonce, y["url"]) == "OK" {
+	if yubikeyWebclient(u.e.httpClient(), otp, y["id"], y["key"], nonce, y["url"]) == "OK" {
 		return yubiID
 	}
 	return ""
 }
 
-func yubikeyWebclient(otp, id, api, nonce, endpoint string) string {
+func yubikeyWebclient(client *http.Client, otp, id, api, nonce, endpoint string) string {
 	if endpoint == "" {
 		endpoint = "https://api2.yubico.com/wsapi/2.0/verify"
 	}
@@ -330,7 +349,7 @@ func yubikeyWebclient(otp, id, api, nonce, endpoint string) string {
 	params := "id=" + id + "&nonce=" + nonce + "&otp=" + uriEscape(otp) + "&timestamp=1"
 	params += "&h=" + uriEscape(sign(params))
 	var response string
-	if res, err := mfaHTTP.Get(endpoint + "?" + params); err == nil {
+	if res, err := client.Get(endpoint + "?" + params); err == nil {
 		b, _ := io.ReadAll(res.Body)
 		res.Body.Close()
 		if res.StatusCode < 300 {
@@ -392,7 +411,7 @@ func (e *Engine) SendSMS(to, body string) {
 	req.Header.Set("Content-Type", "application/json")
 	req.SetBasicAuth(c["username"], c["password"])
 	var ret any
-	if res, err := mfaHTTP.Do(req); err == nil {
+	if res, err := e.httpClient().Do(req); err == nil {
 		b, _ := io.ReadAll(res.Body)
 		res.Body.Close()
 		if json.Unmarshal(b, &ret) != nil {

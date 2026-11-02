@@ -10,6 +10,7 @@ package gads
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"runtime/debug"
 	"strings"
@@ -71,6 +72,10 @@ type Engine struct {
 	TokenGenerator func(n int) string
 	// PasswordGenerator replaces the random password generator (tests)
 	PasswordGenerator func() string
+	// HTTPClient makes the requests to other services (the SMS gateway and
+	// the Yubico API); nil is a client with a 10 s timeout, as LWP's
+	// (tests answer them instead)
+	HTTPClient *http.Client
 	// SAMLIDGenerator replaces the random IDs of SAML requests (tests)
 	SAMLIDGenerator func() string
 }
