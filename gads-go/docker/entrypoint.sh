@@ -90,6 +90,12 @@ if [ -z "$(psql -XtAc "SELECT to_regclass('public.site')")" ] \
     seeded=1
 fi
 
+# A database created by an earlier version is brought up to date (nothing
+# is done when it is)
+if [ "$seeded" = 0 ]; then
+    gads upgrade
+fi
+
 if [ "$seeded" = 1 ]; then
     if [ -n "$GADS_ADMIN_PASSWORD" ]; then
         # The password as Crypt::SaltedHash SSHA512 (4 byte salt), as GADS

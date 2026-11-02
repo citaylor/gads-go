@@ -62,6 +62,48 @@ func (s *Server) hRecord(c *Ctx) string {
 		reports.Items = append(reports.Items, newRow("report", r))
 	}
 	params.Set("reports", reports)
+
+	// The record as its table's overview dashboard, unless the full record
+	// is asked for
+	if viewQuery, _ := c.QueryParam("view"); layout.RecordAsDashboard() && viewQuery != "full" {
+		d := s.E.RecordDashboard(layout, splat[1])
+		base := c.Base()
+		readonly := any("")
+		if !layout.UserCan("layout") {
+			readonly = int64(1)
+		}
+		recordName := (&ttLayoutObj{c: c, l: layout}).recordName()
+		crumbText := "New " + recordName
+		if id != 0 {
+			crumbText = ucfirst(recordName) + " ID: " + splat[1]
+		}
+		var dashURL any
+		full := "?view=full"
+		if u := recordURL(record); u != nil {
+			dashURL, full = *u, *u+full
+		}
+		return c.Template("record/dashboard", tt.HashOf(
+			"page", "record/dashboard",
+			"current_id", splat[1],
+			"header_type", "table_title",
+			"header_back_url", base+layout.Identifier()+"/data",
+			"layout_obj", c.ttLayout(layout),
+			// Remove default excess padding top and left
+			"content_block_main_custom_classes", "pt-0",
+			"content_block_custom_classes", "ps-0",
+			"breadcrumbs", tt.NewList(
+				crumb(base+"table/", "Tables"),
+				crumb(base+layout.Identifier()+"/data", "Table: "+layout.Name()),
+				crumb("", crumbText),
+			),
+			"readonly", readonly,
+			"dashboards_json", gads.EncodeJSON([]any{
+				map[string]any{"id": int64(1), "url": dashURL, "name": "Overview"},
+				map[string]any{"id": int64(2), "url": full, "name": "Full record"},
+			}),
+			"dashboard", c.ttDashboard(d),
+		), nil)
+	}
 	return c.Template("edit", params, opts)
 }
 

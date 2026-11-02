@@ -1,6 +1,8 @@
 package gads
 
 import (
+	"regexp"
+
 	"github.com/ctrlo/gads-go/internal/db"
 )
 
@@ -11,8 +13,14 @@ type Dashboard struct {
 	ID         int64
 	InstanceID *int64
 	UserID     *int64
+	// Type is table (a table's or the site's) or record (the overview of
+	// a record, GADS 115); NULL in a database of before 115 that was not
+	// upgraded
+	Type *string
 	// Layout is the layout the dashboard is displayed for (may be nil)
 	Layout *Layout
+	// CurrentID is the record a record dashboard is displayed for
+	CurrentID string
 }
 
 // Widget is a widget of a dashboard (GADS::Schema::Result::Widget)
@@ -20,6 +28,9 @@ type Widget struct {
 	Row db.Row
 	// Layout is the layout of the dashboard displaying the widget
 	Layout *Layout
+	// CurrentID is the record a widget of a record dashboard shows (the
+	// current_id of the request), 0 if none
+	CurrentID string
 }
 
 func (e *Engine) dashboardFromRow(row db.Row) *Dashboard {
@@ -27,8 +38,14 @@ func (e *Engine) dashboardFromRow(row db.Row) *Dashboard {
 	d.ID, _ = db.AsInt64(row["id"])
 	d.InstanceID = optInt(row["instance_id"])
 	d.UserID = optInt(row["user_id"])
+	if t, ok := db.AsString(row["type"]); ok && row["type"] != nil {
+		d.Type = &t
+	}
 	return d
 }
+
+// IsRecord is Dashboard->is_record: whether this is a record dashboard
+func (d *Dashboard) IsRecord() bool { return d.Type != nil && *d.Type == "record" }
 
 func (e *Engine) dashboardSite() string {
 	if e.SiteID == 0 {
@@ -54,7 +71,7 @@ func (e *Engine) FindDashboard(id int64, user *User, layout *Layout) *Dashboard 
 	if _, ok := e.DB.QueryInt64(`SELECT "me"."id" FROM "dashboard" "me" WHERE "me"."id" = ?`+e.dashboardSite(), id); !ok {
 		return nil
 	}
-	row := e.DB.QueryRow(`SELECT "me".* FROM "dashboard" "me" WHERE "me"."id" = ? AND ("me"."user_id" IS NULL OR "me"."user_id" = ?)`+e.dashboardSite(), id, user.ID)
+	row := e.DB.QueryRow(`SELECT "me".* FROM "dashboard" "me" WHERE "me"."id" = ? AND ("me"."user_id" IS NULL OR "me"."user_id" = ?) AND "me"."type" = 'table'`+e.dashboardSite(), id, user.ID)
 	if row == nil {
 		Fail("Dashboard %d not found for this user", id)
 	}
@@ -67,7 +84,7 @@ func (e *Engine) FindDashboard(id int64, user *User, layout *Layout) *Dashboard 
 // dashboard of the table (or the site if layout is nil), created if needed
 func (e *Engine) SharedDashboard(user *User, layout *Layout, site *Site) *Dashboard {
 	cond, args := instanceCond(layout)
-	row := e.DB.QueryRow(`SELECT "me".* FROM "dashboard" "me" WHERE `+cond+` AND "me"."user_id" IS NULL`+e.dashboardSite()+` LIMIT 1`, args...)
+	row := e.DB.QueryRow(`SELECT "me".* FROM "dashboard" "me" WHERE `+cond+` AND "me"."user_id" IS NULL AND "me"."type" = 'table'`+e.dashboardSite()+` LIMIT 1`, args...)
 	var d *Dashboard
 	if row != nil {
 		d = e.dashboardFromRow(row)
@@ -96,7 +113,7 @@ const personalDashboardText = `<p>Welcome to your personal dashboard</p>
 func (e *Engine) CreateDashboard(typ string, user *User, layout *Layout, site *Site) *Dashboard {
 	var d *Dashboard
 	e.DB.Txn(func() {
-		m := map[string]any{"instance_id": nil}
+		m := map[string]any{"instance_id": nil, "type": "table"}
 		if layout != nil {
 			m["instance_id"] = layout.InstanceID
 		}
@@ -106,7 +123,7 @@ func (e *Engine) CreateDashboard(typ string, user *User, layout *Layout, site *S
 		switch typ {
 		case "shared":
 			id := e.InsertSite("dashboard", m)
-			d = &Dashboard{e: e, ID: id, InstanceID: optInt(m["instance_id"])}
+			d = &Dashboard{e: e, ID: id, InstanceID: optInt(m["instance_id"]), Type: strPtr("table")}
 			var text, text2 string
 			if layout != nil {
 				text, _ = db.AsString(layout.Row()["homepage_text"])
@@ -128,7 +145,7 @@ func (e *Engine) CreateDashboard(typ string, user *User, layout *Layout, site *S
 		case "personal":
 			m["user_id"] = user.ID
 			id := e.InsertSite("dashboard", m)
-			d = &Dashboard{e: e, ID: id, InstanceID: optInt(m["instance_id"]), UserID: &user.ID}
+			d = &Dashboard{e: e, ID: id, InstanceID: optInt(m["instance_id"]), UserID: &user.ID, Type: strPtr("table")}
 			d.createWidget(map[string]any{"type": "notice", "h": 6, "w": 6, "x": 0, "y": 0, "content": personalDashboardText})
 		default:
 			Panic("Unexpected dashboard type: %s", typ)
@@ -201,6 +218,8 @@ func (d *Dashboard) instance() *Layout {
 // Name is the dashboard's name
 func (d *Dashboard) Name() string {
 	switch {
+	case d.IsRecord():
+		return "Overview"
 	case d.UserID != nil && d.InstanceID != nil:
 		return d.instance().Name() + " dashboard (personal)"
 	case d.InstanceID != nil:
@@ -252,7 +271,7 @@ func (d *Dashboard) DisplayWidgets() []*Widget {
 	rows = append(rows, d.e.DB.Query(`SELECT "me".* FROM "widget" "me" WHERE "me"."dashboard_id" = ?`, d.ID)...)
 	var out []*Widget
 	for _, r := range rows {
-		out = append(out, &Widget{Row: r, Layout: d.Layout})
+		out = append(out, &Widget{Row: r, Layout: d.Layout, CurrentID: d.CurrentID})
 	}
 	return out
 }
@@ -291,4 +310,112 @@ func (d *Dashboard) CreateWidget(m map[string]any) string {
 	id := d.createWidget(m)
 	g, _ := db.AsString(d.e.DB.QueryRow(`SELECT "grid_id" FROM "widget" WHERE "id" = ?`, id)["grid_id"])
 	return g
+}
+
+func strPtr(s string) *string { return &s }
+
+// RecordDashboard is ResultSet::Dashboard->record_dashboard: the overview
+// dashboard of the records of a table, created if needed, displayed for a
+// record
+func (e *Engine) RecordDashboard(layout *Layout, currentID string) *Dashboard {
+	row := e.DB.QueryRow(`SELECT "me".* FROM "dashboard" "me" WHERE "me"."instance_id" = ? AND "me"."type" = 'record'`+e.dashboardSite()+` LIMIT 1`, layout.InstanceID)
+	var d *Dashboard
+	if row != nil {
+		d = e.dashboardFromRow(row)
+	} else {
+		m := map[string]any{"instance_id": layout.InstanceID, "type": "record"}
+		id := e.InsertSite("dashboard", m)
+		d = &Dashboard{e: e, ID: id, InstanceID: &layout.InstanceID, Type: strPtr("record")}
+	}
+	d.Layout = layout
+	d.CurrentID = currentID
+	return d
+}
+
+// Dashboard is the dashboard of the widget
+func (w *Widget) Dashboard(e *Engine) *Dashboard {
+	id, _ := db.AsInt64(w.Row["dashboard_id"])
+	row := e.DB.QueryRow(`SELECT "me".* FROM "dashboard" "me" WHERE "me"."id" = ?`, id)
+	if row == nil {
+		Panic(`Can't call method "is_record" on an undefined value`)
+	}
+	return e.dashboardFromRow(row)
+}
+
+// OptionsInflated is Widget->options_inflated: the options JSON, an empty
+// hash if none
+func (w *Widget) OptionsInflated() map[string]any {
+	s, _ := db.AsString(w.Row["options"])
+	if s == "" {
+		return map[string]any{}
+	}
+	v, err := DecodeJSON(s)
+	if err != nil {
+		Panic("malformed JSON string: %s", err)
+	}
+	m, ok := v.(map[string]any)
+	if !ok {
+		Panic("Not a HASH reference")
+	}
+	return m
+}
+
+var (
+	widgetTypesRecord = regexp.MustCompile(`^(notice|timeline|field|table)$`)
+	widgetTypesTable  = regexp.MustCompile(`^(notice|table|graph|timeline|globe)$`)
+	widgetInteger     = regexp.MustCompile(`^[0-9]+$`)
+	widgetColumnID    = regexp.MustCompile(`^[_0-9]+$`)
+	widgetRange       = regexp.MustCompile(`^(3|6|12|24)$`)
+)
+
+// ValidateWidget is Widget->validate, run (as GADS::DBIC) before a widget
+// is inserted or updated with the values of row. An empty type becomes
+// notice, as Perl does until a widget type can be defined.
+func ValidateWidget(d *Dashboard, row map[string]any) {
+	typ, _ := db.AsString(row["type"])
+	if typ == "" {
+		typ = "notice"
+		row["type"] = typ
+	}
+	if d.IsRecord() {
+		if !widgetTypesRecord.MatchString(typ) {
+			Fail("Invalid widget type: %s", typ)
+		}
+	} else if !widgetTypesTable.MatchString(typ) {
+		Fail("Invalid widget type: %s", typ)
+	}
+	for _, k := range []string{"h", "w", "x", "y", "rows"} {
+		v, ok := row[k]
+		if !ok || v == nil {
+			continue
+		}
+		if s := perlStringify(v); !widgetInteger.MatchString(s) {
+			Fail("Invalid %s value %s", k, s)
+		}
+	}
+	if typ == "timeline" && d.IsRecord() {
+		options := (&Widget{Row: row}).OptionsInflated()
+		columnIDs := options["column_ids"]
+		delete(options, "column_ids")
+		if !truthy(columnIDs) {
+			columnIDs = []any{}
+		}
+		ids, ok := columnIDs.([]any)
+		if !ok {
+			Fail("Incorrect value type for columns")
+		}
+		for _, id := range ids {
+			if !widgetColumnID.MatchString(perlStringify(id)) {
+				Fail("Invalid column ID in columns configuration")
+			}
+		}
+		r := options["timeline_range"]
+		delete(options, "timeline_range")
+		if truthy(r) && !widgetRange.MatchString(perlStringify(r)) {
+			Fail("Invalid timeline range: %s", perlStringify(r))
+		}
+		if len(options) > 0 {
+			Fail("Unexpected keys in widget configuration")
+		}
+	}
 }

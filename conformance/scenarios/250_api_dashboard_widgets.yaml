@@ -1,0 +1,282 @@
+name: 250_api_dashboard_widgets
+source:
+  - lib/GADS/API.pm (_get_dashboard_widget_edit, _put_dashboard_widget_edit, _update_dashboard)
+  - lib/GADS/Schema/Result/Widget.pm (validate, options_inflated, html of the table, graph, timeline and globe widgets)
+  - views/widget.tt, views/snippets/widget_content.tt
+description: >
+  The widgets of a table dashboard other than notices: adding table,
+  graph, timeline and globe widgets, rendering them before and after
+  they are configured, their edit forms, saving their options (the
+  options column of GADS 115), the widget types a table dashboard
+  refuses, invalid grid values, the dashboard page showing them, and a
+  user who cannot see the widget's view.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      calc_code: "function evaluate (L1string1) \n return L1string1 end"
+      calc_return_type: globe
+      data:
+        - { string1: France, integer1: 10, enum1: foo1, date1: "2014-11-01", daterange1: ["2014-10-20", "2014-12-01"] }
+        - { string1: France, integer1: 15, enum1: foo2, date1: "2014-12-24", daterange1: ["2015-01-05", "2015-02-01"] }
+        - { string1: France, integer1: 7, enum1: foo2, date1: "2013-05-01" }
+  - view:
+      op: create
+      sheet: s
+      user: superadmin
+      as: v
+      name: Widget view
+      columns: [string1, integer1, enum1, date1, daterange1, calc1]
+  - graph:
+      as: g
+      sheet: s
+      user: superadmin
+      no_data: true
+      title: Integer by enum
+      type: bar
+      x_axis: enum1
+      y_axis: integer1
+      y_axis_stack: sum
+  # Colours are those already stored for a name, otherwise random in Perl
+  # (the first key of a hash)
+  - db: { op: insert, table: graph_color, set: { name: foo1, color: 7A221B } }
+  - db: { op: insert, table: graph_color, set: { name: foo2, color: 34C3E0 } }
+  - db: { op: insert, table: graph_color, set: { name: foo3, color: FFDD00 } }
+  - db: { op: insert, table: graph_color, set: { name: date1, color: 9F6512 } }
+  - db: { op: insert, table: graph_color, set: { name: daterange1, color: F0679E } }
+  - db: { op: insert, table: graph_color, set: { name: integer1, color: 2C4269 } }
+  # (the series of a graph without a group is named 1)
+  - db: { op: insert, table: graph_color, set: { name: "1", color: 7F3F98 } }
+  - login: { user: superadmin }
+  # Creates the table's shared (1) and personal (2) dashboards
+  - http:
+      id: table_page
+      as: superadmin
+      path: "/{sheet:s}"
+  - db:
+      id: dashboards
+      op: select
+      table: dashboard
+      columns: [id, instance_id, user_id, type]
+  - http:
+      id: add_table
+      expect: { status: 200, json: { is_error: 0 } }
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/dashboard/1/widget"
+      query: { type: table }
+      json: {}
+      capture: { tw: message }
+  - http:
+      id: add_graph
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/dashboard/1/widget"
+      query: { type: graph }
+      json: {}
+      capture: { gw: message }
+  - http:
+      id: add_timeline
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/dashboard/1/widget"
+      query: { type: timeline }
+      json: {}
+      capture: { tl: message }
+  - http:
+      id: add_globe
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/dashboard/1/widget"
+      query: { type: globe }
+      json: {}
+      capture: { gl: message }
+  - http:
+      id: add_field_invalid
+      expect: { status: 400, json: { message: "Invalid widget type: field" } }
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/dashboard/1/widget"
+      query: { type: field }
+      json: {}
+  - http:
+      id: add_unknown_invalid
+      expect: { status: 400, json: { message: "Invalid widget type: chart" } }
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/api/dashboard/1/widget"
+      query: { type: chart }
+      json: {}
+  # Before configuration
+  - http:
+      id: table_unconfigured
+      expect_body_contains: [Configuration required]
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:tw}"
+  - http:
+      id: graph_unconfigured
+      expect: { status: 200, body: Configuration required }
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:gw}"
+  - http:
+      id: timeline_unconfigured
+      expect: { status: 200, body: Configuration required }
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:tl}"
+  - http:
+      id: globe_unconfigured
+      expect: { status: 200, body: Configuration required }
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:gl}"
+  # Edit forms
+  - http:
+      id: table_form
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:tw}/edit"
+  - http:
+      id: graph_form
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:gw}/edit"
+  - http:
+      id: timeline_form
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:tl}/edit"
+  - http:
+      id: globe_form
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:gl}/edit"
+  # Configure and render
+  - http:
+      id: table_edit
+      expect: { status: 200, json: { message: Widget updated successfully } }
+      as: superadmin
+      method: PUT
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:tw}/edit"
+      query: { static: 1 }
+      json: { title: Records, rows: 2, view_id: "{view:v}" }
+  - http:
+      id: table_render
+      expect_body_contains: ["<h4>Records</h4>", "<a href=\"/record/1\">1</a>"]
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:tw}"
+  - http:
+      id: graph_edit
+      as: superadmin
+      method: PUT
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:gw}/edit"
+      json: { title: Graph, graph_id: 1, view_id: "{view:v}" }
+  - http:
+      id: graph_render
+      expect_body_contains: ["data-chart-id=\"1\""]
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:gw}"
+  - http:
+      id: timeline_edit
+      as: superadmin
+      method: PUT
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:tl}/edit"
+      json:
+        title: Timeline
+        view_id: "{view:v}"
+        tl_label: "{column:s:string1}"
+        # (no group: Perl lists the groups in hash order)
+        tl_group: ""
+        tl_color: ""
+        tl_overlay: ""
+  - http:
+      id: timeline_render
+      expect_body_contains: ["data-view=\"1\"", "data-dashboard=\"1\""]
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:tl}"
+  - http:
+      id: globe_edit
+      as: superadmin
+      method: PUT
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:gl}/edit"
+      json:
+        title: Globe
+        view_id: "{view:v}"
+        globe_label: ""
+        globe_group: ""
+        globe_color: ""
+  - http:
+      id: globe_render
+      expect_body_contains: ["<div class=\"globe\""]
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:gl}"
+  - db:
+      id: widgets_configured
+      op: select
+      table: widget
+      columns: [id, dashboard_id, type, title, static, rows, view_id, graph_id, options, tl_options, globe_options]
+  # (One country and no group: Perl orders countries and group values by
+  # hash order)
+  # The forms show the saved options
+  - http:
+      id: table_form_after
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:tw}/edit"
+  - http:
+      id: graph_form_after
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:gw}/edit"
+  - http:
+      id: timeline_form_after
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:tl}/edit"
+  - http:
+      id: globe_form_after
+      as: superadmin
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:gl}/edit"
+  # The dashboard page with all the widgets
+  - http:
+      id: dashboard_page
+      as: superadmin
+      path: "/{sheet:s}"
+  # Grid values are checked
+  - http:
+      id: layout_bad_h
+      expect: { status: 400, json: { message: "Invalid h value 1.5" } }
+      as: superadmin
+      method: PUT
+      path: "/{sheet:s}/api/dashboard/1/dashboard/1"
+      json:
+        - { i: "{var:tw}", h: 1.5, w: 4, x: 0, y: 0 }
+  - http:
+      id: layout_bad_x
+      expect: { status: 400, json: { message: "Invalid x value left" } }
+      as: superadmin
+      method: PUT
+      path: "/{sheet:s}/api/dashboard/1/dashboard/1"
+      json:
+        - { i: "{var:tw}", h: 2, w: 4, x: left, y: 0 }
+  - http:
+      id: layout_ok
+      expect: { status: 200, json: { message: Dashboard updated successfully } }
+      as: superadmin
+      method: PUT
+      path: "/{sheet:s}/api/dashboard/1/dashboard/1"
+      json:
+        - { i: "{var:tw}", h: 2, w: 4, x: 0, y: 0 }
+        - { i: "{var:gw}", h: 3, w: 4, x: 4, y: 0 }
+  - db:
+      id: widgets_after_layout
+      op: select
+      table: widget
+      columns: [id, dashboard_id, type, h, w, x, y]
+  # A user who cannot see the (personal) view of the widgets
+  - login: { user: normal1 }
+  - http:
+      id: normal_table_page
+      as: normal1
+      path: "/{sheet:s}"
+  - http:
+      id: normal_table_render
+      expect_body_contains: [You do not have access to the configured view for this widget]
+      as: normal1
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:tw}"
+  - http:
+      id: normal_graph_render
+      expect: { status: 400, json: { message: "User 4 does not have access to view 1" } }
+      as: normal1
+      path: "/{sheet:s}/api/dashboard/1/widget/{var:gw}"

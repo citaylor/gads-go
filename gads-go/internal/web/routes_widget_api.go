@@ -112,7 +112,7 @@ func (s *Server) getWidgetWrite(c *Ctx, layout *gads.Layout) (*gads.Widget, *gad
 	return w, d
 }
 
-// post '/api/dashboard/:dashboard_id/widget' (API.pm:511, 478)
+// post '/api/dashboard/:dashboard_id/widget' (API.pm:493, 526)
 func (s *Server) hWidgetCreate(c *Ctx, layout *gads.Layout) string {
 	typ, _ := c.QueryParam("type")
 	id, _ := c.RouteParam("dashboard_id")
@@ -123,10 +123,11 @@ func (s *Server) hWidgetCreate(c *Ctx, layout *gads.Layout) string {
 	} else {
 		m["content"] = nil
 	}
+	gads.ValidateWidget(d, m)
 	return c.apiSuccess(d.CreateWidget(m))
 }
 
-// put '/api/dashboard/:dashboard_id/dashboard/:id' (API.pm:515, 483):
+// put '/api/dashboard/:dashboard_id/dashboard/:id' (API.pm:498, 530):
 // _update_dashboard
 func (s *Server) hDashboardUpdate(c *Ctx, layout *gads.Layout) string {
 	id, _ := c.RouteParam("id")
@@ -148,70 +149,71 @@ func (s *Server) hDashboardUpdate(c *Ctx, layout *gads.Layout) string {
 			vals[k] = apiValue(w[k])
 		}
 		grid := apiValue(w["i"])
-		if row := s.E.DB.QueryRow(`SELECT "id" FROM "widget" WHERE "dashboard_id" = ? AND "grid_id" = ?`, d.ID, grid); row != nil {
+		// (update_or_create: the widget is validated with its new values,
+		// so a new one becomes a notice)
+		if row := s.E.DB.QueryRow(`SELECT * FROM "widget" WHERE "dashboard_id" = ? AND "grid_id" = ?`, d.ID, grid); row != nil {
+			for k, v := range vals {
+				row[k] = v
+			}
+			gads.ValidateWidget(d, row)
 			s.E.DB.UpdateMap("widget", vals, map[string]any{"id": row["id"]})
 		} else {
 			vals["dashboard_id"] = d.ID
 			vals["grid_id"] = grid
+			gads.ValidateWidget(d, vals)
 			s.E.DB.InsertMap("widget", vals)
 		}
 	}
 	return c.apiSuccess("Dashboard updated successfully")
 }
 
-// get '/api/dashboard/:dashboard_id/widget/:id' (API.pm:519, 488)
+// get '/api/dashboard/:dashboard_id/widget/:id' (API.pm:502, 534): with the
+// table prefix, the record of a record dashboard is query current_id
 func (s *Server) hWidgetGet(c *Ctx, layout *gads.Layout) string {
 	w, _ := s.getWidget(c, layout)
+	if layout != nil {
+		if v, ok := c.QueryParam("current_id"); ok {
+			w.CurrentID = v
+		}
+	}
 	return c.widgetHTML(w)
 }
 
-// get '/api/dashboard/:dashboard_id/widget/:id/edit' (API.pm:523, 493)
+// get '/api/dashboard/:dashboard_id/widget/:id/edit' (API.pm:508, 539)
 func (s *Server) hWidgetEditForm(c *Ctx, layout *gads.Layout) string {
-	w, d := s.getWidgetWrite(c, layout)
+	w, _ := s.getWidgetWrite(c, layout)
+	d := w.Dashboard(s.E)
 	typ, _ := db.AsString(w.Row["type"])
 	widget := ttValue(map[string]any(w.Row)).(*tt.Hash)
-	widget.Set("dashboard", tt.HashOf("is_shared", ttBoolEmpty(d.IsShared())))
-	inflate := func(k string) any {
-		v, _ := db.AsString(w.Row[k])
-		if v == "" {
-			return nil
-		}
-		x, err := gads.DecodeJSON(v)
-		if err != nil {
-			gads.Panic("malformed JSON string: %s", err)
-		}
-		return ttValue(x)
-	}
-	params := tt.HashOf("widget", widget, "tl_options", inflate("tl_options"), "globe_options", inflate("globe_options"))
+	widget.Set("dashboard", c.ttDashboard(d))
+	params := tt.HashOf("widget", widget, "widget_options", ttValue(w.OptionsInflated()))
 	if typ != "notice" {
 		if layout == nil {
 			gads.Panic(`Can't call method "instance_id" on an undefined value`)
 		}
-		views := c.E.NewViews(layout)
-		uv := views.UserViews()
-		list := func(vs []gads.ViewSummary) *tt.List {
-			l := tt.NewList()
-			for _, v := range vs {
-				l.Items = append(l.Items, tt.HashOf("id", v.ID, "name", v.Name))
-			}
-			return l
-		}
-		params.Set("user_views", tt.HashOf("admin", list(uv.Admin), "shared", list(uv.Shared), "personal", list(uv.Personal)))
+		params.Set("user_views", ttUserViews(c.E.NewViews(layout)))
 		params.Set("columns_read", c.ttColumns(layout.All(gads.AllOptions{UserCanRead: true})))
 	}
-	switch typ {
-	case "notice", "table":
-	default:
-		gads.Panic("The edit form of %s widgets is not yet supported", typ)
+	if typ == "graph" {
+		var personal, shared []any
+		for _, g := range s.E.AllGraphs(layout, c.LoggedInUser()) {
+			if g.IsShared {
+				shared = append(shared, c.ttGraph(g))
+			} else {
+				personal = append(personal, c.ttGraph(g))
+			}
+		}
+		params.Set("graphs", tt.HashOf("all_personal", tt.NewList(personal...), "all_shared", tt.NewList(shared...)))
 	}
 	content := c.Template("widget", params, &TemplateOptions{NoLayout: true})
 	// Keep consistent with return type generated on error
 	return gads.EncodeJSON(map[string]any{"is_error": int64(0), "content": content})
 }
 
-// put '/api/dashboard/:dashboard_id/widget/:id/edit' (API.pm:527, 498)
+// put '/api/dashboard/:dashboard_id/widget/:id/edit' (API.pm:513, 543)
 func (s *Server) hWidgetEdit(c *Ctx, layout *gads.Layout) string {
-	w, d := s.getWidgetWrite(c, layout)
+	w, _ := s.getWidgetWrite(c, layout)
+	d := w.Dashboard(s.E)
 	var body map[string]any
 	dec := json.NewDecoder(bytes.NewReader(c.Body()))
 	dec.UseNumber()
@@ -226,29 +228,57 @@ func (s *Server) hWidgetEdit(c *Ctx, layout *gads.Layout) string {
 			set["static"] = int64(0)
 		}
 	}
+	// The options keep the JSON values as sent (numbers stay numbers)
+	columnIDs := func() any {
+		if l, ok := body["layout_id"].([]any); ok {
+			return l
+		}
+		return []any{body["layout_id"]}
+	}
 	typ, _ := db.AsString(w.Row["type"])
-	switch typ {
-	case "notice":
+	switch {
+	case typ == "notice":
 		set["content"] = apiValue(body["content"])
-	case "graph":
+	case typ == "graph":
 		set["graph_id"] = apiValue(body["graph_id"])
 		set["view_id"] = apiValue(body["view_id"])
-	case "table":
+	case typ == "table" && d.IsRecord():
+		columnID := body["layout_id"]
+		set["options"] = gads.EncodeJSON(map[string]any{"column_id": columnID})
+		set["rows"] = apiValue(body["rows"])
+		set["view_id"] = apiValue(body["view_id_"+fmtAny(apiValue(columnID))])
+	case typ == "table":
 		set["rows"] = apiValue(body["rows"])
 		set["view_id"] = apiValue(body["view_id"])
-	case "timeline":
-		set["tl_options"] = gads.EncodeJSON(map[string]any{
-			"label": apiValue(body["tl_label"]), "group": apiValue(body["tl_group"]),
-			"color": apiValue(body["tl_color"]), "overlay": apiValue(body["tl_overlay"]),
+	case typ == "timeline" && d.IsRecord():
+		set["options"] = gads.EncodeJSON(map[string]any{
+			"column_ids": columnIDs(), "timeline_range": body["timeline_range"],
+		})
+	case typ == "timeline":
+		set["options"] = gads.EncodeJSON(map[string]any{
+			"label": body["tl_label"], "group": body["tl_group"],
+			"color": body["tl_color"], "overlay": body["tl_overlay"],
 		})
 		set["view_id"] = apiValue(body["view_id"])
-	case "globe":
-		set["globe_options"] = gads.EncodeJSON(map[string]any{
-			"label": apiValue(body["globe_label"]), "group": apiValue(body["globe_group"]),
-			"color": apiValue(body["globe_color"]),
+	case typ == "globe":
+		set["options"] = gads.EncodeJSON(map[string]any{
+			"label": body["globe_label"], "group": body["globe_group"],
+			"color": body["globe_color"],
 		})
 		set["view_id"] = apiValue(body["view_id"])
+	case typ == "field":
+		set["options"] = gads.EncodeJSON(map[string]any{
+			"column_ids": columnIDs(), "show_field_labels": truthy(apiValue(body["show_field_labels"])),
+		})
 	}
+	row := map[string]any{}
+	for k, v := range w.Row {
+		row[k] = v
+	}
+	for k, v := range set {
+		row[k] = v
+	}
+	gads.ValidateWidget(d, row)
 	s.E.DB.UpdateMap("widget", set, map[string]any{"id": w.Row["id"]})
 	return c.apiSuccess("Widget updated successfully")
 }

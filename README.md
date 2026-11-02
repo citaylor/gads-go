@@ -20,11 +20,11 @@ identical.
 
 ## Status
 
-- **Parity:** all 176 scenarios are identical to Perl GADS `dev` at
-  [`fddd4a15`](https://github.com/ctrlo/GADS/tree/fddd4a15), on SQLite.
+- **Parity:** all 178 scenarios are identical to Perl GADS `dev` at
+  [`b6e4c45b`](https://github.com/ctrlo/GADS/tree/b6e4c45b), on SQLite.
   They cover the engine (fields, calculated values, search, sorting, views,
   graphs, imports, alerts) and the web application (pages, forms, the API,
-  sessions, MFA).
+  dashboards and their widgets, sessions, MFA).
 - **Databases:** SQLite and PostgreSQL.
 - **Security:** the application runs in *hardened mode* by default, which
   fixes the critical, high and medium findings of a security review of
@@ -60,6 +60,7 @@ Go 1.27 and a C compiler (cgo, for SQLite and the embedded Lua):
 cd gads-go
 go build -o bin/gads ./cmd/gads
 bin/gads deploy -config DIR          # create the tables
+bin/gads upgrade -config DIR         # bring an older database up to date
 bin/gads serve  -config DIR          # listen on :3000
 bin/gads list                        # the ported bin/*.pl scripts
 ```

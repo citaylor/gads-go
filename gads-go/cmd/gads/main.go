@@ -41,6 +41,8 @@ Commands:
                  run the web application
   deploy [-config DIR]
                  create the tables of the database
+  upgrade [-config DIR]
+                 bring a database of an earlier schema up to date
   list           list the scripts
   healthcheck [-url URL]
                  check that a running server is healthy (exit status 0)
@@ -60,6 +62,8 @@ func main() {
 		os.Exit(serve(args))
 	case "deploy":
 		os.Exit(deploy(args))
+	case "upgrade":
+		os.Exit(upgrade(args))
 	case "healthcheck":
 		os.Exit(healthcheck(args))
 	case "list":
@@ -206,6 +210,27 @@ func deploy(args []string) int {
 	}
 	defer m.Close(mailDrainTimeout)
 	if err := e.DB.Deploy(); err != nil {
+		return fail(err)
+	}
+	return 0
+}
+
+// upgrade applies the schema upgrades a database needs (the migrations of
+// GADS), and does nothing for a database that is up to date
+func upgrade(args []string) int {
+	fs := flag.NewFlagSet("upgrade", flag.ExitOnError)
+	conf := fs.String("config", "", "configuration directory (with config.yml)")
+	fs.Parse(args)
+	_, e, m, err := open(configDir(*conf))
+	if err != nil {
+		return fail(err)
+	}
+	defer m.Close(mailDrainTimeout)
+	applied, err := e.DB.Upgrade()
+	for _, name := range applied {
+		fmt.Printf("Applied schema upgrade %s\n", name)
+	}
+	if err != nil {
 		return fail(err)
 	}
 	return 0

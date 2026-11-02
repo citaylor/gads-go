@@ -34,7 +34,10 @@ Material taken or generated from GADS:
   (references to the GADS repository at fixed commits, not copies).
 - gads-go/internal/db/sql_sqlite.sql and sql_postgres.sql: the GADS
   database schema, the tables that its DBIx::Class classes
-  (lib/GADS/Schema) define, as SQL for each database.
+  (lib/GADS/Schema) define, as SQL for each database, and in
+  gads-go/internal/db/testdata the same for an earlier schema version.
+  gads-go/internal/db/upgrade.go follows GADS's migrations
+  (share/migrations).
 - gads-go/internal/web/routes.go: the route table of lib/GADS.pm and
   lib/GADS/API.pm.
 - gads-go/conformance/datasheet.go: a port of GADS's test library

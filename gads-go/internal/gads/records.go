@@ -95,6 +95,7 @@ type Records struct {
 	allCIDsBuilt       bool
 	singlePage         int
 	nextSingleID       int
+	hasSpecificIDs     *bool // _has_specific_ids, computed at the first Single
 	count              *int
 	sorts              []SortSpec
 	sortsBuilt         bool
@@ -131,6 +132,16 @@ func (r *Records) SetColumns(ids []int64) {
 	r.ColumnIDs = ids
 	r.hasColumnIDs = true
 	r.clearColumns()
+}
+
+// SetCurrentIDs is the current_ids option of GADS::Records: the records
+// retrieved are those given
+func (r *Records) SetCurrentIDs(ids []int64) {
+	if ids == nil {
+		ids = []int64{}
+	}
+	r.currentIDs = ids
+	r.currentIDsBuilt = true
 }
 
 // SetSort sets the sort.
@@ -2338,7 +2349,15 @@ func (r *Records) latestRecordID(currentID int64) int64 {
 func (r *Records) Single() *Record {
 	const chunk = 100
 	next := r.nextSingleID
-	if !r.isGroup() {
+	// Whether specific record IDs were given (lazy, so as at the first
+	// call). As Moo has_current_ids, this is also true once they have been
+	// built.
+	if r.hasSpecificIDs == nil {
+		b := r.nextSingleID == 0 && r.singlePage == 0 && r.currentIDsBuilt
+		r.hasSpecificIDs = &b
+	}
+	// Don't retrieve in chunks for group records, or for specific IDs
+	if !r.isGroup() && !*r.hasSpecificIDs {
 		if (next == 0 && r.singlePage == 0) || (next >= chunk && next >= len(r.Results())) {
 			if next != 0 {
 				r.singlePage++

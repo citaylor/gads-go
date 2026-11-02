@@ -1200,9 +1200,10 @@ func (r *Records) setGraphColumns(cols []*groupCol) {
 			ids = append(ids, c.id)
 		}
 	}
+	// As Moo, setting columns (which has no trigger) keeps the columns
+	// already built: a globe of a view keeps the view's columns
 	r.ColumnIDs = ids
 	r.hasColumnIDs = true
-	r.clearColumns()
 }
 
 // graphResults returns the raw grouped rows of a graph records search.

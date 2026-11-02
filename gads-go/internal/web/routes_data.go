@@ -338,19 +338,7 @@ func (s *Server) hData(c *Ctx) string {
 		id, _ := toInt64(ou)
 		views.OtherUserID = &id
 	}
-	userViews := views.UserViews()
-	viewList := func(vs []gads.ViewSummary) *tt.List {
-		l := tt.NewList()
-		for _, v := range vs {
-			l.Items = append(l.Items, tt.HashOf("id", v.ID, "name", v.Name))
-		}
-		return l
-	}
-	params.Set("user_views", tt.HashOf(
-		"admin", viewList(userViews.Admin),
-		"shared", viewList(userViews.Shared),
-		"personal", viewList(userViews.Personal),
-	))
+	params.Set("user_views", ttUserViews(views))
 	limitExtra := tt.NewList()
 	for _, r := range views.LimitExtra() {
 		limitExtra.Items = append(limitExtra.Items, newRow("view", r))
@@ -636,26 +624,15 @@ func (s *Server) dataTimeline(c *Ctx, layout *gads.Layout, user *gads.User, view
 		Color:          num("color"),
 		AllGroupValues: truthy(tl["all_group_values"]),
 	})
-	items := []any{}
-	for _, it := range data.Items {
-		items = append(items, it.Fields)
-	}
-	groups := []any{}
-	for _, g := range data.Groups {
-		groups = append(groups, map[string]any{"id": g.ID, "content": g.Content, "order": g.Order, "style": g.Style})
-	}
 	b64 := func(v any) string { return base64.StdEncoding.EncodeToString([]byte(gads.EncodeJSON(v))) }
-	params.Set("records", b64(items))
-	params.Set("groups", b64(groups))
+	params.Set("records", b64(timelineItems(data)))
+	params.Set("groups", b64(timelineGroups(data)))
 	colors := tt.NewList()
 	for _, col := range data.Colors {
 		colors.Items = append(colors.Items, tt.HashOf("key", col.Key, "color", col.Color))
 	}
 	params.Set("colors", colors)
-	tlHash := tt.NewHash()
-	tlHash.Set("min", ttTime(data.Min))
-	tlHash.Set("max", ttTime(data.Max))
-	params.Set("timeline", tlHash)
+	params.Set("timeline", timelineParams(data))
 	params.Set("tl_options", ttValue(tl))
 	params.Set("columns_read", c.ttColumns(layout.All(gads.AllOptions{UserCanRead: true})))
 	params.Set("page", "data_timeline")
@@ -667,6 +644,30 @@ func (s *Server) dataTimeline(c *Ctx, layout *gads.Layout, user *gads.User, view
 	if truthy(c.ParamS("modal_pdf")) && !truthy(layout.Row()["no_download_pdf"]) {
 		gads.Panic("PDF downloads of timelines are not supported")
 	}
+}
+
+// timelineItems are the items of data_timeline, as JSON
+func timelineItems(data gads.TimelineData) []any {
+	items := []any{}
+	for _, it := range data.Items {
+		items = append(items, it.Fields)
+	}
+	return items
+}
+
+// timelineGroups are the groups of data_timeline, as JSON
+func timelineGroups(data gads.TimelineData) []any {
+	groups := []any{}
+	for _, g := range data.Groups {
+		groups = append(groups, map[string]any{"id": g.ID, "content": g.Content, "order": g.Order, "style": g.Style})
+	}
+	return groups
+}
+
+// timelineParams is the rest of data_timeline (the template uses min and
+// max)
+func timelineParams(data gads.TimelineData) *tt.Hash {
+	return tt.HashOf("min", ttTime(data.Min), "max", ttTime(data.Max))
 }
 
 func ttTime(t *time.Time) any {

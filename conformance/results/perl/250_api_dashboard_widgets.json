@@ -1,0 +1,1004 @@
+{
+   "runner" : "perl",
+   "scenario" : "250_api_dashboard_widgets",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:graph",
+         "observed" : {},
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:db",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:db",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:db",
+         "observed" : {
+            "id" : "3"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:db",
+         "observed" : {
+            "id" : "4"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:db",
+         "observed" : {
+            "id" : "5"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:db",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:db",
+         "observed" : {
+            "id" : "7"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table_page",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>table_index | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Dashboard</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom\">\n      <nav class=\"table-nav-tabs\">\n    <ul class=\"nav nav-tabs\">\n        <li class=\"nav-item\">\n            <a href=\"/table1/data?table_clear_state=1\" class=\"nav-link\" >\n            <span>Records</span>\n            </a>\n        </li>\n        <li class=\"nav-item\">\n            <a href=\"/table1/\" class=\"nav-link  active\">\n            <span>Dashboard</span>\n            </a>\n        </li>\n        \n            <li class=\"nav-item\">\n                <a href=\"/table1/edit\" class=\"nav-link\">\n                <span>Edit Table</span>\n                </a>\n            </li>\n            <li class=\"nav-item\">\n                <a href=\"/table1/report\" class=\"nav-link\">\n                <span>Reports</span>\n                </a>\n            </li>\n        \n    </ul>\n</nav>\n\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block ps-0\" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__main pt-0\">\n  <div class=\"content-block__main-content\">\n    <div id=\"ld-app\"\n         class=\"dashboard\"\n         data-dashboard-id=\"1\"\n         data-current-dashboard=\"{&quot;download_url&quot;:&quot;/table1?did=1&amp;download=pdf&quot;,&quot;name&quot;:&quot;Layout1 dashboard (shared)&quot;}\"\n         data-dashboard-endpoint=\"/table1/api/dashboard/1\"\n         \n         data-widget-types='[\"notice\", \"graph\", \"table\", \"timeline\", \"globe\"]'\n         \n         data-dashboard-read-only=\"false\"\n         data-dashboard-hide-menu=\"false\"\n         data-dashboard-include-h1=\"false\"\n         data-dashboard-no-download=\"false\"\n         data-dashboards=\"[{&quot;id&quot;:1,&quot;name&quot;:&quot;Layout1 dashboard (shared)&quot;,&quot;url&quot;:&quot;/table1?did=1&quot;},{&quot;id&quot;:2,&quot;name&quot;:&quot;Layout1 dashboard (personal)&quot;,&quot;url&quot;:&quot;/table1?did=2&quot;}]\"\n    >\n      \n    </div>\n  </div>\n  \n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dashboards",
+         "observed" : [
+            {
+               "id" : "1",
+               "instance_id" : "1",
+               "type" : "table",
+               "user_id" : null
+            },
+            {
+               "id" : "2",
+               "instance_id" : "1",
+               "type" : "table",
+               "user_id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add_table",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "{var:tw}"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add_graph",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "{var:gw}"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add_timeline",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "{var:tl}"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add_globe",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "{var:gl}"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add_field_invalid",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Invalid widget type: field"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "add_unknown_invalid",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Invalid widget type: chart"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table_unconfigured",
+         "observed" : {
+            "body" : "<h4></h4>\n\n\n    Configuration required\n\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "graph_unconfigured",
+         "observed" : {
+            "body" : "Configuration required",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "timeline_unconfigured",
+         "observed" : {
+            "body" : "Configuration required",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "globe_unconfigured",
+         "observed" : {
+            "body" : "Configuration required",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table_form",
+         "observed" : {
+            "body" : "{\"content\":\"<div class=\\\"row\\\">\\n    <div class=\\\"col-md-12\\\">\\n        <form action=\\\"/widget/{var:tw}/edit\\\">\\n            <div class=\\\"form-group mb-4\\\">\\n                <label class=\\\"form-label\\\" for=\\\"title\\\">Title (optional):</label>\\n                <input type=\\\"text\\\" class=\\\"form-control\\\" id=\\\"title\\\" name=\\\"title\\\" value=\\\"\\\">\\n            </div>\\n            \\n                \\n    \\n    <div class=\\\"form-group mb-4\\\">\\n        <label class=\\\"form-label\\\" for=\\\"view_id\\\">View</label>\\n        <select class=\\\"form-control\\\" id=\\\"view_id\\\" name=\\\"view_id\\\">\\n            \\n                <option></option>\\n            \\n            \\n                <optgroup label=\\\"Personal views\\\">\\n                    \\n                        <option value=\\\"1\\\" >\\n                            Widget view\\n                        </option>\\n                    \\n                </optgroup>\\n            \\n            \\n            \\n        </select>\\n    </div>\\n\\n    <div class=\\\"form-group\\\">\\n        <label for=\\\"rows\\\">Number of rows to display in table</label>\\n        <input type=\\\"text\\\" class=\\\"form-control\\\" name=\\\"rows\\\" id=\\\"rows\\\" value=\\\"\\\">\\n    </div>\\n\\n            \\n            \\n              <div class=\\\"checkbox \\\">\\n  <input\\n    id=\\\"static\\\"\\n    type=\\\"checkbox\\\"\\n    name=\\\"static\\\"\\n    value=\\\"static\\\"\\n    class=\\\"\\\"    aria-labelledby=\\\"static-label\\\"\\n    data-value=\\\"Fix in place for all dashboards\\\"\\n    \\n  >\\n  <label for=\\\"static\\\" id=\\\"static-label\\\" class=\\\"checkbox-label form-label\\\">\\n    Fix in place for all dashboards\\n  </label>\\n  \\n</div>\\n\\n            \\n        </form>\\n    </div>\\n</div>\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\",\"is_error\":0}",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "graph_form",
+         "observed" : {
+            "body" : "{\"content\":\"<div class=\\\"row\\\">\\n    <div class=\\\"col-md-12\\\">\\n        <form action=\\\"/widget/{var:gw}/edit\\\">\\n            <div class=\\\"form-group mb-4\\\">\\n                <label class=\\\"form-label\\\" for=\\\"title\\\">Title (optional):</label>\\n                <input type=\\\"text\\\" class=\\\"form-control\\\" id=\\\"title\\\" name=\\\"title\\\" value=\\\"\\\">\\n            </div>\\n            \\n                \\n    \\n    <div class=\\\"form-group mb-4\\\">\\n        <label class=\\\"form-label\\\" for=\\\"view_id\\\">View</label>\\n        <select class=\\\"form-control\\\" id=\\\"view_id\\\" name=\\\"view_id\\\">\\n            \\n                <option></option>\\n            \\n            \\n                <optgroup label=\\\"Personal views\\\">\\n                    \\n                        <option value=\\\"1\\\" >\\n                            Widget view\\n                        </option>\\n                    \\n                </optgroup>\\n            \\n            \\n            \\n        </select>\\n    </div>\\n\\n    <div class=\\\"form-group\\\">\\n        <label for=\\\"graph_id\\\">Graph (<a href=\\\"/table1/graph/0\\\">create new graph</a>)</label>\\n        <select class=\\\"form-control\\\" id=\\\"graph_id\\\" name=\\\"graph_id\\\">\\n            \\n                <option></option>\\n            \\n            \\n                <optgroup label=\\\"Personal graphs\\\">\\n                    \\n                        <option value=\\\"1\\\" >\\n                            Integer by enum\\n                        </option>\\n                    \\n                </optgroup>\\n            \\n            \\n        </select>\\n    </div>\\n\\n            \\n            \\n              <div class=\\\"checkbox \\\">\\n  <input\\n    id=\\\"static\\\"\\n    type=\\\"checkbox\\\"\\n    name=\\\"static\\\"\\n    value=\\\"static\\\"\\n    class=\\\"\\\"    aria-labelledby=\\\"static-label\\\"\\n    data-value=\\\"Fix in place for all dashboards\\\"\\n    \\n  >\\n  <label for=\\\"static\\\" id=\\\"static-label\\\" class=\\\"checkbox-label form-label\\\">\\n    Fix in place for all dashboards\\n  </label>\\n  \\n</div>\\n\\n            \\n        </form>\\n    </div>\\n</div>\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\",\"is_error\":0}",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "timeline_form",
+         "observed" : {
+            "body" : "{\"content\":\"<div class=\\\"row\\\">\\n    <div class=\\\"col-md-12\\\">\\n        <form action=\\\"/widget/{var:tl}/edit\\\">\\n            <div class=\\\"form-group mb-4\\\">\\n                <label class=\\\"form-label\\\" for=\\\"title\\\">Title (optional):</label>\\n                <input type=\\\"text\\\" class=\\\"form-control\\\" id=\\\"title\\\" name=\\\"title\\\" value=\\\"\\\">\\n            </div>\\n            \\n                \\n    \\n    <div class=\\\"form-group mb-4\\\">\\n        <label class=\\\"form-label\\\" for=\\\"view_id\\\">View</label>\\n        <select class=\\\"form-control\\\" id=\\\"view_id\\\" name=\\\"view_id\\\">\\n            \\n                <option></option>\\n            \\n            \\n                <optgroup label=\\\"Personal views\\\">\\n                    \\n                        <option value=\\\"1\\\" >\\n                            Widget view\\n                        </option>\\n                    \\n                </optgroup>\\n            \\n            \\n            \\n        </select>\\n    </div>\\n\\n    <div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"tl_label\\\">Show label as field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"tl_label\\\">\\n        <option value=\\\"\\\" selected>&lt;All fields&gt;</option>\\n        \\n            <option value=\\\"1\\\" >ID</option>\\n        \\n            <option value=\\\"2\\\" >Last edited time</option>\\n        \\n            <option value=\\\"3\\\" >Last edited by</option>\\n        \\n            <option value=\\\"4\\\" >Created by</option>\\n        \\n            <option value=\\\"6\\\" >Created time</option>\\n        \\n            <option value=\\\"7\\\" >Serial</option>\\n        \\n            <option value=\\\"8\\\" >string1</option>\\n        \\n            <option value=\\\"9\\\" >integer1</option>\\n        \\n            <option value=\\\"10\\\" >enum1</option>\\n        \\n            <option value=\\\"11\\\" >tree1</option>\\n        \\n            <option value=\\\"12\\\" >date1</option>\\n        \\n            <option value=\\\"13\\\" >daterange1</option>\\n        \\n            <option value=\\\"14\\\" >file1</option>\\n        \\n            <option value=\\\"15\\\" >person1</option>\\n        \\n            <option value=\\\"16\\\" >rag1</option>\\n        \\n            <option value=\\\"17\\\" >calc1</option>\\n        \\n    </select>\\n</div>\\n<div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"tl_group\\\">Group by field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"tl_group\\\" id=\\\"tl_group\\\">\\n        <option value=\\\"\\\" selected>&lt;All fields&gt;</option>\\n        \\n            <option value=\\\"1\\\"  data-fixedvals=\\\"0\\\">\\n                ID\\n            </option>\\n        \\n            <option value=\\\"2\\\"  data-fixedvals=\\\"0\\\">\\n                Last edited time\\n            </option>\\n        \\n            <option value=\\\"3\\\"  data-fixedvals=\\\"1\\\">\\n                Last edited by\\n            </option>\\n        \\n            <option value=\\\"4\\\"  data-fixedvals=\\\"1\\\">\\n                Created by\\n            </option>\\n        \\n            <option value=\\\"6\\\"  data-fixedvals=\\\"0\\\">\\n                Created time\\n            </option>\\n        \\n            <option value=\\\"7\\\"  data-fixedvals=\\\"0\\\">\\n                Serial\\n            </option>\\n        \\n            <option value=\\\"8\\\"  data-fixedvals=\\\"0\\\">\\n                string1\\n            </option>\\n        \\n            <option value=\\\"9\\\"  data-fixedvals=\\\"0\\\">\\n                integer1\\n            </option>\\n        \\n            <option value=\\\"10\\\"  data-fixedvals=\\\"1\\\">\\n                enum1\\n            </option>\\n        \\n            <option value=\\\"11\\\"  data-fixedvals=\\\"1\\\">\\n                tree1\\n            </option>\\n        \\n            <option value=\\\"12\\\"  data-fixedvals=\\\"0\\\">\\n                date1\\n            </option>\\n        \\n            <option value=\\\"13\\\"  data-fixedvals=\\\"0\\\">\\n                daterange1\\n            </option>\\n        \\n            <option value=\\\"14\\\"  data-fixedvals=\\\"0\\\">\\n                file1\\n            </option>\\n        \\n            <option value=\\\"15\\\"  data-fixedvals=\\\"1\\\">\\n                person1\\n            </option>\\n        \\n            <option value=\\\"16\\\"  data-fixedvals=\\\"1\\\">\\n                rag1\\n            </option>\\n        \\n            <option value=\\\"17\\\"  data-fixedvals=\\\"0\\\">\\n                calc1\\n            </option>\\n        \\n    </select>\\n    <div id=\\\"tl_all_group_values_div\\\">\\n        <label class=\\\"form-label\\\">\\n            <input type=\\\"checkbox\\\" id=\\\"tl_all_group_values\\\" name=\\\"tl_all_group_values\\\" >\\n            Show all group values even if empty\\n        </label>\\n    </div>\\n</div>\\n<div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"tl_color\\\">Colour by field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"tl_color\\\">\\n        <option value=\\\"\\\" selected>&lt;All fields&gt;</option>\\n        \\n            <option value=\\\"1\\\" >ID</option>\\n        \\n            <option value=\\\"2\\\" >Last edited time</option>\\n        \\n            <option value=\\\"3\\\" >Last edited by</option>\\n        \\n            <option value=\\\"4\\\" >Created by</option>\\n        \\n            <option value=\\\"6\\\" >Created time</option>\\n        \\n            <option value=\\\"7\\\" >Serial</option>\\n        \\n            <option value=\\\"8\\\" >string1</option>\\n        \\n            <option value=\\\"9\\\" >integer1</option>\\n        \\n            <option value=\\\"10\\\" >enum1</option>\\n        \\n            <option value=\\\"11\\\" >tree1</option>\\n        \\n            <option value=\\\"12\\\" >date1</option>\\n        \\n            <option value=\\\"13\\\" >daterange1</option>\\n        \\n            <option value=\\\"14\\\" >file1</option>\\n        \\n            <option value=\\\"15\\\" >person1</option>\\n        \\n            <option value=\\\"16\\\" >rag1</option>\\n        \\n            <option value=\\\"17\\\" >calc1</option>\\n        \\n    </select>\\n</div>\\n<div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"tl_color\\\">Overlay items from other table:</label>\\n    <select class=\\\"form-control\\\" name=\\\"tl_overlay\\\">\\n        <option value=\\\"\\\" selected></option>\\n        \\n            \\n    </select>\\n</div>\\n\\n\\n            \\n            \\n              <div class=\\\"checkbox \\\">\\n  <input\\n    id=\\\"static\\\"\\n    type=\\\"checkbox\\\"\\n    name=\\\"static\\\"\\n    value=\\\"static\\\"\\n    class=\\\"\\\"    aria-labelledby=\\\"static-label\\\"\\n    data-value=\\\"Fix in place for all dashboards\\\"\\n    \\n  >\\n  <label for=\\\"static\\\" id=\\\"static-label\\\" class=\\\"checkbox-label form-label\\\">\\n    Fix in place for all dashboards\\n  </label>\\n  \\n</div>\\n\\n            \\n        </form>\\n    </div>\\n</div>\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\",\"is_error\":0}",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "globe_form",
+         "observed" : {
+            "body" : "{\"content\":\"<div class=\\\"row\\\">\\n    <div class=\\\"col-md-12\\\">\\n        <form action=\\\"/widget/{var:gl}/edit\\\">\\n            <div class=\\\"form-group mb-4\\\">\\n                <label class=\\\"form-label\\\" for=\\\"title\\\">Title (optional):</label>\\n                <input type=\\\"text\\\" class=\\\"form-control\\\" id=\\\"title\\\" name=\\\"title\\\" value=\\\"\\\">\\n            </div>\\n            \\n                \\n    \\n    <div class=\\\"form-group mb-4\\\">\\n        <label class=\\\"form-label\\\" for=\\\"view_id\\\">View</label>\\n        <select class=\\\"form-control\\\" id=\\\"view_id\\\" name=\\\"view_id\\\">\\n            \\n                <option></option>\\n            \\n            \\n                <optgroup label=\\\"Personal views\\\">\\n                    \\n                        <option value=\\\"1\\\" >\\n                            Widget view\\n                        </option>\\n                    \\n                </optgroup>\\n            \\n            \\n            \\n        </select>\\n    </div>\\n\\n    <div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"globe_label\\\">Label by field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"globe_label\\\">\\n        <option value=\\\"\\\" selected>&lt;None&gt;</option>\\n        <option value=\\\"-1\\\" >&lt;Record count&gt;</option>\\n        \\n            <option value=\\\"1\\\" >ID</option>\\n        \\n            <option value=\\\"2\\\" >Last edited time</option>\\n        \\n            <option value=\\\"3\\\" >Last edited by</option>\\n        \\n            <option value=\\\"4\\\" >Created by</option>\\n        \\n            <option value=\\\"6\\\" >Created time</option>\\n        \\n            <option value=\\\"7\\\" >Serial</option>\\n        \\n            <option value=\\\"8\\\" >string1</option>\\n        \\n            <option value=\\\"9\\\" >integer1</option>\\n        \\n            <option value=\\\"10\\\" >enum1</option>\\n        \\n            <option value=\\\"11\\\" >tree1</option>\\n        \\n            <option value=\\\"12\\\" >date1</option>\\n        \\n            <option value=\\\"13\\\" >daterange1</option>\\n        \\n            <option value=\\\"14\\\" >file1</option>\\n        \\n            <option value=\\\"15\\\" >person1</option>\\n        \\n            <option value=\\\"16\\\" >rag1</option>\\n        \\n            <option value=\\\"17\\\" >calc1</option>\\n        \\n    </select>\\n</div>\\n<div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"globe_group\\\">Group by field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"globe_group\\\">\\n        <option value=\\\"\\\" selected>&lt;All fields&gt;</option>\\n        \\n            <option value=\\\"1\\\" >ID</option>\\n        \\n            <option value=\\\"2\\\" >Last edited time</option>\\n        \\n            <option value=\\\"3\\\" >Last edited by</option>\\n        \\n            <option value=\\\"4\\\" >Created by</option>\\n        \\n            <option value=\\\"6\\\" >Created time</option>\\n        \\n            <option value=\\\"7\\\" >Serial</option>\\n        \\n            <option value=\\\"8\\\" >string1</option>\\n        \\n            <option value=\\\"9\\\" >integer1</option>\\n        \\n            <option value=\\\"10\\\" >enum1</option>\\n        \\n            <option value=\\\"11\\\" >tree1</option>\\n        \\n            <option value=\\\"12\\\" >date1</option>\\n        \\n            <option value=\\\"13\\\" >daterange1</option>\\n        \\n            <option value=\\\"14\\\" >file1</option>\\n        \\n            <option value=\\\"15\\\" >person1</option>\\n        \\n            <option value=\\\"16\\\" >rag1</option>\\n        \\n            <option value=\\\"17\\\" >calc1</option>\\n        \\n    </select>\\n</div>\\n<div class=\\\"form-group\\\">\\n    <label class=\\\"form-label\\\" for=\\\"globe_color\\\">Colour by field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"globe_color\\\">\\n        <option value=\\\"\\\" selected>&lt;All fields&gt;</option>\\n        <option value=\\\"-1\\\" >&lt;Record count&gt;</option>\\n        \\n            <option value=\\\"1\\\" >ID</option>\\n        \\n            <option value=\\\"2\\\" >Last edited time</option>\\n        \\n            <option value=\\\"3\\\" >Last edited by</option>\\n        \\n            <option value=\\\"4\\\" >Created by</option>\\n        \\n            <option value=\\\"6\\\" >Created time</option>\\n        \\n            <option value=\\\"7\\\" >Serial</option>\\n        \\n            <option value=\\\"8\\\" >string1</option>\\n        \\n            <option value=\\\"9\\\" >integer1</option>\\n        \\n            <option value=\\\"10\\\" >enum1</option>\\n        \\n            <option value=\\\"11\\\" >tree1</option>\\n        \\n            <option value=\\\"12\\\" >date1</option>\\n        \\n            <option value=\\\"13\\\" >daterange1</option>\\n        \\n            <option value=\\\"14\\\" >file1</option>\\n        \\n            <option value=\\\"15\\\" >person1</option>\\n        \\n            <option value=\\\"16\\\" >rag1</option>\\n        \\n            <option value=\\\"17\\\" >calc1</option>\\n        \\n    </select>\\n</div>\\n\\n\\n            \\n            \\n              <div class=\\\"checkbox \\\">\\n  <input\\n    id=\\\"static\\\"\\n    type=\\\"checkbox\\\"\\n    name=\\\"static\\\"\\n    value=\\\"static\\\"\\n    class=\\\"\\\"    aria-labelledby=\\\"static-label\\\"\\n    data-value=\\\"Fix in place for all dashboards\\\"\\n    \\n  >\\n  <label for=\\\"static\\\" id=\\\"static-label\\\" class=\\\"checkbox-label form-label\\\">\\n    Fix in place for all dashboards\\n  </label>\\n  \\n</div>\\n\\n            \\n        </form>\\n    </div>\\n</div>\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\",\"is_error\":0}",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table_edit",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "Widget updated successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table_render",
+         "observed" : {
+            "body" : "<h4>Records</h4>\n\n\n    \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<table class=\"table table-hover col-md-12\" id=\"data-table\">\n    <caption class=\"visually-hidden\">Table for records</caption>\n    <thead>\n        <tr>\n            \n            \n                <th scope=\"col\" aria-sort=\"ascending\" data-thlabel=\"ID\">\n                    ID\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"string1\">\n                    string1\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"integer1\">\n                    integer1\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"enum1\">\n                    enum1\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"date1\">\n                    date1\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"daterange1\">\n                    daterange1\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"calc1\">\n                    calc1\n                </th>\n            \n        </tr>\n    </thead>\n    <tbody>\n        \n            <tr data-href=\"/record/1\">\n                \n                \n                    \n                        <td>\n                            \n                            <a href=\"/record/1\">1</a>\n                        </td>\n                    \n                \n                    \n                        <td class=\"string\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          \n    \n        \n            <div class=\"hft-lines\">France<br /></div>\n        \n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"intgr\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          10\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"enum\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          \n    \n        foo1\n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"date\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          2014-11-01\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"daterange\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          2014-10-20 to 2014-12-01\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"calc\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          \n    \n        \n            <div class=\"hft-lines\">France<br /></div>\n        \n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n            </tr>\n        \n            <tr data-href=\"/record/2\">\n                \n                \n                    \n                        <td>\n                            \n                            <a href=\"/record/2\">2</a>\n                        </td>\n                    \n                \n                    \n                        <td class=\"string\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          \n    \n        \n            <div class=\"hft-lines\">France<br /></div>\n        \n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"intgr\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          15\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"enum\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          \n    \n        foo2\n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"date\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          2014-12-24\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"daterange\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          2015-01-05 to 2015-02-01\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"calc\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          \n    \n        \n            <div class=\"hft-lines\">France<br /></div>\n        \n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n            </tr>\n        \n        \n    </tbody>\n</table>\n\n\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "graph_edit",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "Widget updated successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "graph_render",
+         "observed" : {
+            "body" : "<h4>Graph</h4>\n\n\n    <div class=\"dashboard-graph\" data-chart-id=\"1\" data-plot-data=\"eyJsYWJlbHMiOlt7ImNvbG9yIjoiIzdGM0Y5OCIsImxhYmVsIjoiMSIsIm1hcmtlcm9wdGlvbnMiOiJ7IHNob3c6IGZhbHNlIH0iLCJzaG93bGFiZWwiOiJ0cnVlIiwic2hvd2xpbmUiOiJ0cnVlIn1dLCJvcHRpb25zIjp7fSwicG9pbnRzIjpbWzEwLDIyXV0sInhsYWJlbHMiOlsiZm9vMSIsImZvbzIiXX0=\" data-plot-options=\"eyJpZCI6MSwic2hvd2xlZ2VuZCI6ZmFsc2UsInN0YWNrc2VyaWVzIjpmYWxzZSwidHlwZSI6ImJhciIsInhfYXhpc19uYW1lIjoiZW51bTEiLCJ5X2F4aXNfbGFiZWwiOm51bGx9\"></div>\n\n\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "timeline_edit",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "Widget updated successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "timeline_render",
+         "observed" : {
+            "body" : "<h4>Timeline</h4>\n\n\n    <div class=\"timeline\">\n  <div class=\"timeline__legend\">\n    \n  </div>\n\n  <div class=\"timeline__container\">\n    <div class=\"timeline__overlay\">\n      <div class=\"timeline__loader\"></div>\n    </div>\n    \n    <div\n      class=\"timeline__visualization\"\n      data-records=\"W3siY29sdW1uIjoxMiwiY29udGVudCI6IkZyYW5jZSAoZGF0ZTEpIiwiY3VycmVudF9pZCI6MSwiZ3JvdXAiOm51bGwsImlkIjoiMSsxMiIsInNpbmdsZSI6MTQxNDgwMDAwMDAwMCwic3RhcnQiOjE0MTQ4MDAwMDAwMDAsInN0eWxlIjoiYmFja2dyb3VuZC1jb2xvcjogIzlGNjUxMiIsInZhbHVlcyI6W3sibmFtZSI6InN0cmluZzEiLCJ2YWx1ZSI6IkZyYW5jZSJ9LHsibmFtZSI6ImludGVnZXIxIiwidmFsdWUiOiIxMCJ9LHsibmFtZSI6ImVudW0xIiwidmFsdWUiOiJmb28xIn0seyJuYW1lIjoiY2FsYzEiLCJ2YWx1ZSI6IkZyYW5jZSJ9XX0seyJjb2x1bW4iOjEzLCJjb250ZW50IjoiRnJhbmNlIChkYXRlcmFuZ2UxKSIsImN1cnJlbnRfaWQiOjEsImVuZCI6MTQxNzQ3ODQwMDAwMCwiZ3JvdXAiOm51bGwsImhhc190aW1lIjowLCJpZCI6IjErMTMiLCJzdGFydCI6MTQxMzc2MzIwMDAwMCwic3R5bGUiOiJiYWNrZ3JvdW5kLWNvbG9yOiAjRjA2NzlFIiwidmFsdWVzIjpbeyJuYW1lIjoic3RyaW5nMSIsInZhbHVlIjoiRnJhbmNlIn0seyJuYW1lIjoiaW50ZWdlcjEiLCJ2YWx1ZSI6IjEwIn0seyJuYW1lIjoiZW51bTEiLCJ2YWx1ZSI6ImZvbzEifSx7Im5hbWUiOiJjYWxjMSIsInZhbHVlIjoiRnJhbmNlIn1dfSx7ImNvbHVtbiI6MTIsImNvbnRlbnQiOiJGcmFuY2UgKGRhdGUxKSIsImN1cnJlbnRfaWQiOjIsImdyb3VwIjpudWxsLCJpZCI6IjIrMTIiLCJzaW5nbGUiOjE0MTkzNzkyMDAwMDAsInN0YXJ0IjoxNDE5Mzc5MjAwMDAwLCJzdHlsZSI6ImJhY2tncm91bmQtY29sb3I6ICM5RjY1MTIiLCJ2YWx1ZXMiOlt7Im5hbWUiOiJzdHJpbmcxIiwidmFsdWUiOiJGcmFuY2UifSx7Im5hbWUiOiJpbnRlZ2VyMSIsInZhbHVlIjoiMTUifSx7Im5hbWUiOiJlbnVtMSIsInZhbHVlIjoiZm9vMiJ9LHsibmFtZSI6ImNhbGMxIiwidmFsdWUiOiJGcmFuY2UifV19LHsiY29sdW1uIjoxMywiY29udGVudCI6IkZyYW5jZSAoZGF0ZXJhbmdlMSkiLCJjdXJyZW50X2lkIjoyLCJlbmQiOjE0MjI4MzUyMDAwMDAsImdyb3VwIjpudWxsLCJoYXNfdGltZSI6MCwiaWQiOiIyKzEzIiwic3RhcnQiOjE0MjA0MTYwMDAwMDAsInN0eWxlIjoiYmFja2dyb3VuZC1jb2xvcjogI0YwNjc5RSIsInZhbHVlcyI6W3sibmFtZSI6InN0cmluZzEiLCJ2YWx1ZSI6IkZyYW5jZSJ9LHsibmFtZSI6ImludGVnZXIxIiwidmFsdWUiOiIxNSJ9LHsibmFtZSI6ImVudW0xIiwidmFsdWUiOiJmb28yIn0seyJuYW1lIjoiY2FsYzEiLCJ2YWx1ZSI6IkZyYW5jZSJ9XX0seyJjb2x1bW4iOjEyLCJjb250ZW50IjoiRnJhbmNlIChkYXRlMSkiLCJjdXJyZW50X2lkIjozLCJncm91cCI6bnVsbCwiaWQiOiIzKzEyIiwic2luZ2xlIjoxMzY3MzY2NDAwMDAwLCJzdGFydCI6MTM2NzM2NjQwMDAwMCwic3R5bGUiOiJiYWNrZ3JvdW5kLWNvbG9yOiAjOUY2NTEyIiwidmFsdWVzIjpbeyJuYW1lIjoic3RyaW5nMSIsInZhbHVlIjoiRnJhbmNlIn0seyJuYW1lIjoiaW50ZWdlcjEiLCJ2YWx1ZSI6IjcifSx7Im5hbWUiOiJlbnVtMSIsInZhbHVlIjoiZm9vMiJ9LHsibmFtZSI6ImNhbGMxIiwidmFsdWUiOiJGcmFuY2UifV19XQ==\"\n      data-groups=\"W10=\"\n      data-rewind=\"\"\n      data-width=\"\"\n      data-height=\"\"\n      data-min=\"2013-04-30T00:00:00\"\n      data-max=\"2015-01-07T00:00:00\"\n      data-dashboard=\"1\"\n      data-view=\"1\"\n      style=\"width:100%\"\n    >\n    </div>\n  </div>\n</div>\n\n\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "globe_edit",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "Widget updated successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "globe_render",
+         "observed" : {
+            "body" : "<h4>Globe</h4>\n\n\n    <div class=\"globe\"\n    \n    data-globe-data=\"eyJkYXRhIjpbeyJjb3VudHJ5Y29sb3JzIjpbIiNEM0QzRDMiXSwiaG92ZXJpbmZvIjoidGV4dCIsImxvY2F0aW9ubW9kZSI6ImNvdW50cnkgbmFtZXMiLCJsb2NhdGlvbnMiOlsiRnJhbmNlIl0sIm1hcmtlciI6eyJsaW5lIjp7IndpZHRoIjoyfSwic2l6ZSI6MTV9LCJzaG93c2NhbGUiOmZhbHNlLCJ0ZXh0IjpbIkZyYW5jZTxicj48aT5SZWNvcmQgSUQgMTwvaT48YnI+PGI+SUQ6PC9iPiAxPGJyPjxiPnN0cmluZzE6PC9iPiBGcmFuY2U8YnI+PGI+aW50ZWdlcjE6PC9iPiAxMDxicj48Yj5lbnVtMTo8L2I+IGZvbzE8YnI+PGI+ZGF0ZTE6PC9iPiAyMDE0LTExLTAxPGJyPjxiPmRhdGVyYW5nZTE6PC9iPiAyMDE0LTEwLTIwIHRvIDIwMTQtMTItMDE8YnI+PGJyPjxpPlJlY29yZCBJRCAyPC9pPjxicj48Yj5JRDo8L2I+IDI8YnI+PGI+c3RyaW5nMTo8L2I+IEZyYW5jZTxicj48Yj5pbnRlZ2VyMTo8L2I+IDE1PGJyPjxiPmVudW0xOjwvYj4gZm9vMjxicj48Yj5kYXRlMTo8L2I+IDIwMTQtMTItMjQ8YnI+PGI+ZGF0ZXJhbmdlMTo8L2I+IDIwMTUtMDEtMDUgdG8gMjAxNS0wMi0wMTxicj48YnI+PGk+UmVjb3JkIElEIDM8L2k+PGJyPjxiPklEOjwvYj4gMzxicj48Yj5zdHJpbmcxOjwvYj4gRnJhbmNlPGJyPjxiPmludGVnZXIxOjwvYj4gNzxicj48Yj5lbnVtMTo8L2I+IGZvbzI8YnI+PGI+ZGF0ZTE6PC9iPiAyMDEzLTA1LTAxPGJyPiJdLCJ0eXBlIjoic2NhdHRlcmdlbyIsInoiOltudWxsXX1dLCJwYXJhbXMiOnsiZGVmYXVsdF92aWV3X2xpbWl0X2V4dHJhX2lkIjpudWxsLCJnbG9iZV9maWVsZHMiOlsiZmllbGQxNyJdLCJsYXlvdXRfaWRlbnRpZmllciI6InRhYmxlMSIsInZpZXdfaWQiOjF9fQ==\" data-topojsonurl=\"/js/\">\n</div>\n\n\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "widgets_configured",
+         "observed" : [
+            {
+               "dashboard_id" : "2",
+               "globe_options" : null,
+               "graph_id" : null,
+               "id" : "1",
+               "options" : null,
+               "rows" : null,
+               "static" : "0",
+               "title" : null,
+               "tl_options" : null,
+               "type" : "notice",
+               "view_id" : null
+            },
+            {
+               "dashboard_id" : "1",
+               "globe_options" : null,
+               "graph_id" : null,
+               "id" : "2",
+               "options" : null,
+               "rows" : "2",
+               "static" : "1",
+               "title" : "Records",
+               "tl_options" : null,
+               "type" : "table",
+               "view_id" : "1"
+            },
+            {
+               "dashboard_id" : "1",
+               "globe_options" : null,
+               "graph_id" : "1",
+               "id" : "3",
+               "options" : null,
+               "rows" : null,
+               "static" : "0",
+               "title" : "Graph",
+               "tl_options" : null,
+               "type" : "graph",
+               "view_id" : "1"
+            },
+            {
+               "dashboard_id" : "1",
+               "globe_options" : null,
+               "graph_id" : null,
+               "id" : "4",
+               "options" : "{\"color\":\"\",\"group\":\"\",\"label\":\"8\",\"overlay\":\"\"}",
+               "rows" : null,
+               "static" : "0",
+               "title" : "Timeline",
+               "tl_options" : null,
+               "type" : "timeline",
+               "view_id" : "1"
+            },
+            {
+               "dashboard_id" : "1",
+               "globe_options" : null,
+               "graph_id" : null,
+               "id" : "5",
+               "options" : "{\"color\":\"\",\"group\":\"\",\"label\":\"\"}",
+               "rows" : null,
+               "static" : "0",
+               "title" : "Globe",
+               "tl_options" : null,
+               "type" : "globe",
+               "view_id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "table_form_after",
+         "observed" : {
+            "body" : "{\"content\":\"<div class=\\\"row\\\">\\n    <div class=\\\"col-md-12\\\">\\n        <form action=\\\"/widget/{var:tw}/edit\\\">\\n            <div class=\\\"form-group mb-4\\\">\\n                <label class=\\\"form-label\\\" for=\\\"title\\\">Title (optional):</label>\\n                <input type=\\\"text\\\" class=\\\"form-control\\\" id=\\\"title\\\" name=\\\"title\\\" value=\\\"Records\\\">\\n            </div>\\n            \\n                \\n    \\n    <div class=\\\"form-group mb-4\\\">\\n        <label class=\\\"form-label\\\" for=\\\"view_id\\\">View</label>\\n        <select class=\\\"form-control\\\" id=\\\"view_id\\\" name=\\\"view_id\\\">\\n            \\n            \\n                <optgroup label=\\\"Personal views\\\">\\n                    \\n                        <option value=\\\"1\\\" selected>\\n                            Widget view\\n                        </option>\\n                    \\n                </optgroup>\\n            \\n            \\n            \\n        </select>\\n    </div>\\n\\n    <div class=\\\"form-group\\\">\\n        <label for=\\\"rows\\\">Number of rows to display in table</label>\\n        <input type=\\\"text\\\" class=\\\"form-control\\\" name=\\\"rows\\\" id=\\\"rows\\\" value=\\\"2\\\">\\n    </div>\\n\\n            \\n            \\n              <div class=\\\"checkbox \\\">\\n  <input\\n    id=\\\"static\\\"\\n    type=\\\"checkbox\\\"\\n    name=\\\"static\\\"\\n    value=\\\"static\\\"\\n    class=\\\"\\\"checked=\\\"checked\\\"    aria-labelledby=\\\"static-label\\\"\\n    data-value=\\\"Fix in place for all dashboards\\\"\\n    \\n  >\\n  <label for=\\\"static\\\" id=\\\"static-label\\\" class=\\\"checkbox-label form-label\\\">\\n    Fix in place for all dashboards\\n  </label>\\n  \\n</div>\\n\\n            \\n        </form>\\n    </div>\\n</div>\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\",\"is_error\":0}",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "graph_form_after",
+         "observed" : {
+            "body" : "{\"content\":\"<div class=\\\"row\\\">\\n    <div class=\\\"col-md-12\\\">\\n        <form action=\\\"/widget/{var:gw}/edit\\\">\\n            <div class=\\\"form-group mb-4\\\">\\n                <label class=\\\"form-label\\\" for=\\\"title\\\">Title (optional):</label>\\n                <input type=\\\"text\\\" class=\\\"form-control\\\" id=\\\"title\\\" name=\\\"title\\\" value=\\\"Graph\\\">\\n            </div>\\n            \\n                \\n    \\n    <div class=\\\"form-group mb-4\\\">\\n        <label class=\\\"form-label\\\" for=\\\"view_id\\\">View</label>\\n        <select class=\\\"form-control\\\" id=\\\"view_id\\\" name=\\\"view_id\\\">\\n            \\n            \\n                <optgroup label=\\\"Personal views\\\">\\n                    \\n                        <option value=\\\"1\\\" selected>\\n                            Widget view\\n                        </option>\\n                    \\n                </optgroup>\\n            \\n            \\n            \\n        </select>\\n    </div>\\n\\n    <div class=\\\"form-group\\\">\\n        <label for=\\\"graph_id\\\">Graph (<a href=\\\"/table1/graph/0\\\">create new graph</a>)</label>\\n        <select class=\\\"form-control\\\" id=\\\"graph_id\\\" name=\\\"graph_id\\\">\\n            \\n            \\n                <optgroup label=\\\"Personal graphs\\\">\\n                    \\n                        <option value=\\\"1\\\" selected>\\n                            Integer by enum\\n                        </option>\\n                    \\n                </optgroup>\\n            \\n            \\n        </select>\\n    </div>\\n\\n            \\n            \\n              <div class=\\\"checkbox \\\">\\n  <input\\n    id=\\\"static\\\"\\n    type=\\\"checkbox\\\"\\n    name=\\\"static\\\"\\n    value=\\\"static\\\"\\n    class=\\\"\\\"    aria-labelledby=\\\"static-label\\\"\\n    data-value=\\\"Fix in place for all dashboards\\\"\\n    \\n  >\\n  <label for=\\\"static\\\" id=\\\"static-label\\\" class=\\\"checkbox-label form-label\\\">\\n    Fix in place for all dashboards\\n  </label>\\n  \\n</div>\\n\\n            \\n        </form>\\n    </div>\\n</div>\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\",\"is_error\":0}",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "timeline_form_after",
+         "observed" : {
+            "body" : "{\"content\":\"<div class=\\\"row\\\">\\n    <div class=\\\"col-md-12\\\">\\n        <form action=\\\"/widget/{var:tl}/edit\\\">\\n            <div class=\\\"form-group mb-4\\\">\\n                <label class=\\\"form-label\\\" for=\\\"title\\\">Title (optional):</label>\\n                <input type=\\\"text\\\" class=\\\"form-control\\\" id=\\\"title\\\" name=\\\"title\\\" value=\\\"Timeline\\\">\\n            </div>\\n            \\n                \\n    \\n    <div class=\\\"form-group mb-4\\\">\\n        <label class=\\\"form-label\\\" for=\\\"view_id\\\">View</label>\\n        <select class=\\\"form-control\\\" id=\\\"view_id\\\" name=\\\"view_id\\\">\\n            \\n            \\n                <optgroup label=\\\"Personal views\\\">\\n                    \\n                        <option value=\\\"1\\\" selected>\\n                            Widget view\\n                        </option>\\n                    \\n                </optgroup>\\n            \\n            \\n            \\n        </select>\\n    </div>\\n\\n    <div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"tl_label\\\">Show label as field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"tl_label\\\">\\n        <option value=\\\"\\\" >&lt;All fields&gt;</option>\\n        \\n            <option value=\\\"1\\\" >ID</option>\\n        \\n            <option value=\\\"2\\\" >Last edited time</option>\\n        \\n            <option value=\\\"3\\\" >Last edited by</option>\\n        \\n            <option value=\\\"4\\\" >Created by</option>\\n        \\n            <option value=\\\"6\\\" >Created time</option>\\n        \\n            <option value=\\\"7\\\" >Serial</option>\\n        \\n            <option value=\\\"8\\\" selected>string1</option>\\n        \\n            <option value=\\\"9\\\" >integer1</option>\\n        \\n            <option value=\\\"10\\\" >enum1</option>\\n        \\n            <option value=\\\"11\\\" >tree1</option>\\n        \\n            <option value=\\\"12\\\" >date1</option>\\n        \\n            <option value=\\\"13\\\" >daterange1</option>\\n        \\n            <option value=\\\"14\\\" >file1</option>\\n        \\n            <option value=\\\"15\\\" >person1</option>\\n        \\n            <option value=\\\"16\\\" >rag1</option>\\n        \\n            <option value=\\\"17\\\" >calc1</option>\\n        \\n    </select>\\n</div>\\n<div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"tl_group\\\">Group by field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"tl_group\\\" id=\\\"tl_group\\\">\\n        <option value=\\\"\\\" selected>&lt;All fields&gt;</option>\\n        \\n            <option value=\\\"1\\\"  data-fixedvals=\\\"0\\\">\\n                ID\\n            </option>\\n        \\n            <option value=\\\"2\\\"  data-fixedvals=\\\"0\\\">\\n                Last edited time\\n            </option>\\n        \\n            <option value=\\\"3\\\"  data-fixedvals=\\\"1\\\">\\n                Last edited by\\n            </option>\\n        \\n            <option value=\\\"4\\\"  data-fixedvals=\\\"1\\\">\\n                Created by\\n            </option>\\n        \\n            <option value=\\\"6\\\"  data-fixedvals=\\\"0\\\">\\n                Created time\\n            </option>\\n        \\n            <option value=\\\"7\\\"  data-fixedvals=\\\"0\\\">\\n                Serial\\n            </option>\\n        \\n            <option value=\\\"8\\\"  data-fixedvals=\\\"0\\\">\\n                string1\\n            </option>\\n        \\n            <option value=\\\"9\\\"  data-fixedvals=\\\"0\\\">\\n                integer1\\n            </option>\\n        \\n            <option value=\\\"10\\\"  data-fixedvals=\\\"1\\\">\\n                enum1\\n            </option>\\n        \\n            <option value=\\\"11\\\"  data-fixedvals=\\\"1\\\">\\n                tree1\\n            </option>\\n        \\n            <option value=\\\"12\\\"  data-fixedvals=\\\"0\\\">\\n                date1\\n            </option>\\n        \\n            <option value=\\\"13\\\"  data-fixedvals=\\\"0\\\">\\n                daterange1\\n            </option>\\n        \\n            <option value=\\\"14\\\"  data-fixedvals=\\\"0\\\">\\n                file1\\n            </option>\\n        \\n            <option value=\\\"15\\\"  data-fixedvals=\\\"1\\\">\\n                person1\\n            </option>\\n        \\n            <option value=\\\"16\\\"  data-fixedvals=\\\"1\\\">\\n                rag1\\n            </option>\\n        \\n            <option value=\\\"17\\\"  data-fixedvals=\\\"0\\\">\\n                calc1\\n            </option>\\n        \\n    </select>\\n    <div id=\\\"tl_all_group_values_div\\\">\\n        <label class=\\\"form-label\\\">\\n            <input type=\\\"checkbox\\\" id=\\\"tl_all_group_values\\\" name=\\\"tl_all_group_values\\\" >\\n            Show all group values even if empty\\n        </label>\\n    </div>\\n</div>\\n<div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"tl_color\\\">Colour by field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"tl_color\\\">\\n        <option value=\\\"\\\" selected>&lt;All fields&gt;</option>\\n        \\n            <option value=\\\"1\\\" >ID</option>\\n        \\n            <option value=\\\"2\\\" >Last edited time</option>\\n        \\n            <option value=\\\"3\\\" >Last edited by</option>\\n        \\n            <option value=\\\"4\\\" >Created by</option>\\n        \\n            <option value=\\\"6\\\" >Created time</option>\\n        \\n            <option value=\\\"7\\\" >Serial</option>\\n        \\n            <option value=\\\"8\\\" >string1</option>\\n        \\n            <option value=\\\"9\\\" >integer1</option>\\n        \\n            <option value=\\\"10\\\" >enum1</option>\\n        \\n            <option value=\\\"11\\\" >tree1</option>\\n        \\n            <option value=\\\"12\\\" >date1</option>\\n        \\n            <option value=\\\"13\\\" >daterange1</option>\\n        \\n            <option value=\\\"14\\\" >file1</option>\\n        \\n            <option value=\\\"15\\\" >person1</option>\\n        \\n            <option value=\\\"16\\\" >rag1</option>\\n        \\n            <option value=\\\"17\\\" >calc1</option>\\n        \\n    </select>\\n</div>\\n<div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"tl_color\\\">Overlay items from other table:</label>\\n    <select class=\\\"form-control\\\" name=\\\"tl_overlay\\\">\\n        <option value=\\\"\\\" selected></option>\\n        \\n            \\n    </select>\\n</div>\\n\\n\\n            \\n            \\n              <div class=\\\"checkbox \\\">\\n  <input\\n    id=\\\"static\\\"\\n    type=\\\"checkbox\\\"\\n    name=\\\"static\\\"\\n    value=\\\"static\\\"\\n    class=\\\"\\\"    aria-labelledby=\\\"static-label\\\"\\n    data-value=\\\"Fix in place for all dashboards\\\"\\n    \\n  >\\n  <label for=\\\"static\\\" id=\\\"static-label\\\" class=\\\"checkbox-label form-label\\\">\\n    Fix in place for all dashboards\\n  </label>\\n  \\n</div>\\n\\n            \\n        </form>\\n    </div>\\n</div>\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\",\"is_error\":0}",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "globe_form_after",
+         "observed" : {
+            "body" : "{\"content\":\"<div class=\\\"row\\\">\\n    <div class=\\\"col-md-12\\\">\\n        <form action=\\\"/widget/{var:gl}/edit\\\">\\n            <div class=\\\"form-group mb-4\\\">\\n                <label class=\\\"form-label\\\" for=\\\"title\\\">Title (optional):</label>\\n                <input type=\\\"text\\\" class=\\\"form-control\\\" id=\\\"title\\\" name=\\\"title\\\" value=\\\"Globe\\\">\\n            </div>\\n            \\n                \\n    \\n    <div class=\\\"form-group mb-4\\\">\\n        <label class=\\\"form-label\\\" for=\\\"view_id\\\">View</label>\\n        <select class=\\\"form-control\\\" id=\\\"view_id\\\" name=\\\"view_id\\\">\\n            \\n            \\n                <optgroup label=\\\"Personal views\\\">\\n                    \\n                        <option value=\\\"1\\\" selected>\\n                            Widget view\\n                        </option>\\n                    \\n                </optgroup>\\n            \\n            \\n            \\n        </select>\\n    </div>\\n\\n    <div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"globe_label\\\">Label by field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"globe_label\\\">\\n        <option value=\\\"\\\" selected>&lt;None&gt;</option>\\n        <option value=\\\"-1\\\" >&lt;Record count&gt;</option>\\n        \\n            <option value=\\\"1\\\" >ID</option>\\n        \\n            <option value=\\\"2\\\" >Last edited time</option>\\n        \\n            <option value=\\\"3\\\" >Last edited by</option>\\n        \\n            <option value=\\\"4\\\" >Created by</option>\\n        \\n            <option value=\\\"6\\\" >Created time</option>\\n        \\n            <option value=\\\"7\\\" >Serial</option>\\n        \\n            <option value=\\\"8\\\" >string1</option>\\n        \\n            <option value=\\\"9\\\" >integer1</option>\\n        \\n            <option value=\\\"10\\\" >enum1</option>\\n        \\n            <option value=\\\"11\\\" >tree1</option>\\n        \\n            <option value=\\\"12\\\" >date1</option>\\n        \\n            <option value=\\\"13\\\" >daterange1</option>\\n        \\n            <option value=\\\"14\\\" >file1</option>\\n        \\n            <option value=\\\"15\\\" >person1</option>\\n        \\n            <option value=\\\"16\\\" >rag1</option>\\n        \\n            <option value=\\\"17\\\" >calc1</option>\\n        \\n    </select>\\n</div>\\n<div class=\\\"form-group mb-4\\\">\\n    <label class=\\\"form-label\\\" for=\\\"globe_group\\\">Group by field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"globe_group\\\">\\n        <option value=\\\"\\\" selected>&lt;All fields&gt;</option>\\n        \\n            <option value=\\\"1\\\" >ID</option>\\n        \\n            <option value=\\\"2\\\" >Last edited time</option>\\n        \\n            <option value=\\\"3\\\" >Last edited by</option>\\n        \\n            <option value=\\\"4\\\" >Created by</option>\\n        \\n            <option value=\\\"6\\\" >Created time</option>\\n        \\n            <option value=\\\"7\\\" >Serial</option>\\n        \\n            <option value=\\\"8\\\" >string1</option>\\n        \\n            <option value=\\\"9\\\" >integer1</option>\\n        \\n            <option value=\\\"10\\\" >enum1</option>\\n        \\n            <option value=\\\"11\\\" >tree1</option>\\n        \\n            <option value=\\\"12\\\" >date1</option>\\n        \\n            <option value=\\\"13\\\" >daterange1</option>\\n        \\n            <option value=\\\"14\\\" >file1</option>\\n        \\n            <option value=\\\"15\\\" >person1</option>\\n        \\n            <option value=\\\"16\\\" >rag1</option>\\n        \\n            <option value=\\\"17\\\" >calc1</option>\\n        \\n    </select>\\n</div>\\n<div class=\\\"form-group\\\">\\n    <label class=\\\"form-label\\\" for=\\\"globe_color\\\">Colour by field:</label>\\n    <select class=\\\"form-control\\\" name=\\\"globe_color\\\">\\n        <option value=\\\"\\\" selected>&lt;All fields&gt;</option>\\n        <option value=\\\"-1\\\" >&lt;Record count&gt;</option>\\n        \\n            <option value=\\\"1\\\" >ID</option>\\n        \\n            <option value=\\\"2\\\" >Last edited time</option>\\n        \\n            <option value=\\\"3\\\" >Last edited by</option>\\n        \\n            <option value=\\\"4\\\" >Created by</option>\\n        \\n            <option value=\\\"6\\\" >Created time</option>\\n        \\n            <option value=\\\"7\\\" >Serial</option>\\n        \\n            <option value=\\\"8\\\" >string1</option>\\n        \\n            <option value=\\\"9\\\" >integer1</option>\\n        \\n            <option value=\\\"10\\\" >enum1</option>\\n        \\n            <option value=\\\"11\\\" >tree1</option>\\n        \\n            <option value=\\\"12\\\" >date1</option>\\n        \\n            <option value=\\\"13\\\" >daterange1</option>\\n        \\n            <option value=\\\"14\\\" >file1</option>\\n        \\n            <option value=\\\"15\\\" >person1</option>\\n        \\n            <option value=\\\"16\\\" >rag1</option>\\n        \\n            <option value=\\\"17\\\" >calc1</option>\\n        \\n    </select>\\n</div>\\n\\n\\n            \\n            \\n              <div class=\\\"checkbox \\\">\\n  <input\\n    id=\\\"static\\\"\\n    type=\\\"checkbox\\\"\\n    name=\\\"static\\\"\\n    value=\\\"static\\\"\\n    class=\\\"\\\"    aria-labelledby=\\\"static-label\\\"\\n    data-value=\\\"Fix in place for all dashboards\\\"\\n    \\n  >\\n  <label for=\\\"static\\\" id=\\\"static-label\\\" class=\\\"checkbox-label form-label\\\">\\n    Fix in place for all dashboards\\n  </label>\\n  \\n</div>\\n\\n            \\n        </form>\\n    </div>\\n</div>\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\\n\",\"is_error\":0}",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dashboard_page",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>table_index | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables nav__link--active\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      \n\n<header class=\"table-header row g-0\">\n  <div class=\"table-header-container\">\n    <div class=\"table-header-top row justify-content-between g-0\">\n      <div class=\"table-header__meta w-auto\">\n        \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Dashboard</li>\n      \n    \n  </ol>\n</nav>\n\n\n        <h1 class=\"table-header__title\">Layout1</h1>\n      </div>\n      <nav class=\"table-header__navigation w-auto\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n    </div>\n\n    <div class=\"table-header-bottom\">\n      <nav class=\"table-nav-tabs\">\n    <ul class=\"nav nav-tabs\">\n        <li class=\"nav-item\">\n            <a href=\"/table1/data?table_clear_state=1\" class=\"nav-link\" >\n            <span>Records</span>\n            </a>\n        </li>\n        <li class=\"nav-item\">\n            <a href=\"/table1/\" class=\"nav-link  active\">\n            <span>Dashboard</span>\n            </a>\n        </li>\n        \n            <li class=\"nav-item\">\n                <a href=\"/table1/edit\" class=\"nav-link\">\n                <span>Edit Table</span>\n                </a>\n            </li>\n            <li class=\"nav-item\">\n                <a href=\"/table1/report\" class=\"nav-link\">\n                <span>Reports</span>\n                </a>\n            </li>\n        \n    </ul>\n</nav>\n\n    </div>\n  </div>\n</header>\n\n      <div class=\"content-block ps-0\" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__main pt-0\">\n  <div class=\"content-block__main-content\">\n    <div id=\"ld-app\"\n         class=\"dashboard\"\n         data-dashboard-id=\"1\"\n         data-current-dashboard=\"{&quot;download_url&quot;:&quot;/table1?did=1&amp;download=pdf&quot;,&quot;name&quot;:&quot;Layout1 dashboard (shared)&quot;}\"\n         data-dashboard-endpoint=\"/table1/api/dashboard/1\"\n         \n         data-widget-types='[\"notice\", \"graph\", \"table\", \"timeline\", \"globe\"]'\n         \n         data-dashboard-read-only=\"false\"\n         data-dashboard-hide-menu=\"false\"\n         data-dashboard-include-h1=\"false\"\n         data-dashboard-no-download=\"false\"\n         data-dashboards=\"[{&quot;id&quot;:1,&quot;name&quot;:&quot;Layout1 dashboard (shared)&quot;,&quot;url&quot;:&quot;/table1?did=1&quot;},{&quot;id&quot;:2,&quot;name&quot;:&quot;Layout1 dashboard (personal)&quot;,&quot;url&quot;:&quot;/table1?did=2&quot;}]\"\n    >\n      \n      <div class=\"ld-widget-container\" data-grid='{&quot;h&quot;:0,&quot;i&quot;:&quot;{var:tw}&quot;,&quot;static&quot;:false,&quot;w&quot;:0,&quot;x&quot;:0,&quot;y&quot;:0}'>\n        <h4>Records</h4>\n\n\n    \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<table class=\"table table-hover col-md-12\" id=\"data-table\">\n    <caption class=\"visually-hidden\">Table for records</caption>\n    <thead>\n        <tr>\n            \n            \n                <th scope=\"col\" aria-sort=\"ascending\" data-thlabel=\"ID\">\n                    ID\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"string1\">\n                    string1\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"integer1\">\n                    integer1\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"enum1\">\n                    enum1\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"date1\">\n                    date1\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"daterange1\">\n                    daterange1\n                </th>\n            \n                <th scope=\"col\" aria-sort=\"\" data-thlabel=\"calc1\">\n                    calc1\n                </th>\n            \n        </tr>\n    </thead>\n    <tbody>\n        \n            <tr data-href=\"/record/1\">\n                \n                \n                    \n                        <td>\n                            \n                            <a href=\"/record/1\">1</a>\n                        </td>\n                    \n                \n                    \n                        <td class=\"string\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          \n    \n        \n            <div class=\"hft-lines\">France<br /></div>\n        \n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"intgr\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          10\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"enum\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          \n    \n        foo1\n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"date\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          2014-11-01\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"daterange\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          2014-10-20 to 2014-12-01\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"calc\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/1\">\n                          \n                          \n    \n        \n            <div class=\"hft-lines\">France<br /></div>\n        \n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n            </tr>\n        \n            <tr data-href=\"/record/2\">\n                \n                \n                    \n                        <td>\n                            \n                            <a href=\"/record/2\">2</a>\n                        </td>\n                    \n                \n                    \n                        <td class=\"string\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          \n    \n        \n            <div class=\"hft-lines\">France<br /></div>\n        \n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"intgr\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          15\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"enum\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          \n    \n        foo2\n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"date\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          2014-12-24\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"daterange\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          2015-01-05 to 2015-02-01\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n                    \n                        <td class=\"calc\">\n                          \n                          \n                          <a class=\"link link--plain\" href=\"/record/2\">\n                          \n                          \n    \n        \n            <div class=\"hft-lines\">France<br /></div>\n        \n    \n\n                          \n                          </a>\n                          \n                        </td>\n                    \n                \n            </tr>\n        \n        \n    </tbody>\n</table>\n\n\n\n      </div>\n      \n      <div class=\"ld-widget-container\" data-grid='{&quot;h&quot;:0,&quot;i&quot;:&quot;{var:gw}&quot;,&quot;static&quot;:false,&quot;w&quot;:0,&quot;x&quot;:0,&quot;y&quot;:0}'>\n        <h4>Graph</h4>\n\n\n    <div class=\"dashboard-graph\" data-chart-id=\"1\" data-plot-data=\"eyJsYWJlbHMiOlt7ImNvbG9yIjoiIzdGM0Y5OCIsImxhYmVsIjoiMSIsIm1hcmtlcm9wdGlvbnMiOiJ7IHNob3c6IGZhbHNlIH0iLCJzaG93bGFiZWwiOiJ0cnVlIiwic2hvd2xpbmUiOiJ0cnVlIn1dLCJvcHRpb25zIjp7fSwicG9pbnRzIjpbWzEwLDIyXV0sInhsYWJlbHMiOlsiZm9vMSIsImZvbzIiXX0=\" data-plot-options=\"eyJpZCI6MSwic2hvd2xlZ2VuZCI6ZmFsc2UsInN0YWNrc2VyaWVzIjpmYWxzZSwidHlwZSI6ImJhciIsInhfYXhpc19uYW1lIjoiZW51bTEiLCJ5X2F4aXNfbGFiZWwiOm51bGx9\"></div>\n\n\n\n      </div>\n      \n      <div class=\"ld-widget-container\" data-grid='{&quot;h&quot;:0,&quot;i&quot;:&quot;{var:tl}&quot;,&quot;static&quot;:false,&quot;w&quot;:0,&quot;x&quot;:0,&quot;y&quot;:0}'>\n        <h4>Timeline</h4>\n\n\n    <div class=\"timeline\">\n  <div class=\"timeline__legend\">\n    \n  </div>\n\n  <div class=\"timeline__container\">\n    <div class=\"timeline__overlay\">\n      <div class=\"timeline__loader\"></div>\n    </div>\n    \n    <div\n      class=\"timeline__visualization\"\n      data-records=\"W3siY29sdW1uIjoxMiwiY29udGVudCI6IkZyYW5jZSAoZGF0ZTEpIiwiY3VycmVudF9pZCI6MSwiZ3JvdXAiOm51bGwsImlkIjoiMSsxMiIsInNpbmdsZSI6MTQxNDgwMDAwMDAwMCwic3RhcnQiOjE0MTQ4MDAwMDAwMDAsInN0eWxlIjoiYmFja2dyb3VuZC1jb2xvcjogIzlGNjUxMiIsInZhbHVlcyI6W3sibmFtZSI6InN0cmluZzEiLCJ2YWx1ZSI6IkZyYW5jZSJ9LHsibmFtZSI6ImludGVnZXIxIiwidmFsdWUiOiIxMCJ9LHsibmFtZSI6ImVudW0xIiwidmFsdWUiOiJmb28xIn0seyJuYW1lIjoiY2FsYzEiLCJ2YWx1ZSI6IkZyYW5jZSJ9XX0seyJjb2x1bW4iOjEzLCJjb250ZW50IjoiRnJhbmNlIChkYXRlcmFuZ2UxKSIsImN1cnJlbnRfaWQiOjEsImVuZCI6MTQxNzQ3ODQwMDAwMCwiZ3JvdXAiOm51bGwsImhhc190aW1lIjowLCJpZCI6IjErMTMiLCJzdGFydCI6MTQxMzc2MzIwMDAwMCwic3R5bGUiOiJiYWNrZ3JvdW5kLWNvbG9yOiAjRjA2NzlFIiwidmFsdWVzIjpbeyJuYW1lIjoic3RyaW5nMSIsInZhbHVlIjoiRnJhbmNlIn0seyJuYW1lIjoiaW50ZWdlcjEiLCJ2YWx1ZSI6IjEwIn0seyJuYW1lIjoiZW51bTEiLCJ2YWx1ZSI6ImZvbzEifSx7Im5hbWUiOiJjYWxjMSIsInZhbHVlIjoiRnJhbmNlIn1dfSx7ImNvbHVtbiI6MTIsImNvbnRlbnQiOiJGcmFuY2UgKGRhdGUxKSIsImN1cnJlbnRfaWQiOjIsImdyb3VwIjpudWxsLCJpZCI6IjIrMTIiLCJzaW5nbGUiOjE0MTkzNzkyMDAwMDAsInN0YXJ0IjoxNDE5Mzc5MjAwMDAwLCJzdHlsZSI6ImJhY2tncm91bmQtY29sb3I6ICM5RjY1MTIiLCJ2YWx1ZXMiOlt7Im5hbWUiOiJzdHJpbmcxIiwidmFsdWUiOiJGcmFuY2UifSx7Im5hbWUiOiJpbnRlZ2VyMSIsInZhbHVlIjoiMTUifSx7Im5hbWUiOiJlbnVtMSIsInZhbHVlIjoiZm9vMiJ9LHsibmFtZSI6ImNhbGMxIiwidmFsdWUiOiJGcmFuY2UifV19LHsiY29sdW1uIjoxMywiY29udGVudCI6IkZyYW5jZSAoZGF0ZXJhbmdlMSkiLCJjdXJyZW50X2lkIjoyLCJlbmQiOjE0MjI4MzUyMDAwMDAsImdyb3VwIjpudWxsLCJoYXNfdGltZSI6MCwiaWQiOiIyKzEzIiwic3RhcnQiOjE0MjA0MTYwMDAwMDAsInN0eWxlIjoiYmFja2dyb3VuZC1jb2xvcjogI0YwNjc5RSIsInZhbHVlcyI6W3sibmFtZSI6InN0cmluZzEiLCJ2YWx1ZSI6IkZyYW5jZSJ9LHsibmFtZSI6ImludGVnZXIxIiwidmFsdWUiOiIxNSJ9LHsibmFtZSI6ImVudW0xIiwidmFsdWUiOiJmb28yIn0seyJuYW1lIjoiY2FsYzEiLCJ2YWx1ZSI6IkZyYW5jZSJ9XX0seyJjb2x1bW4iOjEyLCJjb250ZW50IjoiRnJhbmNlIChkYXRlMSkiLCJjdXJyZW50X2lkIjozLCJncm91cCI6bnVsbCwiaWQiOiIzKzEyIiwic2luZ2xlIjoxMzY3MzY2NDAwMDAwLCJzdGFydCI6MTM2NzM2NjQwMDAwMCwic3R5bGUiOiJiYWNrZ3JvdW5kLWNvbG9yOiAjOUY2NTEyIiwidmFsdWVzIjpbeyJuYW1lIjoic3RyaW5nMSIsInZhbHVlIjoiRnJhbmNlIn0seyJuYW1lIjoiaW50ZWdlcjEiLCJ2YWx1ZSI6IjcifSx7Im5hbWUiOiJlbnVtMSIsInZhbHVlIjoiZm9vMiJ9LHsibmFtZSI6ImNhbGMxIiwidmFsdWUiOiJGcmFuY2UifV19XQ==\"\n      data-groups=\"W10=\"\n      data-rewind=\"\"\n      data-width=\"\"\n      data-height=\"\"\n      data-min=\"2013-04-30T00:00:00\"\n      data-max=\"2015-01-07T00:00:00\"\n      data-dashboard=\"1\"\n      data-view=\"1\"\n      style=\"width:100%\"\n    >\n    </div>\n  </div>\n</div>\n\n\n\n      </div>\n      \n      <div class=\"ld-widget-container\" data-grid='{&quot;h&quot;:0,&quot;i&quot;:&quot;{var:gl}&quot;,&quot;static&quot;:false,&quot;w&quot;:0,&quot;x&quot;:0,&quot;y&quot;:0}'>\n        <h4>Globe</h4>\n\n\n    <div class=\"globe\"\n    \n    data-globe-data=\"eyJkYXRhIjpbeyJjb3VudHJ5Y29sb3JzIjpbIiNEM0QzRDMiXSwiaG92ZXJpbmZvIjoidGV4dCIsImxvY2F0aW9ubW9kZSI6ImNvdW50cnkgbmFtZXMiLCJsb2NhdGlvbnMiOlsiRnJhbmNlIl0sIm1hcmtlciI6eyJsaW5lIjp7IndpZHRoIjoyfSwic2l6ZSI6MTV9LCJzaG93c2NhbGUiOmZhbHNlLCJ0ZXh0IjpbIkZyYW5jZTxicj48aT5SZWNvcmQgSUQgMTwvaT48YnI+PGI+SUQ6PC9iPiAxPGJyPjxiPnN0cmluZzE6PC9iPiBGcmFuY2U8YnI+PGI+aW50ZWdlcjE6PC9iPiAxMDxicj48Yj5lbnVtMTo8L2I+IGZvbzE8YnI+PGI+ZGF0ZTE6PC9iPiAyMDE0LTExLTAxPGJyPjxiPmRhdGVyYW5nZTE6PC9iPiAyMDE0LTEwLTIwIHRvIDIwMTQtMTItMDE8YnI+PGJyPjxpPlJlY29yZCBJRCAyPC9pPjxicj48Yj5JRDo8L2I+IDI8YnI+PGI+c3RyaW5nMTo8L2I+IEZyYW5jZTxicj48Yj5pbnRlZ2VyMTo8L2I+IDE1PGJyPjxiPmVudW0xOjwvYj4gZm9vMjxicj48Yj5kYXRlMTo8L2I+IDIwMTQtMTItMjQ8YnI+PGI+ZGF0ZXJhbmdlMTo8L2I+IDIwMTUtMDEtMDUgdG8gMjAxNS0wMi0wMTxicj48YnI+PGk+UmVjb3JkIElEIDM8L2k+PGJyPjxiPklEOjwvYj4gMzxicj48Yj5zdHJpbmcxOjwvYj4gRnJhbmNlPGJyPjxiPmludGVnZXIxOjwvYj4gNzxicj48Yj5lbnVtMTo8L2I+IGZvbzI8YnI+PGI+ZGF0ZTE6PC9iPiAyMDEzLTA1LTAxPGJyPiJdLCJ0eXBlIjoic2NhdHRlcmdlbyIsInoiOltudWxsXX1dLCJwYXJhbXMiOnsiZGVmYXVsdF92aWV3X2xpbWl0X2V4dHJhX2lkIjpudWxsLCJnbG9iZV9maWVsZHMiOlsiZmllbGQxNyJdLCJsYXlvdXRfaWRlbnRpZmllciI6InRhYmxlMSIsInZpZXdfaWQiOjF9fQ==\" data-topojsonurl=\"/js/\">\n</div>\n\n\n\n      </div>\n      \n    </div>\n  </div>\n  \n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "layout_bad_h",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Invalid h value 1.5"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "layout_bad_x",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Invalid x value left"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "layout_ok",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "Dashboard updated successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "widgets_after_layout",
+         "observed" : [
+            {
+               "dashboard_id" : "2",
+               "h" : "6",
+               "id" : "1",
+               "type" : "notice",
+               "w" : "6",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "dashboard_id" : "1",
+               "h" : "2",
+               "id" : "2",
+               "type" : "table",
+               "w" : "4",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "dashboard_id" : "1",
+               "h" : "3",
+               "id" : "3",
+               "type" : "graph",
+               "w" : "4",
+               "x" : "4",
+               "y" : "0"
+            },
+            {
+               "dashboard_id" : "1",
+               "h" : "0",
+               "id" : "4",
+               "type" : "timeline",
+               "w" : "0",
+               "x" : "0",
+               "y" : "0"
+            },
+            {
+               "dashboard_id" : "1",
+               "h" : "0",
+               "id" : "5",
+               "type" : "globe",
+               "w" : "0",
+               "x" : "0",
+               "y" : "0"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "46:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_table_page",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_table_render",
+         "observed" : {
+            "body" : "<h4>Records</h4>\n\n\n    You do not have access to the configured view for this widget\n\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_graph_render",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "User 4 does not have access to view 1"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      }
+   ]
+}

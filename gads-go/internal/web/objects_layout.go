@@ -162,8 +162,44 @@ func (o *ttLayoutObj) TTMethod(name string, args []any) ([]any, bool, error) {
 		return one(o.columnsForFilter(showAll))
 	case "show_add_record":
 		return one(ttBoolEmpty(l.ShowAddRecord()))
+	case "record_as_dashboard":
+		return one(ttBool01(l.RecordAsDashboard()))
+	case "all_curcommon":
+		out := tt.NewList()
+		for _, col := range l.All(gads.AllOptions{}) {
+			if col.IsCurcommon() {
+				out.Items = append(out.Items, o.c.ttColumn(col))
+			}
+		}
+		return one(out)
+	case "columns_for_dashboard_timeline":
+		// The columns_for_filter of a date return type (as the user can
+		// read them)
+		out := tt.NewList()
+		for _, it := range o.columnsForFilter(false).Items {
+			rt, _ := it.(*tt.Hash).Get("return_type")
+			if strings.Contains(tt.Str(rt), "date") {
+				out.Items = append(out.Items, it)
+			}
+		}
+		return one(out)
+	case "user_views":
+		return one(ttUserViews(o.c.E.NewViews(l)))
 	}
 	return nil, false, nil
+}
+
+// ttUserViews is Views->user_views
+func ttUserViews(views *gads.Views) *tt.Hash {
+	uv := views.UserViews()
+	list := func(vs []gads.ViewSummary) *tt.List {
+		l := tt.NewList()
+		for _, v := range vs {
+			l.Items = append(l.Items, tt.HashOf("id", v.ID, "name", v.Name))
+		}
+		return l
+	}
+	return tt.HashOf("admin", list(uv.Admin), "shared", list(uv.Shared), "personal", list(uv.Personal))
 }
 
 // ttViewObj is GADS::View

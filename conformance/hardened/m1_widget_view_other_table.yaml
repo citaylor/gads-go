@@ -1,0 +1,85 @@
+name: m1_widget_view_other_table
+hardened: 1
+description: >
+  M-1: the view of a widget is found in its own table only, and checked
+  with that table's permissions. normal1 administers the main table, whose
+  record dashboard has a table widget of the records of the other table.
+  In Perl a view of any table is found by its ID and checked with the
+  main table's permissions, so normal1 can show the records of the other
+  table through a personal view of superadmin.
+steps:
+  - sheet: { as: other, instance_id: 2, site_id: 1 }
+  - sheet:
+      as: main
+      instance_id: 1
+      curval: other
+      curval_fields: [string1]
+      data:
+        - { string1: Foo, curval1: 1 }
+  - add_autocur:
+      sheet: other
+      refers_to: main
+      related_field: curval1
+      curval_fields: [string1]
+  # A personal view of superadmin on the other table
+  - view:
+      op: create
+      sheet: other
+      user: superadmin
+      as: vo
+      name: Superadmin's view
+      columns: [string1, integer1]
+  - db:
+      op: update
+      table: instance
+      where: { id: "@instance:main" }
+      set: { record_display: dashboard }
+  - db:
+      op: insert
+      table: instance_group
+      set: { instance_id: "@instance:main", group_id: "@group:default", permission: layout }
+  - login: { user: normal1 }
+  - http:
+      id: record_dashboard
+      as: normal1
+      path: /record/3
+      expect: { status: 200 }
+  - http:
+      id: add_table
+      as: normal1
+      method: POST
+      path: "/{sheet:main}/api/dashboard/1/widget"
+      query: { type: table }
+      json: {}
+      capture: { tw: message }
+      expect: { status: 200 }
+  - http:
+      id: table_edit
+      as: normal1
+      method: PUT
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tw}/edit"
+      json:
+        title: Linked records
+        layout_id: "{column:main:curval1}"
+        rows: 5
+        "view_id_{column:main:curval1}": "{view:vo}"
+      expect: { status: 200 }
+  - http:
+      id: table_render_refused
+      as: normal1
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tw}"
+      query: { current_id: 3 }
+      expect: { status: 200 }
+      expect_body_contains:
+        - You do not have access to the configured view for this widget
+  # superadmin, who owns the view, sees the records
+  - login: { user: superadmin }
+  - http:
+      id: table_render_owner
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tw}"
+      query: { current_id: 3 }
+      expect: { status: 200 }
+      expect_body_contains:
+        - Linked records
+        - '<a href="/record/1">1</a>'

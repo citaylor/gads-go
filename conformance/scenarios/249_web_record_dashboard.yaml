@@ -1,0 +1,414 @@
+name: 249_web_record_dashboard
+source:
+  - lib/GADS.pm (/record/:id as a record dashboard when the table's record_display is dashboard, ?view=full)
+  - lib/GADS/API.pm (_put_dashboard_widget_edit for record dashboards, the current_id of widget requests)
+  - lib/GADS/Schema/Result/Widget.pm (validate, html of the field, timeline and table widgets of a record dashboard)
+  - lib/GADS/Schema/ResultSet/Dashboard.pm (record_dashboard, type)
+  - lib/GADS/Record.pm (url_dashboard, url_full)
+  - views/record/dashboard.tt, views/widget.tt, views/navigation/edit_record_top_bar.tt
+description: >
+  Record dashboards (GADS 115): a table showing its records as an
+  overview dashboard, the full record page, adding field, timeline, table
+  and notice widgets to it, their edit forms, saving their options and
+  rendering them for a record, the validation of widget types and
+  timeline options, a table widget of the records referring to the record
+  through a curval or an autocur, and the access of a user without the
+  layout permission.
+steps:
+  - sheet: { as: other, instance_id: 2, site_id: 1 }
+  - sheet:
+      as: main
+      instance_id: 1
+      curval: other
+      curval_fields: [string1]
+      data:
+        - { string1: Foo, integer1: 10, date1: "2014-11-01", daterange1: ["2014-09-01", "2015-01-15"], curval1: 1 }
+        - { string1: Bar, integer1: 20, date1: "2013-01-01", curval1: 2 }
+  - add_autocur:
+      sheet: other
+      refers_to: main
+      related_field: curval1
+      curval_fields: [string1]
+  - view:
+      op: create
+      sheet: other
+      user: superadmin
+      as: vo
+      name: Other records
+      columns: [string1, integer1]
+  - view:
+      op: create
+      sheet: main
+      user: superadmin
+      as: vm
+      name: Main records
+      columns: [string1, date1]
+  - db:
+      op: update
+      table: instance
+      where: { id: "@instance:main" }
+      set: { record_display: dashboard }
+  # Timeline colours are those already stored for a name, otherwise random
+  # in Perl (the first key of a hash)
+  - db: { op: insert, table: graph_color, set: { name: date1, color: 7A221B } }
+  - db: { op: insert, table: graph_color, set: { name: daterange1, color: 34C3E0 } }
+  - login: { user: superadmin }
+  # The record page is the overview dashboard, created on first view
+  - http:
+      id: record_dashboard
+      expect: { status: 200 }
+      expect_body_contains: ["<title>record/dashboard | Linkspace</title>", "data-current-id=\"3\""]
+      as: superadmin
+      path: /record/3
+  - db:
+      id: dashboards_after_view
+      op: select
+      table: dashboard
+      columns: [id, instance_id, user_id, group_id, type]
+  - http:
+      id: record_dashboard_again
+      as: superadmin
+      path: /record/3
+  - http:
+      id: record_full
+      expect: { status: 200 }
+      expect_body_contains: ["<title>edit | Linkspace</title>", "Full record"]
+      as: superadmin
+      path: /record/3
+      query: { view: full }
+  - http:
+      id: history_dashboard
+      as: superadmin
+      path: /history/3
+  # A table without record_display shows the record as before
+  - http:
+      id: other_record
+      as: superadmin
+      path: /record/1
+  # The table's own dashboard is not the record dashboard
+  - http:
+      id: table_page
+      as: superadmin
+      path: "/{sheet:main}"
+  - db:
+      id: dashboards_after_table
+      op: select
+      table: dashboard
+      columns: [id, instance_id, user_id, group_id, type]
+  # Widget types of a record dashboard
+  - http:
+      id: add_field
+      expect: { status: 200, json: { is_error: 0 } }
+      as: superadmin
+      method: POST
+      path: "/{sheet:main}/api/dashboard/1/widget"
+      query: { type: field }
+      json: {}
+      capture: { field: message }
+  - http:
+      id: add_timeline
+      as: superadmin
+      method: POST
+      path: "/{sheet:main}/api/dashboard/1/widget"
+      query: { type: timeline }
+      json: {}
+      capture: { tl: message }
+  - http:
+      id: add_table
+      as: superadmin
+      method: POST
+      path: "/{sheet:main}/api/dashboard/1/widget"
+      query: { type: table }
+      json: {}
+      capture: { tw: message }
+  - http:
+      id: add_notice
+      as: superadmin
+      method: POST
+      path: "/{sheet:main}/api/dashboard/1/widget"
+      query: { type: notice }
+      json: {}
+      capture: { notice: message }
+  - http:
+      id: add_graph_invalid
+      expect: { status: 400, json: { message: "Invalid widget type: graph" } }
+      as: superadmin
+      method: POST
+      path: "/{sheet:main}/api/dashboard/1/widget"
+      query: { type: graph }
+      json: {}
+  - http:
+      id: add_globe_invalid
+      expect: { status: 400, json: { message: "Invalid widget type: globe" } }
+      as: superadmin
+      method: POST
+      path: "/{sheet:main}/api/dashboard/1/widget"
+      query: { type: globe }
+      json: {}
+  - db:
+      id: widgets_added
+      op: select
+      table: widget
+      columns: [id, dashboard_id, type, title, content, options, rows, view_id]
+  # Unconfigured widgets
+  - http:
+      id: table_unconfigured
+      expect_body_contains: [Configuration required]
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tw}"
+      query: { current_id: 3 }
+  - http:
+      id: field_unconfigured
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}"
+      query: { current_id: 3 }
+  # Edit forms
+  - http:
+      id: field_form
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}/edit"
+  - http:
+      id: timeline_form
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tl}/edit"
+  - http:
+      id: table_form
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tw}/edit"
+  - http:
+      id: notice_form
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:notice}/edit"
+  # Field widget
+  - http:
+      id: field_edit
+      as: superadmin
+      method: PUT
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}/edit"
+      json:
+        title: Key fields
+        layout_id: ["{column:main:string1}", "{column:main:integer1}", "{column:main:curval1}"]
+        show_field_labels: 1
+  - http:
+      id: field_render
+      expect: { status: 200 }
+      expect_body_contains: ["<h4>Key fields</h4>", "Foo"]
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}"
+      query: { current_id: 3 }
+  - http:
+      id: field_render_other_record
+      expect_body_contains: ["Bar"]
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}"
+      query: { current_id: 4 }
+  - http:
+      id: field_render_no_record
+      expect: { status: 400, json: { message: "No record ID provided for field widget 2" } }
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}"
+  - http:
+      id: field_render_missing_record
+      expect: { status: 400, json: { message: "Record ID 999 not found" } }
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}"
+      query: { current_id: 999 }
+  - http:
+      id: field_edit_one_no_labels
+      as: superadmin
+      method: PUT
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}/edit"
+      json: { title: One field, layout_id: "{column:main:string1}" }
+  - http:
+      id: field_render_one
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}"
+      query: { current_id: 3 }
+  - http:
+      id: field_form_after_edit
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}/edit"
+  # Timeline widget
+  - http:
+      id: timeline_edit
+      as: superadmin
+      method: PUT
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tl}/edit"
+      json:
+        title: Dates
+        layout_id: ["{column:main:date1}", "{column:main:daterange1}"]
+        timeline_range: 24
+  - http:
+      id: timeline_render
+      expect_body_contains: ["data-dashboard=\"1\""]
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tl}"
+      query: { current_id: 3 }
+  - http:
+      id: timeline_render_out_of_range
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tl}"
+      query: { current_id: 4 }
+  - http:
+      id: timeline_form_after_edit
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tl}/edit"
+  - http:
+      id: timeline_edit_range_3
+      as: superadmin
+      method: PUT
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tl}/edit"
+      json: { title: Dates, layout_id: "{column:main:date1}", timeline_range: 3 }
+  - http:
+      id: timeline_render_range_3
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tl}"
+      query: { current_id: 3 }
+  - http:
+      id: timeline_edit_bad_range
+      expect: { status: 400, json: { message: "Invalid timeline range: 5" } }
+      as: superadmin
+      method: PUT
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tl}/edit"
+      json: { title: Dates, layout_id: "{column:main:date1}", timeline_range: 5 }
+  - http:
+      id: timeline_edit_bad_column
+      expect: { status: 400, json: { message: "Invalid column ID in columns configuration" } }
+      as: superadmin
+      method: PUT
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tl}/edit"
+      json: { title: Dates, layout_id: ["abc"], timeline_range: 6 }
+  - http:
+      id: timeline_edit_curval_child
+      as: superadmin
+      method: PUT
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tl}/edit"
+      json: { title: Dates, layout_id: ["{column:main:curval1}_{column:other:date1}", "{column:main:date1}"], timeline_range: 12 }
+  - http:
+      id: timeline_render_curval_child
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tl}"
+      query: { current_id: 3 }
+  # Table widget: the records of the other table that refer to this one
+  - http:
+      id: table_edit
+      as: superadmin
+      method: PUT
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tw}/edit"
+      json:
+        title: Linked records
+        layout_id: "{column:main:curval1}"
+        rows: 5
+        "view_id_{column:main:curval1}": "{view:vo}"
+  - http:
+      id: table_render
+      expect_body_contains: ["<h4>Linked records</h4>", "<a href=\"/record/1\">1</a>"]
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tw}"
+      query: { current_id: 3 }
+  - http:
+      id: table_render_other_record
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tw}"
+      query: { current_id: 4 }
+  - http:
+      id: table_form_after_edit
+      as: superadmin
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:tw}/edit"
+  - db:
+      id: widgets_configured
+      op: select
+      table: widget
+      columns: [id, dashboard_id, type, title, options, rows, view_id, static]
+  # The dashboard with its widgets, and its layout
+  - http:
+      id: record_dashboard_with_widgets
+      as: superadmin
+      path: /record/3
+  - http:
+      id: update_layout
+      as: superadmin
+      method: PUT
+      path: "/{sheet:main}/api/dashboard/1/dashboard/1"
+      json:
+        - { i: "{var:field}", h: 4, w: 6, x: 0, y: 0 }
+        - { i: newgrid, h: 2, w: 2, x: 6, y: 0 }
+  - db:
+      id: widgets_after_layout
+      op: select
+      table: widget
+      columns: [id, dashboard_id, grid_id, type, h, w, x, y]
+  # Through an autocur: the main records that refer to a record of other
+  - db:
+      op: update
+      table: instance
+      where: { id: "@instance:other" }
+      set: { record_display: dashboard }
+  - http:
+      id: other_dashboard
+      as: superadmin
+      path: /record/1
+  - db:
+      id: dashboards_other
+      op: select
+      table: dashboard
+      columns: [id, instance_id, user_id, type]
+  - http:
+      id: add_other_table
+      as: superadmin
+      method: POST
+      path: "/{sheet:other}/api/dashboard/4/widget"
+      query: { type: table }
+      json: {}
+      capture: { otw: message }
+  - http:
+      id: other_table_form
+      as: superadmin
+      path: "/{sheet:other}/api/dashboard/4/widget/{var:otw}/edit"
+  - http:
+      id: other_table_edit
+      as: superadmin
+      method: PUT
+      path: "/{sheet:other}/api/dashboard/4/widget/{var:otw}/edit"
+      json:
+        title: Referring records
+        layout_id: "{column:other:autocur1}"
+        rows: 10
+        "view_id_{column:other:autocur1}": "{view:vm}"
+  - http:
+      id: other_table_render
+      expect_body_contains: ["<h4>Referring records</h4>", "<a href=\"/record/3\">3</a>"]
+      as: superadmin
+      path: "/{sheet:other}/api/dashboard/4/widget/{var:otw}"
+      query: { current_id: 1 }
+  # A user without the layout permission sees a read-only dashboard
+  - login: { user: normal1 }
+  - http:
+      id: normal_record_dashboard
+      as: normal1
+      path: /record/3
+  - http:
+      id: normal_field_render
+      as: normal1
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}"
+      query: { current_id: 3 }
+  - http:
+      id: normal_add_denied
+      expect: { status: 400, json: { message: "User does not have write access to dashboard ID 1" } }
+      as: normal1
+      method: POST
+      path: "/{sheet:main}/api/dashboard/1/widget"
+      query: { type: notice }
+      json: {}
+  - http:
+      id: normal_edit_denied
+      expect: { status: 400, json: { message: "User does not have write access to dashboard ID 1" } }
+      as: normal1
+      method: PUT
+      path: "/{sheet:main}/api/dashboard/1/widget/{var:field}/edit"
+      json: { title: Mine }
+  - db:
+      id: widgets_final
+      op: select
+      table: widget
+      columns: [id, dashboard_id, type, title, options]

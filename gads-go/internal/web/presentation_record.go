@@ -91,7 +91,8 @@ func (c *Ctx) recordPresentation(r *gads.Record, o recordPresentOpts) *ttLazy {
 	case o.curvalFields != nil:
 		columns = o.curvalFields
 	default:
-		gads.Panic("Presentation of the rendered columns of a record is not yet supported")
+		// A record as read: the columns of its view
+		columns = r.ColumnsRender()
 	}
 
 	// The indentation of each field: indented if it has a display
@@ -177,6 +178,24 @@ func (c *Ctx) recordPresentation(r *gads.Record, o recordPresentOpts) *ttLazy {
 	l.val("has_rag_column", ttBoolEmpty(hasRag != ""))
 	l.def("new_entry", func() any { return ttBoolEmpty(r.NewEntry()) })
 	l.def("is_draft", func() any { return ttValue(nilIfZero(r.IsDraft())) })
+	l.def("url_dashboard", func() any {
+		if u := recordURL(r); u != nil {
+			return *u
+		}
+		return nil
+	})
+	l.def("url_full", func() any {
+		u := recordURL(r)
+		switch {
+		case layout.RecordAsDashboard() && u == nil:
+			return "?view=full" // (undef concatenated)
+		case layout.RecordAsDashboard():
+			return *u + "?view=full"
+		case u == nil:
+			return nil
+		}
+		return *u
+	})
 	if o.edit {
 		l.def("versions", func() any {
 			format := (&ttConfig{s: c.s}).dateformat() + " HH:mm:ss"
@@ -434,4 +453,13 @@ func (c *Ctx) curvalLinks(col *gads.Column, links []curvalLink) *tt.List {
 		))
 	}
 	return out
+}
+
+// recordURL is Record _url: /table/record/ID, undefined without a current ID
+func recordURL(r *gads.Record) *string {
+	if r.CurrentID() == 0 {
+		return nil
+	}
+	u := "/" + r.Layout().Identifier() + "/record/" + fmtInt(r.CurrentID())
+	return &u
 }

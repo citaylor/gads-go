@@ -4,8 +4,8 @@ This workspace ports [ctrlo GADS](https://github.com/ctrlo/GADS), a Perl and
 Dancer2 application, to Go. A language-neutral conformance suite proves that
 the port behaves the same: every scenario runs against the original Perl
 code and against Go, and the two sets of observations must be identical.
-As of 2026-10-27, against GADS `dev` at `fddd4a15`, all 176 scenarios are
-identical.
+As of 2026-11-02, against GADS `dev` at `b6e4c45b` (schema 115), all 178
+scenarios are identical.
 
 ## Rules
 
@@ -55,7 +55,11 @@ identical.
   results come from. To move to a newer dev:
   1. `git -C upstream/GADS-dev pull`.
   2. Rerun Perl to refresh `results/perl`, then run Go and compare.
-  3. Commit the new submodule pointer together with the new golden results.
+  3. If the schema changed, regenerate the DDL (from `gads-go/`:
+     `perl -I ../upstream/GADS-dev/lib internal/db/gen/gen_ddl.pl`), port the
+     migration of `share/migrations/*/upgrade` to `internal/db/upgrade.go`
+     with a test from the previous DDL (`internal/db/testdata`).
+  4. Commit the new submodule pointer together with the new golden results.
 
 ## Layout
 
@@ -79,7 +83,7 @@ Go packages, under `gads-go/`:
 | `internal/web` | The Dancer2 application: router (`routes.go`, generated from GADS.pm and API.pm), `Ctx`, sessions, auth, routes. |
 | `internal/tt` | Template Toolkit engine. It renders the original `views/*.tt` unchanged. |
 | `internal/cli` | Ports of the `bin/*.pl` scripts. The `Commands` map is keyed by script name. |
-| `internal/db` | Database access with the same DDL as GADS (`sql_sqlite.sql`, `sql_postgres.sql`). Drivers: mattn/go-sqlite3 (cgo), or `-tags modernc` for modernc.org/sqlite; pgx for PostgreSQL. |
+| `internal/db` | Database access with the same DDL as GADS (`sql_sqlite.sql`, `sql_postgres.sql`, generated from `GADS::Schema` by `gen/gen_ddl.pl`). `Upgrade` applies GADS's schema migrations to an older database (`upgrade.go`). Drivers: mattn/go-sqlite3 (cgo), or `-tags modernc` for modernc.org/sqlite; pgx for PostgreSQL. |
 | `internal/lua` | Lua 5.3.6, vendored and called through cgo, used for calc and RAG fields. Same sandbox as Inline::Lua in GADS. |
 | `internal/perl`, `perljson`, `yamlxs`, `cldr`, `mimeinfo`, `saml` | Behaviour of Perl and CPAN modules (truthiness, JSON::PP, YAML::XS, CLDR dates, File::MimeInfo, Net::SAML2). |
 | `conformance/` | Go runner and DataSheet port. `go test ./conformance` runs every scenario against the Perl golden. |
@@ -226,6 +230,7 @@ Debugging environment variables:
 ```sh
 gads serve -config DIR [-listen :3000] [-views DIR] [-public DIR]
 gads deploy -config DIR      # create the tables
+gads upgrade -config DIR     # apply the schema upgrades an older database needs
 gads list                    # list the scripts
 gads <script> [options]      # a bin/*.pl port (export.pl or export); GADS_CONFIG=DIR
 ```
@@ -312,7 +317,8 @@ docker compose restart dev                 # rebuild and rerun after a change
   - Writes `environments/docker.yml` from `POSTGRES_*`, `SMTP_*`,
     `GADS_EMAIL_FROM` and `GADS_UPLOADS`.
   - Waits for the database.
-  - Seeds it once, with `gads seed-database`.
+  - Seeds it once, with `gads seed-database`; on later starts runs
+    `gads upgrade`, which does nothing for a database that is up to date.
   - Sets the password of `GADS_ADMIN_EMAIL` from `GADS_ADMIN_PASSWORD`.
 - **Health.** The image's `HEALTHCHECK` runs `gads healthcheck` every
   30 s, so `docker compose ps` shows `app` as healthy or unhealthy (a
@@ -400,7 +406,7 @@ code.
 | H-3 | Only a superadmin changes or retires a superadmin (`User.CheckCanManage`). |
 | H-4 | A historic purge takes only records that the user sees in this table's view, and the columns the page offers. |
 | H-5 | Dashboards are changed by their own scope: the site's by superadmins, a table's with `layout` on that table, a personal one by its owner, who is also the only one who can read it (M-2). Notice HTML is sanitised (bluemonday). |
-| M-1 | Graphs, reports, trees, field values and help text are found only in the URL's table, or among the fields the user can read. |
+| M-1 | Graphs, reports, trees, field values and help text are found only in the URL's table, or among the fields the user can read. A view is found only in its own table (Perl's DBIC `find` ignores the instance), and a record dashboard's table widget checks its view with the referenced table's permissions. |
 | M-3 | Only superadmins upload independent files. |
 | M-4 | PBKDF2-SHA512 (210000 iterations, 91 characters), upgraded at login. The user's `encryption_key` changes with the hash, as it does on a password change. |
 | M-5 | The password grant has the lockout and audit of `/login`. Retiring a user revokes their tokens. |
@@ -423,8 +429,8 @@ Not fixed:
   - PDF output: PDFGenerator, and record, report and dashboard PDFs.
   - SMS and Yubikey network calls. Only the "not configured" paths exist.
   - The scripts `update-many-records` (which doesn't compile in Perl),
-    `api-example`, `export-pdf`, `migrate-db`, `seed-large`, and the shell
-    scripts.
+    `api-example`, `export-pdf`, `migrate-db` (`gads upgrade` applies the
+    upgrades instead), `seed-large`, and the shell scripts.
 - Deviations:
   - Import's final sort puts filvals last, in a stable order.
   - SQLite has the extra index `record_idx_current_id_approval_created`,

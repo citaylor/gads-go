@@ -31,6 +31,7 @@ type View struct {
 	InstanceID int64
 	row        db.Row
 	rowLoaded  bool
+	rowRead    bool // the row has been read (loadRow)
 
 	Name        string
 	Global      bool
@@ -65,7 +66,7 @@ func (e *Engine) LoadView(id int64, layout *Layout) *View {
 
 // NewView creates a new (unsaved) view.
 func (e *Engine) NewView(layout *Layout) *View {
-	return &View{e: e, layout: layout, InstanceID: layout.InstanceID, rowLoaded: true, columnsSet: true, sortsSet: true, groupsSet: true}
+	return &View{e: e, layout: layout, InstanceID: layout.InstanceID, rowLoaded: true, rowRead: true, columnsSet: true, sortsSet: true, groupsSet: true}
 }
 
 // NewTempView creates a temporary view with a filter (not written).
@@ -78,18 +79,48 @@ func (e *Engine) NewTempView(layout *Layout, filter *Filter) *View {
 	return v
 }
 
+// NewViewID is GADS::View->new(id => ...): a saved view that is read (and
+// the user's access to it checked) when first used
+func (e *Engine) NewViewID(id int64, layout *Layout) *View {
+	return &View{e: e, layout: layout, ID: id, InstanceID: layout.InstanceID}
+}
+
 func (v *View) load() {
 	if v.rowLoaded {
 		return
 	}
 	v.rowLoaded = true
-	if v.ID == 0 {
+	if !v.loadRow() {
 		return
 	}
-	v.row = v.e.DB.QueryRow(`SELECT * FROM "view" WHERE "id" = ? AND "instance_id" = ?`, v.ID, v.InstanceID)
+	if !v.CurrentUserHasAccess() {
+		Fail("User %d does not have access to view %d", v.layout.User().ID, v.ID)
+	}
+}
+
+// loadRow is View _view_rs: reads the row of the view, without checking
+// access, and reports whether it exists
+func (v *View) loadRow() bool {
+	if v.rowRead {
+		return v.row != nil
+	}
+	v.rowRead = true
+	if v.ID == 0 {
+		return false
+	}
+	// Perl quirk: find with the ID and instance_id uses only the primary
+	// key (DBIC find takes the columns of the unique constraint that it
+	// matches), so the view of another table is found, and its access
+	// checked with this table's permissions. Hardened (M-1): a view is
+	// found only in its own table.
+	if v.e.Config.Hardened {
+		v.row = v.e.DB.QueryRow(`SELECT * FROM "view" WHERE "id" = ? AND "instance_id" = ?`, v.ID, v.InstanceID)
+	} else {
+		v.row = v.e.DB.QueryRow(`SELECT * FROM "view" WHERE "id" = ?`, v.ID)
+	}
 	if v.row == nil {
 		v.ID = 0
-		return
+		return false
 	}
 	v.Name, _ = db.AsString(v.row["name"])
 	v.Global = rowBool(v.row["global"])
@@ -99,9 +130,7 @@ func (v *View) load() {
 		v.GroupID = nil
 	}
 	v.Owner = optInt(v.row["user_id"])
-	if !v.CurrentUserHasAccess() {
-		Fail("User %d does not have access to view %d", v.layout.User().ID, v.ID)
-	}
+	return true
 }
 
 // Exists reports whether the view exists in the database.
@@ -115,7 +144,7 @@ func (v *View) Layout() *Layout { return v.layout }
 
 // IsLimitExtra reports the is_limit_extra flag.
 func (v *View) IsLimitExtra() bool {
-	v.load()
+	v.loadRow()
 	return v.row != nil && rowBool(v.row["is_limit_extra"])
 }
 
@@ -124,7 +153,7 @@ func (v *View) CurrentUserHasAccess() bool {
 	if v.UserPermissionOverride {
 		return true
 	}
-	v.load()
+	v.loadRow()
 	user := v.layout.User()
 	if user == nil {
 		return true
@@ -533,7 +562,7 @@ func (v *View) Write(force, noErrors bool) {
 	} else {
 		v.e.DB.Exec(`DELETE FROM "filter" WHERE "view_id" = ?`, v.ID)
 	}
-	v.rowLoaded = false
+	v.rowLoaded, v.rowRead = false, false
 	v.load()
 }
 

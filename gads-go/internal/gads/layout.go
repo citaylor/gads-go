@@ -124,6 +124,10 @@ func (l *Layout) SortLayoutID() *int64 { return l.rsetInt("sort_layout_id") }
 // SortType returns the default sort type.
 func (l *Layout) SortType() string { return l.rsetStr("sort_type") }
 
+// RecordAsDashboard is Layout record_as_dashboard: whether a record is
+// shown as its table's record dashboard (instance record_display)
+func (l *Layout) RecordAsDashboard() bool { return l.rsetStr("record_display") == "dashboard" }
+
 // ViewLimitID returns the default view limit.
 func (l *Layout) ViewLimitID() *int64 { return l.rsetInt("view_limit_id") }
 

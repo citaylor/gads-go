@@ -54,6 +54,8 @@ func (o *ttColumnObj) TTMethod(name string, args []any) ([]any, bool, error) {
 	switch name {
 	case "id":
 		return one(col.ID)
+	case "fixedvals":
+		return one(ttBool01(col.Fixedvals()))
 	case "name":
 		return one(col.Name)
 	case "name_short":
@@ -153,6 +155,8 @@ func (o *ttColumnObj) TTMethod(name string, args []any) ([]any, bool, error) {
 		return one(ttValue(col.CurvalFieldIDs()))
 	case "layout":
 		return one(o.c.ttLayout(col.Layout()))
+	case "layout_parent":
+		return one(o.c.ttLayout(col.LayoutParent()))
 	}
 	if v, ok := o.editAttr(name, args); ok {
 		return v, true, nil

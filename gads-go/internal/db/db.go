@@ -223,6 +223,11 @@ func (d *DB) Deploy() error {
 	if d.Dialect == Postgres {
 		schema = postgresSchema
 	}
+	return d.deploySchema(schema)
+}
+
+// deploySchema runs the statements of a schema
+func (d *DB) deploySchema(schema string) error {
 	for _, stmt := range strings.Split(schema, ";\n") {
 		stmt = strings.TrimSpace(stmt)
 		if stmt == "" {

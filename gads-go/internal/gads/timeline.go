@@ -636,6 +636,13 @@ func (r *Records) DataCalendar() []TimelineItem {
 func (r *Records) DataTimeline(o TimelineOptions) TimelineData {
 	originalFrom, originalTo := r.From, r.To
 	limitQty := originalFrom != nil && originalTo == nil
+	// The records' current IDs if given, restored after each clear
+	limitCurrentIDs, hasLimitCurrentIDs := r.currentIDs, r.currentIDsBuilt
+	restoreCurrentIDs := func() {
+		if hasLimitCurrentIDs {
+			r.SetCurrentIDs(limitCurrentIDs)
+		}
+	}
 
 	timeline := &Timeline{Type: "timeline", Records: r, LabelColID: o.Label, GroupColID: o.Group,
 		ColorColID: o.Color, AllGroupValues: o.AllGroupValues, LabelAsField: o.LabelAsField}
@@ -689,6 +696,7 @@ func (r *Records) DataTimeline(o TimelineOptions) TimelineData {
 		r.Exclusive = "to"
 		r.From = nil
 		r.MaxResults = 50
+		restoreCurrentIDs()
 		r.sorts = nil
 		r.sortsBuilt = false
 
@@ -729,6 +737,7 @@ func (r *Records) DataTimeline(o TimelineOptions) TimelineData {
 		}
 
 		timeline.Clear()
+		restoreCurrentIDs()
 		r.MaxResults = 0
 
 		min = minTime(items)
