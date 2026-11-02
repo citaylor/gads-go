@@ -54,8 +54,8 @@ func (s *Server) hView(c *Ctx) string {
 			columns = append(columns, id)
 		}
 		view.SetColumns(columns)
-		view.Global = c.ParamS("viewType") == "global"
-		view.IsAdmin = c.ParamS("viewType") == "admin"
+		view.Global = c.ParamS("view_type") == "global"
+		view.IsAdmin = c.ParamS("view_type") == "admin"
 		view.GroupID = nil
 		if g, ok := toInt64(c.ParamS("group_id")); ok && g != 0 {
 			view.GroupID = &g

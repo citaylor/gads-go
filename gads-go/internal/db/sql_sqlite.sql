@@ -246,10 +246,15 @@ CREATE TABLE "dashboard" (
   "site_id" integer,
   "instance_id" integer,
   "user_id" integer,
+  "group_id" integer,
+  "type" varchar(16),
+  FOREIGN KEY ("group_id") REFERENCES "group"("id") ON DELETE NO ACTION ON UPDATE NO ACTION,
   FOREIGN KEY ("instance_id") REFERENCES "instance"("id") ON DELETE NO ACTION ON UPDATE NO ACTION,
   FOREIGN KEY ("site_id") REFERENCES "site"("id") ON DELETE NO ACTION ON UPDATE NO ACTION,
   FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
+CREATE INDEX "dashboard_idx_group_id" ON "dashboard" ("group_id");
 
 CREATE INDEX "dashboard_idx_instance_id" ON "dashboard" ("instance_id");
 
@@ -595,6 +600,7 @@ CREATE TABLE "instance" (
   "no_copy_record" smallint NOT NULL DEFAULT 0,
   "hide_in_selector" smallint NOT NULL DEFAULT 0,
   "security_marking" text,
+  "record_display" varchar(16),
   FOREIGN KEY ("api_index_layout_id") REFERENCES "layout"("id") ON DELETE NO ACTION ON UPDATE NO ACTION,
   FOREIGN KEY ("default_view_limit_extra_id") REFERENCES "view"("id") ON DELETE NO ACTION ON UPDATE NO ACTION,
   FOREIGN KEY ("site_id") REFERENCES "site"("id") ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -1279,6 +1285,7 @@ CREATE TABLE "widget" (
   "view_id" integer,
   "graph_id" integer,
   "rows" integer,
+  "options" text,
   "tl_options" text,
   "globe_options" text,
   FOREIGN KEY ("dashboard_id") REFERENCES "dashboard"("id") ON DELETE NO ACTION ON UPDATE NO ACTION,

@@ -78,7 +78,7 @@ steps:
       as: superadmin
       method: POST
       path: "/{sheet:s}/view/3"
-      form: { update: 1, name: Shared view, global: 1, viewType: global, group_id: 2, column: ["{column:s:integer1}"], filter: "", sortfield: [""], sorttype: [asc] }
+      form: { update: 1, name: Shared view, global: 1, view_type: global, group_id: 2, column: ["{column:s:integer1}"], filter: "", sortfield: [""], sorttype: [asc] }
   - http: { id: view_edit_page_after, as: superadmin, path: "/{sheet:s}/view/3" }
   - http: { id: view_clone_page, as: superadmin, path: "/{sheet:s}/view/0", query: { clone: 3 } }
   - http:

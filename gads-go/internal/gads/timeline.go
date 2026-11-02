@@ -15,6 +15,9 @@ type Timeline struct {
 	GroupColID     int64
 	ColorColID     int64
 	AllGroupValues bool
+	// LabelAsField labels each item with the name of its date field (the
+	// timeline widget of a record dashboard)
+	LabelAsField bool
 
 	usedColorKeys map[string]bool
 	usedColorList []string
@@ -60,6 +63,7 @@ type TimelineData struct {
 type TimelineOptions struct {
 	Label, Group, Color int64
 	AllGroupValues      bool
+	LabelAsField        bool
 }
 
 // NewTimeline creates a timeline of the records.
@@ -139,9 +143,11 @@ func truncateDay(t time.Time) time.Time {
 }
 
 type timelineDate struct {
-	from, to  time.Time
-	color     string
-	column    int64
+	from, to time.Time
+	color    string
+	// column is the datum's column (for a curcommon, possibly a field of
+	// another table), as Perl keeps the column object since GADS 115
+	column    *Column
 	daterange bool
 	hasTime   bool
 	// hasTimeValue is has_time as the Perl value (0/1, or ""/1 for a calc)
@@ -339,7 +345,7 @@ func (t *Timeline) Items() []TimelineItem {
 							cid = r.CurrentID()
 						}
 						dates = append(dates, timelineDate{
-							from: start, to: end, color: color, column: columnDatum.ID,
+							from: start, to: end, color: color, column: columnDatum,
 							daterange: isRange, hasTime: column.HasTime(), hasTimeValue: perlHasTime(column), currentID: cid,
 						})
 					}
@@ -418,7 +424,7 @@ func (t *Timeline) Items() []TimelineItem {
 			for _, dd := range dates {
 				add := ""
 				if dateColumnCount > 1 {
-					add = " (" + layout.Column(dd.column).Name + ")"
+					add = " (" + dd.column.Name + ")"
 				}
 				cid := dd.currentID
 				if cid == 0 {
@@ -440,7 +446,7 @@ func (t *Timeline) Items() []TimelineItem {
 				// Additional items for the same record and field can appear
 				// at any time, in particular if grouped by the field. Ensure
 				// that exactly the same item is not added twice.
-				uid := itoa(cid) + "+" + itoa(dd.column)
+				uid := itoa(cid) + "+" + itoa(dd.column.ID)
 				if groupToAdd != "" && groupToAdd != "0" {
 					uid += "+" + groupToAdd
 				}
@@ -472,13 +478,17 @@ func (t *Timeline) Items() []TimelineItem {
 					})
 				}
 
+				content := title + add
+				if t.LabelAsField {
+					content = dd.column.Name
+				}
 				item := map[string]any{
-					"content":    title + add,
+					"content":    content,
 					"id":         uid,
 					"current_id": cid,
 					"start":      tick(dd.from),
 					"group":      itemGroup,
-					"column":     dd.column,
+					"column":     dd.column.ID,
 					"values":     popup,
 				}
 
@@ -628,7 +638,7 @@ func (r *Records) DataTimeline(o TimelineOptions) TimelineData {
 	limitQty := originalFrom != nil && originalTo == nil
 
 	timeline := &Timeline{Type: "timeline", Records: r, LabelColID: o.Label, GroupColID: o.Group,
-		ColorColID: o.Color, AllGroupValues: o.AllGroupValues}
+		ColorColID: o.Color, AllGroupValues: o.AllGroupValues, LabelAsField: o.LabelAsField}
 	r.SeparateRecordsForMulticol = o.Group
 
 	var items []TimelineItem

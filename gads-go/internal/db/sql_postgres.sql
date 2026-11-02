@@ -179,8 +179,11 @@ CREATE TABLE "dashboard" (
   "site_id" integer,
   "instance_id" integer,
   "user_id" integer,
+  "group_id" integer,
+  "type" character varying(16),
   PRIMARY KEY ("id")
 );
+CREATE INDEX "dashboard_idx_group_id" on "dashboard" ("group_id");
 CREATE INDEX "dashboard_idx_instance_id" on "dashboard" ("instance_id");
 CREATE INDEX "dashboard_idx_site_id" on "dashboard" ("site_id");
 CREATE INDEX "dashboard_idx_user_id" on "dashboard" ("user_id");;
@@ -448,6 +451,7 @@ CREATE TABLE "instance" (
   "no_copy_record" smallint DEFAULT 0 NOT NULL,
   "hide_in_selector" smallint DEFAULT 0 NOT NULL,
   "security_marking" text,
+  "record_display" character varying(16),
   PRIMARY KEY ("id")
 );
 CREATE INDEX "instance_idx_api_index_layout_id" on "instance" ("api_index_layout_id");
@@ -985,6 +989,7 @@ CREATE TABLE "widget" (
   "view_id" integer,
   "graph_id" integer,
   "rows" integer,
+  "options" text,
   "tl_options" text,
   "globe_options" text,
   PRIMARY KEY ("id"),
@@ -1089,6 +1094,9 @@ ALTER TABLE "curval_fields" ADD CONSTRAINT "curval_fields_fk_child_id" FOREIGN K
 
 ALTER TABLE "curval_fields" ADD CONSTRAINT "curval_fields_fk_parent_id" FOREIGN KEY ("parent_id")
   REFERENCES "layout" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE;;
+
+ALTER TABLE "dashboard" ADD CONSTRAINT "dashboard_fk_group_id" FOREIGN KEY ("group_id")
+  REFERENCES "group" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE;;
 
 ALTER TABLE "dashboard" ADD CONSTRAINT "dashboard_fk_instance_id" FOREIGN KEY ("instance_id")
   REFERENCES "instance" ("id") ON DELETE NO ACTION ON UPDATE NO ACTION DEFERRABLE;;
