@@ -4,7 +4,7 @@ This workspace ports [ctrlo GADS](https://github.com/ctrlo/GADS), a Perl and
 Dancer2 application, to Go. A language-neutral conformance suite proves that
 the port behaves the same: every scenario runs against the original Perl
 code and against Go, and the two sets of observations must be identical.
-As of 2026-11-02, against GADS `dev` at `b6e4c45b` (schema 115), all 179
+As of 2026-11-02, against GADS `dev` at `b6e4c45b` (schema 115), all 180
 scenarios are identical.
 
 ## Rules
@@ -86,6 +86,7 @@ Go packages, under `gads-go/`:
 | `internal/tt` | Template Toolkit engine. It renders the original `views/*.tt` unchanged. |
 | `internal/cli` | Ports of the `bin/*.pl` scripts. The `Commands` map is keyed by script name. |
 | `internal/db` | Database access with the same DDL as GADS (`sql_sqlite.sql`, `sql_postgres.sql`, generated from `GADS::Schema` by `gen/gen_ddl.pl`). `Upgrade` applies GADS's schema migrations to an older database (`upgrade.go`). Drivers: mattn/go-sqlite3 (cgo), or `-tags modernc` for modernc.org/sqlite; pgx for PostgreSQL. |
+| `internal/pdf` | Record and report PDFs: ports of CtrlO::PDF, PDF::Table and GADS::PDFGenerator, with the same text flow, wrapping, pagination and errors, and a PDF writer embedding Liberation Sans (Perl uses the system's). `testdata/perl_golden.pl` makes the Perl word positions the tests compare. |
 | `internal/lua` | Lua 5.3.6, vendored and called through cgo, used for calc and RAG fields. Same sandbox as Inline::Lua in GADS. |
 | `internal/perl`, `perljson`, `yamlxs`, `cldr`, `mimeinfo`, `saml` | Behaviour of Perl and CPAN modules (truthiness, JSON::PP, YAML::XS, CLDR dates, File::MimeInfo, Net::SAML2). |
 | `conformance/` | Go runner and DataSheet port. `go test ./conformance` runs every scenario against the Perl golden. |
@@ -104,6 +105,10 @@ Go packages, under `gads-go/`:
     `~/.cache/gads-inline-dev`.
   - The dev branch needs extra modules: Authen::OATH, Convert::Base32,
     Imager::QRCode, Auth::Yubikey_WebClient, Test::TempDir::Tiny.
+- PDFs: CtrlO::PDF needs Liberation Sans at
+  `/usr/share/fonts/truetype/liberation/` (links to
+  `/usr/share/fonts/liberation-sans/` here), and both runners observe
+  PDFs with poppler's `pdftotext` (installed; CI installs poppler-utils).
 - Docker CE runs as a system service, and `ctaylor` is in the `docker`
   group. In an older login session, use `sg docker -c '...'`. The host's own
   PostgreSQL is disabled; use the containers instead.
@@ -430,11 +435,16 @@ Not fixed:
 ## Deviations and not ported
 
 - Not ported:
-  - PDF output: PDFGenerator, and record, report and dashboard PDFs.
+  - The PDFs and images that Perl makes with headless Chrome
+    (WWW::Mechanize::Chrome): dashboard PDFs (`?download=pdf`), `/print`,
+    and the timeline and graph PNG and PDF downloads.
   - The scripts `update-many-records` (which doesn't compile in Perl),
     `api-example`, `export-pdf`, `migrate-db` (`gads upgrade` applies the
     upgrades instead), `seed-large`, and the shell scripts.
 - Deviations:
+  - Record and report PDFs use the Liberation Sans built into the binary.
+    CtrlO::PDF loads it from
+    `/usr/share/fonts/truetype/liberation/`, and fails without it.
   - Import's final sort puts filvals last, in a stable order.
   - SQLite has the extra index `record_idx_current_id_approval_created`,
     which avoids a quadratic search plan.

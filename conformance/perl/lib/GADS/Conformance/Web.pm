@@ -8,6 +8,7 @@ use warnings;
 
 use Encode ();
 use File::Basename qw(dirname);
+use File::Temp ();
 use HTTP::Cookies;
 use HTTP::Request;
 use HTTP::Request::Common ();
@@ -214,6 +215,10 @@ sub _observe
         my $data = eval { JSON->new->decode($content) };
         $obs->{json} = defined $data ? _normalise_json($data, $client) : $content;
     }
+    elsif ($ct =~ m!^application/pdf! && !$args{no_body})
+    {
+        $obs->{pdf} = pdf_text($content);
+    }
     elsif (!$args{no_body})
     {
         $content =~ s/\Q$client->{csrf}\E/{csrf}/g if $client->{csrf};
@@ -225,6 +230,30 @@ sub _observe
         $obs->{body} = $content;
     }
     $obs;
+}
+
+# The text of a PDF, as pdftotext (poppler) extracts it: the text of each
+# page, without trailing spaces
+sub pdf_text
+{   my $content = shift;
+    my ($fh, $file) = File::Temp::tempfile(SUFFIX => '.pdf', UNLINK => 1);
+    binmode $fh;
+    print $fh $content;
+    close $fh;
+    open my $p, '-|', 'pdftotext', '-enc', 'UTF-8', $file, '-'
+        or die "pdftotext: $!";
+    my $text = do { local $/; <$p> };
+    close $p;
+    unlink $file;
+    $text = Encode::decode('UTF-8', $text);
+    my @pages = split /\f/, $text, -1;
+    pop @pages if @pages && $pages[-1] !~ /\S/;
+    foreach (@pages)
+    {
+        s/[ \t]+$//mg;
+        s/\n+\z//;
+    }
+    +{ pages => \@pages };
 }
 
 sub _normalise_json

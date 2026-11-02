@@ -1,0 +1,39 @@
+name: m1_report_other_table
+hardened: 1
+description: >
+  M-1: a report is found only in the table of the record. In Perl a report
+  of any table is found by its ID (for a user in one of its groups), and its
+  title, description and marking are shown in a PDF of the record.
+steps:
+  - sheet: { as: other, instance_id: 2, site_id: 1 }
+  - sheet: { as: main, instance_id: 1, data: [{ string1: Foo }] }
+  - db:
+      op: insert
+      table: report
+      set: { name: Elsewhere, title: Report of the other table, description: Confidential, instance_id: "@instance:other", user_id: "@user:superadmin", createdby: "@user:superadmin", created: "@now", security_marking: Other marking }
+  - db: { op: insert, table: report_layout, set: { report_id: 1, layout_id: "@column:other:string1" } }
+  - db: { op: insert, table: report_group, set: { report_id: 1, group_id: "@group:default" } }
+  - db:
+      op: insert
+      table: report
+      set: { name: Own, title: Report of the table, instance_id: "@instance:main", user_id: "@user:superadmin", createdby: "@user:superadmin", created: "@now" }
+  - db: { op: insert, table: report_layout, set: { report_id: 2, layout_id: "@column:main:string1" } }
+  - db: { op: insert, table: report_group, set: { report_id: 2, group_id: "@group:default" } }
+  - login: { user: superadmin }
+  - http:
+      id: report_other_table
+      as: superadmin
+      path: /record/3
+      query: { report: 1 }
+      expect: { status: 302 }
+  - http:
+      id: report_other_table_message
+      as: superadmin
+      path: /
+      expect_body_contains: [Report ID 1 not found]
+  - http:
+      id: report_own_table
+      as: superadmin
+      path: /record/3
+      query: { report: 2 }
+      expect: { status: 200, content_type: application/pdf }

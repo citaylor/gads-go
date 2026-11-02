@@ -368,6 +368,8 @@ func (r *Runner) webObserve(client *webClient, res *http.Response, content strin
 		} else {
 			obs["json"] = content
 		}
+	} else if strings.HasPrefix(ct, "application/pdf") && !noBody {
+		obs["pdf"] = pdfText([]byte(content))
 	} else if !noBody {
 		if client.csrf != "" {
 			content = strings.ReplaceAll(content, client.csrf, "{csrf}")

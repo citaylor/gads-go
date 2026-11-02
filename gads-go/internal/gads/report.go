@@ -157,3 +157,22 @@ func (u *User) GroupsViewableRows() []db.Row {
 	}
 	return out
 }
+
+// FindReportWithPermission is ResultSet::Report find_with_permission: a
+// report that is not deleted, of one of the user's groups. Perl finds it
+// by its ID only, so a report of another table is found (and then shows
+// none of the record's fields). Hardened (M-1): only a report of the
+// record's table.
+func (e *Engine) FindReportWithPermission(id string, user *User, instanceID int64) db.Row {
+	n, ok := db.AsInt64(id)
+	if !ok || user == nil {
+		return nil
+	}
+	q := `SELECT "me".* FROM "report" "me" WHERE "me"."deleted" IS NULL AND "me"."id" = ? AND "me"."id" IN (SELECT "report_id" FROM "report_group" WHERE "group_id" IN (SELECT "group_id" FROM "user_group" WHERE "user_id" = ?))`
+	args := []any{n, user.ID}
+	if e.Config.Hardened {
+		q += ` AND "me"."instance_id" = ?`
+		args = append(args, instanceID)
+	}
+	return e.DB.QueryRow(q, args...)
+}

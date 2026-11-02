@@ -46,10 +46,14 @@ func (s *Server) hRecord(c *Ctx) string {
 	c.auditLog()
 
 	if _, ok := c.Param("pdf"); ok && !truthy(layout.Row()["no_download_pdf"]) {
-		gads.Panic("PDF downloads of records are not supported")
+		site := c.Site()
+		if site == nil {
+			gads.Fail("No site configured")
+		}
+		return c.SendFile(c.recordPDF(record, site), "application/pdf", "Record-"+fmtInt(record.CurrentID())+".pdf")
 	}
 	if rep, _ := c.QueryParam("report"); truthy(rep) {
-		gads.Panic("Reports of records are not supported")
+		return c.SendFile(c.reportPDF(record, rep, user), "application/pdf", "")
 	}
 
 	params, opts, raw := s.processEdit(c, id, record)

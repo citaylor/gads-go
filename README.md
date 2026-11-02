@@ -20,7 +20,7 @@ identical.
 
 ## Status
 
-- **Parity:** all 179 scenarios are identical to Perl GADS `dev` at
+- **Parity:** all 180 scenarios are identical to Perl GADS `dev` at
   [`b6e4c45b`](https://github.com/ctrlo/GADS/tree/b6e4c45b), on SQLite.
   They cover the engine (fields, calculated values, search, sorting, views,
   graphs, imports, alerts) and the web application (pages, forms, the API,
@@ -31,8 +31,8 @@ identical.
   Perl GADS (CSRF, permission checks, password hashing, rate limits,
   security headers and more). `gads: hardened: 0` gives Perl's exact
   behaviour. See [Security](#security).
-- **Not ported:** PDF output
-  and a few maintenance scripts. The full list is in
+- **Not ported:** the PDFs and images that Perl makes with headless
+  Chrome (dashboards, `/print`, timeline and graph downloads), and a few maintenance scripts. The full list is in
   [`CLAUDE.md`](CLAUDE.md#deviations-and-not-ported).
 
 ## Quick start

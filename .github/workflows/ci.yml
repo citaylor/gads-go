@@ -35,6 +35,9 @@ jobs:
       - run: go vet ./...
       - name: Build with the pure Go SQLite driver
         run: go build -tags modernc ./...
+      # pdftotext observes the PDFs that the scenarios download
+      - name: Install poppler-utils
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils
       - name: Tests, Perl parity and the hardened scenarios
         run: go test ./...
       - name: Race detector
@@ -90,6 +93,9 @@ jobs:
           cache-dependency-path: gads-go/go.sum
       # SQLite ignores column sizes and other constraints that PostgreSQL
       # enforces
+      # pdftotext observes the PDFs that the scenarios download
+      - name: Install poppler-utils
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils
       - name: Hardened scenarios on PostgreSQL
         run: go test ./conformance -run TestHardened
       - name: Reconnecting after PostgreSQL drops the connection

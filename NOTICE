@@ -52,6 +52,12 @@ Lua 5.3.6, vendored in gads-go/internal/lua
   Copyright (C) 1994-2020 Lua.org, PUC-Rio.
   MIT License.
 
+Liberation Sans 2.1.3 (Regular and Bold), embedded in
+gads-go/internal/pdf/fonts and in the PDFs that gads makes
+  Digitized data copyright (c) 2010 Google Corporation, with Reserved
+  Font Arimo, Tinos and Cousine; copyright (c) 2012 Red Hat, Inc., with
+  Reserved Font Name Liberation. SIL Open Font License 1.1.
+
 SQLite 3.53.4 (in github.com/mattn/go-sqlite3, and translated to Go in
 modernc.org/sqlite)
   Public domain.
@@ -127,6 +133,8 @@ Perl 5 licence unless stated.
   JSON::PP, YAML::XS (YAML-LibYAML), Text::CSV,
   DateTime::Format::CLDR and DateTime::Locale (en-US CLDR names; the
   Unicode CLDR data is under the Unicode License),
+  CtrlO::PDF, PDF::Builder (LGPL 2.1 or later; its text flow and
+  basic hyphenation), PDF::Table,
   Net::SAML2, Crypt::SaltedHash, Authen::OATH, Inline::Lua (ctrlo fork),
   File::MimeInfo (reads the freedesktop.org shared-mime-info database
   installed on the system, which is not included).

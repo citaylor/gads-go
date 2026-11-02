@@ -447,6 +447,14 @@ observed as `saml_request`: the request decoded (URL escaping, base64 and
 raw deflate, whose bytes differ between zlib and Go) with the attributes of
 each element sorted (Perl builds them from a hash). The parameter is
 `{saml_request}` in the location and in the body.
+A PDF response (`application/pdf`) is observed as `pdf`: `{pages: [...]}`,
+the text of each page as `pdftotext -enc UTF-8` (poppler) extracts it,
+without trailing spaces on each line or trailing newlines, and without
+the empty text after the last form feed (`{error: ...}` when pdftotext
+fails). Both runners need poppler's `pdftotext`. The PDF bytes themselves
+differ (object order, compression, creation date), so the text is what is
+compared, and the Go unit tests of `internal/pdf` compare the position of
+every word with Perl's.
 The CSRF token of a client is taken from each page (`data-csrf` or a
 `csrf_token` field).
 

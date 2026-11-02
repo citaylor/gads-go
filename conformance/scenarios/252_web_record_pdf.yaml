@@ -1,0 +1,140 @@
+name: 252_web_record_pdf
+source:
+  - lib/GADS.pm (any /record/:id: pdf and report)
+  - lib/GADS/PDFGenerator.pm (build)
+  - lib/GADS/Record.pm (pdf, get_report, presentation_map_columns, get_topics)
+  - lib/GADS/Schema/Result/Report.pm (create_pdf, _read_security_marking)
+  - lib/GADS/Schema/ResultSet/Report.pm (find_with_permission, by_user)
+  - CtrlO::PDF, PDF::Table (layout, wrapping and pagination)
+description: >
+  PDFs of a record and of reports on it, observed as their text (pdftotext)
+  page by page: the fields the user can read by topic, a curval's selected
+  values, a value of 0 (shown as the grade, here none), long text wrapped
+  in its cell, the security marking of the table, the site or the report in
+  the header and footer, the lines of who edited the record and who made
+  the PDF; no_download_pdf showing the record instead; reports not found
+  (missing, not of the user's groups), and a report of another table,
+  which Perl finds by its ID alone; and the errors of PDF::Table (a field
+  name too wide for its cell) and CtrlO::PDF (a word too wide for the
+  page).
+steps:
+  - sheet:
+      as: other
+      instance_id: 2
+      site_id: 1
+      data:
+        - { string1: Alpha, integer1: 10 }
+        - { string1: Beta, integer1: 20 }
+  - sheet:
+      as: main
+      instance_id: 1
+      curval: other
+      curval_fields: [string1, integer1]
+      has_rag: 1
+      data:
+        - string1: >-
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          integer1: 0
+          enum1: foo2
+          date1: "2014-10-10"
+          curval1: 2
+  - db:
+      op: update
+      table: site
+      where: { id: 1 }
+      set: { security_marking: Site marking }
+  - db:
+      op: insert
+      table: topic
+      set: { instance_id: "@instance:main", name: Details, click_to_edit: 0 }
+  - db: { op: update, table: layout, where: { id: "@column:main:enum1" }, set: { topic_id: 1 } }
+  - db: { op: update, table: layout, where: { id: "@column:main:date1" }, set: { topic_id: 1 } }
+  - clear_layouts: {}
+  - db: { id: topic_fields, op: select, table: layout, where: { topic_id: 1 }, columns: [id, name, topic_id] }
+  - login: { user: superadmin }
+  - http:
+      id: record_pdf
+      as: superadmin
+      path: /record/3
+      query: { pdf: 1 }
+      expect: { status: 200, content_type: application/pdf, headers: { Content-Disposition: 'attachment; filename="Record-3.pdf"' } }
+  # The table's own marking
+  - db:
+      op: update
+      table: instance
+      where: { id: "@instance:main" }
+      set: { security_marking: Table marking }
+  - http: { id: record_pdf_table_marking, as: superadmin, path: /record/3, query: { pdf: 1 } }
+  # Downloads not allowed: the record is shown
+  - db:
+      op: update
+      table: instance
+      where: { id: "@instance:main" }
+      set: { no_download_pdf: 1 }
+  - http: { id: record_no_download, as: superadmin, path: /record/3, query: { pdf: 1 }, no_body: true, expect: { status: 200, content_type: text/html; charset=utf-8 } }
+  - db:
+      op: update
+      table: instance
+      where: { id: "@instance:main" }
+      set: { no_download_pdf: 0 }
+  # Reports
+  - db:
+      op: insert
+      table: group
+      set: { name: Nobody, site_id: 1 }
+  - db:
+      op: insert
+      table: report
+      set: { name: Summary, title: Record summary, description: "A short report of the record.\n\nWith a second paragraph.", instance_id: "@instance:main", user_id: "@user:superadmin", createdby: "@user:superadmin", created: "@now", security_marking: Report marking }
+  - db: { op: insert, table: report_layout, set: { report_id: 1, layout_id: "@column:main:string1" } }
+  - db: { op: insert, table: report_layout, set: { report_id: 1, layout_id: "@column:main:curval1" } }
+  - db: { op: insert, table: report_layout, set: { report_id: 1, layout_id: "@column:main:enum1" } }
+  - db: { op: insert, table: report_group, set: { report_id: 1, group_id: "@group:default" } }
+  # Another table's report, and one of a group of no one
+  - db:
+      op: insert
+      table: report
+      set: { name: Elsewhere, title: Elsewhere, instance_id: "@instance:other", user_id: "@user:superadmin", createdby: "@user:superadmin", created: "@now" }
+  - db: { op: insert, table: report_layout, set: { report_id: 2, layout_id: "@column:other:string1" } }
+  - db: { op: insert, table: report_group, set: { report_id: 2, group_id: "@group:default" } }
+  - db:
+      op: insert
+      table: report
+      set: { name: Hidden, title: Hidden, instance_id: "@instance:main", user_id: "@user:superadmin", createdby: "@user:superadmin", created: "@now" }
+  - db: { op: insert, table: report_group, set: { report_id: 3, group_id: "@group:Nobody" } }
+  - http:
+      id: report_pdf
+      as: superadmin
+      path: /record/3
+      query: { report: 1 }
+      expect: { status: 200, content_type: application/pdf }
+  - http: { id: report_other_table, as: superadmin, path: /record/3, query: { report: 2 } }
+  - http: { id: report_other_group, as: superadmin, path: /record/3, query: { report: 3 }, expect: { status: 302 } }
+  - http: { id: report_other_group_message, as: superadmin, path: /, expect_body_contains: [Report ID 3 not found] }
+  - http: { id: report_missing, as: superadmin, path: /record/3, query: { report: 99 }, expect: { status: 302 } }
+  - http: { id: report_missing_message, as: superadmin, path: /, expect_body_contains: [Report ID 99 not found] }
+  # Without a title, the name; without either, "Report"
+  - db: { op: update, table: report, where: { id: 1 }, set: { title: "", security_marking: null } }
+  - http: { id: report_name_as_title, as: superadmin, path: /record/3, query: { report: 1 } }
+  - db: { op: update, table: report, where: { id: 1 }, set: { name: "" } }
+  - http: { id: report_default_title, as: superadmin, path: /record/3, query: { report: 1 } }
+  # A word wider than the page in the description (CtrlO::PDF croaks)
+  - db:
+      op: update
+      table: report
+      where: { id: 1 }
+      set: { description: "See xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx here" }
+  - http: { id: report_wide_word, as: superadmin, path: /record/3, query: { report: 1 }, expect: { status: 302 } }
+  - http: { id: report_wide_word_message, as: superadmin, path: / }
+  # A field name wider than its cell (PDF::Table dies)
+  - db:
+      op: update
+      table: layout
+      where: { id: "@column:main:integer1" }
+      set: { name: MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM }
+  - clear_layouts: {}
+  - http: { id: record_pdf_wide_name, as: superadmin, path: /record/3, query: { pdf: 1 }, expect: { status: 302 } }
+  - http: { id: record_pdf_wide_name_message, as: superadmin, path: / }

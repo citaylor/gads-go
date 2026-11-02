@@ -4,7 +4,7 @@ How to run the Go GADS server and check that it behaves like the Perl
 GADS. Everything runs in Docker. [`CLAUDE.md`](CLAUDE.md) has the full
 reference.
 
-**What is tested:** the conformance suite (`conformance/`) has 179
+**What is tested:** the conformance suite (`conformance/`) has 180
 scenarios. Each one runs against Perl GADS (`upstream/GADS-dev`, never
 modified) and against Go GADS (`gads-go/`), recording what GADS returns at
 every step. Perl's recordings are committed as the *golden results*
@@ -105,7 +105,7 @@ $DC run --rm -w /gads-go go go run ./cmd/gads-compare \
     -perl /conformance/results/perl -go /conformance/results/go
 ```
 
-The comparison should end with `179 identical, 0 different`.
+The comparison should end with `180 identical, 0 different`.
 
 - To run some scenarios only, pass their paths: `./run_perl.sh scenarios/205_web_record.yaml`.
 - To run on PostgreSQL, start it first with `$DC --profile pg up -d --wait test-pg`,

@@ -35,6 +35,10 @@ section() {
 		sed -e 's/^\* \{0,1\}//' -e '/^\*\*\*\*/d'
 	echo
 
+	section "Liberation Sans 2.1.3 (internal/pdf/fonts)"
+	cat internal/pdf/fonts/LICENSE
+	echo
+
 	for tags in "" modernc; do
 		go list -tags "$tags" -deps -f '{{with .Module}}{{if not .Main}}{{.Path}} {{.Version}} {{.Dir}}{{end}}{{end}}' ./cmd/gads
 	done | sort -u | while read -r path version dir; do
