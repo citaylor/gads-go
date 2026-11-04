@@ -1,6 +1,7 @@
 package gads
 
 import (
+	"fmt"
 	"math"
 	"regexp"
 	"sort"
@@ -9,6 +10,7 @@ import (
 	"time"
 
 	"github.com/ctrlo/gads-go/internal/db"
+	"github.com/ctrlo/gads-go/internal/perl"
 )
 
 // Port of GADS::Graph, GADS::Graph::Data and GADS::RecordsGraph.
@@ -1416,3 +1418,80 @@ func (u *User) SetGraphs(instanceID int64, graphs []string) {
 	}
 	u.e.DB.Exec(sql+`)`, args...)
 }
+
+// CSV is Graph::Data csv: a row per x label (for a pie or donut, per
+// segment, with a value from each ring), and a first row of the series
+// labels when grouped
+func (g *Graph) CSV(d *GraphData) string {
+	var rows [][]string
+	add := func(i int, name string, v any) {
+		if i == len(rows) {
+			rows = append(rows, []string{name})
+		}
+		rows[i] = append(rows[i], csvValue(v))
+	}
+	if g.Type == "pie" || g.Type == "donut" {
+		for _, ring := range d.Points {
+			for i, seg := range ring.([]any) {
+				s := seg.([]any)
+				add(i, csvValue(s[0]), s[1])
+			}
+		}
+	} else {
+		for _, series := range d.Points {
+			values := series.([]any)
+			for i, x := range d.XLabels {
+				// (Perl shifts each value off the series: missing ones are
+				// undef)
+				var v any
+				if i < len(values) {
+					v = values[i]
+				}
+				add(i, x, v)
+			}
+		}
+	}
+	var b strings.Builder
+	if g.GroupBy != 0 {
+		row := []string{""}
+		for _, l := range d.Labels {
+			row = append(row, l.Label)
+		}
+		b.WriteString(csvLine(row))
+	}
+	for _, r := range rows {
+		b.WriteString(csvLine(r))
+	}
+	return b.String()
+}
+
+// csvValue is a value as Perl stringifies it into a CSV field
+func csvValue(v any) string {
+	switch x := v.(type) {
+	case nil:
+		return ""
+	case string:
+		return x
+	case int64:
+		return strconv.FormatInt(x, 10)
+	case float64:
+		return perl.NumString(x)
+	}
+	return fmt.Sprint(v)
+}
+
+// GraphColors is a Graph::Data made for its colours only (get_color), as
+// the calendar's legend
+type GraphColors struct{ b *graphBuilder }
+
+// NewGraphColors returns the colours of a new Graph::Data.
+func (e *Engine) NewGraphColors() *GraphColors {
+	b := &graphBuilder{g: &Graph{e: e}, colors: map[string]bool{}, inUse: map[string]string{}}
+	for _, c := range graphColors {
+		b.colors[c] = true
+	}
+	return &GraphColors{b}
+}
+
+// Get is get_color: the colour of a value, kept for it in graph_color.
+func (gc *GraphColors) Get(value string) string { return gc.b.getColor(value) }

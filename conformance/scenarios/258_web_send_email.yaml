@@ -1,0 +1,62 @@
+name: 258_web_send_email
+source:
+  - lib/GADS.pm (any /:layout_name/data, modal_sendemail)
+  - lib/GADS/Email.pm (message, send)
+description: >
+  Sending a message to the people of a person field of the records in the
+  view (the modal of the data page): without the message permission, and
+  with it. GADS::Datum::Person has no email method in dev, so the message
+  fails once a record is found. With no records in the view, nothing is
+  sent and the message is reported as sent: the check for records never
+  fails, as it tests an array reference.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo, person1: 1 }
+        - { string1: Bar }
+  - login: { user: superadmin }
+  - http: { id: data, as: superadmin, path: "/{sheet:s}/data", no_body: true }
+  - http:
+      id: send_no_permission
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_sendemail: 1, subject: Hello, text: "A message", peopcol: "{column:s:person1}" }
+  - http: { id: after_no_permission, as: superadmin, path: "/{sheet:s}/data" }
+  - db:
+      op: insert
+      table: instance_group
+      set: { instance_id: "@instance:s", group_id: "@group:default", permission: message }
+  - http:
+      id: send
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_sendemail: 1, subject: Hello, text: "A message\n\n", peopcol: "{column:s:person1}" }
+  - emails: { id: emails_sent }
+  - http:
+      id: send_other_field
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_sendemail: 1, subject: Hello, text: "A message", peopcol: "{column:s:string1}" }
+  - emails: { id: emails_other_field }
+  # No records in the view
+  - view:
+      sheet: s
+      user: superadmin
+      name: Nothing
+      columns: [string1]
+      filter:
+        rules:
+          - { name: string1, type: string, value: Nothing, operator: equal }
+  - http: { id: set_view, as: superadmin, path: "/{sheet:s}/data", query: { view: "{view:Nothing}" }, no_body: true }
+  - http:
+      id: send_no_records
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_sendemail: 1, subject: Hello, text: "A message", peopcol: "{column:s:person1}" }
+  - http: { id: after_no_records, as: superadmin, path: "/{sheet:s}/data" }

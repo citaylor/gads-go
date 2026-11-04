@@ -64,6 +64,8 @@ type TimelineOptions struct {
 	Label, Group, Color int64
 	AllGroupValues      bool
 	LabelAsField        bool
+	// Overlay is the instance whose records are shown as the background
+	Overlay int64
 }
 
 // NewTimeline creates a timeline of the records.
@@ -783,6 +785,10 @@ func (r *Records) DataTimeline(o TimelineOptions) TimelineData {
 		}
 	}
 
+	if o.Overlay != 0 && o.Overlay != r.Layout.InstanceID {
+		items = append(items, r.timelineOverlay(o.Overlay, min, max)...)
+	}
+
 	var groups []TimelineGroup
 	for content, id := range timeline.Groups() {
 		groups = append(groups, TimelineGroup{ID: id, Content: htmlEscape(content), Order: id,
@@ -805,4 +811,32 @@ func perlHasTime(c *Column) any {
 		return ""
 	}
 	return int64(0)
+}
+
+// timelineOverlay is the overlay of Records::data_timeline: the items of
+// another table in the range, as background items
+func (r *Records) timelineOverlay(instanceID int64, from, to *time.Time) []TimelineItem {
+	layout := r.e.NewLayout(instanceID, r.User)
+	// Only show the first field, plus all the date fields
+	var toShow []int64
+	picked := false
+	for _, c := range layout.AllUserRead() {
+		if strings.Contains(c.ReturnTypeFn(), "date") {
+			toShow = append(toShow, c.ID)
+		} else if !picked {
+			toShow = append(toShow, c.ID)
+			picked = true
+		}
+	}
+	records := r.e.NewRecords(layout, r.User)
+	records.SetColumns(toShow)
+	records.From, records.To = from, to
+	retrieved := NewTimeline("timeline", records).Items()
+	for _, it := range retrieved {
+		it.Fields["type"] = "background"
+		if end := it.Fields["end"]; end == nil || end == int64(0) {
+			it.Fields["end"] = it.Fields["start"]
+		}
+	}
+	return retrieved
 }

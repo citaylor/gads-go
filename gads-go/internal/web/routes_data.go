@@ -325,8 +325,10 @@ func (s *Server) hData(c *Ctx) string {
 		s.dataGraphView(c, layout, user, params)
 	case "timeline":
 		s.dataTimeline(c, layout, user, view, params)
-	case "calendar", "globe":
-		gads.Panic("The %s view type is not yet supported", viewtype)
+	case "calendar":
+		s.dataCalendar(c, layout, user, view, params)
+	case "globe":
+		s.dataGlobe(c, layout, user, view, params)
 	default:
 		s.dataTable(c, layout, user, view, additionalFilters, params)
 	}
@@ -452,7 +454,15 @@ func (s *Server) dataTable(c *Ctx, layout *gads.Layout, user *gads.User, view *g
 	}
 
 	if truthy(c.ParamS("modal_sendemail")) {
-		gads.Panic("Sending messages to the users of records is not yet supported")
+		// Perl quirk: its check of "unless $records->results" never fails,
+		// as results is an array reference, so there is no message "There
+		// are no records in this view and therefore nobody to email"
+		if !layout.UserCan("message") {
+			c.ForwardHome("danger", "You do not have permission to send messages", layout.Identifier()+"/data")
+		}
+		if c.Process(func() { emailMessage(records, c.ParamS("peopcol")) }) {
+			c.ForwardHome("success", "The message has been sent successfully", layout.Identifier()+"/data")
+		}
 	}
 
 	if download {
@@ -599,7 +609,8 @@ func (s *Server) dataGraphView(c *Ctx, layout *gads.Layout, user *gads.User, par
 		c.sendBrowser(job)
 	}
 	if csv := c.ParamS("csv"); truthy(csv) {
-		gads.Panic("CSV downloads of graphs are not yet supported")
+		g, data := s.dataGraph(c, layout, csv)
+		c.SendFile([]byte(g.CSV(data)), "text/csv", "graph"+fmtInt(g.ID)+".csv")
 	}
 	graphs := tt.NewList()
 	for _, g := range s.E.AllGraphs(layout, user) {
@@ -609,6 +620,72 @@ func (s *Server) dataGraphView(c *Ctx, layout *gads.Layout, user *gads.User, par
 }
 
 // dataTimeline is the timeline view type of the data page
+// dataCalendar is the calendar view of the data page: the colours of the
+// date fields of the view, and the period viewed last
+func (s *Server) dataCalendar(c *Ctx, layout *gads.Layout, user *gads.User, view *gads.View, params *tt.Hash) {
+	records := s.E.NewRecords(layout, user)
+	records.View = view
+	gc := s.E.NewGraphColors()
+	colors := tt.NewList()
+	for _, col := range records.ColumnsRender() {
+		if col.Type == "daterange" || col.ReturnTypeFn() == "date" {
+			colors.Items = append(colors.Items, tt.HashOf("key", col.Name, "color", gc.Get(col.Name)))
+		}
+	}
+	params.Set("calendar", ttValue(c.SessionGet("calendar")))
+	params.Set("colors", colors)
+	params.Set("page", "data_calendar")
+	params.Set("viewtype", "calendar")
+}
+
+// dataGlobe is the globe view of the data page, with its options (group,
+// colour and label fields) remembered for the table
+func (s *Server) dataGlobe(c *Ctx, layout *gads.Layout, user *gads.User, view *gads.View, params *tt.Hash) {
+	opts := autoviv(autoviv(c.persistent(), "globe_options"), fmtInt(layout.InstanceID))
+	if truthy(c.ParamS("modal_globe")) {
+		for _, k := range []string{"group", "color", "label"} {
+			if v, ok := c.Param("globe_" + k); ok {
+				opts[k] = v
+			} else {
+				opts[k] = nil
+			}
+		}
+	}
+	opt := func(k string) string {
+		if opts[k] == nil {
+			return ""
+		}
+		return fmtAny(opts[k])
+	}
+	globe := s.E.NewGlobe(gads.GlobeOptions{
+		Layout:     layout,
+		User:       user,
+		View:       view,
+		GroupColID: opt("group"),
+		ColorColID: opt("color"),
+		LabelColID: opt("label"),
+		Prepare: func(r *gads.Records) {
+			if search, ok := sessionSearch(c); ok {
+				r.SetSearch(search)
+			}
+			r.Rewind = sessionRewind(c)
+		},
+	})
+	data := globe.Data()
+	params.Set("globe_data", base64.StdEncoding.EncodeToString([]byte(gads.EncodeJSON(map[string]any{"data": data.Data, "params": data.Params}))))
+	colors := tt.NewList()
+	for _, cl := range globe.Colors() {
+		colors.Items = append(colors.Items, tt.HashOf("key", cl["key"], "color", cl["color"]))
+	}
+	params.Set("colors", colors)
+	params.Set("globe_options", ttValue(opts))
+	params.Set("columns_read", (&ttLayoutObj{c: c, l: layout}).columnsForFilter(false))
+	params.Set("viewtype", "globe")
+	params.Set("page", "data_globe")
+	params.Set("search_limit_reached", int64(globe.Records().SearchLimitReached()))
+	params.Set("count", int64(globe.Records().Count()))
+}
+
 func (s *Server) dataTimeline(c *Ctx, layout *gads.Layout, user *gads.User, view *gads.View, params *tt.Hash) {
 	records := c.newRecordsFor(layout, user, nil)
 	records.View = view
@@ -636,15 +713,13 @@ func (s *Server) dataTimeline(c *Ctx, layout *gads.Layout, user *gads.User, view
 			records.From, records.To = &f, &t
 		}
 	}
-	if o, _ := toInt64(tl["overlay"]); o != 0 && o != layout.InstanceID {
-		gads.Panic("Timeline overlays are not yet supported")
-	}
 	num := func(k string) int64 { n, _ := toInt64(tl[k]); return n }
 	data := records.DataTimeline(gads.TimelineOptions{
 		Label:          num("label"),
 		Group:          num("group"),
 		Color:          num("color"),
 		AllGroupValues: truthy(tl["all_group_values"]),
+		Overlay:        num("overlay"),
 	})
 	b64 := func(v any) string { return base64.StdEncoding.EncodeToString([]byte(gads.EncodeJSON(v))) }
 	params.Set("records", b64(timelineItems(data)))
@@ -705,4 +780,22 @@ func ttTime(t *time.Time) any {
 		return nil
 	}
 	return &ttDateTime{t: *t}
+}
+
+// emailMessage is GADS::Email message for the records of a page: the
+// addresses are the email of each record's datum of column colID. Perl
+// quirk: no GADS::Datum has an email method in dev, so the first record
+// fails, and only a page without records (or no column) succeeds, without
+// sending anything
+func emailMessage(records *gads.Records, colID string) {
+	if !truthy(colID) {
+		return
+	}
+	for _, record := range records.Results() {
+		id, _ := strconv.ParseInt(colID, 10, 64)
+		if record.Fields()[id] == nil {
+			gads.Panic(`Can't call method "email" on an undefined value`)
+		}
+		gads.Panic(`Can't locate object method "email" of a datum`)
+	}
 }

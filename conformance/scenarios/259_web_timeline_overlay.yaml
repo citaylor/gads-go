@@ -1,0 +1,63 @@
+name: 259_web_timeline_overlay
+source:
+  - lib/GADS.pm (any /:layout_name/data, modal_timeline; get /:layout_name/data_timeline/:time)
+  - lib/GADS/Records.pm (data_timeline, overlay)
+description: >
+  A timeline with the records of another table as its background (the
+  overlay of the timeline options): the first field and the date fields of
+  the other table, in the range of the timeline, with the end of an item
+  without one set to its start. An overlay of the same table is ignored.
+  The colours are given, as Perl chooses a new colour by hash order.
+steps:
+  - sheet:
+      as: other
+      instance_id: 2
+      site_id: 1
+      data:
+        - { string1: Holiday, date1: "2014-10-10" }
+        - { string1: Closure, daterange1: ["2014-10-20", "2014-10-25"] }
+        - { string1: Later, date1: "2016-01-01" }
+  - sheet:
+      as: s
+      instance_id: 1
+      site_id: 1
+      data:
+        - { string1: Foo, date1: "2014-10-15" }
+        - { string1: Bar, date1: "2014-10-22" }
+  # Perl chooses a new colour by hash order, so the colours are given
+  - db: { op: insert, table: graph_color, set: { name: date1, color: 1C75BC } }
+  - db: { op: insert, table: graph_color, set: { name: daterange1, color: 007B45 } }
+  - db: { op: insert, table: graph_color, set: { name: Created time, color: F37970 } }
+  - db: { op: insert, table: graph_color, set: { name: Last edited time, color: 51417B } }
+  - login: { user: superadmin }
+  - http: { id: page, as: superadmin, path: "/{sheet:s}/data", query: { viewtype: timeline }, no_body: true }
+  # The same table as overlay: nothing added
+  - http:
+      id: options_same
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_timeline: 1, tl_label: "", tl_group: "", tl_color: "", tl_overlay: "{instance:s}" }
+      no_body: true
+  - http: { id: timeline_same, as: superadmin, path: "/{sheet:s}/data_timeline/123", query: { from: 1412121600000, to: 1414800000000 } }
+  # The other table
+  - http:
+      id: options_other
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_timeline: 1, tl_label: "", tl_group: "", tl_color: "", tl_overlay: "{instance:other}" }
+      no_body: true
+  - http: { id: timeline_other, as: superadmin, path: "/{sheet:s}/data_timeline/123", query: { from: 1412121600000, to: 1414800000000 } }
+  - http: { id: timeline_other_all, as: superadmin, path: "/{sheet:s}/data_timeline/123" }
+  # The page body is not compared: Perl orders the colour legend by hash order
+  - http: { id: page_other, as: superadmin, path: "/{sheet:s}/data", no_body: true }
+  # No overlay
+  - http:
+      id: options_none
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_timeline: 1, tl_label: "", tl_group: "", tl_color: "", tl_overlay: "" }
+      no_body: true
+  - http: { id: timeline_none, as: superadmin, path: "/{sheet:s}/data_timeline/123", query: { from: 1412121600000, to: 1414800000000 } }

@@ -1,0 +1,50 @@
+name: 257_web_globe
+source:
+  - lib/GADS.pm (any /:layout_name/data, viewtype globe)
+  - lib/GADS/Globe.pm (data, colors)
+description: >
+  The globe view of the data page: the records of a globe field plotted by
+  country, the view type remembered, the globe options (colour and label
+  fields, remembered for the table), the current view and search. The
+  records are all in one country, as Perl orders the countries of the data
+  by hash order.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: France, integer1: 10, enum1: 1 }
+        - { string1: France, integer1: 15, enum1: 1 }
+      calc_code: "function evaluate (L1string1) \n return L1string1 end"
+      calc_return_type: globe
+  - login: { user: superadmin }
+  - http: { id: globe_page, as: superadmin, path: "/{sheet:s}/data", query: { viewtype: globe } }
+  - http: { id: globe_remembered, as: superadmin, path: "/{sheet:s}/data" }
+  # The count of records as colour and label
+  - http:
+      id: globe_options_count
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_globe: 1, globe_color: -1, globe_label: -1 }
+  - http: { id: globe_options_remembered, as: superadmin, path: "/{sheet:s}/data" }
+  # A numeric field as colour (summed), a field as label
+  - http:
+      id: globe_options_fields
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_globe: 1, globe_color: "{column:s:integer1}", globe_label: "{column:s:enum1}" }
+  # A search and a view
+  - http: { id: globe_search, as: superadmin, path: "/{sheet:s}/data", query: { search: Nothing } }
+  - http: { id: globe_search_clear, as: superadmin, path: "/{sheet:s}/data", query: { search: "" } }
+  - view:
+      sheet: s
+      user: superadmin
+      name: Fifteen
+      columns: [string1, integer1, calc1]
+      filter:
+        rules:
+          - { name: integer1, type: integer, value: "15", operator: equal }
+  - http: { id: globe_view, as: superadmin, path: "/{sheet:s}/data", query: { view: "{view:Fifteen}" } }
+  - http: { id: back_to_table, as: superadmin, path: "/{sheet:s}/data", query: { viewtype: table }, no_body: true }

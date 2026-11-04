@@ -387,6 +387,7 @@ func (c *Ctx) widgetParams(w *gads.Widget, typ string, params *tt.Hash) (string,
 			Group:          num("group"),
 			Color:          num("color"),
 			AllGroupValues: truthy(apiValue(options["all_group_values"])),
+			Overlay:        num("overlay"),
 		})
 		params.Set("records", b64(timelineItems(data)))
 		params.Set("groups", b64(timelineGroups(data)))

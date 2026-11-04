@@ -162,10 +162,8 @@ func (s *Server) hDataTimelineJSON(c *Ctx) string {
 		if tl, ok := c.persistent()["tl_options"].(map[string]any); ok {
 			if opts, ok := tl[fmtInt(layout.InstanceID)].(map[string]any); ok {
 				num := func(k string) int64 { n, _ := toInt64(opts[k]); return n }
-				o = gads.TimelineOptions{Label: num("label"), Group: num("group"), Color: num("color"), AllGroupValues: truthy(opts["all_group_values"])}
-				if ov := num("overlay"); ov != 0 && ov != layout.InstanceID {
-					gads.Panic("Timeline overlays are not yet supported")
-				}
+				o = gads.TimelineOptions{Label: num("label"), Group: num("group"), Color: num("color"),
+					AllGroupValues: truthy(opts["all_group_values"]), Overlay: num("overlay")}
 			}
 		}
 	}

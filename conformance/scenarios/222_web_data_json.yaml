@@ -3,9 +3,10 @@ source:
   - lib/GADS.pm (get /:layout_name/data_calendar/:time, get and post /:layout_name/data_timeline, get /:layout_name/data_graph/:id/:time, post /print, _data_graph)
   - lib/GADS/Graph/Data.pm (labels_encoded)
 description: >
-  The JSON of the calendar (with the period of the request remembered),
+  The JSON of the calendar (with the period of the request remembered) and
+  its page,
   of the timeline (its range remembered for the session, dashboard views,
-  exclusive ranges) and of graphs (with the labels HTML-encoded), and the
+  exclusive ranges) and of graphs (with the labels HTML-encoded), the CSV of graphs, and the
   print route.
 steps:
   - sheet:
@@ -69,6 +70,16 @@ steps:
       y_axis_stack: count
       is_shared: 1
       no_data: true
+  - graph:
+      sheet: s
+      user: superadmin
+      title: Sum of integers
+      type: line
+      x_axis: enum1
+      y_axis: integer1
+      y_axis_stack: sum
+      is_shared: 1
+      no_data: true
   - login: { user: normal1 }
   - http: { id: home, as: normal1, path: /, no_body: true }
   # Calendar
@@ -78,6 +89,9 @@ steps:
   - http: { id: calendar_year, as: normal1, path: "/{sheet:s}/data_calendar/123", query: { from: 1388534400000, to: 1420070400000 } }
   - http: { id: calendar_nothing, as: normal1, path: "/{sheet:s}/data_calendar/123", query: { from: 1000000000000, to: 1000086400000 } }
   - http: { id: calendar_no_table, as: normal1, path: "/nosuchtable/data_calendar/123", query: { from: 1, to: 2 } }
+  # The calendar page: the colours of the date fields, the period last viewed
+  - http: { id: calendar_page, as: normal1, path: "/{sheet:s}/data", query: { viewtype: calendar } }
+  - http: { id: calendar_page_remembered, as: normal1, path: "/{sheet:s}/data" }
   # Timeline
   - http: { id: timeline, as: normal1, path: "/{sheet:s}/data_timeline/123", query: { from: 1412121600000, to: 1414800000000 } }
   - http: { id: timeline_exclusive, as: normal1, path: "/{sheet:s}/data_timeline/123", query: { from: 1412121600000, to: 1414800000000, exclusive: from } }
@@ -94,6 +108,10 @@ steps:
   - http: { id: graph_bar, as: normal1, path: "/{sheet:s}/data_graph/1/123" }
   - http: { id: graph_pie, as: normal1, path: "/{sheet:s}/data_graph/2/123" }
   - http: { id: graph_missing, as: normal1, path: "/{sheet:s}/data_graph/99/123" }
+  # CSV of graphs: grouped (with a row of the series), a pie, ungrouped
+  - http: { id: graph_csv_grouped, as: normal1, path: "/{sheet:s}/data", query: { viewtype: graph, csv: 1 } }
+  - http: { id: graph_csv_pie, as: normal1, path: "/{sheet:s}/data", query: { viewtype: graph, csv: 2 } }
+  - http: { id: graph_csv_line, as: normal1, path: "/{sheet:s}/data", query: { viewtype: graph, csv: 3 } }
   - view:
       op: create
       sheet: s
@@ -112,6 +130,7 @@ steps:
       no_body: true
   - http: { id: graph_bar_view, as: normal1, path: "/{sheet:s}/data_graph/1/123" }
   - http: { id: calendar_view, as: normal1, path: "/{sheet:s}/data_calendar/123", query: { from: 1412121600000, to: 1414800000000 } }
+  - http: { id: calendar_page_view, as: normal1, path: "/{sheet:s}/data", query: { viewtype: calendar } }
   # Print
   - http:
       id: print_no_html

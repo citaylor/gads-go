@@ -20,6 +20,9 @@ type GlobeOptions struct {
 	GroupColID string
 	ColorColID string
 	LabelColID string
+	// Prepare, if set, is given the records when they are made (the
+	// records_options of the data page: the search and rewind)
+	Prepare func(*Records)
 }
 
 // Globe is a globe (map) of records.
@@ -118,6 +121,9 @@ func (g *Globe) Records() *Records {
 		r.groupValuesNotIndex = true
 		r.MaxResults = 1000
 		r.View = g.o.View
+		if g.o.Prepare != nil {
+			g.o.Prepare(r)
+		}
 		g.recs = r
 	}
 	return g.recs

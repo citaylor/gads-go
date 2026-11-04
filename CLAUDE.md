@@ -4,7 +4,7 @@ This workspace ports [ctrlo GADS](https://github.com/ctrlo/GADS), a Perl and
 Dancer2 application, to Go. A language-neutral conformance suite proves that
 the port behaves the same: every scenario runs against the original Perl
 code and against Go, and the two sets of observations must be identical.
-As of 2026-11-04, against GADS `dev` at `337d733c` (schema 115), all 185
+As of 2026-11-04, against GADS `dev` at `337d733c` (schema 115), all 188
 scenarios are identical.
 
 ## Rules
@@ -489,13 +489,11 @@ Not fixed:
   - The scripts `update-many-records` (which doesn't compile in Perl),
     `api-example`, `export-pdf`, `migrate-db` (`gads upgrade` applies the
     upgrades instead), `seed-large`, and the shell scripts.
-  - Parts of the data page, which fail with "... is not yet supported"
-    (`internal/web/routes_data.go`, `routes_data_json.go`): the calendar
-    and globe view types, sending an email to the users of the records
-    (`modal_sendemail`), the CSV download of a graph, and timeline
-    overlays. The view type is kept in the session, so after choosing
-    calendar or globe the data page fails until another type is chosen.
 - Deviations:
+  - Plain-text mail is sent as given. Perl's `GADS::Email::send`
+    reformats it with Text::Autoformat (`all`, `break_wrap`: paragraphs
+    wrapped at 72 columns), which is not ported. The runners capture
+    mail before `send`, so the suite does not compare it.
   - Record and report PDFs use the Liberation Sans built into the binary.
     CtrlO::PDF loads it from
     `/usr/share/fonts/truetype/liberation/`, and fails without it.
