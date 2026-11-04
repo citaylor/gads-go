@@ -1,0 +1,49 @@
+name: 255_cli_import_merge
+source:
+  - bin/import.pl (--merge, --report-only, --force)
+  - lib/GADS/Column/Enum.pm, lib/GADS/Column/Tree.pm (import_hash, _import_branch)
+description: >
+  Merging a second export into a site that has imported the first: the
+  enumerated values and tree nodes that were kept, renamed, added, moved or
+  deleted in the source, as reported with --report-only and as written, and
+  the changes that need --force.
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo, enum1: 1, tree1: 4 }
+  - db: { id: source_enumvals, op: select, table: enumval, columns: [id, value, layout_id, deleted, parent, position], order_by: [id] }
+  - cli: { id: export1, script: export.pl, args: [--site-id, 1], dir: d1 }
+  - db: { op: insert, table: site, set: { id: 2, host: other.example.com } }
+  - cli: { id: import1, script: import.pl, args: [--site-id, 2], dir: d1 }
+  - db: { id: imported, op: select, table: enumval, columns: [id, value, layout_id, deleted, parent, position], where: { id: { ">": 6 } }, order_by: [id] }
+  # Changes in the source: an enum value renamed (its neighbours the same),
+  # one added and one moved; a tree node renamed, one added under another
+  # and one deleted
+  - db: { op: update, table: enumval, where: { id: 2 }, set: { value: foo2 renamed } }
+  - db: { op: insert, table: enumval, set: { value: foo4, layout_id: "@column:s:enum1", deleted: 0, position: 4 } }
+  - db: { op: update, table: enumval, where: { id: 1 }, set: { position: 5 } }
+  - db: { op: update, table: enumval, where: { id: 4 }, set: { value: tree1 renamed } }
+  - db: { op: insert, table: enumval, set: { value: tree4, layout_id: "@column:s:tree1", deleted: 0, parent: 5 } }
+  - db: { op: update, table: enumval, where: { id: 6 }, set: { deleted: 1 } }
+  - cli: { id: export2, script: export.pl, args: [--site-id, 1], dir: d2 }
+  - cli: { id: merge_report, sort_lines: true, script: import.pl, args: [--site-id, 2, --merge, --report-only], dir: d2 }
+  - db: { id: after_report, op: select, table: enumval, columns: [id, value, layout_id, deleted, parent, position], where: { id: { ">": 6 } }, order_by: [id] }
+  - cli: { id: merge, sort_lines: true, script: import.pl, args: [--site-id, 2, --merge], dir: d2 }
+  - db: { id: merged, op: select, table: enumval, columns: [id, value, layout_id, deleted, parent, position], where: { id: { ">": 6 } }, order_by: [id] }
+  # The same values in another order, then two changes next to each other,
+  # which cannot be matched without --force
+  - db: { op: update, table: enumval, where: { id: 3 }, set: { position: 0 } }
+  - cli: { id: export3, script: export.pl, args: [--site-id, 1], dir: d3 }
+  - cli: { id: merge_order, sort_lines: true, script: import.pl, args: [--site-id, 2, --merge, --report-only], dir: d3 }
+  - db: { op: update, table: enumval, where: { id: 2 }, set: { value: foo2 again } }
+  - db: { op: update, table: enumval, where: { id: 3 }, set: { value: foo3 renamed } }
+  - db: { op: update, table: enumval, where: { id: 5 }, set: { value: tree2 renamed } }
+  - cli: { id: export4, script: export.pl, args: [--site-id, 1], dir: d4 }
+  - cli: { id: merge_unmatched_report, sort_lines: true, script: import.pl, args: [--site-id, 2, --merge, --report-only], dir: d4 }
+  - cli: { id: merge_unmatched, sort_lines: true, script: import.pl, args: [--site-id, 2, --merge], dir: d4 }
+  - db: { id: after_unmatched, op: select, table: enumval, columns: [id, value, layout_id, deleted, parent, position], where: { id: { ">": 6 } }, order_by: [id] }
+  - cli: { id: merge_force, sort_lines: true, script: import.pl, args: [--site-id, 2, --merge, --force], dir: d4 }
+  - db: { id: forced, op: select, table: enumval, columns: [id, value, layout_id, deleted, parent, position], where: { id: { ">": 6 } }, order_by: [id] }
+  - db: { id: records, op: select, table: enum, columns: [record_id, layout_id, value], order_by: [record_id, layout_id] }

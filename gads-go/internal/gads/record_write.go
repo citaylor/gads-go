@@ -1176,7 +1176,7 @@ func (r *Record) sendNotify(d *PersonDatum) {
 	text = replace(text)
 	link := r.e.Config.URL + "/record/" + itoa(r.currentID)
 	subject = strings.ReplaceAll(subject, "$_link", link)
-	html := strings.ReplaceAll(htmlEscape(text), "$_link", `<a href="`+link+`">`+itoa(r.currentID)+`</a>`)
+	html := strings.ReplaceAll(Text2HTML(text), "$_link", `<a href="`+link+`">`+itoa(r.currentID)+`</a>`)
 	text = strings.ReplaceAll(text, "$_link", link)
 	for _, v := range d.ValueHash() {
 		r.e.SendEmail(Email{Subject: subject, To: []string{anyToString(v["email"])}, Text: text, HTML: html})

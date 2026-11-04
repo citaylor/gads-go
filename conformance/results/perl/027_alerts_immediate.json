@@ -1,0 +1,503 @@
+{
+   "runner" : "perl",
+   "scenario" : "027_alerts_immediate",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:alert",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "alert"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "none yet",
+         "observed" : [],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "users",
+         "observed" : [
+            {
+               "email" : "user1@example.com",
+               "id" : "1"
+            },
+            {
+               "email" : "user4@example.com",
+               "id" : "4"
+            },
+            {
+               "email" : "user5@example.com",
+               "id" : "5"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed",
+         "observed" : [
+            {
+               "html" : "<p>The following items were changed for <a href=\"http://localhost/record/1\">Foo</a>: integer1</p>",
+               "reply_to" : null,
+               "subject" : "Changes in view \"Foo records\"",
+               "text" : "The following items were changed for Foo: integer1\n\nLinks to the records are as follows:\nhttp://localhostrecord/1\n",
+               "to" : [
+                  "user4@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "4"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed outside the view",
+         "observed" : [],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:record",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "5",
+            "serial" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "arrived",
+         "observed" : [
+            {
+               "html" : "<p>New items as follows have appeared in the view &quot;Foo records&quot;: <a href=\"http://localhost/record/3\">Foo new</a></p>",
+               "reply_to" : null,
+               "subject" : "Changes in view \"Foo records\"",
+               "text" : "New items as follows have appeared in the view \"Foo records\": Foo new\n\nLinks to the new items are as follows:\nhttp://localhostrecord/3\n",
+               "to" : [
+                  "user4@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:record",
+         "observed" : {
+            "current_id" : "1",
+            "record_id" : "6"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "gone",
+         "observed" : [
+            {
+               "html" : "<p>Items as follows have disappeared from the view &quot;Foo records&quot;: <a href=\"http://localhost/record/1\">Gone</a></p>",
+               "reply_to" : null,
+               "subject" : "Changes in view \"Foo records\"",
+               "text" : "Items as follows have disappeared from the view \"Foo records\": Gone\n\nLinks to the removed items are as follows:\nhttp://localhostrecord/1\n",
+               "to" : [
+                  "user4@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:record",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "7"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "arrived again",
+         "observed" : [
+            {
+               "html" : "<p>New items as follows have appeared in the view &quot;Foo records&quot;: <a href=\"http://localhost/record/2\">Foobar</a></p>",
+               "reply_to" : null,
+               "subject" : "Changes in view \"Foo records\"",
+               "text" : "New items as follows have appeared in the view \"Foo records\": Foobar\n\nLinks to the new items are as follows:\nhttp://localhostrecord/2\n",
+               "to" : [
+                  "user4@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:record",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "8"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "no_alerts",
+         "observed" : [],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:alert",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "alert"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "daily changed to immediate",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "alert"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:alert",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "alert"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:record",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "one immediate and one daily",
+         "observed" : [
+            {
+               "html" : "<p>The following items were changed for <a href=\"http://localhost/record/2\">Foobar</a>: integer1</p>",
+               "reply_to" : null,
+               "subject" : "Changes in view \"Foo records\"",
+               "text" : "The following items were changed for Foobar: integer1\n\nLinks to the records are as follows:\nhttp://localhostrecord/2\n",
+               "to" : [
+                  "user4@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "daily queued",
+         "observed" : [
+            {
+               "current_id" : "3",
+               "layout_id" : "8"
+            },
+            {
+               "current_id" : "3",
+               "layout_id" : "9"
+            },
+            {
+               "current_id" : "2",
+               "layout_id" : "8"
+            },
+            {
+               "current_id" : "2",
+               "layout_id" : "9"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "25:column",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:column",
+         "observed" : {
+            "id" : "15"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:record",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "10"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "notified",
+         "observed" : [
+            {
+               "html" : "<div class=\"hft-lines\">You were selected for Foobar &lt;b&gt;&amp;&lt;/b&gt;, $Title.<br />\nSee <a href=\"http://localhost/record/2\">2</a> or <a href=\"http://localhost/record/2\">2</a> again ($titlex)<br />\n<br />\n<a href=\"http://example.com/x\" class=\"hft-urls\">http://example.com/x</a> and <a href=\"mailto:a@example.com\" class=\"hft-email\">a@example.com</a><br /></div>",
+               "reply_to" : null,
+               "subject" : "Selected for Foobar ($integer1) $nosuch http://localhost/record/2",
+               "text" : "You were selected for Foobar <b>&</b>, $Title.\nSee http://localhost/record/2 or http://localhost/record/2 again ($titlex)\n\nhttp://example.com/x and a@example.com\n",
+               "to" : [
+                  "user4@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "29:record",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "11"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not notified again",
+         "observed" : [],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:record",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "12"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "another person",
+         "observed" : [
+            {
+               "html" : "<div class=\"hft-lines\">You were selected for Foobar &lt;b&gt;&amp;&lt;/b&gt;, $Title.<br />\nSee <a href=\"http://localhost/record/2\">2</a> or <a href=\"http://localhost/record/2\">2</a> again ($titlex)<br />\n<br />\n<a href=\"http://example.com/x\" class=\"hft-urls\">http://example.com/x</a> and <a href=\"mailto:a@example.com\" class=\"hft-email\">a@example.com</a><br /></div>",
+               "reply_to" : null,
+               "subject" : "Selected for Foobar ($integer1) $nosuch http://localhost/record/2",
+               "text" : "You were selected for Foobar <b>&</b>, $Title.\nSee http://localhost/record/2 or http://localhost/record/2 again ($titlex)\n\nhttp://example.com/x and a@example.com\n",
+               "to" : [
+                  "user5@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "33:record",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "13",
+            "serial" : "4"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "new record",
+         "observed" : [
+            {
+               "html" : "<div class=\"hft-lines\">You were selected for New &lt;b&gt;&amp;&lt;/b&gt;, $Title.<br />\nSee <a href=\"http://localhost/record/4\">4</a> or <a href=\"http://localhost/record/4\">4</a> again ($titlex)<br />\n<br />\n<a href=\"http://example.com/x\" class=\"hft-urls\">http://example.com/x</a> and <a href=\"mailto:a@example.com\" class=\"hft-email\">a@example.com</a><br /></div>",
+               "reply_to" : null,
+               "subject" : "Selected for New ($integer1) $nosuch http://localhost/record/4",
+               "text" : "You were selected for New <b>&</b>, $Title.\nSee http://localhost/record/4 or http://localhost/record/4 again ($titlex)\n\nhttp://example.com/x and a@example.com\n",
+               "to" : [
+                  "user1@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "35:record",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "14",
+            "serial" : null
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "draft",
+         "observed" : [],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "37:record",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "15"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "blanked",
+         "observed" : [],
+         "pass" : true,
+         "type" : "emails"
+      }
+   ]
+}

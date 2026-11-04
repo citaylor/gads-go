@@ -84,6 +84,12 @@ func (r *Runner) stepCLI(args map[string]any) any {
 		"stdout": clean(stdout.String()),
 		"stderr": clean(stderr.String()),
 	}
+	// Output in an order of Perl hashes, compared in sorted lines
+	if truthy(args["sort_lines"]) {
+		for _, k := range []string{"stdout", "stderr"} {
+			obs[k] = sortLines(obs[k].(string))
+		}
+	}
 	if res.Died != "" || res.Exit == 255 {
 		obs["died"] = clean(res.Died)
 	}
@@ -128,4 +134,14 @@ func (r *Runner) stepCLI(args map[string]any) any {
 		obs["files"] = files
 	}
 	return obs
+}
+
+// sortLines is Perl's join ”, sort split /^/m
+func sortLines(s string) string {
+	lines := strings.SplitAfter(s, "\n")
+	if lines[len(lines)-1] == "" {
+		lines = lines[:len(lines)-1]
+	}
+	sort.Strings(lines)
+	return strings.Join(lines, "")
 }

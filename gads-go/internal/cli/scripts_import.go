@@ -40,6 +40,18 @@ func pv(v any) string {
 		return t.Format("2006-01-02T15:04:05")
 	case float64:
 		return strconv.FormatFloat(t, 'f', -1, 64)
+	case []any:
+		// String::Print joins a list with ", " (a hash in it is its
+		// reference, whose address is not reproduced)
+		parts := make([]string, len(t))
+		for i, e := range t {
+			if _, ok := e.(map[string]any); ok {
+				parts[i] = "HASH(0x0)"
+			} else {
+				parts[i] = ps(e)
+			}
+		}
+		return strings.Join(parts, ", ")
 	case bool:
 		if t {
 			return "1"
@@ -1040,7 +1052,11 @@ func (im *importer) columnImportHash(c *gads.Column, values map[string]any) {
 	}
 	for _, o := range c.OptionNames() {
 		old := c.OptionValue(o)
-		if report && ps(old) != ps(values[o]) {
+		// Perl compares a list option (override_types) by its reference,
+		// as ARRAY(0x...), which differs from that of the import
+		_, oldList := old.([]any)
+		_, newList := values[o].([]any)
+		if report && (oldList || newList || ps(old) != ps(values[o])) {
 			im.notice("Update: %s from %s to %s for %s", o, pv(old), pv(values[o]), c.Name)
 		}
 		c.SetOption(o, values[o])

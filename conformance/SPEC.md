@@ -442,7 +442,9 @@ Observes `status`, `content_type`, `location` (without the scheme and host),
 `body`. In bodies the client's CSRF token is replaced by `{csrf}` and the
 source locations of Perl error messages (` at FILE line N.`) are removed. Stringified Perl references (`HASH(0x55d4…)`, `ARRAY(…)`, `CODE(…)`, as
 printed when a template outputs a hash) become `HASH(0x)` etc., since the
-addresses differ between runs.
+addresses differ between runs. Images in bodies
+(`data:image/png;base64,...`, such as the QR code of an MFA key) become
+`data:image/png;base64,{png}`, as Go makes them with other libraries.
 A redirect with a SAML request (`SAMLRequest` in the `Location`) is
 observed as `saml_request`: the request decoded (URL escaping, base64 and
 raw deflate, whose bytes differ between zlib and Go) with the attributes of
@@ -499,7 +501,9 @@ created). `{file:<name>}` in an argument is the path of one of those files.
 The script runs in a new temporary directory, its current directory
 (`$0` is `bin/<script>`); `dir: <name>` keeps the directory for the later
 `cli` steps of the scenario with the same name (to import an export, for
-example). The site of the schema is restored after the script.
+example). The site of the schema is restored after the script. `sort_lines: true` sorts the lines of
+`stdout` and `stderr` (as Perl's `sort`), for a script that reports in the
+order of a Perl hash.
 
 Observes `exit` (its exit status), `stdout`, `stderr` and, for a Perl `die`
 that ends it, `died` (its message). Reports of Log::Report are written to

@@ -773,6 +773,11 @@ func (r *Runner) stepDB(args map[string]any) any {
 					conds = append(conds, db.Q("me")+"."+db.Q(k)+" "+o+" ?")
 					vals = append(vals, yamlToPerl(m[o]))
 				}
+			} else if l, ok := w[k].([]any); ok {
+				// Any of the values (null matching NULL)
+				var sb strings.Builder
+				vals = db.WhereTerm(&sb, k, l, vals)
+				conds = append(conds, sb.String())
 			} else {
 				conds = append(conds, db.Q("me")+"."+db.Q(k)+" = ?")
 				vals = append(vals, w[k])

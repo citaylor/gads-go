@@ -148,8 +148,13 @@ func (u *User) NeedMFASetup() bool {
 	return true
 }
 
-// SeedKey is seed_key: a random base32 key of 26 bytes
+// SeedKey is seed_key: a random base32 key of 26 bytes (the token of 26
+// characters from TokenGenerator when set, as the runners' predictable
+// tokens)
 func (u *User) SeedKey() string {
+	if u.e.TokenGenerator != nil {
+		return mfaBase32.EncodeToString([]byte(u.e.TokenGenerator(26)))
+	}
 	b := make([]byte, 26)
 	if _, err := rand.Read(b); err != nil {
 		Panic("Cannot read 26 from /dev/urandom")

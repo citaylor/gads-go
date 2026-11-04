@@ -20,7 +20,7 @@ identical.
 
 ## Status
 
-- **Parity:** all 181 scenarios are identical to Perl GADS `dev` at
+- **Parity:** all 185 scenarios are identical to Perl GADS `dev` at
   [`337d733c`](https://github.com/ctrlo/GADS/tree/337d733c), on SQLite.
   They cover the engine (fields, calculated values, search, sorting, views,
   graphs, imports, alerts) and the web application (pages, forms, the API,

@@ -288,6 +288,7 @@ var (
 	localhostRe   = regexp.MustCompile(`^https?://localhost`)
 	perlAtLineRe  = regexp.MustCompile(` at \S+ line \d+\.\n`)
 	perlRefAddrRe = regexp.MustCompile(`\b(HASH|ARRAY|CODE)\(0x[0-9a-f]+\)`)
+	pngDataRe     = regexp.MustCompile(`data:image/png;base64,[A-Za-z0-9+/=\s]*`)
 	samlRequestRe = regexp.MustCompile(`[?&]SAMLRequest=([^&]+)`)
 	xmlStartTagRe = regexp.MustCompile(`<([\w:]+)((?:\s+[\w:]+="[^"]*")+)(\s*/?)>`)
 	xmlAttrRe     = regexp.MustCompile(`[\w:]+="[^"]*"`)
@@ -389,6 +390,9 @@ func (r *Runner) webObserve(client *webClient, res *http.Response, content strin
 		content = perlAtLineRe.ReplaceAllString(content, "")
 		// Stringified references (a template printing a hash) are addresses
 		content = perlRefAddrRe.ReplaceAllString(content, "$1(0x)")
+		// Images in the page (the QR code of an MFA key) are made by other
+		// libraries than Perl's
+		content = pngDataRe.ReplaceAllString(content, "data:image/png;base64,{png}")
 		obs["body"] = content
 	}
 	return obs

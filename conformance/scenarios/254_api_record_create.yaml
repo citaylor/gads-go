@@ -1,0 +1,134 @@
+name: 254_api_record_create
+source:
+  - lib/GADS/API.pm (post /api/:sheet/record, _update_record)
+description: >
+  Creating a record with POST /api/:sheet/record and a bearer token: the
+  CSRF token (in the query, as a token in the JSON is taken for a field),
+  the Location of the new record, and its errors (an id, an unknown
+  field, an invalid or missing value, an unknown table, no token).
+steps:
+  - sheet:
+      as: s
+      site_id: 1
+      data:
+        - { string1: Foo, integer1: 10 }
+  - column: { op: update, sheet: s, column: string1, set: { optional: 0 } }
+  - login: { user: superadmin }
+  - http: { id: credentials, as: superadmin, path: /clientcredentials, no_body: true }
+  - http:
+      id: token
+      method: POST
+      path: /api/token
+      csrf: false
+      form:
+        grant_type: password
+        client_id: T00000000003
+        client_secret: T00000000004
+        username: user1@example.com
+        password: password
+      capture: { access: access_token, refresh: refresh_token }
+  - http:
+      id: created
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/record"
+      headers: { Authorization: "Bearer {var:access}", Content-Type: application/json }
+      body: '{"L1string1": "Created", "L1integer1": 42, "L1enum1": 2, "L1date1": "2014-10-10"}'
+  # (JSON escapes, in ASCII: Perl's test database is SQLite without
+  # sqlite_unicode, which gives other characters back as bytes)
+  - http:
+      id: created_escapes
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/record"
+      headers: { Authorization: "Bearer {var:access}", Content-Type: application/json }
+      body: '{"L1string1": "Esc\u0061ped \"quoted\" \/ \\ \t", "L1integer1": "7"}'
+  - http:
+      id: token_in_json
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/record"
+      headers: { Authorization: "Bearer {var:access}" }
+      json: { L1string1: Token in the body }
+  - http:
+      id: with_id
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/record"
+      headers: { Authorization: "Bearer {var:access}", Content-Type: application/json }
+      body: '{"id": 1, "L1string1": "With id"}'
+  - http:
+      id: unknown_field
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/record"
+      headers: { Authorization: "Bearer {var:access}", Content-Type: application/json }
+      body: '{"nosuchfield": 1}'
+  - http:
+      id: invalid_value
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/record"
+      headers: { Authorization: "Bearer {var:access}", Content-Type: application/json }
+      body: '{"L1string1": "Bad", "L1integer1": "notanumber"}'
+  - http:
+      id: invalid_enum
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/record"
+      headers: { Authorization: "Bearer {var:access}", Content-Type: application/json }
+      body: '{"L1string1": "Bad", "L1enum1": "nosuchvalue"}'
+  - http:
+      id: mandatory_missing
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/record"
+      headers: { Authorization: "Bearer {var:access}", Content-Type: application/json }
+      body: '{"L1integer1": 5}'
+  - http:
+      id: empty_object
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/record"
+      headers: { Authorization: "Bearer {var:access}", Content-Type: application/json }
+      body: '{}'
+  - http:
+      id: not_json
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/record"
+      headers: { Authorization: "Bearer {var:access}", Content-Type: application/json }
+      body: 'not json'
+  - http:
+      id: unknown_table
+      as: superadmin
+      method: POST
+      path: /api/nosuchtable/record
+      headers: { Authorization: "Bearer {var:access}", Content-Type: application/json }
+      body: '{"L1string1": "x"}'
+  - http:
+      id: no_token
+      as: superadmin
+      method: POST
+      path: "/api/{sheet:s}/record"
+      headers: { Content-Type: application/json }
+      body: '{"L1string1": "No token"}'
+  - db:
+      id: strings
+      op: select
+      table: string
+      columns: [record_id, value]
+  - db:
+      id: integers
+      op: select
+      table: intgr
+      columns: [record_id, value]
+  - db:
+      id: records
+      op: select
+      table: record
+      columns: [id, current_id, createdby]
+  - http:
+      id: created_record
+      path: "/api/{sheet:s}/record/3"
+      headers: { Authorization: "Bearer {var:access}" }

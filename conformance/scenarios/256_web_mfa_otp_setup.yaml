@@ -1,0 +1,35 @@
+name: 256_web_mfa_otp_setup
+source:
+  - lib/GADS/MFA.pm (/mfa: the OTP setup)
+  - lib/GADS/Schema/Result/User.pm (seed_key, key_qr_base64, check_token)
+  - views/mfa.tt
+description: >
+  Setting up an authenticator app: the key offered (kept in the session
+  until a correct token is given, its QR code not compared), wrong and
+  empty tokens, the correct token saving the key, and authentication with
+  it afterwards. The runners make the random key predictable.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - db: { op: update, table: site, where: { id: 1 }, set: { force_mfa: any, name: My site } }
+  - login: { user: normal1 }
+  - http: { id: choose, as: normal1, path: /mfa }
+  - http: { id: choose_otp, as: normal1, method: POST, path: /mfa, form: { choose_mfa: otp } }
+  - http: { id: setup, as: normal1, path: /mfa }
+  - http: { id: setup_again, as: normal1, path: /mfa }
+  - db: { id: not_saved, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_type, mfa_secret] }
+  # (the key is the base32 of the runners' token T0000000000000000000000003)
+  - http: { id: wrong_token, as: normal1, method: POST, path: /mfa, form: { get_key: "000000" } }
+  - http: { id: after_wrong, as: normal1, path: /mfa }
+  - http: { id: empty_token, as: normal1, method: POST, path: /mfa, form: { get_key: "" } }
+  - http: { id: other_key_token, as: normal1, method: POST, path: /mfa, form: { get_key: "{totp:JBSWY3DPEHPK3PXP}" } }
+  - http: { id: correct_token, as: normal1, method: POST, path: /mfa, form: { get_key: "{totp:kqydambqgaydambqgaydambqgaydambqgaydambqgm}" } }
+  - db: { id: saved, op: select, table: user, where: { id: "@user:normal1" }, columns: [mfa_type, mfa_secret] }
+  - http: { id: token_page, as: normal1, path: /mfa }
+  - http: { id: home_before_token, as: normal1, path: /, no_body: true }
+  - http: { id: token, as: normal1, method: POST, path: /mfa, form: { token: "{totp:kqydambqgaydambqgaydambqgaydambqgaydambqgm}" } }
+  - http: { id: home, as: normal1, path: /, no_body: true }
+  # Another user's key is another token of the sequence
+  - login: { user: normal2 }
+  - http: { id: choose2, as: normal2, path: /mfa }
+  - http: { id: choose_otp2, as: normal2, method: POST, path: /mfa, form: { choose_mfa: otp } }
+  - http: { id: setup2, as: normal2, path: /mfa }

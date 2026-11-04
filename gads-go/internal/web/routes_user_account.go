@@ -95,5 +95,5 @@ func (s *Server) welcomeText(c *Ctx, code string) gads.Email {
 	}
 	body = strings.Replace(body, "[URL]", c.Base()+"resetpw/"+code, 1)
 	body = strings.Replace(body, "[NAME]", name, 1)
-	return gads.Email{Subject: subject, Text: body, HTML: text2html(body)}
+	return gads.Email{Subject: subject, Text: body, HTML: gads.Text2HTML(body)}
 }

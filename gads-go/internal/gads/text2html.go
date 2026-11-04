@@ -1,4 +1,4 @@
-package web
+package gads
 
 import (
 	"regexp"
@@ -33,29 +33,9 @@ var (
 	}()
 )
 
-// expandTabs is Text::Tabs expand (tab stops every 8 columns)
-func expandTabs(line string) string {
-	if !strings.Contains(line, "\t") {
-		return line
-	}
-	var b strings.Builder
-	col := 0
-	for _, r := range line {
-		if r == '\t' {
-			n := 8 - col%8
-			b.WriteString(strings.Repeat(" ", n))
-			col += n
-			continue
-		}
-		b.WriteRune(r)
-		col++
-	}
-	return b.String()
-}
-
-// text2html is HTML::FromText text2html with the options lines, urls,
-// email and metachars (as used by GADS for string values)
-func text2html(text string) string {
+// Text2HTML is HTML::FromText text2html with the options lines, urls,
+// email and metachars (as used by GADS for string values and notify emails)
+func Text2HTML(text string) string {
 	// Perl split drops trailing empty fields
 	lines := strings.Split(text, "\n")
 	for len(lines) > 0 && lines[len(lines)-1] == "" {

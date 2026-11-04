@@ -234,6 +234,9 @@ sub _observe
         $content =~ s/ at \S+ line \d+\.\n//g;
         # Stringified references (a template printing a hash) are addresses
         $content =~ s/\b(HASH|ARRAY|CODE)\(0x[0-9a-f]+\)/$1(0x)/g;
+        # Images in the page (the QR code of an MFA key) are made by other
+        # libraries in Go
+        $content =~ s!data:image/png;base64,[A-Za-z0-9+/=\s]*!data:image/png;base64,{png}!g;
         $obs->{body} = $content;
     }
     $obs;

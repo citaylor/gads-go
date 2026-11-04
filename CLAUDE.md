@@ -4,7 +4,7 @@ This workspace ports [ctrlo GADS](https://github.com/ctrlo/GADS), a Perl and
 Dancer2 application, to Go. A language-neutral conformance suite proves that
 the port behaves the same: every scenario runs against the original Perl
 code and against Go, and the two sets of observations must be identical.
-As of 2026-11-04, against GADS `dev` at `337d733c` (schema 115), all 181
+As of 2026-11-04, against GADS `dev` at `337d733c` (schema 115), all 185
 scenarios are identical.
 
 ## Rules
@@ -14,8 +14,9 @@ scenarios are identical.
   in benchmarks. Only the runtime patches applied by the test harness are
   allowed: `conformance/perl/lib/GADS/Conformance/Patches.pm` freezes the
   clock, makes JSON canonical and makes tokens predictable, and the runner
-  (`Runner.pm`) captures emails and answers outgoing HTTP requests (the SMS
-  gateway and Yubico, `outgoing_http`) instead of sending them. Offer any Perl
+  (`Runner.pm`) captures emails, answers outgoing HTTP requests (the SMS
+  gateway and Yubico, `outgoing_http`) instead of sending them, and makes
+  MFA keys (`seed_key`) predictable. Offer any Perl
   fix separately, as a file in `conformance/patches/`.
 - **Go reproduces Perl's behaviour, quirks included.** This covers messages,
   SQL shape, row order and bugs. A deliberate deviation must be commented

@@ -1,0 +1,72 @@
+name: 027_alerts_immediate
+source:
+- lib/GADS/AlertSend.pm (process, _send_alert)
+- lib/GADS/Datum/Person.pm (send_notify)
+description: Emails of immediate alerts (frequency 0) when records arrive in, change in and leave a view, and the emails of a person field that notifies on selection
+fixed_time: '2014-10-10 01:00:00'
+steps:
+- sheet:
+    as: main
+    data:
+    - string1: Foo
+      integer1: 1
+    - string1: Bar
+      integer1: 2
+- layout: {op: set_alert_columns, sheet: main, columns: [string1]}
+- view:
+    op: create
+    sheet: main
+    as: foo
+    name: Foo records
+    columns: [string1, integer1]
+    filter:
+      rules:
+      - {name: string1, type: string, operator: begins_with, value: Foo}
+- alert: {sheet: main, view: foo, user: normal1, frequency: 0}
+# (one user each: Perl sends the emails of an alert's users in hash order)
+- emails: {id: none yet}
+- db: {id: users, op: select, table: user, where: {id: [1, 4, 5]}, columns: [id, email]}
+# A change of a field in the view, of a field not in it, then a new record,
+# a record that leaves the view and one that comes back
+- record: {op: update, sheet: main, current_id: 1, values: {integer1: 5}, options: {no_alerts: 0}}
+- emails: {id: changed}
+- record: {op: update, sheet: main, current_id: 1, values: {date1: '2014-10-11'}, options: {no_alerts: 0}}
+- emails: {id: changed outside the view}
+- record: {op: create, sheet: main, values: {string1: Foo new}, options: {no_alerts: 0}}
+- emails: {id: arrived}
+- record: {op: update, sheet: main, current_id: 1, values: {string1: Gone}, options: {no_alerts: 0}}
+- emails: {id: gone}
+- record: {op: update, sheet: main, current_id: 2, values: {string1: Foobar}, options: {no_alerts: 0}}
+- emails: {id: arrived again}
+- record: {op: update, sheet: main, current_id: 2, values: {integer1: 7}}
+- emails: {id: no_alerts}
+- alert: {sheet: main, view: foo, user: normal2, frequency: 24}
+- alert: {id: daily changed to immediate, sheet: main, view: foo, user: normal2, frequency: 0}
+- alert: {sheet: main, view: foo, user: normal2, frequency: 24}
+- record: {op: update, sheet: main, current_id: 2, values: {integer1: 8}, options: {no_alerts: 0}}
+- emails: {id: one immediate and one daily}
+- db: {id: daily queued, op: select, table: alert_cache, columns: [current_id, layout_id]}
+# A person field that notifies the people selected, with the values of
+# other fields and the link of the record
+# (the columns of the test sheet have no short names: one is given)
+- column: {op: update, sheet: main, column: string1, set: {name_short: title}}
+- column:
+    op: update
+    sheet: main
+    column: person1
+    set:
+      notify_on_selection: 1
+      notify_on_selection_subject: 'Selected for $title ($integer1) $nosuch $_link'
+      notify_on_selection_message: "You were selected for $title <b>&</b>, $Title.\nSee $_link or $_link again ($titlex)\n\nhttp://example.com/x and a@example.com\n"
+- record: {op: update, sheet: main, current_id: 2, values: {person1: 4}}
+- emails: {id: notified}
+- record: {op: update, sheet: main, current_id: 2, values: {integer1: 9}}
+- emails: {id: not notified again}
+- record: {op: update, sheet: main, current_id: 2, values: {person1: 5}}
+- emails: {id: another person}
+- record: {op: create, sheet: main, values: {string1: New, person1: 1}}
+- emails: {id: new record}
+- record: {op: create, sheet: main, values: {string1: Draft, person1: 4}, options: {draft: 1}}
+- emails: {id: draft}
+- record: {op: update, sheet: main, current_id: 2, values: {person1: null}}
+- emails: {id: blanked}

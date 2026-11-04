@@ -67,6 +67,16 @@ use File::Temp ();
 use File::Path ();
 use GADS::Email;
 
+# MFA keys (26 random bytes, User seed_key) are the token of 26 characters
+# of the predictable sequence (Patches.pm), in base32
+require GADS::Schema::Result::User;
+{
+    no warnings 'redefine';
+    *GADS::Schema::Result::User::seed_key = sub {
+        Convert::Base32::encode_base32(Session::Token->new(length => 26)->get);
+    };
+}
+
 # Emails are captured instead of sent (see the emails step): the arguments
 # given to GADS::Email->send, with its checks and its removal of duplicate
 # recipients
@@ -1389,6 +1399,11 @@ sub step_cli
         # Addresses of references, and the stack traces of croaks
         $v =~ s/\((0x[0-9a-f]+)\)/(0x0)/g;
         $v =~ s/\t\S.* called.*//s;
+    }
+    # Output in an order of Perl hashes, compared in sorted lines
+    if ($args->{sort_lines})
+    {
+        $_ = join '', sort split /^/m foreach $out, $err;
     }
     my $obs = { exit => $exit, stdout => $out, stderr => $err };
     $obs->{died} = $died if defined $died;

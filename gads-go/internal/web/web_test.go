@@ -252,7 +252,7 @@ func testCtx() *Ctx {
 	return &Ctx{s: s, E: s.E, Req: httptest.NewRequest("GET", "/", nil), vars: map[string]any{}, headers: http.Header{}}
 }
 
-// text2html matches HTML::FromText text2html(lines, urls, email,
+// text2html matches HTML::FromText gads.Text2HTML(lines, urls, email,
 // metachars); the expected values are the output of the Perl module
 func TestText2HTML(t *testing.T) {
 	for _, c := range [][2]string{
@@ -264,21 +264,8 @@ func TestText2HTML(t *testing.T) {
 		{"tab\there", `<div class="hft-lines">tab     here<br /></div>`},
 		{"café", `<div class="hft-lines">caf&eacute;<br /></div>`},
 	} {
-		if got := text2html(c[0]); got != c[1] {
-			t.Errorf("text2html(%q) = %q, want %q", c[0], got, c[1])
-		}
-	}
-}
-
-func TestExpandTabs(t *testing.T) {
-	for _, c := range [][2]string{
-		{"none", "none"},
-		{"\tx", "        x"},
-		{"abcdefgh\tx", "abcdefgh        x"},
-		{"ab\tc\td", "ab      c       d"},
-	} {
-		if got := expandTabs(c[0]); got != c[1] {
-			t.Errorf("expandTabs(%q) = %q, want %q", c[0], got, c[1])
+		if got := gads.Text2HTML(c[0]); got != c[1] {
+			t.Errorf("gads.Text2HTML(%q) = %q, want %q", c[0], got, c[1])
 		}
 	}
 }

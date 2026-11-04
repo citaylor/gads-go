@@ -335,7 +335,7 @@ func (c *Ctx) datumPresentation(d gads.Datum) *ttLazy {
 		l.def("html", func() any {
 			out := tt.NewList()
 			for _, v := range d.HTMLForm() {
-				out.Items = append(out.Items, text2html(tt.Str(v)))
+				out.Items = append(out.Items, gads.Text2HTML(tt.Str(v)))
 			}
 			return out
 		})
