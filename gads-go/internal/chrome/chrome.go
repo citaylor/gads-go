@@ -371,6 +371,7 @@ func (b *Browser) Viewport(ctx context.Context, width, height int) error {
 func (b *Browser) Get(ctx context.Context, url string) error {
 	var nav struct {
 		FrameID   string `json:"frameId"`
+		LoaderID  string `json:"loaderId"`
 		ErrorText string `json:"errorText"`
 	}
 	if err := b.Call(ctx, "Page.navigate", map[string]any{"url": url}, &nav); err != nil {
@@ -378,6 +379,23 @@ func (b *Browser) Get(ctx context.Context, url string) error {
 	}
 	if nav.ErrorText != "" {
 		return fmt.Errorf("Unable to load %s: %s", url, nav.ErrorText)
+	}
+	// The main frame keeps its ID, so that a stop of an earlier load (the
+	// first about:blank) would match: the frame's stop is waited for once
+	// it has committed this navigation's document
+	if nav.LoaderID != "" {
+		err := b.WaitEvent(ctx, "Page.frameNavigated", func(p json.RawMessage) bool {
+			var f struct {
+				Frame struct {
+					ID       string `json:"id"`
+					LoaderID string `json:"loaderId"`
+				} `json:"frame"`
+			}
+			return json.Unmarshal(p, &f) == nil && f.Frame.ID == nav.FrameID && f.Frame.LoaderID == nav.LoaderID
+		})
+		if err != nil {
+			return err
+		}
 	}
 	return b.WaitEvent(ctx, "Page.frameStoppedLoading", func(p json.RawMessage) bool {
 		var f struct {
