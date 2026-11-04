@@ -21,12 +21,12 @@ func (o *ttColumnObj) editAttr(name string, args []any) ([]any, bool) {
 		if col.TopicID == nil {
 			return one(nil)
 		}
-		if r := o.c.s.E.DB.QueryRow(`SELECT * FROM "topic" WHERE "id" = ?`, *col.TopicID); r != nil {
+		if r := o.c.E.DB.QueryRow(`SELECT * FROM "topic" WHERE "id" = ?`, *col.TopicID); r != nil {
 			return one(newRow("topic", r))
 		}
 		return one(nil)
 	case "display_fields_as_text":
-		return one(displayFieldsAsText(o.c.s.E, col))
+		return one(displayFieldsAsText(o.c.E, col))
 	case "related_field_id":
 		return one(ttValue(col.RelatedFieldID))
 	case "link_parent_id":

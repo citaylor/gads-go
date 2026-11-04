@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"sort"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/ctrlo/gads-go/internal/cldr"
@@ -1081,18 +1082,15 @@ func FormatDate(t time.Time, format string) string {
 	return cldr.Format(t.In(London()), format)
 }
 
-var londonLoc *time.Location
+var londonLoc = sync.OnceValues(func() (*time.Location, error) { return time.LoadLocation("Europe/London") })
 
 // London returns the Europe/London time zone.
 func London() *time.Location {
-	if londonLoc == nil {
-		l, err := time.LoadLocation("Europe/London")
-		if err != nil {
-			Panic("Unable to load Europe/London timezone: %s", err)
-		}
-		londonLoc = l
+	l, err := londonLoc()
+	if err != nil {
+		Panic("Unable to load Europe/London timezone: %s", err)
 	}
-	return londonLoc
+	return l
 }
 
 // ---------------------------------------------------------------------

@@ -69,11 +69,11 @@ func (s *Server) hReports(c *Ctx) string {
 	layout := c.reportLayout()
 	lo, _ := c.RouteParam("layout_name")
 	if del, _ := c.BodyParam("delete"); truthy(del) {
-		row := s.E.DB.QueryRow(`SELECT * FROM "report" WHERE "id" = ?`, del)
-		if row == nil || !s.ofLayout(row, layout) {
+		row := c.E.DB.QueryRow(`SELECT * FROM "report" WHERE "id" = ?`, del)
+		if row == nil || !c.ofLayout(row, layout) {
 			gads.Fail("No report found for %s", del)
 		}
-		if c.Process(func() { s.E.RemoveReport(row) }) {
+		if c.Process(func() { c.E.RemoveReport(row) }) {
 			c.ForwardHome("success", "Report deleted", lo+"/report")
 		}
 		// forwardHome is called with the page as the message
@@ -106,7 +106,7 @@ func (s *Server) hReportAdd(c *Ctx) string {
 	layout := c.reportLayout()
 	user := c.LoggedInUser()
 	if v, _ := c.BodyParam("submit"); truthy(v) {
-		s.E.CreateReport(user, layout.InstanceID, c.reportInput())
+		c.E.CreateReport(user, layout.InstanceID, c.reportInput())
 		lo, _ := c.RouteParam("layout_name")
 		c.ForwardHome("success", "Report created", lo+"/report")
 	}
@@ -124,14 +124,14 @@ func (s *Server) hReportEdit(c *Ctx) string {
 	user := c.LoggedInUser()
 	id, _ := c.Param("id")
 	if v, _ := c.BodyParam("submit"); truthy(v) {
-		report := s.loadReportForEdit(id, layout)
-		s.E.UpdateReport(report, c.reportInput())
+		report := c.loadReportForEdit(id, layout)
+		c.E.UpdateReport(report, c.reportInput())
 		lo, _ := c.RouteParam("layout_name")
 		c.ForwardHome("success", "Report updated", lo+"/report")
 	}
-	report := s.loadReportForEdit(id, layout)
+	report := c.loadReportForEdit(id, layout)
 	checked := map[int64]bool{}
-	for _, l := range s.E.ReportLayoutIDs(report["id"]) {
+	for _, l := range c.E.ReportLayoutIDs(report["id"]) {
 		checked[l] = true
 	}
 	fields := tt.NewList()
@@ -143,7 +143,7 @@ func (s *Server) hReportEdit(c *Ctx) string {
 		fields.Items = append(fields.Items, tt.HashOf("id", col.ID, "name", col.Name, "is_checked", isChecked))
 	}
 	rep := newRow("report", report)
-	groupIDs := s.E.ReportGroupIDs(report["id"])
+	groupIDs := c.E.ReportGroupIDs(report["id"])
 	rep.set("group_ids", func([]any) any { return ttValue(groupIDs) })
 	tokens := c.reportTokens(layout, "Edit Report")
 	tokens.Set("layout", c.ttLayout(layout))
@@ -156,9 +156,9 @@ func (s *Server) hReportEdit(c *Ctx) string {
 
 // loadReportForEdit is Report load_for_edit, which in hardened mode (M-1)
 // finds only a report of the table: Perl finds those of any table
-func (s *Server) loadReportForEdit(id string, layout *gads.Layout) db.Row {
-	report := s.E.LoadReportForEdit(id)
-	if !s.ofLayout(report, layout) {
+func (c *Ctx) loadReportForEdit(id string, layout *gads.Layout) db.Row {
+	report := c.E.LoadReportForEdit(id)
+	if !c.ofLayout(report, layout) {
 		gads.Fail("No report found for id %s", id)
 	}
 	return report
@@ -166,8 +166,8 @@ func (s *Server) loadReportForEdit(id string, layout *gads.Layout) db.Row {
 
 // ofLayout is whether a row (with an instance_id) belongs to the table of
 // the page. Without Hardened every row does, as in Perl (M-1).
-func (s *Server) ofLayout(row db.Row, layout *gads.Layout) bool {
-	if !s.E.Config.Hardened || layout == nil {
+func (c *Ctx) ofLayout(row db.Row, layout *gads.Layout) bool {
+	if !c.E.Config.Hardened || layout == nil {
 		return true
 	}
 	id, ok := db.AsInt64(row["instance_id"])

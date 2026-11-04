@@ -15,9 +15,9 @@ func (s *Server) hGraph(c *Ctx) string {
 	id, _ := c.Param("id")
 	var graph *gads.Graph
 	if truthy(id) {
-		graph = s.E.LoadGraphLazy(id, layout, user)
+		graph = c.E.LoadGraphLazy(id, layout, user)
 	} else {
-		graph = s.E.NewGraph(layout, user)
+		graph = c.E.NewGraph(layout, user)
 	}
 	param := func(k string) any {
 		if v, ok := c.Param(k); ok {
@@ -52,7 +52,7 @@ func (s *Server) hGraph(c *Ctx) string {
 	base := c.Base()
 	iid, _ := toInt64(c.persistent()["instance_id"])
 	metricGroups := tt.NewList()
-	for _, mg := range s.E.MetricGroups(iid) {
+	for _, mg := range c.E.MetricGroups(iid) {
 		metricGroups.Items = append(metricGroups.Items, ttMetricGroup(mg))
 	}
 	last := "Add graph"
@@ -91,7 +91,7 @@ func (s *Server) hGraphs(c *Ctx) string {
 		}
 	}
 	graphs := tt.NewList()
-	for _, g := range s.E.AllGraphs(layout, user) {
+	for _, g := range c.E.AllGraphs(layout, user) {
 		graphs.Items = append(graphs.Items, c.ttGraph(g))
 	}
 	base := c.Base()

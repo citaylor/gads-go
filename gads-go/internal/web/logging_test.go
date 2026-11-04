@@ -61,9 +61,9 @@ func TestHealth(t *testing.T) {
 	// A request that holds the engine makes it unhealthy
 	defer func(d, c time.Duration) { healthTimeout, healthCache = d, c }(healthTimeout, healthCache)
 	healthTimeout, healthCache = 50*time.Millisecond, 0
-	s.mu.Lock()
+	e, _ := s.acquire(context.Background())
 	w := get("GET")
-	s.mu.Unlock()
+	s.release(e)
 	if w.Code != http.StatusServiceUnavailable {
 		t.Errorf("engine busy: %d", w.Code)
 	}
@@ -186,7 +186,7 @@ func TestHealthShared(t *testing.T) {
 		t.Fatal(err)
 	}
 	// The kept result is answered while the engine is busy
-	s.mu.Lock()
+	e, _ := s.acquire(context.Background())
 	start := time.Now()
 	err := s.checkHealth(context.Background())
 	if err != nil || time.Since(start) > 50*time.Millisecond {
@@ -202,7 +202,7 @@ func TestHealthShared(t *testing.T) {
 		go func() { defer wg.Done(); errs[i] = s.checkHealth(context.Background()) }()
 	}
 	wg.Wait()
-	s.mu.Unlock()
+	s.release(e)
 	for _, err := range errs {
 		if err == nil {
 			t.Fatal("engine busy, but healthy")

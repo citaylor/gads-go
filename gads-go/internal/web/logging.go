@@ -187,12 +187,12 @@ type healthState struct {
 	running chan struct{}
 }
 
-// health answers the health check: 200 when the engine is free within
+// health answers the health check: 200 when an engine is free within
 // healthTimeout and the database answers, otherwise 503. A request that
-// holds the engine for longer (or a lost database) makes the service
+// holds every engine for longer (or a lost database) makes the service
 // unhealthy. The route needs no login, so that anyone can call it: at
 // most one check runs at a time, and its result is kept for healthCache,
-// so that calls cannot queue for the engine.
+// so that calls cannot queue for the engines.
 func (s *Server) health(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Header().Set("Cache-Control", "no-store")
@@ -243,20 +243,20 @@ func (s *Server) checkHealth(ctx context.Context) error {
 	}
 }
 
-// runHealthCheck checks the engine and the database, records the result
-// and closes done
+// runHealthCheck checks that an engine is free and its database answers,
+// records the result and closes done
 func (s *Server) runHealthCheck(done chan struct{}) {
 	ctx, cancel := context.WithTimeout(context.Background(), healthTimeout)
 	defer cancel()
 	res := make(chan error, 1)
 	go func() {
-		s.mu.Lock()
-		defer s.mu.Unlock()
-		if ctx.Err() != nil {
+		e, ok := s.acquire(ctx)
+		if !ok {
 			res <- ctx.Err()
 			return
 		}
-		res <- s.E.DB.Ping(ctx)
+		defer s.release(e)
+		res <- e.DB.Ping(ctx)
 	}()
 	var err error
 	select {

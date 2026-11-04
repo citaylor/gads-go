@@ -9,6 +9,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -386,11 +387,12 @@ func quoteList(list []string) string {
 	return "(" + strings.Join(parts, "|") + ")"
 }
 
-var patternCache = map[string][]parsePart{}
+// patternCache holds the parsed patterns, for all goroutines
+var patternCache sync.Map
 
 func buildPattern(pattern string) ([]parsePart, error) {
-	if p, ok := patternCache[pattern]; ok {
-		return p, nil
+	if p, ok := patternCache.Load(pattern); ok {
+		return p.([]parsePart), nil
 	}
 	var parts []parsePart
 	for _, tk := range tokenize(pattern) {
@@ -424,7 +426,7 @@ func buildPattern(pattern string) ([]parsePart, error) {
 			return nil, fmt.Errorf("Broken pattern: %c %d", cmd, tk.length)
 		}
 	}
-	patternCache[pattern] = parts
+	patternCache.Store(pattern, parts)
 	return parts, nil
 }
 

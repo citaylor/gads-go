@@ -3,6 +3,7 @@ package autoformat
 import (
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/dlclark/regexp2"
 )
@@ -96,7 +97,8 @@ var (
 	reLet       = mustRx(`\A(`+let+`(?!`+let+`))`, regexp2.IgnoreCase)
 	rePost      = mustRx(`\A(`+ows+`()[\])>.:/])`, 0)
 	reOrphan    = mustRx(`[\.>)]`, 0)
-	rePostClose = map[string]rx{}
+	// rePostClose caches postRx (the engines of a pool share it)
+	rePostClose sync.Map
 	rePSCount   = mustRx(`(p[.]?)`, regexp2.IgnoreCase)
 	rePSParts   = mustRx(`^(p[.]?).*(s[.]?[:]?)`, 0)
 	reUpper     = mustRx(`[A-Z]`, 0)
@@ -113,15 +115,15 @@ func init() {
 // postRx is the closing bracket of a level opened by pre: Perl's
 // [$close{$pre}] is [][.:/] for a pre with spaces, which has no entry
 func postRx(pre string) rx {
-	if r, ok := rePostClose[pre]; ok {
-		return r
+	if r, ok := rePostClose.Load(pre); ok {
+		return r.(rx)
 	}
 	class := `[\]\[.:/]`
 	if c, ok := close[pre]; ok {
 		class = `[` + c + `]`
 	}
 	r := mustRx(`\A(`+ows+`()[.:/]?`+class+`[.:/]?)`, 0)
-	rePostClose[pre] = r
+	rePostClose.Store(pre, r)
 	return r
 }
 

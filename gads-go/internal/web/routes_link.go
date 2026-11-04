@@ -12,7 +12,7 @@ func (s *Server) hLink(c *Ctx) string {
 		c.Pass()
 	}
 	idS, _ := c.Param("id")
-	record := s.E.NewRecord(layout, c.LoggedInUser())
+	record := c.E.NewRecord(layout, c.LoggedInUser())
 	if truthy(idS) {
 		id, _ := toInt64(idS)
 		record.FindCurrentID(id, gads.FindOptions{})

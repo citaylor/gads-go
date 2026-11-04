@@ -10,24 +10,24 @@ const groupDescription = "In this window you can create a permission group. Unde
 
 // deleteGroup is GADS::Group delete of the group of an ID (from_id): a
 // group not found is created and deleted
-func (s *Server) deleteGroup(id string) {
-	if g := s.E.FindGroup(id); g != nil && truthy(id) {
+func (c *Ctx) deleteGroup(id string) {
+	if g := c.E.FindGroup(id); g != nil && truthy(id) {
 		n, _ := toInt64(fmtAny(g["id"]))
-		s.E.DeleteGroup(n)
+		c.E.DeleteGroup(n)
 		return
 	}
-	s.E.DeleteMissingGroup()
+	c.E.DeleteMissingGroup()
 }
 
 // any '/group_overview/' (GADS.pm:808)
 func (s *Server) hGroupOverview(c *Ctx) string {
 	if id := c.ParamS("delete"); truthy(id) {
-		if c.Process(func() { s.deleteGroup(id) }) {
+		if c.Process(func() { c.deleteGroup(id) }) {
 			c.ForwardHome("success", "The group has been deleted successfully", "group_overview/")
 		}
 	}
 	items := tt.NewList()
-	for _, g := range s.E.Groups() {
+	for _, g := range c.E.Groups() {
 		items.Items = append(items.Items, tt.HashOf("id", ttValue(g["id"]), "name", ttValue(g["name"])))
 	}
 	return c.Template("layouts/page_overview_name_only", tt.HashOf(
@@ -46,7 +46,7 @@ func (s *Server) hGroupOverview(c *Ctx) string {
 // any '/group_add/' (GADS.pm:836)
 func (s *Server) hGroupAdd(c *Ctx) string {
 	if truthy(c.ParamS("submit")) {
-		if c.Process(func() { s.E.CreateGroup(c.ParamS("name")) }) {
+		if c.Process(func() { c.E.CreateGroup(c.ParamS("name")) }) {
 			c.ForwardHome("success", "Group has been created successfully", "group_overview/")
 		}
 	}
@@ -66,10 +66,10 @@ func (s *Server) hGroupEdit(c *Ctx) string {
 	id := c.ParamS("id")
 	var g map[string]any
 	if truthy(id) {
-		g = s.E.FindGroup(id)
+		g = c.E.FindGroup(id)
 	}
 	if truthy(c.ParamS("delete")) {
-		if c.Process(func() { s.deleteGroup(id) }) {
+		if c.Process(func() { c.deleteGroup(id) }) {
 			c.ForwardHome("success", "The group has been deleted successfully", "group_overview/")
 		}
 	}
@@ -82,11 +82,11 @@ func (s *Server) hGroupEdit(c *Ctx) string {
 		if c.Process(func() {
 			// A group not found is created (GADS::Group _rset)
 			if g == nil {
-				s.E.CreateGroup(c.ParamS("name"))
+				c.E.CreateGroup(c.ParamS("name"))
 				return
 			}
 			n, _ := toInt64(fmtAny(g["id"]))
-			s.E.WriteGroup(n, c.ParamS("name"))
+			c.E.WriteGroup(n, c.ParamS("name"))
 		}) {
 			c.ForwardHome("success", "Group has been updated successfully", "group_overview/")
 		}

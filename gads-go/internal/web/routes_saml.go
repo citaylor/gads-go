@@ -19,13 +19,13 @@ func (s *Server) samlInitiate(c *Ctx, auth db.Row) {
 		gads.Panic("Invalid identity provider metadata: %s", err)
 	}
 	id := saml.GenerateID()
-	if s.E.SAMLIDGenerator != nil {
-		id = s.E.SAMLIDGenerator()
+	if c.E.SAMLIDGenerator != nil {
+		id = c.E.SAMLIDGenerator()
 	}
 	ssoURL := idp.SSOURL(saml.BindingRedirect)
 	req := &saml.AuthnRequest{
 		ID:           id,
-		IssueInstant: s.E.Now(),
+		IssueInstant: c.E.Now(),
 		Issuer:       c.samlSSOXML(),
 		Destination:  ssoURL,
 	}

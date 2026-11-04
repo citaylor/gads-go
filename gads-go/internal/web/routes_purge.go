@@ -9,8 +9,8 @@ import (
 
 // deletedRecords are the deleted records of a table, with their children
 // and no extra view limit (the Records of the purge route)
-func (s *Server) deletedRecords(layout *gads.Layout, user *gads.User) *gads.Records {
-	records := s.E.NewRecords(layout, user)
+func (c *Ctx) deletedRecords(layout *gads.Layout, user *gads.User) *gads.Records {
+	records := c.E.NewRecords(layout, user)
 	records.SetColumns([]int64{})
 	records.IsDeleted = true
 	records.SetIncludeChildren(true)
@@ -42,7 +42,7 @@ func (s *Server) hPurge(c *Ctx) string {
 		if len(ids) == 0 {
 			c.ForwardHome("danger", "Please select some records before clicking an action", layout.Identifier()+"/purge")
 		}
-		records := s.deletedRecords(layout, user)
+		records := c.deletedRecords(layout, user)
 		records.SetLimitCurrentIDs(ids)
 		if truthy(purge) {
 			for record := records.Single(); record != nil; record = records.Single() {
@@ -57,7 +57,7 @@ func (s *Server) hPurge(c *Ctx) string {
 	}
 	// presentation(purge => 1): only the IDs and deletion of each record
 	list := tt.NewList()
-	for _, record := range s.deletedRecords(layout, user).Results() {
+	for _, record := range c.deletedRecords(layout, user).Results() {
 		var deleted, deletedby any
 		if t := record.Deleted(); t != nil {
 			deleted = &ttDateTime{t: *t}
@@ -89,7 +89,7 @@ func (s *Server) hHistoricPurge(c *Ctx) string {
 		c.ForwardHome("danger", "You do not have permission to access this page.", "")
 	}
 	user := c.LoggedInUser()
-	records := s.E.NewRecords(layout, user)
+	records := c.E.NewRecords(layout, user)
 	records.View = c.CurrentView(layout)
 	var columns []*gads.Column
 	for _, col := range records.ColumnsRender() {
@@ -147,13 +147,13 @@ func (s *Server) hHistoricPurge(c *Ctx) string {
 			if len(layoutIDs) == 0 {
 				gads.Fail("Please select some layouts to delete")
 			}
-			if s.E.Config.Hardened {
-				s.checkPurge(layout, records.View, user, currentIDs, layoutIDs, columns)
+			if c.E.Config.Hardened {
+				c.checkPurge(layout, records.View, user, currentIDs, layoutIDs, columns)
 			}
 			// search({id => $current_ids}): each current record once, in
 			// the order of the database
-			for _, cid := range s.E.DB.QueryInt64s(`SELECT "id" FROM "current" WHERE "id" IN (` + sqlInts(currentIDs) + `) ORDER BY "id"`) {
-				s.E.HistoricPurge(cid, user, layoutIDs)
+			for _, cid := range c.E.DB.QueryInt64s(`SELECT "id" FROM "current" WHERE "id" IN (` + sqlInts(currentIDs) + `) ORDER BY "id"`) {
+				c.E.HistoricPurge(cid, user, layoutIDs)
 			}
 		}) {
 			c.ForwardHome("success", "Records have now been purged", layout.Identifier()+"/data")
@@ -176,7 +176,7 @@ func (s *Server) hTree(c *Ctx) string {
 	id, _ := toInt64(idS)
 	tree := layout.Column(id)
 	// Hardened (M-1): only a tree of this table that the user can read
-	if tree != nil && s.E.Config.Hardened && (!layout.ColumnThisInstance(id) || !tree.UserCan("read")) {
+	if tree != nil && c.E.Config.Hardened && (!layout.ColumnThisInstance(id) || !tree.UserCan("read")) {
 		tree = nil
 	}
 	if tree == nil {
@@ -226,7 +226,7 @@ func sqlInts(ids []int64) string {
 // (hardened, H-4): Perl purges any record and column given, in any table.
 // Only the records of this table that the user can see in the view, and
 // the columns that the page offers, are purged.
-func (s *Server) checkPurge(layout *gads.Layout, view *gads.View, user *gads.User, currentIDs, layoutIDs []int64, columns []*gads.Column) {
+func (c *Ctx) checkPurge(layout *gads.Layout, view *gads.View, user *gads.User, currentIDs, layoutIDs []int64, columns []*gads.Column) {
 	offered := map[int64]bool{}
 	for _, col := range columns {
 		offered[col.ID] = true
@@ -236,7 +236,7 @@ func (s *Server) checkPurge(layout *gads.Layout, view *gads.View, user *gads.Use
 			gads.Fail("Invalid field ID %d", id)
 		}
 	}
-	records := s.E.NewRecords(layout, user)
+	records := c.E.NewRecords(layout, user)
 	records.View = view
 	records.SetLimitCurrentIDs(currentIDs)
 	visible := map[int64]bool{}

@@ -50,12 +50,12 @@ func (s *Server) hBulk(c *Ctx) string {
 	}
 
 	// The dummy record to test for updates
-	record := s.E.NewRecord(layout, user)
+	record := c.E.NewRecord(layout, user)
 	record.Initialise(0)
 
 	// The records to update
 	newRecords := func() *gads.Records {
-		records := s.E.NewRecords(layout, user)
+		records := c.E.NewRecords(layout, user)
 		records.View = view
 		noGroup := false
 		records.IsGroupOverride = &noGroup

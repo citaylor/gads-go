@@ -29,8 +29,8 @@ const accessTokenTTL = 3600
 
 // oauthToken is the oauthtoken row of a token of the type, or nil
 // (ResultSet::Oauthtoken access_token and refresh_token)
-func (s *Server) oauthToken(token, typ string) db.Row {
-	r := s.E.DB.QueryRow(`SELECT * FROM "oauthtoken" "me" WHERE "me"."token" = ?`, token)
+func (c *Ctx) oauthToken(token, typ string) db.Row {
+	r := c.E.DB.QueryRow(`SELECT * FROM "oauthtoken" "me" WHERE "me"."token" = ?`, token)
 	if r == nil {
 		return nil
 	}
@@ -49,15 +49,15 @@ type oauthVerifyResult struct {
 }
 
 // verifyAccessToken is GADS's verify_access_token_cb
-func (s *Server) verifyAccessToken(token string, isRefresh bool) oauthVerifyResult {
-	if rt := s.oauthToken(token, "refresh"); isRefresh && rt != nil {
+func (c *Ctx) verifyAccessToken(token string, isRefresh bool) oauthVerifyResult {
+	if rt := c.oauthToken(token, "refresh"); isRefresh && rt != nil {
 		return oauthVerifyResult{client: rt}
 	}
-	if at := s.oauthToken(token, "access"); at != nil {
+	if at := c.oauthToken(token, "access"); at != nil {
 		expires, _ := db.AsInt64(at["expires"])
-		if expires <= s.E.Now().Unix() {
+		if expires <= c.E.Now().Unix() {
 			// need to revoke the access token
-			s.E.DB.Exec(`DELETE FROM "oauthtoken" WHERE "token" = ?`, token)
+			c.E.DB.Exec(`DELETE FROM "oauthtoken" WHERE "token" = ?`, token)
 		} else {
 			return oauthVerifyResult{client: at}
 		}
@@ -66,7 +66,7 @@ func (s *Server) verifyAccessToken(token string, isRefresh bool) oauthVerifyResu
 }
 
 // verifyTokenAndScope is the grant's verify_token_and_scope
-func (s *Server) verifyTokenAndScope(refreshToken string, authHeader string, hasAuthHeader bool) oauthVerifyResult {
+func (c *Ctx) verifyTokenAndScope(refreshToken string, authHeader string, hasAuthHeader bool) oauthVerifyResult {
 	var token string
 	if refreshToken == "" {
 		if !hasAuthHeader || authHeader == "" {
@@ -85,11 +85,11 @@ func (s *Server) verifyTokenAndScope(refreshToken string, authHeader string, has
 	if token == "" && refreshToken == "" {
 		return oauthVerifyResult{err: "invalid_request"}
 	}
-	return s.verifyAccessToken(token, refreshToken != "")
+	return c.verifyAccessToken(token, refreshToken != "")
 }
 
 // verifyUserPassword is GADS's verify_user_password_cb
-func (s *Server) verifyUserPassword(clientID, clientSecret *string, username, password string) oauthVerifyResult {
+func (c *Ctx) verifyUserPassword(clientID, clientSecret *string, username, password string) oauthVerifyResult {
 	q := `SELECT * FROM "oauthclient" "me" WHERE `
 	var args []any
 	for i, f := range []struct {
@@ -107,17 +107,17 @@ func (s *Server) verifyUserPassword(clientID, clientSecret *string, username, pa
 			args = append(args, *f.v)
 		}
 	}
-	client := s.E.DB.QueryRow(q+` ORDER BY "me"."id" LIMIT 1`, args...)
+	client := c.E.DB.QueryRow(q+` ORDER BY "me"."id" LIMIT 1`, args...)
 	if client == nil {
 		return oauthVerifyResult{err: "unauthorized_client"}
 	}
 	uq := `SELECT * FROM "user" "me" WHERE "me"."account_request" = 0 AND "me"."deleted" IS NULL AND "me"."username" = ?`
-	if s.E.SiteID != 0 {
-		uq += ` AND "me"."site_id" = ` + fmtInt(s.E.SiteID)
+	if c.E.SiteID != 0 {
+		uq += ` AND "me"."site_id" = ` + fmtInt(c.E.SiteID)
 	}
-	user := s.E.DB.QueryRow(uq+` ORDER BY "me"."id" LIMIT 1`, username)
-	if s.E.Config.Hardened {
-		return s.verifyUserPasswordHardened(client, user, username, password)
+	user := c.E.DB.QueryRow(uq+` ORDER BY "me"."id" LIMIT 1`, username)
+	if c.E.Config.Hardened {
+		return c.verifyUserPasswordHardened(client, user, username, password)
 	}
 	if user != nil {
 		hashed, _ := db.AsString(user["password"])
@@ -133,8 +133,8 @@ func (s *Server) verifyUserPassword(clientID, clientSecret *string, username, pa
 // verifyUserPasswordHardened is the password check of the password grant
 // with the lockout and the audit of /login (hardened, M-5): Perl lets the
 // API try passwords without limit, unaudited
-func (s *Server) verifyUserPasswordHardened(client, user db.Row, username, password string) oauthVerifyResult {
-	e := s.E
+func (c *Ctx) verifyUserPasswordHardened(client, user db.Row, username, password string) oauthVerifyResult {
+	e := c.E
 	if user != nil {
 		uid, _ := db.AsInt64(user["id"])
 		fc, _ := toInt64(user["failcount"])
@@ -164,8 +164,8 @@ func saltedHashValidate(hashed, password string) bool {
 
 // oauthNewToken is the grant's token for a grant without a JWT secret:
 // base64 of the time, a random number and a random string
-func (s *Server) oauthNewToken() string {
-	now := s.E.Now()
+func (c *Ctx) oauthNewToken() string {
+	now := c.E.Now()
 	const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	b := make([]byte, 30)
 	for i := range b {
@@ -177,15 +177,15 @@ func (s *Server) oauthNewToken() string {
 }
 
 // storeAccessToken is GADS's store_access_token_cb
-func (s *Server) storeAccessToken(clientID any, userID any, access, refresh string, expiresIn int64, oldRefresh string) {
-	d := s.E.DB
+func (c *Ctx) storeAccessToken(clientID any, userID any, access, refresh string, expiresIn int64, oldRefresh string) {
+	d := c.E.DB
 	if oldRefresh != "" {
-		prevRT := s.oauthToken(oldRefresh, "refresh")
+		prevRT := c.oauthToken(oldRefresh, "refresh")
 		if prevRT == nil {
 			gads.Panic(`Can't call method "related_token" on an undefined value`)
 		}
 		related, _ := db.AsString(prevRT["related_token"])
-		prevAT := s.oauthToken(related, "access")
+		prevAT := c.oauthToken(related, "access")
 		if prevAT == nil {
 			gads.Panic(`Can't call method "delete" on an undefined value`)
 		}
@@ -204,7 +204,7 @@ func (s *Server) storeAccessToken(clientID any, userID any, access, refresh stri
 		d.Exec(`DELETE FROM "oauthtoken" WHERE "type" = 'refresh' AND "oauthclient_id" = ? AND "user_id" = ?`, cid, userID)
 	}
 	d.InsertMap("oauthtoken", map[string]any{
-		"type": "access", "token": access, "expires": s.E.Now().Unix() + expiresIn,
+		"type": "access", "token": access, "expires": c.E.Now().Unix() + expiresIn,
 		"related_token": refresh, "oauthclient_id": cid, "user_id": userID,
 	})
 	d.InsertMap("oauthtoken", map[string]any{
@@ -217,7 +217,7 @@ func (s *Server) storeAccessToken(clientID any, userID any, access, refresh stri
 // token is the API user
 func (s *Server) apiBeforeHook(c *Ctx) {
 	auth, has := c.RequestHeader("Authorization")
-	res := s.verifyTokenAndScope("", auth, has)
+	res := c.verifyTokenAndScope("", auth, has)
 	at, ok := res.client.(db.Row)
 	if !ok {
 		return
@@ -225,7 +225,7 @@ func (s *Server) apiBeforeHook(c *Ctx) {
 	// $client->user. Deviation: Perl takes the user whatever its state, so
 	// that the token of a deleted user works until it expires
 	if uid, ok := db.AsInt64(at["user_id"]); ok {
-		if u := s.E.FindUser(uid); u != nil && u.Row["deleted"] == nil && !truthy(u.Row["account_request"]) {
+		if u := c.E.FindUser(uid); u != nil && u.Row["deleted"] == nil && !truthy(u.Row["account_request"]) {
 			c.SetVar("api_user", u)
 		}
 	}
@@ -233,13 +233,13 @@ func (s *Server) apiBeforeHook(c *Ctx) {
 
 // get '/clientcredentials/?' (API.pm:315)
 func (s *Server) hClientCredentials(c *Ctx) string {
-	row := s.E.DB.QueryRow(`SELECT * FROM "oauthclient" "me" ORDER BY "me"."id" LIMIT 1`)
+	row := c.E.DB.QueryRow(`SELECT * FROM "oauthclient" "me" ORDER BY "me"."id" LIMIT 1`)
 	if row == nil {
-		id := s.E.DB.InsertMap("oauthclient", map[string]any{
-			"client_id":     s.E.NewToken(12),
-			"client_secret": s.E.NewToken(12),
+		id := c.E.DB.InsertMap("oauthclient", map[string]any{
+			"client_id":     c.E.NewToken(12),
+			"client_secret": c.E.NewToken(12),
 		})
-		row = s.E.DB.QueryRow(`SELECT * FROM "oauthclient" WHERE "id" = ?`, id)
+		row = c.E.DB.QueryRow(`SELECT * FROM "oauthclient" WHERE "id" = ?`, id)
 	}
 	return c.Template("api/clientcredentials", tt.HashOf("credentials", newRow("oauthclient", row)), nil)
 }
@@ -274,11 +274,11 @@ func (s *Server) hAPIToken(c *Ctx) string {
 	var response map[string]any
 	switch grant := c.ParamS("grant_type"); grant {
 	case "password":
-		res = s.verifyUserPassword(clientIDSubmit, clientSecret, c.ParamS("username"), c.ParamS("password"))
+		res = c.verifyUserPassword(clientIDSubmit, clientSecret, c.ParamS("username"), c.ParamS("password"))
 	case "refresh_token":
 		rt := c.ParamS("refresh_token")
 		auth, has := c.RequestHeader("Authorization")
-		res = s.verifyTokenAndScope(rt, auth, has)
+		res = c.verifyTokenAndScope(rt, auth, has)
 		oldRefresh = rt
 	default:
 		response = map[string]any{
@@ -288,9 +288,9 @@ func (s *Server) hAPIToken(c *Ctx) string {
 	}
 
 	if res.client != nil {
-		access := s.oauthNewToken()
-		refresh := s.oauthNewToken()
-		s.storeAccessToken(res.client, res.userID, access, refresh, accessTokenTTL, oldRefresh)
+		access := c.oauthNewToken()
+		refresh := c.oauthNewToken()
+		c.storeAccessToken(res.client, res.userID, access, refresh, accessTokenTTL, oldRefresh)
 		response = map[string]any{
 			"access_token":  access,
 			"token_type":    "Bearer",
@@ -432,7 +432,7 @@ func (s *Server) hAPIRecordCreate(c *Ctx) string {
 	if _, ok := request["id"]; ok {
 		gads.Fail("Invalid field: id; Use the PUT method to update an existing record")
 	}
-	record := s.E.NewRecord(layout, c.apiUser())
+	record := c.E.NewRecord(layout, c.apiUser())
 	record.Initialise(0)
 	apiUpdateRecord(record, request)
 	c.Status(201)
@@ -446,12 +446,12 @@ func (s *Server) hAPIRecordPut(c *Ctx) string {
 	user := c.apiUser()
 	id, _ := c.Param("id")
 	request := c.apiRequestJSON()
-	find := s.E.NewRecord(layout, user)
+	find := c.E.NewRecord(layout, user)
 	var record *gads.Record
 	if index := layout.APIIndexLayout(); index != nil {
 		record = find.FindUnique(index, id, 0)
 		if record == nil {
-			record = s.E.NewRecord(layout, user)
+			record = c.E.NewRecord(layout, user)
 			record.Initialise(0)
 			request[index.NameShort] = id
 		}
@@ -473,7 +473,7 @@ func (s *Server) hAPIRecordPut(c *Ctx) string {
 func (s *Server) hAPIRecordGet(c *Ctx) string {
 	layout := c.apiLayout()
 	id, _ := c.Param("id")
-	record := s.E.NewRecord(layout, c.apiUser())
+	record := c.E.NewRecord(layout, c.apiUser())
 	if index := layout.APIIndexLayout(); index != nil {
 		found := record.FindUnique(index, id, 0)
 		if found == nil {
@@ -507,11 +507,11 @@ func (s *Server) hAPIRecordsView(c *Ctx) string {
 	layout := c.apiLayout()
 	viewID, _ := c.RouteParam("id")
 	vid, _ := strconv.ParseInt(viewID, 10, 64)
-	view := s.E.LoadView(vid, layout)
+	view := c.E.LoadView(vid, layout)
 	if !view.Exists() {
 		gads.Fail("View id %s not found", viewID)
 	}
-	records := s.E.NewRecords(layout, c.apiUser())
+	records := c.E.NewRecords(layout, c.apiUser())
 	records.View = view
 	records.Rows = 100
 	records.Page = 1

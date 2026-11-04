@@ -20,7 +20,7 @@ var (
 
 // beforeHook is the GADS before hook (lib/GADS.pm hook before)
 func (s *Server) beforeHook(c *Ctx) {
-	e := s.E
+	e := c.E
 	e.SiteID = 0
 	nsites, _ := e.DB.QueryInt64(`SELECT COUNT(*) FROM "site"`)
 	if nsites > 1 && !strings.Contains(c.Path(), "/invalidsite") {

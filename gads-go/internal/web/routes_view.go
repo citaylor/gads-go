@@ -29,14 +29,14 @@ func (s *Server) hView(c *Ctx) string {
 		id, _ := toInt64(viewIDS)
 		// The view is retrieved when first needed: for the page (and a
 		// deletion) once the messages have been taken for the template
-		if err := gads.Try(func() { view = s.E.LoadView(id, layout) }); err != nil {
+		if err := gads.Try(func() { view = c.E.LoadView(id, layout) }); err != nil {
 			if !truthy(update) && !truthy(clone) {
 				c.SessionSet("messages", []*Message{})
 			}
 			panic(err)
 		}
 	} else {
-		view = s.E.NewView(layout)
+		view = c.E.NewView(layout)
 	}
 	if ou, ok := toInt64(c.SessionGet("views_other_user_id")); ok && truthy(c.SessionGet("views_other_user_id")) {
 		view.OtherUserID = &ou

@@ -35,10 +35,10 @@ func (o *ttRowsObj) TTMethod(name string, args []any) ([]any, bool, error) {
 func (s *Server) hImports(c *Ctx) string {
 	layout := c.importLayout()
 	if truthy(c.ParamS("clear")) {
-		s.E.DB.Exec(`DELETE FROM "import" WHERE "instance_id" = ? AND "completed" IS NOT NULL`, layout.InstanceID)
+		c.E.DB.Exec(`DELETE FROM "import" WHERE "instance_id" = ? AND "completed" IS NOT NULL`, layout.InstanceID)
 	}
 	imports := tt.NewList()
-	for _, r := range s.E.DB.Query(`SELECT * FROM "import" "me" WHERE "me"."instance_id" = ? ORDER BY "me"."completed" DESC`, layout.InstanceID) {
+	for _, r := range c.E.DB.Query(`SELECT * FROM "import" "me" WHERE "me"."instance_id" = ? ORDER BY "me"."completed" DESC`, layout.InstanceID) {
 		imports.Items = append(imports.Items, newRow("import", r))
 	}
 	base := c.Base()
@@ -62,12 +62,12 @@ func (s *Server) hImports(c *Ctx) string {
 func (s *Server) hImportRows(c *Ctx) string {
 	layout := c.importLayout()
 	importID := c.ParamS("import_id")
-	imp := s.E.DB.QueryRow(`SELECT * FROM "import" "me" WHERE "me"."id" = ? AND "me"."instance_id" = ? LIMIT 1`, importID, layout.InstanceID)
+	imp := c.E.DB.QueryRow(`SELECT * FROM "import" "me" WHERE "me"."id" = ? AND "me"."instance_id" = ? LIMIT 1`, importID, layout.InstanceID)
 	if imp == nil {
 		gads.Fail("Requested import not found")
 	}
 	rows := tt.NewList()
-	for _, r := range s.E.DB.Query(`SELECT * FROM "import_row" "me" WHERE "me"."import_id" = ? ORDER BY "me"."id" ASC`, imp["id"]) {
+	for _, r := range c.E.DB.Query(`SELECT * FROM "import_row" "me" WHERE "me"."import_id" = ? ORDER BY "me"."id" ASC`, imp["id"]) {
 		rows.Items = append(rows.Items, newRow("import_row", r))
 	}
 	base := c.Base()
@@ -128,7 +128,7 @@ func (s *Server) hImportData(c *Ctx) string {
 			if v := c.ParamS("skip_existing_unique"); truthy(v) {
 				o.SkipExistingUnique, _ = toInt64(v)
 			}
-			imp := s.E.NewImport(layout, user, up.Content, o)
+			imp := c.E.NewImport(layout, user, up.Content, o)
 			if c.Process(func() { imp.Process() }) {
 				c.ForwardHome("success", "The file import process has been started and can be monitored using the Import Status below", layout.Identifier()+"/import")
 			}

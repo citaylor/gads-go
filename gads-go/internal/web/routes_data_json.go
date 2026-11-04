@@ -108,7 +108,7 @@ func (s *Server) hDataCalendar(c *Ctx) string {
 		to = time.Date(to.Year(), to.Month(), to.Day(), 0, 0, 0, to.Nanosecond(), time.UTC).AddDate(0, 0, 1)
 	}
 	user := c.LoggedInUser()
-	records := s.E.NewRecords(layout, user)
+	records := c.E.NewRecords(layout, user)
 	records.From, records.To = &from, &to
 	records.MaxResults = 1000
 	records.View = c.CurrentView(layout)
@@ -141,7 +141,7 @@ func (s *Server) hDataTimelineJSON(c *Ctx) string {
 	if isDashboard {
 		viewID, _ = toInt64(c.ParamS("view"))
 	}
-	records := s.E.NewRecords(layout, user)
+	records := c.E.NewRecords(layout, user)
 	records.From, records.To = &from, &to
 	if v, ok := c.Param("exclusive"); ok {
 		records.Exclusive = v
@@ -196,7 +196,7 @@ func (s *Server) hDataTimelinePost(c *Ctx) string {
 	}
 	// The current time is noted so that it can be decided later whether
 	// these settings are relevant
-	tl["now"] = s.E.Now().Unix()
+	tl["now"] = c.E.Now().Unix()
 	return c.Template("index", tt.HashOf(), nil)
 }
 
@@ -215,14 +215,14 @@ func (s *Server) dataGraph(c *Ctx, layout *gads.Layout, idS string) (*gads.Graph
 	id, _ := toInt64(idS)
 	user := c.LoggedInUser()
 	view := c.CurrentView(layout)
-	records := s.E.NewRecordsGraph(layout, user)
+	records := c.E.NewRecordsGraph(layout, user)
 	if search, ok := sessionSearch(c); ok {
 		records.SetSearch(search)
 	}
 	records.ViewLimitExtraID = c.currentViewLimitExtraID(layout)
 	records.ViewLimitOverrideID = c.currentViewLimitOverrideID(layout)
 	records.Rewind = sessionRewind(c)
-	g := s.E.LoadGraph(id, layout, user)
+	g := c.E.LoadGraph(id, layout, user)
 	return g, g.Data(records, view)
 }
 

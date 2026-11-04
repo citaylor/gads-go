@@ -11,7 +11,7 @@ import (
 func (s *Server) hAUP(c *Ctx) string {
 	if truthy(c.ParamS("accepted")) {
 		// update_current_user
-		s.E.DB.UpdateMap("user", map[string]any{"aup_accepted": s.E.Now()}, map[string]any{"id": c.LoggedInUser().ID})
+		c.E.DB.UpdateMap("user", map[string]any{"aup_accepted": c.E.Now()}, map[string]any{"id": c.LoggedInUser().ID})
 		c.Redirect("/")
 	}
 	return c.Template("aup", tt.HashOf("page", "aup"), nil)
@@ -48,7 +48,7 @@ func (s *Server) hReportDefaults(c *Ctx) string {
 		if m, ok := c.BodyParam("security_marking"); ok {
 			marking = m
 		}
-		s.E.DB.UpdateMap("site", map[string]any{"security_marking": marking}, map[string]any{"id": site.ID()})
+		c.E.DB.UpdateMap("site", map[string]any{"security_marking": marking}, map[string]any{"id": site.ID()})
 		site.Row()["security_marking"] = marking
 	}
 	logo := int64(0)
@@ -58,7 +58,7 @@ func (s *Server) hReportDefaults(c *Ctx) string {
 	// read_security_marking
 	marking, _ := db.AsString(site.Row()["security_marking"])
 	if marking == "" {
-		marking = s.E.Config.Header
+		marking = c.E.Config.Header
 	}
 	return c.Template("layouts/page_reporting_overview", tt.HashOf(
 		"page", "report_defaults",

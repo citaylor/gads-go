@@ -14,6 +14,8 @@ type Session struct {
 	Data map[string]any
 	// used is when the session was last read or written
 	used time.Time
+	// lock is held by the request of the session being dispatched
+	lock sync.Mutex
 }
 
 // Get reads a session value

@@ -26,11 +26,11 @@ func (s *Server) hAudit(c *Ctx) string {
 	if stored == nil {
 		stored = map[string]any{}
 	}
-	filtering := s.E.NewAuditFiltering(stored)
+	filtering := c.E.NewAuditFiltering(stored)
 
 	if _, ok := c.Param("download"); ok {
-		csv := s.E.AuditCSV(filtering)
-		now := s.E.Now().Format("2006-01-02T15:04:05")
+		csv := c.E.AuditCSV(filtering)
+		now := c.E.Now().Format("2006-01-02T15:04:05")
 		header := ""
 		if h, _ := c.s.Config.Gads["header"].(string); h != "" {
 			csv = h + "\n" + csv
@@ -40,7 +40,7 @@ func (s *Server) hAudit(c *Ctx) string {
 	}
 
 	logs := tt.NewList()
-	for _, l := range s.E.AuditLogs(filtering) {
+	for _, l := range c.E.AuditLogs(filtering) {
 		var user any
 		if l.User != nil {
 			user = newRow("user", l.User)
@@ -57,7 +57,7 @@ func (s *Server) hAudit(c *Ctx) string {
 	if truthy(filtering.User) {
 		filterUser = nil
 		if n, ok := toInt64(fmtAny(filtering.User)); ok {
-			if u := s.E.FindListItem("user", n); u != nil {
+			if u := c.E.FindListItem("user", n); u != nil {
 				filterUser = newRow("user", u)
 			}
 		}

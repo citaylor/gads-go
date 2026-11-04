@@ -18,7 +18,7 @@ func (s *Server) hRecord(c *Ctx) string {
 	id, _ := strconv.ParseInt(splat[1], 10, 64)
 	user := c.LoggedInUser()
 
-	record := s.E.NewRecordUnattached(user)
+	record := c.E.NewRecordUnattached(user)
 	record.Rewind = sessionRewind(c)
 
 	// Wait until record has been found before logging to audit, so that
@@ -29,7 +29,7 @@ func (s *Server) hRecord(c *Ctx) string {
 			record.FindRecordID(id, gads.FindOptions{})
 			// The user must also have access to the current version of a
 			// historical version (which a view limit may not allow)
-			s.E.NewRecordUnattached(user).FindCurrentID(record.CurrentID(), gads.FindOptions{})
+			c.E.NewRecordUnattached(user).FindCurrentID(record.CurrentID(), gads.FindOptions{})
 		case "purge":
 			record.FindDeletedCurrentID(id)
 		case "purgehistory":
@@ -70,7 +70,7 @@ func (s *Server) hRecord(c *Ctx) string {
 	// The record as its table's overview dashboard, unless the full record
 	// is asked for
 	if viewQuery, _ := c.QueryParam("view"); layout.RecordAsDashboard() && viewQuery != "full" {
-		d := s.E.RecordDashboard(layout, splat[1])
+		d := c.E.RecordDashboard(layout, splat[1])
 		base := c.Base()
 		readonly := any("")
 		if !layout.UserCan("layout") {
@@ -146,7 +146,7 @@ func (s *Server) processEdit(c *Ctx, id int64, record *gads.Record) (*tt.Hash, *
 	case id != 0 && record != nil:
 		layout = record.Layout()
 	case id != 0:
-		record = s.E.NewRecordUnattached(user)
+		record = c.E.NewRecordUnattached(user)
 		o := gads.FindOptions{}
 		if _, ok := c.Param("include_draft"); ok {
 			o.IncludeDraft = true
@@ -158,7 +158,7 @@ func (s *Server) processEdit(c *Ctx, id int64, record *gads.Record) (*tt.Hash, *
 	default:
 		// New record (the layout is that of the URL)
 		layout = c.Layout()
-		record = s.E.NewRecord(layout, user)
+		record = c.E.NewRecord(layout, user)
 		record.Initialise(0)
 	}
 
@@ -262,7 +262,7 @@ func (s *Server) processEdit(c *Ctx, id int64, record *gads.Record) (*tt.Hash, *
 	} else if id != 0 {
 		// Do nothing, record already loaded
 	} else if truthy(cloneFrom) {
-		toclone := s.E.NewRecord(layout, user)
+		toclone := c.E.NewRecord(layout, user)
 		toclone.FindCurrentID(perlInt(cloneFrom), gads.FindOptions{})
 		record = toclone.Clone()
 	} else {

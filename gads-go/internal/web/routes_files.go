@@ -15,7 +15,7 @@ func (s *Server) hFiles(c *Ctx) string {
 		c.ForwardHome("danger", "You do not have permission to manage files", "")
 	}
 	files := tt.NewList()
-	for _, r := range s.E.DB.Query(`SELECT "me"."id", "me"."name", "me"."mimetype", "me"."is_independent", "me"."edit_user_id" FROM "fileval" "me" WHERE "me"."is_independent" = 1 ORDER BY "me"."id"`) {
+	for _, r := range c.E.DB.Query(`SELECT "me"."id", "me"."name", "me"."mimetype", "me"."is_independent", "me"."edit_user_id" FROM "fileval" "me" WHERE "me"."is_independent" = 1 ORDER BY "me"."id"`) {
 		files.Items = append(files.Items, newRow("fileval", r))
 	}
 	return c.Template("files", tt.HashOf("files", files, "page", "files"), nil)
@@ -23,15 +23,15 @@ func (s *Server) hFiles(c *Ctx) string {
 
 // findFile is ResultSet::Fileval find_with_permission with an ID from the
 // request, or nil if there is no such file
-func (s *Server) findFile(id string, user *gads.User, newFileOnly, renameExisting bool) db.Row {
+func (c *Ctx) findFile(id string, user *gads.User, newFileOnly, renameExisting bool) db.Row {
 	n, ok := toInt64(id)
 	if !ok || !reDigitsOnly.MatchString(id) {
 		return nil
 	}
-	if !s.E.FilevalFindWithPermission(n, user, newFileOnly, renameExisting) {
+	if !c.E.FilevalFindWithPermission(n, user, newFileOnly, renameExisting) {
 		return nil
 	}
-	return s.E.DB.QueryRow(`SELECT * FROM "fileval" WHERE "id" = ?`, n)
+	return c.E.DB.QueryRow(`SELECT * FROM "fileval" WHERE "id" = ?`, n)
 }
 
 var reDigitsOnly = regexp.MustCompile(`^[0-9]+$`)
@@ -45,12 +45,12 @@ func (s *Server) hFile(c *Ctx) string {
 	if n, ok := toInt64(id); ok && n == -1 {
 		return c.SendFile([]byte("Purged File"), "text/plain", "purged")
 	}
-	f := s.findFile(id, c.LoggedInUser(), false, false)
+	f := c.findFile(id, c.LoggedInUser(), false, false)
 	if f == nil {
 		gads.Fail("File ID %s cannot be found", id)
 	}
 	fid, _ := db.AsInt64(f["id"])
-	content := s.E.FilevalContent(fid)
+	content := c.E.FilevalContent(fid)
 	mime, _ := db.AsString(f["mimetype"])
 	name, _ := db.AsString(f["name"])
 	return c.SendFile(content, mime, name)
@@ -61,14 +61,14 @@ func (s *Server) hFile(c *Ctx) string {
 func (s *Server) hFilePost(c *Ctx) string {
 	// Hardened (M-3): only superadmins manage files. Perl lets anyone
 	// upload one (that every user can read), checking only deletions.
-	if s.E.Config.Hardened && !c.LoggedInUser().Permission()["superadmin"] {
+	if c.E.Config.Hardened && !c.LoggedInUser().Permission()["superadmin"] {
 		gads.Fail("You do not have permission to manage files")
 	}
 	if up := c.Upload("file"); up != nil && up.Filename != "" {
 		mime := gads.CheckUpload(up.Filename, up.Content, gads.CheckOptions{CheckName: true})
 		var id int64
 		if c.Process(func() {
-			id = s.E.FilevalCreate(map[string]any{
+			id = c.E.FilevalCreate(map[string]any{
 				"name": up.Filename, "mimetype": mime,
 				"is_independent": int64(1), "edit_user_id": nil,
 			}, up.Content)
@@ -86,13 +86,13 @@ func (s *Server) hFilePost(c *Ctx) string {
 	}
 	var row db.Row
 	if reDigitsOnly.MatchString(id) {
-		row = s.E.DB.QueryRow(`SELECT "id" FROM "fileval" WHERE "id" = ?`, id)
+		row = c.E.DB.QueryRow(`SELECT "id" FROM "fileval" WHERE "id" = ?`, id)
 	}
 	if row == nil {
 		gads.Fail("File ID %s cannot be found", id)
 	}
 	rid, _ := db.AsInt64(row["id"])
-	if c.Process(func() { s.E.FilevalRemove(rid) }) {
+	if c.Process(func() { c.E.FilevalRemove(rid) }) {
 		c.ForwardHome("success", "File has been deleted successsfully", "file/")
 	}
 	return ""
@@ -111,23 +111,23 @@ func (s *Server) hAPIFileRename(c *Ctx) string {
 	gads.CheckFileName(newname)
 	user := c.LoggedInUser()
 	if truthy(isNew) {
-		f := s.findFile(id, user, true, false)
+		f := c.findFile(id, user, true, false)
 		if f == nil {
 			gads.Fail("File ID %s cannot be found", id)
 		}
-		s.E.DB.UpdateMap("fileval", map[string]any{"name": newname}, map[string]any{"id": f["id"]})
+		c.E.DB.UpdateMap("fileval", map[string]any{"name": newname}, map[string]any{"id": f["id"]})
 		c.ContentType("application/json")
 		return gads.EncodeJSON(map[string]any{"id": f["id"], "name": newname, "is_ok": int64(1)})
 	}
-	f := s.findFile(id, user, false, true)
+	f := c.findFile(id, user, false, true)
 	if f == nil {
 		gads.Fail("File ID %s cannot be found", id)
 	}
 	fid, _ := db.AsInt64(f["id"])
-	newID := s.E.FilevalCreate(map[string]any{
+	newID := c.E.FilevalCreate(map[string]any{
 		"name": newname, "mimetype": f["mimetype"],
 		"is_independent": int64(0), "edit_user_id": user.ID,
-	}, s.E.FilevalContent(fid))
+	}, c.E.FilevalContent(fid))
 	c.ContentType("application/json")
 	return gads.EncodeJSON(map[string]any{"id": newID, "name": newname, "is_ok": int64(1)})
 }
@@ -142,12 +142,12 @@ func (s *Server) hAPIFile(c *Ctx) string {
 		if !user.Permission()["superadmin"] {
 			gads.Fail("You do not have permission to delete files")
 		}
-		row := s.E.DB.QueryRow(`SELECT "id" FROM "fileval" WHERE "id" = ?`, del)
+		row := c.E.DB.QueryRow(`SELECT "id" FROM "fileval" WHERE "id" = ?`, del)
 		if row == nil {
 			panic(errors.New(`Can't call method "delete" on an undefined value`))
 		}
 		rid, _ := db.AsInt64(row["id"])
-		s.E.FilevalRemove(rid)
+		c.E.FilevalRemove(rid)
 		c.ForwardHome("success", "The file has been deleted successfully", "file/")
 	}
 	if up := c.Upload("file"); up != nil && up.Filename != "" {
@@ -156,7 +156,7 @@ func (s *Server) hAPIFile(c *Ctx) string {
 			gads.Fail("Missing column ID")
 		}
 		cid, _ := toInt64(columnID)
-		column := s.E.NewLayout(0, user).Column(cid)
+		column := c.E.NewLayout(0, user).Column(cid)
 		if column == nil {
 			panic(errors.New(`Can't call method "override_types" on an undefined value`))
 		}
@@ -165,7 +165,7 @@ func (s *Server) hAPIFile(c *Ctx) string {
 		filename := reFileNameStrip.ReplaceAllString(up.Filename, "")
 		var id int64
 		if c.Process(func() {
-			id = s.E.FilevalCreate(map[string]any{
+			id = c.E.FilevalCreate(map[string]any{
 				"name": filename, "mimetype": mime,
 				"is_independent": int64(0), "edit_user_id": user.ID,
 			}, up.Content)

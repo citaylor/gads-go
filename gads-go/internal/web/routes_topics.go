@@ -20,9 +20,9 @@ func (c *Ctx) topicLayout() *gads.Layout {
 }
 
 // tableTopics are the topics of a table (in the order of the database)
-func (s *Server) tableTopics(instanceID int64) *tt.List {
+func (c *Ctx) tableTopics(instanceID int64) *tt.List {
 	l := tt.NewList()
-	for _, r := range s.E.DB.Query(`SELECT * FROM "topic" "me" WHERE "me"."instance_id" = ?`, instanceID) {
+	for _, r := range c.E.DB.Query(`SELECT * FROM "topic" "me" WHERE "me"."instance_id" = ?`, instanceID) {
 		l.Items = append(l.Items, newRow("topic", r))
 	}
 	return l
@@ -35,7 +35,7 @@ func (s *Server) hTopic(c *Ctx) string {
 	id, _ := c.Param("id")
 	var topic db.Row
 	if truthy(id) {
-		topic = s.E.DB.QueryRow(`SELECT * FROM "topic" "me" WHERE "me"."id" = ? AND "me"."instance_id" = ? LIMIT 1`, id, instanceID)
+		topic = c.E.DB.QueryRow(`SELECT * FROM "topic" "me" WHERE "me"."id" = ? AND "me"."instance_id" = ? LIMIT 1`, id, instanceID)
 		if topic == nil {
 			gads.Fail("Topic ID %s not found", id)
 		}
@@ -66,9 +66,9 @@ func (s *Server) hTopic(c *Ctx) string {
 		if c.Process(func() {
 			if topic == nil {
 				set["instance_id"] = instanceID
-				s.E.DB.InsertMap("topic", set)
+				c.E.DB.InsertMap("topic", set)
 			} else {
-				s.E.DB.UpdateMap("topic", set, map[string]any{"id": topic["id"]})
+				c.E.DB.UpdateMap("topic", set, map[string]any{"id": topic["id"]})
 			}
 		}) {
 			action := "created"
@@ -84,8 +84,8 @@ func (s *Server) hTopic(c *Ctx) string {
 		}
 		if c.Process(func() {
 			// before_delete: the fields of the topic are removed from it
-			s.E.DB.Exec(`UPDATE "layout" SET "topic_id" = NULL WHERE "topic_id" = ?`, topic["id"])
-			s.E.DB.Exec(`DELETE FROM "topic" WHERE "id" = ?`, topic["id"])
+			c.E.DB.Exec(`UPDATE "layout" SET "topic_id" = NULL WHERE "topic_id" = ?`, topic["id"])
+			c.E.DB.Exec(`DELETE FROM "topic" WHERE "id" = ?`, topic["id"])
 		}) {
 			c.ForwardHome("success", "The topic has been deleted successfully", lo+"/topics")
 		}
@@ -104,7 +104,7 @@ func (s *Server) hTopic(c *Ctx) string {
 		"header_back_url", base+lo+"/topics",
 		"layout_obj", c.ttLayout(layout),
 		"topic", topicTok,
-		"topics", s.tableTopics(instanceID),
+		"topics", c.tableTopics(instanceID),
 		"breadcrumbs", tt.NewList(
 			crumb(base+"table/", "Tables"),
 			crumb(base+lo+"/data", "Table: "+layout.Name()),
@@ -125,7 +125,7 @@ func (s *Server) hTopics(c *Ctx) string {
 		"header_type", "table_tabs",
 		"layout", c.ttLayout(layout),
 		"layout_obj", c.ttLayout(layout),
-		"topics", s.tableTopics(layout.InstanceID),
+		"topics", c.tableTopics(layout.InstanceID),
 		"breadcrumbs", tt.NewList(
 			crumb(base+"table/", "Tables"),
 			crumb(base+lo+"/data", "Table: "+layout.Name()),

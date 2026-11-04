@@ -118,12 +118,12 @@ func TestPBKDF2Passwords(t *testing.T) {
 		return v
 	}
 	c.E.Config.PerlPasswordHashes = true
-	c.s.upgradePassword(1, "secret", perl)
+	c.upgradePassword(1, "secret", perl)
 	if stored() != perl {
 		t.Error("upgraded with perl_password_hashes")
 	}
 	c.E.Config.PerlPasswordHashes = false
-	c.s.upgradePassword(1, "secret", perl)
+	c.upgradePassword(1, "secret", perl)
 	if h := stored(); !strings.HasPrefix(h, "{PBKDF2-SHA512}") || !MatchPassword("secret", h) {
 		t.Errorf("not upgraded: %s", h)
 	}
@@ -143,7 +143,7 @@ func TestReadOnly(t *testing.T) {
 	c.E.DB = d
 	sent := false
 	c.E.Emailer = func(gads.Email) { sent = true }
-	end := c.s.readOnly()
+	end := readOnly(c.E)
 	if err := gads.Try(func() {
 		d.InsertMap("audit", map[string]any{"description": "x"})
 		d.Exec(`UPDATE "user" SET "session_settings" = ? WHERE "id" = ?`, "{}", 1)

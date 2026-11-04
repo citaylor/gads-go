@@ -30,7 +30,7 @@ func (s *Server) hSettingsWelcomeEmail(c *Ctx) string {
 				vals[k] = nil
 			}
 		}
-		if c.Process(func() { s.E.DB.UpdateMap("site", vals, map[string]any{"id": site.ID()}) }) {
+		if c.Process(func() { c.E.DB.UpdateMap("site", vals, map[string]any{"id": site.ID()}) }) {
 			c.ForwardHome("success", "Configuration settings have been updated successfully", "settings/")
 		}
 		// The site object keeps the submitted values
@@ -51,7 +51,7 @@ func (s *Server) hSettingsUserEditable(c *Ctx) string {
 	}
 	site := c.Site()
 	if truthy(c.ParamS("update")) {
-		if c.Process(func() { s.E.UpdateUserEditableFields(site, c.body.getAll("user_editable")) }) {
+		if c.Process(func() { c.E.UpdateUserEditableFields(site, c.body.getAll("user_editable")) }) {
 			c.ForwardHome("success", "Configuration settings have been updated successfully", "settings/")
 		}
 	}
@@ -128,11 +128,11 @@ func lcfirst(s string) string {
 
 // deleteItem deletes an item (delete_title etc.) of the row found, which
 // dies as Perl calling a method of undef if there is none
-func (s *Server) deleteItem(l *userList, row db.Row, site *gads.Site) {
+func (c *Ctx) deleteItem(l *userList, row db.Row, site *gads.Site) {
 	if row == nil {
 		gads.Panic(`Can't call method "delete_%s" on an undefined value`, l.table)
 	}
-	s.E.DeleteListItem(l.table, l.userCol, row["id"], l.errName(site))
+	c.E.DeleteListItem(l.table, l.userCol, row["id"], l.errName(site))
 }
 
 // any '/settings/<list>_overview/' (GADS.pm:953 etc.)
@@ -141,13 +141,13 @@ func (s *Server) hListOverview(l *userList) Handler {
 		site := c.Site()
 		name := l.name(site)
 		if id := c.ParamS("delete"); truthy(id) {
-			row := s.E.FindListItem(l.table, id)
-			if c.Process(func() { s.deleteItem(l, row, site) }) {
+			row := c.E.FindListItem(l.table, id)
+			if c.Process(func() { c.deleteItem(l, row, site) }) {
 				c.ForwardHome("success", "The "+name+" has been deleted successfully", "settings/"+l.path+"_overview/")
 			}
 		}
 		items := tt.NewList()
-		for _, r := range s.E.OrderedList(l.table) {
+		for _, r := range c.E.OrderedList(l.table) {
 			items.Items = append(items.Items, newRow(l.table, r))
 		}
 		plural := l.plural(site)
@@ -195,7 +195,7 @@ func (s *Server) hListAdd(l *userList) Handler {
 				nv = n
 			}
 			row["name"] = nv
-			if c.Process(func() { s.E.SaveListItem(l.table, nil, nv) }) {
+			if c.Process(func() { c.E.SaveListItem(l.table, nil, nv) }) {
 				c.ForwardHome("success", "The "+name+" has been created successfully", "settings/"+l.path+"_overview/")
 			}
 		}
@@ -212,11 +212,11 @@ func (s *Server) hListEdit(l *userList) Handler {
 		site := c.Site()
 		name := l.name(site)
 		id, _ := c.RouteParam("id")
-		row := s.E.FindListItem(l.table, id)
+		row := c.E.FindListItem(l.table, id)
 		overview := "settings/" + l.path + "_overview/"
 		del := func() {
 			if truthy(c.ParamS("delete")) {
-				if c.Process(func() { s.deleteItem(l, row, site) }) {
+				if c.Process(func() { c.deleteItem(l, row, site) }) {
 					c.ForwardHome("success", "The "+name+" has been deleted successfully", overview)
 				}
 			}
@@ -234,7 +234,7 @@ func (s *Server) hListEdit(l *userList) Handler {
 				nv = n
 			}
 			row["name"] = nv
-			if c.Process(func() { s.E.SaveListItem(l.table, row, nv) }) {
+			if c.Process(func() { c.E.SaveListItem(l.table, row, nv) }) {
 				c.ForwardHome("success", "The "+name+" has been "+l.edited+" successfully", overview)
 			}
 		}

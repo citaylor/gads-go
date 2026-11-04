@@ -45,8 +45,7 @@ const errReadOnly = "This change can only be made by submitting a form. Please g
 // request that asks for a change, as any link on another site can, is
 // refused rather than carried out without a CSRF token. It returns the
 // function that ends it.
-func (s *Server) readOnly() func() {
-	e := s.E
+func readOnly(e *gads.Engine) func() {
 	check, emailer := e.DB.WriteCheck, e.Emailer
 	e.DB.WriteCheck = func(table, q string) {
 		q = strings.Join(strings.Fields(q), " ")

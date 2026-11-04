@@ -37,14 +37,14 @@ func (s *Server) getDashboard(c *Ctx, id string) *gads.Dashboard {
 	n, ok := toInt64(id)
 	var d *gads.Dashboard
 	if ok {
-		d = s.E.DashboardByID(n)
+		d = c.E.DashboardByID(n)
 	}
 	if d == nil {
 		c.Status(404)
 		gads.Fail("Dashboard %s not found", id)
 	}
 	// Hardened (M-2): a personal dashboard is only its owner's
-	if s.E.Config.Hardened && d.UserID != nil && *d.UserID != c.LoggedInUser().ID {
+	if c.E.Config.Hardened && d.UserID != nil && *d.UserID != c.LoggedInUser().ID {
 		c.Status(403)
 		gads.Fail("User does not have access to dashboard ID %s", id)
 	}
@@ -55,7 +55,7 @@ func (s *Server) getDashboard(c *Ctx, id string) *gads.Dashboard {
 func (s *Server) getDashboardWrite(c *Ctx, id string, layout *gads.Layout) *gads.Dashboard {
 	d := s.getDashboard(c, id)
 	user := c.LoggedInUser()
-	if s.E.Config.Hardened {
+	if c.E.Config.Hardened {
 		if s.canWriteDashboard(c, d) {
 			return d
 		}
@@ -94,7 +94,7 @@ func (s *Server) canWriteDashboard(c *Ctx, d *gads.Dashboard) bool {
 func (s *Server) getWidget(c *Ctx, layout *gads.Layout) (*gads.Widget, *gads.Dashboard) {
 	dashboardID, _ := c.RouteParam("dashboard_id")
 	gridID, _ := c.RouteParam("id")
-	row := s.E.DB.QueryRow(`SELECT "me".* FROM "widget" "me" WHERE "me"."dashboard_id" = ? AND "me"."grid_id" = ? ORDER BY "me"."id" LIMIT 1`, dashboardID, gridID)
+	row := c.E.DB.QueryRow(`SELECT "me".* FROM "widget" "me" WHERE "me"."dashboard_id" = ? AND "me"."grid_id" = ? ORDER BY "me"."id" LIMIT 1`, dashboardID, gridID)
 	if row == nil {
 		c.Status(404)
 		gads.Fail("Widget ID %s not found", gridID)
@@ -151,17 +151,17 @@ func (s *Server) hDashboardUpdate(c *Ctx, layout *gads.Layout) string {
 		grid := apiValue(w["i"])
 		// (update_or_create: the widget is validated with its new values,
 		// so a new one becomes a notice)
-		if row := s.E.DB.QueryRow(`SELECT * FROM "widget" WHERE "dashboard_id" = ? AND "grid_id" = ?`, d.ID, grid); row != nil {
+		if row := c.E.DB.QueryRow(`SELECT * FROM "widget" WHERE "dashboard_id" = ? AND "grid_id" = ?`, d.ID, grid); row != nil {
 			for k, v := range vals {
 				row[k] = v
 			}
 			gads.ValidateWidget(d, row)
-			s.E.DB.UpdateMap("widget", vals, map[string]any{"id": row["id"]})
+			c.E.DB.UpdateMap("widget", vals, map[string]any{"id": row["id"]})
 		} else {
 			vals["dashboard_id"] = d.ID
 			vals["grid_id"] = grid
 			gads.ValidateWidget(d, vals)
-			s.E.DB.InsertMap("widget", vals)
+			c.E.DB.InsertMap("widget", vals)
 		}
 	}
 	return c.apiSuccess("Dashboard updated successfully")
@@ -182,7 +182,7 @@ func (s *Server) hWidgetGet(c *Ctx, layout *gads.Layout) string {
 // get '/api/dashboard/:dashboard_id/widget/:id/edit' (API.pm:508, 539)
 func (s *Server) hWidgetEditForm(c *Ctx, layout *gads.Layout) string {
 	w, _ := s.getWidgetWrite(c, layout)
-	d := w.Dashboard(s.E)
+	d := w.Dashboard(c.E)
 	typ, _ := db.AsString(w.Row["type"])
 	widget := ttValue(map[string]any(w.Row)).(*tt.Hash)
 	widget.Set("dashboard", c.ttDashboard(d))
@@ -196,7 +196,7 @@ func (s *Server) hWidgetEditForm(c *Ctx, layout *gads.Layout) string {
 	}
 	if typ == "graph" {
 		var personal, shared []any
-		for _, g := range s.E.AllGraphs(layout, c.LoggedInUser()) {
+		for _, g := range c.E.AllGraphs(layout, c.LoggedInUser()) {
 			if g.IsShared {
 				shared = append(shared, c.ttGraph(g))
 			} else {
@@ -213,7 +213,7 @@ func (s *Server) hWidgetEditForm(c *Ctx, layout *gads.Layout) string {
 // put '/api/dashboard/:dashboard_id/widget/:id/edit' (API.pm:513, 543)
 func (s *Server) hWidgetEdit(c *Ctx, layout *gads.Layout) string {
 	w, _ := s.getWidgetWrite(c, layout)
-	d := w.Dashboard(s.E)
+	d := w.Dashboard(c.E)
 	var body map[string]any
 	dec := json.NewDecoder(bytes.NewReader(c.Body()))
 	dec.UseNumber()
@@ -279,14 +279,14 @@ func (s *Server) hWidgetEdit(c *Ctx, layout *gads.Layout) string {
 		row[k] = v
 	}
 	gads.ValidateWidget(d, row)
-	s.E.DB.UpdateMap("widget", set, map[string]any{"id": w.Row["id"]})
+	c.E.DB.UpdateMap("widget", set, map[string]any{"id": w.Row["id"]})
 	return c.apiSuccess("Widget updated successfully")
 }
 
 // del '/api/dashboard/:dashboard_id/widget/:id' (API.pm:531, 503)
 func (s *Server) hWidgetDelete(c *Ctx, layout *gads.Layout) string {
 	w, _ := s.getWidgetWrite(c, layout)
-	s.E.DB.Exec(`DELETE FROM "widget" WHERE "id" = ?`, w.Row["id"])
+	c.E.DB.Exec(`DELETE FROM "widget" WHERE "id" = ?`, w.Row["id"])
 	return c.apiSuccess("Widget deleted successfully")
 }
 

@@ -75,12 +75,12 @@ func (s *Server) hApproval(c *Ctx) string {
 	// new record or an edit of an existing one, which affects permissions
 	approvalOfNew := false
 	if truthy(idS) {
-		approvalOfNew = s.E.ApprovalOfNew(layout, user, id)
+		approvalOfNew = c.E.ApprovalOfNew(layout, user, id)
 	}
 
 	if truthy(c.ParamS("submit")) {
 		// The latest record for this approval
-		record := s.E.NewRecord(layout, user)
+		record := c.E.NewRecord(layout, user)
 		record.SetApprovalID(id)
 		record.DoingApproval = true
 		// For an approval of a new record, the record does not exist as a
@@ -106,7 +106,7 @@ func (s *Server) hApproval(c *Ctx) string {
 	page := "approval"
 	if truthy(idS) {
 		// The record of values needing approval
-		record := s.E.NewRecord(layout, user)
+		record := c.E.NewRecord(layout, user)
 		record.InitNoValue = false
 		record.IncludeApproval = true
 		record.FindRecordID(id, gads.FindOptions{})
@@ -114,14 +114,14 @@ func (s *Server) hApproval(c *Ctx) string {
 		params.Set("record_presentation", c.recordPresentation(record, recordPresentOpts{edit: true, new: approvalOfNew, approval: true}))
 		// The existing values for comparison
 		if !approvalOfNew {
-			existing := s.E.NewRecord(layout, user)
+			existing := c.E.NewRecord(layout, user)
 			existing.FindCurrentID(record.CurrentID(), gads.FindOptions{})
 			params.Set("existing", &ttRawRecord{c: c, r: existing})
 		}
 		page = "edit"
 	} else {
 		records := tt.NewList()
-		for _, a := range s.E.ApprovalRecords(layout, user) {
+		for _, a := range c.E.ApprovalRecords(layout, user) {
 			records.Items = append(records.Items, tt.HashOf(
 				"record_id", a.RecordID,
 				"current_id", a.CurrentID,

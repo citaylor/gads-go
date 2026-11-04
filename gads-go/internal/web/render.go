@@ -120,7 +120,7 @@ func (s *Server) beforeTemplate(c *Ctx, tokens *tt.Hash) {
 	layout := c.Layout()
 	if user != nil && layout != nil && (layout.UserCan("approve_new") || layout.UserCan("approve_existing")) {
 		tokens.Set("user_can_approve", int64(1))
-		tokens.Set("approve_waiting", int64(s.E.ApprovalCount(layout, user)))
+		tokens.Set("approve_waiting", int64(c.E.ApprovalCount(layout, user)))
 	}
 	if user != nil {
 		instances := c.Instances()
@@ -137,7 +137,7 @@ func (s *Server) beforeTemplate(c *Ctx, tokens *tt.Hash) {
 		tokens.Set("instance_id", ttValue(c.persistent()["instance_id"]))
 		tokens.Set("user_can_edit", ttBoolEmpty(layout != nil && layout.UserCan("write_existing")))
 		tokens.Set("user_can_create", ttBoolEmpty(layout != nil && layout.UserCan("write_new")))
-		if s.E.AnyCurrent() {
+		if c.E.AnyCurrent() {
 			tokens.Set("show_link", int64(1))
 		} else {
 			tokens.Set("show_link", int64(0))
@@ -180,7 +180,7 @@ func (s *Server) beforeTemplate(c *Ctx, tokens *tt.Hash) {
 	if id := c.SessionGet("views_other_user_id"); tt.True(id) {
 		if p, _ := tokens.Get("page"); strings.Contains(tt.Str(p), "data") || strings.Contains(tt.Str(p), "view") {
 			if id64, ok := toInt64(id); ok {
-				if u := s.E.FindUser(id64); u != nil {
+				if u := c.E.FindUser(id64); u != nil {
 					c.Notice("You are currently viewing, editing and creating views as " + u.Value)
 				}
 			}

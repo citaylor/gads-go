@@ -17,7 +17,7 @@ func (s *Server) hHelptext(c *Ctx) string {
 		}
 	}
 	// Hardened (M-1): only the help of a field the user can read
-	if col != nil && s.E.Config.Hardened && (c.Instances().Layout(col.InstanceID) == nil || !col.UserCan("read")) {
+	if col != nil && c.E.Config.Hardened && (c.Instances().Layout(col.InstanceID) == nil || !col.UserCan("read")) {
 		col = nil
 	}
 	tokens := tt.HashOf()
@@ -32,7 +32,7 @@ func (s *Server) hHelptext(c *Ctx) string {
 // get '/match/user/' (GADS.pm:1956 and the table route GADS.pm:4451)
 func (s *Server) hMatchUser(c *Ctx) string {
 	c.ContentType("application/json")
-	return gads.EncodeJSON(s.E.MatchUsers(c.ParamS("q")))
+	return gads.EncodeJSON(c.E.MatchUsers(c.ParamS("q")))
 }
 
 // get '/:layout_name/match/user/' (GADS.pm:4451)

@@ -48,7 +48,7 @@ func ttMetricGroup(mg *gads.MetricGroup) *ttLazy {
 func (s *Server) hMetrics(c *Ctx) string {
 	layout := c.metricLayout()
 	metrics := tt.NewList()
-	for _, mg := range s.E.MetricGroups(layout.InstanceID) {
+	for _, mg := range c.E.MetricGroups(layout.InstanceID) {
 		metrics.Items = append(metrics.Items, ttMetricGroup(mg))
 	}
 	return c.Template("metrics", tt.HashOf(
@@ -66,7 +66,7 @@ func (s *Server) hMetrics(c *Ctx) string {
 func (s *Server) hMetric(c *Ctx) string {
 	layout := c.metricLayout()
 	id, _ := c.Param("id")
-	mg := s.E.NewMetricGroup(id, layout.InstanceID)
+	mg := c.E.NewMetricGroup(id, layout.InstanceID)
 	param := func(k string) any {
 		if v, ok := c.Param(k); ok {
 			return v
@@ -105,7 +105,7 @@ func (s *Server) hMetric(c *Ctx) string {
 		if !truthy(in.ID) {
 			in.ID = nil
 		}
-		if c.Process(func() { s.E.WriteMetric(in) }) {
+		if c.Process(func() { c.E.WriteMetric(in) }) {
 			c.ForwardHome("success", "Metric has been "+action+" successfully", lo+"/metric/"+id)
 		}
 	}

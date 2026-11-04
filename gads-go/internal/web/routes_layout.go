@@ -62,12 +62,12 @@ func (o *ttInstancesObj) TTMethod(name string, args []any) ([]any, bool, error) 
 }
 
 // ttGroupsObj is GADS::Groups
-type ttGroupsObj struct{ s *Server }
+type ttGroupsObj struct{ e *gads.Engine }
 
 func (o *ttGroupsObj) TTMethod(name string, args []any) ([]any, bool, error) {
 	if name == "all" {
 		l := tt.NewList()
-		for _, g := range o.s.E.Groups() {
+		for _, g := range o.e.Groups() {
 			l.Items = append(l.Items, newRow("group", g))
 		}
 		return []any{l}, true, nil
@@ -128,7 +128,7 @@ func (s *Server) hLayout(c *Ctx) string {
 		}
 		if v, _ := c.Param("delete"); truthy(v) {
 			// Logged in case of repercussions of the deletion
-			s.E.Audit(map[string]any{
+			c.E.Audit(map[string]any{
 				"user_id":     user.ID,
 				"description": `User "` + user.Username + `" deleted field "` + column.Name + `"`,
 				"type":        "user_action",
@@ -178,12 +178,12 @@ func (s *Server) hLayout(c *Ctx) string {
 		userFields = []any{}
 	}
 	params.Set("people_fields", perlEncodeBase64(gads.EncodeJSON(userFields)))
-	params.Set("groups", &ttGroupsObj{s: s})
+	params.Set("groups", &ttGroupsObj{e: c.E})
 	params.Set("permissions", permissionTypes())
 	params.Set("permission_mapping", permissionMapping())
 	params.Set("permission_inputs", permissionInputs())
 	topics := tt.NewList()
-	for _, r := range s.E.DB.Query(`SELECT * FROM "topic" "me" WHERE "me"."instance_id" = ?`, layout.InstanceID) {
+	for _, r := range c.E.DB.Query(`SELECT * FROM "topic" "me" WHERE "me"."instance_id" = ?`, layout.InstanceID) {
 		topics.Items = append(topics.Items, newRow("topic", r))
 	}
 	params.Set("topics", topics)
@@ -194,7 +194,7 @@ func (s *Server) hLayout(c *Ctx) string {
 	params.Set("breadcrumbs", crumbs)
 	if v, _ := c.Param("saveposition"); truthy(v) {
 		position := c.body.getAll("position")
-		if c.Process(func() { s.E.SetColumnPositions(position) }) {
+		if c.Process(func() { c.E.SetColumnPositions(position) }) {
 			c.ForwardHome("success", "The ordering has been saved successfully", lo+"/layout")
 		}
 	}

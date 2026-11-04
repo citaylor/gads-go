@@ -39,9 +39,9 @@ func (s *Server) dashboardFor(c *Ctx, layout *gads.Layout) *gads.Dashboard {
 	if dash, ok := persistent["dashboard"].(map[string]any); ok {
 		id, _ = toInt64(dash[key])
 	}
-	d := s.E.FindDashboard(id, user, layout)
+	d := c.E.FindDashboard(id, user, layout)
 	if d == nil {
-		d = s.E.SharedDashboard(user, layout, c.Site())
+		d = c.E.SharedDashboard(user, layout, c.Site())
 	}
 	return d
 }
@@ -53,7 +53,7 @@ func (s *Server) hIndex(c *Ctx) string {
 	params := tt.HashOf(
 		"readonly", ttBoolEmpty(d.IsShared() && !user.Permission()["superadmin"]),
 		"dashboard", c.ttDashboard(d),
-		"dashboards_json", s.E.DashboardsJSON(user, nil, c.Site()),
+		"dashboards_json", c.E.DashboardsJSON(user, nil, c.Site()),
 		"page", "index",
 		"content_block_main_custom_classes", "pt-0",
 		"content_block_custom_classes", "ps-0",
@@ -79,7 +79,7 @@ func (s *Server) hTableIndex(c *Ctx) string {
 	params := tt.HashOf(
 		"readonly", ttBoolEmpty(d.IsShared() && !layout.UserCan("layout")),
 		"dashboard", c.ttDashboard(d),
-		"dashboards_json", s.E.DashboardsJSON(user, layout, c.Site()),
+		"dashboards_json", c.E.DashboardsJSON(user, layout, c.Site()),
 		"page", "table_index",
 		"header_type", "table_tabs",
 		"content_block_custom_classes", "ps-0",
@@ -104,7 +104,7 @@ func (s *Server) hTableIndex(c *Ctx) string {
 // GET /table/? (GADS.pm:1415)
 func (s *Server) hTables(c *Ctx) string {
 	instances := tt.NewList()
-	for _, r := range s.E.DB.Query(`SELECT * FROM "instance" "me"` + siteWhereMe(s.E)) {
+	for _, r := range c.E.DB.Query(`SELECT * FROM "instance" "me"` + siteWhereMe(c.E)) {
 		instances.Items = append(instances.Items, newRow("instance", r))
 	}
 	layouts := tt.NewList()
@@ -112,7 +112,7 @@ func (s *Server) hTables(c *Ctx) string {
 		layouts.Items = append(layouts.Items, c.ttLayout(l))
 	}
 	groups := tt.NewList()
-	for _, r := range s.E.DB.Query(`SELECT "me"."id", "me"."name" FROM "group" "me"` + siteWhereMe(s.E) + ` ORDER BY "me"."name"`) {
+	for _, r := range c.E.DB.Query(`SELECT "me"."id", "me"."name" FROM "group" "me"` + siteWhereMe(c.E) + ` ORDER BY "me"."name"`) {
 		groups.Items = append(groups.Items, tt.HashOf("id", ttValue(r["id"]), "name", ttValue(r["name"])))
 	}
 	return c.Template("tables", tt.HashOf(
@@ -457,9 +457,9 @@ func (c *Ctx) widgetTable(records *gads.Records, layout *gads.Layout, params *tt
 }
 
 func (s *Server) widgetTT() *tt.Engine {
-	if s.ttDefault == nil {
+	s.ttDefaultOnce.Do(func() {
 		s.ttDefault = tt.NewEngine(s.Views)
 		s.ttDefault.NoAnyCase = true
-	}
+	})
 	return s.ttDefault
 }

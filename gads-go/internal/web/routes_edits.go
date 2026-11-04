@@ -44,7 +44,7 @@ func (s *Server) hEdits(c *Ctx) string {
 	failed := false
 	for _, k := range keys {
 		values, _ := records[k].(map[string]any)
-		record := s.E.NewRecord(layout, user)
+		record := c.E.NewRecord(layout, user)
 		currentID, _ := toInt64(values["current_id"])
 		record.FindCurrentID(currentID, gads.FindOptions{})
 		// The layout may be that of another table

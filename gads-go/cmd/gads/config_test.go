@@ -192,3 +192,25 @@ func (h withoutTime) Handle(ctx context.Context, r slog.Record) error {
 	r.Time = time.Time{}
 	return h.Handler.Handle(ctx, r)
 }
+
+// The number of workers: GADS_WORKERS, then gads: workers, then 5
+func TestWorkers(t *testing.T) {
+	cfg := &appConfig{raw: map[string]any{}}
+	if n, err := cfg.workers(); n != defaultWorkers || err != nil {
+		t.Errorf("default: %d %v", n, err)
+	}
+	cfg.raw["gads"] = map[string]any{"workers": 3}
+	if n, err := cfg.workers(); n != 3 || err != nil {
+		t.Errorf("configured: %d %v", n, err)
+	}
+	t.Setenv("GADS_WORKERS", "8")
+	if n, err := cfg.workers(); n != 8 || err != nil {
+		t.Errorf("environment: %d %v", n, err)
+	}
+	for _, bad := range []string{"0", "x", "65", "-1"} {
+		t.Setenv("GADS_WORKERS", bad)
+		if _, err := cfg.workers(); err == nil {
+			t.Errorf("%q accepted", bad)
+		}
+	}
+}

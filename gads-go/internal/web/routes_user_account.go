@@ -38,7 +38,7 @@ func (s *Server) hAPIUserAccount(c *Ctx) string {
 	var update *gads.User
 	if hasID {
 		if n, ok := toInt64(id); ok {
-			update = s.E.FindUser(n)
+			update = c.E.FindUser(n)
 		}
 		if update == nil {
 			gads.Fail("User id %s not found", id)
@@ -68,7 +68,7 @@ func (s *Server) hAPIUserAccount(c *Ctx) string {
 		m.To = []string{email}
 		return m
 	}
-	s.E.CreateUser(values)
+	c.E.CreateUser(values)
 	return c.apiSuccess("User created successfully")
 }
 

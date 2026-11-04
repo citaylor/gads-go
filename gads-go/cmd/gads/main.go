@@ -191,7 +191,24 @@ func serve(args []string) int {
 	wcfg := cfg.webConfig()
 	wcfg.Logger, wcfg.AccessLogger = logger, access
 	srv := web.New(e, wcfg, *views, *public)
-	logger.Info("GADS listening", "address", *listen)
+	// As the worker processes of Perl GADS, requests are dispatched on
+	// several engines at once, each with its own connection
+	n, err := cfg.workers()
+	if err != nil {
+		return fail(err)
+	}
+	var more []*gads.Engine
+	for range n - 1 {
+		w, err := e.Fork()
+		if err != nil {
+			return fail(err)
+		}
+		w.Fork = e.Fork
+		defer func() { w.Close(); w.DB.Close() }()
+		more = append(more, w)
+	}
+	srv.SetWorkers(more...)
+	logger.Info("GADS listening", "address", *listen, "workers", n)
 	server := &http.Server{
 		Addr:    *listen,
 		Handler: srv,
@@ -219,7 +236,7 @@ func serve(args []string) int {
 	}
 	// Imports still running are waited for (Perl's forked processes
 	// outlive the application)
-	if !e.WaitBackground(backgroundDrainTimeout) {
+	if !srv.WaitBackground(backgroundDrainTimeout) {
 		logger.Warn("GADS stopped with imports still running")
 	}
 	return 0

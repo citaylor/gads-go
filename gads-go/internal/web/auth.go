@@ -157,12 +157,12 @@ func (s *Server) hashPassword(pw string) string {
 
 // upgradePassword rehashes a password that has just been checked, if it
 // is not stored with the hash of hashPassword
-func (s *Server) upgradePassword(userID int64, pw, stored string) {
-	if cfg := s.E.Config; !cfg.Hardened || cfg.PerlPasswordHashes ||
+func (c *Ctx) upgradePassword(userID int64, pw, stored string) {
+	if cfg := c.E.Config; !cfg.Hardened || cfg.PerlPasswordHashes ||
 		strings.HasPrefix(stored, "{"+pbkdf2Scheme+"}") {
 		return
 	}
-	s.E.DB.UpdateMap("user", map[string]any{"password": hashPasswordPBKDF2(pw)}, map[string]any{"id": userID})
+	c.E.DB.UpdateMap("user", map[string]any{"password": hashPasswordPBKDF2(pw)}, map[string]any{"id": userID})
 }
 
 // authenticateUser is authenticate_user: returns whether the username and
@@ -179,7 +179,7 @@ func (c *Ctx) authenticateUser(username, password string) bool {
 	if !MatchPassword(password, pw) {
 		return false
 	}
-	c.s.upgradePassword(user.ID, password, pw)
+	c.upgradePassword(user.ID, password, pw)
 	if ll, ok := db.AsTime(user.Row["lastlogin"]); ok && user.Row["lastlogin"] != nil {
 		c.SessionSet("logged_in_user_lastlogin", ll.Unix())
 	}

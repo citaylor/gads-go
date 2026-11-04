@@ -10,9 +10,9 @@ import (
 
 // ttGroups is GADS::Groups all for templates (hashes, as templates set
 // keys of the group objects)
-func (s *Server) ttGroups() *tt.List {
+func (c *Ctx) ttGroups() *tt.List {
 	l := tt.NewList()
-	for _, g := range s.E.Groups() {
+	for _, g := range c.E.Groups() {
 		l.Items = append(l.Items, tt.HashOf("id", ttValue(g["id"]), "name", ttValue(g["name"])))
 	}
 	return l
@@ -20,10 +20,10 @@ func (s *Server) ttGroups() *tt.List {
 
 // ttUserValues is the values of the user fields with lists (GADS::Users
 // titles, organisations, departments and teams)
-func (s *Server) ttUserValues() *tt.Hash {
+func (c *Ctx) ttUserValues() *tt.Hash {
 	list := func(table string) *tt.List {
 		l := tt.NewList()
-		for _, r := range s.E.OrderedList(table) {
+		for _, r := range c.E.OrderedList(table) {
 			l.Items = append(l.Items, tt.HashOf("label_plain", ttValue(r["name"]), "value", ttValue(r["id"])))
 		}
 		return l
@@ -38,9 +38,9 @@ func (s *Server) ttUserValues() *tt.Hash {
 
 // ttPermissions is GADS::Users permissions: the global permissions in
 // their order
-func (s *Server) ttPermissions() *tt.List {
+func (c *Ctx) ttPermissions() *tt.List {
 	l := tt.NewList()
-	for _, r := range s.E.DB.Query(`SELECT * FROM "permission" "me" ORDER BY "order"`) {
+	for _, r := range c.E.DB.Query(`SELECT * FROM "permission" "me" ORDER BY "order"`) {
 		l.Items = append(l.Items, newRow("permission", r))
 	}
 	return l
@@ -51,13 +51,13 @@ func (s *Server) hUserOverview(c *Ctx) string {
 	if truthy(c.ParamS("sendemail")) {
 		var emails []string
 		if truthy(c.ParamS("group_ids")) {
-			emails = s.E.GroupUserEmails(c.allParams().getAll("group_ids"))
+			emails = c.E.GroupUserEmails(c.allParams().getAll("group_ids"))
 		} else {
-			emails = s.E.ActiveUserEmails()
+			emails = c.E.ActiveUserEmails()
 		}
 		if len(emails) > 0 {
 			if c.Process(func() {
-				s.E.SendMessage(c.ParamS("email_subject"), c.ParamS("email_text"), emails, c.LoggedInUser())
+				c.E.SendMessage(c.ParamS("email_subject"), c.ParamS("email_text"), emails, c.LoggedInUser())
 			}) {
 				c.ForwardHome("success", "The message has been sent successfully", "user_overview/")
 			}
@@ -66,9 +66,9 @@ func (s *Server) hUserOverview(c *Ctx) string {
 		}
 	}
 	return c.Template("user/user_overview", tt.HashOf(
-		"groups", s.ttGroups(),
-		"values", s.ttUserValues(),
-		"permissions", s.ttPermissions(),
+		"groups", c.ttGroups(),
+		"values", c.ttUserValues(),
+		"permissions", c.ttPermissions(),
 		"page", "user",
 	), nil)
 }
@@ -79,7 +79,7 @@ func (s *Server) hUserOverview(c *Ctx) string {
 func (s *Server) retireUser(c *Ctx, id, rejectText string) bool {
 	var u *gads.User
 	if n, ok := toInt64(id); ok {
-		u = s.E.FindSiteUser(n)
+		u = c.E.FindSiteUser(n)
 	}
 	ok := c.Process(func() {
 		if u == nil {
@@ -89,7 +89,7 @@ func (s *Server) retireUser(c *Ctx, id, rejectText string) bool {
 		u.Retire(true, rejectText)
 	})
 	if ok {
-		s.E.AuditLoginChange(c.LoggedInUser(), "User ID "+id+" deleted")
+		c.E.AuditLoginChange(c.LoggedInUser(), "User ID "+id+" deleted")
 	}
 	return ok
 }
@@ -97,7 +97,7 @@ func (s *Server) retireUser(c *Ctx, id, rejectText string) bool {
 // any '/user_requests/' (GADS.pm:1547)
 func (s *Server) hUserRequests(c *Ctx) string {
 	requests := tt.NewList()
-	for _, u := range s.E.AccountRequests() {
+	for _, u := range c.E.AccountRequests() {
 		requests.Items = append(requests.Items, c.ttUser(u))
 	}
 	if id := c.ParamS("delete"); truthy(id) {
@@ -110,9 +110,9 @@ func (s *Server) hUserRequests(c *Ctx) string {
 	}
 	return c.Template("user/user_request", tt.HashOf(
 		"users", requests,
-		"groups", s.ttGroups(),
-		"values", s.ttUserValues(),
-		"permissions", s.ttPermissions(),
+		"groups", c.ttGroups(),
+		"values", c.ttUserValues(),
+		"permissions", c.ttPermissions(),
 		"page", "user",
 	), nil)
 }
@@ -125,7 +125,7 @@ func (s *Server) hUserEdit(c *Ctx) string {
 	}
 	var edit *gads.User
 	if n, ok := toInt64(id); ok {
-		edit = s.E.FindActiveOrRequestUser(n)
+		edit = c.E.FindActiveOrRequestUser(n)
 	}
 	if edit == nil {
 		gads.Fail("User id %s not found", id)
@@ -176,9 +176,9 @@ func (s *Server) hUserEdit(c *Ctx) string {
 	}
 	return c.Template("user/user_edit", tt.HashOf(
 		"edituser", c.ttUser(edit),
-		"groups", s.ttGroups(),
-		"values", s.ttUserValues(),
-		"permissions", s.ttPermissions(),
+		"groups", c.ttGroups(),
+		"values", c.ttUserValues(),
+		"permissions", c.ttPermissions(),
 		"page", "user",
 	), nil)
 }
@@ -201,7 +201,7 @@ func (s *Server) hUserUpload(c *Ctx) string {
 			if file != nil {
 				content = file.Content
 			}
-			count = s.E.UploadUsers(content, file != nil, gads.UploadUsersOptions{
+			count = c.E.UploadUsers(content, file != nil, gads.UploadUsersOptions{
 				ViewLimits:  toAnyList(c.body.getAll("view_limits")),
 				Groups:      toAnyList(c.body.getAll("groups")),
 				Permissions: toAnyList(c.body.getAll("permission")),
@@ -218,8 +218,8 @@ func (s *Server) hUserUpload(c *Ctx) string {
 	}
 	return c.Template("user/user_upload", tt.HashOf(
 		"page", "user",
-		"groups", s.ttGroups(),
-		"permissions", s.ttPermissions(),
+		"groups", c.ttGroups(),
+		"permissions", c.ttPermissions(),
 	), nil)
 }
 
@@ -227,12 +227,12 @@ func (s *Server) hUserUpload(c *Ctx) string {
 func (s *Server) hUserExport(c *Ctx) string {
 	user := c.LoggedInUser()
 	if v, _ := c.BodyParam("submit"); truthy(v) {
-		if c.Process(func() { s.E.ExportUsers(user) }) {
+		if c.Process(func() { c.E.ExportUsers(user) }) {
 			c.ForwardHome("success", "The export has been started successfully", "user_export/")
 		}
 	}
 	if id, _ := c.QueryParam("download"); truthy(id) {
-		row := s.E.DB.QueryRow(`SELECT * FROM "export" "me" WHERE "id" = ? AND "user_id" = ? LIMIT 1`, id, user.ID)
+		row := c.E.DB.QueryRow(`SELECT * FROM "export" "me" WHERE "id" = ? AND "user_id" = ? LIMIT 1`, id, user.ID)
 		if row == nil {
 			gads.Fail("Download not found")
 		}
@@ -249,12 +249,12 @@ func (s *Server) hUserExport(c *Ctx) string {
 		return c.SendFile([]byte(content), `text/csv; charset="utf-8"`, now+header+".csv")
 	}
 	if v, _ := c.BodyParam("clear"); truthy(v) {
-		if c.Process(func() { s.E.DB.Exec(`DELETE FROM "export" WHERE "user_id" = ?`, user.ID) }) {
+		if c.Process(func() { c.E.DB.Exec(`DELETE FROM "export" WHERE "user_id" = ?`, user.ID) }) {
 			c.ForwardHome("success", "The export has been deleted successfully", "user_export/")
 		}
 	}
 	exports := tt.NewList()
-	for _, r := range s.E.DB.Query(`SELECT * FROM "export" "me" WHERE "me"."user_id" = ? ORDER BY "me"."completed" DESC`, user.ID) {
+	for _, r := range c.E.DB.Query(`SELECT * FROM "export" "me" WHERE "me"."user_id" = ? ORDER BY "me"."completed" DESC`, user.ID) {
 		row := newRow("export", r)
 		r := r
 		row.set("success", func([]any) any {

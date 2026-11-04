@@ -56,11 +56,11 @@ func (o *ttLayoutObj) TTMethod(name string, args []any) ([]any, bool, error) {
 	case "referred_by":
 		// The fields of other tables with curval fields of this table
 		list := tt.NewList()
-		for _, r := range o.c.s.E.DB.Query(`SELECT DISTINCT "me".* FROM "layout" "me" JOIN "curval_fields" "curval_fields_parents" ON "curval_fields_parents"."parent_id" = "me"."id" JOIN "layout" "child" ON "child"."id" = "curval_fields_parents"."child_id" WHERE "child"."instance_id" = ? ORDER BY "me"."id"`, l.InstanceID) {
+		for _, r := range o.c.E.DB.Query(`SELECT DISTINCT "me".* FROM "layout" "me" JOIN "curval_fields" "curval_fields_parents" ON "curval_fields_parents"."parent_id" = "me"."id" JOIN "layout" "child" ON "child"."id" = "curval_fields_parents"."child_id" WHERE "child"."instance_id" = ? ORDER BY "me"."id"`, l.InstanceID) {
 			row := newRow("layout", r)
 			iid := r["instance_id"]
 			row.set("instance", func([]any) any {
-				if ir := o.c.s.E.DB.QueryRow(`SELECT * FROM "instance" WHERE "id" = ?`, iid); ir != nil {
+				if ir := o.c.E.DB.QueryRow(`SELECT * FROM "instance" WHERE "id" = ?`, iid); ir != nil {
 					return newRow("instance", ir)
 				}
 				return nil

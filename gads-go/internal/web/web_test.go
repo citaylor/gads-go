@@ -390,9 +390,9 @@ func TestSaltedHashValidate(t *testing.T) {
 // The bearer token of the Authorization header (verify_token_and_scope):
 // other types or a missing token are invalid requests
 func TestVerifyTokenAndScopeHeader(t *testing.T) {
-	s := &Server{}
+	c := &Ctx{s: &Server{}}
 	for _, h := range []string{"", "Basic abc", "Token abc", "Bearer"} {
-		if res := s.verifyTokenAndScope("", h, h != ""); res.client != nil || res.err != "invalid_request" {
+		if res := c.verifyTokenAndScope("", h, h != ""); res.client != nil || res.err != "invalid_request" {
 			t.Errorf("header %q: %+v", h, res)
 		}
 	}

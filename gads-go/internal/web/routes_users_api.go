@@ -25,7 +25,7 @@ func (s *Server) hAPIUsers(c *Ctx) string {
 		}
 	}
 	get := func(k string) (string, bool) { v, ok := params[k]; return v, ok }
-	site := s.E.Site()
+	site := c.E.Site()
 	row := site.Row()
 	flag := func(k string) bool { return truthy(row[k]) }
 	str := func(k string) string { v, _ := db.AsString(row[k]); return v }
@@ -66,16 +66,16 @@ func (s *Server) hAPIUsers(c *Ctx) string {
 	if !truthy(length) {
 		length = "10"
 	}
-	if s.E.Config.Hardened {
+	if c.E.Config.Hardened {
 		length = fmtInt(s.clampRows(perlInt(length)))
 	}
 
 	from := ` FROM "user" "me" LEFT JOIN "organisation" "organisation" ON "organisation"."id" = "me"."organisation" LEFT JOIN "department" "department" ON "department"."id" = "me"."department_id" LEFT JOIN "team" "team" ON "team"."id" = "me"."team_id" LEFT JOIN "title" "title" ON "title"."id" = "me"."title"`
 	where := []string{`"me"."account_request" = 0`, `"me"."deleted" IS NULL`}
-	if s.E.SiteID != 0 {
-		where = append(where, `"me"."site_id" = `+fmtInt(s.E.SiteID))
+	if c.E.SiteID != 0 {
+		where = append(where, `"me"."site_id" = `+fmtInt(c.E.SiteID))
 	}
-	total, _ := s.E.DB.QueryInt64(`SELECT COUNT( * )` + from + ` WHERE ` + strings.Join(where, " AND "))
+	total, _ := c.E.DB.QueryInt64(`SELECT COUNT( * )` + from + ` WHERE ` + strings.Join(where, " AND "))
 
 	colOrder, hasOrder := get("order[0][column]")
 	var sortBy string
@@ -152,12 +152,12 @@ func (s *Server) hAPIUsers(c *Ctx) string {
 		where = append(where, "( "+strings.Join(conds, " OR ")+" )")
 	}
 	cond := ` WHERE ` + strings.Join(where, " AND ")
-	filtered, _ := s.E.DB.QueryInt64(`SELECT COUNT( * )`+from+cond, args...)
+	filtered, _ := c.E.DB.QueryInt64(`SELECT COUNT( * )`+from+cond, args...)
 	order := "DESC"
 	if dir == "asc" {
 		order = "ASC"
 	}
-	rows := s.E.DB.Query(`SELECT "me"."id", "me"."surname", "me"."firstname", "title"."name" AS "title_name", "me"."email", "organisation"."name" AS "organisation_name", "department"."name" AS "department_name", "team"."name" AS "team_name", "me"."created", "me"."freetext1", "me"."freetext2", "me"."lastlogin", "me"."value", "created_by"."firstname" AS "created_by_firstname", "created_by"."surname" AS "created_by_surname", "created_by"."id" AS "created_by_id"`+
+	rows := c.E.DB.Query(`SELECT "me"."id", "me"."surname", "me"."firstname", "title"."name" AS "title_name", "me"."email", "organisation"."name" AS "organisation_name", "department"."name" AS "department_name", "team"."name" AS "team_name", "me"."created", "me"."freetext1", "me"."freetext2", "me"."lastlogin", "me"."value", "created_by"."firstname" AS "created_by_firstname", "created_by"."surname" AS "created_by_surname", "created_by"."id" AS "created_by_id"`+
 		from+` LEFT JOIN "user" "created_by" ON "created_by"."id" = "me"."created_by_id"`+cond+` ORDER BY `+sortBy+` `+order+` LIMIT ? OFFSET ?`, append(args, length, start)...)
 
 	data := []any{}
@@ -256,19 +256,19 @@ func (s *Server) hAPIFieldValues(c *Ctx) string {
 	cid, _ := toInt64(colID)
 	curval := layout.Column(cid)
 	// Hardened (M-1): only a field of this table that the user can read
-	if curval != nil && s.E.Config.Hardened && (!layout.ColumnThisInstance(cid) || !curval.UserCan("read")) {
+	if curval != nil && c.E.Config.Hardened && (!layout.ColumnThisInstance(cid) || !curval.UserCan("read")) {
 		gads.Fail("Field ID %s not found", colID)
 	}
 	if curval == nil {
 		gads.Panic(`Can't call method "subvals_input_required" on an undefined value`)
 	}
 
-	record := s.E.NewRecord(layout, user)
+	record := c.E.NewRecord(layout, user)
 	record.Initialise(0)
 
 	// Missing values are reported as non-fatal errors: all messages of the
 	// block are captured, and the errors reported to the caller
-	before := len(s.E.Reports)
+	before := len(c.E.Reports)
 	err := gads.Try(func() {
 		for _, col := range curval.SubvalsInputRequired() {
 			vals := []any{}
@@ -287,8 +287,8 @@ func (s *Server) hAPIFieldValues(c *Ctx) string {
 			SubmissionToken:  token,
 		})
 	})
-	reports := append([]gads.Report(nil), s.E.Reports[before:]...)
-	s.E.Reports = s.E.Reports[:before]
+	reports := append([]gads.Report(nil), c.E.Reports[before:]...)
+	c.E.Reports = c.E.Reports[:before]
 	var msgs []string
 	for _, r := range reports {
 		if r.Level == gads.LevelError {

@@ -334,7 +334,7 @@ func (s *Server) hData(c *Ctx) string {
 	}
 
 	// Get all alerts
-	alerts := s.E.UserAlerts(user)
+	alerts := c.E.UserAlerts(user)
 	views := c.E.NewViews(layout)
 	if ou := c.SessionGet("views_other_user_id"); truthy(ou) {
 		id, _ := toInt64(ou)
@@ -420,7 +420,7 @@ func (s *Server) dataTable(c *Ctx, layout *gads.Layout, user *gads.User, view *g
 		lid, _ := c.QueryParam("curval_layout_id")
 		var curvalName any
 		if n, ok := toInt64(lid); ok {
-			if r := s.E.DB.QueryRow(`SELECT "name" FROM "instance" WHERE "id" = ?`, n); r != nil {
+			if r := c.E.DB.QueryRow(`SELECT "name" FROM "instance" WHERE "id" = ?`, n); r != nil {
 				curvalName = r["name"]
 			}
 		}
@@ -480,7 +480,7 @@ func (s *Server) dataTable(c *Ctx, layout *gads.Layout, user *gads.User, view *g
 		if header != "" {
 			header = "-" + header
 		}
-		now := s.E.Now().Format("2006-01-02T15:04:05")
+		now := c.E.Now().Format("2006-01-02T15:04:05")
 		c.headers.Set("Content-Disposition", `attachment; filename="`+now+header+`.csv"`)
 		c.ctype = `text/csv; charset="utf-8"`
 		for {
@@ -613,7 +613,7 @@ func (s *Server) dataGraphView(c *Ctx, layout *gads.Layout, user *gads.User, par
 		c.SendFile([]byte(g.CSV(data)), "text/csv", "graph"+fmtInt(g.ID)+".csv")
 	}
 	graphs := tt.NewList()
-	for _, g := range s.E.AllGraphs(layout, user) {
+	for _, g := range c.E.AllGraphs(layout, user) {
 		graphs.Items = append(graphs.Items, c.ttGraph(g))
 	}
 	params.Set("graphs", graphs)
@@ -623,9 +623,9 @@ func (s *Server) dataGraphView(c *Ctx, layout *gads.Layout, user *gads.User, par
 // dataCalendar is the calendar view of the data page: the colours of the
 // date fields of the view, and the period viewed last
 func (s *Server) dataCalendar(c *Ctx, layout *gads.Layout, user *gads.User, view *gads.View, params *tt.Hash) {
-	records := s.E.NewRecords(layout, user)
+	records := c.E.NewRecords(layout, user)
 	records.View = view
-	gc := s.E.NewGraphColors()
+	gc := c.E.NewGraphColors()
 	colors := tt.NewList()
 	for _, col := range records.ColumnsRender() {
 		if col.Type == "daterange" || col.ReturnTypeFn() == "date" {
@@ -657,7 +657,7 @@ func (s *Server) dataGlobe(c *Ctx, layout *gads.Layout, user *gads.User, view *g
 		}
 		return fmtAny(opts[k])
 	}
-	globe := s.E.NewGlobe(gads.GlobeOptions{
+	globe := c.E.NewGlobe(gads.GlobeOptions{
 		Layout:     layout,
 		User:       user,
 		View:       view,
@@ -689,7 +689,7 @@ func (s *Server) dataGlobe(c *Ctx, layout *gads.Layout, user *gads.User, view *g
 func (s *Server) dataTimeline(c *Ctx, layout *gads.Layout, user *gads.User, view *gads.View, params *tt.Hash) {
 	records := c.newRecordsFor(layout, user, nil)
 	records.View = view
-	now := s.E.Now()
+	now := c.E.Now()
 	records.From = &now
 	tl := autoviv(autoviv(c.persistent(), "tl_options"), fmtInt(layout.InstanceID))
 	if truthy(c.ParamS("modal_timeline")) {

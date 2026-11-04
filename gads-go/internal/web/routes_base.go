@@ -49,7 +49,7 @@ func (s *Server) forwardLastTable(c *Ctx) {
 	}
 	var forward string
 	if l, ok := toInt64(c.persistent()["instance_id"]); ok && l != 0 {
-		if layout := s.E.NewInstances(c.LoggedInUser()).Layout(l); layout != nil {
+		if layout := c.E.NewInstances(c.LoggedInUser()).Layout(l); layout != nil {
 			forward = layout.Identifier()
 		}
 	}
@@ -64,17 +64,17 @@ func (s *Server) successfulLogin(c *Ctx, username, realm string) {
 	c.clearUserCache()
 	if v, _ := c.Param("remember_me"); truthy(v) {
 		c.SetCookie(&http.Cookie{Name: "remember_me", Value: url.QueryEscape(username), Path: "/", // #nosec G124 -- Secure on HTTPS and HttpOnly, as Perl
-			Expires: s.E.Now().Add(60 * 24 * time.Hour), Secure: c.Scheme() == "https", HttpOnly: true})
+			Expires: c.E.Now().Add(60 * 24 * time.Hour), Secure: c.Scheme() == "https", HttpOnly: true})
 	} else if _, ok := c.Cookie("remember_me"); ok {
-		c.SetCookie(&http.Cookie{Name: "remember_me", Value: "", Path: "/", Expires: s.E.Now().Add(-24 * time.Hour)}) // #nosec G124 -- an expired, empty cookie that clears remember_me
+		c.SetCookie(&http.Cookie{Name: "remember_me", Value: "", Path: "/", Expires: c.E.Now().Add(-24 * time.Hour)}) // #nosec G124 -- an expired, empty cookie that clears remember_me
 	}
 	user := c.LoggedInUser()
-	s.E.Audit(map[string]any{
+	c.E.Audit(map[string]any{
 		"user_id":     user.ID,
 		"description": "Successful login by username " + user.Username,
 		"type":        "login_success",
 	})
-	s.E.DB.UpdateMap("user", map[string]any{"failcount": 0, "lastfail": nil}, map[string]any{"id": user.ID})
+	c.E.DB.UpdateMap("user", map[string]any{"failcount": 0, "lastfail": nil}, map[string]any{"id": user.ID})
 	persistent := map[string]any{}
 	if ss, ok := db.AsString(user.Row["session_settings"]); ok {
 		var v map[string]any
@@ -99,7 +99,7 @@ func (s *Server) successfulLogin(c *Ctx, username, realm string) {
 
 // GET/POST /login (GADS.pm:562)
 func (s *Server) hLogin(c *Ctx) string {
-	e := s.E
+	e := c.E
 	if c.LoggedInUser() != nil {
 		c.ForwardHome("", "", "")
 	}
@@ -151,10 +151,10 @@ func (s *Server) hLogin(c *Ctx) string {
 	}
 
 	tokens := tt.HashOf(
-		"titles", s.idNameList("title"),
-		"organisations", s.idNameList("organisation"),
-		"departments", s.idNameList("department"),
-		"teams", s.idNameList("team"),
+		"titles", c.idNameList("title"),
+		"organisations", c.idNameList("organisation"),
+		"departments", c.idNameList("department"),
+		"teams", c.idNameList("team"),
 		"page", "login",
 		"body_class", "p-0",
 		"container_class", "login container-fluid",
@@ -177,10 +177,10 @@ func (s *Server) hLogin(c *Ctx) string {
 
 // idNameList is GADS::Users titles/organisations/departments/teams: the
 // rows ordered by name as {label_plain, value}
-func (s *Server) idNameList(table string) *tt.List {
+func (c *Ctx) idNameList(table string) *tt.List {
 	l := tt.NewList()
-	q := `SELECT "id", "name" FROM ` + db.Q(table) + ` "me" WHERE "me"."deleted" = 0` + siteAndMe(s.E) + ` ORDER BY "me"."name"`
-	for _, r := range s.E.DB.Query(q) {
+	q := `SELECT "id", "name" FROM ` + db.Q(table) + ` "me" WHERE "me"."deleted" = 0` + siteAndMe(c.E) + ` ORDER BY "me"."name"`
+	for _, r := range c.E.DB.Query(q) {
 		l.Items = append(l.Items, tt.HashOf("label_plain", ttValue(r["name"]), "value", ttValue(r["id"])))
 	}
 	return l

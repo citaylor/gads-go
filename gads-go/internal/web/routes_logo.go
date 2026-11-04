@@ -20,7 +20,7 @@ func (s *Server) hAPISettingsLogo(c *Ctx) string {
 		// the message, and File::LibMagic dies
 		gads.Panic("Files of mimetype %s are not allowed", gads.MimeType(file.Content))
 	}
-	s.E.DB.UpdateMap("site", map[string]any{"site_logo": file.Content}, map[string]any{"id": site.ID()})
+	c.E.DB.UpdateMap("site", map[string]any{"site_logo": file.Content}, map[string]any{"id": site.ID()})
 	c.ContentType("application/json")
 	// 201 is created rather than ok
 	c.Status(201)

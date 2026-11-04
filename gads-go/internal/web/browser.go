@@ -223,11 +223,17 @@ func (s *Server) chromiumPath() string {
 func (s *Server) finishBrowser(c *Ctx, req *http.Request) *bufferedResponse {
 	out, err := s.runBrowser(req.Context(), c.browser)
 	res := &bufferedResponse{header: http.Header{}, status: http.StatusOK}
-	s.mu.Lock()
-	defer s.mu.Unlock()
-	siteID := s.E.SiteID
-	defer s.resetEngine(siteID)
-	s.resetEngine(0)
+	// The response is written with an engine, as the route would have
+	e, ok := s.acquire(context.WithoutCancel(req.Context()))
+	if !ok {
+		res.status = http.StatusServiceUnavailable
+		return res
+	}
+	defer s.release(e)
+	c.E = e
+	siteID := e.SiteID
+	defer resetEngine(e, siteID)
+	resetEngine(e, 0)
 	if err != nil {
 		c.status = http.StatusOK
 		c.headers.Del("Content-Disposition")

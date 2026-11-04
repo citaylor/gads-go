@@ -63,6 +63,9 @@ services:
       # (default https://GADS_HOST/, with GADS_HTTPS_PORT unless it is 443)
       GADS_URL: ${GADS_URL:-}
       GADS_HTTPS_PORT: ${GADS_HTTPS_PORT:-443}
+      # Requests dispatched at once, each worker with its own database
+      # connection (default 5)
+      GADS_WORKERS: ${GADS_WORKERS:-}
     volumes:
       # Uploaded files (gads.uploads)
       - uploads:/var/lib/gads/uploads

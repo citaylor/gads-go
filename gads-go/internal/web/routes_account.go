@@ -11,10 +11,10 @@ import (
 // loginPageTokens are the tokens of the pages using the login layout
 func (s *Server) loginPageTokens(c *Ctx, page string) *tt.Hash {
 	h := tt.HashOf(
-		"titles", s.idNameList("title"),
-		"organisations", s.idNameList("organisation"),
-		"departments", s.idNameList("department"),
-		"teams", s.idNameList("team"),
+		"titles", c.idNameList("title"),
+		"organisations", c.idNameList("organisation"),
+		"departments", c.idNameList("department"),
+		"teams", c.idNameList("team"),
 		"page", page,
 		"body_class", "p-0",
 		"container_class", "login container-fluid",
@@ -45,26 +45,26 @@ func (s *Server) hRegister(c *Ctx) string {
 			gads.Fail("Self-service account requests are not enabled on this site")
 		}
 		email := c.ParamS("email")
-		if s.E.Config.Hardened {
+		if c.E.Config.Hardened {
 			checkRegisterLengths(c)
 		}
-		if s.E.UserExists(email) {
-			code := s.E.NewToken(32)
-			user := s.E.FindActiveUser(email)
+		if c.E.UserExists(email) {
+			code := c.E.NewToken(32)
+			user := c.E.FindActiveUser(email)
 			// Hardened (M-9): a pending reset code is sent again rather
 			// than replaced, so that anyone requesting an account with the
 			// address cannot cancel the owner's password reset
-			if pending, _ := db.AsString(user.Row["resetpw"]); s.E.Config.Hardened && pending != "" {
+			if pending, _ := db.AsString(user.Row["resetpw"]); c.E.Config.Hardened && pending != "" {
 				code = pending
 			}
-			s.E.DB.UpdateMap("user", map[string]any{"resetpw": code}, map[string]any{"id": user.ID})
+			c.E.DB.UpdateMap("user", map[string]any{"resetpw": code}, map[string]any{"id": user.ID})
 			m := s.welcomeText(c, code)
 			m.To = []string{email}
-			if c.Process(func() { s.E.SendEmail(m) }) {
+			if c.Process(func() { c.E.SendEmail(m) }) {
 				// Show same message as normal request
 				c.ForwardHome("success", "Your account request has been received successfully", "")
 			}
-			s.E.AuditLoginChange(nil, "Account request for "+email+". Account already existed, resending welcome email.")
+			c.E.AuditLoginChange(nil, "Account request for "+email+". Account already existed, resending welcome email.")
 			c.ForwardHome("success", "Your account request has been received successfully", "")
 		}
 		params := map[string]any{}
@@ -73,13 +73,13 @@ func (s *Server) hRegister(c *Ctx) string {
 				params[k] = v
 			}
 		}
-		err := gads.Try(func() { s.E.Register(params) })
+		err := gads.Try(func() { c.E.Register(params) })
 		if ge, ok := err.(*gads.Error); ok && (ge.Level == gads.LevelError || ge.Level == "") {
 			errText = ge.Msg
 		} else if err != nil {
 			panic(err)
 		} else {
-			s.E.AuditLoginChange(nil, "New user account request for "+email)
+			c.E.AuditLoginChange(nil, "New user account request for "+email)
 			c.ForwardHome("success", "Your account request has been received successfully", "")
 		}
 	}
@@ -92,11 +92,11 @@ func (s *Server) hRegister(c *Ctx) string {
 func (s *Server) hMyAccount(c *Ctx) string {
 	user := c.LoggedInUser()
 	if truthy(c.ParamS("newpassword")) {
-		pw := s.E.RandomPassword()
+		pw := c.E.RandomPassword()
 		username, _ := c.SessionGet("logged_in_user").(string)
 		if c.authenticateUser(username, c.ParamS("oldpassword")) {
-			s.setUserPassword(username, pw)
-			s.E.AuditLoginChange(user, "New password set for user")
+			c.setUserPassword(username, pw)
+			c.E.AuditLoginChange(user, "New password set for user")
 			c.ForwardHome("success", "Your password has been changed to: "+pw, "myaccount")
 		} else {
 			c.ForwardHome("danger", "The existing password entered is incorrect", "myaccount")
@@ -124,54 +124,54 @@ func (s *Server) hMyAccount(c *Ctx) string {
 		"user", c.ttUser(user),
 		"page", "myaccount",
 		"values", tt.HashOf(
-			"title", s.idNameList("title"),
-			"organisation", s.idNameList("organisation"),
-			"department_id", s.idNameList("department"),
-			"team_id", s.idNameList("team"),
+			"title", c.idNameList("title"),
+			"organisation", c.idNameList("organisation"),
+			"department_id", c.idNameList("department"),
+			"team_id", c.idNameList("team"),
 		),
 	), nil)
 }
 
 // setUserPassword is set_user_password of the DBIC provider: the password
 // of the first active user with the username is set, with the time changed
-func (s *Server) setUserPassword(username, password string) {
-	u := s.E.FindActiveUser(username)
+func (c *Ctx) setUserPassword(username, password string) {
+	u := c.E.FindActiveUser(username)
 	if u == nil {
 		return
 	}
-	s.E.DB.UpdateMap("user", map[string]any{"password": s.hashPassword(password), "pwchanged": s.E.Now()}, map[string]any{"id": u.ID})
+	c.E.DB.UpdateMap("user", map[string]any{"password": c.s.hashPassword(password), "pwchanged": c.E.Now()}, map[string]any{"id": u.ID})
 }
 
 // userByResetCode is get_user_by_code of the DBIC provider: the active
 // user with the password reset code
-func (s *Server) userByResetCode(code string) *gads.User {
+func (c *Ctx) userByResetCode(code string) *gads.User {
 	if code == "" {
 		return nil
 	}
-	id, ok := s.E.DB.QueryInt64(`SELECT "me"."id" FROM "user" "me" WHERE "me"."deleted" IS NULL AND "me"."account_request" = 0 AND "me"."resetpw" = ?`+siteAndMe(s.E)+` LIMIT 1`, code)
+	id, ok := c.E.DB.QueryInt64(`SELECT "me"."id" FROM "user" "me" WHERE "me"."deleted" IS NULL AND "me"."account_request" = 0 AND "me"."resetpw" = ?`+siteAndMe(c.E)+` LIMIT 1`, code)
 	if !ok {
 		return nil
 	}
-	return s.E.FindUser(id)
+	return c.E.FindUser(id)
 }
 
 // passwordResetSend is password_reset_send of Auth::Extensible: a reset
 // code is set for the user and the reset email (GADS::reset_text) sent.
 // The result is always defined (0 when there is no such user).
 func (s *Server) passwordResetSend(c *Ctx, username string) bool {
-	code := s.E.NewToken(32)
-	u := s.E.FindActiveUser(username)
+	code := c.E.NewToken(32)
+	u := c.E.FindActiveUser(username)
 	if u == nil {
 		return true
 	}
-	s.E.DB.UpdateMap("user", map[string]any{"resetpw": code}, map[string]any{"id": u.ID})
+	c.E.DB.UpdateMap("user", map[string]any{"resetpw": code}, map[string]any{"id": u.ID})
 	name := c.siteName()
 	url := c.Base() + "resetpw/" + code
 	body := "A request to reset your " + name + " password has been received. Please\nclick on the following link to set and retrieve a new password:\n\n" + url + "\n"
 	html := "<p>A request to reset your " + name + " password has been received. Please\nclick on the following link to set and retrieve a new password:</p>\n\n<p><a href=\"" + url + "\">" + url + "<a></p>\n"
 	email, _ := db.AsString(u.Row["email"])
-	if s.E.Emailer != nil {
-		s.E.Emailer(gads.Email{Subject: "Password reset request", To: []string{email}, Text: gads.TextWrap(body), HTML: html})
+	if c.E.Emailer != nil {
+		c.E.Emailer(gads.Email{Subject: "Password reset request", To: []string{email}, Text: gads.TextWrap(body), HTML: html})
 	}
 	return true
 }
@@ -185,7 +185,7 @@ func (s *Server) hResetPW(c *Ctx) string {
 	if _, ok := c.Param("resetpwd"); ok {
 		if username := c.ParamS("emailreset"); username != "" {
 			if gads.EmailValid(username) {
-				s.E.AuditLoginChange(nil, "Password reset request for "+username)
+				c.E.AuditLoginChange(nil, "Password reset request for "+username)
 				if s.passwordResetSend(c, username) {
 					c.Success("An email has been sent to your email address with a link to reset your password")
 				} else {
@@ -210,7 +210,7 @@ func (s *Server) hResetPWCode(c *Ctx) string {
 		c.updateCSRFToken()
 	}
 	code, _ := c.RouteParam("code")
-	user := s.userByResetCode(code)
+	user := c.userByResetCode(code)
 	if user == nil {
 		c.ForwardHome("danger", "The password reset code is not valid. Please request a new one\n                using the \"Reset Password\" link", "login")
 	}
@@ -224,16 +224,16 @@ func (s *Server) hResetPWCode(c *Ctx) string {
 	if _, ok := c.Param("execute_reset"); ok {
 		c.DestroySession()
 		username, _ := db.AsString(user.Row["username"])
-		active := s.E.FindActiveUser(username)
-		s.E.DB.UpdateMap("user", map[string]any{"failcount": int64(0)}, map[string]any{"id": active.ID})
-		s.E.AuditLoginChange(active, "Password reset performed for user ID "+fmtInt(active.ID))
-		pw := s.E.RandomPassword()
-		if u := s.userByResetCode(code); u != nil {
+		active := c.E.FindActiveUser(username)
+		c.E.DB.UpdateMap("user", map[string]any{"failcount": int64(0)}, map[string]any{"id": active.ID})
+		c.E.AuditLoginChange(active, "Password reset performed for user ID "+fmtInt(active.ID))
+		pw := c.E.RandomPassword()
+		if u := c.userByResetCode(code); u != nil {
 			name, _ := db.AsString(u.Row["username"])
-			s.setUserPassword(name, pw)
+			c.setUserPassword(name, pw)
 			// Stop reset code being reused
-			if a := s.E.FindActiveUser(name); a != nil {
-				s.E.DB.UpdateMap("user", map[string]any{"resetpw": nil}, map[string]any{"id": a.ID})
+			if a := c.E.FindActiveUser(name); a != nil {
+				c.E.DB.UpdateMap("user", map[string]any{"resetpw": nil}, map[string]any{"id": a.ID})
 			}
 			c.DestroySession()
 		}

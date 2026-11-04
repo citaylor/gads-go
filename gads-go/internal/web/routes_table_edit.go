@@ -115,7 +115,7 @@ func (s *Server) hTablePermissions(c *Ctx) string {
 	}
 	base := c.Base()
 	groups := tt.NewList()
-	for _, g := range s.E.Groups() {
+	for _, g := range c.E.Groups() {
 		groups.Items = append(groups.Items, newRow("group", g))
 	}
 	return c.Template("table_permissions", tt.HashOf(

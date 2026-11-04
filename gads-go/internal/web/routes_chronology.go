@@ -11,7 +11,7 @@ func (s *Server) hRecordBody(c *Ctx) string {
 	idS, _ := c.RouteParam("id")
 	id, _ := toInt64(idS)
 	versionID, _ := toInt64(c.ParamS("version_id"))
-	record := s.E.NewRecordUnattached(c.LoggedInUser())
+	record := c.E.NewRecordUnattached(c.LoggedInUser())
 	record.Rewind = sessionRewind(c)
 	if err := gads.Try(func() {
 		if versionID != 0 {
@@ -44,7 +44,7 @@ func (s *Server) hRecordBody(c *Ctx) string {
 func (s *Server) hChronology(c *Ctx) string {
 	idS, _ := c.RouteParam("id")
 	id, _ := toInt64(idS)
-	record := s.E.NewRecordUnattached(c.LoggedInUser())
+	record := c.E.NewRecordUnattached(c.LoggedInUser())
 	if truthy(idS) && !reDigitsOnly.MatchString(idS) {
 		gads.Fail("Invalid record ID %s", idS)
 	}

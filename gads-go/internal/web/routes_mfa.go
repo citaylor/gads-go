@@ -111,7 +111,7 @@ func (s *Server) hMFA(c *Ctx) string {
 		// Ask user to authenticate
 		if token := body("token"); truthy(token) {
 			lastfail, _ := user.MFALastfail()
-			if user.MFAFailcount() > 5 && lastfail.Add(15*time.Minute).After(s.E.Now()) {
+			if user.MFAFailcount() > 5 && lastfail.Add(15*time.Minute).After(c.E.Now()) {
 				gads.Fail("Multi-factor authentication is currently unavailable, please try again shortly.")
 			} else if user.CheckToken(token, "") {
 				s.mfaTokenSuccess(c, user, token)
@@ -119,7 +119,7 @@ func (s *Server) hMFA(c *Ctx) string {
 				c.Warning("Incorrect or invalid token entered")
 				user.UpdateMFA(map[string]any{
 					"mfa_failcount": user.MFAFailcount() + 1,
-					"mfa_lastfail":  s.E.Now(),
+					"mfa_lastfail":  c.E.Now(),
 				})
 			}
 		}
@@ -136,17 +136,17 @@ func (s *Server) hMFA(c *Ctx) string {
 // key in both a cookie and the database to allow it to be reused
 func (s *Server) mfaTokenSuccess(c *Ctx, user *gads.User, token string) {
 	if prev := user.Row["mfa_token_previous"]; truthy(prev) && fmtAny(prev) == token {
-		if used, ok := user.MFATokenPreviousUsed(); ok && used.Add(5*time.Minute).After(s.E.Now()) {
+		if used, ok := user.MFATokenPreviousUsed(); ok && used.Add(5*time.Minute).After(c.E.Now()) {
 			c.Warning("The authentication token has already been used in the last 5 minutes, possibly an attacker?")
 		}
 	}
-	key := s.E.NewToken(32)
+	key := c.E.NewToken(32)
 	user.UpdateMFA(map[string]any{
 		"mfa_failcount":           0,
 		"mfa_lastfail":            nil,
 		"mfa_token_previous":      token,
 		"mfa_token_previous_type": user.MFATypeEffective(),
-		"mfa_token_previous_used": s.E.Now(),
+		"mfa_token_previous_used": c.E.Now(),
 		"mfa_token_previous_key":  key,
 	})
 	c.refreshRecentMFACookie(key)

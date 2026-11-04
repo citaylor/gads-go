@@ -154,6 +154,31 @@ func (c *appConfig) engineConfig() *gads.Config {
 	return cfg
 }
 
+// defaultWorkers is the number of requests dispatched at once without
+// gads: workers (Starman's default number of worker processes is 5)
+const defaultWorkers = 5
+
+// maxWorkers limits gads: workers, as each worker has its own database
+// connection
+const maxWorkers = 64
+
+// workers is the number of engines of gads serve: GADS_WORKERS, otherwise
+// gads: workers, otherwise defaultWorkers
+func (c *appConfig) workers() (int, error) {
+	v := os.Getenv("GADS_WORKERS")
+	if v == "" {
+		v = asString(c.section("gads")["workers"])
+	}
+	if v == "" {
+		return defaultWorkers, nil
+	}
+	n, err := strconv.Atoi(strings.TrimSpace(v))
+	if err != nil || n < 1 || n > maxWorkers {
+		return 0, fmt.Errorf("workers must be a number from 1 to %d: %q", maxWorkers, v)
+	}
+	return n, nil
+}
+
 // webConfig is the configuration of the web application
 func (c *appConfig) webConfig() *web.Config {
 	cfg := web.DefaultConfig()

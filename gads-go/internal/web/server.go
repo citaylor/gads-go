@@ -7,6 +7,7 @@ package web
 
 import (
 	"bytes"
+	"context"
 	"errors"
 	"fmt"
 	"io"
@@ -103,7 +104,9 @@ type Server struct {
 	AppPublic string
 	TT        *tt.Engine
 	// ttDefault renders templates as a Template object with default options
-	ttDefault *tt.Engine
+	// (made once, by ttDefaultOnce)
+	ttDefault     *tt.Engine
+	ttDefaultOnce sync.Once
 
 	router   *Router
 	sessions *sessionStore
@@ -111,9 +114,11 @@ type Server struct {
 	// healthState is the health check, and healthLimiter its rate limit
 	healthState   healthState
 	healthLimiter rateLimiter
-	// GADS (as Perl Dancer2 with a single worker) processes one request at
-	// a time: the engine is not safe for concurrent use
-	mu sync.Mutex
+	// engines are the workers, as the processes of Perl GADS: each request
+	// takes a free one for its dispatch, as an engine is not safe for
+	// concurrent use. pool is all of them, E first.
+	engines chan *gads.Engine
+	pool    []*gads.Engine
 }
 
 // New creates the web application. views is the directory of the
@@ -131,11 +136,57 @@ func New(e *gads.Engine, cfg *Config, views, public string) *Server {
 		router:   &Router{},
 		sessions: newSessionStore(cfg.Session.IdleTimeout),
 	}
+	s.SetWorkers()
 	s.healthLimiter.limit = healthRateLimit
 	s.TT = tt.NewEngine(views)
 	s.TT.Filters = map[string]func(string) string{}
 	s.routes()
 	return s
+}
+
+// SetWorkers makes the engines of the server E and those given, each with
+// its own database connection and Lua interpreter: as many requests are
+// dispatched at once as there are engines (one by default, as Perl
+// Dancer2 with one worker). It is called before the server is used.
+func (s *Server) SetWorkers(engines ...*gads.Engine) {
+	s.pool = append([]*gads.Engine{s.E}, engines...)
+	s.engines = make(chan *gads.Engine, len(s.pool))
+	for _, e := range s.pool {
+		s.engines <- e
+	}
+}
+
+// Workers is the number of engines
+func (s *Server) Workers() int { return len(s.pool) }
+
+// acquire takes a free engine, waiting for one until ctx is done
+func (s *Server) acquire(ctx context.Context) (*gads.Engine, bool) {
+	select {
+	case e := <-s.engines:
+		return e, true
+	default:
+	}
+	select {
+	case e := <-s.engines:
+		return e, true
+	case <-ctx.Done():
+		return nil, false
+	}
+}
+
+// release returns an engine to the pool
+func (s *Server) release(e *gads.Engine) { s.engines <- e }
+
+// WaitBackground waits for the background work (imports) of all the
+// engines, up to timeout, and is whether it all finished
+func (s *Server) WaitBackground(timeout time.Duration) bool {
+	end := time.Now().Add(timeout)
+	for _, e := range s.pool {
+		if !e.WaitBackground(max(time.Until(end), 0)) {
+			return false
+		}
+	}
+	return true
 }
 
 // ---------------------------------------------------------------------
@@ -532,7 +583,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		w = sw
 		defer s.logRequest(rl, sw, req)
 	}
-	// Only the dispatch holds the engine lock: static files, the request
+	// Only the dispatch holds an engine: static files, the request
 	// body and the response are transferred without it, so that a slow
 	// client does not hold up others
 	if s.serveStatic(w, req) {
@@ -547,7 +598,6 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	}
 	c := &Ctx{
 		s:       s,
-		E:       s.E,
 		Req:     req,
 		vars:    map[string]any{},
 		headers: http.Header{},
@@ -563,16 +613,26 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, "Request Entity Too Large", http.StatusRequestEntityTooLarge)
 		return
 	}
+	// The requests of a session run one at a time, as their changes to it
+	// would otherwise be lost or mixed. Its lock is taken before an
+	// engine, so that a request waiting for it holds none.
+	unlock := c.lockSession()
+	defer unlock()
+	e, ok := s.acquire(req.Context())
+	if !ok {
+		http.Error(w, "Service Unavailable", http.StatusServiceUnavailable)
+		return
+	}
+	c.E = e
 	res := &bufferedResponse{header: http.Header{}, status: http.StatusOK}
-	s.mu.Lock()
 	func() {
-		defer s.mu.Unlock()
-		siteID := s.E.SiteID
+		defer s.release(e)
+		siteID := e.SiteID
 		// Whatever a failed request left behind does not reach the next
-		defer s.resetEngine(siteID)
-		s.resetEngine(0)
-		if s.E.Config.Hardened && safeMethod(req.Method) {
-			defer s.readOnly()()
+		defer resetEngine(e, siteID)
+		resetEngine(e, 0)
+		if e.Config.Hardened && safeMethod(req.Method) {
+			defer readOnly(e)()
 		}
 		if rl != nil {
 			rl.user = c.cookieUser()
@@ -593,13 +653,29 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	if c.browser != nil {
 		res = s.finishBrowser(c, req)
 	}
+	unlock()
 	res.sendTo(w)
+}
+
+// lockSession takes the request lock of the session of the request's
+// cookie, if it has one, and returns the function that releases it (once)
+func (c *Ctx) lockSession() func() {
+	id, ok := c.Cookie(c.s.Config.Session.CookieName)
+	if !ok {
+		return func() {}
+	}
+	sess := c.s.sessions.peek(id)
+	if sess == nil {
+		return func() {}
+	}
+	sess.lock.Lock()
+	var once sync.Once
+	return func() { once.Do(sess.lock.Unlock) }
 }
 
 // resetEngine returns the engine to its state between requests: the
 // permission overrides off, no transaction open, no reports
-func (s *Server) resetEngine(siteID int64) {
-	e := s.E
+func resetEngine(e *gads.Engine, siteID int64) {
 	e.SiteID = siteID
 	e.Reports = nil
 	e.IgnorePermissions = false
@@ -607,7 +683,7 @@ func (s *Server) resetEngine(siteID int64) {
 	e.DB.RollbackAll()
 }
 
-// bufferedResponse holds a response until the engine lock is released
+// bufferedResponse holds a response until the engine is released
 type bufferedResponse struct {
 	header http.Header
 	status int

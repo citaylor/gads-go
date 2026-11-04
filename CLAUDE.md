@@ -228,17 +228,34 @@ Debugging environment variables:
   - Go slices given to templates must be a `tt.List`; a nil slice would
     loop once.
   - Lazy hashes (`ttLazy`) stand in for DBIC rows and objects.
-- **Concurrency.** One `gads.Engine` serves all requests behind a single
-  mutex (`Server.mu`), like a one-worker Dancer2. Only dispatch holds the
-  lock; static files, request bodies and responses are transferred outside
-  it, and mail is sent by a background queue. The engine is not safe for
-  concurrent use.
+- **Concurrency.** As Perl GADS runs worker processes, `gads serve`
+  dispatches requests on a pool of engines (`Server.SetWorkers`; `gads:
+  workers` or `GADS_WORKERS`, default 5 as Starman, at most 64). Each
+  engine has its own database connection and Lua interpreter (made with
+  `Engine.Fork`), and serves one request at a time: an engine is not safe
+  for concurrent use. A request takes a free engine (`acquire`) only for
+  its dispatch; static files, request bodies and responses are transferred
+  outside it, and mail is sent by a background queue. Without
+  `SetWorkers` (the conformance runner, the tests) there is one engine,
+  `Server.E`.
+  - Handlers use the request's engine, `c.E`, never `s.E` (which is only
+    the first of the pool): anything holding an engine for later, such as
+    a template object, takes `c.E`. `s.E.Config` is shared by all the
+    engines and read only.
+  - The requests of one session run one at a time (`Session.lock`, taken
+    before an engine, so that a request waiting for it holds none), so
+    that their changes to the session are not mixed.
+  - Engines keep no data between requests, so that one sees at once what
+    another wrote. Package-level caches and lazily made values need a lock
+    or `sync.Once` (`regexCache`, the CLDR patterns, autoformat's
+    `rePostClose`, `London`, `widgetTT`). `TestWorkersConcurrent` runs
+    requests on several engines and sessions at once (with `-race`).
   - Engine flags changed for a while (`IgnorePermissions`,
     `IgnorePermissionsSearch`, as Perl's `local`) must be restored with
-    `defer`, or a failure leaves the shared engine changed for every
-    later request. `Server.resetEngine` also resets them, rolls back any
-    open transaction and clears the reports around each request.
-  - Anything that can run without end holds up every user, so user code
+    `defer`, or a failure leaves the engine changed for its later
+    requests. `resetEngine` also resets them, rolls back any open
+    transaction and clears the reports around each request.
+  - Anything that can run without end holds up a worker, so user code
     has limits (see Deviations).
   - The work that Perl forks a process for runs on a forked engine
     (`Engine.Fork`, `Engine.Background`): an engine of its own, with its
@@ -247,10 +264,10 @@ Debugging environment variables:
     serve` waits for them at exit (2 minutes; compose's
     `stop_grace_period` is 3m). Without `Fork` (the scripts, and the
     conformance runner, as GADS_NO_FORK) the work runs in process;
-    `TestImportForked` runs the import scenarios forked. Package-level
-    caches shared by engines need a lock (`regexCache`). On SQLite, as
-    DBD::SQLite, transactions are `BEGIN IMMEDIATE` and a locked database
-    is waited for 30 s (`busy_timeout`), so that both connections write.
+    `TestImportForked` runs the import scenarios forked. `gads serve`
+    waits for those of every engine. On SQLite, as DBD::SQLite,
+    transactions are `BEGIN IMMEDIATE` and a locked database is waited for
+    30 s (`busy_timeout`), so that several connections write.
 - **Dead code.** Keep `staticcheck` and `deadcode -test ./...` clean.
   `goLuaCallback` is a cgo export and deadcode can't see it, so keep
   what it calls inside it.
@@ -310,6 +327,10 @@ Configuration works as in Dancer2:
   as Perl), and `chromium_no_sandbox: 1` runs it without its sandbox
   (set in the Docker image, whose seccomp profile does not allow it).
 - `serve` listens on `-listen`, otherwise `GADS_LISTEN`, otherwise `:3000`.
+- `serve` dispatches `GADS_WORKERS`, otherwise `gads: workers`, otherwise
+  5 requests at once, each on an engine with its own database connection
+  (see Concurrency): on PostgreSQL, keep `max_connections` above the
+  workers plus the imports running.
 - `serve` logs to stdout with `log/slog` (`cmd/gads/logging.go`,
   `internal/web/logging.go`):
   - The request log (`web.Config.AccessLogger`): one line per request with
@@ -326,9 +347,9 @@ Configuration works as in Dancer2:
   - `gads: log_format: json` writes JSON. Each response has
     `X-Request-ID`, taken from the proxy with `behind_proxy`. With both
     loggers nil (the conformance runner) nothing is logged or added.
-- `GET /healthz` (no login) answers `ok` when the engine is free within
-  10 s and the database answers, otherwise 503. One check runs at a time
-  and its result is kept for 1 s, so calls can't queue for the engine.
+- `GET /healthz` (no login) answers `ok` when an engine is free within
+  10 s and its database answers, otherwise 503. One check runs at a time
+  and its result is kept for 1 s, so calls can't queue for the engines.
   Each client address may make 60 checks a minute (then 429), hardened
   or not; Docker's own checks come from 127.0.0.1 and count apart.
   `gads healthcheck [-url URL]` checks it (the default URL follows
@@ -424,9 +445,9 @@ Changes made in the Go code that don't affect parity:
 - Session cookie settings follow Dancer2: Secure, SameSite, duration, and an
   idle expiry.
 - Server timeouts: read-header 30 s, read 10 min, idle 2 min.
-- The engine lock no longer covers network I/O, nor Chrome: a page is
-  rendered under the lock, then loaded and printed after it, at most two
-  browsers at once and for at most two minutes each. Chrome is driven
+- A request holds its engine for neither network I/O nor Chrome: a page
+  is rendered with the engine, then loaded and printed after releasing
+  it, at most two browsers at once and for at most two minutes each. Chrome is driven
   over a pipe, not WMC's port 9222 with `--remote-allow-origins=*`.
 - Line breaks are stripped from mail address headers, so they can't add
   headers.
@@ -500,8 +521,8 @@ Not fixed:
     which avoids a quadratic search plan.
   - The SAML callback fails as Perl's does. Working verification would be an
     optional deviation.
-  - Limits on user code, which in Perl could block one worker but in Go
-    would block everyone:
+  - Limits on user code, which could otherwise hold a worker without
+    end (in Perl, a worker process):
     - Lua stops after about 1e9 instructions (about 4 s; "code stopped
       after running more than N instructions") and is limited to 512 MB
       while code runs ("not enough memory"). These are

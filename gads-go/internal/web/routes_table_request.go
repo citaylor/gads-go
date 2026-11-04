@@ -27,7 +27,7 @@ func (s *Server) hAPITableRequest(c *Ctx) string {
 	if !ok {
 		gads.Panic("Not a HASH reference")
 	}
-	s.E.DB.Txn(func() { s.createTable(c, body) })
+	c.E.DB.Txn(func() { s.createTable(c, body) })
 	return c.apiSuccess("Table created successfully")
 }
 
@@ -108,7 +108,7 @@ func wizardIDs(v any) []int64 {
 // createTable is API.pm _create_table
 func (s *Server) createTable(c *Ctx, params map[string]any) {
 	user := c.LoggedInUser()
-	table := s.E.NewLayout(0, user)
+	table := c.E.NewLayout(0, user)
 	var groupPerms []string
 	for _, perm := range wizardList(params["table_permissions"]) {
 		gid := fmtAny(perm["group_id"])
@@ -149,7 +149,7 @@ func (s *Server) createTable(c *Ctx, params map[string]any) {
 		if truthy(top["expanded"]) {
 			state = "open"
 		}
-		topics[fmtAny(top["tempId"])] = s.E.DB.InsertMap("topic", map[string]any{
+		topics[fmtAny(top["tempId"])] = c.E.DB.InsertMap("topic", map[string]any{
 			"instance_id":   table.InstanceID,
 			"name":          top["name"],
 			"description":   top["description"],
