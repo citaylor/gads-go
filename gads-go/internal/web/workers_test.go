@@ -16,11 +16,12 @@ import (
 
 	"github.com/ctrlo/gads-go/internal/db"
 	"github.com/ctrlo/gads-go/internal/gads"
+	"github.com/ctrlo/gads-go/internal/tt"
 )
 
-// workersServer is a server with n engines on a new SQLite database file,
-// with users u0@example.com ... (password "pw")
-func workersServer(t *testing.T, n, users int) *Server {
+// workersDB is a new SQLite database file with users u0@example.com ...
+// (password "pw"), open on d
+func workersDB(t *testing.T, users int) (string, *db.DB) {
 	t.Helper()
 	// (deployed in memory, then copied, which is much faster)
 	path := filepath.Join(t.TempDir(), "gads.db")
@@ -45,6 +46,14 @@ func workersServer(t *testing.T, n, users int) *Server {
 			"email": name, "firstname": "U", "surname": fmt.Sprint(i), "value": "U, " + fmt.Sprint(i),
 			"password": HashPassword("pw"), "pwchanged": time.Now(), "account_request": int64(0)})
 	}
+	return path, d
+}
+
+// workersServer is a server with n engines on a new SQLite database file,
+// with users u0@example.com ... (password "pw")
+func workersServer(t *testing.T, n, users int) *Server {
+	t.Helper()
+	path, d := workersDB(t, users)
 	e, err := gads.NewEngine(d, gads.DefaultConfig())
 	if err != nil {
 		t.Fatal(err)
@@ -179,5 +188,103 @@ func TestWorkersConcurrent(t *testing.T) {
 	// Every engine is back in the pool
 	if len(s.engines) != s.Workers() {
 		t.Errorf("%d engines free of %d", len(s.engines), s.Workers())
+	}
+}
+
+// A request waits for the one before it of the same session, holding no
+// engine, and gives up when it ends; other sessions go on meanwhile
+func TestWorkersSessionLock(t *testing.T) {
+	s := workersServer(t, 2, 2)
+	a, b := &client{s: s}, &client{s: s}
+	for i, cl := range []*client{a, b} {
+		if err := cl.login(fmt.Sprintf("u%d@example.com", i)); err != nil {
+			t.Fatal(err)
+		}
+	}
+	sess := s.sessions.peek(a.cookie.Value)
+	if !sess.acquire(context.Background()) {
+		t.Fatal("lock not taken")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 200*time.Millisecond)
+	w := a.do(ctx, "GET", "/myaccount/", nil)
+	cancel()
+	if w.Code != http.StatusServiceUnavailable {
+		t.Errorf("request of a busy session: %d", w.Code)
+	}
+	if len(s.engines) != 2 {
+		t.Errorf("a waiting request holds an engine: %d free", len(s.engines))
+	}
+	if w := b.do(context.Background(), "GET", "/myaccount/", nil); w.Code != http.StatusOK {
+		t.Errorf("other session: %d", w.Code)
+	}
+	// Once released, the session's next request runs
+	done := make(chan int)
+	go func() { done <- a.do(context.Background(), "GET", "/myaccount/", nil).Code }()
+	select {
+	case code := <-done:
+		t.Fatalf("ran while the session was busy: %d", code)
+	case <-time.After(100 * time.Millisecond):
+	}
+	sess.release()
+	if code := <-done; code != http.StatusOK {
+		t.Errorf("after release: %d", code)
+	}
+}
+
+// The health check needs one free engine, not all of them
+func TestWorkersHealth(t *testing.T) {
+	defer func(d, c time.Duration) { healthTimeout, healthCache = d, c }(healthTimeout, healthCache)
+	healthTimeout, healthCache = 100*time.Millisecond, 0
+	s := workersServer(t, 2, 0)
+	e1, _ := s.acquire(context.Background())
+	if err := s.checkHealth(context.Background()); err != nil {
+		t.Errorf("one engine busy: %v", err)
+	}
+	e2, _ := s.acquire(context.Background())
+	if err := s.checkHealth(context.Background()); err == nil {
+		t.Error("every engine busy, but healthy")
+	}
+	s.release(e1)
+	s.release(e2)
+}
+
+// WaitBackground waits for the background work of every engine
+func TestServerWaitBackground(t *testing.T) {
+	s := workersServer(t, 2, 0)
+	fork := func() (*gads.Engine, error) {
+		d, err := db.OpenMemory()
+		if err != nil {
+			return nil, err
+		}
+		return gads.NewEngine(d, gads.DefaultConfig())
+	}
+	stop := make(chan struct{})
+	for _, e := range s.pool {
+		e.Fork = fork
+		e.Background(func(*gads.Engine) { <-stop })
+	}
+	if s.WaitBackground(50 * time.Millisecond) {
+		t.Error("finished with work running")
+	}
+	close(stop)
+	if !s.WaitBackground(5 * time.Second) {
+		t.Error("work not finished")
+	}
+}
+
+// The template engine of widgets is made once, whoever asks first
+func TestWidgetTTOnce(t *testing.T) {
+	s := workersServer(t, 1, 0)
+	engines := make([]*tt.Engine, 8)
+	var wg sync.WaitGroup
+	for i := range engines {
+		wg.Add(1)
+		go func() { defer wg.Done(); engines[i] = s.widgetTT() }()
+	}
+	wg.Wait()
+	for _, e := range engines {
+		if e != engines[0] || !e.NoAnyCase {
+			t.Fatal("widgetTT made more than one engine, or without NoAnyCase")
+		}
 	}
 }

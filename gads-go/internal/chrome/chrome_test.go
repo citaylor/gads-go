@@ -3,6 +3,7 @@ package chrome
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"image/png"
 	"net/http"
 	"net/http/httptest"
@@ -245,5 +246,36 @@ func TestTailWriter(t *testing.T) {
 	w.Write([]byte("[4:4:FATAL:zygote.cc:228] Zygote exited\n[5:5:ERROR:file_io.cc:145] open cpufreq\n"))
 	if got := w.lastError(); got != "[4:4:FATAL:zygote.cc:228] Zygote exited" {
 		t.Errorf("error %q", got)
+	}
+}
+
+// discard is a pipe to a fake browser
+type discard struct{}
+
+func (discard) Write(p []byte) (int, error) { return len(p), nil }
+func (discard) Close() error                { return nil }
+
+// Get waits for the stop of the navigation's own document: a stop of the
+// first about:blank of the same frame, kept from before or arriving after
+// Page.navigate, does not end it
+func TestGetWaitsForNavigation(t *testing.T) {
+	ev := func(method, params string) message {
+		return message{Method: method, Params: json.RawMessage(params)}
+	}
+	stale := ev("Page.frameStoppedLoading", `{"frameId":"F"}`)
+	b := &Browser{w: discard{}, msgs: make(chan message, 10), replies: map[int]message{}, stderr: &tailWriter{},
+		pending: []message{stale}}
+	b.msgs <- message{ID: 1, Result: json.RawMessage(`{"frameId":"F","loaderId":"L2"}`)}
+	b.msgs <- stale
+	b.msgs <- ev("Page.frameNavigated", `{"frame":{"id":"F","loaderId":"L1"}}`)
+	b.msgs <- ev("Page.frameNavigated", `{"frame":{"id":"F","loaderId":"L2"}}`)
+	b.msgs <- ev("Page.frameStoppedLoading", `{"frameId":"F"}`)
+	b.msgs <- ev("Page.loadEventFired", `{}`)
+	if err := b.Get(context.Background(), "file:///page.html"); err != nil {
+		t.Fatal(err)
+	}
+	// Everything up to the second stop was read, and no further
+	if len(b.msgs) != 1 {
+		t.Errorf("%d messages left, want 1 (Get ended early or late)", len(b.msgs))
 	}
 }

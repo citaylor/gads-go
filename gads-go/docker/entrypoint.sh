@@ -34,7 +34,7 @@ case "${GADS_BEHIND_PROXY:-0}" in
 esac
 case "${GADS_SECURE_COOKIES:-0}" in
     1 | true | yes)
-        printf 'engines:\n  session:\n    Simple:\n      is_secure: 1\n' \
+        printf 'engines:\n  session:\n    DBIC:\n      is_secure: 1\n' \
             >> "$GADS_CONFIG/environments/$DANCER_ENVIRONMENT.yml"
         ;;
 esac

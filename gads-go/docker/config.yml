@@ -17,13 +17,15 @@ logger: LogReport
 behind_proxy: 0
 show_errors: 0
 
-# The session cookie (Dancer2 session engine settings). Sessions are kept in
-# memory and dropped after session_duration without use. Set is_secure: 1
-# when the site is served over HTTPS.
-session: Simple
+# The session engine and its cookie (Dancer2 session engine settings).
+# DBIC keeps the sessions in the table "sessions" of the database, so that
+# they survive a restart (Simple keeps them in memory). They are dropped
+# after session_duration without use. Set is_secure: 1 when the site is
+# served over HTTPS.
+session: DBIC
 engines:
   session:
-    Simple:
+    DBIC:
       cookie_same_site: Lax
       session_duration: 8 hours
       # is_secure: 1

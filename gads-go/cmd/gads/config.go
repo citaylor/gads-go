@@ -201,14 +201,19 @@ func (c *appConfig) webConfig() *web.Config {
 	return cfg
 }
 
+// sessionEngine is the session engine named by "session" (Dancer2's
+// default is Simple)
+func (c *appConfig) sessionEngine() string {
+	if e := asString(c.raw["session"]); e != "" {
+		return e
+	}
+	return "Simple"
+}
+
 // sessionConfig is the cookie configuration of the session engine named
 // by "session" (engines: session: ENGINE:), over the Dancer2 defaults
 func (c *appConfig) sessionConfig(cfg web.SessionConfig) web.SessionConfig {
-	engine := asString(c.raw["session"])
-	if engine == "" {
-		engine = "Simple"
-	}
-	e := c.section("engines", "session", engine)
+	e := c.section("engines", "session", c.sessionEngine())
 	if v := asString(e["cookie_name"]); v != "" {
 		cfg.CookieName = v
 	}

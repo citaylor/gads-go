@@ -242,9 +242,10 @@ Debugging environment variables:
     the first of the pool): anything holding an engine for later, such as
     a template object, takes `c.E`. `s.E.Config` is shared by all the
     engines and read only.
-  - The requests of one session run one at a time (`Session.lock`, taken
-    before an engine, so that a request waiting for it holds none), so
-    that their changes to the session are not mixed.
+  - The requests of one session run one at a time (`Session.acquire`,
+    taken before an engine, so that a request waiting for it holds none,
+    and given up when the request ends), so that their changes to the
+    session are not mixed.
   - Engines keep no data between requests, so that one sees at once what
     another wrote. Package-level caches and lazily made values need a lock
     or `sync.Once` (`regexCache`, the CLDR patterns, autoformat's
@@ -311,9 +312,20 @@ Configuration works as in Dancer2:
 - The session cookie comes from `engines: session: <session engine>:`:
   `cookie_name`, `cookie_path`, `cookie_domain`, `cookie_duration`,
   `is_secure`, `is_http_only`, `cookie_same_site`, `session_duration`.
-  Sessions are kept in memory, so a restart logs everyone out. A session
-  unused for `session_duration` (otherwise `cookie_duration`, otherwise
-  7 days) is dropped.
+  A session unused for `session_duration` (otherwise `cookie_duration`,
+  otherwise 7 days) is dropped.
+- Sessions are kept by the engine that `session` names. `Simple` (Dancer2's
+  default) keeps them in memory, so a restart logs everyone out. `DBIC`
+  (the Docker image's) keeps them in the table `sessions` of the database,
+  which `serve` creates (`internal/web/session_db.go`), on a connection of
+  their own, so that a session's changes are written whatever the
+  request's transaction does. The rows are keyed by the SHA-256 of the
+  session ID, so that a reader of the database cannot take over sessions.
+  Each request reads its session again and writes it at its end if it
+  changed (or a minute after its last write, for the idle expiry). The
+  values keep their Go types (`encodeSession`); a value of another type
+  is not saved, and logged. Other engines, such as GADS's example `YAML`,
+  are kept in memory, with a warning.
 - Request bodies are limited to 100 MB (`web.Config.MaxBodyBytes`); a
   larger request gets 413.
 - `serve` stops on SIGINT or SIGTERM, letting requests in progress finish
@@ -388,6 +400,8 @@ docker compose --profile build up -d dev   # the source version on :3001
 docker compose restart dev                 # rebuild and rerun after a change
 ```
 
+- **Sessions** are in the database (`session: DBIC` in
+  `docker/config.yml`), so a restart or a new image keeps users logged in.
 - **Startup** (`docker/entrypoint.sh`):
   - Writes `environments/docker.yml` from `POSTGRES_*`, `SMTP_*`,
     `GADS_EMAIL_FROM` and `GADS_UPLOADS`.
@@ -544,6 +558,11 @@ Not fixed:
     string, depending on the values encoded before it; Go always writes a
     number.
   - Sessions expire after 7 days unused when no duration is configured.
+  - The `DBIC` session engine's table, `sessions`, is not part of GADS's
+    schema (as with Dancer2::Session::DBIC, which needs a table of the
+    application's own), and has a `last_active` column for the expiry.
+  - The requests of one session run one at a time. With Perl's YAML
+    sessions, two at once can each overwrite the other's changes.
   - A CSV download without the download permission redirects with the
     error. Perl has already started its streamed response, so the user
     gets an empty, unfinished download and the error goes to the log.

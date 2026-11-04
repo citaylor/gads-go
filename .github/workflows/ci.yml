@@ -48,6 +48,8 @@ jobs:
         run: |
           go test -race ./internal/web ./internal/db ./cmd/gads
           go test -race ./conformance -run 'TestImportForked'
+          go test -race ./internal/cldr ./internal/autoformat ./internal/gads ./internal/chrome \
+            -run 'TestPatternCacheConcurrent|TestConcurrent|TestLondonConcurrent|TestGetWaitsForNavigation'
 
   lint:
     runs-on: ubuntu-latest

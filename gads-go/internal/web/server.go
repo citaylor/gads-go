@@ -137,6 +137,11 @@ func New(e *gads.Engine, cfg *Config, views, public string) *Server {
 		sessions: newSessionStore(cfg.Session.IdleTimeout),
 	}
 	s.SetWorkers()
+	s.sessions.logError = func(msg string, err error) {
+		if s.Config.Logger != nil {
+			s.Config.Logger.Error(msg, "error", err.Error())
+		}
+	}
 	s.healthLimiter.limit = healthRateLimit
 	s.TT = tt.NewEngine(views)
 	s.TT.Filters = map[string]func(string) string{}
@@ -616,7 +621,11 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	// The requests of a session run one at a time, as their changes to it
 	// would otherwise be lost or mixed. Its lock is taken before an
 	// engine, so that a request waiting for it holds none.
-	unlock := c.lockSession()
+	unlock, ok := c.lockSession()
+	if !ok {
+		http.Error(w, "Service Unavailable", http.StatusServiceUnavailable)
+		return
+	}
 	defer unlock()
 	e, ok := s.acquire(req.Context())
 	if !ok {
@@ -653,24 +662,30 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	if c.browser != nil {
 		res = s.finishBrowser(c, req)
 	}
+	// A stored session is written once its request is done (as Dancer2
+	// flushes it), before the next request of the session may read it
+	s.sessions.save(c.session)
 	unlock()
 	res.sendTo(w)
 }
 
 // lockSession takes the request lock of the session of the request's
-// cookie, if it has one, and returns the function that releases it (once)
-func (c *Ctx) lockSession() func() {
+// cookie, if it has one, and returns the function that releases it (once).
+// It is false if the request ended while waiting.
+func (c *Ctx) lockSession() (func(), bool) {
 	id, ok := c.Cookie(c.s.Config.Session.CookieName)
 	if !ok {
-		return func() {}
+		return func() {}, true
 	}
 	sess := c.s.sessions.peek(id)
 	if sess == nil {
-		return func() {}
+		return func() {}, true
 	}
-	sess.lock.Lock()
+	if !sess.acquire(c.Req.Context()) {
+		return nil, false
+	}
 	var once sync.Once
-	return func() { once.Do(sess.lock.Unlock) }
+	return func() { once.Do(sess.release) }, true
 }
 
 // resetEngine returns the engine to its state between requests: the

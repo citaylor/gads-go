@@ -172,25 +172,28 @@ func serve(args []string) int {
 	if err != nil {
 		return fail(err)
 	}
-	e.Fork = func() (*gads.Engine, error) {
-		d, err := db.Open(driver, dsn)
-		if err != nil {
-			return nil, err
-		}
-		child, err := e.Forked(d)
-		if err != nil {
-			d.Close()
-			return nil, err
-		}
-		// (the request's emailer may be that of a GET, which refuses)
-		child.Emailer = m.Send
-		return child, nil
-	}
+	e.Fork = forkOf(driver, dsn, m.Send, e)
 	// Other log output (log.Printf, mail failures) goes to the same log
 	slog.SetDefault(logger)
 	wcfg := cfg.webConfig()
 	wcfg.Logger, wcfg.AccessLogger = logger, access
 	srv := web.New(e, wcfg, *views, *public)
+	// Sessions: in the table "sessions" with the DBIC engine (on a
+	// connection of their own), otherwise in memory as Dancer2's Simple
+	switch engine := cfg.sessionEngine(); engine {
+	case "DBIC":
+		sd, err := db.Open(driver, dsn)
+		if err != nil {
+			return fail(err)
+		}
+		defer sd.Close()
+		if err := srv.PersistSessions(sd); err != nil {
+			return fail(fmt.Errorf("sessions table: %w", err))
+		}
+	case "Simple":
+	default:
+		logger.Warn("session engine not supported: sessions are kept in memory, and lost on restart (use DBIC to keep them)", "engine", engine)
+	}
 	// As the worker processes of Perl GADS, requests are dispatched on
 	// several engines at once, each with its own connection
 	n, err := cfg.workers()
@@ -203,12 +206,11 @@ func serve(args []string) int {
 		if err != nil {
 			return fail(err)
 		}
-		w.Fork = e.Fork
 		defer func() { w.Close(); w.DB.Close() }()
 		more = append(more, w)
 	}
 	srv.SetWorkers(more...)
-	logger.Info("GADS listening", "address", *listen, "workers", n)
+	logger.Info("GADS listening", "address", *listen, "workers", n, "sessions", cfg.sessionEngine())
 	server := &http.Server{
 		Addr:    *listen,
 		Handler: srv,
@@ -240,6 +242,28 @@ func serve(args []string) int {
 		logger.Warn("GADS stopped with imports still running")
 	}
 	return 0
+}
+
+// forkOf makes the forks of an engine (Engine.Fork): an engine with the
+// settings of src on a new connection, whose emails are sent by send. Each
+// engine forks from itself, as it is the request using it that forks:
+// another engine's settings may be changing in another request.
+func forkOf(driver, dsn string, send func(gads.Email), src *gads.Engine) func() (*gads.Engine, error) {
+	return func() (*gads.Engine, error) {
+		d, err := db.Open(driver, dsn)
+		if err != nil {
+			return nil, err
+		}
+		child, err := src.Forked(d)
+		if err != nil {
+			d.Close()
+			return nil, err
+		}
+		// (the request's emailer may be that of a GET, which refuses)
+		child.Emailer = send
+		child.Fork = forkOf(driver, dsn, send, child)
+		return child, nil
+	}
 }
 
 // backgroundDrainTimeout is how long the imports still running at exit are

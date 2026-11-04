@@ -10,8 +10,71 @@ import (
 	"testing"
 	"time"
 
+	"github.com/ctrlo/gads-go/internal/db"
+	"github.com/ctrlo/gads-go/internal/gads"
 	"github.com/ctrlo/gads-go/internal/web"
 )
+
+// The session engine is "session", Simple by default (as Dancer2), and
+// its cookie settings are under its name
+func TestSessionEngine(t *testing.T) {
+	cfg := &appConfig{raw: map[string]any{}}
+	if e := cfg.sessionEngine(); e != "Simple" {
+		t.Errorf("default: %s", e)
+	}
+	cfg.raw["session"] = "DBIC"
+	cfg.raw["engines"] = map[string]any{"session": map[string]any{
+		"DBIC":   map[string]any{"cookie_name": "gads.session"},
+		"Simple": map[string]any{"cookie_name": "other"},
+	}}
+	if e := cfg.sessionEngine(); e != "DBIC" {
+		t.Errorf("configured: %s", e)
+	}
+	if n := cfg.webConfig().Session.CookieName; n != "gads.session" {
+		t.Errorf("cookie of DBIC: %s", n)
+	}
+}
+
+// Each fork has its own connection and the sender of emails, and forks
+// from itself
+func TestForkOf(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "gads.db")
+	d, err := db.Open("sqlite", path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer d.Close()
+	e, err := gads.NewEngine(d, gads.DefaultConfig())
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer e.Close()
+	sent := 0
+	e.SiteID = 3
+	e.Fork = forkOf("sqlite", path, func(gads.Email) { sent++ }, e)
+	child, err := e.Fork()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() { child.Close(); child.DB.Close() }()
+	if child.DB == e.DB || child.Lua == e.Lua || child.Fork == nil || child.SiteID != 3 {
+		t.Fatal("fork shares the connection or interpreter, or lacks Fork")
+	}
+	child.Emailer(gads.Email{})
+	if sent != 1 {
+		t.Error("fork's emails not sent by the mailer")
+	}
+	// A fork of the fork takes the fork's settings
+	child.SiteID = 7
+	grand, err := child.Fork()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer func() { grand.Close(); grand.DB.Close() }()
+	if grand.SiteID != 7 {
+		t.Errorf("fork of a fork has site %d, want 7", grand.SiteID)
+	}
+}
 
 func TestMapDSN(t *testing.T) {
 	cases := []struct {
