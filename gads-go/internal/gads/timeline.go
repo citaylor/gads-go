@@ -817,6 +817,10 @@ func perlHasTime(c *Column) any {
 // another table in the range, as background items
 func (r *Records) timelineOverlay(instanceID int64, from, to *time.Time) []TimelineItem {
 	layout := r.e.NewLayout(instanceID, r.User)
+	if len(layout.rset()) == 0 {
+		// As Perl, which dies calling a method of the undefined instance
+		Panic(`Can't call method on an undefined value: no instance %d`, instanceID)
+	}
 	// Only show the first field, plus all the date fields
 	var toShow []int64
 	picked := false

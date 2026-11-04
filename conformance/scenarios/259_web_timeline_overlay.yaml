@@ -6,7 +6,7 @@ description: >
   A timeline with the records of another table as its background (the
   overlay of the timeline options): the first field and the date fields of
   the other table, in the range of the timeline, with the end of an item
-  without one set to its start. An overlay of the same table is ignored.
+  without one set to its start. An overlay of the same table is ignored, and one of a missing table fails.
   The colours are given, as Perl chooses a new colour by hash order.
 steps:
   - sheet:
@@ -52,6 +52,15 @@ steps:
   - http: { id: timeline_other_all, as: superadmin, path: "/{sheet:s}/data_timeline/123" }
   # The page body is not compared: Perl orders the colour legend by hash order
   - http: { id: page_other, as: superadmin, path: "/{sheet:s}/data", no_body: true }
+  # A table that does not exist
+  - http:
+      id: options_missing
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/data"
+      form: { modal_timeline: 1, tl_label: "", tl_group: "", tl_color: "", tl_overlay: 999 }
+  - http: { id: timeline_missing, as: superadmin, path: "/{sheet:s}/data_timeline/123", query: { from: 1412121600000, to: 1414800000000 } }
+  - http: { id: missing_message, as: superadmin, path: "/" }
   # No overlay
   - http:
       id: options_none
