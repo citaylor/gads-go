@@ -18,7 +18,9 @@ import (
 	"sync"
 	"time"
 
+	"github.com/ctrlo/gads-go/internal/autoformat"
 	"github.com/ctrlo/gads-go/internal/gads"
+	"github.com/ctrlo/gads-go/internal/perl"
 )
 
 // mailConfig is the transport of emails, the "mail" key of the gads
@@ -203,12 +205,22 @@ func buildMessage(from, to string, m gads.Email) []byte {
 	fmt.Fprintf(&b, "Date: %s\r\n", time.Now().Format(time.RFC1123Z))
 	fmt.Fprintf(&b, "Message-ID: <%s@%s>\r\n", randomID(), messageIDHost(from))
 	b.WriteString("MIME-Version: 1.0\r\n")
+	// The plain text is reformatted as GADS::Email send does, with
+	// Text::Autoformat (paragraphs filled to 72 columns)
+	text := m.Text
+	if perl.True(text) {
+		text = autoformat.Autoformat(text)
+	}
 	if m.HTML == "" {
-		fmt.Fprintf(&b, "Content-Type: text/plain; charset=utf-8\r\n\r\n%s\r\n", crlf(m.Text))
+		text = crlf(text)
+		if !strings.HasSuffix(text, "\r\n") {
+			text += "\r\n"
+		}
+		fmt.Fprintf(&b, "Content-Type: text/plain; charset=utf-8\r\n\r\n%s", text)
 	} else {
 		boundary := "gads-alternative-" + randomID()
 		fmt.Fprintf(&b, "Content-Type: multipart/alternative; boundary=%q\r\n\r\n", boundary)
-		fmt.Fprintf(&b, "--%s\r\nContent-Type: text/plain; charset=utf-8\r\n\r\n%s\r\n", boundary, crlf(m.Text))
+		fmt.Fprintf(&b, "--%s\r\nContent-Type: text/plain; charset=utf-8\r\n\r\n%s\r\n", boundary, crlf(text))
 		fmt.Fprintf(&b, "--%s\r\nContent-Type: text/html; charset=utf-8\r\n\r\n%s\r\n", boundary, crlf(m.HTML))
 		fmt.Fprintf(&b, "--%s--\r\n", boundary)
 	}

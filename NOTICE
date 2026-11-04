@@ -58,6 +58,14 @@ gads-go/internal/pdf/fonts and in the PDFs that gads makes
   Font Arimo, Tinos and Cousine; copyright (c) 2012 Red Hat, Inc., with
   Reserved Font Name Liberation. SIL Open Font License 1.1.
 
+Text::Autoformat 1.75 and Text::Reform 1.20, translated to Go in
+gads-go/internal/autoformat (GADS formats the plain text of its emails
+with them)
+  Copyright (c) 1997-2007 Damian Conway. Perl 5 licence (the Artistic
+  License or the GNU GPL version 1 or later), used under the GNU GPL
+  version 3: see gads-go/internal/autoformat/LICENSE. Its golden test
+  cases (testdata/golden.json) are output of the Perl modules.
+
 SQLite 3.53.4 (in github.com/mattn/go-sqlite3, and translated to Go in
 modernc.org/sqlite)
   Public domain.

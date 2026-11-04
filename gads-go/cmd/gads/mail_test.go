@@ -157,7 +157,7 @@ func TestSendSMTP(t *testing.T) {
 		Username: "gads", Password: "secret", Timeout: 5 * time.Second}
 	m := newMailer(cfg, `"Linkspace" <noreply@example.com>`)
 	m.Send(gads.Email{Subject: "Données", To: []string{"a@example.com", "b@example.com"},
-		Text: "Hello\n.dot line\n", HTML: "<p>Hello</p>", ReplyTo: "r@example.com"})
+		Text: "Hello\n\n.dot line\n", HTML: "<p>Hello</p>", ReplyTo: "r@example.com"})
 	if !m.Close(5 * time.Second) {
 		t.Fatal("queue not delivered")
 	}
@@ -174,7 +174,7 @@ func TestSendSMTP(t *testing.T) {
 		for _, want := range []string{
 			"From: \"Linkspace\" <noreply@example.com>\r\n", "To: " + to + "\r\n", "Reply-To: r@example.com\r\n",
 			"Subject: =?utf-8?q?Donn=C3=A9es?=\r\n", "Content-Type: multipart/alternative",
-			"\r\nHello\r\n..dot line\r\n", "<p>Hello</p>",
+			"\r\nHello\r\n\r\n..dot line\r\n", "<p>Hello</p>",
 		} {
 			if !strings.Contains(mail.data, want) {
 				t.Errorf("message to %s lacks %q:\n%s", to, want, mail.data)
@@ -257,5 +257,19 @@ func TestMailQueue(t *testing.T) {
 	m.Send(gads.Email{Subject: "s", Text: "t", To: []string{"d@example.com"}})
 	if len(sent) != 4 {
 		t.Errorf("email after close not delivered")
+	}
+}
+
+// The plain text is formatted as GADS::Email send formats it (the expected
+// text is Text::Autoformat's), and the message ends with one line break
+func TestBuildMessageAutoformat(t *testing.T) {
+	text := "A message that is long enough to be wrapped by Text::Autoformat at the margin of seventy-two columns.\n\nMessage sent by: User1 (u@example.com)"
+	want := "\r\n\r\nA message that is long enough to be wrapped by Text::Autoformat at the\r\nmargin of seventy-two columns.\r\n\r\nMessage sent by: User1 (u@example.com)\r\n"
+	if msg := string(buildMessage("", "x@y", gads.Email{Subject: "s", Text: text})); !strings.HasSuffix(msg, want) {
+		t.Errorf("plain message:\n%q", msg)
+	}
+	msg := string(buildMessage("", "x@y", gads.Email{Subject: "s", Text: text, HTML: "<p>h</p>"}))
+	if !strings.Contains(msg, "\r\n\r\nA message that is long enough to be wrapped by Text::Autoformat at the\r\nmargin of") {
+		t.Errorf("multipart message:\n%q", msg)
 	}
 }

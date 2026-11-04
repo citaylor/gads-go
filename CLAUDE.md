@@ -91,6 +91,7 @@ Go packages, under `gads-go/`:
 | `internal/chrome` | Headless Chrome for `_page_as_mech` (WWW::Mechanize::Chrome): loads a page and prints it to PDF or captures a PNG, over the DevTools protocol on a pipe, with WMC's switches. |
 | `internal/lua` | Lua 5.3.6, vendored and called through cgo, used for calc and RAG fields. Same sandbox as Inline::Lua in GADS. |
 | `internal/perl`, `perljson`, `yamlxs`, `cldr`, `mimeinfo`, `saml` | Behaviour of Perl and CPAN modules (truthiness, JSON::PP, YAML::XS, CLDR dates, File::MimeInfo, Net::SAML2). |
+| `internal/autoformat` | Text::Autoformat and the parts of Text::Reform it uses, translated: the formatting of the plain text of every email (`GADS::Email::send`), applied by the mailer of `cmd/gads`. The runners capture mail before it, so the suite compares the text unformatted. |
 | `internal/perltest` | Builds Go values from the typed form of the golden files (`{"f": IEEE bits}`, `{"i"}`, `{"s"}`, ...). |
 | `conformance/` | Go runner and DataSheet port. `go test ./conformance` runs every scenario against the Perl golden. |
 | `cmd/gads` | The application: `serve`, `deploy`, `list`, `<script>`. Also reads the config and sends mail. |
@@ -268,6 +269,7 @@ Debugging environment variables:
   | `gen_tt_golden.pl` | `internal/tt` (`testdata/cases.txt`) | Template Toolkit |
   | `gen_lua_golden.pl` | `internal/lua` | GADS's `lua_run` (Inline::Lua) |
   | `gen_mime_golden.pl` | `internal/mimeinfo` (the globs of `testdata`) | File::MimeInfo |
+  | `gen_autoformat_golden.pl` | `internal/autoformat` | Text::Autoformat (texts written for its rules, and random ones) |
 
   Floats are passed by their IEEE bits, so that neither parser rounds
   them. Both runners compare JSON numbers as sent (the Go runner keeps
@@ -490,10 +492,6 @@ Not fixed:
     `api-example`, `export-pdf`, `migrate-db` (`gads upgrade` applies the
     upgrades instead), `seed-large`, and the shell scripts.
 - Deviations:
-  - Plain-text mail is sent as given. Perl's `GADS::Email::send`
-    reformats it with Text::Autoformat (`all`, `break_wrap`: paragraphs
-    wrapped at 72 columns), which is not ported. The runners capture
-    mail before `send`, so the suite does not compare it.
   - Record and report PDFs use the Liberation Sans built into the binary.
     CtrlO::PDF loads it from
     `/usr/share/fonts/truetype/liberation/`, and fails without it.

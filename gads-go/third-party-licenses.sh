@@ -39,6 +39,10 @@ section() {
 	cat internal/pdf/fonts/LICENSE
 	echo
 
+	section "Text::Autoformat 1.75 and Text::Reform 1.20 (internal/autoformat)"
+	cat internal/autoformat/LICENSE
+	echo
+
 	for tags in "" modernc; do
 		go list -tags "$tags" -deps -f '{{with .Module}}{{if not .Main}}{{.Path}} {{.Version}} {{.Dir}}{{end}}{{end}}' ./cmd/gads
 	done | sort -u | while read -r path version dir; do
