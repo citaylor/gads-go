@@ -17,6 +17,22 @@ steps:
   - http: { id: home, as: useradmin, path: /, expect: { status: 200 } }
   - http: { id: data, as: superadmin, path: "/{sheet:s}/data", expect: { status: 200 } }
   - http: { id: overview, as: useradmin, path: /group_overview/, expect: { status: 200 } }
+  # The first showing of a graph stores the colours of its values
+  - graph:
+      sheet: s
+      user: superadmin
+      title: Strings by enum
+      type: bar
+      x_axis: string1
+      y_axis: enum1
+      y_axis_stack: count
+  - db: { op: delete, table: graph_color }
+  - http:
+      id: graph_data
+      as: superadmin
+      path: "/{sheet:s}/data_graph/1/123"
+      expect: { status: 200, content_type: application/json }
+  - db: { id: colours_stored, op: select, table: graph_color, columns: [name], expect: [{ name: "1" }] }
   # Deleting with a GET is refused (Perl deletes the group)
   - http:
       id: delete_by_get

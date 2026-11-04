@@ -15,6 +15,14 @@
 	https_port {$GADS_HTTPS_PORT:443}
 	# No admin API: nothing else needs to change the configuration
 	admin off
+	# Caddy's own redirect leaves out a port equal to https_port, which is
+	# wrong for a port other than 443: the redirect below names it
+	auto_https disable_redirects
+}
+
+# HTTP redirected to HTTPS
+http://{$GADS_HOST:localhost}:{$GADS_HTTP_PORT:80} {
+	redir https://{host}:{$GADS_HTTPS_PORT:443}{uri} permanent
 }
 
 {$GADS_HOST:localhost} {

@@ -38,6 +38,15 @@ case "${GADS_SECURE_COOKIES:-0}" in
             >> "$GADS_CONFIG/environments/$DANCER_ENVIRONMENT.yml"
         ;;
 esac
+# The site's URL in emails: GADS_URL, otherwise that of the proxy service
+# when GADS_HTTPS_PORT is set (the app service)
+if [ -z "${GADS_URL:-}" ] && [ -n "${GADS_HTTPS_PORT:-}" ]; then
+    if [ "$GADS_HTTPS_PORT" = 443 ]; then
+        GADS_URL="https://$GADS_HOST/"
+    else
+        GADS_URL="https://$GADS_HOST:$GADS_HTTPS_PORT/"
+    fi
+fi
 # The site's URL in emails (GADS_URL), the sender and transport of emails
 # (SMTP if SMTP_HOST is set, otherwise sendmail, which the image does not
 # include), and the directory of uploaded files if GADS_UPLOADS is set

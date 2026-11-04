@@ -25,12 +25,15 @@ var noticePolicy = bluemonday.UGCPolicy().AllowAttrs("class").Globally()
 func safeMethod(m string) bool { return m == "GET" || m == "HEAD" || m == "OPTIONS" }
 
 // readOnlyWrites are the writes that GADS makes when only showing a page:
-// the audit log, the user's session settings, and the defaults it creates
-// on first use (dashboards, RAG settings, submission tokens, the OAuth
-// client) or clears when expired (API tokens)
+// the audit log, the user's session settings, the defaults it creates on
+// first use (dashboards, RAG settings, submission tokens, the OAuth client,
+// the colour of each value in a graph), the SMS code that the MFA page
+// sends, and the API tokens it clears when expired
 var readOnlyWrites = []*regexp.Regexp{
-	regexp.MustCompile(`^(?i)INSERT\s+INTO\s+"?(audit|dashboard|widget|instance_rag|submission|oauthclient)"?\s`),
+	regexp.MustCompile(`^(?i)INSERT\s+INTO\s+"?(audit|dashboard|widget|instance_rag|submission|oauthclient|graph_color)"?\s`),
 	regexp.MustCompile(`^(?i)UPDATE\s+"?user"?\s+SET\s+"?session_settings"?\s*=\s*\?\s+WHERE\s+"?id"?\s*=\s*\?$`),
+	regexp.MustCompile(`^(?i)UPDATE\s+"?graph_color"?\s+SET\s+"?color"?\s*=\s*\?\s+WHERE\s+"?name"?\s*=\s*\?$`),
+	regexp.MustCompile(`^(?i)UPDATE\s+"?user"?\s+SET\s+"?mfa_sms_created"?\s*=\s*\?\s*,\s*"?mfa_sms_token"?\s*=\s*\?\s+WHERE\s+"?id"?\s*=\s*\?$`),
 	regexp.MustCompile(`^(?i)DELETE\s+FROM\s+"?oauthtoken"?\s`),
 }
 

@@ -459,6 +459,13 @@ func (s *Server) dataTable(c *Ctx, layout *gads.Layout, user *gads.User, view *g
 		if records.Count() == 0 {
 			c.ForwardHome("danger", "There are no records to download in this view", layout.Identifier()+"/data")
 		}
+		// The header first: it fails without the download permission, and
+		// the error's redirect must not be sent as a CSV attachment.
+		// Deviation: Perl has already started its streamed response, so
+		// the user gets an unfinished, empty download, and the error goes
+		// to the log only.
+		var b strings.Builder
+		b.WriteString(records.CSVHeader())
 		header := tt.Str(s.Config.Gads["header"])
 		if header != "" {
 			header = "-" + header
@@ -466,8 +473,6 @@ func (s *Server) dataTable(c *Ctx, layout *gads.Layout, user *gads.User, view *g
 		now := s.E.Now().Format("2006-01-02T15:04:05")
 		c.headers.Set("Content-Disposition", `attachment; filename="`+now+header+`.csv"`)
 		c.ctype = `text/csv; charset="utf-8"`
-		var b strings.Builder
-		b.WriteString(records.CSVHeader())
 		for {
 			line, ok := records.CSVLine()
 			if !ok {

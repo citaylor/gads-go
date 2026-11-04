@@ -147,13 +147,20 @@ func TestReadOnly(t *testing.T) {
 	if err := gads.Try(func() {
 		d.InsertMap("audit", map[string]any{"description": "x"})
 		d.Exec(`UPDATE "user" SET "session_settings" = ? WHERE "id" = ?`, "{}", 1)
+		// The colours of a graph's values, and the SMS code of the MFA page
+		d.InsertMap("graph_color", map[string]any{"name": "Open", "color": "FF0000"})
+		d.UpdateMap("graph_color", map[string]any{"color": "00FF00"}, map[string]any{"name": "Open"})
+		d.UpdateMap("user", map[string]any{"mfa_sms_token": "123456", "mfa_sms_created": "2026-11-04 12:00:00"}, map[string]any{"id": 1})
 	}); err != nil {
 		t.Errorf("allowed write refused: %v", err)
 	}
 	for name, f := range map[string]func(){
 		"delete": func() { d.Exec(`DELETE FROM "group" WHERE "id" = ?`, 1) },
 		"update": func() { d.Exec(`UPDATE "user" SET "email" = ? WHERE "id" = ?`, "x", 1) },
-		"email":  func() { c.E.Emailer(gads.Email{}) },
+		"mfa": func() {
+			d.UpdateMap("user", map[string]any{"mfa_sms_token": "1", "mfa_sms_created": "x", "mfa_secret": "x"}, map[string]any{"id": 1})
+		},
+		"email": func() { c.E.Emailer(gads.Email{}) },
 	} {
 		if err := gads.Try(f); err == nil || !strings.Contains(err.Error(), "submitting a form") {
 			t.Errorf("%s allowed: %v", name, err)

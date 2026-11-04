@@ -374,7 +374,7 @@ docker compose restart dev                 # rebuild and rerun after a change
     `GADS_CERTS`).
   - The entrypoint sets `behind_proxy: 1` (`GADS_BEHIND_PROXY`), the
     Secure session cookie (`GADS_SECURE_COOKIES`) and `gads: url`
-    (`GADS_URL`, default `https://GADS_HOST/`). Compose sets the first two
+    (`GADS_URL`, default `https://GADS_HOST/`, with `GADS_HTTPS_PORT` unless it is 443). Compose sets the first two
     to 1 for `app`; `dev` stays plain HTTP on :3001.
   - The app is not published, because with `behind_proxy` a client
     reaching it directly could forge `X-Forwarded-For`. Caddy replaces
@@ -449,7 +449,7 @@ code.
 
 | Finding | Fix (web layer: `internal/web/hardening.go`) |
 |---|---|
-| H-1 CSRF | A GET request cannot change data: `DB.WriteCheck` allows only the writes of showing a page (audit, `session_settings`, default dashboards and RAG settings, submission tokens, the OAuth client, expired tokens), and mail fails. PUT, PATCH and DELETE need the token in a session. The cookie is SameSite=Lax unless configured. |
+| H-1 CSRF | A GET request cannot change data: `DB.WriteCheck` allows only the writes of showing a page (audit, `session_settings`, default dashboards and RAG settings, submission tokens, the OAuth client, the colours of graph values, the SMS code of the MFA page, expired tokens), and mail fails. PUT, PATCH and DELETE need the token in a session. The cookie is SameSite=Lax unless configured. |
 | H-2 | Pages printed by Chrome (`/print`, dashboards, timelines, graphs) load from a server of the public files on the loopback interface, at a random path, instead of `file://`: every other request is refused (`Fetch`), and a CSP keeps connections to that origin. `/print` needs the CSRF token, and its POSTs are rate-limited as M-7's. |
 | H-3 | Only a superadmin changes or retires a superadmin (`User.CheckCanManage`). |
 | H-4 | A historic purge takes only records that the user sees in this table's view, and the columns the page offers. |
@@ -477,6 +477,16 @@ Not fixed:
   - The scripts `update-many-records` (which doesn't compile in Perl),
     `api-example`, `export-pdf`, `migrate-db` (`gads upgrade` applies the
     upgrades instead), `seed-large`, and the shell scripts.
+  - Parts of the data page, which fail with "... is not yet supported"
+    (`internal/web/routes_data.go`, `routes_data_json.go`): the calendar
+    and globe view types, sending an email to the users of the records
+    (`modal_sendemail`), the CSV download of a graph, and timeline
+    overlays. The view type is kept in the session, so after choosing
+    calendar or globe the data page fails until another type is chosen.
+- Not yet as Perl:
+  - A data import runs within its request, holding the engine, so every
+    other request waits until it ends (about 100 rows a second). Perl
+    forks it and redirects at once.
 - Deviations:
   - Record and report PDFs use the Liberation Sans built into the binary.
     CtrlO::PDF loads it from
@@ -509,6 +519,9 @@ Not fixed:
     string, depending on the values encoded before it; Go always writes a
     number.
   - Sessions expire after 7 days unused when no duration is configured.
+  - A CSV download without the download permission redirects with the
+    error. Perl has already started its streamed response, so the user
+    gets an empty, unfinished download and the error goes to the log.
   - The bearer token of a deleted user, or of an account request, is
     refused. Perl accepts it until it expires.
   - Savepoints need a transaction, as in DBIC. This is not a deviation:

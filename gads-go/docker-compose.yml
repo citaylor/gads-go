@@ -60,7 +60,9 @@ services:
       # trusted, the session cookie is Secure, and links in emails are https
       GADS_BEHIND_PROXY: ${GADS_BEHIND_PROXY:-1}
       GADS_SECURE_COOKIES: ${GADS_SECURE_COOKIES:-1}
-      GADS_URL: ${GADS_URL:-https://${GADS_HOST:-localhost}/}
+      # (default https://GADS_HOST/, with GADS_HTTPS_PORT unless it is 443)
+      GADS_URL: ${GADS_URL:-}
+      GADS_HTTPS_PORT: ${GADS_HTTPS_PORT:-443}
     volumes:
       # Uploaded files (gads.uploads)
       - uploads:/var/lib/gads/uploads
