@@ -10,6 +10,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/ctrlo/gads-go/internal/perl"
 )
 
 // Filter is a port of GADS::Filter: a JSON filter as produced by the
@@ -59,14 +61,126 @@ func normaliseJSON(v any) any {
 	return v
 }
 
-// EncodeJSON encodes as compact JSON with sorted keys (Perl's key order
-// is random, so any order is equivalent).
+// EncodeJSON encodes as compact JSON with sorted keys, as JSON::PP
+// canonical (Perl's key order is random, so any order is equivalent).
+// Floats are written as Perl prints them (perlFloats), and the line and
+// paragraph separators are not escaped (encoding/json escapes them for
+// JavaScript, JSON::PP does not).
 func EncodeJSON(v any) string {
 	var buf bytes.Buffer
 	enc := json.NewEncoder(&buf)
 	enc.SetEscapeHTML(false)
-	enc.Encode(v)
-	return strings.TrimRight(buf.String(), "\n")
+	enc.Encode(perlFloats(v))
+	return unescapeSeparators(strings.TrimRight(buf.String(), "\n"))
+}
+
+var jsonMarshalerType = reflect.TypeFor[json.Marshaler]()
+
+// perlFloats returns v with each float as a json.Number of its Perl form
+// ("%.15g": JSON::PP writes a float as Perl stringifies it, where
+// encoding/json writes the shortest exact form). Only the maps and slices
+// that hold floats are copied. Infinities and NaNs are left, and fail to
+// encode as before.
+func perlFloats(v any) any {
+	if r, ok := perlFloatsValue(reflect.ValueOf(v)); ok {
+		return r
+	}
+	return v
+}
+
+// perlFloatsValue returns the value with its floats replaced, and whether
+// it held any
+func perlFloatsValue(rv reflect.Value) (any, bool) {
+	if !rv.IsValid() || rv.Type().Implements(jsonMarshalerType) {
+		return nil, false
+	}
+	switch rv.Kind() {
+	case reflect.Float32, reflect.Float64:
+		f := rv.Float()
+		if math.IsInf(f, 0) || math.IsNaN(f) {
+			return nil, false
+		}
+		return json.Number(perl.NumString(f)), true
+	case reflect.Interface, reflect.Pointer:
+		if rv.IsNil() {
+			return nil, false
+		}
+		return perlFloatsValue(rv.Elem())
+	case reflect.Slice, reflect.Array:
+		if rv.Kind() == reflect.Slice && (rv.IsNil() || rv.Type().Elem().Kind() == reflect.Uint8) {
+			return nil, false
+		}
+		var out []any
+		for i := range rv.Len() {
+			r, ok := perlFloatsValue(rv.Index(i))
+			if ok && out == nil {
+				out = make([]any, rv.Len())
+				for j := range i {
+					out[j] = rv.Index(j).Interface()
+				}
+			}
+			if out != nil {
+				if !ok {
+					r = rv.Index(i).Interface()
+				}
+				out[i] = r
+			}
+		}
+		return out, out != nil
+	case reflect.Map:
+		if rv.IsNil() || rv.Type().Key().Kind() != reflect.String {
+			return nil, false
+		}
+		var out map[string]any
+		it := rv.MapRange()
+		for it.Next() {
+			if r, ok := perlFloatsValue(it.Value()); ok {
+				if out == nil {
+					out = make(map[string]any, rv.Len())
+				}
+				out[it.Key().String()] = r
+			}
+		}
+		if out == nil {
+			return nil, false
+		}
+		it = rv.MapRange()
+		for it.Next() {
+			if _, done := out[it.Key().String()]; !done {
+				out[it.Key().String()] = it.Value().Interface()
+			}
+		}
+		return out, true
+	}
+	return nil, false
+}
+
+// unescapeSeparators writes the escapes \u2028 and \u2029 of a JSON text
+// as the characters
+func unescapeSeparators(s string) string {
+	if !strings.Contains(s, `\u202`) {
+		return s
+	}
+	var b strings.Builder
+	for i := 0; i < len(s); i++ {
+		if s[i] != '\\' {
+			b.WriteByte(s[i])
+			continue
+		}
+		switch {
+		case strings.HasPrefix(s[i:], `\u2028`):
+			b.WriteString("\u2028")
+			i += 5
+		case strings.HasPrefix(s[i:], `\u2029`):
+			b.WriteString("\u2029")
+			i += 5
+		default:
+			// Another escape: keep its two characters
+			b.WriteString(s[i : i+2])
+			i++
+		}
+	}
+	return b.String()
 }
 
 // NewFilterJSON creates a filter from JSON (invalid JSON becomes {}).

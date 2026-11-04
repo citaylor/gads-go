@@ -90,6 +90,7 @@ Go packages, under `gads-go/`:
 | `internal/chrome` | Headless Chrome for `_page_as_mech` (WWW::Mechanize::Chrome): loads a page and prints it to PDF or captures a PNG, over the DevTools protocol on a pipe, with WMC's switches. |
 | `internal/lua` | Lua 5.3.6, vendored and called through cgo, used for calc and RAG fields. Same sandbox as Inline::Lua in GADS. |
 | `internal/perl`, `perljson`, `yamlxs`, `cldr`, `mimeinfo`, `saml` | Behaviour of Perl and CPAN modules (truthiness, JSON::PP, YAML::XS, CLDR dates, File::MimeInfo, Net::SAML2). |
+| `internal/perltest` | Builds Go values from the typed form of the golden files (`{"f": IEEE bits}`, `{"i"}`, `{"s"}`, ...). |
 | `conformance/` | Go runner and DataSheet port. `go test ./conformance` runs every scenario against the Perl golden. |
 | `cmd/gads` | The application: `serve`, `deploy`, `list`, `<script>`. Also reads the config and sends mail. |
 | `cmd/gads-conformance`, `cmd/gads-compare`, `cmd/gads-bench` | Suite runner, results comparison, benchmarks. |
@@ -241,6 +242,23 @@ Debugging environment variables:
   what it calls inside it.
 - Format with gofmt. Test files sit beside the code (`*_test.go`). Expected
   values are taken from Perl wherever possible.
+- **Golden files from Perl.** `conformance/perl/gen_*_golden.pl` run the
+  real Perl modules and write `testdata/golden.json`, which the Go tests
+  compare with (the usage is at the top of each script; rerun it after
+  changing its cases):
+
+  | Script | Go test | Perl |
+  |---|---|---|
+  | `gen_perl_golden.pl` | `internal/perl` | numbers as strings, numification, `lc`, `substr`, Math::Round |
+  | `gen_json_golden.pl` | `internal/perljson`, `gads.EncodeJSON` | JSON::PP |
+  | `gen_yaml_golden.pl` | `internal/yamlxs` | YAML::XS (libyaml) |
+  | `gen_tt_golden.pl` | `internal/tt` (`testdata/cases.txt`) | Template Toolkit |
+  | `gen_lua_golden.pl` | `internal/lua` | GADS's `lua_run` (Inline::Lua) |
+  | `gen_mime_golden.pl` | `internal/mimeinfo` (the globs of `testdata`) | File::MimeInfo |
+
+  Floats are passed by their IEEE bits, so that neither parser rounds
+  them. Both runners compare JSON numbers as sent (the Go runner keeps
+  their text with `json.Number`).
 
 ## Running the application
 
@@ -476,6 +494,19 @@ Not fixed:
     - `working_days_add` with a negative count, or more than 100000 days,
       is an error. Perl's loop never ends for these.
     - A field's regex that runs for over 1 s counts as no match.
+    - A Lua table with a number key of ten million or more is an error
+      ("table index N is over the limit of 10000000"): Inline::Lua makes
+      an array up to the largest key, so that a key of 2^53 takes all
+      memory.
+  - Lua tables with a key that is not a number or a string (a boolean)
+    fail with Inline::Lua's "Illegal type (boolean) in table subscript",
+    without its place in Perl. Inline::Lua's Lua state is then broken, so
+    every later call fails; Go's is not.
+  - Perl numifies an integer string above 2^63 to an unsigned integer
+    (UV); `perl.NumifyTyped` gives a float.
+  - JSON::PP writes a whole float from 2^53 to 2^64 as a number or as a
+    string, depending on the values encoded before it; Go always writes a
+    number.
   - Sessions expire after 7 days unused when no duration is configured.
   - The bearer token of a deleted user, or of an account request, is
     refused. Perl accepts it until it expires.

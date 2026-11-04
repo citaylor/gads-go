@@ -1,0 +1,4412 @@
+{
+   "_generator" : "conformance/perl/gen_lua_golden.pl",
+   "cases" : [
+      {
+         "code" : "return 1",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "3ff0000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return -7",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "c01c000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 1.5",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "3ff8000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 1 / 3",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "3fd5555555555555"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 2^53",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "4340000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 2^63",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "43e0000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 10 // 3",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "4008000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 7 / 7",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "3ff0000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 3.0",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "4008000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return -0.0",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "8000000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return math.huge",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "7ff0000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return -math.huge",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "fff0000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 0/0",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "fff8000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return math.maxinteger",
+         "result" : {
+            "h" : {
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return math.mininteger",
+         "result" : {
+            "h" : {
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 1e15",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "430c6bf526340000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 1e16",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "4341c37937e08000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 123456789012345678",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "437b69b4ba630f35"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 0.1 + 0.2",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "3fd3333333333334"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 100 * 1.1",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "405b800000000001"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return math.floor(2.7)",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "4000000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return math.pi",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "400921fb54442d18"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return tostring(1e15)",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "1e+15"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return tostring(0.1)",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "0.1"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return tostring(3) .. \"|\" .. tostring(3.0) .. \"|\" .. tostring(-0.0)",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "3|3.0|-0.0"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 1 .. \"\"",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "1"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 1.5 .. \"\"",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "1.5"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return 2^63 .. \"\"",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "9.2233720368548e+18"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return string.format(\"%d|%5.2f|%g|%s\", 3, 1.005, 1e20, 0.1)",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "3| 1.00|1e+20|0.1"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return \"10\" + 5",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "402e000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return \"3.5\" * 2",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "401c000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return \"0x10\" + 0",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "4030000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return math.tointeger(3.0)",
+         "die" : "error: [string \"return math.tointeger(3.0)\"]:1: attempt to call a nil value (field 'tointeger')\n",
+         "vars" : {}
+      },
+      {
+         "code" : "return \"text\"",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "text"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return \"\"",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : ""
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return \"é日本\"",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "Ã©æ¥æ¬"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return \"a\\0b\"",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "a\u0000b"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return true",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "bool" : 1
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return false",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "bool" : 0
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return nil",
+         "result" : {
+            "h" : {
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return",
+         "result" : {
+            "h" : {
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return string.upper(\"abc\") .. string.rep(\"x\", 3)",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "ABCxxx"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : []
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {1, 2, 3}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "f" : "3ff0000000000000"
+                     },
+                     {
+                        "f" : "4000000000000000"
+                     },
+                     {
+                        "f" : "4008000000000000"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {\"a\", \"b\"}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "s" : "a"
+                     },
+                     {
+                        "s" : "b"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {[1] = \"a\", [3] = \"c\"}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "s" : "a"
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "s" : "c"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {[2] = \"b\", [1] = \"a\"}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "s" : "a"
+                     },
+                     {
+                        "s" : "b"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {[0] = \"z\", [1] = \"a\"}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "s" : "a"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {a = 1, b = \"x\"}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "h" : {
+                     "a" : {
+                        "f" : "3ff0000000000000"
+                     },
+                     "b" : {
+                        "s" : "x"
+                     }
+                  }
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {1, 2, a = 3}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "h" : {
+                     "1" : {
+                        "f" : "3ff0000000000000"
+                     },
+                     "2" : {
+                        "f" : "4000000000000000"
+                     },
+                     "a" : {
+                        "f" : "4008000000000000"
+                     }
+                  }
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {[1.5] = \"x\"}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "s" : "x"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {[0.1] = \"y\", [2.5] = \"z\"}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "n" : null
+                     },
+                     {
+                        "s" : "z"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {[1000] = \"m\"}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "s" : "m"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {[-1] = \"neg\", [1] = \"a\"}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "s" : "a"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {[1/3] = \"third\"}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : []
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {[true] = \"t\"}",
+         "die" : "Illegal type (boolean) in table subscript at (eval 1805) line 5.\n",
+         "vars" : {}
+      },
+      {
+         "code" : "return {a = {b = {c = 1}}, l = {1, {2, 3}}}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "h" : {
+                     "a" : {
+                        "h" : {
+                           "b" : {
+                              "h" : {
+                                 "c" : {
+                                    "f" : "3ff0000000000000"
+                                 }
+                              }
+                           }
+                        }
+                     },
+                     "l" : {
+                        "a" : [
+                           {
+                              "f" : "3ff0000000000000"
+                           },
+                           {
+                              "a" : [
+                                 {
+                                    "f" : "4000000000000000"
+                                 },
+                                 {
+                                    "f" : "4008000000000000"
+                                 }
+                              ]
+                           }
+                        ]
+                     }
+                  }
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {nil, 2}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "n" : null
+                     },
+                     {
+                        "f" : "4000000000000000"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {1, nil, 3}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "f" : "3ff0000000000000"
+                     },
+                     {
+                        "n" : null
+                     },
+                     {
+                        "f" : "4008000000000000"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {x = 1.5, y = 2^63, z = -0.0}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "h" : {
+                     "x" : {
+                        "f" : "3ff8000000000000"
+                     },
+                     "y" : {
+                        "f" : "43e0000000000000"
+                     },
+                     "z" : {
+                        "f" : "8000000000000000"
+                     }
+                  }
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return {f = function() end}",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "h" : {
+                     "f" : {
+                        "ref" : "CODE"
+                     }
+                  }
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "local t = {} for i = 1, 5 do t[i] = i * i end return t",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "a" : [
+                     {
+                        "f" : "3ff0000000000000"
+                     },
+                     {
+                        "f" : "4010000000000000"
+                     },
+                     {
+                        "f" : "4022000000000000"
+                     },
+                     {
+                        "f" : "4030000000000000"
+                     },
+                     {
+                        "f" : "4039000000000000"
+                     }
+                  ]
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return print",
+         "result" : {
+            "h" : {
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return function() return 1 end",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "ref" : "CODE"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return nil + 1",
+         "die" : "error: [string \"return nil + 1\"]:1: attempt to perform arithmetic on a nil value\n",
+         "vars" : {}
+      },
+      {
+         "code" : "return (",
+         "result" : {
+            "h" : {
+               "error" : {
+                  "s" : "[string \"return (\"]:1: unexpected symbol near <eof>"
+               },
+               "success" : {
+                  "f" : "0000000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "error(\"custom\")",
+         "die" : "error: [string \"error(\"custom\")\"]:1: attempt to call a nil value (global 'error')\n",
+         "vars" : {}
+      },
+      {
+         "code" : "error({code = 1})",
+         "die" : "error: [string \"error({code = 1})\"]:1: attempt to call a nil value (global 'error')\n",
+         "vars" : {}
+      },
+      {
+         "code" : "return f(1)",
+         "die" : "error: [string \"return f(1)\"]:1: attempt to call a nil value (global 'f')\n",
+         "vars" : {}
+      },
+      {
+         "code" : "local x = {} return x.y.z",
+         "die" : "error: [string \"local x = {} return x.y.z\"]:1: attempt to index a nil value (field 'y')\n",
+         "vars" : {}
+      },
+      {
+         "code" : "return #nil",
+         "die" : "error: [string \"return #nil\"]:1: attempt to get length of a nil value\n",
+         "vars" : {}
+      },
+      {
+         "code" : "error(\"with level\", 0)",
+         "die" : "error: [string \"error(\"with level\", 0)\"]:1: attempt to call a nil value (global 'error')\n",
+         "vars" : {}
+      },
+      {
+         "code" : "return string.rep(\"x\", -1)",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : ""
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {}
+      },
+      {
+         "code" : "return math.floor(\"a\")",
+         "die" : "error: [string \"return math.floor(\"a\")\"]:1: bad argument #1 to 'floor' (number expected, got string)\n",
+         "vars" : {}
+      },
+      {
+         "code" : "v = vars[\"v\"] return v",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "4045000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "i" : "42"
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return math.type(v)",
+         "die" : "error: [string \"v = vars[\"v\"] return math.type(v)\"]:1: attempt to call a nil value (field 'type')\n",
+         "vars" : {
+            "v" : {
+               "i" : "42"
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return math.type(v)",
+         "die" : "error: [string \"v = vars[\"v\"] return math.type(v)\"]:1: attempt to call a nil value (field 'type')\n",
+         "vars" : {
+            "v" : {
+               "f" : "4045000000000000"
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return v * 2",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "4004000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "f" : "3ff4000000000000"
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return v // 1",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "401c000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "i" : "7"
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return v .. \"!\"",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "text!"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "s" : "text"
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return type(v)",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "string"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "s" : "12"
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return v + 1",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "402a000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "s" : "12"
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return v",
+         "result" : {
+            "h" : {
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "n" : null
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return type(v)",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "nil"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "n" : null
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return #v",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "4008000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "a" : [
+                  {
+                     "i" : "1"
+                  },
+                  {
+                     "i" : "2"
+                  },
+                  {
+                     "i" : "3"
+                  }
+               ]
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return v[1] .. v[2]",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "ab"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "a" : [
+                  {
+                     "s" : "a"
+                  },
+                  {
+                     "s" : "b"
+                  }
+               ]
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return v.year .. \"-\" .. v.month",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "s" : "2014-10"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "h" : {
+                  "month" : {
+                     "i" : "10"
+                  },
+                  "year" : {
+                     "i" : "2014"
+                  }
+               }
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return v",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "h" : {
+                     "a" : {
+                        "a" : [
+                           {
+                              "f" : "3fe0000000000000"
+                           },
+                           {
+                              "s" : "x"
+                           }
+                        ]
+                     }
+                  }
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "h" : {
+                  "a" : {
+                     "a" : [
+                        {
+                           "f" : "3fe0000000000000"
+                        },
+                        {
+                           "s" : "x"
+                        }
+                     ]
+                  }
+               }
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] local n = 0 for k, x in pairs(v) do n = n + 1 end return n",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "4000000000000000"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "h" : {
+                  "a" : {
+                     "i" : "1"
+                  },
+                  "b" : {
+                     "i" : "2"
+                  }
+               }
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return v",
+         "result" : {
+            "h" : {
+               "return" : {
+                  "f" : "54b249ad2594c37d"
+               },
+               "success" : {
+                  "f" : "3ff0000000000000"
+               }
+            }
+         },
+         "vars" : {
+            "v" : {
+               "f" : "54b249ad2594c37d"
+            }
+         }
+      },
+      {
+         "code" : "v = vars[\"v\"] return math.type(v)",
+         "die" : "error: [string \"v = vars[\"v\"] return math.type(v)\"]:1: attempt to call a nil value (field 'type')\n",
+         "vars" : {
+            "v" : {
+               "i" : "9223372036854775807"
+            }
+         }
+      }
+   ]
+}

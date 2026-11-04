@@ -11,6 +11,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/ctrlo/gads-go/internal/perl"
 )
 
 // Exception is a Template::Exception.
@@ -1202,6 +1204,9 @@ func (c *Context) dotop(root any, item any, args []any, lvalue bool) (any, error
 			return h, nil
 		} else if op, ok := hashOps[key]; ok {
 			result, err = op(c, r, args)
+		} else if op, ok := listOps[key]; ok {
+			// Template::Stash: a list method applies to [hash]
+			result, err = op(c, NewList(r), args)
 		}
 	case *List:
 		if op, ok := listOps[key]; ok {
@@ -1551,24 +1556,19 @@ var magicIncRe = regexp.MustCompile(`^[a-zA-Z]*[0-9]*$`)
 
 // perlRange implements the list-context range operator
 func perlRange(a, b any) []any {
-	as, aIsStr := a.(string)
-	bs, _ := b.(string)
-	if aIsStr && as != "" && !looksNum(as) && magicIncRe.MatchString(as) {
-		if _, bstr := b.(string); bstr || b == nil {
-			var res []any
-			cur := as
-			for {
-				res = append(res, cur)
-				if cur == bs || len(cur) > len(bs) || len(res) > 1000000 {
-					break
-				}
-				cur = magicIncrement(cur)
-				if len(cur) > len(bs) {
-					break
-				}
+	if !rangeIsNumeric(a, b) {
+		// Perl's string range: each value is the magic increment of the
+		// last, until the end or a longer string. A value that cannot be
+		// incremented as a string (sv_inc makes it a number) ends it.
+		as, bs := Str(a), Str(b)
+		var res []any
+		for cur := as; len(cur) <= len(bs) && len(res) <= 1000000; cur = magicIncrement(cur) {
+			res = append(res, cur)
+			if cur == bs || cur == "" || !magicIncRe.MatchString(cur) {
+				break
 			}
-			return res
 		}
+		return res
 	}
 	x := perlInt(a)
 	y := perlInt(b)
@@ -1581,9 +1581,17 @@ func perlRange(a, b any) []any {
 	return res
 }
 
-func looksNum(s string) bool {
-	_, err := strconv.ParseFloat(strings.TrimSpace(s), 64)
-	return err == nil
+// rangeIsNumeric is Perl's RANGE_IS_NUMERIC (pp_ctl.c): a range of numbers
+// unless both ends are strings and the first does not look like a number
+// or starts with 0 ("09".."12" is a string range)
+func rangeIsNumeric(a, b any) bool {
+	as, aStr := a.(string)
+	bs, bStr := b.(string)
+	if (a != nil && !aStr) || (b != nil && !bStr) {
+		return true
+	}
+	return ((a == nil && b != nil) || ((a == nil || perl.LooksLikeNumber(as)) && aStr && !strings.HasPrefix(as, "0"))) &&
+		(b == nil || perl.LooksLikeNumber(bs))
 }
 
 func magicIncrement(s string) string {

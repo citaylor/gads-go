@@ -1,0 +1,27 @@
+# A small shared-mime-info globs file for the golden test (written for it):
+# literal names, extensions, longer extensions, globs, case, duplicates
+text/plain:*.txt
+text/csv:*.csv
+application/pdf:*.pdf
+application/x-compressed-tar:*.tar.gz
+application/gzip:*.gz
+application/x-bzip-compressed-tar:*.tar.bz2
+text/x-makefile:Makefile
+text/x-makefile:makefile
+text/x-readme:README*
+text/x-log:*.log.[0-9]
+application/x-backup:*~
+application/x-trash:*.bak
+text/x-first:*.dup
+text/x-second:*.dup
+image/x-upper:*.UPR
+text/x-chars:*.a-b
+text/x-question:file?.q
+application/x-plus:*.c++
+text/x-unicode:*.ünï
+text/x-overridden:*.ovr
+text/x-overridden-glob:ov*.x
+
+   # an indented comment
+nocolon (a line without a type)
+application/x-core:core

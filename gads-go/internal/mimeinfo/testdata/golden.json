@@ -1,0 +1,519 @@
+{
+   "_generator" : "conformance/perl/gen_mime_golden.pl",
+   "cases" : [
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "a.txt"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "A.TXT"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "a.Txt"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/csv",
+         "name" : "x.csv"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/pdf",
+         "name" : "a.b.pdf"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/x-compressed-tar",
+         "name" : "a.tar.gz"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/gzip",
+         "name" : "b.gz"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/x-compressed-tar",
+         "name" : "A.TAR.GZ"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/x-bzip-compressed-tar",
+         "name" : "c.tar.bz2"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "x.tar"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-makefile",
+         "name" : "Makefile"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-makefile",
+         "name" : "makefile"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-makefile",
+         "name" : "MAKEFILE"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-readme",
+         "name" : "README"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-readme",
+         "name" : "README.md"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "readme"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-readme",
+         "name" : "READMEx"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "error.log.1"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "error.log.12"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "error.log"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/x-backup",
+         "name" : "file~"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/x-trash",
+         "name" : "x.bak"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-first",
+         "name" : "x.dup"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "image/x-upper",
+         "name" : "x.UPR"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "x.upr"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-chars",
+         "name" : "x.a-b"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "x.b"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-question",
+         "name" : "file1.q"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-question",
+         "name" : "file.q"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "file12.q"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/x-plus",
+         "name" : "x.c++"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "x.ünï"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "x.ÜNÏ"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-override",
+         "name" : "x.ovr"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-override-glob",
+         "name" : "ov1.x"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/x-home",
+         "name" : "x.home"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/x-core",
+         "name" : "core"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/x-core",
+         "name" : "Core"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "nocolon"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : ".txt"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "txt"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "x."
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "x..txt"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "x.txt."
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "noext"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "É.TXT"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/x-plus",
+         "name" : "x_y.c++"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/x-compressed-tar",
+         "name" : "x.tar.GZ"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "x.pdf.unknown"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "application/pdf",
+         "name" : "x.unknown.pdf"
+      },
+      {
+         "mime" : "text/plain",
+         "name" : "x.txt"
+      },
+      {
+         "mime" : "",
+         "name" : "nofile"
+      },
+      {
+         "contents" : "",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "00",
+         "mime" : "application/octet-stream",
+         "name" : "data"
+      },
+      {
+         "contents" : "000102",
+         "mime" : "application/octet-stream",
+         "name" : "data"
+      },
+      {
+         "contents" : "74616209686572650d0a0c0b",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "7f",
+         "mime" : "application/octet-stream",
+         "name" : "data"
+      },
+      {
+         "contents" : "1b5b6d",
+         "mime" : "application/octet-stream",
+         "name" : "data"
+      },
+      {
+         "contents" : "78787878787878787878787878787878787878787878787878787878787878787878787878787878",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "7878787878787878787878787878787878787878787878787878787878787878787878787878787801",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "7878787878787878787878787878787878787878787878787878787878787801",
+         "mime" : "application/octet-stream",
+         "name" : "data"
+      },
+      {
+         "contents" : "636166c3a920e697a5e69cac",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "c3",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "ff",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "e282ac",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "c280",
+         "mime" : "application/octet-stream",
+         "name" : "data"
+      },
+      {
+         "contents" : "c285206e657874206c696e65",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "78e280a879",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "efbbbf626f6d",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "f09f988020656d6f6a69",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a501",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "6c6174696e3120e974e9",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "7a65726fe2808b7769647468",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "7072697661746520ee8080",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "756e61737369676e656420cdb8",
+         "mime" : "application/octet-stream",
+         "name" : "data"
+      },
+      {
+         "contents" : "6d61726b2065cc81",
+         "mime" : "text/plain",
+         "name" : "data"
+      },
+      {
+         "contents" : "",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "68656c6c6f0a",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "00",
+         "mime" : "application/octet-stream",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "000102",
+         "mime" : "application/octet-stream",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "74616209686572650d0a0c0b",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "7f",
+         "mime" : "application/octet-stream",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "1b5b6d",
+         "mime" : "application/octet-stream",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "78787878787878787878787878787878787878787878787878787878787878787878787878787878",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "7878787878787878787878787878787878787878787878787878787878787878787878787878787801",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "7878787878787878787878787878787878787878787878787878787878787801",
+         "mime" : "application/octet-stream",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "636166c3a920e697a5e69cac",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "c3",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "ff",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "e282ac",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "c280",
+         "mime" : "application/octet-stream",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "c285206e657874206c696e65",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "78e280a879",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "efbbbf626f6d",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "f09f988020656d6f6a69",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a5e697a501",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "6c6174696e3120e974e9",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "7a65726fe2808b7769647468",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "7072697661746520ee8080",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "756e61737369676e656420cdb8",
+         "mime" : "application/octet-stream",
+         "name" : "x.unknown"
+      },
+      {
+         "contents" : "6d61726b2065cc81",
+         "mime" : "text/plain",
+         "name" : "x.unknown"
+      }
+   ],
+   "file_mimeinfo" : "0.37"
+}

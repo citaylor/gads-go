@@ -435,7 +435,15 @@ func perlSprintf(format string, args []any) string {
 		case 's':
 			fmt.Fprintf(&b, spec+"s", Str(next()))
 		case 'd', 'i':
-			v := perlInt(next())
+			arg := next()
+			v := perlInt(arg)
+			// An integer string beyond 2**63 is an unsigned integer (UV)
+			// in Perl, which %d takes as signed
+			if str, ok := arg.(string); ok {
+				if u, err := strconv.ParseUint(strings.TrimSpace(str), 10, 64); err == nil && u > math.MaxInt64 {
+					v = int64(u) // #nosec G115 -- Perl's %d of a UV
+				}
+			}
 			switch n := v.(type) {
 			case int64:
 				fmt.Fprintf(&b, spec+"d", n)
@@ -450,6 +458,11 @@ func perlSprintf(format string, args []any) string {
 			v, _ := perlInt(next()).(int64)
 			fmt.Fprintf(&b, spec+"d", uint64(v)) // #nosec G115 -- Perl's %u of a negative number
 		case 'f', 'F', 'e', 'E', 'g', 'G':
+			// C's %g has a precision of 6 when none is given, where Go's
+			// gives the shortest exact form
+			if (conv == 'g' || conv == 'G') && !strings.Contains(spec, ".") {
+				spec += ".6"
+			}
 			fmt.Fprintf(&b, spec+string(conv), Float(next()))
 		case 'x', 'X', 'o', 'b', 'B':
 			v, _ := perlInt(next()).(int64)

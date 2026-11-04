@@ -363,8 +363,13 @@ func (r *Runner) webObserve(client *webClient, res *http.Response, content strin
 	}
 	obs["cookies"] = cookies
 	if strings.Contains(ct, "json") && content != "" {
+		// Numbers are kept as sent (json.Number), so that a number written
+		// otherwise than Perl writes it is a difference. Perl's runner
+		// gives each number as Perl prints it, which is how Perl wrote it.
 		var data any
-		if err := json.Unmarshal([]byte(content), &data); err == nil {
+		dec := json.NewDecoder(strings.NewReader(content))
+		dec.UseNumber()
+		if err := dec.Decode(&data); err == nil && json.Valid([]byte(content)) {
 			obs["json"] = normaliseJSON(data, client)
 		} else {
 			obs["json"] = content
@@ -410,8 +415,8 @@ func normaliseJSON(v any, client *webClient) any {
 		return "false"
 	case nil:
 		return nil
-	case float64:
-		return perlNum(x)
+	case json.Number:
+		return string(x)
 	case string:
 		if client.csrf != "" {
 			return strings.ReplaceAll(x, client.csrf, "{csrf}")
@@ -419,13 +424,6 @@ func normaliseJSON(v any, client *webClient) any {
 		return x
 	}
 	return fmt.Sprint(v)
-}
-
-func perlNum(f float64) string {
-	if f == float64(int64(f)) {
-		return fmt.Sprint(int64(f))
-	}
-	return fmt.Sprint(f)
 }
 
 func sortedKeysAny(m map[string]any) []string {

@@ -54,6 +54,16 @@ func TestLimits(t *testing.T) {
 	if err == nil || !strings.Contains(err.Error(), "not enough memory") {
 		t.Errorf("memory of a table: %v", err)
 	}
+	// A table key that Perl would turn into an array of 2^53 elements
+	for _, code := range []string{`return {[2^53] = 1}`, `return {[1] = 1, [1e20] = 2}`, `return {x = {[1e7] = 1}}`} {
+		_, err = it.Run(code, nil, nil, nil)
+		if err == nil || !strings.Contains(err.Error(), "is over the limit of 10000000") {
+			t.Errorf("%s: %v", code, err)
+		}
+	}
+	if r, err := it.Run(`return {[9999999] = 1}`, nil, nil, nil); err != nil || len(r.Return.([]any)) != 9999999 {
+		t.Errorf("largest index: %v", err)
+	}
 	// Callbacks still work, and the limits apply to each call
 	double := Func(func(args []any) ([]any, error) { return []any{Int(2 * int64(args[0].(float64)))}, nil })
 	for i := 0; i < 3; i++ {

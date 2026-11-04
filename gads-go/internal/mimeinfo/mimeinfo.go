@@ -51,7 +51,11 @@ func load() {
 	}
 }
 
-var extRe = regexp.MustCompile(`^\*\.([\p{L}\p{N}_]+(?:\.[\p{L}\p{N}_]+)*)$`)
+// extRe is Perl's /^\*\.(\w+(\.\w+)*)$/ on a glob, read as UTF-8: \w is
+// a letter, mark, decimal digit or connector
+var extRe = regexp.MustCompile(`^\*\.(` + word + `+(?:\.` + word + `+)*)$`)
+
+const word = `[\p{L}\p{Nl}\p{M}\p{Nd}\p{Pc}]`
 
 func hashGlobs(file string) {
 	f, err := os.Open(file) // #nosec G304 -- the shared-mime-info database files
@@ -85,7 +89,7 @@ func hashGlobs(file string) {
 }
 
 var (
-	globSpecial = regexp.MustCompile(`([^\p{L}\p{N}_/\\.?*\[\]])`)
+	globSpecial = regexp.MustCompile(`([^\p{L}\p{Nl}\p{M}\p{Nd}\p{Pc}/\\.?*\[\]])`)
 )
 
 func globToRegexp(g string) *regexp.Regexp {
@@ -101,9 +105,38 @@ func globToRegexp(g string) *regexp.Regexp {
 	return re
 }
 
-var fileExtRe = regexp.MustCompile(`\.([\p{L}\p{N}_]+(?:\.[\p{L}\p{N}_]+)*)$`)
+// fileExtRe is File::MimeInfo's extension: the name is bytes (from the
+// command line), on which Perl's \w is ASCII
+var fileExtRe = regexp.MustCompile(`\.(\w+(?:\.\w+)*)$`)
 
-func fromGlobs(name string) (string, bool) {
+// latin1 gives each byte of a name as a character, as Perl compares a
+// string of bytes with the globs (read as UTF-8): a name in UTF-8 never
+// matches a glob beyond ASCII
+func latin1(name string) string {
+	r := make([]rune, len(name))
+	for i := 0; i < len(name); i++ {
+		r[i] = rune(name[i])
+	}
+	return string(r)
+}
+
+// lcASCII is Perl's lc of bytes, and hasUpper its /[A-Z]/
+func lcASCII(s string) string {
+	b := []byte(s)
+	for i, c := range b {
+		if 'A' <= c && c <= 'Z' {
+			b[i] = c + 'a' - 'A'
+		}
+	}
+	return string(b)
+}
+
+func hasUpper(s string) bool {
+	return strings.ContainsAny(s, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+}
+
+func fromGlobs(bytes string) (string, bool) {
+	name := latin1(bytes)
 	if m, ok := literal[name]; ok {
 		return m, true
 	}
@@ -121,8 +154,8 @@ func fromGlobs(name string) (string, bool) {
 			return g.mime, true
 		}
 	}
-	if strings.ToLower(name) != name {
-		return fromGlobs(strings.ToLower(name))
+	if hasUpper(bytes) {
+		return fromGlobs(lcASCII(bytes))
 	}
 	return "", false
 }
@@ -168,11 +201,25 @@ func fromContents(file string) string {
 		return "text/plain"
 	}
 	for _, r := range chars {
-		if !unicode.IsPrint(r) && !unicode.IsSpace(r) {
+		if !perlPrintOrSpace(r) {
 			return "application/octet-stream"
 		}
 	}
 	return "text/plain"
+}
+
+// perlPrintOrSpace is Perl's [[:print:]\s] for a character: anything but
+// a control character (other than the spaces), a surrogate or an
+// unassigned character (U+FEFF and the other format characters are
+// printable, unlike Go's unicode.IsPrint)
+func perlPrintOrSpace(r rune) bool {
+	if unicode.IsSpace(r) {
+		return true
+	}
+	if unicode.Is(unicode.Cc, r) || unicode.Is(unicode.Cs, r) {
+		return false
+	}
+	return unicode.In(r, unicode.L, unicode.M, unicode.N, unicode.P, unicode.S, unicode.Zs, unicode.Cf, unicode.Co)
 }
 
 // Mimetype is the MIME type of a file ("" if there is none, such as for a

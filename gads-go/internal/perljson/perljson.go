@@ -8,6 +8,8 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/ctrlo/gads-go/internal/perl"
 )
 
 // Pretty is JSON->new->canonical->pretty->encode (with its final newline)
@@ -35,7 +37,7 @@ func value(b *strings.Builder, v any, level int) {
 	case int64:
 		b.WriteString(strconv.FormatInt(t, 10))
 	case float64:
-		b.WriteString(strconv.FormatFloat(t, 'g', 15, 64))
+		b.WriteString(perl.NumString(t))
 	case string:
 		b.WriteString(Quote(t))
 	case []byte:

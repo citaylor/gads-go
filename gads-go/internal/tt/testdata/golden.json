@@ -1,0 +1,410 @@
+{
+   "_generator" : "conformance/perl/gen_tt_golden.pl",
+   "cases" : [
+      {
+         "out" : "caught myerr:boom",
+         "template" : "[% TRY %][% THROW myerr \"boom\" %][% CATCH myerr %]caught [% error.type %]:[% error.info %][% END %]"
+      },
+      {
+         "out" : "parent foo.bar",
+         "template" : "[% TRY %][% THROW foo.bar \"x\" %][% CATCH foo %]parent [% error.type %][% CATCH %]default[% END %]"
+      },
+      {
+         "out" : "fb",
+         "template" : "[% TRY %][% THROW foo.bar.baz \"x\" %][% CATCH foo.bar %]fb[% CATCH foo %]f[% END %]"
+      },
+      {
+         "out" : "undef/plain!fin",
+         "template" : "[% TRY %][% THROW \"plain\" %][% CATCH %][% error.type %]/[% error.info %][% FINAL %]!fin[% END %]"
+      },
+      {
+         "out" : "ac",
+         "template" : "[% TRY %]a[% CATCH %]b[% FINAL %]c[% END %]"
+      },
+      {
+         "out" : "file:nonexistent.tt: not found",
+         "template" : "[% TRY %][% INCLUDE nonexistent.tt %][% CATCH file %]file:[% error.info %][% END %]"
+      },
+      {
+         "out" : "ok|a",
+         "template" : "[% TRY %][% x = undefined.method %][% y.z.w %]ok[% CATCH %]err[% END %]|[% TRY %][% THROW a \"1\" %][% CATCH b %]b[% CATCH a %]a[% END %]"
+      },
+      {
+         "out" : "outer caught i",
+         "template" : "[% TRY %][% TRY %][% THROW inner \"i\" %][% CATCH outer %]wrong[% END %][% CATCH inner %]outer caught [% error.info %][% END %]"
+      },
+      {
+         "out" : "x=HASH(0x5584fcaa5ad0)",
+         "template" : "[% TRY %][% THROW x 'a' 'b' %][% CATCH %][% error.type %]=[% error.info.join(',') %][% END %]"
+      },
+      {
+         "out" : "undef=x",
+         "template" : "[% TRY %][% THROW x %][% CATCH %][% error.type %]=[% error.info %][% END %]"
+      },
+      {
+         "out" : "before+e error - m",
+         "template" : "[% TRY %]before[% THROW e \"m\" %]after[% CATCH e %]+[% error %][% END %]"
+      },
+      {
+         "out" : "undef",
+         "template" : "[% TRY %][% n = 1 / 0 %][% CATCH %][% error.type %][% END %]"
+      },
+      {
+         "out" : "1",
+         "template" : "[% TRY %][% FOREACH i IN [1,2,3] %][% THROW stop i IF i == 2 %][% i %][% END %][% CATCH stop %]stopped [% error.info %][% END %]"
+      },
+      {
+         "out" : "inner 2 outer 2",
+         "template" : "[% TRY %][% THROW x \"1\" %][% CATCH x %][% TRY %][% THROW y \"2\" %][% CATCH y %]inner [% error.info %][% END %] outer [% error.info %][% END %]"
+      },
+      {
+         "out" : "1",
+         "template" : "[% x = 'a9' %][% x = x + 1 %][% x %]"
+      },
+      {
+         "out" : "abcde|aa,ab,ac,ad,|x8,x9,y0,y1,y2,",
+         "template" : "[% FOREACH c IN ['a'..'e'] %][% c %][% END %]|[% FOREACH c IN ['aa'..'ad'] %][% c %],[% END %]|[% FOREACH c IN ['x8'..'y2'] %][% c %],[% END %]"
+      },
+      {
+         "out" : "Zy,Zz,AAa,AAb,|a||b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,",
+         "template" : "[% FOREACH c IN ['Zy'..'AAb'] %][% c %],[% END %]|[% FOREACH c IN ['a'..'a'] %][% c %][% END %]|[% FOREACH c IN [3..1] %][% c %][% END %]|[% FOREACH c IN ['b'..'a'] %][% c %],[% END %]"
+      },
+      {
+         "out" : "09,10,11,12,|1,2,3,|a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,",
+         "template" : "[% FOREACH c IN ['09'..'12'] %][% c %],[% END %]|[% FOREACH c IN ['1'..'3'] %][% c %],[% END %]|[% FOREACH c IN ['a1'..'b1'] %][% c %],[% END %]"
+      },
+      {
+         "out" : "world hello|hell0 w0rld|hell[o] w[o]rld|heo word",
+         "template" : "[% s = \"hello world\" %][% s.replace('(\\w+) (\\w+)', '$2 $1') %]|[% s.replace('o', '0') %]|[% s.replace('(o)', '[$1]') %]|[% s.replace('l+', '') %]"
+      },
+      {
+         "out" : "x\\$y\\$z|[x][y]z|x.yy.z|x.y.$$",
+         "template" : "[% s = \"x.y.z\" %][% s.replace('\\.', '\\\\$') %]|[% s.replace('(.)\\.', '[$1]') %]|[% s.replace('(y)', '$1$1$2') %]|[% s.replace('z', '$$') %]"
+      },
+      {
+         "out" : "bbb|${2}xa|-a-a-a-",
+         "template" : "[% s = \"aaa\" %][% s.replace('a', 'b$0') %]|[% s.replace('(a)(a)', '${2}x') %]|[% s.replace('', '-') %]"
+      },
+      {
+         "out" : "a b c|hELLO|HELLO|helloHELLO",
+         "template" : "[% s = \"  a  b   c \" %][% s.collapse %]|[% s = \"hELLO\" %][% s.lcfirst %]|[% s.ucfirst %]|[% s.lower %][% s.upper %]"
+      },
+      {
+         "out" : "a,b,c|1,2,3|3",
+         "template" : "[% h = {b=>2, a=>1, c=>3} %][% h.keys.sort.join(',') %]|[% h.values.sort.join(',') %]|[% h.size %]"
+      },
+      {
+         "out" : "a=1;b=2;|ab",
+         "template" : "[% h = {b=>2, a=>1} %][% FOREACH p IN h.pairs %][% p.key %]=[% p.value %];[% END %]|[% FOREACH k IN h %][% k.key %][% END %]"
+      },
+      {
+         "out" : "2|3|3|2|2 1 3|3 1|1 2",
+         "template" : "[% l = [3,1,2] %][% l.max %]|[% l.size %]|[% l.first %]|[% l.last %]|[% l.reverse.join %]|[% l.first(2).join %]|[% l.last(2).join %]"
+      },
+      {
+         "out" : "x|1|1|1|n",
+         "template" : "[% s = \"x\" %][% s.list.join('-') %]|[% s.hash.keys.size %]|[% s.size %]|[% s.defined %]|[% undefinedvar.defined ? 'y' : 'n' %]"
+      },
+      {
+         "out" : "a&lt;b&gt;&amp;&quot;c&#39;|a&lt;b&gt;&amp;&quot;c&apos;|a&lt;b&gt;&amp;&quot;c&#39;|a&lt;b&gt;&amp;&quot;c&apos;|a&lt;b&gt;&amp;&quot;c&#39;",
+         "template" : "[% s = \"a<b>&\\\"c'\" %][% s | html %]|[% s | xml %]|[% s.html %]|[% s.xml %]|[% s | html_entity %]"
+      },
+      {
+         "out" : "1|1|2|10",
+         "template" : "[% h = {a=>1} %][% h.item('a') %]|[% h.list.size %]|[% l=[1,2] %][% l.item(1) %]|[% h.defined('a') %][% h.defined('z') ? 1 : 0 %]"
+      },
+      {
+         "out" : "INSIDE|abcabc|<x>",
+         "template" : "[% FILTER upper %]inside[% END %]|[% s = \"abc\" %][% s | repeat(2) %]|[% s = \"x\" %][% s | format('<%s>') %]"
+      },
+      {
+         "out" : "3.14|  3.1||3.142   ||3.141590e+00|3.14159",
+         "template" : "[% n = 3.14159 %][% n | format('%.2f') %]|[% n | format('%5.1f|') %]|[% n | format('%-8.3f|') %]|[% n | format('%e') %]|[% n | format('%g') %]"
+      },
+      {
+         "out" : "007|7|7|+7|    7||7    |",
+         "template" : "[% x = 7 %][% x | format('%03d') %]|[% x | format('%x') %]|[% x | format('%o') %]|[% x | format('%+d') %]|[% x | format('%5s|') %]|[% x | format('%-5d|') %]"
+      },
+      {
+         "out" : "FF|0xff|11111111|ÿ|%|255 ",
+         "template" : "[% x = 255 %][% x | format('%X') %]|[% x | format('%#x') %]|[% x | format('%b') %]|[% x | format('%c') %]|[% x | format('%%') %]|[% x | format('%s %s') %]"
+      },
+      {
+         "out" : "-2|2|1.00|0|a",
+         "template" : "[% x = -2.5 %][% x | format('%.0f') %]|[% x = 2.5 %][% x | format('%.0f') %]|[% x = 1.005 %][% x | format('%.2f') %]|[% x = 'abc' %][% x | format('%d') %]|[% x | format('%.1s') %]"
+      },
+      {
+         "out" : "1.235e+06|1.23457E+06|1234567.89||1.2345e-05|1.23e-05",
+         "template" : "[% x = 1234567.891 %][% x | format('%.3e') %]|[% x | format('%G') %]|[% x | format('%10.2f|') %]|[% x = 0.000012345 %][% x | format('%g') %]|[% x | format('%.3g') %]"
+      },
+      {
+         "out" : "2.5|1|3|0.333333333333333|-3|2|1|10|14",
+         "template" : "[% 10 / 4 %]|[% 10 mod 3 %]|[% 7 div 2 %]|[% 1 / 3 %]|[% -7 div 2 %]|[% -7 mod 3 %]|[% 7 % 3 %]|[% 2 * 3 + 4 %]|[% 2 * (3 + 4) %]"
+      },
+      {
+         "out" : "3|3.33333333333333|-2.5|0.3|1000000000000|1e+24|142857.142857143",
+         "template" : "[% x = 2 %][% x * 1.5 %]|[% 10 / 3 %]|[% -10 / 4 %]|[% 0.1 + 0.2 %]|[% 1000000 * 1000000 %]|[% n = 1000000 %][% n * n * n * n %]|[% n / 7 %]"
+      },
+      {
+         "out" : "a b C|b a C|9,10,100|10,100,9",
+         "template" : "[% l = ['b','a','C'] %][% l.sort.join %]|[% l.nsort.join %]|[% l = [10,9,100] %][% l.nsort.join(',') %]|[% l.sort.join(',') %]"
+      },
+      {
+         "out" : "4|a-b-c|a|b|c|a|b-c|a|-|b|-|c",
+         "template" : "[% s = \"a,b,,c,,\" %][% s.split(',').size %]|[% s = \"abc\" %][% s.split('').join('-') %]|[% s = \"a b  c\" %][% s.split.join('|') %]|[% s = 'a-b-c' %][% s.split('-', 2).join('|') %]|[% s.split('(-)').join('|') %]"
+      },
+      {
+         "out" : "cd|ef|6|abcdefabcdefabcdef|aXYdef|ef",
+         "template" : "[% s = \"abcdef\" %][% s.substr(2,2) %]|[% s.substr(-2) %]|[% s.length %]|[% s.repeat(3) %]|[% s.substr(1,2,'XY') %]|[% s.substr(4) %]"
+      },
+      {
+         "out" : "y|1,22|1|a,1|n",
+         "template" : "[% s = \"Hello a1b22\" %][% s.search('^H') ? 'y' : 'n' %]|[% s.match('(\\d+)', 1).join(',') %]|[% s.match('(\\d+)').join(',') %]|[% s.match('(\\w)(\\d)').join(',') %]|[% s.match('zzz') ? 'm' : 'n' %]"
+      },
+      {
+         "out" : "m1|y|H e",
+         "template" : "[% s = 'Hello' %][% s.match('l+') ? 'm' : 'n' %][% s.match('(L)', 0).size %]|[% s.search('(?i)LL') ? 'y' : 'n' %]|[% s.match('(?i)(h)(e)').join %]"
+      },
+      {
+         "out" : "4|CAFÉ|école|éCOLE|àB",
+         "template" : "[% s = \"café\" %][% s.length %]|[% s.upper %]|[% s = \"ÉCOLE\" %][% s.lower %]|[% s.lcfirst %]|[% s = 'ÀB' %][% s.lcfirst %]"
+      },
+      {
+         "out" : "ac|ac|abc|t| t | t |a\\\"b'ca\"b\\'c",
+         "template" : "[% s = \"abc\" %][% s.replace('b') %]|[% s.remove('b') %]|[% s.trim %]|[% s = \" t \" %][% s.trim %]|[% s.dquote %]|[% s.squote %]|[% s = \"a\\\"b'c\" %][% s.dquote %][% s.squote %]"
+      },
+      {
+         "out" : "3 1 2 4|4|3|9 1 2|1 2|1",
+         "template" : "[% l = [3,1,2] %][% l.push(4) %][% l.join %]|[% l.pop %]|[% l.shift %]|[% l.unshift(9) %][% l.join %]|[% l.grep('^[12]$').join %]|[% l.grep('9').size %]"
+      },
+      {
+         "out" : "a b c|2|1|0|a|ARRAY(0x5584fca10238)a b z",
+         "template" : "[% l = ['a','b'] %][% l.merge(['c'], 'd').join %]|[% l.size %]|[% l.defined(1) %]|[% l.defined(5) ? 1 : 0 %]|[% l.hash.keys.sort.join %]|[% l.import(['z']) %][% l.join %]"
+      },
+      {
+         "out" : "a b|a b|4|2|a b|1 2|2",
+         "template" : "[% h = {a=>1,b=>2} %][% h.sort.join %]|[% h.nsort.join %]|[% h.each.size %]|[% h.item('b') %]|[% h.list('keys').sort.join %]|[% h.list('values').sort.join %]|[% h.list('pairs').size %]"
+      },
+      {
+         "out" : "deep|2|1|deep|0",
+         "template" : "[% h = {x=>{y=>[1,{z=>'deep'}]}} %][% h.x.y.1.z %]|[% h.x.y.size %]|[% h.x.y.0 %]|[% h.x.y.-1.z %]|[% h.x.y.5.defined ? 1 : 0 %]"
+      },
+      {
+         "out" : "ab-c|a-bc|12,345|5",
+         "template" : "[% s = 'abc' %][% s.chunk(2).join('-') %]|[% s.chunk(-2).join('-') %]|[% s = '12345' %][% s.chunk(-3).join(',') %]|[% s.chunk(1).size %]"
+      },
+      {
+         "out" : "3|2.5|2.5|7|007|1000|13",
+         "template" : "[% n = 3.0 %][% n %]|[% n = 2.50 %][% n %]|[% n + 0 %]|[% n = '007' %][% n + 0 %]|[% n %]|[% n = '1e3' %][% n + 0 %]|[% n = '12abc' %][% n + 1 %]"
+      },
+      {
+         "out" : "01F322;123213;23L322;",
+         "template" : "[% FOREACH i IN [1..3] %][% loop.index %][% loop.count %][% loop.first ? 'F' : '' %][% loop.last ? 'L' : '' %][% loop.size %][% loop.max %][% loop.prev %][% loop.next %];[% END %]"
+      },
+      {
+         "out" : "0|0||-1|0||",
+         "template" : "[% l = [] %][% l.size %]|[% l.first.defined ? 1 : 0 %]|[% l.join %]|[% l.max %]|[% h = {} %][% h.keys.size %]|[% FOREACH i IN l %]x[% END %]|[% FOREACH i IN undef_list %]y[% END %]"
+      },
+      {
+         "error" : "undef",
+         "template" : "[% x = 7 %][% x mod 0 %]"
+      },
+      {
+         "error" : "undef",
+         "template" : "[% x = 7 %][% x / 0 %]"
+      },
+      {
+         "out" : "1|2x|ttttf",
+         "template" : "[% s = 'a' %][% s _ s _ 1 + 1 %]|[% 1 + 1 _ 'x' %]|[% 'a' == 'a' ? 't' : 'f' %][% 'a' != 'b' ? 't' : 'f' %][% 2 < 10 ? 't' : 'f' %][% '2' < '10' ? 't' : 'f' %][% 'b' > 'a' ? 't' : 'f' %]"
+      },
+      {
+         "out" : "yes|dflt|zero|empty|and|01",
+         "template" : "[% SET a = 1; SET b = a ? 'yes' : 'no'; b %]|[% c = d || 'dflt' %][% c %]|[% e = 0 %][% e || 'zero' %]|[% f = '' %][% f or 'empty' %]|[% g = 'v' %][% g && 'and' %]|[% NOT g ? 1 : 0 %][% !f ? 1 : 0 %]"
+      },
+      {
+         "out" : "ubde",
+         "template" : "[% UNLESS 0 %]u[% END %][% IF 0 %]a[% ELSIF '0.0' %]b[% ELSE %]c[% END %][% IF '00' %]d[% END %][% IF ' ' %]e[% END %][% IF '0' %]f[% END %][% IF 0.0 %]g[% END %]"
+      },
+      {
+         "out" : "1,10,2,|1,2,10,|2,1,10,",
+         "template" : "[% l = [{a=>2},{a=>1},{a=>10}] %][% FOREACH i IN l.sort('a') %][% i.a %],[% END %]|[% FOREACH i IN l.nsort('a') %][% i.a %],[% END %]|[% FOREACH i IN l.sort('missing') %][% i.a %],[% END %]"
+      },
+      {
+         "out" : "%s %s|005|5.000e+00|  5.0%",
+         "template" : "[% \"%s %s\" | format %]|[% n = 5 %][% n | format('%03d') %]|[% n | format('%.3e') %]|[% n | format('%5.1f%%') %]"
+      },
+      {
+         "out" : "111|123|2",
+         "template" : "[% SET y = 0 %][% y = y + 1 FOREACH [1,2,3] %][% y %]|[% z = 0 %][% WHILE z < 3 %][% z = z + 1 %][% z %][% END %]|[% w = 5 %][% WHILE w > 2 %][% w = w - 1 %][% END %][% w %]"
+      },
+      {
+         "error" : "while",
+         "template" : "[% x = 5 %][% x = x - 1 WHILE x > 2 %][% x %]"
+      },
+      {
+         "error" : "while",
+         "template" : "[% x = 0 %][% WHILE 1 %][% x = x + 1 %][% END %]"
+      },
+      {
+         "out" : "2 3 4|4 5|2 3|1 4 5|3|1a b 4 5",
+         "template" : "[% l = [1,2,3,4,5] %][% l.slice(1,3).join %]|[% l.slice(-2).join %]|[% l.splice(1,2).join %]|[% l.join %]|[% l.unique.size %]|[% l.splice(0, 1, 'a', 'b').join %][% l.join %]"
+      },
+      {
+         "out" : "ab|def|two",
+         "template" : "[% SWITCH 'b' %][% CASE ['a','b'] %]ab[% CASE DEFAULT %]d[% END %]|[% SWITCH 'z' %][% CASE 'a' %]a[% CASE %]def[% END %]|[% SWITCH 2 %][% CASE 2 %]two[% CASE 2 %]again[% END %]"
+      },
+      {
+         "out" : "<1><12>|N3",
+         "template" : "[% MACRO m(a, b) BLOCK %]<[% a %][% b %]>[% END %][% m(1) %][% m(1,2) %]|[% MACRO n BLOCK %]N[% x %][% END %][% n(x=3) %]"
+      },
+      {
+         "out" : "B1B22|B65|B77",
+         "template" : "[% BLOCK b %]B[% v %][% END %][% INCLUDE b v=1 %][% PROCESS b v=2 %][% v %]|[% v = 5 %][% INCLUDE b v=6 %][% v %]|[% PROCESS b v=7 %][% v %]"
+      },
+      {
+         "out" : "<inner>|<<x>>",
+         "template" : "[% BLOCK w %]<[% content %]>[% END %][% WRAPPER w %]inner[% END %]|[% WRAPPER w %][% WRAPPER w %]x[% END %][% END %]"
+      },
+      {
+         "out" : "13|1121",
+         "template" : "[% FOREACH i IN [1..5] %][% NEXT IF i == 2 %][% LAST IF i == 4 %][% i %][% END %]|[% FOREACH i IN [1,2] %][% FOREACH j IN [1,2] %][% LAST IF j == 2 %][% i %][% j %][% END %][% END %]"
+      },
+      {
+         "out" : "a",
+         "template" : "a[% STOP %]b"
+      },
+      {
+         "out" : "xz",
+         "template" : "[% BLOCK r %]x[% RETURN %]y[% END %][% PROCESS r %]z"
+      },
+      {
+         "out" : "[\"v\"]v and vs|single $x|nested K|dollar $x",
+         "template" : "[% x = 'v' %][\"[% x %]\"][% \"$x and ${x}s\" %]|[% 'single $x' %]|[% y = { k => 'K' } %][% \"nested ${y.k}\" %]|[% \"dollar \\$x\" %]"
+      },
+      {
+         "out" : "..|abc|abcdefg...|abcdef..",
+         "template" : "[% x = 'abc' %][% x | truncate(2) %]|[% x | truncate(5) %]|[% y = 'abcdefghijklmnop' %][% y | truncate(10) %]|[% y | truncate(8, '..') %]"
+      },
+      {
+         "out" : "  a b\n  c d\n  \n  e|>a b\n>c d\n>\n>e|<p>\na b\nc d\n</p>\n\n<p>\ne</p>\n|a b\nc d\n<br />\n<br />\ne|a b<br />\nc d<br />\n<br />\ne",
+         "template" : "[% s = \"a b\\nc d\\n\\ne\" %][% s | indent(2) %]|[% s | indent('>') %]|[% s | html_para %]|[% s | html_break %]|[% s | html_line_break %]"
+      },
+      {
+         "out" : "a%20b%26c%2Fd%3Fe%3Df|a%20b&c/d?e=f|%C3%A9%20%C3%BC|%C3%A9%20%C3%BC|line%0Abreak",
+         "template" : "[% s = 'a b&c/d?e=f' %][% s | uri %]|[% s | url %]|[% s = 'é ü' %][% s | uri %]|[% s | url %]|[% s = \"line\\nbreak\" %][% s | uri %]"
+      },
+      {
+         "out" : "x|x|end|a-b-c|abc|axbxc|AXbXc",
+         "template" : "[% s = '  x  ' %][% s | trim %]|[% s | collapse %]|[% s | null %]end|[% s = 'aXbXc' %][% s | replace('X', '-') %]|[% s | remove('X') %]|[% s | lower %]|[% s | ucfirst %]"
+      },
+      {
+         "out" : "x2y|12",
+         "template" : "[% s = 'x[' _ '% 1 + 1 %' _ ']y' %][% s | eval %]|[% t = '[' _ '% FOREACH i IN [1,2] %' _ '][' _ '% i %' _ '][' _ '% END %' _ ']' %][% t | evaltt %]"
+      },
+      {
+         "error" : "file",
+         "template" : "[% s = '[' _ '% IF %' _ ']' %][% s | eval %]"
+      },
+      {
+         "error" : "perl",
+         "template" : "[% x = 'perl' %][% x | perl %]"
+      },
+      {
+         "out" : "after",
+         "template" : "[% x = 1 %][% CLEAR %]after"
+      },
+      {
+         "out" : "3|4|set",
+         "template" : "[% DEFAULT x = 3 %][% x %]|[% y = 0 %][% DEFAULT y = 4 %][% y %]|[% z = 'set' %][% DEFAULT z = 5 %][% z %]"
+      },
+      {
+         "out" : "c|3|1|a|1,2,HASH(0x5584fc9e6eb8)",
+         "template" : "[% x = { a => [1, 2, { b => 'c' }] } %][% x.a.2.b %]|[% x.a.size %]|[% x.item('a').0 %]|[% x.keys.join %]|[% x.a.join(',') %]"
+      },
+      {
+         "out" : "-3,a,1,2.5,010|-3,010,1,2.5,a|4|-3",
+         "template" : "[% l = [1, 'a', 2.5, '010', -3] %][% l.nsort.join(',') %]|[% l.sort.join(',') %]|[% l.max %]|[% l.reverse.first %]"
+      },
+      {
+         "out" : "1 2 3|12|45",
+         "template" : "[% FOREACH i IN [1, 2, 3] %][% i %][% ' ' UNLESS loop.last %][% END %]|[% FOREACH [1, 2] %][% loop.count %][% END %]|[% FOREACH x = [4, 5] %][% x %][% END %]"
+      },
+      {
+         "out" : "a1b2|yz",
+         "template" : "[% hh = { b => 2, a => 1 } %][% FOREACH h IN hh %][% h.key %][% h.value %][% END %]|[% kk = { z => 1, y => 2 } %][% FOREACH k IN kk.keys.sort %][% k %][% END %]"
+      },
+      {
+         "out" : "0.3|1e+21|1000000000000000|1000000000000001|123456789012000|0.666666666666667",
+         "template" : "[% n = 0.1 %][% n * 3 %]|[% n = 1000000000000000000000 %][% n %]|[% n = 1000000000000000 %][% n %]|[% n + 1 %]|[% n = 123456789012 %][% n * 1000 %]|[% n = 2 %][% n / 3 %]"
+      },
+      {
+         "out" : "3.50|3.5|4|0|1|42",
+         "template" : "[% n = '3.50' %][% n %]|[% n * 1 %]|[% n + 0.5 %]|[% m = '-0' %][% m + 0 %]|[% m = '1_000' %][% m + 0 %]|[% m = ' 42 ' %][% m + 0 %]"
+      },
+      {
+         "out" : "MiSSiSSippi|Mississippi|mississippi|MississippI|Mi<ss>i<ss>ippi",
+         "template" : "[% s = 'Mississippi' %][% s.replace('ss', 'SS') %]|[% s.replace('(?i)S', 's') %]|[% s.replace('^M', 'm') %]|[% s.replace('i$', 'I') %]|[% s.replace('(s+)', '<$1>') %]"
+      },
+      {
+         "out" : "a[b]c|$&$&$&|a\\nc|a\tc",
+         "template" : "[% s = 'abc' %][% s.replace('(?<x>b)', '[$1]') %]|[% s.replace('\\w', '$&') %]|[% s.replace('b', '\\n') %]|[% s.replace('b', \"\\t\") %]"
+      },
+      {
+         "out" : "three two one|3",
+         "template" : "[% s = 'one two three' %][% s.split(' ').reverse.join(' ') %]|[% s.split('\\s+').size %]"
+      },
+      {
+         "out" : "0|a+b+c|5|A",
+         "template" : "[% s = 'a.b.c' %][% s.split('.').size %]|[% s.split('\\.').join('+') %]|[% s.length %]|[% s.substr(0, 1).upper %]"
+      },
+      {
+         "out" : "diff|lower|cap",
+         "template" : "[% x = 'A' %][% x == 'a' ? 'same' : 'diff' %]|[% x.lower == 'a' ? 'lower' : 'no' %]|[% x.match('^[A-Z]$') ? 'cap' : 'no' %]"
+      },
+      {
+         "out" : "end",
+         "template" : "[% IF x == 1 %]a[% ELSIF x == 2 %]b[% END %]end"
+      },
+      {
+         "out" : "3210",
+         "template" : "[% BLOCK rec %][% n %][% IF n > 0 %][% INCLUDE rec n = n - 1 %][% END %][% END %][% INCLUDE rec n = 3 %]"
+      },
+      {
+         "out" : "left     right|rig",
+         "template" : "[% \"%-10s|\" | format('left') %][% x = 'right' %][% x | format('%10s|') %][% x | format('%.3s') %]"
+      },
+      {
+         "out" : "12|-12|-8446744073709551617|10000000000",
+         "template" : "[% x = 12.5 %][% x | format('%d') %]|[% x = -12.5 %][% x | format('%d') %]|[% x = '9999999999999999999' %][% x | format('%d') %]|[% x = 10000000000 %][% x | format('%d') %]"
+      },
+      {
+         "out" : "x y|xy|x, y|2|1|y x",
+         "template" : "[% l = ['x', 'y'] %][% l.join %]|[% l.join('') %]|[% l.join(', ') %]|[% l.size %]|[% l.max %]|[% l.reverse.join %]"
+      },
+      {
+         "out" : "a b c|3",
+         "template" : "[% items = [] %][% items.push('a') %][% items.push('b', 'c') %][% items.join %]|[% items.size %]"
+      },
+      {
+         "out" : "4|1|1|1|text",
+         "template" : "[% x = 'text' %][% x.length %]|[% x.size %]|[% x.list.size %]|[% x.hash.defined ? 1 : 0 %]|[% x.item %]"
+      },
+      {
+         "out" : "||xx|xx",
+         "template" : "[% t = 'x' %][% t.repeat(0) %]|[% t.repeat(-1) %]|[% t.repeat('2') %]|[% t.repeat(2.7) %]"
+      },
+      {
+         "out" : "ok|none|9|7|-3",
+         "template" : "[% d = 'ok' %][% d.defined ? d : 'none' %]|[% e.defined ? e : 'none' %]|[% (1 + 2) * 3 %]|[% 1 + 2 * 3 %]|[% q = 4 %][% 0 - q + 1 %]"
+      },
+      {
+         "out" : "6|3",
+         "template" : "[% FOREACH i IN [1..3] %][% j = i * 2 %][% END %][% j %]|[% i %]"
+      },
+      {
+         "out" : "123|4",
+         "template" : "[% l = [1, 2, 3] %][% FOREACH i IN l %][% l.push(9) IF i == 1 %][% i %][% END %]|[% l.size %]"
+      }
+   ],
+   "template" : "3.106"
+}

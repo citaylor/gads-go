@@ -259,6 +259,8 @@ type Interpreter struct {
 	callbacks map[int]Func
 	nextID    int
 	cbErr     error
+	// convErr is the first error in converting the result to Perl's form
+	convErr error
 
 	// MaxInstructions stops a Run after about this many Lua instructions,
 	// and MaxMemory limits the memory of the interpreter while code runs
@@ -274,6 +276,12 @@ const (
 	DefaultMaxInstructions = 1_000_000_000
 	DefaultMaxMemory       = 512 << 20
 )
+
+// maxArrayIndex limits the array made of a table with number keys:
+// Inline::Lua makes an array up to the largest key, so that a key of 2^53
+// takes all memory (in Perl, the end of one worker; here, of the whole
+// application). A larger key is an error.
+const maxArrayIndex = 10_000_000
 
 var (
 	registryMu sync.Mutex
@@ -374,8 +382,13 @@ func (it *Interpreter) Run(code string, vars map[string]any, wdd, wda Func) (*Ru
 	if n == 0 {
 		return &RunResult{}, nil
 	}
+	it.convErr = nil
 	val := it.toPerl(1)
 	C.lua_settop(L, 0)
+	if err := it.convErr; err != nil {
+		it.convErr = nil
+		return nil, err
+	}
 	res := &RunResult{}
 	if h, ok := val.(map[string]any); ok {
 		res.Success = h["success"]
@@ -491,6 +504,13 @@ func (it *Interpreter) tableToPerl(idx int) any {
 		top := int(C.lua_gettop(L))
 		if isary {
 			n := float64(C.lua_tonumberx(L, -2, nil))
+			if n >= maxArrayIndex {
+				if it.convErr == nil {
+					it.convErr = &RuntimeError{Msg: fmt.Sprintf("table index %s is over the limit of %d\n", FormatG(n, 14), maxArrayIndex)}
+				}
+				C.gads_pop(L, 1)
+				continue
+			}
 			k := int(n) - 1
 			val := it.toPerl(top)
 			if k < 0 {
@@ -512,7 +532,12 @@ func (it *Interpreter) tableToPerl(idx int) any {
 			case C.LUA_TSTRING:
 				key = it.tostring(-2)
 			default:
-				key = ""
+				// Inline::Lua croaks (its message ends "at (eval N) line 5.",
+				// a place in Perl), and its Lua state is broken afterwards,
+				// failing every later call in that process: not reproduced
+				if it.convErr == nil {
+					it.convErr = &RuntimeError{Msg: fmt.Sprintf("Illegal type (%s) in table subscript\n", C.GoString(C.lua_typename(L, C.lua_type(L, -2))))}
+				}
 			}
 			hash[key] = it.toPerl(top)
 		}

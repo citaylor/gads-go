@@ -1,0 +1,4 @@
+# The user's globs, which take precedence
+text/x-override:*.ovr
+text/x-override-glob:ov*.x
+text/x-home:*.home
