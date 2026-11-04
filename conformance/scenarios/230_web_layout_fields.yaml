@@ -7,8 +7,9 @@ source:
 description: >
   The fields of a table: the list (with topics and display conditions),
   saving the order of the fields, the form of each type of field, the form
-  of a new field, an invalid field, deleting a field (refused while other
-  fields depend on it) and the permission needed.
+  of a new field (not used when editing by default), an invalid field,
+  deleting a field (refused while other fields depend on it) and the
+  permission needed.
 steps:
   - sheet:
       as: cv
@@ -52,7 +53,13 @@ steps:
   - http: { id: home_superadmin, as: superadmin, path: /, no_body: true }
   - http: { id: layouts_denied, as: normal1, path: "/{sheet:s}/layout" }
   - http: { id: layouts_page, as: superadmin, path: "/{sheet:s}/layout" }
-  - http: { id: layout_new_page, as: superadmin, path: "/{sheet:s}/layout/0" }
+  # A new field is not used when editing records by default (dev 337d733c)
+  - http:
+      id: layout_new_page
+      as: superadmin
+      path: "/{sheet:s}/layout/0"
+      expect_body_contains:
+        - "name=\"show_in_edit\"\n      value=\"0\""
   - http: { id: layout_string, as: superadmin, path: "/{sheet:s}/layout/{column:s:string1}" }
   - http: { id: layout_integer, as: superadmin, path: "/{sheet:s}/layout/{column:s:integer1}" }
   - http: { id: layout_enum, as: superadmin, path: "/{sheet:s}/layout/{column:s:enum1}" }

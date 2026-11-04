@@ -4,7 +4,7 @@ This workspace ports [ctrlo GADS](https://github.com/ctrlo/GADS), a Perl and
 Dancer2 application, to Go. A language-neutral conformance suite proves that
 the port behaves the same: every scenario runs against the original Perl
 code and against Go, and the two sets of observations must be identical.
-As of 2026-11-02, against GADS `dev` at `b6e4c45b` (schema 115), all 181
+As of 2026-11-04, against GADS `dev` at `337d733c` (schema 115), all 181
 scenarios are identical.
 
 ## Rules
@@ -113,8 +113,10 @@ Go packages, under `gads-go/`:
 - Chrome: GADS runs `/usr/bin/chromium` (here a link to
   `/usr/bin/google-chrome`). Scenarios that need it or `pdftotext` say so
   with `requires:`, and the Go and exported Perl tests skip them when
-  either is missing, as in CI (which has no `/usr/bin/chromium`; the
-  `internal/chrome` tests use its `google-chrome`).
+  either is missing. CI's runners have `/usr/bin/chromium`, so they run
+  them; the workflow lifts Ubuntu's AppArmor limit on user namespaces
+  (`kernel.apparmor_restrict_unprivileged_userns=0`) so that Chromium
+  starts with its sandbox.
 - Docker CE runs as a system service, and `ctaylor` is in the `docker`
   group. In an older login session, use `sg docker -c '...'`. The host's own
   PostgreSQL is disabled; use the containers instead.
