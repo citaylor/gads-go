@@ -13,8 +13,9 @@ import (
 	"github.com/ctrlo/gads-go/internal/db"
 )
 
-// Port of GADS::Import (CSV import of records). The import always runs in
-// process, as Perl does with GADS_NO_FORK.
+// Port of GADS::Import (CSV import of records). Its rows are imported on a
+// forked engine (Engine.Background) as Perl forks a process for them, or in
+// process without Engine.Fork (as with GADS_NO_FORK).
 
 // ImportOptions are the options of an import.
 type ImportOptions struct {
@@ -84,10 +85,48 @@ func (im *Import) Process() int64 {
 	old := im.e.IgnorePermissions
 	im.e.IgnorePermissions = true
 	defer func() { im.e.IgnorePermissions = old }()
+	// The fields from the first row, which may fail, and the status, before
+	// the rows are imported (in the child of Perl's fork)
 	im.buildFields()
-	im.statusID()
-	im.importRows()
-	return im.importID
+	id := im.statusID()
+	// The child's objects are its own: the layout (with its user, whose
+	// permissions apply) and the user of the import
+	instanceID := im.layout.InstanceID
+	var userID, layoutUserID int64
+	if im.user != nil {
+		userID = im.user.ID
+	}
+	if u := im.layout.User(); u != nil {
+		layoutUserID = u.ID
+	}
+	im.e.Background(func(e *Engine) {
+		if e == im.e {
+			im.importRows()
+			return
+		}
+		// Perl's child hides its messages, and records a fatal error in the
+		// status
+		err := Try(func() {
+			e.IgnorePermissions = true
+			find := func(id int64) *User {
+				if id == 0 {
+					return nil
+				}
+				return e.FindUser(id)
+			}
+			child := e.NewImport(e.NewLayout(instanceID, find(layoutUserID)), find(userID), im.data, im.o)
+			child.importID = id
+			child.buildFields()
+			child.importRows()
+		})
+		if err != nil {
+			_ = Try(func() {
+				e.DB.RollbackAll()
+				e.DB.Exec(`UPDATE "import" SET "result" = ?, "completed" = ? WHERE "id" = ?`, err.Error(), e.Now(), id)
+			})
+		}
+	})
+	return id
 }
 
 func (im *Import) statusID() int64 {

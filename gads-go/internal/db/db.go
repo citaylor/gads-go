@@ -139,6 +139,13 @@ func Open(driver, dsn string) (*DB, error) {
 		d.Close()
 		return nil, err
 	}
+	// A locked database is waited for, for up to 30 s, as DBD::SQLite's
+	// default sqlite_busy_timeout: an import's own connection writes while
+	// the application does (gads.Engine.Fork)
+	if _, err := conn.ExecContext(context.Background(), "PRAGMA busy_timeout = 30000"); err != nil {
+		d.Close()
+		return nil, err
+	}
 	if err := d.addSQLiteIndexes(); err != nil {
 		d.Close()
 		return nil, err
@@ -671,7 +678,15 @@ func Placeholders(n int) string {
 // Begin starts a (possibly nested) transaction.
 func (d *DB) Begin() {
 	if d.depth == 0 {
-		d.Exec("BEGIN")
+		if d.Dialect == Postgres {
+			d.Exec("BEGIN")
+		} else {
+			// As DBD::SQLite (sqlite_use_immediate_transaction): the write
+			// lock is taken at once, so that another connection's write
+			// is waited for (busy_timeout) rather than failing with
+			// "database is locked" when the transaction first writes
+			d.Exec("BEGIN IMMEDIATE")
+		}
 	}
 	d.depth++
 }

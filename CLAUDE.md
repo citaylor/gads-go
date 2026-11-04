@@ -216,7 +216,8 @@ Debugging environment variables:
     are replaced by the runner.
   - `HTTPClient` makes the requests to other services (the SMS gateway and
     the Yubico API); the runner's transport answers them.
-  - `NoFork` is GADS_NO_FORK.
+  - `NoFork` is GADS_NO_FORK (how a record write treats its alerts);
+    `Fork` makes the engine of forked work (see Concurrency).
   - `IgnorePermissions` is the server-side admin context used by the
     scripts.
 - **JSON for templates and the API goes through `gads.EncodeJSON`.** It
@@ -238,6 +239,17 @@ Debugging environment variables:
     open transaction and clears the reports around each request.
   - Anything that can run without end holds up every user, so user code
     has limits (see Deviations).
+  - The work that Perl forks a process for runs on a forked engine
+    (`Engine.Fork`, `Engine.Background`): an engine of its own, with its
+    own database connection and Lua interpreter, in a goroutine. The rows
+    of a data import run there, so the upload returns at once. `gads
+    serve` waits for them at exit (2 minutes; compose's
+    `stop_grace_period` is 3m). Without `Fork` (the scripts, and the
+    conformance runner, as GADS_NO_FORK) the work runs in process;
+    `TestImportForked` runs the import scenarios forked. Package-level
+    caches shared by engines need a lock (`regexCache`). On SQLite, as
+    DBD::SQLite, transactions are `BEGIN IMMEDIATE` and a locked database
+    is waited for 30 s (`busy_timeout`), so that both connections write.
 - **Dead code.** Keep `staticcheck` and `deadcode -test ./...` clean.
   `goLuaCallback` is a cgo export and deadcode can't see it, so keep
   what it calls inside it.
@@ -483,10 +495,6 @@ Not fixed:
     (`modal_sendemail`), the CSV download of a graph, and timeline
     overlays. The view type is kept in the session, so after choosing
     calendar or globe the data page fails until another type is chosen.
-- Not yet as Perl:
-  - A data import runs within its request, holding the engine, so every
-    other request waits until it ends (about 100 rows a second). Perl
-    forks it and redirects at once.
 - Deviations:
   - Record and report PDFs use the Liberation Sans built into the binary.
     CtrlO::PDF loads it from

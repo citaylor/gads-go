@@ -1,6 +1,8 @@
 package conformance
 
 import (
+	"time"
+
 	"regexp"
 	"sort"
 	"strconv"
@@ -303,6 +305,7 @@ func (r *Runner) stepImport(args map[string]any) any {
 		return strconv.FormatInt(r.user(reImportUser.FindStringSubmatch(m)[1]).ID, 10)
 	})
 	id := r.e.NewImport(layout, u, []byte(content), o).Process()
+	r.e.WaitBackground(time.Minute) // (forkImports)
 	st := r.e.DB.QueryRow(`SELECT * FROM "import" WHERE "id" = ?`, id)
 	rows := []any{}
 	for _, row := range r.e.DB.Query(`SELECT * FROM "import_row" WHERE "import_id" = ? ORDER BY "id"`, id) {

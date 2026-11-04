@@ -14,6 +14,7 @@ import (
 	"os"
 	"runtime/debug"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/ctrlo/gads-go/internal/db"
@@ -65,6 +66,13 @@ type Engine struct {
 	// new entry flags. Without it, alerts are still processed inline (Perl
 	// forks a process for them) but the record write then completes.
 	NoFork bool
+	// Fork, if set, makes an engine with its own database connection and
+	// Lua interpreter (Forked), for the work that GADS forks a process for
+	// (the rows of an import), so that it holds up no request. Nil runs
+	// that work in process, as GADS_NO_FORK does.
+	Fork func() (*Engine, error)
+	// background counts the work running on forked engines
+	background sync.WaitGroup
 	// Email sender (optional): receives the emails of SendEmail
 	Emailer func(Email)
 
@@ -128,6 +136,67 @@ func NewEngine(d *db.DB, cfg *Config) (*Engine, error) {
 
 		AlertSender: ProcessAlerts,
 	}, nil
+}
+
+// Background runs f as GADS runs the work it forks a process for: on an
+// engine of its own (Fork), for the same site, in a goroutine, and
+// closing that engine when f ends. f's errors are its own to record, as
+// those of Perl's child are not seen by the user; a panic is recovered.
+// Without Fork, f runs here on this engine. It reports whether f was
+// forked.
+func (e *Engine) Background(f func(child *Engine)) bool {
+	if e.Fork == nil {
+		f(e)
+		return false
+	}
+	child, err := e.Fork()
+	if err != nil {
+		Panic("Unable to start a background process: %s", err)
+	}
+	child.SiteID = e.SiteID
+	e.background.Add(1)
+	go func() {
+		defer e.background.Done()
+		defer func() { child.Close(); child.DB.Close() }()
+		_ = Try(func() { f(child) })
+	}()
+	return true
+}
+
+// Forked returns an engine with the settings of this one on another
+// database connection, with its own Lua interpreter (for Fork).
+func (e *Engine) Forked(d *db.DB) (*Engine, error) {
+	child, err := NewEngine(d, e.Config)
+	if err != nil {
+		return nil, err
+	}
+	child.PerlWarn = e.PerlWarn
+	child.Clock = e.Clock
+	child.SiteID = e.SiteID
+	child.PanicOnCode = e.PanicOnCode
+	child.AllowBlankCurval = e.AllowBlankCurval
+	child.PanicOnCurvalBuildValues = e.PanicOnCurvalBuildValues
+	child.AlertSender = e.AlertSender
+	child.NoFork = e.NoFork
+	child.Emailer = e.Emailer
+	child.TokenGenerator = e.TokenGenerator
+	child.PasswordGenerator = e.PasswordGenerator
+	child.HTTPClient = e.HTTPClient
+	child.SAMLIDGenerator = e.SAMLIDGenerator
+	return child, nil
+}
+
+// WaitBackground waits at most timeout for the work of Background to end.
+// It reports whether all of it did.
+func (e *Engine) WaitBackground(timeout time.Duration) bool {
+	done := make(chan struct{})
+	go func() { e.background.Wait(); close(done) }()
+	select {
+	case <-done:
+		return true
+	case <-time.After(timeout):
+		return false
+	}
 }
 
 // Now returns the current (possibly frozen) time in UTC, truncated to

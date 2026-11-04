@@ -81,12 +81,32 @@ type Result struct {
 	ElapsedMS float64 `json:"elapsed_ms,omitempty"`
 }
 
+// forkImports runs imports on a forked engine (gads.Engine.Fork), as the
+// application does, instead of in process as GADS_NO_FORK (TestImportForked)
+var forkImports bool
+
+// openForkFile opens the SQLite file of forkImports, without waiting for
+// the disk (a test's database is thrown away)
+func openForkFile(file string) (*db.DB, error) {
+	d, err := db.Open("sqlite", file)
+	if err != nil {
+		return nil, err
+	}
+	if err := gads.Try(func() { d.Exec(`PRAGMA synchronous = OFF`) }); err != nil {
+		d.Close()
+		return nil, err
+	}
+	return d, nil
+}
+
 // Runner executes a scenario.
 type Runner struct {
 	// pgName is the PostgreSQL database of the scenario (GADS_TEST_PG)
 	// caughtFatal is the first error caught by tryCol in the step
 	caughtFatal *string
 	pgName      string
+	// forkDir holds the SQLite file of forkImports
+	forkDir string
 	// uploads is the directory of uploaded files (gads.uploads), kept for
 	// the whole scenario as by the Perl runner
 	uploads     string
@@ -211,6 +231,12 @@ func (r *Runner) newDatabase() error {
 	var err error
 	if pgParams() != "" {
 		d, r.pgName, err = openPG()
+	} else if forkImports {
+		// A file, which the forked engine opens too
+		if r.forkDir, err = os.MkdirTemp("", "gads-fork"); err != nil {
+			return err
+		}
+		d, err = openForkFile(filepath.Join(r.forkDir, "gads.db"))
 	} else {
 		d, err = db.OpenMemory()
 	}
@@ -277,6 +303,24 @@ func (r *Runner) newDatabase() error {
 	}
 	// As run_perl.sh sets GADS_NO_FORK
 	e.NoFork = true
+	// With forkImports, imports run on a forked engine as in the application
+	// (each step first waits for them to end)
+	if forkImports {
+		file, pgName := filepath.Join(r.forkDir, "gads.db"), r.pgName
+		e.Fork = func() (*gads.Engine, error) {
+			var cd *db.DB
+			var err error
+			if pgName != "" {
+				cd, err = db.Open("pgx", pgParams()+" dbname="+pgName)
+			} else {
+				cd, err = openForkFile(file)
+			}
+			if err != nil {
+				return nil, err
+			}
+			return e.Forked(cd)
+		}
+	}
 	// Requests to other services are answered (the outgoing_http step)
 	r.outgoing = &outgoingHTTP{r: r}
 	r.outgoing.reset()
@@ -326,10 +370,15 @@ func (r *Runner) closeDatabase() {
 	}
 	r.cliDirs = nil
 	if r.e != nil {
+		r.e.WaitBackground(time.Minute)
 		r.e.Close()
 	}
 	if r.db != nil {
 		r.db.Close()
+	}
+	if r.forkDir != "" {
+		os.RemoveAll(r.forkDir)
+		r.forkDir = ""
 	}
 	if r.pgName != "" {
 		dropPG(r.pgName)
@@ -358,6 +407,9 @@ func (r *Runner) setTime(s string) {
 
 func (r *Runner) runStep(id, typ string, args map[string]any) StepResult {
 	sr := StepResult{ID: id, Type: typ, Failures: []string{}}
+	// The imports of the previous steps (forkImports) end first, as the
+	// Perl runner's do in process
+	r.e.WaitBackground(time.Minute)
 	r.e.Reports = nil
 	r.caughtFatal = nil
 	handlers := map[string]func(map[string]any) any{

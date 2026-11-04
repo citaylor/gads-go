@@ -75,6 +75,9 @@ services:
       db:
         condition: service_healthy
     restart: unless-stopped
+    # On stop, the requests and imports in progress and the queued emails
+    # are waited for (see gads serve), before Docker kills the app
+    stop_grace_period: 3m
 
   # HTTPS in front of the app (docker/Caddyfile): TLS for GADS_HOST,
   # HTTP redirected to HTTPS. GADS_TLS chooses the certificate: internal

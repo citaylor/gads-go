@@ -166,6 +166,26 @@ func serve(args []string) int {
 	if err != nil {
 		return fail(err)
 	}
+	// The work that GADS forks a process for (the rows of an import) runs
+	// on an engine with its own connection, so that it holds up no request
+	driver, dsn, err := cfg.database()
+	if err != nil {
+		return fail(err)
+	}
+	e.Fork = func() (*gads.Engine, error) {
+		d, err := db.Open(driver, dsn)
+		if err != nil {
+			return nil, err
+		}
+		child, err := e.Forked(d)
+		if err != nil {
+			d.Close()
+			return nil, err
+		}
+		// (the request's emailer may be that of a GET, which refuses)
+		child.Emailer = m.Send
+		return child, nil
+	}
 	// Other log output (log.Printf, mail failures) goes to the same log
 	slog.SetDefault(logger)
 	wcfg := cfg.webConfig()
@@ -197,8 +217,17 @@ func serve(args []string) int {
 	if err := server.Shutdown(sctx); err != nil {
 		return fail(err)
 	}
+	// Imports still running are waited for (Perl's forked processes
+	// outlive the application)
+	if !e.WaitBackground(backgroundDrainTimeout) {
+		logger.Warn("GADS stopped with imports still running")
+	}
 	return 0
 }
+
+// backgroundDrainTimeout is how long the imports still running at exit are
+// waited for
+const backgroundDrainTimeout = 2 * time.Minute
 
 func deploy(args []string) int {
 	fs := flag.NewFlagSet("deploy", flag.ExitOnError)

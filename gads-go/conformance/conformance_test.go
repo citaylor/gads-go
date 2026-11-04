@@ -64,40 +64,55 @@ func TestConformance(t *testing.T) {
 	for _, f := range scenarios {
 		f := f
 		name := strings.TrimSuffix(filepath.Base(f), ".yaml")
-		t.Run(name, func(t *testing.T) {
-			if missing := missingRequirements(t, f); len(missing) > 0 {
-				t.Skipf("needs %s", strings.Join(missing, ", "))
-			}
-			res := RunFile(f)
-			if res.Fatal != "" {
-				t.Fatalf("fatal: %s", res.Fatal)
-			}
-			for _, s := range res.Steps {
-				for _, m := range s.Failures {
-					t.Errorf("%s: %s", s.ID, m)
-				}
-			}
-			golden := filepath.Join(goldenDir(), res.Scenario+".json")
-			if _, err := os.Stat(golden); err != nil {
-				t.Logf("no Perl reference result for %s", res.Scenario)
-				return
-			}
-			tmp := filepath.Join(t.TempDir(), "go.json")
-			if err := WriteJSON(tmp, res); err != nil {
-				t.Fatal(err)
-			}
-			diffs, err := CompareFiles(golden, tmp)
-			if err != nil {
-				t.Fatal(err)
-			}
-			for i, d := range diffs {
-				if i >= 25 {
-					t.Errorf("... %d more differences", len(diffs)-25)
-					break
-				}
-				t.Errorf("parity: %s", d)
-			}
-		})
+		t.Run(name, func(t *testing.T) { checkScenario(t, f) })
+	}
+}
+
+// checkScenario runs a scenario and compares it with the Perl golden result
+func checkScenario(t *testing.T, f string) {
+	if missing := missingRequirements(t, f); len(missing) > 0 {
+		t.Skipf("needs %s", strings.Join(missing, ", "))
+	}
+	res := RunFile(f)
+	if res.Fatal != "" {
+		t.Fatalf("fatal: %s", res.Fatal)
+	}
+	for _, s := range res.Steps {
+		for _, m := range s.Failures {
+			t.Errorf("%s: %s", s.ID, m)
+		}
+	}
+	golden := filepath.Join(goldenDir(), res.Scenario+".json")
+	if _, err := os.Stat(golden); err != nil {
+		t.Logf("no Perl reference result for %s", res.Scenario)
+		return
+	}
+	tmp := filepath.Join(t.TempDir(), "go.json")
+	if err := WriteJSON(tmp, res); err != nil {
+		t.Fatal(err)
+	}
+	diffs, err := CompareFiles(golden, tmp)
+	if err != nil {
+		t.Fatal(err)
+	}
+	for i, d := range diffs {
+		if i >= 25 {
+			t.Errorf("... %d more differences", len(diffs)-25)
+			break
+		}
+		t.Errorf("parity: %s", d)
+	}
+}
+
+// TestImportForked runs the scenarios of data imports with each import on a
+// forked engine (with its own connection, as in the application), which
+// must give Perl's results too
+func TestImportForked(t *testing.T) {
+	forkImports = true
+	defer func() { forkImports = false }()
+	for _, name := range []string{"014_import", "236_web_import"} {
+		f := "../../conformance/scenarios/" + name + ".yaml"
+		t.Run(name, func(t *testing.T) { checkScenario(t, f) })
 	}
 }
 

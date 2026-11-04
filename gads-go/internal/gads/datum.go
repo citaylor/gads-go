@@ -5,6 +5,7 @@ import (
 
 	"github.com/dlclark/regexp2"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/ctrlo/gads-go/internal/lua"
@@ -241,7 +242,12 @@ func DependentNotShown(d Datum, oldvalue bool, submissionToken string) bool {
 	return !shown
 }
 
-var regexCache = map[string]*regexp2.Regexp{}
+// regexCache holds the compiled regexes, for all engines (a forked one
+// among them, see Engine.Background)
+var (
+	regexCache   = map[string]*regexp2.Regexp{}
+	regexCacheMu sync.Mutex
+)
 
 // perlMatcher matches with Perl-compatible (backtracking) semantics.
 type perlMatcher struct{ re *regexp2.Regexp }
@@ -261,6 +267,8 @@ const regexMatchTimeout = time.Second
 // perlRegex compiles a (user supplied) Perl regex, returning nil if it
 // cannot be compiled.
 func perlRegex(re string) *perlMatcher {
+	regexCacheMu.Lock()
+	defer regexCacheMu.Unlock()
 	r, ok := regexCache[re]
 	if !ok {
 		var err error
