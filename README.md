@@ -20,12 +20,17 @@ identical.
 
 ## Status
 
-- **Parity:** all 185 scenarios are identical to Perl GADS `dev` at
-  [`337d733c`](https://github.com/ctrlo/GADS/tree/337d733c), on SQLite.
+- **Parity:** all 189 scenarios are identical to Perl GADS `dev` at
+  [`337d733c`](https://github.com/ctrlo/GADS/tree/337d733c), on SQLite
+  (188 on PostgreSQL).
   They cover the engine (fields, calculated values, search, sorting, views,
   graphs, imports, alerts) and the web application (pages, forms, the API,
   dashboards and their widgets, sessions, MFA).
 - **Databases:** SQLite and PostgreSQL.
+- **Performance:** on PostgreSQL, Go is about 4 times faster per request
+  and serves about 6.5 times as many requests a second, in a fraction of
+  the memory. See
+  [`gads-postgres-performance.md`](gads-postgres-performance.md).
 - **Security:** the application runs in *hardened mode* by default, which
   fixes the critical, high and medium findings of a security review of
   Perl GADS (CSRF, permission checks, password hashing, rate limits,
