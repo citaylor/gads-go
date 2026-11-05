@@ -1,0 +1,2196 @@
+{
+   "runner" : "perl",
+   "scenario" : "005_setvalues_changed_mv0",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "33",
+               "curval2" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:column",
+         "observed" : {
+            "id" : "34"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0: one record",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 calc1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "calc1" : {
+                  "filter_value" : "2000"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 calc1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "2000"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 curval1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 curval1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 curval1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "filter_value" : "2"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 curval1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "2"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 curval1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "changed" : "1",
+                  "html" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 curval2: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval2" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 curval2: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 curval2: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval2" : {
+                  "filter_value" : "2"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 curval2: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "2"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 curval2: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval2" : {
+                  "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "changed" : "1",
+                  "html" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "oldvalue" : {
+                     "as_string" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 date1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 date1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 date1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "filter_value" : "2011-10-10"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 date1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "2011-10-10"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 date1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "as_string" : "2011-10-10",
+                  "changed" : "1",
+                  "html" : "2011-10-10",
+                  "html_form" : [
+                     "2011-10-10"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "2010-10-10",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "24:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 date1: after addable change",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "as_string" : "2012-10-10"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 daterange1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "daterange1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 daterange1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 daterange1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "daterange1" : {
+                  "filter_value" : "2000-11-11 to 2001-11-11"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 daterange1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "2000-11-11 to 2001-11-11"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 daterange1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "daterange1" : {
+                  "as_string" : "2000-11-11 to 2001-11-11",
+                  "changed" : "1",
+                  "html" : "2000-11-11 to 2001-11-11",
+                  "html_form" : [
+                     "2000-11-11",
+                     "2001-11-11"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "2000-10-10 to 2001-10-10",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 daterange1: after addable change",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "daterange1" : {
+                  "as_string" : "2000-11-18 to 2006-11-11"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 enum1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 enum1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 enum1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "filter_value" : "foo2"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 enum1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "foo2"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 enum1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "as_string" : "foo2",
+                  "changed" : "1",
+                  "html" : "foo2",
+                  "html_form" : [
+                     "8"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "foo1",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 file1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "file1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 file1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 file1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "file1" : {
+                  "filter_value" : "file2.txt"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 file1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "file2.txt"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 file1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "file1" : {
+                  "as_string" : "file2.txt",
+                  "changed" : "1",
+                  "html" : "file2.txt",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "file1.txt",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 integer1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 integer1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 integer1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "filter_value" : "200"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 integer1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "200"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 integer1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "as_string" : "200",
+                  "changed" : "1",
+                  "html" : "200",
+                  "html_form" : [
+                     "200"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "100",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "48:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 integer1: after addable change",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "as_string" : "225"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 person1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "person1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 person1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 person1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "person1" : {
+                  "filter_value" : "User2, User2"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 person1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "User2, User2"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 person1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "person1" : {
+                  "as_string" : "User2, User2",
+                  "changed" : "1",
+                  "html" : "User2, User2",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "User1, User1",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 rag1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "rag1" : {
+                  "filter_value" : "b_red"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 rag1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "b_red"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 string1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "string1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 string1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 string1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "string1" : {
+                  "filter_value" : "bar"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 string1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "bar"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 string1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "string1" : {
+                  "as_string" : "bar",
+                  "changed" : "1",
+                  "html" : "bar",
+                  "html_form" : [
+                     "bar"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "foo",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 tree1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 tree1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 tree1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "filter_value" : "tree2"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 tree1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "tree2"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted0 tree1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "as_string" : "tree2",
+                  "changed" : "1",
+                  "html" : "tree2",
+                  "html_form" : [
+                     "11"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "tree1",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "67:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "68:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "69:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "33",
+               "curval2" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "70:column",
+         "observed" : {
+            "id" : "34"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "71:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted1: one record",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "73:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted1 enum1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "'8' is not a valid enum ID for 'enum1'",
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted1 enum1: set new value",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted1 tree1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Node '11' has been deleted and can therefore not be used",
+         "failures" : [],
+         "id" : "changed mv0 arrayref0 deleted1 tree1: set new value",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "78:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "79:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "80:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "33",
+               "curval2" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "81:column",
+         "observed" : {
+            "id" : "34"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0: one record",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "83:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 calc1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "calc1" : {
+                  "filter_value" : "2000"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 calc1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "2000"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 curval1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 curval1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 curval1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "filter_value" : "2"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 curval1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "2"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 curval1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "changed" : "1",
+                  "html" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 curval2: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval2" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 curval2: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 curval2: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval2" : {
+                  "filter_value" : "2"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 curval2: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "2"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 curval2: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval2" : {
+                  "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "changed" : "1",
+                  "html" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "oldvalue" : {
+                     "as_string" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 date1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 date1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 date1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "filter_value" : "2011-10-10"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 date1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "2011-10-10"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 date1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "as_string" : "2011-10-10",
+                  "changed" : "1",
+                  "html" : "2011-10-10",
+                  "html_form" : [
+                     "2011-10-10"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "2010-10-10",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "101:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 date1: after addable change",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "as_string" : "2012-10-10"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 enum1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 enum1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 enum1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "filter_value" : "foo2"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 enum1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "foo2"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 enum1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "as_string" : "foo2",
+                  "changed" : "1",
+                  "html" : "foo2",
+                  "html_form" : [
+                     "8"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "foo1",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 file1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "file1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 file1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 file1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "file1" : {
+                  "filter_value" : "file2.txt"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 file1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "file2.txt"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 file1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "file1" : {
+                  "as_string" : "file2.txt",
+                  "changed" : "1",
+                  "html" : "file2.txt",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "file1.txt",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 integer1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 integer1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 integer1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "filter_value" : "200"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 integer1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "200"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 integer1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "as_string" : "200",
+                  "changed" : "1",
+                  "html" : "200",
+                  "html_form" : [
+                     "200"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "100",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "118:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 integer1: after addable change",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "as_string" : "225"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 person1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "person1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 person1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 person1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "person1" : {
+                  "filter_value" : "User2, User2"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 person1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "User2, User2"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 person1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "person1" : {
+                  "as_string" : "User2, User2",
+                  "changed" : "1",
+                  "html" : "User2, User2",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "User1, User1",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 rag1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "rag1" : {
+                  "filter_value" : "b_red"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 rag1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "b_red"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 string1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "string1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 string1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 string1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "string1" : {
+                  "filter_value" : "bar"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 string1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "bar"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 string1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "string1" : {
+                  "as_string" : "bar",
+                  "changed" : "1",
+                  "html" : "bar",
+                  "html_form" : [
+                     "bar"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "foo",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 tree1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 tree1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 tree1: filter value",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "filter_value" : "tree2"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 tree1: filter value (grouped datum)",
+         "observed" : {
+            "filter_value" : "tree2"
+         },
+         "pass" : true,
+         "type" : "datum"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted0 tree1: after set",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "as_string" : "tree2",
+                  "changed" : "1",
+                  "html" : "tree2",
+                  "html_form" : [
+                     "11"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "tree1",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "137:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "138:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "139:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "33",
+               "curval2" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "140:column",
+         "observed" : {
+            "id" : "34"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "141:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted1: one record",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "143:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted1 enum1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "'8' is not a valid enum ID for 'enum1'",
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted1 enum1: set new value",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted1 tree1: blank status",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Node '11' has been deleted and can therefore not be used",
+         "failures" : [],
+         "id" : "changed mv0 arrayref1 deleted1 tree1: set new value",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      }
+   ]
+}

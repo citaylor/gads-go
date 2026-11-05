@@ -658,8 +658,8 @@ func (c *Column) ValuesBeginningWith(match string, noempty bool, useID bool) []m
 		return c.curvalValuesBeginningWith(match, noempty, useID)
 	}
 	var table, vf, joins string
-	var where []string
-	var args []any
+	var where, filter []string
+	var args, filterArgs []any
 	switch c.Type {
 	case "string":
 		table, vf = "string", "value"
@@ -677,13 +677,25 @@ func (c *Column) ValuesBeginningWith(match string, noempty bool, useID bool) []m
 		where = append(where, `"me"."layout_id" = ?`)
 		args = append(args, c.ID)
 	case "person":
-		// ResultSet::User->summary->with_filter
+		// ResultSet::User->summary->with_filter, in the site (the filter
+		// comes after the match)
 		table, vf = "user", "value"
-		joins = ` LEFT JOIN "organisation" "organisation" ON "organisation"."id" = "me"."organisation" LEFT JOIN "department" "department" ON "department"."id" = "me"."department_id" LEFT JOIN "team" "team" ON "team"."id" = "me"."team_id" LEFT JOIN "title" "title" ON "title"."id" = "me"."title"`
 		where = append(where, `"me"."account_request" = 0`, `"me"."deleted" IS NULL`)
+		if sc := c.e.siteCond("me"); sc != "" {
+			where = append(where, strings.TrimPrefix(sc, " AND "))
+		}
 		if fw, fa := c.e.userFilterSQL(c.FilterFn()); fw != "" {
-			where = append(where, strings.TrimPrefix(fw, " AND "))
-			args = append(args, fa...)
+			filter = append(filter, strings.TrimPrefix(fw, " AND "))
+			filterArgs = fa
+		}
+		// As DBIC, only the joins of summary that the filter uses
+		for _, j := range []struct{ alias, on string }{
+			{"organisation", `"me"."organisation"`}, {"department", `"me"."department_id"`},
+			{"team", `"me"."team_id"`}, {"title", `"me"."title"`},
+		} {
+			if strings.Contains(strings.Join(filter, " "), q(j.alias)+".") {
+				joins += ` LEFT JOIN ` + q(j.alias) + ` ` + q(j.alias) + ` ON ` + q(j.alias) + `."id" = ` + j.on
+			}
 		}
 	default:
 		return nil
@@ -699,12 +711,13 @@ func (c *Column) ValuesBeginningWith(match string, noempty bool, useID bool) []m
 		// takes it as a string (so no rows), PostgreSQL fails
 		where = append([]string{`"SCALAR(0x0)" IS NULL`}, where...)
 	}
+	where = append(where, filter...)
+	args = append(args, filterArgs...)
 	w := strings.Join(where, " AND ")
-	// The user resultset is ordered by surname, which is not grouped (an
-	// error on PostgreSQL, as with GADS)
+	// The user resultset (summary) is ordered by its value
 	order := ""
 	if table == "user" {
-		order = ` ORDER BY "surname"`
+		order = ` ORDER BY "me"."value"`
 	}
 	var out []map[string]any
 	if c.Fixedvals() {

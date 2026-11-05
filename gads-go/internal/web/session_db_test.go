@@ -64,19 +64,11 @@ func TestSessionEncoding(t *testing.T) {
 	}
 }
 
-// sessionServers are two servers on one SQLite database with stored
-// sessions, as the application before and after a restart
-func sessionServers(t *testing.T) (*Server, *Server, *db.DB) {
+// sessionServers are two servers on one database with stored sessions,
+// as the application before and after a restart
+func sessionServers(t *testing.T, backend string) (*Server, *Server, *db.DB) {
 	t.Helper()
-	path, _ := workersDB(t, 1)
-	open := func() *db.DB {
-		d, err := db.Open("sqlite", path)
-		if err != nil {
-			t.Fatal(err)
-		}
-		t.Cleanup(func() { d.Close() })
-		return d
-	}
+	open, _ := workersDB(t, backend, 1)
 	gadsDir, err := filepath.Abs(filepath.Join("..", "..", "..", "upstream", "GADS-dev"))
 	if err != nil {
 		t.Fatal(err)
@@ -96,8 +88,10 @@ func sessionServers(t *testing.T) (*Server, *Server, *db.DB) {
 }
 
 // A session is kept over a restart, and deleted with logout
-func TestSessionPersisted(t *testing.T) {
-	first, second, d := sessionServers(t)
+func TestSessionPersisted(t *testing.T) { onBackends(t, testSessionPersisted) }
+
+func testSessionPersisted(t *testing.T, backend string) {
+	first, second, d := sessionServers(t, backend)
 	count := func() int64 {
 		n, _ := d.QueryInt64(`SELECT COUNT(*) FROM "sessions"`)
 		return n
@@ -133,8 +127,10 @@ func TestSessionPersisted(t *testing.T) {
 }
 
 // Sessions unused for the idle timeout are deleted when the store starts
-func TestSessionPersistedExpiry(t *testing.T) {
-	first, _, d := sessionServers(t)
+func TestSessionPersistedExpiry(t *testing.T) { onBackends(t, testSessionPersistedExpiry) }
+
+func testSessionPersistedExpiry(t *testing.T, backend string) {
+	first, _, d := sessionServers(t, backend)
 	d.Exec(`INSERT INTO "sessions" ("id", "session_data", "last_active") VALUES ('old', '{}', ?), ('new', '{}', ?)`,
 		time.Now().Add(-first.sessions.idle-time.Hour).Unix(), time.Now().Unix())
 	if err := first.PersistSessions(d); err != nil {
@@ -148,21 +144,16 @@ func TestSessionPersistedExpiry(t *testing.T) {
 
 // storedSessions are two session stores on one database (two processes),
 // with the errors they log
-func storedSessions(t *testing.T) (*sessionStore, *sessionStore, *db.DB, *[]string) {
+func storedSessions(t *testing.T, backend string) (*sessionStore, *sessionStore, *db.DB, *[]string) {
 	t.Helper()
-	path, d := workersDB(t, 0)
+	open, d := workersDB(t, backend, 0)
 	if _, err := d.TryExec(sessionTable); err != nil {
 		t.Fatal(err)
 	}
 	var errs []string
 	store := func() *sessionStore {
-		d2, err := db.Open("sqlite", path)
-		if err != nil {
-			t.Fatal(err)
-		}
-		t.Cleanup(func() { d2.Close() })
 		st := newSessionStore(time.Hour)
-		st.backend = &sessionBackend{d: d2}
+		st.backend = &sessionBackend{d: open()}
 		st.logError = func(msg string, err error) { errs = append(errs, msg+": "+err.Error()) }
 		return st
 	}
@@ -181,8 +172,10 @@ func storedRow(d *db.DB, id string) (data string, active int64, ok bool) {
 
 // A session is written when its data changed, or to record its use once a
 // sessionTouch has passed, and under a hash of its ID
-func TestSessionStoreSave(t *testing.T) {
-	st, _, d, errs := storedSessions(t)
+func TestSessionStoreSave(t *testing.T) { onBackends(t, testSessionStoreSave) }
+
+func testSessionStoreSave(t *testing.T, backend string) {
+	st, _, d, errs := storedSessions(t, backend)
 	s := &Session{ID: "secret-id", Data: map[string]any{"a": "1"}}
 	st.save(s)
 	if _, _, ok := storedRow(d, s.ID); ok {
@@ -221,8 +214,10 @@ func TestSessionStoreSave(t *testing.T) {
 }
 
 // A session whose ID changes (at login) is stored under the new ID only
-func TestSessionStoreChangeID(t *testing.T) {
-	st, _, d, _ := storedSessions(t)
+func TestSessionStoreChangeID(t *testing.T) { onBackends(t, testSessionStoreChangeID) }
+
+func testSessionStoreChangeID(t *testing.T, backend string) {
+	st, _, d, _ := storedSessions(t, backend)
 	s := &Session{ID: "before", Data: map[string]any{"k": int64(1)}}
 	st.put(s)
 	st.save(s)
@@ -244,8 +239,10 @@ func TestSessionStoreChangeID(t *testing.T) {
 
 // Each request reads its session again: another process may have changed
 // or deleted it
-func TestSessionStoreRefresh(t *testing.T) {
-	st1, st2, _, errs := storedSessions(t)
+func TestSessionStoreRefresh(t *testing.T) { onBackends(t, testSessionStoreRefresh) }
+
+func testSessionStoreRefresh(t *testing.T, backend string) {
+	st1, st2, _, errs := storedSessions(t, backend)
 	s := &Session{ID: "shared", Data: map[string]any{"page": int64(1)}}
 	st1.put(s)
 	st1.save(s)
@@ -268,8 +265,10 @@ func TestSessionStoreRefresh(t *testing.T) {
 }
 
 // A value that cannot be stored is reported, and nothing is written
-func TestSessionStoreEncodeFailure(t *testing.T) {
-	st, _, d, errs := storedSessions(t)
+func TestSessionStoreEncodeFailure(t *testing.T) { onBackends(t, testSessionStoreEncodeFailure) }
+
+func testSessionStoreEncodeFailure(t *testing.T, backend string) {
+	st, _, d, errs := storedSessions(t, backend)
 	s := &Session{ID: "bad", Data: map[string]any{"x": struct{}{}}}
 	st.put(s)
 	st.save(s)
@@ -283,8 +282,10 @@ func TestSessionStoreEncodeFailure(t *testing.T) {
 
 // A stored session read by several requests at once is one Session, whose
 // lock they share (run with -race)
-func TestSessionStoreLookupOnce(t *testing.T) {
-	st1, st2, _, _ := storedSessions(t)
+func TestSessionStoreLookupOnce(t *testing.T) { onBackends(t, testSessionStoreLookupOnce) }
+
+func testSessionStoreLookupOnce(t *testing.T, backend string) {
+	st1, st2, _, _ := storedSessions(t, backend)
 	s := &Session{ID: "once", Data: map[string]any{}}
 	st1.put(s)
 	st1.save(s)

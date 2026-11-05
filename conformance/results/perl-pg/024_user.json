@@ -1,0 +1,237 @@
+{
+   "runner" : "perl",
+   "scenario" : "024_user",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user created",
+         "observed" : {
+            "id" : "6",
+            "username" : "joe@example.com",
+            "value" : "Bloggs, Joe"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "first user",
+         "observed" : [
+            {
+               "username" : "user1@example.com"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : "user1@example.com already exists as an active user",
+         "failures" : [],
+         "id" : "rename to existing username",
+         "observed" : null,
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : "User user1@example.com already exists",
+         "failures" : [],
+         "id" : "create with existing username",
+         "observed" : null,
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : "user1@example.com already exists as an active user",
+         "failures" : [],
+         "id" : "create row with existing username",
+         "observed" : null,
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : "Please select a Organisation for the user",
+         "failures" : [],
+         "id" : "missing organisation",
+         "observed" : null,
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "create organisation",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : "Please select a Team for the user",
+         "failures" : [],
+         "id" : "missing team",
+         "observed" : null,
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "create team",
+         "observed" : {
+            "id" : "3"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : "Please select a Department for the user",
+         "failures" : [],
+         "id" : "missing department",
+         "observed" : null,
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "users",
+         "observed" : [
+            {
+               "created" : null,
+               "email" : "user1@example.com",
+               "id" : "1",
+               "site_id" : "1",
+               "username" : "user1@example.com",
+               "value" : "User1, User1"
+            },
+            {
+               "created" : null,
+               "email" : "user2@example.com",
+               "id" : "2",
+               "site_id" : "1",
+               "username" : "user2@example.com",
+               "value" : "User2, User2"
+            },
+            {
+               "created" : null,
+               "email" : "user3@example.com",
+               "id" : "3",
+               "site_id" : "1",
+               "username" : "user3@example.com",
+               "value" : "User3, User3"
+            },
+            {
+               "created" : null,
+               "email" : "user4@example.com",
+               "id" : "4",
+               "site_id" : "1",
+               "username" : "user4@example.com",
+               "value" : "User4, User4"
+            },
+            {
+               "created" : null,
+               "email" : "user5@example.com",
+               "id" : "5",
+               "site_id" : "1",
+               "username" : "user5@example.com",
+               "value" : "User5, User5"
+            },
+            {
+               "created" : "2014-10-10 01:00:00",
+               "email" : "joe@example.com",
+               "id" : "6",
+               "site_id" : "1",
+               "username" : "joe@example.com",
+               "value" : "Bloggs, Joe"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "audit",
+         "observed" : [
+            {
+               "datetime" : "2014-10-10 01:00:00",
+               "description" : "User created by user1@example.com, id: 6, username: joe@example.com",
+               "site_id" : "1",
+               "type" : "login_change",
+               "user_id" : "1"
+            },
+            {
+               "datetime" : "2014-10-10 01:00:00",
+               "description" : "User updated: ID 6, username: joe@example.com",
+               "site_id" : "1",
+               "type" : "login_change",
+               "user_id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

@@ -416,6 +416,7 @@ sub run
         $obs->{pass} = @failures ? JSON::false : JSON::true;
         $obs->{failures} = \@failures;
         push @{$result->{steps}}, $obs;
+        $self->_pg_sync_sequences;
         if ($self->{verbose})
         {
             print STDERR "[$id] ".(@failures ? "FAIL: @failures" : "ok")."\n";
@@ -882,6 +883,42 @@ sub _pg_schema
         $schema->site_id($site_id);
     }
     $schema;
+}
+
+# The sequence of each serial column is moved past the largest value in
+# its column, never back, after each step. The fixtures (DataSheet) insert
+# users and other rows with explicit IDs, which leave PostgreSQL's
+# sequences behind, so that a later insert would take an ID in use;
+# SQLite gives the largest rowid + 1. The Go runner runs the same SQL.
+my $SYNC_SEQUENCES = <<'SQL';
+DO $$
+DECLARE
+  r record;
+  m bigint;
+  last bigint;
+BEGIN
+  FOR r IN SELECT s.oid::regclass::text AS seq, t.relname AS tbl, a.attname AS col
+    FROM pg_class s
+    JOIN pg_depend d ON d.objid = s.oid AND d.deptype = 'a'
+    JOIN pg_class t ON t.oid = d.refobjid
+    JOIN pg_attribute a ON a.attrelid = t.oid AND a.attnum = d.refobjsubid
+    WHERE s.relkind = 'S'
+  LOOP
+    EXECUTE format('SELECT max(%I) FROM %I', r.col, r.tbl) INTO m;
+    EXECUTE format('SELECT last_value FROM %s', r.seq) INTO last;
+    IF m IS NOT NULL AND m >= last THEN
+      PERFORM setval(r.seq, m);
+    END IF;
+  END LOOP;
+END
+$$
+SQL
+
+sub _pg_sync_sequences
+{   my $self = shift;
+    $ENV{GADS_TEST_PG} && $self->schema or return;
+    eval { $self->schema->storage->dbh->do($SYNC_SEQUENCES); 1 }
+        or warn "Failed to move the sequences on: $@";
 }
 
 sub pg_cleanup { eval { _pg_drop_all() }; warn "Failed to drop databases: $@" if $@ }

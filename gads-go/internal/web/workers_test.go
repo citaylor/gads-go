@@ -7,38 +7,105 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 
 	"github.com/ctrlo/gads-go/internal/db"
 	"github.com/ctrlo/gads-go/internal/gads"
 	"github.com/ctrlo/gads-go/internal/tt"
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
-// workersDB is a new SQLite database file with users u0@example.com ...
-// (password "pw"), open on d
-func workersDB(t *testing.T, users int) (string, *db.DB) {
+// testBackends are the databases that the tests of workers and stored
+// sessions run on: SQLite, and PostgreSQL when GADS_TEST_PG is set
+func testBackends() []string {
+	if os.Getenv("GADS_TEST_PG") != "" {
+		return []string{"sqlite", "postgres"}
+	}
+	return []string{"sqlite"}
+}
+
+// onBackends runs f as a subtest on each of testBackends
+func onBackends(t *testing.T, f func(t *testing.T, backend string)) {
+	for _, b := range testBackends() {
+		t.Run(b, func(t *testing.T) { f(t, b) })
+	}
+}
+
+// pgTestDBs numbers the PostgreSQL databases of the tests
+var pgTestDBs atomic.Int64
+
+// testDatabase is a new database with GADS's tables, on backend, and
+// returns the function that opens a connection to it (closed at the end
+// of the test). A PostgreSQL database is one of its own, dropped at the
+// end of the test.
+func testDatabase(t *testing.T, backend string) func() *db.DB {
 	t.Helper()
-	// (deployed in memory, then copied, which is much faster)
-	path := filepath.Join(t.TempDir(), "gads.db")
-	m, err := db.OpenMemory()
-	if err != nil {
-		t.Fatal(err)
+	var driver, dsn string
+	switch backend {
+	case "postgres":
+		params := os.Getenv("GADS_TEST_PG")
+		admin, err := db.Open("pgx", params+" dbname=postgres")
+		if err != nil {
+			t.Fatal(err)
+		}
+		name := fmt.Sprintf("gads_web_test_%d_%d", os.Getpid(), pgTestDBs.Add(1))
+		admin.TryExec(`DROP DATABASE IF EXISTS ` + name)
+		if _, err := admin.TryExec(`CREATE DATABASE ` + name); err != nil {
+			admin.Close()
+			t.Fatal(err)
+		}
+		// (the cleanups of the connections run before this one)
+		t.Cleanup(func() {
+			admin.TryExec(`DROP DATABASE IF EXISTS ` + name + ` WITH (FORCE)`)
+			admin.Close()
+		})
+		driver, dsn = "pgx", params+" dbname="+name
+		d, err := db.Open(driver, dsn)
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer d.Close()
+		if err := d.Deploy(); err != nil {
+			t.Fatal(err)
+		}
+	default:
+		// (deployed in memory, then copied, which is much faster)
+		driver, dsn = "sqlite", filepath.Join(t.TempDir(), "gads.db")
+		m, err := db.OpenMemory()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := m.Deploy(); err != nil {
+			t.Fatal(err)
+		}
+		m.Exec(`VACUUM INTO ?`, dsn)
+		m.Close()
 	}
-	if err := m.Deploy(); err != nil {
-		t.Fatal(err)
+	return func() *db.DB {
+		t.Helper()
+		d, err := db.Open(driver, dsn)
+		if err != nil {
+			t.Fatal(err)
+		}
+		t.Cleanup(func() { d.Close() })
+		return d
 	}
-	m.Exec(`VACUUM INTO ?`, path)
-	m.Close()
-	d, err := db.Open("sqlite", path)
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Cleanup(func() { d.Close() })
+}
+
+// workersDB is a new database on backend with users u0@example.com ...
+// (password "pw"): the function that opens a connection to it, and one
+// connection
+func workersDB(t *testing.T, backend string, users int) (func() *db.DB, *db.DB) {
+	t.Helper()
+	open := testDatabase(t, backend)
+	d := open()
 	d.InsertMap("site", map[string]any{"id": int64(1), "host": "example.com"})
 	for i := range users {
 		name := fmt.Sprintf("u%d@example.com", i)
@@ -46,14 +113,14 @@ func workersDB(t *testing.T, users int) (string, *db.DB) {
 			"email": name, "firstname": "U", "surname": fmt.Sprint(i), "value": "U, " + fmt.Sprint(i),
 			"password": HashPassword("pw"), "pwchanged": time.Now(), "account_request": int64(0)})
 	}
-	return path, d
+	return open, d
 }
 
-// workersServer is a server with n engines on a new SQLite database file,
+// workersServer is a server with n engines on a new database on backend,
 // with users u0@example.com ... (password "pw")
-func workersServer(t *testing.T, n, users int) *Server {
+func workersServer(t *testing.T, backend string, n, users int) *Server {
 	t.Helper()
-	path, d := workersDB(t, users)
+	open, d := workersDB(t, backend, users)
 	e, err := gads.NewEngine(d, gads.DefaultConfig())
 	if err != nil {
 		t.Fatal(err)
@@ -65,15 +132,11 @@ func workersServer(t *testing.T, n, users int) *Server {
 	s := New(e, nil, filepath.Join(gadsDir, "views"), filepath.Join(gadsDir, "public"))
 	var more []*gads.Engine
 	for range n - 1 {
-		d2, err := db.Open("sqlite", path)
+		w, err := e.Forked(open())
 		if err != nil {
 			t.Fatal(err)
 		}
-		w, err := e.Forked(d2)
-		if err != nil {
-			t.Fatal(err)
-		}
-		t.Cleanup(func() { w.Close(); d2.Close() })
+		t.Cleanup(w.Close)
 		more = append(more, w)
 	}
 	s.SetWorkers(more...)
@@ -129,7 +192,7 @@ func (cl *client) login(user string) error {
 // free; with one engine, the others wait for it
 func TestWorkersDispatch(t *testing.T) {
 	for _, n := range []int{1, 2} {
-		s := workersServer(t, n, 1)
+		s := workersServer(t, "sqlite", n, 1)
 		if s.Workers() != n {
 			t.Fatalf("%d workers, want %d", s.Workers(), n)
 		}
@@ -146,9 +209,11 @@ func TestWorkersDispatch(t *testing.T) {
 
 // Users are served at once on several engines, and the requests of one
 // session one at a time (run with -race)
-func TestWorkersConcurrent(t *testing.T) {
+func TestWorkersConcurrent(t *testing.T) { onBackends(t, testWorkersConcurrent) }
+
+func testWorkersConcurrent(t *testing.T, backend string) {
 	const users = 6
-	s := workersServer(t, 3, users)
+	s := workersServer(t, backend, 3, users)
 	var wg sync.WaitGroup
 	errs := make(chan error, users*4)
 	for i := range users {
@@ -193,8 +258,10 @@ func TestWorkersConcurrent(t *testing.T) {
 
 // A request waits for the one before it of the same session, holding no
 // engine, and gives up when it ends; other sessions go on meanwhile
-func TestWorkersSessionLock(t *testing.T) {
-	s := workersServer(t, 2, 2)
+func TestWorkersSessionLock(t *testing.T) { onBackends(t, testWorkersSessionLock) }
+
+func testWorkersSessionLock(t *testing.T, backend string) {
+	s := workersServer(t, backend, 2, 2)
 	a, b := &client{s: s}, &client{s: s}
 	for i, cl := range []*client{a, b} {
 		if err := cl.login(fmt.Sprintf("u%d@example.com", i)); err != nil {
@@ -235,7 +302,7 @@ func TestWorkersSessionLock(t *testing.T) {
 func TestWorkersHealth(t *testing.T) {
 	defer func(d, c time.Duration) { healthTimeout, healthCache = d, c }(healthTimeout, healthCache)
 	healthTimeout, healthCache = 100*time.Millisecond, 0
-	s := workersServer(t, 2, 0)
+	s := workersServer(t, "sqlite", 2, 0)
 	e1, _ := s.acquire(context.Background())
 	if err := s.checkHealth(context.Background()); err != nil {
 		t.Errorf("one engine busy: %v", err)
@@ -250,7 +317,7 @@ func TestWorkersHealth(t *testing.T) {
 
 // WaitBackground waits for the background work of every engine
 func TestServerWaitBackground(t *testing.T) {
-	s := workersServer(t, 2, 0)
+	s := workersServer(t, "sqlite", 2, 0)
 	fork := func() (*gads.Engine, error) {
 		d, err := db.OpenMemory()
 		if err != nil {
@@ -274,7 +341,7 @@ func TestServerWaitBackground(t *testing.T) {
 
 // The template engine of widgets is made once, whoever asks first
 func TestWidgetTTOnce(t *testing.T) {
-	s := workersServer(t, 1, 0)
+	s := workersServer(t, "sqlite", 1, 0)
 	engines := make([]*tt.Engine, 8)
 	var wg sync.WaitGroup
 	for i := range engines {

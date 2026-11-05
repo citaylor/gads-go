@@ -112,6 +112,11 @@ jobs:
         run: go test ./conformance -run TestHardened
       - name: Reconnecting after PostgreSQL drops the connection
         run: go test ./internal/db -run TestReconnect
+      # The tests of workers and stored sessions run on both databases
+      - name: Workers, stored sessions and forked imports on PostgreSQL
+        run: |
+          go test -race ./internal/web -run 'TestWorkers|TestSession'
+          go test -race ./conformance -run 'TestImportForked'
 
   # gosec (Go security patterns), gitleaks (secrets in the whole history)
   # and Trivy (vulnerabilities in the built image, and the Docker files).

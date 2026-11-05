@@ -1,0 +1,4284 @@
+{
+   "runner" : "perl",
+   "scenario" : "014_import",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:user",
+         "observed" : {
+            "id" : "7"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "version",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 1, rows written: 1, errors: 0, skipped: 0",
+            "row_count" : "1",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "Foobar,\"2014-10-10 12:00\",7",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "version written",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "_version_datetime" : "2014-10-10 13:00:00",
+                  "_version_user" : ", ",
+                  "string1" : "Foobar"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "version createdby",
+         "observed" : [
+            {
+               "created" : "2014-10-10 12:00:00",
+               "createdby" : "7"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "deleted enum count",
+         "observed" : {
+            "count" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:db",
+         "observed" : {
+            "id" : "7"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "deleted enum",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 1, rows written: 1, errors: 0, skipped: 0",
+            "row_count" : "1",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "foo1",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "deleted enum written",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "foo1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "deleted tree count",
+         "observed" : {
+            "count" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:db",
+         "observed" : {
+            "id" : "7"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "deleted tree",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 1, rows written: 1, errors: 0, skipped: 0",
+            "row_count" : "1",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "tree1",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "deleted tree written",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 0 None on",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 1, rows written: 1, errors: 0, skipped: 0",
+            "row_count" : "1",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "\"String content\"",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 0 None on records",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "integer1" : "",
+                  "string1" : "String content"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 0 None off",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 1, rows written: 1, errors: 0, skipped: 0",
+            "row_count" : "1",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "\"String content\"",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 0 None off records",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "integer1" : "",
+                  "string1" : "String content"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "33:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 1 None on",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "1",
+            "result" : "Rows in: 2, rows written: 1, errors: 1, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "Foo",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "Bar,FooBar",
+                  "errors" : "Extraneous value found on row: \"FooBar\"",
+                  "status" : "Record not written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 1 None on records",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "integer1" : "",
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "36:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "37:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "38:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 1 None off",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "1",
+            "result" : "Rows in: 2, rows written: 1, errors: 1, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "Foo",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "Bar,FooBar",
+                  "errors" : "Extraneous value found on row: \"FooBar\"",
+                  "status" : "Record not written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 1 None off records",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "integer1" : "",
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "41:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "42:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "43:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 2 dry_run on",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 1, rows written: 1, errors: 0, skipped: 0",
+            "row_count" : "1",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "\"String content\"",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 2 dry_run on records",
+         "observed" : {
+            "count" : "0",
+            "ids" : [],
+            "rows" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "46:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "47:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "48:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 2 dry_run off",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 1, rows written: 1, errors: 0, skipped: 0",
+            "row_count" : "1",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "\"String content\"",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 2 dry_run off records",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "integer1" : "",
+                  "string1" : "String content"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "51:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "52:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "53:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "54:column",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 3 force_mandatory on",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "\"String content\",123",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : ",234",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 3 force_mandatory on records",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "integer1" : "123",
+                  "string1" : "String content"
+               },
+               {
+                  "enum1" : "",
+                  "integer1" : "234",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "57:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "58:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "59:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "60:column",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 3 force_mandatory off",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "1",
+            "result" : "Rows in: 2, rows written: 1, errors: 1, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "\"String content\",123",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : ",234",
+                  "errors" : "'string1' is not optional. Please enter a value.",
+                  "status" : "Record not written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 3 force_mandatory off records",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "integer1" : "123",
+                  "string1" : "String content"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "63:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "64:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "65:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 4 blank_invalid_enum on",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "1",
+            "result" : "Rows in: 2, rows written: 2, errors: 1, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "foo1",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "foobar",
+                  "errors" : "Invalid enum value 'foobar' for 'enum1'",
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 4 blank_invalid_enum on records",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "integer1" : "",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "",
+                  "integer1" : "",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "68:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "69:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "70:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 4 blank_invalid_enum off",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "1",
+            "result" : "Rows in: 2, rows written: 1, errors: 1, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "foo1",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "foobar",
+                  "errors" : "Invalid enum value 'foobar' for 'enum1'",
+                  "status" : "Record not written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 4 blank_invalid_enum off records",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "integer1" : "",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "73:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "74:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "75:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "76:column",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 5 take_first_enum on",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "foo1",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "duplicate",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 5 take_first_enum on records",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "integer1" : "",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "duplicate",
+                  "integer1" : "",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "79:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "80:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "81:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "82:column",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 5 take_first_enum off",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "1",
+            "result" : "Rows in: 2, rows written: 1, errors: 1, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "foo1",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "duplicate",
+                  "errors" : "Multiple instances of enum value 'duplicate' for 'enum1'",
+                  "status" : "Record not written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 5 take_first_enum off records",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "integer1" : "",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "85:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "86:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "87:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 6 split_multiple on",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "foo1",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "\"foo1,foo2\"",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 6 split_multiple on records",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "integer1" : "",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "foo1, foo2",
+                  "integer1" : "",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 6 split_multiple on enum",
+         "observed" : [
+            {
+               "value" : "1"
+            },
+            {
+               "value" : null
+            },
+            {
+               "value" : "1"
+            },
+            {
+               "value" : "2"
+            },
+            {
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "91:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "92:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "93:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 6 split_multiple off",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "1",
+            "result" : "Rows in: 2, rows written: 1, errors: 1, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "foo1",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "\"foo1,foo2\"",
+                  "errors" : "Invalid enum value 'foo1,foo2' for 'enum1'",
+                  "status" : "Record not written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 6 split_multiple off records",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "integer1" : "",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 6 split_multiple off enum",
+         "observed" : [
+            {
+               "value" : "1"
+            },
+            {
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "97:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "98:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "99:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 7 ignore_string_zeros on",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "foo",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "0",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 7 ignore_string_zeros on records",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "integer1" : "",
+                  "string1" : "foo"
+               },
+               {
+                  "enum1" : "",
+                  "integer1" : "",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 7 ignore_string_zeros on string",
+         "observed" : [
+            {
+               "value" : "foo"
+            },
+            {
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "103:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "104:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "105:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 7 ignore_string_zeros off",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "foo",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "0",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 7 ignore_string_zeros off records",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "integer1" : "",
+                  "string1" : "foo"
+               },
+               {
+                  "enum1" : "",
+                  "integer1" : "",
+                  "string1" : "0"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 7 ignore_string_zeros off string",
+         "observed" : [
+            {
+               "value" : "foo"
+            },
+            {
+               "value" : "0"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "109:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "110:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "111:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 8 round_integers on",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "100",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "12.7",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 8 round_integers on records",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "integer1" : "100",
+                  "string1" : ""
+               },
+               {
+                  "enum1" : "",
+                  "integer1" : "13",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 8 round_integers on intgr",
+         "observed" : [
+            {
+               "value" : "100"
+            },
+            {
+               "value" : "13"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "115:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "116:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "117:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 8 round_integers off",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "1",
+            "result" : "Rows in: 2, rows written: 1, errors: 1, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "100",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "12.7",
+                  "errors" : "Invalid value '12.7' for integer field 'integer1'",
+                  "status" : "Record not written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 8 round_integers off records",
+         "observed" : {
+            "count" : "1",
+            "first" : "1",
+            "ids" : [
+               "1"
+            ],
+            "last" : "1",
+            "rows" : [
+               {
+                  "enum1" : "",
+                  "integer1" : "100",
+                  "string1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "options 8 round_integers off intgr",
+         "observed" : [
+            {
+               "value" : "100"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "121:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "122:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "123:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : "Empty field name in import headings (Column 2)",
+         "failures" : [],
+         "id" : "options 9 None on",
+         "observed" : null,
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "125:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "126:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "127:user",
+         "observed" : {
+            "id" : "6"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : "Empty field name in import headings (Column 2)",
+         "failures" : [],
+         "id" : "options 9 None off",
+         "observed" : null,
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "129:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "130:set_time",
+         "observed" : {
+            "time" : "2014-10-10 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "131:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "132:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "133:set_time",
+         "observed" : {
+            "time" : "2015-05-05 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "134:column",
+         "observed" : {
+            "id" : "25"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with string",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : "Change value of \"integer1\" from \"50\" to \"100\"",
+                  "content" : "Foo,100",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : "Unique identifier 'Foo2' does not exist. Data will be uploaded as new record.",
+                  "content" : "Foo2,150",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with string records",
+         "observed" : {
+            "count" : "3",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5"
+            ],
+            "last" : "5",
+            "rows" : [
+               {
+                  "integer1" : "100",
+                  "string1" : "Foo"
+               },
+               {
+                  "integer1" : "99",
+                  "string1" : "Bar"
+               },
+               {
+                  "integer1" : "150",
+                  "string1" : "Foo2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with string versions",
+         "observed" : {
+            "count" : "6"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "138:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "139:set_time",
+         "observed" : {
+            "time" : "2014-10-10 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "140:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "141:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "142:set_time",
+         "observed" : {
+            "time" : "2015-05-05 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "143:column",
+         "observed" : {
+            "id" : "27"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with enum",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : "Change value of \"string1\" from \"Foo\" to \"FooBar1\"",
+                  "content" : "FooBar1,foo1",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : "Unique identifier '9' does not exist. Data will be uploaded as new record.",
+                  "content" : "FooBar2,foo3",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with enum records",
+         "observed" : {
+            "count" : "3",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5"
+            ],
+            "last" : "5",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "string1" : "FooBar1"
+               },
+               {
+                  "enum1" : "foo2",
+                  "string1" : "Bar"
+               },
+               {
+                  "enum1" : "foo3",
+                  "string1" : "FooBar2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with enum versions",
+         "observed" : {
+            "count" : "6"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "147:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "148:set_time",
+         "observed" : {
+            "time" : "2014-10-10 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "149:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "150:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "151:set_time",
+         "observed" : {
+            "time" : "2015-05-05 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "152:column",
+         "observed" : {
+            "id" : "28"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with tree",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : "Change value of \"string1\" from \"Foo\" to \"FooBar1\"",
+                  "content" : "FooBar1,tree1",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : "Unique identifier '12' does not exist. Data will be uploaded as new record.",
+                  "content" : "FooBar2,tree3",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with tree records",
+         "observed" : {
+            "count" : "3",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5"
+            ],
+            "last" : "5",
+            "rows" : [
+               {
+                  "string1" : "FooBar1",
+                  "tree1" : "tree1"
+               },
+               {
+                  "string1" : "Bar",
+                  "tree1" : "tree2"
+               },
+               {
+                  "string1" : "FooBar2",
+                  "tree1" : "tree3"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with tree versions",
+         "observed" : {
+            "count" : "6"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "156:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "157:set_time",
+         "observed" : {
+            "time" : "2014-10-10 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "158:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "159:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "160:set_time",
+         "observed" : {
+            "time" : "2015-05-05 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "161:column",
+         "observed" : {
+            "id" : "32"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with person",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 1, rows written: 1, errors: 0, skipped: 0",
+            "row_count" : "1",
+            "rows" : [
+               {
+                  "changes" : "Change value of \"string1\" from \"Foo\" to \"Bar\"",
+                  "content" : "Bar,\"User1, User1\"",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with person records",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "person1" : "User1, User1",
+                  "string1" : "Bar"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with person versions",
+         "observed" : {
+            "count" : "4"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "165:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "166:set_time",
+         "observed" : {
+            "time" : "2014-10-10 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "167:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "168:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "169:set_time",
+         "observed" : {
+            "time" : "2015-05-05 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with serial",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 1, rows written: 1, errors: 0, skipped: 0",
+            "row_count" : "1",
+            "rows" : [
+               {
+                  "changes" : "Change value of \"string1\" from \"Foo\" to \"Bar2\"",
+                  "content" : "Bar2,1",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with serial records",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "string1" : "Bar2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update unique field with serial versions",
+         "observed" : {
+            "count" : "4"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "173:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "174:set_time",
+         "observed" : {
+            "time" : "2014-10-10 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "175:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "176:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "177:set_time",
+         "observed" : {
+            "time" : "2015-05-05 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "178:column",
+         "observed" : {
+            "id" : "25"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Skip when existing unique value exists",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 1, errors: 0, skipped: 1",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "Foo,100",
+                  "errors" : "Skipping: unique identifier 'Foo' already exists for 'string1'",
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "Foo2,150",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "1",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Skip when existing unique value exists records",
+         "observed" : {
+            "count" : "3",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "5"
+            ],
+            "last" : "5",
+            "rows" : [
+               {
+                  "integer1" : "50",
+                  "string1" : "Foo"
+               },
+               {
+                  "integer1" : "99",
+                  "string1" : "Bar"
+               },
+               {
+                  "integer1" : "150",
+                  "string1" : "Foo2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Skip when existing unique value exists versions",
+         "observed" : {
+            "count" : "5"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "182:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "183:set_time",
+         "observed" : {
+            "time" : "2014-10-10 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "184:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "185:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "186:set_time",
+         "observed" : {
+            "time" : "2015-05-05 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "187:column",
+         "observed" : {
+            "id" : "25"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "No change of value unless blank",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : "Not going to change value of \"integer1\" from \"50\" to \"200\"",
+                  "content" : "Foo,200,2010-10-10",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "Bar,300,2011-10-10",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "No change of value unless blank records",
+         "observed" : {
+            "count" : "2",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4"
+            ],
+            "last" : "4",
+            "rows" : [
+               {
+                  "date1" : "2010-10-10",
+                  "integer1" : "50",
+                  "string1" : "Foo"
+               },
+               {
+                  "date1" : "2011-10-10",
+                  "integer1" : "300",
+                  "string1" : "Bar"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "No change of value unless blank versions",
+         "observed" : {
+            "count" : "6"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "191:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "192:set_time",
+         "observed" : {
+            "time" : "2014-10-10 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "193:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "194:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "195:set_time",
+         "observed" : {
+            "time" : "2015-05-05 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Invalid values",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "6",
+            "result" : "Rows in: 6, rows written: 0, errors: 6, skipped: 0",
+            "row_count" : "6",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "3,XX,,,,,",
+                  "errors" : "Invalid value 'XX' for integer field 'integer1'",
+                  "status" : "Record not written"
+               },
+               {
+                  "changes" : "Change value of \"integer1\" from \"50\" to \"\", Change value of \"enum1\" from \"foo1\" to \"\", Change value of \"tree1\" from \"tree1\" to \"\", Change value of \"daterange1\" from \"2010-10-10 to 2010-11-10\" to \"\", Change value of \"curval1\" from \"Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012\" to \"\"",
+                  "content" : "3,,201-9,,,,",
+                  "errors" : "Invalid date '201-9' for date1. Please enter as yyyy-MM-dd.",
+                  "status" : "Record not written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "3,,,foo4,,,",
+                  "errors" : "Invalid enum value 'foo4' for 'enum1'",
+                  "status" : "Record not written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "3,,,,tree4,,",
+                  "errors" : "Invalid enum value 'tree4' for 'tree1'",
+                  "status" : "Record not written"
+               },
+               {
+                  "changes" : null,
+                  "content" : "3,,,,,\"2012-10-10 FF 2013-10-10\",",
+                  "errors" : "Invalid daterange value '2012-10-10 FF 2013-10-10' for 'daterange1'",
+                  "status" : "Record not written"
+               },
+               {
+                  "changes" : "Change value of \"integer1\" from \"50\" to \"\", Change value of \"date1\" from \"2010-10-10\" to \"\", Change value of \"enum1\" from \"foo1\" to \"\", Change value of \"tree1\" from \"tree1\" to \"\", Change value of \"daterange1\" from \"2010-10-10 to 2010-11-10\" to \"\"",
+                  "content" : "3,,,,,,9",
+                  "errors" : "9 is not a valid record ID for curval1",
+                  "status" : "Record not written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "0"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Invalid values records",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "curval1" : "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+                  "date1" : "2010-10-10",
+                  "daterange1" : "2010-10-10 to 2010-11-10",
+                  "enum1" : "foo1",
+                  "integer1" : "50",
+                  "string1" : "Foo",
+                  "tree1" : "tree1"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Invalid values versions",
+         "observed" : {
+            "count" : "3"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "199:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "200:set_time",
+         "observed" : {
+            "time" : "2014-10-10 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "201:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "202:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "203:set_time",
+         "observed" : {
+            "time" : "2015-05-05 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Attempt to update blank ID",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 1, rows written: 1, errors: 0, skipped: 0",
+            "row_count" : "1",
+            "rows" : [
+               {
+                  "changes" : "Unique identifier ID blank, data will be uploaded as new record.",
+                  "content" : ",FooBar",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "1"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Attempt to update blank ID records",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "string1" : "FooBar"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Attempt to update blank ID versions",
+         "observed" : {
+            "count" : "3"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "207:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "208:set_time",
+         "observed" : {
+            "time" : "2014-10-10 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "209:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "210:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "211:set_time",
+         "observed" : {
+            "time" : "2015-05-05 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Attempt to update ID from different table",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 1, rows written: 0, errors: 0, skipped: 1",
+            "row_count" : "1",
+            "rows" : [
+               {
+                  "changes" : null,
+                  "content" : "1,Bar",
+                  "errors" : "Failed to retrieve record ID 1 (try-block stopped with ERROR: error: Record ID 1 invalid for table 1\n). Data will not be uploaded.",
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "1",
+            "written_count" : "0"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Attempt to update ID from different table records",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3",
+            "rows" : [
+               {
+                  "string1" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Attempt to update ID from different table versions",
+         "observed" : {
+            "count" : "3"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "215:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "216:set_time",
+         "observed" : {
+            "time" : "2014-10-10 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "217:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "218:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "219:set_time",
+         "observed" : {
+            "time" : "2015-05-05 01:00:00"
+         },
+         "pass" : true,
+         "type" : "set_time"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update existing records only",
+         "observed" : {
+            "completed" : "1",
+            "error_count" : "0",
+            "result" : "Rows in: 2, rows written: 2, errors: 0, skipped: 0",
+            "row_count" : "2",
+            "rows" : [
+               {
+                  "changes" : "Change value of \"string1\" from \"Foo\" to \"Bar\", Change value of \"integer1\" from \"50\" to \"200\", Change value of \"date1\" from \"2010-10-10\" to \"2011-10-10\", Change value of \"enum1\" from \"foo1\" to \"foo2\", Change value of \"tree1\" from \"tree1\" to \"tree2\", Change value of \"daterange1\" from \"2010-10-10 to 2010-11-10\" to \"2011-10-10 to 2011-11-10\", Change value of \"curval1\" from \"Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012\" to \"Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008\"",
+                  "content" : "3,Bar,200,2011-10-10,foo2,tree2,\"2011-10-10 to 2011-11-10\",2",
+                  "errors" : null,
+                  "status" : "Record written"
+               },
+               {
+                  "changes" : "Change value of \"string1\" from \"FooBar\" to \"\", Change value of \"integer1\" from \"10\" to \"\", Change value of \"date1\" from \"2010-10-10\" to \"\", Change value of \"enum1\" from \"foo1\" to \"\", Change value of \"tree1\" from \"tree1\" to \"\", Change value of \"daterange1\" from \"2010-10-10 to 2010-11-10\" to \"\", Change value of \"curval1\" from \"Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012\" to \"\"",
+                  "content" : "4,,,,,,,",
+                  "errors" : null,
+                  "status" : "Record written"
+               }
+            ],
+            "skipped_count" : "0",
+            "written_count" : "2"
+         },
+         "pass" : true,
+         "type" : "import"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update existing records only records",
+         "observed" : {
+            "count" : "2",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4"
+            ],
+            "last" : "4",
+            "rows" : [
+               {
+                  "calc1" : "User1User120141010",
+                  "curval1" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "date1" : "2011-10-10",
+                  "daterange1" : "2011-10-10 to 2011-11-10",
+                  "enum1" : "foo2",
+                  "integer1" : "200",
+                  "string1" : "Bar",
+                  "tree1" : "tree2"
+               },
+               {
+                  "calc1" : "User1User120141010",
+                  "curval1" : "",
+                  "date1" : "",
+                  "daterange1" : "",
+                  "enum1" : "",
+                  "integer1" : "",
+                  "string1" : "",
+                  "tree1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Update existing records only versions",
+         "observed" : {
+            "count" : "4"
+         },
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

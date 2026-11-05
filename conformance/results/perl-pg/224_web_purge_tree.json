@@ -1,0 +1,708 @@
+{
+   "runner" : "perl",
+   "scenario" : "224_web_purge_tree",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_normal1",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_superadmin",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "purge_none",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>purge | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n\n\n\n        <header class=\"row g-0 purge--header\">\n  <div class=\"table-header__meta\">\n    \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Purge records</li>\n      \n    \n  </ol>\n</nav>\n\n\n    <h1 class=\"table-header__title\">Purge Records</h1>\n  </div>\n</header>\n<div class=\"purge--content\">\n<h2>Manage deleted records</h2>\n<p>\n    This page contains all records that have been deleted in the table &quot;Layout1&quot;. The records listed here are still contained\n    in the database, but are otherwise unaccessible.  Use this page to view the\n    deleted records, restore them, or permanently delete them.\n</p>\n\n    <div role=\"alert\" class=\"alert alert-info\">There are no deleted records in this table</div>\n\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "purge_list",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>purge | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n\n\n\n        <header class=\"row g-0 purge--header\">\n  <div class=\"table-header__meta\">\n    \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Purge records</li>\n      \n    \n  </ol>\n</nav>\n\n\n    <h1 class=\"table-header__title\">Purge Records</h1>\n  </div>\n</header>\n<div class=\"purge--content\">\n<h2>Manage deleted records</h2>\n<p>\n    This page contains all records that have been deleted in the table &quot;Layout1&quot;. The records listed here are still contained\n    in the database, but are otherwise unaccessible.  Use this page to view the\n    deleted records, restore them, or permanently delete them.\n</p>\n\n    <form role=\"form\" method=\"post\">\n        <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n\n        \n        \n\n<table\n  class=\"data-table  table table-striped table-selectable\"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7ImNsYXNzIjoiY2hlY2siLCJkYXRhIjoiY2hlY2siLCJuYW1lIjoiU2VsZWN0Iiwib3JkZXJhYmxlIjowLCJ0aXRsZSI6IlNlbGVjdCJ9LHsibmFtZSI6IkRlbGV0ZWQiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiRGVsZXRlZCJ9LHsiY2xhc3NOYW1lIjoiZHRyLWNvbnRyb2wgZGF0YS10YWJsZV9faGVhZGVyLS1pbnZpc2libGUiLCJuYW1lIjoiVG9nZ2xlIGNoaWxkIHJvdyIsIm9yZGVyYWJsZSI6MCwidGFyZ2V0cyI6LTF9XSwiaURpc3BsYXlMZW5ndGgiOi0xLCJpbmZvIjoxLCJsYW5ndWFnZSI6eyJlbXB0eVRhYmxlIjoiVGhlcmUgYXJlIG5vIGRlbGV0ZWQgcmVjb3JkcyBpbiB0aGlzIHRhYmxlLiJ9LCJsYXlvdXQiOiIiLCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIn0='\n>\n  \n    <caption class=\"visually-hidden\">Table to show deleted records</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Select\n  </span>\n</th>\n\n<th >\n  <span>\n    Deleted\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_1\"\n    type=\"checkbox\"\n    name=\"record\"\n    value=\"1\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_1-label\"\n    data-value=\"<a href='/table1/purge/1'>1</a>\"\n    \n  >\n  <label for=\"dt_checkbox_1\" id=\"dt_checkbox_1-label\" class=\"checkbox-label form-label\">\n    <span><a href='/table1/purge/1'>1</a></span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  2014-10-09T10:00:00 by User1, User1\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_2\"\n    type=\"checkbox\"\n    name=\"record\"\n    value=\"2\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_2-label\"\n    data-value=\"<a href='/table1/purge/2'>2</a>\"\n    \n  >\n  <label for=\"dt_checkbox_2\" id=\"dt_checkbox_2-label\" class=\"checkbox-label form-label\">\n    <span><a href='/table1/purge/2'>2</a></span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  2014-10-09T11:30:00 by User4, User4\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_3\"\n    type=\"checkbox\"\n    name=\"record\"\n    value=\"3\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_3-label\"\n    data-value=\"<a href='/table1/purge/3'>3</a>\"\n    \n  >\n  <label for=\"dt_checkbox_3\" id=\"dt_checkbox_3-label\" class=\"checkbox-label form-label\">\n    <span><a href='/table1/purge/3'>3</a></span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  2014-10-09T12:00:00 by \n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n\n        \n\n<div class=\"modal fade\" id=\"purge\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"purge_heading\" style=\"display:none\">\n    <div class=\"modal-dialog \">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header d-flex justify-content-between\">\n                \n                    <div class=\"modal-header__content\">\n                        <h3 class=\"modal-title\" id=\"purge_heading\">\n                            Confirm permanent deletion\n                        </h3>\n                    </div>\n                \n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n                </button>\n            </div>\n\n            <div class=\"modal-body\">\n               \n            <p>Are you sure you want to permanently delete the selected records?</p>\n        \n            </div>\n            <div class=\"modal-footer\">\n            \n                \n                    <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Cancel</button>\n                \n                \n                \n                    <button type=\"submit\" value=\"submit\" class=\"btn btn-primary\" name=\"purge\">Confirm</button>\n                \n            \n            </div>\n        \n        </div>\n    </div>\n</div>\n\n        \n\n<div class=\"modal fade\" id=\"restore\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"restore_heading\" style=\"display:none\">\n    <div class=\"modal-dialog \">\n        <div class=\"modal-content\">\n        \n            <div class=\"modal-header d-flex justify-content-between\">\n                \n                    <div class=\"modal-header__content\">\n                        <h3 class=\"modal-title\" id=\"restore_heading\">\n                            Confirm record restore\n                        </h3>\n                    </div>\n                \n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n                </button>\n            </div>\n\n            <div class=\"modal-body\">\n               \n            <p>Are you sure you want to undelete the selected records?</p>\n        \n            </div>\n            <div class=\"modal-footer\">\n            \n                \n                    <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">Cancel</button>\n                \n                \n                \n                    <button type=\"submit\" value=\"submit\" class=\"btn btn-primary\" name=\"restore\">Confirm</button>\n                \n            \n            </div>\n        \n        </div>\n    </div>\n</div>\n\n\n        \n<div class=\"row mt-5\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/table1/data\" class=\"btn btn-cancel\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n    <div class=\"col-sm-auto\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-danger btn-js-delete\"\n        style=\"margin-bottom: 0!important;\"\n        data-bs-toggle=\"modal\"\n        data-bs-target=\"#purge\"\n      >\n        <span class=\"btn__title\">Purge</span>\n      </button>\n      \n    </li>\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-primary\"\n        style=\"margin-bottom: 0!important;\"\n        data-bs-toggle=\"modal\"\n        data-bs-target=\"#restore\"\n      >\n        <span class=\"btn__title\">Undelete</span>\n      </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n\n    </form>\n\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "purge_denied",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "purge_nothing_selected",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/purge\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/purge",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "restore",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/purge\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/purge",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "purge",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/purge\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/purge",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "purge_list_after",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>purge | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    Please select some records before clicking an action\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Records have now been restored\n  </div>\n  \n  <div class=\"alert alert-success\" role=\"alert\">\n    NOTICE:\n    Records have now been purged\n  </div>\n  \n\n\n\n\n        <header class=\"row g-0 purge--header\">\n  <div class=\"table-header__meta\">\n    \n<nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table/\">Tables</a></li>\n      \n    \n        <li class=\"breadcrumb-item\"><a href=\"http://localhost/table1/data\">Table: Layout1</a></li>\n      \n    \n        <li class=\"breadcrumb-item active\" aria-current=\"page\">Purge records</li>\n      \n    \n  </ol>\n</nav>\n\n\n    <h1 class=\"table-header__title\">Purge Records</h1>\n  </div>\n</header>\n<div class=\"purge--content\">\n<h2>Manage deleted records</h2>\n<p>\n    This page contains all records that have been deleted in the table &quot;Layout1&quot;. The records listed here are still contained\n    in the database, but are otherwise unaccessible.  Use this page to view the\n    deleted records, restore them, or permanently delete them.\n</p>\n\n    <div role=\"alert\" class=\"alert alert-info\">There are no deleted records in this table</div>\n\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "current_after",
+         "observed" : [
+            {
+               "deleted" : null,
+               "deletedby" : "4",
+               "id" : "2"
+            },
+            {
+               "deleted" : null,
+               "deletedby" : null,
+               "id" : "4"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "historic_denied",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "historic_initial",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        <form role=\"form\" method=\"post\">\n    <h1 class=\"h3\">Purge field values from records in the current view</h1>\n    <p>Select fields to purge within this view.</p>\n    <p class=\"text-danger\">WARNING: This is a destructive action and cannot be undone. This will remove all field values from all current and historical versions of the records, and chronology in the selected fields from the current view.</p>\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n    \n    \n\n<table\n  class=\"data-table  table table-striped table-selectable\"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7ImNsYXNzIjoiY2hlY2siLCJkYXRhIjoiY2hlY2siLCJuYW1lIjoiU2VsZWN0IEZpZWxkcyB0byBQdXJnZSIsIm9yZGVyYWJsZSI6MCwidGl0bGUiOiJTZWxlY3QgRmllbGRzIHRvIFB1cmdlIn0seyJjbGFzc05hbWUiOiJkdHItY29udHJvbCBkYXRhLXRhYmxlX19oZWFkZXItLWludmlzaWJsZSIsIm5hbWUiOiJUb2dnbGUgY2hpbGQgcm93Iiwib3JkZXJhYmxlIjowLCJ0YXJnZXRzIjotMX1dLCJpRGlzcGxheUxlbmd0aCI6LTEsImluZm8iOjEsImxhbmd1YWdlIjp7ImVtcHR5VGFibGUiOiJUaGVyZSBhcmUgbm8gcmVjb3JkcyBpbiB0aGlzIHZpZXcuIn0sImxheW91dCI6IiIsIm9yZGVyIjpbXSwib3JkZXJpbmciOjEsInBhZ2luZyI6MSwicmVzcG9uc2l2ZSI6eyJkZXRhaWxzIjp7InRhcmdldCI6LTEsInR5cGUiOiJjb2x1bW4ifX0sInNjcm9sbFkiOiIifQ=='\n>\n  \n    <caption class=\"visually-hidden\">Purge on 2 records</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Select Fields to Purge\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_8\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"8\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_8-label\"\n    data-value=\"string1\"\n    \n  >\n  <label for=\"dt_checkbox_8\" id=\"dt_checkbox_8-label\" class=\"checkbox-label form-label\">\n    <span>string1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_9\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"9\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_9-label\"\n    data-value=\"integer1\"\n    \n  >\n  <label for=\"dt_checkbox_9\" id=\"dt_checkbox_9-label\" class=\"checkbox-label form-label\">\n    <span>integer1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_10\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"10\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_10-label\"\n    data-value=\"enum1\"\n    \n  >\n  <label for=\"dt_checkbox_10\" id=\"dt_checkbox_10-label\" class=\"checkbox-label form-label\">\n    <span>enum1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_11\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"11\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_11-label\"\n    data-value=\"tree1\"\n    \n  >\n  <label for=\"dt_checkbox_11\" id=\"dt_checkbox_11-label\" class=\"checkbox-label form-label\">\n    <span>tree1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_12\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"12\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_12-label\"\n    data-value=\"date1\"\n    \n  >\n  <label for=\"dt_checkbox_12\" id=\"dt_checkbox_12-label\" class=\"checkbox-label form-label\">\n    <span>date1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_13\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"13\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_13-label\"\n    data-value=\"daterange1\"\n    \n  >\n  <label for=\"dt_checkbox_13\" id=\"dt_checkbox_13-label\" class=\"checkbox-label form-label\">\n    <span>daterange1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_14\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"14\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_14-label\"\n    data-value=\"file1\"\n    \n  >\n  <label for=\"dt_checkbox_14\" id=\"dt_checkbox_14-label\" class=\"checkbox-label form-label\">\n    <span>file1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_15\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"15\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_15-label\"\n    data-value=\"person1\"\n    \n  >\n  <label for=\"dt_checkbox_15\" id=\"dt_checkbox_15-label\" class=\"checkbox-label form-label\">\n    <span>person1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_16\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"16\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_16-label\"\n    data-value=\"rag1\"\n    \n  >\n  <label for=\"dt_checkbox_16\" id=\"dt_checkbox_16-label\" class=\"checkbox-label form-label\">\n    <span>rag1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_17\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"17\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_17-label\"\n    data-value=\"calc1\"\n    \n  >\n  <label for=\"dt_checkbox_17\" id=\"dt_checkbox_17-label\" class=\"checkbox-label form-label\">\n    <span>calc1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n    \n<div class=\"row mt-5\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/table1/data\" class=\"btn btn-secondary\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n          type=\"submit\"\n          class=\"btn btn-danger\"\n          name=\"stage1\"\n          value=\"stage1\"\n          style=\"margin-bottom: 0!important;\">\n          <span class=\"btn__title\">Continue</span>\n        </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "historic_stage1",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        <form role=\"form\" method=\"post\">\n    <h3>Confirm Purge</h3>\n    <p>Below is a list of the fields and their values you have chosen to purge. Please confirm that you wish to proceed.</p>\n    <p class=\"text-danger\">WARNING: This is a destructive action and cannot be undone. This will remove all field values from all current and historical versions of the records, and chronology in the selected fields from the current view.</p>\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n\n    <input type=\"hidden\"\n       name=\"columns_selected\"\n       value=\"8\">\n<input type=\"hidden\"\n       name=\"columns_selected\"\n       value=\"9\">\n<input type=\"hidden\"\n       name=\"current_id\"\n       value=\"2\">\n<input type=\"hidden\"\n       name=\"current_id\"\n       value=\"4\">\n\n\n<table\n  class=\"data-table  table table table-striped table-purge\"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJSZWNvcmQgSUQgLSBOb3QgcHVyZ2VkIiwib3JkZXJhYmxlIjowLCJ0aXRsZSI6IlJlY29yZCBJRCAtIE5vdCBwdXJnZWQifSx7Im5hbWUiOiJzdHJpbmcxIiwib3JkZXJhYmxlIjowLCJ0aXRsZSI6InN0cmluZzEifSx7Im5hbWUiOiJpbnRlZ2VyMSIsIm9yZGVyYWJsZSI6MCwidGl0bGUiOiJpbnRlZ2VyMSJ9LHsiY2xhc3NOYW1lIjoiZHRyLWNvbnRyb2wgZGF0YS10YWJsZV9faGVhZGVyLS1pbnZpc2libGUiLCJuYW1lIjoiVG9nZ2xlIGNoaWxkIHJvdyIsIm9yZGVyYWJsZSI6MCwidGFyZ2V0cyI6LTF9XSwiaURpc3BsYXlMZW5ndGgiOi0xLCJpbmZvIjoxLCJsYW5ndWFnZSI6eyJlbXB0eVRhYmxlIjoiVGhlcmUgYXJlIG5vIHJlY29yZHMgaW4gdGhpcyB2aWV3LiJ9LCJsYXlvdXQiOiIiLCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIn0='\n>\n  \n    <caption class=\"visually-hidden\">Table to show records to purge</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Record ID - Not purged\n  </span>\n</th>\n\n<th >\n  <span>\n    string1\n  </span>\n</th>\n\n<th >\n  <span>\n    integer1\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  2\n\n</td>\n\n<td >\n  Bar\n\n</td>\n\n<td >\n  20\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  4\n\n</td>\n\n<td >\n  Qux\n\n</td>\n\n<td >\n  40\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n<div class=\"checkbox checkbox-confirm\">\n  <input\n    id=\"confirm_purge\"\n    type=\"checkbox\"\n    name=\"\"\n    value=\"1\"\n    class=\"\"    aria-labelledby=\"confirm_purge-label\"\n    data-value=\"I confirm this action and am aware my user details will be logged, and wish to proceed with purging the above values completely from the system.\"\n    \nrequired=\"required\"  >\n  <label for=\"confirm_purge\" id=\"confirm_purge-label\" class=\"checkbox-label form-label\">\n    I confirm this action and am aware my user details will be logged, and wish to proceed with purging the above values completely from the system.\n  </label>\n  \n</div>\n\n<div class=\"row mt-5\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/table1/data\" class=\"btn btn-secondary\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n          type=\"submit\"\n          class=\"btn btn-danger\"\n          name=\"purge\"\n          value=\"purge\"\n          style=\"margin-bottom: 0!important;\">\n          <span class=\"btn__title\">Destroy Field Data</span>\n        </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "historic_no_records",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        <form role=\"form\" method=\"post\">\n    <h1 class=\"h3\">Purge field values from records in the current view</h1>\n    <p>Select fields to purge within this view.</p>\n    <p class=\"text-danger\">WARNING: This is a destructive action and cannot be undone. This will remove all field values from all current and historical versions of the records, and chronology in the selected fields from the current view.</p>\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n    \n    \n\n<table\n  class=\"data-table  table table-striped table-selectable\"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7ImNsYXNzIjoiY2hlY2siLCJkYXRhIjoiY2hlY2siLCJuYW1lIjoiU2VsZWN0IEZpZWxkcyB0byBQdXJnZSIsIm9yZGVyYWJsZSI6MCwidGl0bGUiOiJTZWxlY3QgRmllbGRzIHRvIFB1cmdlIn0seyJjbGFzc05hbWUiOiJkdHItY29udHJvbCBkYXRhLXRhYmxlX19oZWFkZXItLWludmlzaWJsZSIsIm5hbWUiOiJUb2dnbGUgY2hpbGQgcm93Iiwib3JkZXJhYmxlIjowLCJ0YXJnZXRzIjotMX1dLCJpRGlzcGxheUxlbmd0aCI6LTEsImluZm8iOjEsImxhbmd1YWdlIjp7ImVtcHR5VGFibGUiOiJUaGVyZSBhcmUgbm8gcmVjb3JkcyBpbiB0aGlzIHZpZXcuIn0sImxheW91dCI6IiIsIm9yZGVyIjpbXSwib3JkZXJpbmciOjEsInBhZ2luZyI6MSwicmVzcG9uc2l2ZSI6eyJkZXRhaWxzIjp7InRhcmdldCI6LTEsInR5cGUiOiJjb2x1bW4ifX0sInNjcm9sbFkiOiIifQ=='\n>\n  \n    <caption class=\"visually-hidden\">Purge on 2 records</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Select Fields to Purge\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_8\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"8\"\n    class=\"\"checked=\"checked\"    aria-labelledby=\"dt_checkbox_8-label\"\n    data-value=\"string1\"\n    \n  >\n  <label for=\"dt_checkbox_8\" id=\"dt_checkbox_8-label\" class=\"checkbox-label form-label\">\n    <span>string1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_9\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"9\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_9-label\"\n    data-value=\"integer1\"\n    \n  >\n  <label for=\"dt_checkbox_9\" id=\"dt_checkbox_9-label\" class=\"checkbox-label form-label\">\n    <span>integer1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_10\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"10\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_10-label\"\n    data-value=\"enum1\"\n    \n  >\n  <label for=\"dt_checkbox_10\" id=\"dt_checkbox_10-label\" class=\"checkbox-label form-label\">\n    <span>enum1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_11\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"11\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_11-label\"\n    data-value=\"tree1\"\n    \n  >\n  <label for=\"dt_checkbox_11\" id=\"dt_checkbox_11-label\" class=\"checkbox-label form-label\">\n    <span>tree1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_12\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"12\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_12-label\"\n    data-value=\"date1\"\n    \n  >\n  <label for=\"dt_checkbox_12\" id=\"dt_checkbox_12-label\" class=\"checkbox-label form-label\">\n    <span>date1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_13\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"13\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_13-label\"\n    data-value=\"daterange1\"\n    \n  >\n  <label for=\"dt_checkbox_13\" id=\"dt_checkbox_13-label\" class=\"checkbox-label form-label\">\n    <span>daterange1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_14\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"14\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_14-label\"\n    data-value=\"file1\"\n    \n  >\n  <label for=\"dt_checkbox_14\" id=\"dt_checkbox_14-label\" class=\"checkbox-label form-label\">\n    <span>file1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_15\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"15\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_15-label\"\n    data-value=\"person1\"\n    \n  >\n  <label for=\"dt_checkbox_15\" id=\"dt_checkbox_15-label\" class=\"checkbox-label form-label\">\n    <span>person1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_16\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"16\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_16-label\"\n    data-value=\"rag1\"\n    \n  >\n  <label for=\"dt_checkbox_16\" id=\"dt_checkbox_16-label\" class=\"checkbox-label form-label\">\n    <span>rag1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_17\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"17\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_17-label\"\n    data-value=\"calc1\"\n    \n  >\n  <label for=\"dt_checkbox_17\" id=\"dt_checkbox_17-label\" class=\"checkbox-label form-label\">\n    <span>calc1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n    \n<div class=\"row mt-5\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/table1/data\" class=\"btn btn-secondary\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n          type=\"submit\"\n          class=\"btn btn-danger\"\n          name=\"stage1\"\n          value=\"stage1\"\n          style=\"margin-bottom: 0!important;\">\n          <span class=\"btn__title\">Continue</span>\n        </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "historic_no_columns",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        <form role=\"form\" method=\"post\">\n    <h1 class=\"h3\">Purge field values from records in the current view</h1>\n    <p>Select fields to purge within this view.</p>\n    <p class=\"text-danger\">WARNING: This is a destructive action and cannot be undone. This will remove all field values from all current and historical versions of the records, and chronology in the selected fields from the current view.</p>\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n    \n    \n\n<table\n  class=\"data-table  table table-striped table-selectable\"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7ImNsYXNzIjoiY2hlY2siLCJkYXRhIjoiY2hlY2siLCJuYW1lIjoiU2VsZWN0IEZpZWxkcyB0byBQdXJnZSIsIm9yZGVyYWJsZSI6MCwidGl0bGUiOiJTZWxlY3QgRmllbGRzIHRvIFB1cmdlIn0seyJjbGFzc05hbWUiOiJkdHItY29udHJvbCBkYXRhLXRhYmxlX19oZWFkZXItLWludmlzaWJsZSIsIm5hbWUiOiJUb2dnbGUgY2hpbGQgcm93Iiwib3JkZXJhYmxlIjowLCJ0YXJnZXRzIjotMX1dLCJpRGlzcGxheUxlbmd0aCI6LTEsImluZm8iOjEsImxhbmd1YWdlIjp7ImVtcHR5VGFibGUiOiJUaGVyZSBhcmUgbm8gcmVjb3JkcyBpbiB0aGlzIHZpZXcuIn0sImxheW91dCI6IiIsIm9yZGVyIjpbXSwib3JkZXJpbmciOjEsInBhZ2luZyI6MSwicmVzcG9uc2l2ZSI6eyJkZXRhaWxzIjp7InRhcmdldCI6LTEsInR5cGUiOiJjb2x1bW4ifX0sInNjcm9sbFkiOiIifQ=='\n>\n  \n    <caption class=\"visually-hidden\">Purge on 2 records</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Select Fields to Purge\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_8\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"8\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_8-label\"\n    data-value=\"string1\"\n    \n  >\n  <label for=\"dt_checkbox_8\" id=\"dt_checkbox_8-label\" class=\"checkbox-label form-label\">\n    <span>string1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_9\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"9\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_9-label\"\n    data-value=\"integer1\"\n    \n  >\n  <label for=\"dt_checkbox_9\" id=\"dt_checkbox_9-label\" class=\"checkbox-label form-label\">\n    <span>integer1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_10\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"10\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_10-label\"\n    data-value=\"enum1\"\n    \n  >\n  <label for=\"dt_checkbox_10\" id=\"dt_checkbox_10-label\" class=\"checkbox-label form-label\">\n    <span>enum1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_11\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"11\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_11-label\"\n    data-value=\"tree1\"\n    \n  >\n  <label for=\"dt_checkbox_11\" id=\"dt_checkbox_11-label\" class=\"checkbox-label form-label\">\n    <span>tree1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_12\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"12\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_12-label\"\n    data-value=\"date1\"\n    \n  >\n  <label for=\"dt_checkbox_12\" id=\"dt_checkbox_12-label\" class=\"checkbox-label form-label\">\n    <span>date1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_13\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"13\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_13-label\"\n    data-value=\"daterange1\"\n    \n  >\n  <label for=\"dt_checkbox_13\" id=\"dt_checkbox_13-label\" class=\"checkbox-label form-label\">\n    <span>daterange1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_14\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"14\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_14-label\"\n    data-value=\"file1\"\n    \n  >\n  <label for=\"dt_checkbox_14\" id=\"dt_checkbox_14-label\" class=\"checkbox-label form-label\">\n    <span>file1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_15\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"15\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_15-label\"\n    data-value=\"person1\"\n    \n  >\n  <label for=\"dt_checkbox_15\" id=\"dt_checkbox_15-label\" class=\"checkbox-label form-label\">\n    <span>person1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_16\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"16\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_16-label\"\n    data-value=\"rag1\"\n    \n  >\n  <label for=\"dt_checkbox_16\" id=\"dt_checkbox_16-label\" class=\"checkbox-label form-label\">\n    <span>rag1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  <div class=\"checkbox \">\n  <input\n    id=\"dt_checkbox_17\"\n    type=\"checkbox\"\n    name=\"column_id\"\n    value=\"17\"\n    class=\"\"    aria-labelledby=\"dt_checkbox_17-label\"\n    data-value=\"calc1\"\n    \n  >\n  <label for=\"dt_checkbox_17\" id=\"dt_checkbox_17-label\" class=\"checkbox-label form-label\">\n    <span>calc1</span>\n  </label>\n  \n</div>\n\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n    \n<div class=\"row mt-5\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/table1/data\" class=\"btn btn-secondary\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n          type=\"submit\"\n          class=\"btn btn-danger\"\n          name=\"stage1\"\n          value=\"stage1\"\n          style=\"margin-bottom: 0!important;\">\n          <span class=\"btn__title\">Continue</span>\n        </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "historic_purge",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/table1/data\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/table1/data",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "strings_after",
+         "observed" : [
+            {
+               "id" : "2",
+               "layout_id" : "8",
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "2",
+               "value" : null
+            },
+            {
+               "id" : "4",
+               "layout_id" : "8",
+               "purged_by" : "1",
+               "purged_on" : "2014-10-10 01:00:00",
+               "record_id" : "4",
+               "value" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "historic_stage1_after",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title> | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\" data-layout-identifier=\"table1\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n        <form role=\"form\" method=\"post\">\n    <h3>Confirm Purge</h3>\n    <p>Below is a list of the fields and their values you have chosen to purge. Please confirm that you wish to proceed.</p>\n    <p class=\"text-danger\">WARNING: This is a destructive action and cannot be undone. This will remove all field values from all current and historical versions of the records, and chronology in the selected fields from the current view.</p>\n    <input type=\"hidden\" name=\"csrf_token\" value=\"{csrf}\">\n\n    <input type=\"hidden\"\n       name=\"columns_selected\"\n       value=\"8\">\n<input type=\"hidden\"\n       name=\"current_id\"\n       value=\"2\">\n<input type=\"hidden\"\n       name=\"current_id\"\n       value=\"4\">\n\n\n<table\n  class=\"data-table  table table table-striped table-purge\"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJSZWNvcmQgSUQgLSBOb3QgcHVyZ2VkIiwib3JkZXJhYmxlIjowLCJ0aXRsZSI6IlJlY29yZCBJRCAtIE5vdCBwdXJnZWQifSx7Im5hbWUiOiJzdHJpbmcxIiwib3JkZXJhYmxlIjowLCJ0aXRsZSI6InN0cmluZzEifSx7ImNsYXNzTmFtZSI6ImR0ci1jb250cm9sIGRhdGEtdGFibGVfX2hlYWRlci0taW52aXNpYmxlIiwibmFtZSI6IlRvZ2dsZSBjaGlsZCByb3ciLCJvcmRlcmFibGUiOjAsInRhcmdldHMiOi0xfV0sImlEaXNwbGF5TGVuZ3RoIjotMSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6IlRoZXJlIGFyZSBubyByZWNvcmRzIGluIHRoaXMgdmlldy4ifSwibGF5b3V0IjoiIiwib3JkZXIiOltdLCJvcmRlcmluZyI6MSwicGFnaW5nIjoxLCJyZXNwb25zaXZlIjp7ImRldGFpbHMiOnsidGFyZ2V0IjotMSwidHlwZSI6ImNvbHVtbiJ9fSwic2Nyb2xsWSI6IiJ9'\n>\n  \n    <caption class=\"visually-hidden\">Table to show records to purge</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    Record ID - Not purged\n  </span>\n</th>\n\n<th >\n  <span>\n    string1\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  2\n\n</td>\n\n<td >\n  No value\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  4\n\n</td>\n\n<td >\n  No value\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n<div class=\"checkbox checkbox-confirm\">\n  <input\n    id=\"confirm_purge\"\n    type=\"checkbox\"\n    name=\"\"\n    value=\"1\"\n    class=\"\"    aria-labelledby=\"confirm_purge-label\"\n    data-value=\"I confirm this action and am aware my user details will be logged, and wish to proceed with purging the above values completely from the system.\"\n    \nrequired=\"required\"  >\n  <label for=\"confirm_purge\" id=\"confirm_purge-label\" class=\"checkbox-label form-label\">\n    I confirm this action and am aware my user details will be logged, and wish to proceed with purging the above values completely from the system.\n  </label>\n  \n</div>\n\n<div class=\"row mt-5\">\n  \n    <div class=\"col-sm-auto mb-3 mb-sm-0\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <a href=\"/table1/data\" class=\"btn btn-secondary\" style=\"margin-bottom: 0!important;\">\n        Cancel        \n      </a>\n      \n    </li>\n    \n    <li class=\"list__item\" style=\"margin-bottom: 0!important;\">\n      \n      <button\n          type=\"submit\"\n          class=\"btn btn-danger\"\n          name=\"purge\"\n          value=\"purge\"\n          style=\"margin-bottom: 0!important;\">\n          <span class=\"btn__title\">Destroy Field Data</span>\n        </button>\n      \n    </li>\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n</form>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree",
+         "observed" : {
+            "content_type" : "application/json",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : [
+               {
+                  "id" : "4",
+                  "text" : "tree1"
+               },
+               {
+                  "children" : [
+                     {
+                        "id" : "6",
+                        "text" : "tree3"
+                     }
+                  ],
+                  "id" : "5",
+                  "text" : "tree2"
+               }
+            ],
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree_nocache",
+         "observed" : {
+            "content_type" : "application/json",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : [
+               {
+                  "id" : "4",
+                  "text" : "tree1"
+               },
+               {
+                  "children" : [
+                     {
+                        "id" : "6",
+                        "text" : "tree3"
+                     }
+                  ],
+                  "id" : "5",
+                  "text" : "tree2"
+               }
+            ],
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree_selected",
+         "observed" : {
+            "content_type" : "application/json",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : [
+               {
+                  "id" : "4",
+                  "text" : "tree1"
+               },
+               {
+                  "children" : [
+                     {
+                        "id" : "6",
+                        "state" : {
+                           "selected" : "true"
+                        },
+                        "text" : "tree3"
+                     }
+                  ],
+                  "id" : "5",
+                  "state" : {
+                     "selected" : "true"
+                  },
+                  "text" : "tree2"
+               }
+            ],
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree_not_tree",
+         "observed" : {
+            "content_type" : "application/json",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : [],
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree_invalid",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree_update_denied",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree_update",
+         "observed" : {
+            "body" : "",
+            "content_type" : "text/html",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enumvals_after",
+         "observed" : [
+            {
+               "deleted" : "0",
+               "id" : "4",
+               "parent" : null,
+               "value" : "tree1 renamed"
+            },
+            {
+               "deleted" : "1",
+               "id" : "5",
+               "parent" : null,
+               "value" : "tree2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "6",
+               "parent" : null,
+               "value" : "tree3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "7",
+               "parent" : "4",
+               "value" : "child"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree_after",
+         "observed" : {
+            "content_type" : "application/json",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : [
+               {
+                  "children" : [
+                     {
+                        "id" : "7",
+                        "text" : "child"
+                     }
+                  ],
+                  "id" : "4",
+                  "text" : "tree1 renamed"
+               },
+               {
+                  "id" : "6",
+                  "text" : "tree3"
+               }
+            ],
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      }
+   ]
+}

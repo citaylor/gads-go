@@ -220,6 +220,7 @@ func (r *Runner) runSteps() []StepResult {
 			id = s
 		}
 		results = append(results, r.runStep(id, typ, args))
+		r.syncSequences()
 	}
 	return results
 }

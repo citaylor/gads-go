@@ -678,8 +678,7 @@ runners run each scenario against a new PostgreSQL database
 deployed with the PostgreSQL schema, instead of SQLite. The role needs
 `CREATEDB`. The observations of the two runners are compared as for SQLite
 (they are not expected to equal the SQLite ones, as GADS itself behaves
-differently: case-sensitive `LIKE`, sequences that collide with the
-explicit IDs of the fixtures, errors of SQL that SQLite accepts).
+differently: case-sensitive `LIKE`, errors of SQL that SQLite accepts).
 
 For PostgreSQL:
 
@@ -694,4 +693,9 @@ For PostgreSQL:
   so binary columns are not cast).
 * `layout` `write_internal` reports the internal columns ordered by name, as
   they share a position, which PostgreSQL orders by its plan.
+* After each step, both runners move the sequence of each serial column
+  past the largest value in its column (never back). The fixtures insert
+  users and other rows with explicit IDs, which leave the sequences behind,
+  so that a later insert would take an ID in use (as SQLite gives the
+  largest rowid + 1, it never does there).
 * `GADS_RAW_ERRORS=1` makes the Perl runner print each raw error (debugging).

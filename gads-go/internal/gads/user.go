@@ -156,7 +156,11 @@ func (u *User) HasViewLimit(instanceID int64) bool {
 	if _, ok := u.e.DB.QueryInt64(`SELECT "me"."id" FROM "view_limit" "me" LEFT JOIN "view" "view" ON "view"."id" = "me"."view_id" WHERE "me"."user_id" = ? AND "view"."instance_id" = ? LIMIT 1`, u.ID, instanceID); ok {
 		return true
 	}
-	_, ok := u.e.DB.QueryInt64(`SELECT "me"."id" FROM "instance" "me" WHERE "me"."id" = ? AND "me"."view_limit_id" IS NOT NULL LIMIT 1`, instanceID)
+	// Perl quirk: the overall limit is searched for in Layout, which has no
+	// view_limit_id (Instance has). SQLite takes the unknown "view_limit_id"
+	// for a string, so that any table with a column has a view limit;
+	// PostgreSQL fails the statement, so that alerts fail there.
+	_, ok := u.e.DB.QueryInt64(`SELECT "me"."id" FROM "layout" "me" WHERE ( ( "instance_id" = ? AND "view_limit_id" IS NOT NULL ) ) LIMIT 1`, instanceID)
 	return ok
 }
 

@@ -1,0 +1,398 @@
+{
+   "runner" : "perl",
+   "scenario" : "012_graph_permissions",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:user",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "no graphs created",
+         "observed" : {
+            "count" : "0"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "superadmin shared graph",
+         "observed" : {},
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:db",
+         "observed" : {
+            "count" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal user can see graph",
+         "observed" : {
+            "count" : "1",
+            "ids" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "graphs"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:graph",
+         "observed" : {},
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal user can see same graphs",
+         "observed" : {
+            "count" : "1",
+            "ids" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "graphs"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:graph",
+         "observed" : {},
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "first user can see shared graph",
+         "observed" : {
+            "count" : "2",
+            "ids" : [
+               "1",
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "graphs"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "second user cannot",
+         "observed" : {
+            "count" : "1",
+            "ids" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "graphs"
+      },
+      {
+         "error" : "You do not have permission to write to this graph",
+         "failures" : [],
+         "id" : "unable to create shared graph as normal user",
+         "observed" : null,
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:db",
+         "observed" : {
+            "id" : "9"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal user creates group shared graph",
+         "observed" : {},
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal user can see other user shared graph",
+         "observed" : {
+            "count" : "2",
+            "ids" : [
+               "1",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "graphs"
+      },
+      {
+         "error" : "You do not have permission to write to this graph",
+         "failures" : [],
+         "id" : "unable to create all user shared graph as group user",
+         "observed" : null,
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "33",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:user",
+         "observed" : {
+            "id" : "11"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:db",
+         "observed" : {
+            "count" : "2"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:db",
+         "observed" : {
+            "id" : "101"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:user",
+         "observed" : {
+            "id" : "12"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:db",
+         "observed" : {
+            "id" : "18"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "51",
+               "date1" : "46",
+               "daterange1" : "47",
+               "enum1" : "44",
+               "file1" : "48",
+               "integer1" : "43",
+               "person1" : "49",
+               "rag1" : "50",
+               "string1" : "42",
+               "tree1" : "45"
+            },
+            "instance_id" : "3",
+            "internal" : {
+               "_created" : "40",
+               "_created_user" : "38",
+               "_deleted_by" : "39",
+               "_id" : "35",
+               "_serial" : "41",
+               "_version_datetime" : "36",
+               "_version_user" : "37"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "24:user",
+         "observed" : {
+            "id" : "13"
+         },
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "25:db",
+         "observed" : {
+            "count" : "3"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:db",
+         "observed" : {
+            "id" : "152"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "first normal user groups",
+         "observed" : [
+            "group1",
+            "group2"
+         ],
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "second normal user groups",
+         "observed" : [
+            "group1"
+         ],
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "superadmin groups",
+         "observed" : [
+            "group1",
+            "group2",
+            "group3",
+            "group4",
+            "group5"
+         ],
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "30:db",
+         "observed" : {
+            "id" : "15"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal user has access to groups in its tables",
+         "observed" : [
+            "group1",
+            "group2",
+            "group3",
+            "group4"
+         ],
+         "pass" : true,
+         "type" : "user"
+      }
+   ]
+}

@@ -72,6 +72,13 @@ func DeleteRecordVersion(env *Env) {
 				gads.Panic(`DBI Exception: DBD::SQLite::st execute failed: %s [for Statement "DELETE FROM "record" WHERE ( "id" = ? )" with ParamValues: 1=%s]`,
 					de.Err.Error(), str(record["id"]))
 			}
+			// DBD::Pg quotes the value
+			if de != nil && d.Dialect == db.Postgres {
+				if msg := de.Error(); msg != "" {
+					gads.Panic(`%s [for Statement "DELETE FROM "record" WHERE ( "id" = ? )" with ParamValues: 1='%s']`,
+						strings.TrimSuffix(msg, ` [for Statement "`+de.Query+`"]`), str(record["id"]))
+				}
+			}
 			panic(err)
 		}
 	})

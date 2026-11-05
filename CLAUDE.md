@@ -42,8 +42,10 @@ scenarios are identical.
   in the image's `/usr/share/doc/gads`). CI checks that it is current.
 - **CI.** `.github/workflows/ci.yml` runs on every push and weekly. It runs
   the tests (with parity and the hardened scenarios) and the race detector,
-  the linters of "Build and test" (versions pinned there), and the hardened
-  scenarios on PostgreSQL. Its `security` job runs gosec, gitleaks on the
+  the linters of "Build and test" (versions pinned there), and on
+  PostgreSQL the hardened scenarios and the tests of workers, stored
+  sessions and forked imports (`internal/web` runs them on both
+  databases when `GADS_TEST_PG` is set). Its `security` job runs gosec, gitleaks on the
   whole history and Trivy on the built image and the Docker files
   (pinned releases checked by SHA-256), and sends gosec and Trivy results
   to the Security tab, beside CodeQL. Keep it passing, and update its pins
@@ -573,5 +575,9 @@ Not fixed:
   - Hardened mode, on in the application: see Security.
   - `/healthz` is answered before routing, so it shadows a table whose
     short name is `healthz`.
-- PostgreSQL parity is 160 of 166 (master era). The remaining differences
-  are Perl's own plan-dependent row order and fixture ID collisions.
+- PostgreSQL parity (`run_all.sh --pg`, dev `337d733c`, 2026-11-05) is
+  187 of 188. The difference is in `013_datatime`, in searches whose sort
+  leaves ties, which PostgreSQL returns in the order of its plan: two
+  runs of Perl differ there too. The runners move the sequences past the
+  fixtures' explicit IDs (SPEC.md "PostgreSQL"). Failed expectations are
+  expected there, as the scenarios' expectations are SQLite's.

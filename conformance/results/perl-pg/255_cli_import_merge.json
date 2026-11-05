@@ -1,0 +1,707 @@
+{
+   "runner" : "perl",
+   "scenario" : "255_cli_import_merge",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "source_enumvals",
+         "observed" : [
+            {
+               "deleted" : "0",
+               "id" : "1",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "1",
+               "value" : "foo1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "2",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "2",
+               "value" : "foo2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "3",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "3",
+               "value" : "foo3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "4",
+               "layout_id" : "11",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "5",
+               "layout_id" : "11",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "6",
+               "layout_id" : "11",
+               "parent" : "5",
+               "position" : null,
+               "value" : "tree3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "export1",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:db",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "import1",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "notice: Creation: New group group1 to be created\nnotice: Creation: New group link_1 to be created\nnotice: Creation: New group delete_1 to be created\nnotice: Creation: New group purge_1 to be created\nnotice: Creation: New group view_group_1 to be created\nnotice: Creation: New group download_1 to be created\nnotice: Creation: New group view_limit_extra_1 to be created\nnotice: Creation: New group view_create_4 to be created\nnotice: Creation: New group view_create_5 to be created\nnotice: Creation: Instance name Layout1 created\nnotice: Creation: Column enum1 to be created\nnotice: Creation: Column tree1 to be created\nnotice: Creation: Column date1 to be created\nnotice: Creation: Column daterange1 to be created\nnotice: Creation: Column file1 to be created\nnotice: Creation: Column person1 to be created\nnotice: Creation: Column rag1 to be created\nnotice: Creation: Column calc1 to be created\nnotice: Creation: Column string1 to be created\nnotice: Creation: Column integer1 to be created\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "imported",
+         "observed" : [
+            {
+               "deleted" : "0",
+               "id" : "7",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "1",
+               "value" : "foo1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "8",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "2",
+               "value" : "foo2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "9",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "3",
+               "value" : "foo3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "10",
+               "layout_id" : "26",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "11",
+               "layout_id" : "26",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "12",
+               "layout_id" : "26",
+               "parent" : "11",
+               "position" : null,
+               "value" : "tree3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:db",
+         "observed" : {
+            "id" : "13"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:db",
+         "observed" : {
+            "id" : "14"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "export2",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "merge_report",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "notice: Changing enum value \"foo2\" to \"foo2 renamed\" for field \"enum1\"\nnotice: Changing tree value tree1 to tree1 renamed\nnotice: Deletion: Column Created by no longer exist\nnotice: Deletion: Column Created time no longer exist\nnotice: Deletion: Column ID no longer exist\nnotice: Deletion: Column Last edited by no longer exist\nnotice: Deletion: Column Last edited time no longer exist\nnotice: Deletion: Column Serial no longer exist\nnotice: Error: don't know how to handle tree updates for tree1, manual intervention required. (failed at old tree3 new tree4)\nnotice: Position changed for enum value \"foo1\" for field \"enum1\"\nnotice: Update: override_types from  to  for file1\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "after_report",
+         "observed" : [
+            {
+               "deleted" : "0",
+               "id" : "7",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "1",
+               "value" : "foo1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "8",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "2",
+               "value" : "foo2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "9",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "3",
+               "value" : "foo3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "10",
+               "layout_id" : "26",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "11",
+               "layout_id" : "26",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "12",
+               "layout_id" : "26",
+               "parent" : "11",
+               "position" : null,
+               "value" : "tree3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "13",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "4",
+               "value" : "foo4"
+            },
+            {
+               "deleted" : "0",
+               "id" : "14",
+               "layout_id" : "11",
+               "parent" : "5",
+               "position" : null,
+               "value" : "tree4"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "merge",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Error: don't know how to handle tree updates for tree1, manual intervention required (failed at old tree3 new tree4, column tree1)\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "merged",
+         "observed" : [
+            {
+               "deleted" : "0",
+               "id" : "7",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "1",
+               "value" : "foo1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "8",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "2",
+               "value" : "foo2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "9",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "3",
+               "value" : "foo3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "10",
+               "layout_id" : "26",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "11",
+               "layout_id" : "26",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "12",
+               "layout_id" : "26",
+               "parent" : "11",
+               "position" : null,
+               "value" : "tree3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "13",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "4",
+               "value" : "foo4"
+            },
+            {
+               "deleted" : "0",
+               "id" : "14",
+               "layout_id" : "11",
+               "parent" : "5",
+               "position" : null,
+               "value" : "tree4"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "export3",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "merge_order",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "notice: Changing enum value \"foo2\" to \"foo2 renamed\" for field \"enum1\"\nnotice: Changing tree value tree1 to tree1 renamed\nnotice: Deletion: Column Created by no longer exist\nnotice: Deletion: Column Created time no longer exist\nnotice: Deletion: Column ID no longer exist\nnotice: Deletion: Column Last edited by no longer exist\nnotice: Deletion: Column Last edited time no longer exist\nnotice: Deletion: Column Serial no longer exist\nnotice: Error: don't know how to handle tree updates for tree1, manual intervention required. (failed at old tree3 new tree4)\nnotice: Position changed for enum value \"foo1\" for field \"enum1\"\nnotice: Position changed for enum value \"foo3\" for field \"enum1\"\nnotice: Update: override_types from  to  for file1\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "export4",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "merge_unmatched_report",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "notice: Deletion: Column Created by no longer exist\nnotice: Deletion: Column Created time no longer exist\nnotice: Deletion: Column ID no longer exist\nnotice: Deletion: Column Last edited by no longer exist\nnotice: Deletion: Column Last edited time no longer exist\nnotice: Deletion: Column Serial no longer exist\nnotice: Error: don't know how to handle enumval updates for \"enum1\" in field \"enum1\", manual intervention required. Old value: foo2, new value: foo2 again\nnotice: Error: don't know how to handle tree updates for tree1, manual intervention required. (failed at old tree1 new tree1 renamed)\nnotice: Position changed for enum value \"foo1\" for field \"enum1\"\nnotice: Update: override_types from  to  for file1\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "merge_unmatched",
+         "observed" : {
+            "exit" : "1",
+            "stderr" : "error: Error: don't know how to handle enumval updates for enum1, manual intervention required\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "after_unmatched",
+         "observed" : [
+            {
+               "deleted" : "0",
+               "id" : "7",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "1",
+               "value" : "foo1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "8",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "2",
+               "value" : "foo2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "9",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "3",
+               "value" : "foo3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "10",
+               "layout_id" : "26",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "11",
+               "layout_id" : "26",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "12",
+               "layout_id" : "26",
+               "parent" : "11",
+               "position" : null,
+               "value" : "tree3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "13",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "4",
+               "value" : "foo4"
+            },
+            {
+               "deleted" : "0",
+               "id" : "14",
+               "layout_id" : "11",
+               "parent" : "5",
+               "position" : null,
+               "value" : "tree4"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "merge_force",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "notice: Deletion: Column Created by no longer exist\nnotice: Deletion: Column Created time no longer exist\nnotice: Deletion: Column ID no longer exist\nnotice: Deletion: Column Last edited by no longer exist\nnotice: Deletion: Column Last edited time no longer exist\nnotice: Deletion: Column Serial no longer exist\nnotice: Unknown enumval update foo2 again, forcing as requested\nnotice: Unknown enumval update foo3 renamed, forcing as requested\nnotice: Unknown treeval update tree1 renamed, forcing as requested\nnotice: Unknown treeval update tree2 renamed, forcing as requested\nnotice: Unknown treeval update tree4, forcing as requested\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "forced",
+         "observed" : [
+            {
+               "deleted" : "0",
+               "id" : "7",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "5",
+               "value" : "foo1"
+            },
+            {
+               "deleted" : "1",
+               "id" : "11",
+               "layout_id" : "26",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "13",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "4",
+               "value" : "foo4"
+            },
+            {
+               "deleted" : "0",
+               "id" : "14",
+               "layout_id" : "11",
+               "parent" : "5",
+               "position" : null,
+               "value" : "tree4"
+            },
+            {
+               "deleted" : "0",
+               "id" : "18",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "2",
+               "value" : "foo2 again"
+            },
+            {
+               "deleted" : "0",
+               "id" : "19",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "3",
+               "value" : "foo3 renamed"
+            },
+            {
+               "deleted" : "0",
+               "id" : "20",
+               "layout_id" : "25",
+               "parent" : null,
+               "position" : "4",
+               "value" : "foo4"
+            },
+            {
+               "deleted" : "0",
+               "id" : "21",
+               "layout_id" : "26",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree1 renamed"
+            },
+            {
+               "deleted" : "0",
+               "id" : "22",
+               "layout_id" : "26",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree2 renamed"
+            },
+            {
+               "deleted" : "0",
+               "id" : "23",
+               "layout_id" : "26",
+               "parent" : "22",
+               "position" : null,
+               "value" : "tree4"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "records",
+         "observed" : [
+            {
+               "layout_id" : "10",
+               "record_id" : "1",
+               "value" : "1"
+            },
+            {
+               "layout_id" : "11",
+               "record_id" : "1",
+               "value" : "4"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

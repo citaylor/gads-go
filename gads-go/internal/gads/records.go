@@ -1473,6 +1473,9 @@ func (r *Records) orderBy(o orderByOpts) []orderTerm {
 type currentIDsOptions struct {
 	// rows applies rows/page/max_results (current_ids builder)
 	rows bool
+	// column is get_column('id') of the resultset (current_ids): DBIC
+	// makes a grouped resultset ordered by more than its ID a subselect
+	column bool
 }
 
 // versionJoin returns the join of the record version from the current
@@ -1545,8 +1548,21 @@ func (r *Records) currentIDsSQL(o currentIDsOptions) (string, []any) {
 			if page < 1 {
 				page = 1
 			}
-			sql += " LIMIT ? OFFSET ?"
-			args = append(args, rows, (page-1)*rows)
+			// (as DBIC, without an offset of 0)
+			sql += " LIMIT ?"
+			args = append(args, rows)
+			if page > 1 {
+				sql += " OFFSET ?"
+				args = append(args, (page-1)*rows)
+			}
+		}
+	}
+	if o.column {
+		for _, t := range orderTerms {
+			if t.expr != `"me"."id"` {
+				sql = `SELECT "me"."id" FROM (` + sql + `) "me"`
+				break
+			}
 		}
 	}
 	return sql, args
@@ -1644,7 +1660,7 @@ func (r *Records) CurrentIDs() []int64 {
 	if r.currentIDsBuilt {
 		return r.currentIDs
 	}
-	sql, args := r.currentIDsSQL(currentIDsOptions{rows: true})
+	sql, args := r.currentIDsSQL(currentIDsOptions{rows: true, column: true})
 	r.currentIDs = nil
 	for _, row := range r.e.DB.Query(sql, args...) {
 		id, _ := db.AsInt64(row["id"])

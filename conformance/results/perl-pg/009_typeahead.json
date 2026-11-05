@@ -225,13 +225,31 @@
          "type" : "column"
       },
       {
-         "error" : "",
-         "failures" : [
-            "unexpected error: "
-         ],
+         "error" : null,
+         "failures" : [],
          "id" : "person User1",
-         "observed" : null,
-         "pass" : false,
+         "observed" : {
+            "can_child" : "0",
+            "id" : "32",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "person1",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "person",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : [
+               {
+                  "id" : "1",
+                  "label" : "User1, User1"
+               }
+            ]
+         },
+         "pass" : true,
          "type" : "column"
       },
       {
@@ -284,13 +302,31 @@
          "type" : "column"
       },
       {
-         "error" : "",
-         "failures" : [
-            "unexpected error: "
-         ],
+         "error" : null,
+         "failures" : [],
          "id" : "person filtered",
-         "observed" : null,
-         "pass" : false,
+         "observed" : {
+            "can_child" : "0",
+            "id" : "32",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "person1",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "person",
+            "userinput" : "1",
+            "value_field" : "value",
+            "values_beginning_with" : [
+               {
+                  "id" : "2",
+                  "label" : "User2, User2"
+               }
+            ]
+         },
+         "pass" : true,
          "type" : "column"
       },
       {

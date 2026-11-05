@@ -1,0 +1,366 @@
+{
+   "runner" : "perl",
+   "scenario" : "001_lua_input_types",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:column",
+         "observed" : {
+            "id" : "36",
+            "name" : "probe_string1"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:column",
+         "observed" : {
+            "id" : "37",
+            "name" : "probe_integer1"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:column",
+         "observed" : {
+            "id" : "38",
+            "name" : "probe_date1"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:column",
+         "observed" : {
+            "id" : "39",
+            "name" : "probe_daterange1"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:column",
+         "observed" : {
+            "id" : "40",
+            "name" : "probe_enum1"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:column",
+         "observed" : {
+            "id" : "41",
+            "name" : "probe_tree1"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:column",
+         "observed" : {
+            "id" : "42",
+            "name" : "probe_curval1"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:column",
+         "observed" : {
+            "id" : "43",
+            "name" : "probe_calc1"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:column",
+         "observed" : {
+            "id" : "44",
+            "name" : "probe_id"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:column",
+         "observed" : {
+            "id" : "45",
+            "name" : "probe_serial"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:column",
+         "observed" : {
+            "id" : "46",
+            "name" : "probe_version_datetime"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:column",
+         "observed" : {
+            "id" : "47",
+            "name" : "probe_version_user"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:column",
+         "observed" : {
+            "id" : "48",
+            "name" : "probe_created"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:column",
+         "observed" : {
+            "id" : "49",
+            "name" : "probe_created_user"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:record",
+         "observed" : {
+            "current_id" : "3",
+            "parent_id" : null,
+            "record_id" : "3",
+            "values" : {
+               "probe_calc1" : "n(2012)",
+               "probe_created" : "{sday=n(10),sepoch=n(1412902800),shour=n(2),sminute=n(0),smonth=n(10),ssecond=n(0),syday=n(283),syear=n(2014),symd=s(2014-10-10)}",
+               "probe_created_user" : "{sdepartment={sid=n(2),sname=s(My Department)},semail=s(user1@example.com),sfirstname=s(User1),sid=n(1),sorganisation={sid=n(2),sname=s(My Organisation)},ssurname=s(User1),steam={sid=n(4),sname=s(Bar)},stext=s(User1, User1)}",
+               "probe_curval1" : "{sid=n(1)}",
+               "probe_date1" : "{sday=n(10),sepoch=n(1412899200),shour=n(1),sminute=n(0),smonth=n(10),ssecond=n(0),syday=n(283),syear=n(2014),symd=s(2014-10-10)}",
+               "probe_daterange1" : "{sfrom={sday=n(10),sepoch=n(1328832000),shour=n(0),sminute=n(0),smonth=n(2),ssecond=n(0),syday=n(41),syear=n(2012),symd=s(2012-02-10)},sto={sday=n(15),sepoch=n(1371254400),shour=n(1),sminute=n(0),smonth=n(6),ssecond=n(0),syday=n(166),syear=n(2013),symd=s(2013-06-15)},svalue=s(2012-02-10 to 2013-06-15)}",
+               "probe_enum1" : "s(foo2)",
+               "probe_id" : "n(3)",
+               "probe_integer1" : "n(50)",
+               "probe_serial" : "n(1)",
+               "probe_string1" : "s(Foo)",
+               "probe_tree1" : "{sparents={sparent1=s(tree2)},svalue=s(tree3)}",
+               "probe_version_datetime" : "{sday=n(10),sepoch=n(1412902800),shour=n(2),sminute=n(0),smonth=n(10),ssecond=n(0),syday=n(283),syear=n(2014),symd=s(2014-10-10)}",
+               "probe_version_user" : "{sdepartment={sid=n(2),sname=s(My Department)},semail=s(user1@example.com),sfirstname=s(User1),sid=n(1),sorganisation={sid=n(2),sname=s(My Organisation)},ssurname=s(User1),steam={sid=n(4),sname=s(Bar)},stext=s(User1, User1)}"
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:record",
+         "observed" : {
+            "current_id" : "4",
+            "parent_id" : null,
+            "record_id" : "4",
+            "values" : {
+               "probe_calc1" : "nil(nil)",
+               "probe_created" : "{sday=n(10),sepoch=n(1412902800),shour=n(2),sminute=n(0),smonth=n(10),ssecond=n(0),syday=n(283),syear=n(2014),symd=s(2014-10-10)}",
+               "probe_created_user" : "{sdepartment={sid=n(2),sname=s(My Department)},semail=s(user1@example.com),sfirstname=s(User1),sid=n(1),sorganisation={sid=n(2),sname=s(My Organisation)},ssurname=s(User1),steam={sid=n(4),sname=s(Bar)},stext=s(User1, User1)}",
+               "probe_curval1" : "nil(nil)",
+               "probe_date1" : "nil(nil)",
+               "probe_daterange1" : "nil(nil)",
+               "probe_enum1" : "nil(nil)",
+               "probe_id" : "n(4)",
+               "probe_integer1" : "nil(nil)",
+               "probe_serial" : "n(2)",
+               "probe_string1" : "nil(nil)",
+               "probe_tree1" : "{sparents={}}",
+               "probe_version_datetime" : "{sday=n(10),sepoch=n(1412902800),shour=n(2),sminute=n(0),smonth=n(10),ssecond=n(0),syday=n(283),syear=n(2014),symd=s(2014-10-10)}",
+               "probe_version_user" : "{sdepartment={sid=n(2),sname=s(My Department)},semail=s(user1@example.com),sfirstname=s(User1),sid=n(1),sorganisation={sid=n(2),sname=s(My Organisation)},ssurname=s(User1),steam={sid=n(4),sname=s(Bar)},stext=s(User1, User1)}"
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:record",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "5",
+            "serial" : "3"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:record",
+         "observed" : {
+            "current_id" : "5",
+            "parent_id" : null,
+            "record_id" : "5",
+            "values" : {
+               "probe_calc1" : "n(2001)",
+               "probe_created" : "{sday=n(10),sepoch=n(1412902800),shour=n(2),sminute=n(0),smonth=n(10),ssecond=n(0),syday=n(283),syear=n(2014),symd=s(2014-10-10)}",
+               "probe_created_user" : "{sdepartment={sid=n(2),sname=s(My Department)},semail=s(user1@example.com),sfirstname=s(User1),sid=n(1),sorganisation={sid=n(2),sname=s(My Organisation)},ssurname=s(User1),steam={sid=n(4),sname=s(Bar)},stext=s(User1, User1)}",
+               "probe_curval1" : "{sid=n(2)}",
+               "probe_date1" : "{sday=n(2),sepoch=n(1420156800),shour=n(0),sminute=n(0),smonth=n(1),ssecond=n(0),syday=n(2),syear=n(2015),symd=s(2015-01-02)}",
+               "probe_daterange1" : "{sfrom={sday=n(1),sepoch=n(978307200),shour=n(0),sminute=n(0),smonth=n(1),ssecond=n(0),syday=n(1),syear=n(2001),symd=s(2001-01-01)},sto={sday=n(2),sepoch=n(1012608000),shour=n(0),sminute=n(0),smonth=n(2),ssecond=n(0),syday=n(33),syear=n(2002),symd=s(2002-02-02)},svalue=s(2001-01-01 to 2002-02-02)}",
+               "probe_enum1" : "s(foo3)",
+               "probe_id" : "n(5)",
+               "probe_integer1" : "n(77)",
+               "probe_serial" : "n(3)",
+               "probe_string1" : "s(Bar)",
+               "probe_tree1" : "{sparents={},svalue=s(tree1)}",
+               "probe_version_datetime" : "{sday=n(10),sepoch=n(1412902800),shour=n(2),sminute=n(0),smonth=n(10),ssecond=n(0),syday=n(283),syear=n(2014),symd=s(2014-10-10)}",
+               "probe_version_user" : "{sdepartment={sid=n(2),sname=s(My Department)},semail=s(user1@example.com),sfirstname=s(User1),sid=n(1),sorganisation={sid=n(2),sname=s(My Organisation)},ssurname=s(User1),steam={sid=n(4),sname=s(Bar)},stext=s(User1, User1)}"
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:record",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "6"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:record",
+         "observed" : {
+            "current_id" : "3",
+            "parent_id" : null,
+            "record_id" : "6",
+            "values" : {
+               "probe_calc1" : "n(2012)",
+               "probe_created" : "{sday=n(10),sepoch=n(1412902800),shour=n(2),sminute=n(0),smonth=n(10),ssecond=n(0),syday=n(283),syear=n(2014),symd=s(2014-10-10)}",
+               "probe_created_user" : "{sdepartment={sid=n(2),sname=s(My Department)},semail=s(user1@example.com),sfirstname=s(User1),sid=n(1),sorganisation={sid=n(2),sname=s(My Organisation)},ssurname=s(User1),steam={sid=n(4),sname=s(Bar)},stext=s(User1, User1)}",
+               "probe_curval1" : "{sid=n(1)}",
+               "probe_date1" : "{sday=n(10),sepoch=n(1412899200),shour=n(1),sminute=n(0),smonth=n(10),ssecond=n(0),syday=n(283),syear=n(2014),symd=s(2014-10-10)}",
+               "probe_daterange1" : "{sfrom={sday=n(10),sepoch=n(1328832000),shour=n(0),sminute=n(0),smonth=n(2),ssecond=n(0),syday=n(41),syear=n(2012),symd=s(2012-02-10)},sto={sday=n(15),sepoch=n(1371254400),shour=n(1),sminute=n(0),smonth=n(6),ssecond=n(0),syday=n(166),syear=n(2013),symd=s(2013-06-15)},svalue=s(2012-02-10 to 2013-06-15)}",
+               "probe_enum1" : "s(foo2)",
+               "probe_id" : "n(3)",
+               "probe_integer1" : "n(12)",
+               "probe_serial" : "n(1)",
+               "probe_string1" : "s(Foo)",
+               "probe_tree1" : "{sparents={sparent1=s(tree2)},svalue=s(tree3)}",
+               "probe_version_datetime" : "{sday=n(10),sepoch=n(1412902800),shour=n(2),sminute=n(0),smonth=n(10),ssecond=n(0),syday=n(283),syear=n(2014),symd=s(2014-10-10)}",
+               "probe_version_user" : "{sdepartment={sid=n(2),sname=s(My Department)},semail=s(user1@example.com),sfirstname=s(User1),sid=n(1),sorganisation={sid=n(2),sname=s(My Organisation)},ssurname=s(User1),steam={sid=n(4),sname=s(Bar)},stext=s(User1, User1)}"
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      }
+   ]
+}

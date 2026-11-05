@@ -1,0 +1,215 @@
+{
+   "runner" : "perl",
+   "scenario" : "007_curval_perms",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single full perms",
+         "observed" : {
+            "current_id" : "2",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo, 50"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "find full perms",
+         "observed" : {
+            "current_id" : "2",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo, 50"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:column",
+         "observed" : {
+            "id" : "9"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single limited perms",
+         "observed" : {
+            "current_id" : "2",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "find limited perms",
+         "observed" : {
+            "current_id" : "2",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single ignore permissions",
+         "observed" : {
+            "current_id" : "2",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo, 50"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "find ignore permissions",
+         "observed" : {
+            "current_id" : "2",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo, 50"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:column",
+         "observed" : {
+            "id" : "33"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "single override",
+         "observed" : {
+            "current_id" : "2",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo, 50"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "find override",
+         "observed" : {
+            "current_id" : "2",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Foo, 50"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      }
+   ]
+}

@@ -615,10 +615,12 @@ func filterRemoveDecoded(f map[string]any, colID int64) bool {
 func (c *Column) Delete() {
 	e := c.e
 	e.DB.Txn(func() {
-		if rows := e.DB.Query(`SELECT "layout"."name" FROM "display_field" "me" JOIN "layout" "layout" ON "layout"."id" = "me"."layout_id" WHERE "me"."display_field_id" = ?`, c.ID); len(rows) > 0 {
+		// As Perl, the rows of display_field, then the layout of each (in
+		// the order of display_field, which a join may change on PostgreSQL)
+		if rows := e.DB.Query(`SELECT "me".* FROM "display_field" "me" WHERE ( "display_field_id" = ? )`, c.ID); len(rows) > 0 {
 			var names []string
 			for _, r := range rows {
-				s, _ := db.AsString(r["name"])
+				s, _ := db.AsString(e.DB.QueryRow(`SELECT "me"."name" FROM "layout" "me" WHERE ( "me"."id" = ? )`, r["layout_id"])["name"])
 				names = append(names, s)
 			}
 			Fail("The following fields are conditional on this field: %s.\n            Please remove these conditions before deletion.", strings.Join(names, ", "))
