@@ -2,94 +2,94 @@
 
 | b01_records | runs | perl median ms | go median ms | go faster |
 | --- | ---: | ---: | ---: | ---: |
-| 1:sheet | 1 | 2324 | 244.3 | 9.5x |
-| create 1000 records | 1 | 25790 | 4013 | 6.4x |
-| record get | 50 | 68.9 | 5.12 | 13x |
-| record update | 20 | 55.3 | 5.10 | 11x |
-| count all | 20 | 4.67 | 1.30 | 3.6x |
-| page of 50 sorted | 20 | 137.8 | 21.3 | 6.5x |
-| page of 500 all columns | 3 | 135.0 | 49.0 | 2.8x |
-| filter and | 20 | 90.4 | 26.4 | 3.4x |
-| filter or dates | 20 | 63.5 | 18.3 | 3.5x |
-| quick search | 10 | 149.7 | 36.0 | 4.2x |
-| group by enum | 10 | 21.9 | 8.80 | 2.5x |
-| group by curval | 10 | 20.0 | 8.32 | 2.4x |
-| bar graph sum | 10 | 25.2 | 5.81 | 4.3x |
-| line graph by date | 10 | 60.0 | 7.43 | 8.1x |
-| csv download | 3 | 2357 | 2003 | 1.2x |
-| update-cached | 2 | 5373 | 564.1 | 9.5x |
+| 1:sheet | 1 | 2355 | 247.5 | 9.5x |
+| create 1000 records | 1 | 25903 | 3416 | 7.6x |
+| record get | 50 | 66.6 | 7.44 | 9.0x |
+| record update | 20 | 56.4 | 6.86 | 8.2x |
+| count all | 20 | 4.64 | 2.24 | 2.1x |
+| page of 50 sorted | 20 | 141.1 | 16.3 | 8.7x |
+| page of 500 all columns | 3 | 140.3 | 49.0 | 2.9x |
+| filter and | 20 | 89.9 | 14.8 | 6.1x |
+| filter or dates | 20 | 64.5 | 16.1 | 4.0x |
+| quick search | 10 | 148.3 | 35.0 | 4.2x |
+| group by enum | 10 | 18.7 | 8.52 | 2.2x |
+| group by curval | 10 | 20.6 | 8.28 | 2.5x |
+| bar graph sum | 10 | 24.9 | 5.52 | 4.5x |
+| line graph by date | 10 | 62.4 | 7.64 | 8.2x |
+| csv download | 3 | 2388 | 1876 | 1.3x |
+| update-cached | 2 | 5694 | 574.2 | 9.9x |
 | geometric mean of steps |  |  |  | 4.8x |
 
 ### b02_import
 
 | b02_import | runs | perl median ms | go median ms | go faster |
 | --- | ---: | ---: | ---: | ---: |
-| 1:sheet | 1 | 1284 | 79.8 | 16x |
-| import 1000 rows | 1 | 22254 | 3701 | 6.0x |
-| count imported | 1 | 16.8 | 2.70 | 6.2x |
-| geometric mean of steps |  |  |  | 8.4x |
+| 1:sheet | 1 | 1267 | 78.1 | 16x |
+| import 1000 rows | 1 | 22181 | 3170 | 7.0x |
+| count imported | 1 | 18.6 | 5.09 | 3.7x |
+| geometric mean of steps |  |  |  | 7.5x |
 
 ### b03_lua
 
 | b03_lua | runs | perl median ms | go median ms | go faster |
 | --- | ---: | ---: | ---: | ---: |
-| 1:sheet | 1 | 1383 | 95.6 | 14x |
-| lua simple | 500 | 0.05 | 0.01 | 5.1x |
-| lua loop | 100 | 0.40 | 0.21 | 1.9x |
-| lua strings | 200 | 0.06 | 0.02 | 2.6x |
-| geometric mean of steps |  |  |  | 4.4x |
+| 1:sheet | 1 | 1356 | 95.7 | 14x |
+| lua simple | 500 | 0.05 | 0.01 | 5.0x |
+| lua loop | 100 | 0.38 | 0.19 | 2.1x |
+| lua strings | 200 | 0.06 | 0.02 | 3.2x |
+| geometric mean of steps |  |  |  | 4.7x |
 
 ### b04_web
 
 | b04_web | runs | perl median ms | go median ms | go faster |
 | --- | ---: | ---: | ---: | ---: |
-| 1:sheet | 1 | 2270 | 252.4 | 9.0x |
-| create 1000 records | 1 | 25660 | 4002 | 6.4x |
-| login | 1 | 580.9 | 7.04 | 82x |
-| data page | 20 | 67.7 | 8.43 | 8.0x |
-| api records page | 20 | 941.6 | 172.9 | 5.4x |
-| api records search | 20 | 551.7 | 92.1 | 6.0x |
-| record view page | 20 | 196.9 | 30.4 | 6.5x |
-| csv download | 3 | 8370 | 3576 | 2.3x |
-| geometric mean of steps |  |  |  | 8.1x |
+| 1:sheet | 1 | 2310 | 243.5 | 9.5x |
+| create 1000 records | 1 | 26624 | 3298 | 8.1x |
+| login | 1 | 612.1 | 9.21 | 66x |
+| data page | 20 | 70.4 | 7.87 | 8.9x |
+| api records page | 20 | 928.8 | 131.4 | 7.1x |
+| api records search | 20 | 550.0 | 72.5 | 7.6x |
+| record view page | 20 | 196.8 | 28.1 | 7.0x |
+| csv download | 3 | 8424 | 2905 | 2.9x |
+| geometric mean of steps |  |  |  | 9.2x |
 
 ### Scenarios
 
 | scenario | perl ms | go ms | go faster | parity |
 | --- | ---: | ---: | ---: | ---: |
-| b01_records | 59835 | 14601 | 4.1x | same |
-| b02_import | 23628 | 4301 | 5.5x | same |
-| b03_lua | 1552 | 660.1 | 2.4x | same |
-| b04_web | 89334 | 21857 | 4.1x | same |
-| total | 174349 | 41420 | 4.2x |  |
-| geometric mean of all steps |  |  | 5.7x |  |
+| b01_records | 62014 | 14800 | 4.2x | same |
+| b02_import | 23760 | 3993 | 6.0x | same |
+| b03_lua | 1808 | 940.4 | 1.9x | same |
+| b04_web | 90966 | 18390 | 4.9x | same |
+| total | 178548 | 38123 | 4.7x |  |
+| geometric mean of all steps |  |  | 5.9x |  |
 
 ### Units
 
 | unit | perl | spread | go | spread | go faster | output |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| lua/simple | 6.6 µs | ±11% | 7.4 µs | ±3% | 0.9x | same |
-| lua/loop | 164.3 µs | ±2% | 181.9 µs | ±3% | 0.9x | same |
-| lua/strings | 12.0 µs | ±2% | 13.1 µs | ±1% | 0.9x | same |
-| tt/table_100 | 681.2 µs | ±7% | 132.0 µs | ±2% | 5.2x | same |
-| json/encode_1000 | 231.1 µs | ±4% | 1.56 ms | ±1% | 0.1x | same |
-| json/decode_1000 | 582.5 µs | ±3% | 2.18 ms | ±2% | 0.3x | same |
-| csv/parse_1000 | 1.71 ms | ±9% | 207.9 µs | ±1% | 8.2x | same |
-| csv/write_1000 | 1.97 ms | ±10% | 307.9 µs | ±1% | 6.4x | same |
-| date/parse_cldr | 157.7 µs | ±4% | 1.5 µs | ±2% | 106x | same |
-| date/format_cldr | 53.3 µs | ±2% | 1.4 µs | ±3% | 39x | same |
-| filter/parse_json | 55.3 µs | ±2% | 8.1 µs | ±1% | 6.8x | same |
-| password/hash | 11.0 µs | ±12% | 1.3 µs | ±2% | 8.7x | same |
-| password/match | 21.8 µs | ±8% | 1.6 µs | ±2% | 13x | same |
-| db/count | 4.95 ms | ±7% | 1.38 ms | ±4% | 3.6x | same |
-| db/page_50 | 132.55 ms | ±6% | 20.19 ms | ±9% | 6.6x | same |
-| db/quick_search | 139.16 ms | ±8% | 43.86 ms | ±17% | 3.2x | same |
-| db/record_get | 57.59 ms | ±8% | 4.10 ms | ±9% | 14x | same |
-| db/filter_view | 83.03 ms | ±6% | 30.29 ms | ±9% | 2.7x | same |
-| db/group_enum | 14.37 ms | ±5% | 5.43 ms | ±5% | 2.6x | same |
-| db/csv_100 | 258.30 ms | ±2% | 435.51 ms | ±2% | 0.6x | same |
-| calc/eval_column | 63.4 µs | ±11% | 25.3 µs | ±4% | 2.5x | same |
-| db/record_update | 138.64 ms | ±4% | 19.44 ms | ±3% | 7.1x | same |
-| geometric mean |  |  |  |  | 3.6x |  |
+| lua/simple | 6.5 µs | ±3% | 7.5 µs | ±2% | 0.9x | same |
+| lua/loop | 170.4 µs | ±2% | 175.7 µs | ±3% | 1.0x | same |
+| lua/strings | 12.9 µs | ±9% | 12.8 µs | ±3% | 1.0x | same |
+| tt/table_100 | 690.2 µs | ±4% | 133.1 µs | ±1% | 5.2x | same |
+| json/encode_1000 | 240.6 µs | ±7% | 1.56 ms | ±2% | 0.2x | same |
+| json/decode_1000 | 560.2 µs | ±4% | 2.19 ms | ±3% | 0.3x | same |
+| csv/parse_1000 | 1.50 ms | ±11% | 208.6 µs | ±1% | 7.2x | same |
+| csv/write_1000 | 1.79 ms | ±11% | 306.8 µs | ±2% | 5.8x | same |
+| date/parse_cldr | 156.0 µs | ±6% | 1.5 µs | ±3% | 104x | same |
+| date/format_cldr | 54.2 µs | ±7% | 1.4 µs | ±4% | 40x | same |
+| filter/parse_json | 60.3 µs | ±11% | 8.2 µs | ±1% | 7.4x | same |
+| password/hash | 11.5 µs | ±12% | 1.3 µs | ±1% | 9.1x | same |
+| password/match | 24.7 µs | ±1% | 1.6 µs | ±3% | 15x | same |
+| db/count | 4.53 ms | ±4% | 2.30 ms | ±3% | 2.0x | same |
+| db/page_50 | 133.92 ms | ±5% | 14.14 ms | ±8% | 9.5x | same |
+| db/quick_search | 150.18 ms | ±8% | 22.84 ms | ±28% | 6.6x | same |
+| db/record_get | 58.96 ms | ±14% | 6.58 ms | ±13% | 9.0x | same |
+| db/filter_view | 80.74 ms | ±8% | 12.84 ms | ±8% | 6.3x | same |
+| db/group_enum | 14.19 ms | ±5% | 4.79 ms | ±3% | 3.0x | same |
+| db/csv_100 | 262.79 ms | ±2% | 193.78 ms | ±3% | 1.4x | same |
+| calc/eval_column | 68.0 µs | ±10% | 25.2 µs | ±2% | 2.7x | same |
+| db/record_update | 141.93 ms | ±6% | 18.07 ms | ±5% | 7.9x | same |
+| geometric mean |  |  |  |  | 4.0x |  |
 
 (perl 5.40.5, csv Text::CSV_XS, json JSON::Backend::XS, go1.27.3)
