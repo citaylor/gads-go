@@ -4,68 +4,333 @@
    "units": [
       {
          "name": "lua/simple",
-         "iterations": 144707,
-         "ns_per_op": 6910.6
+         "iterations": 124472,
+         "ns_per_op": 7933,
+         "min_ns": 7660.6,
+         "max_ns": 8590,
+         "samples": [
+            8417.7,
+            8590,
+            7660.7,
+            7933,
+            7660.6
+         ],
+         "output_sha256": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049"
       },
       {
          "name": "lua/loop",
-         "iterations": 5108,
-         "ns_per_op": 195808
+         "iterations": 3499,
+         "ns_per_op": 277525.9,
+         "min_ns": 273998.2,
+         "max_ns": 308252.4,
+         "samples": [
+            299165.9,
+            274262.9,
+            273998.2,
+            277525.9,
+            308252.4
+         ],
+         "output_sha256": "5e99c6518cf430a06e128739c15998b583fc6570b8f674482d219559d57180ec"
       },
       {
          "name": "lua/strings",
-         "iterations": 78606,
-         "ns_per_op": 12721.7
+         "iterations": 73772,
+         "ns_per_op": 13681.1,
+         "min_ns": 13103.5,
+         "max_ns": 13981.3,
+         "samples": [
+            13981.3,
+            13285.3,
+            13765.6,
+            13103.5,
+            13681.1
+         ],
+         "output_sha256": "26ad35ce9988b335512fa8428ea266a8e3c6ca487f9fa5b9a9d19e67ab77e43c"
       },
       {
          "name": "tt/table_100",
-         "iterations": 7385,
-         "ns_per_op": 135415.8
+         "iterations": 7354,
+         "ns_per_op": 135247.8,
+         "min_ns": 133968.3,
+         "max_ns": 140270.5,
+         "samples": [
+            136745.7,
+            135247.8,
+            133968.3,
+            134045.8,
+            140270.5
+         ],
+         "output_sha256": "a3c2d88944ed1aad6c82bdea8849bd7e8a34aa4fc36dc95ed83d972fc4841b13"
       },
       {
          "name": "json/encode_1000",
-         "iterations": 864,
-         "ns_per_op": 1157510.5
+         "iterations": 648,
+         "ns_per_op": 1544809.7,
+         "min_ns": 1525523.2,
+         "max_ns": 1575450.8,
+         "samples": [
+            1535433.6,
+            1544809.7,
+            1575450.8,
+            1567235.2,
+            1525523.2
+         ],
+         "output_sha256": "23a4577225cf2566007c5e0736432e011a858a44b5995239bb506eb80ba4a70e"
       },
       {
          "name": "json/decode_1000",
-         "iterations": 439,
-         "ns_per_op": 2282215.3
+         "iterations": 456,
+         "ns_per_op": 2202519.2,
+         "min_ns": 2181697.8,
+         "max_ns": 2229476.4,
+         "samples": [
+            2202519.2,
+            2181697.8,
+            2214360.9,
+            2184133.3,
+            2229476.4
+         ],
+         "output_sha256": "23a4577225cf2566007c5e0736432e011a858a44b5995239bb506eb80ba4a70e"
       },
       {
          "name": "csv/parse_1000",
-         "iterations": 4815,
-         "ns_per_op": 207703.8
+         "iterations": 4865,
+         "ns_per_op": 206421.3,
+         "min_ns": 201023.4,
+         "max_ns": 210652,
+         "samples": [
+            203346.6,
+            206421.3,
+            210652,
+            206878.2,
+            201023.4
+         ],
+         "output_sha256": "c4559f0e86975c6fea97c2a5c4e4c0396ea8baecfd8d8ccb66e6009c4552cf09"
       },
       {
          "name": "csv/write_1000",
-         "iterations": 3924,
-         "ns_per_op": 254857.1
+         "iterations": 3089,
+         "ns_per_op": 322637.8,
+         "min_ns": 312756.5,
+         "max_ns": 338282.8,
+         "samples": [
+            312756.5,
+            322637.8,
+            316137.6,
+            338282.8,
+            331661.7
+         ],
+         "output_sha256": "09a1a72f3917684f76ba016a90551773bfe9a156a5a63ad13306e23d94c08eeb"
       },
       {
          "name": "date/parse_cldr",
-         "iterations": 744611,
-         "ns_per_op": 1343
+         "iterations": 670060,
+         "ns_per_op": 1480.8,
+         "min_ns": 1468.9,
+         "max_ns": 1527.7,
+         "samples": [
+            1480.8,
+            1478,
+            1468.9,
+            1527.7,
+            1508.2
+         ],
+         "output_sha256": "6b650ee281099e49279458c0c9b75b1d988b167bf3571789d580bcecbfe70549"
       },
       {
          "name": "date/format_cldr",
-         "iterations": 1166922,
-         "ns_per_op": 857
+         "iterations": 736963,
+         "ns_per_op": 1360.2,
+         "min_ns": 1323.7,
+         "max_ns": 1386.5,
+         "samples": [
+            1386.5,
+            1371.8,
+            1360.2,
+            1323.7,
+            1344.1
+         ],
+         "output_sha256": "23f3f247bca56e83c5dc376fac5c089db14e63b8af0aaea4dab3e05442878f20"
       },
       {
          "name": "filter/parse_json",
-         "iterations": 126122,
-         "ns_per_op": 7928.9
+         "iterations": 122981,
+         "ns_per_op": 8166.5,
+         "min_ns": 7957.5,
+         "max_ns": 8274.5,
+         "samples": [
+            8274.5,
+            7957.5,
+            8166.5,
+            8211.7,
+            8058.1
+         ],
+         "output_sha256": "1658e130d1f41f6756001740a6e9391e885cd082342636fadb3dab6370f3c613"
       },
       {
          "name": "password/hash",
-         "iterations": 809003,
-         "ns_per_op": 1236.1
+         "iterations": 789898,
+         "ns_per_op": 1262.2,
+         "min_ns": 1246.3,
+         "max_ns": 1282.5,
+         "samples": [
+            1261.2,
+            1282.5,
+            1278.4,
+            1262.2,
+            1246.3
+         ],
+         "output_sha256": "76151f44a7c46686edb0ee7a295a65bdd51274d81c5967684dc608ec1a3d1cd9"
       },
       {
          "name": "password/match",
-         "iterations": 605985,
-         "ns_per_op": 1650.2
+         "iterations": 604451,
+         "ns_per_op": 1649,
+         "min_ns": 1620.5,
+         "max_ns": 1691.5,
+         "samples": [
+            1649,
+            1620.5,
+            1637.4,
+            1675.7,
+            1691.5
+         ],
+         "output_sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+      },
+      {
+         "name": "db/count",
+         "iterations": 711,
+         "ns_per_op": 1399443.4,
+         "min_ns": 1387084.6,
+         "max_ns": 1469973.9,
+         "samples": [
+            1399443.4,
+            1469973.9,
+            1394420.9,
+            1387084.6,
+            1409721.6
+         ],
+         "output_sha256": "40510175845988f13f6162ed8526f0b09f73384467fa855e1e79b44a56562a58"
+      },
+      {
+         "name": "db/page_50",
+         "iterations": 49,
+         "ns_per_op": 21558578.1,
+         "min_ns": 21086271.4,
+         "max_ns": 22648254.1,
+         "samples": [
+            22648254.1,
+            21558578.1,
+            21086271.4,
+            21511945.1,
+            21747855.4
+         ],
+         "output_sha256": "04149b82a49614b8c6b8bbb808df987377deb5624992fc1f33c681354b3a66e0"
+      },
+      {
+         "name": "db/quick_search",
+         "iterations": 24,
+         "ns_per_op": 45506019.4,
+         "min_ns": 43364523.6,
+         "max_ns": 61673635.3,
+         "samples": [
+            61673635.3,
+            46239755.8,
+            44682846.4,
+            45506019.4,
+            43364523.6
+         ],
+         "output_sha256": "bdd9b2455a37b49eaf054f8a8c23495f026e2374015d85ac9a8960f742bd5780"
+      },
+      {
+         "name": "db/record_get",
+         "iterations": 232,
+         "ns_per_op": 4226111.3,
+         "min_ns": 4166807.2,
+         "max_ns": 5004492.3,
+         "samples": [
+            5004492.3,
+            4226111.3,
+            4273393.7,
+            4191054.5,
+            4166807.2
+         ],
+         "output_sha256": "0d34a2b6c75d1e0400c53f7b87fa29c5fbb450c3261c7b919789d14d7adda869"
+      },
+      {
+         "name": "db/filter_view",
+         "iterations": 34,
+         "ns_per_op": 30707657.3,
+         "min_ns": 30194051.6,
+         "max_ns": 35256681.8,
+         "samples": [
+            35256681.8,
+            30707657.3,
+            30605726.1,
+            31069813.4,
+            30194051.6
+         ],
+         "output_sha256": "1249de8c9ec04f6ecb79aa8a7b093aa4b898a30b94d475e025280c7788bc3161"
+      },
+      {
+         "name": "db/group_enum",
+         "iterations": 174,
+         "ns_per_op": 5773307.2,
+         "min_ns": 5687524.9,
+         "max_ns": 6393466.5,
+         "samples": [
+            5713247.3,
+            5773307.2,
+            6393466.5,
+            5887935.3,
+            5687524.9
+         ],
+         "output_sha256": "b47ebc4b81a70208c9f613eec1975ff1b1a2b90495c5ccbc1e4a69a411f68856"
+      },
+      {
+         "name": "db/csv_100",
+         "iterations": 15,
+         "ns_per_op": 202616857,
+         "min_ns": 199093051.3,
+         "max_ns": 344675813.7,
+         "samples": [
+            344675813.7,
+            217902883.7,
+            200746008.7,
+            199093051.3,
+            202616857
+         ],
+         "output_sha256": "f3d27ea8e2805e92bf320154d12313787b3ce5cacc89c1b14e2a74fad1d91aae"
+      },
+      {
+         "name": "calc/eval_column",
+         "iterations": 38517,
+         "ns_per_op": 25912.9,
+         "min_ns": 25210.1,
+         "max_ns": 26820.6,
+         "samples": [
+            26820.6,
+            25637.2,
+            25210.1,
+            26300.4,
+            25912.9
+         ],
+         "output_sha256": "aa5a1f5b1a3d5fc32a2429794028915d77c4026a91c9e39c8dfdf0367668fd51"
+      },
+      {
+         "name": "db/record_update",
+         "iterations": 54,
+         "ns_per_op": 19769029.8,
+         "min_ns": 19129547.2,
+         "max_ns": 20829193.1,
+         "samples": [
+            19914269.2,
+            19742606,
+            20829193.1,
+            19769029.8,
+            19129547.2
+         ],
+         "output_sha256": "725ac67e1837a3e2145a99a9d8c314fbe3da7966859c8252395d62d64605ac93"
       }
    ]
 }

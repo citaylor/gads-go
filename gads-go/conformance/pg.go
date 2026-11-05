@@ -46,6 +46,11 @@ func openPG() (*db.DB, string, error) {
 }
 
 func dropPG(name string) {
+	// GADS_TEST_PG_KEEP=1 keeps the database (to serve it after a run)
+	if os.Getenv("GADS_TEST_PG_KEEP") != "" {
+		fmt.Fprintf(os.Stderr, "Kept database %s\n", name)
+		return
+	}
 	if err := pgAdmin(func(a *sql.DB) error {
 		_, err := a.Exec(`DROP DATABASE IF EXISTS "` + name + `"`)
 		return err

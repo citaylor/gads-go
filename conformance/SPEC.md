@@ -724,3 +724,5 @@ For PostgreSQL:
   so that a later insert would take an ID in use (as SQLite gives the
   largest rowid + 1, it never does there).
 * `GADS_RAW_ERRORS=1` makes the Perl runner print each raw error (debugging).
+* `GADS_TEST_PG_KEEP=1` makes the Go runner keep each database it creates
+  (and print its name), e.g. to serve a benchmark's data afterwards.
