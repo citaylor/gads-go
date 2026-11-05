@@ -602,7 +602,9 @@ raised by 900000, plus a user, a dashboard, an audit row, an export and an
 import of its own. A search that misses the site then finds the copies,
 and its observations change. The same SQL is in both runners
 (`decoy.go`, `Runner.pm`). The observations go to `results/perl-decoy` and
-`results/go-decoy`, which are compared as usual; they differ from the
+`results/go-decoy`, which are compared as usual. `results/perl-decoy` is
+kept in git, and `GADS_DECOY_SITE=1 go test ./conformance -run
+TestConformance` compares Go with it (CI does), checking parity only; they differ from the
 normal ones only where the copies move automatic IDs, so that the
 expectations naming such IDs fail (in 009, 024, 208, 213, 249 and 250, in
 both runners). Lookups by

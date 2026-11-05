@@ -1,0 +1,425 @@
+{
+   "runner" : "perl",
+   "scenario" : "003_search_view_limit_extra",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:view",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "default view limit extra",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "4"
+            ],
+            "last" : "4",
+            "rows" : [
+               {
+                  "string1" : "FooBar"
+               },
+               {
+                  "string1" : "FooBar"
+               }
+            ],
+            "single" : [
+               "1",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "changed view limit extra",
+         "observed" : {
+            "count" : "3",
+            "first" : "2",
+            "ids" : [
+               "2",
+               "3",
+               "4"
+            ],
+            "last" : "4",
+            "rows" : [
+               {
+                  "string1" : "Bar"
+               },
+               {
+                  "string1" : "Foo"
+               },
+               {
+                  "string1" : "FooBar"
+               }
+            ],
+            "single" : [
+               "2",
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "view limits and extra limits",
+         "observed" : {
+            "count" : "1",
+            "first" : "4",
+            "ids" : [
+               "4"
+            ],
+            "last" : "4",
+            "rows" : [
+               {
+                  "string1" : "FooBar"
+               }
+            ],
+            "single" : [
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filtered values admin",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "Bar, 100, , , , , , , a_grey, "
+               },
+               {
+                  "id" : "3",
+                  "value" : "Foo, 150, , , , , , , a_grey, "
+               },
+               {
+                  "id" : "1",
+                  "value" : "FooBar, 50, , , , , , , a_grey, "
+               },
+               {
+                  "id" : "4",
+                  "value" : "FooBar, 200, , , , , , , a_grey, "
+               }
+            ],
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval1",
+            "name_short" : "L2curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write curval admin",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "5",
+            "serial" : "1"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval contains all admin",
+         "observed" : {
+            "current_id" : "5",
+            "datum_values" : {
+               "curval1" : [
+                  "1",
+                  "2",
+                  "3"
+               ]
+            },
+            "parent_id" : null,
+            "record_id" : "5",
+            "values" : {
+               "curval1" : "FooBar, 50, , , , , , , a_grey, ; Bar, 100, , , , , , , a_grey, ; Foo, 150, , , , , , , a_grey, "
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filtered values normal",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "Bar, 100, , , , , , , a_grey, "
+               },
+               {
+                  "id" : "3",
+                  "value" : "Foo, 150, , , , , , , a_grey, "
+               },
+               {
+                  "id" : "1",
+                  "value" : "FooBar, 50, , , , , , , a_grey, "
+               },
+               {
+                  "id" : "4",
+                  "value" : "FooBar, 200, , , , , , , a_grey, "
+               }
+            ],
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval1",
+            "name_short" : "L2curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write curval normal",
+         "observed" : {
+            "current_id" : "6",
+            "record_id" : "6",
+            "serial" : "2"
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval contains all normal",
+         "observed" : {
+            "current_id" : "6",
+            "datum_values" : {
+               "curval1" : [
+                  "1",
+                  "2",
+                  "3"
+               ]
+            },
+            "parent_id" : null,
+            "record_id" : "6",
+            "values" : {
+               "curval1" : "FooBar, 50, , , , , , , a_grey, ; Bar, 100, , , , , , , a_grey, ; Foo, 150, , , , , , , a_grey, "
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:view",
+         "observed" : {
+            "id" : "3"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:add_autocur",
+         "observed" : {
+            "id" : "36",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "autocur contains all admin",
+         "observed" : {
+            "current_id" : "1",
+            "datum_values" : {
+               "autocur1" : [
+                  "5",
+                  "6"
+               ]
+            },
+            "parent_id" : null,
+            "record_id" : "1",
+            "values" : {
+               "autocur1" : "admin; normal",
+               "string1" : "FooBar"
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "autocur contains all normal",
+         "observed" : {
+            "current_id" : "1",
+            "datum_values" : {
+               "autocur1" : [
+                  "5",
+                  "6"
+               ]
+            },
+            "parent_id" : null,
+            "record_id" : "1",
+            "values" : {
+               "autocur1" : "admin; normal",
+               "string1" : "FooBar"
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      }
+   ]
+}

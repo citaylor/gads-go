@@ -1,0 +1,840 @@
+{
+   "runner" : "perl",
+   "scenario" : "209_api_user_account",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:db",
+         "observed" : {
+            "id" : "900010"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_superadmin",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_useradmin",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_normal",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not_json",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Request must be of type application/json"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "bad_json",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Failed to decode JSON"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "create",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "An unexexpected error has occurred"
+            },
+            "status" : "500"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "welcome_email",
+         "observed" : [],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "users_after_create",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "groups_after_create",
+         "observed" : [
+            {
+               "group_id" : "1",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "2",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "3",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "4",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "5",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "6",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "7",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "2"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "3"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "4"
+            },
+            {
+               "group_id" : "8",
+               "user_id" : "4"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "5"
+            },
+            {
+               "group_id" : "9",
+               "user_id" : "5"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "view_limits_after_create",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "permissions_after_create",
+         "observed" : [
+            {
+               "permission_id" : "1",
+               "user_id" : "1"
+            },
+            {
+               "permission_id" : "2",
+               "user_id" : "2"
+            },
+            {
+               "permission_id" : "3",
+               "user_id" : "3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "create_duplicate",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "User created successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "create_no_email",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "An email address must be specified for the user"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "create_invalid_email",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "The email address \"not-an-email\" is invalid"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "create_long_name",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Forename must be less than 128 characters"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "no_emails_on_errors",
+         "observed" : [
+            {
+               "html" : "<div class=\"hft-lines\">An account for Linkspace has been created for you. Please<br />\nclick on the following link to retrieve your password:<br />\n<br />\n<a href=\"http://localhost/resetpw/T0000000000000000000000000000011\" class=\"hft-urls\">http://localhost/resetpw/T0000000000000000000000000000011</a><br /></div>",
+               "reply_to" : null,
+               "subject" : "Your new account details",
+               "text" : "An account for Linkspace has been created for you. Please\nclick on the following link to retrieve your password:\n\nhttp://localhost/resetpw/T0000000000000000000000000000011\n",
+               "to" : [
+                  "new@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "23:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "create_useradmin",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "User created successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "custom_welcome_email",
+         "observed" : [
+            {
+               "html" : "<div class=\"hft-lines\">Hello, welcome to My Site.<br />\nSet your password at <a href=\"http://localhost/resetpw/T0000000000000000000000000000014\" class=\"hft-urls\">http://localhost/resetpw/T0000000000000000000000000000014</a> today.<br />\nContact <a href=\"mailto:admin@example.com\" class=\"hft-email\">admin@example.com</a> with questions.<br /></div>",
+               "reply_to" : null,
+               "subject" : "Welcome aboard",
+               "text" : "Hello, welcome to My Site.\nSet your password at http://localhost/resetpw/T0000000000000000000000000000014 today.\nContact admin@example.com with questions.",
+               "to" : [
+                  "second@example.com"
+               ]
+            }
+         ],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "permissions_after_useradmin",
+         "observed" : [
+            {
+               "permission_id" : "1",
+               "user_id" : "1"
+            },
+            {
+               "permission_id" : "2",
+               "user_id" : "2"
+            },
+            {
+               "permission_id" : "3",
+               "user_id" : "3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "update",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "User id 6 not found"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "no_email_on_update",
+         "observed" : [],
+         "pass" : true,
+         "type" : "emails"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "update_not_found",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "User id 999 not found"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "update_useradmin",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "User id 6 not found"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "users_final",
+         "observed" : [
+            {
+               "email" : "user1@example.com",
+               "firstname" : "User1",
+               "id" : "1",
+               "surname" : "User1",
+               "username" : "user1@example.com",
+               "value" : "User1, User1"
+            },
+            {
+               "email" : "user2@example.com",
+               "firstname" : "User2",
+               "id" : "2",
+               "surname" : "User2",
+               "username" : "user2@example.com",
+               "value" : "User2, User2"
+            },
+            {
+               "email" : "user3@example.com",
+               "firstname" : "User3",
+               "id" : "3",
+               "surname" : "User3",
+               "username" : "user3@example.com",
+               "value" : "User3, User3"
+            },
+            {
+               "email" : "user4@example.com",
+               "firstname" : "User4",
+               "id" : "4",
+               "surname" : "User4",
+               "username" : "user4@example.com",
+               "value" : "User4, User4"
+            },
+            {
+               "email" : "user5@example.com",
+               "firstname" : "User5",
+               "id" : "5",
+               "surname" : "User5",
+               "username" : "user5@example.com",
+               "value" : "User5, User5"
+            },
+            {
+               "email" : "new@example.com",
+               "firstname" : null,
+               "id" : "900006",
+               "surname" : null,
+               "username" : "new@example.com",
+               "value" : ", "
+            },
+            {
+               "email" : "second@example.com",
+               "firstname" : "Second",
+               "id" : "900007",
+               "surname" : "Person",
+               "username" : "second@example.com",
+               "value" : "Person, Second"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "groups_final",
+         "observed" : [
+            {
+               "group_id" : "1",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "2",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "3",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "4",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "5",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "6",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "7",
+               "user_id" : "1"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "2"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "3"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "4"
+            },
+            {
+               "group_id" : "8",
+               "user_id" : "4"
+            },
+            {
+               "group_id" : "1",
+               "user_id" : "5"
+            },
+            {
+               "group_id" : "9",
+               "user_id" : "5"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "view_limits_final",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "permissions_final",
+         "observed" : [
+            {
+               "permission_id" : "1",
+               "user_id" : "1"
+            },
+            {
+               "permission_id" : "2",
+               "user_id" : "2"
+            },
+            {
+               "permission_id" : "3",
+               "user_id" : "3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_denied",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Unauthorised access"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal_update_not_found",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "User id 999 not found"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not_logged_in",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "json" : {
+               "is_error" : "true",
+               "message" : "csrf-token missing for uri /api/user_account"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "audit",
+         "observed" : [
+            {
+               "datetime" : "2014-10-10 01:00:00",
+               "description" : "User created by user1@example.com, id: 900006, username: new@example.com",
+               "type" : "login_change",
+               "user_id" : "1"
+            },
+            {
+               "datetime" : "2014-10-10 01:00:00",
+               "description" : "User updated: ID 900006, username: new@example.com, groups: , permissions: ",
+               "type" : "login_change",
+               "user_id" : "1"
+            },
+            {
+               "datetime" : "2014-10-10 01:00:00",
+               "description" : "User created by user3@example.com, id: 900007, username: second@example.com",
+               "type" : "login_change",
+               "user_id" : "3"
+            },
+            {
+               "datetime" : "2014-10-10 01:00:00",
+               "description" : "User updated: ID 900007, username: second@example.com, groups: ",
+               "type" : "login_change",
+               "user_id" : "3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

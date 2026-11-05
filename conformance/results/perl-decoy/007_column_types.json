@@ -1,0 +1,2973 @@
+{
+   "runner" : "perl",
+   "scenario" : "007_column_types",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "5",
+               "6"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : "Extended characters are not supported in calculated fields (found here: \"test“test\")",
+         "failures" : [],
+         "id" : "calc invalid character",
+         "observed" : null,
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "The following records refer to this record as a value (possibly in a historical version): 5 (curval1)",
+         "failures" : [],
+         "id" : "purge referenced",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval values",
+         "observed" : {
+            "all_values" : [
+               {
+                  "id" : "2",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "3",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "1",
+                  "value" : "Foo"
+               },
+               {
+                  "id" : "4",
+                  "value" : "FooBar"
+               }
+            ],
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "3",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "1",
+                  "value" : "Foo"
+               },
+               {
+                  "id" : "4",
+                  "value" : "FooBar"
+               }
+            ],
+            "id" : "33",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval1",
+            "name_short" : "L1curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "53",
+               "curval1" : "51",
+               "date1" : "47",
+               "daterange1" : "48",
+               "enum1" : "45",
+               "file1" : "49",
+               "integer1" : "44",
+               "person1" : "50",
+               "rag1" : "52",
+               "string1" : "43",
+               "tree1" : "46"
+            },
+            "instance_id" : "3",
+            "internal" : {
+               "_created" : "41",
+               "_created_user" : "39",
+               "_deleted_by" : "40",
+               "_id" : "36",
+               "_serial" : "42",
+               "_version_datetime" : "37",
+               "_version_user" : "38"
+            },
+            "records" : [
+               "7",
+               "8"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "second curval sheet values",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "6",
+                  "value" : "Bar, 200, foo2, tree2, 2011-10-10, 2000-11-11 to 2001-11-11, myfile.txt, , b_red, Bar"
+               },
+               {
+                  "id" : "5",
+                  "value" : "Foo, 100, foo1, foo2, tree1, 2010-10-10, 2000-10-10 to 2001-10-10, myfile.txt, , b_red, Foo"
+               }
+            ],
+            "id" : "51",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval1",
+            "name_short" : "L3curval1",
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval blank",
+         "observed" : {
+            "id" : "54",
+            "name" : "curval blank"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval blank values",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [],
+            "id" : "54",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval blank",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval blank filter",
+         "observed" : {
+            "id" : "55",
+            "name" : "curval blank filter"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "undefined filter values",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [],
+            "id" : "55",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval blank filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval fields at start",
+         "observed" : {
+            "count" : "11"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:column",
+         "observed" : {
+            "id" : "56",
+            "name" : "curval fields"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval fields after new",
+         "observed" : {
+            "count" : "12"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval fields after addition",
+         "observed" : {
+            "count" : "13"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "24:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval fields after removal",
+         "observed" : {
+            "count" : "12"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "26:column",
+         "observed" : {
+            "deleted" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "27:column",
+         "observed" : {
+            "id" : "56",
+            "name" : "curval filter"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "28:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval filter values",
+         "observed" : {
+            "all_values" : [
+               {
+                  "id" : "1",
+                  "value" : "50"
+               },
+               {
+                  "id" : "2",
+                  "value" : "99"
+               },
+               {
+                  "id" : "3",
+                  "value" : "99"
+               },
+               {
+                  "id" : "4",
+                  "value" : "150"
+               }
+            ],
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "1",
+                  "value" : "50"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "30:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "31:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "32:held",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "33:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "34:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval filter values after change",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "99"
+               },
+               {
+                  "id" : "3",
+                  "value" : "99"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "0",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "legacy value",
+         "observed" : {
+            "current_id" : "5",
+            "datum" : {
+               "@col:cf" : {
+                  "as_string" : "50",
+                  "id" : "1",
+                  "ids" : [
+                     "1"
+                  ]
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "37:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "38:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "legacy value multiple",
+         "observed" : {
+            "current_id" : "5",
+            "datum" : {
+               "@col:cf" : {
+                  "as_string" : "50",
+                  "ids" : [
+                     "1"
+                  ]
+               }
+            },
+            "for_code_curval" : {
+               "count" : "1",
+               "field_values" : {
+                  "L2enum1" : "foo1"
+               },
+               "field_values_keys" : [
+                  "L2enum1"
+               ]
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "autocur",
+         "observed" : {
+            "id" : "57",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "41:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "42:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "43:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filtered before view limit",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "99"
+               },
+               {
+                  "id" : "3",
+                  "value" : "99"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "45:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "46:view_held",
+         "observed" : {
+            "id" : "1",
+            "user_id" : "4"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "47:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "48:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filtered after view limit",
+         "observed" : {
+            "all_values" : [
+               {
+                  "id" : "2",
+                  "value" : "99"
+               }
+            ],
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "99"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "50:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "51:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filtered with override",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "99"
+               },
+               {
+                  "id" : "3",
+                  "value" : "99"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "53:view_held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "54:view_held",
+         "observed" : {
+            "id" : "2",
+            "user_id" : "4"
+         },
+         "pass" : true,
+         "type" : "view_held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "55:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "autocur with limited record",
+         "observed" : {
+            "current_id" : "1",
+            "parent_id" : null,
+            "record_id" : "1",
+            "values" : {
+               "autocur1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "sorted view with autocur",
+         "observed" : {
+            "count" : "4",
+            "first" : "3",
+            "ids" : [
+               "3",
+               "4",
+               "1",
+               "2"
+            ],
+            "last" : "2",
+            "rows" : [
+               {
+                  "autocur1" : ""
+               },
+               {
+                  "autocur1" : ""
+               },
+               {
+                  "autocur1" : ""
+               },
+               {
+                  "autocur1" : ""
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "58:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "59:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "60:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "61:column",
+         "observed" : {
+            "id" : "58",
+            "name" : "calc2"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "62:column",
+         "observed" : {
+            "id" : "29"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "63:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "64:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "65:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "66:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter string1: input required",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "subvals_input_required" : [
+               "string1"
+            ],
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "68:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "69:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "70:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "71:held",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter string1: filtered for record",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "1",
+                  "value" : "Foo"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "73:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "74:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter string1: filtered for new record",
+         "observed" : {
+            "current_id" : null,
+            "filtered_values" : []
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "76:column",
+         "observed" : {
+            "deleted" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "77:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "78:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter enum1: input required",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "subvals_input_required" : [
+               "enum1"
+            ],
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "80:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "81:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "82:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "83:held",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter enum1: filtered for record",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "1",
+                  "value" : "Foo"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "85:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "86:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter enum1: filtered for new record",
+         "observed" : {
+            "current_id" : null,
+            "filtered_values" : [
+               {
+                  "id" : "3",
+                  "value" : "Bar"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "88:column",
+         "observed" : {
+            "deleted" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "89:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "90:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter calc1: input required",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "subvals_input_required" : [
+               "string1"
+            ],
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "92:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "93:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "94:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "95:held",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter calc1: filtered for record",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "1",
+                  "value" : "Foo"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "97:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "98:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter calc1: filtered for new record",
+         "observed" : {
+            "current_id" : null,
+            "filtered_values" : []
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "100:column",
+         "observed" : {
+            "deleted" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "101:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "102:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter integer1: input required",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "subvals_input_required" : [
+               "integer1"
+            ],
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "104:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "105:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "106:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "107:held",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter integer1: filtered for record",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "3",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "1",
+                  "value" : "Foo"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "109:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "110:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter integer1: filtered for new record",
+         "observed" : {
+            "current_id" : null,
+            "filtered_values" : []
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "112:column",
+         "observed" : {
+            "deleted" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "113:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "114:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter multi: input required",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "subvals_input_required" : [
+               "enum1"
+            ],
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "116:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "117:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "118:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "119:held",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter multi: filtered for record",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "3",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "1",
+                  "value" : "Foo"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "121:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "122:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter multi: filtered for new record",
+         "observed" : {
+            "current_id" : null,
+            "filtered_values" : [
+               {
+                  "id" : "3",
+                  "value" : "Bar"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "124:column",
+         "observed" : {
+            "deleted" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "125:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "126:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter negative: input required",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "subvals_input_required" : [
+               "enum1"
+            ],
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "128:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "129:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "130:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "131:held",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter negative: filtered for record",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "3",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "4",
+                  "value" : "FooBar"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "133:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "134:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter negative: filtered for new record",
+         "observed" : {
+            "current_id" : null,
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "1",
+                  "value" : "Foo"
+               },
+               {
+                  "id" : "4",
+                  "value" : "FooBar"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "136:column",
+         "observed" : {
+            "deleted" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "137:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "138:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter nomatch: input required",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "subvals_input_required" : [
+               "tree1"
+            ],
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "140:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "141:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "142:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "143:held",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter nomatch: filtered for record",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "145:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "146:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter nomatch: filtered for new record",
+         "observed" : {
+            "current_id" : null,
+            "filtered_values" : []
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "148:column",
+         "observed" : {
+            "deleted" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "149:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "150:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter invalid: input required",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "subvals_input_required" : [],
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "152:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "153:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "154:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "155:held",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter invalid: filtered for record",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "157:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "158:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter invalid: filtered for new record",
+         "observed" : {
+            "current_id" : null,
+            "filtered_values" : []
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "160:column",
+         "observed" : {
+            "deleted" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "161:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "162:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter calcmulti: input required",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "subvals_input_required" : [
+               "date1",
+               "daterange1",
+               "string1"
+            ],
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "164:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "165:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "166:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "167:held",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter calcmulti: filtered for record",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "3",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "1",
+                  "value" : "Foo"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "169:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "170:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter calcmulti: filtered for new record",
+         "observed" : {
+            "current_id" : null,
+            "filtered_values" : [
+               {
+                  "id" : "2",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "3",
+                  "value" : "Bar"
+               },
+               {
+                  "id" : "1",
+                  "value" : "Foo"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "172:column",
+         "observed" : {
+            "deleted" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "173:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "174:column",
+         "observed" : {
+            "id" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter displayfield: input required",
+         "observed" : {
+            "can_child" : "0",
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "subvals_input_required" : [
+               "date1",
+               "string1"
+            ],
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "176:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "177:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "178:held",
+         "observed" : {
+            "current_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "179:held",
+         "observed" : {
+            "current_id" : "5",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter displayfield: filtered for record",
+         "observed" : {
+            "can_child" : "0",
+            "filtered_values" : [
+               {
+                  "id" : "1",
+                  "value" : "Foo"
+               }
+            ],
+            "id" : "56",
+            "internal" : "0",
+            "isunique" : "0",
+            "multivalue" : "1",
+            "name" : "curval filter",
+            "name_short" : null,
+            "numeric" : "0",
+            "optional" : "1",
+            "return_type" : "string",
+            "type" : "curval",
+            "userinput" : "1",
+            "value_field" : "value"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "181:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "182:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter displayfield: filtered for new record",
+         "observed" : {
+            "current_id" : null,
+            "filtered_values" : []
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "184:column",
+         "observed" : {
+            "deleted" : "56"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval text without building values",
+         "observed" : {
+            "count" : "2",
+            "first" : "5",
+            "ids" : [
+               "5",
+               "6"
+            ],
+            "last" : "6",
+            "rows" : [
+               {
+                  "curval1" : "Foo"
+               },
+               {
+                  "curval1" : "Bar"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "186:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree values at start",
+         "observed" : {
+            "count" : "3"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "188:column",
+         "observed" : {
+            "id" : "28"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree values after addition",
+         "observed" : {
+            "count" : "4"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "190:column",
+         "observed" : {
+            "id" : "28"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "tree values after removal",
+         "observed" : {
+            "count" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write internal columns",
+         "observed" : [
+            {
+               "error" : "Internal fields cannot be edited",
+               "name" : "Created by"
+            },
+            {
+               "error" : "Internal fields cannot be edited",
+               "name" : "Created time"
+            },
+            {
+               "error" : "Internal fields cannot be edited",
+               "name" : "ID"
+            },
+            {
+               "error" : "Internal fields cannot be edited",
+               "name" : "Last edited by"
+            },
+            {
+               "error" : "Internal fields cannot be edited",
+               "name" : "Last edited time"
+            },
+            {
+               "error" : "Internal fields cannot be edited",
+               "name" : "Serial"
+            }
+         ],
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "193:column",
+         "observed" : {
+            "deleted" : "51"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "194:column",
+         "observed" : {
+            "deleted" : "57"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete all columns",
+         "observed" : [
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "calc2"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "curval blank filter"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "curval blank"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "calc1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "rag1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "curval1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "person1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "file1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "daterange1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "date1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "tree1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "enum1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "integer1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "string1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "Serial"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "Created time"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "Created by"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "Last edited by"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "Last edited time"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "ID"
+            }
+         ],
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "196:sheet",
+         "observed" : {
+            "columns" : {},
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "197:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "70",
+               "curval1" : "68",
+               "date1" : "64",
+               "daterange1" : "65",
+               "enum1" : "62",
+               "file1" : "66",
+               "integer1" : "61",
+               "person1" : "67",
+               "rag1" : "69",
+               "string1" : "60",
+               "tree1" : "63"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "58",
+               "_created_user" : "57",
+               "_deleted_by" : "22",
+               "_id" : "54",
+               "_serial" : "59",
+               "_version_datetime" : "55",
+               "_version_user" : "56"
+            },
+            "records" : [
+               "5",
+               "6"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "198:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "199:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "delete all string columns",
+         "observed" : [
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "calc1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "rag1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "curval1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "person1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "file1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "daterange1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "date1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "tree1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "enum1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "integer1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "string1"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "Serial"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "Created time"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "Created by"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "Last edited by"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "Last edited time"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "ID"
+            },
+            {
+               "error" : null,
+               "existed" : "1",
+               "exists" : "0",
+               "name" : "Deleted by"
+            }
+         ],
+         "pass" : true,
+         "type" : "layout"
+      }
+   ]
+}

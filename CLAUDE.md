@@ -30,8 +30,8 @@ scenarios are identical.
 - **Version control.** This directory is the git repository
   `github.com/citaylor/gads-go` (private, branch `main`, pushed over HTTPS
   with `gh`). `.gitignore` keeps out `sudo-creds`, `.env`, binaries,
-  caches and the regenerated results; only `results/perl` and
-  `results/perl-pg` are committed. Commit with the GitHub noreply address:
+  caches and the regenerated results; only `results/perl`,
+  `results/perl-pg` and `results/perl-decoy` are committed. Commit with the GitHub noreply address:
   pushes with a private email are refused.
 - **Licences.** `LICENSE` is the AGPL text, unchanged. `NOTICE` lists
   GADS (and what is taken or generated from it) and every other work in
@@ -41,7 +41,8 @@ scenarios are identical.
   `gads-go/THIRD-PARTY-LICENSES` (NOTICE and the licence texts, installed
   in the image's `/usr/share/doc/gads`). CI checks that it is current.
 - **CI.** `.github/workflows/ci.yml` runs on every push and weekly. It runs
-  the tests (with parity and the hardened scenarios) and the race detector,
+  the tests (with parity and the hardened scenarios), the scenarios with
+  a decoy site (`results/perl-decoy`), and the race detector,
   the linters of "Build and test" (versions pinned there), and on
   PostgreSQL the hardened scenarios and the tests of workers, stored
   sessions and forked imports (`internal/web` runs them on both
@@ -59,7 +60,8 @@ scenarios are identical.
   `https://github.com/ctrlo/GADS.git`, pinned to the commits the golden
   results come from. To move to a newer dev:
   1. `git -C upstream/GADS-dev pull`.
-  2. Rerun Perl to refresh `results/perl`, then run Go and compare.
+  2. Rerun Perl to refresh `results/perl` (and `run_perl.sh --decoy` for
+     `results/perl-decoy`), then run Go and compare.
   3. If the schema changed, regenerate the DDL (from `gads-go/`:
      `perl -I ../upstream/GADS-dev/lib internal/db/gen/gen_ddl.pl`), port the
      migration of `share/migrations/*/upgrade` to `internal/db/upgrade.go`

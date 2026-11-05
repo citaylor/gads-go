@@ -12,6 +12,7 @@
 /conformance/results/*/
 !/conformance/results/perl/
 !/conformance/results/perl-pg/
+!/conformance/results/perl-decoy/
 
 # Editor and OS clutter
 *.swp

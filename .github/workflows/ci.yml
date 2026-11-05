@@ -44,6 +44,11 @@ jobs:
         run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Tests, Perl parity and the hardened scenarios
         run: go test ./...
+      # Every scenario again with a copy of the site's rows in another site
+      # (SPEC.md "Decoy site"), compared with Perl's results/perl-decoy: a
+      # search that misses the site finds the copies
+      - name: Site isolation (decoy site)
+        run: GADS_DECOY_SITE=1 go test ./conformance -run TestConformance
       - name: Race detector
         run: |
           go test -race ./internal/web ./internal/db ./cmd/gads

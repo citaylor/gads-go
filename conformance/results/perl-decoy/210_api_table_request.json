@@ -1,0 +1,842 @@
+{
+   "runner" : "perl",
+   "scenario" : "210_api_table_request",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:db",
+         "observed" : {
+            "id" : "900010"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_superadmin",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home_useradmin",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not_json",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Body content must be application/json"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "bad_json",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "No body content received"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not_superadmin",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "You must be a super-administrator to create tables"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "create",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "An unexexpected error has occurred"
+            },
+            "status" : "500"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "get_dummy",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances",
+         "observed" : [
+            {
+               "default_view_limit_extra_id" : null,
+               "hide_in_selector" : "0",
+               "homepage_text" : null,
+               "homepage_text2" : null,
+               "id" : "1",
+               "name" : "Layout1",
+               "name_short" : null,
+               "site_id" : "1",
+               "sort_layout_id" : null,
+               "sort_type" : null,
+               "view_limit_id" : null
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instance_groups",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rags",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "topics",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "fields",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "layout_groups",
+         "observed" : [
+            {
+               "group_id" : "1",
+               "layout_id" : "8",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "8",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "8",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "8",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "8",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "9",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "9",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "9",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "9",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "9",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "10",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "10",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "10",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "10",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "10",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "11",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "11",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "11",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "11",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "11",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "12",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "12",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "12",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "12",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "12",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "13",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "13",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "13",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "13",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "13",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "14",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "14",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "14",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "14",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "14",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "15",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "15",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "15",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "15",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "15",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "16",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "16",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "16",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "16",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "16",
+               "permission" : "write_new_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "17",
+               "permission" : "read"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "17",
+               "permission" : "write_existing"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "17",
+               "permission" : "write_existing_no_approval"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "17",
+               "permission" : "write_new"
+            },
+            {
+               "group_id" : "1",
+               "layout_id" : "17",
+               "permission" : "write_new_no_approval"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "enumvals",
+         "observed" : [
+            {
+               "deleted" : "0",
+               "id" : "1",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "1",
+               "value" : "foo1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "2",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "2",
+               "value" : "foo2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "3",
+               "layout_id" : "10",
+               "parent" : null,
+               "position" : "3",
+               "value" : "foo3"
+            },
+            {
+               "deleted" : "0",
+               "id" : "4",
+               "layout_id" : "11",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree1"
+            },
+            {
+               "deleted" : "0",
+               "id" : "5",
+               "layout_id" : "11",
+               "parent" : null,
+               "position" : null,
+               "value" : "tree2"
+            },
+            {
+               "deleted" : "0",
+               "id" : "6",
+               "layout_id" : "11",
+               "parent" : "5",
+               "position" : null,
+               "value" : "tree3"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "calcs",
+         "observed" : [
+            {
+               "code" : "function evaluate (L1daterange1)\n        if type(L1daterange1) == \"table\" and L1daterange1[1] then\n            dr1 = L1daterange1[1]\n        elseif type(L1daterange1) == \"table\" and next(L1daterange1) == nil then\n            dr1 = nil\n        else\n            dr1 = L1daterange1\n        end\n        if dr1 == null then return end\n        return dr1.from.year\n    end",
+               "decimal_places" : null,
+               "layout_id" : "17",
+               "return_format" : "integer"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "rag_code",
+         "observed" : [
+            {
+               "code" : "\n        function evaluate (L1daterange1)\n            if type(L1daterange1) == \"table\" and L1daterange1[1] then\n                dr1 = L1daterange1[1]\n            elseif type(L1daterange1) == \"table\" and next(L1daterange1) == nil then\n                dr1 = nil\n            else\n                dr1 = L1daterange1\n            end\n            if dr1 == nil then return 'grey' end\n            if dr1.from.year < 2012 then return 'red' end\n            if dr1.from.year == 2012 then return 'amber' end\n            if dr1.from.year > 2012 then return 'green' end\n        end\n    ",
+               "layout_id" : "16"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "curval_fields",
+         "observed" : [],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "file_options",
+         "observed" : [
+            {
+               "filesize" : null,
+               "layout_id" : "14"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "duplicate_short_name",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "0",
+               "message" : "Table created successfully"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "invalid_short_name",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Invalid short name for table \"bad name!\": short names can only contain alphanumeric characters and the underscore"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "invalid_field_type",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "Invalid field type: nosuchtype"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "field_without_name",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "An unexexpected error has occurred"
+            },
+            "status" : "500"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "page_after_errors",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "instances_final",
+         "observed" : [
+            {
+               "id" : "1",
+               "name" : "Layout1",
+               "name_short" : null
+            },
+            {
+               "id" : "900002",
+               "name" : "Another table",
+               "name_short" : "wizard_table"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "fields_final",
+         "observed" : [
+            {
+               "id" : "8",
+               "instance_id" : "1",
+               "name" : "string1",
+               "type" : "string"
+            },
+            {
+               "id" : "9",
+               "instance_id" : "1",
+               "name" : "integer1",
+               "type" : "intgr"
+            },
+            {
+               "id" : "10",
+               "instance_id" : "1",
+               "name" : "enum1",
+               "type" : "enum"
+            },
+            {
+               "id" : "11",
+               "instance_id" : "1",
+               "name" : "tree1",
+               "type" : "tree"
+            },
+            {
+               "id" : "12",
+               "instance_id" : "1",
+               "name" : "date1",
+               "type" : "date"
+            },
+            {
+               "id" : "13",
+               "instance_id" : "1",
+               "name" : "daterange1",
+               "type" : "daterange"
+            },
+            {
+               "id" : "14",
+               "instance_id" : "1",
+               "name" : "file1",
+               "type" : "file"
+            },
+            {
+               "id" : "15",
+               "instance_id" : "1",
+               "name" : "person1",
+               "type" : "person"
+            },
+            {
+               "id" : "16",
+               "instance_id" : "1",
+               "name" : "rag1",
+               "type" : "rag"
+            },
+            {
+               "id" : "17",
+               "instance_id" : "1",
+               "name" : "calc1",
+               "type" : "calc"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      }
+   ]
+}

@@ -1,0 +1,2176 @@
+{
+   "runner" : "perl",
+   "scenario" : "100_tt_language",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "text",
+         "observed" : {
+            "output" : "Hello"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "get_var",
+         "observed" : {
+            "output" : "Hello World!"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "get_explicit",
+         "observed" : {
+            "output" : "World"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "get_lowercase",
+         "observed" : {
+            "output" : "World"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "undef_var",
+         "observed" : {
+            "output" : "[]"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "undef_deep",
+         "observed" : {
+            "output" : "[]"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "number",
+         "observed" : {
+            "output" : "42 -3 3.5"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "zero",
+         "observed" : {
+            "output" : "00"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "utf8",
+         "observed" : {
+            "output" : "café ☃ ü"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "hash_dot",
+         "observed" : {
+            "output" : "1-2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nested_dot",
+         "observed" : {
+            "output" : "deep 2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "list_index",
+         "observed" : {
+            "output" : "bc"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "dynamic_key",
+         "observed" : {
+            "output" : "2 2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "comment",
+         "observed" : {
+            "output" : "ab"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "comment_multi",
+         "observed" : {
+            "output" : "aWorldb"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chomp_pre",
+         "observed" : {
+            "output" : "aWorld"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chomp_post",
+         "observed" : {
+            "output" : "World  b"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chomp_both",
+         "observed" : {
+            "output" : "aWorldb"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chomp_none",
+         "observed" : {
+            "output" : "a\nWorld\nb"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chomp_tilde",
+         "observed" : {
+            "output" : "aWorldb"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chomp_plus",
+         "observed" : {
+            "output" : "a\nWorld\nb"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chomp_post_spaces",
+         "observed" : {
+            "output" : "Worldb"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chomp_post_nonl",
+         "observed" : {
+            "output" : "World   b"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chomp_pre_multi",
+         "observed" : {
+            "output" : "a\nWorld"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chomp_if_block",
+         "observed" : {
+            "output" : "<ul>\n  <li>x</li>\n</ul>"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "set",
+         "observed" : {
+            "output" : "5"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "set_implicit",
+         "observed" : {
+            "output" : "hi"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "set_multi",
+         "observed" : {
+            "output" : "12"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "set_semicolon",
+         "observed" : {
+            "output" : "2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "set_dotted",
+         "observed" : {
+            "output" : "3"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "set_hash_key",
+         "observed" : {
+            "output" : "12"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "default",
+         "observed" : {
+            "output" : "dflt keep"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "default_empty",
+         "observed" : {
+            "output" : "set"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "call",
+         "observed" : {
+            "output" : "b,a,c,z"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "list_literal",
+         "observed" : {
+            "output" : "32"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "list_literal_nocomma",
+         "observed" : {
+            "output" : "1-2-3"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "list_range",
+         "observed" : {
+            "output" : "1,2,3,4"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "hash_literal",
+         "observed" : {
+            "output" : "12x"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "hash_literal_nested",
+         "observed" : {
+            "output" : "d"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string_single",
+         "observed" : {
+            "output" : "a $name b"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string_double",
+         "observed" : {
+            "output" : "a World b"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string_double_braces",
+         "observed" : {
+            "output" : "a Worldb 1"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string_double_dotted",
+         "observed" : {
+            "output" : "x 2 y"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string_escapes",
+         "observed" : {
+            "output" : "tab\there\nnl \"q\" $name"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string_single_escape",
+         "observed" : {
+            "output" : "it's \\ \\n"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "concat",
+         "observed" : {
+            "output" : "World!42"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "concat_assign",
+         "observed" : {
+            "output" : "ab"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "arith",
+         "observed" : {
+            "output" : "3 -3 12 3.5 1 1 3"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "arith_prec",
+         "observed" : {
+            "output" : "7 9"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "arith_float",
+         "observed" : {
+            "output" : "3.33333333333333 0.3 2.5 3 3142.85714285714"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : "file error - parse error - _main.tt line 1: unexpected token (e3)\n  [% 1e3 %]",
+         "failures" : [],
+         "id" : "arith_exp_parse",
+         "observed" : null,
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "arith_strings",
+         "observed" : {
+            "output" : "7 1"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "compare_num",
+         "observed" : {
+            "output" : "yyy"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "compare_str",
+         "observed" : {
+            "output" : "eqnestr"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "compare_lt_str",
+         "observed" : {
+            "output" : "numcmp"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "logic",
+         "observed" : {
+            "output" : "bcdef"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "logic_upper",
+         "observed" : {
+            "output" : "abc"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "or_value",
+         "observed" : {
+            "output" : "fallback World z"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "and_value",
+         "observed" : {
+            "output" : "yes|0"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ternary",
+         "observed" : {
+            "output" : "big f"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "ternary_nested",
+         "observed" : {
+            "output" : "b"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "not_prec",
+         "observed" : {
+            "output" : "ok"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "truth",
+         "observed" : {
+            "output" : "FFFTTTTT"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "truth_list",
+         "observed" : {
+            "output" : "TTT"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "if_else",
+         "observed" : {
+            "output" : "b"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "if_else_lower",
+         "observed" : {
+            "output" : "c"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "unless",
+         "observed" : {
+            "output" : "ue"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "if_postfix",
+         "observed" : {
+            "output" : "yesu"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "if_nested",
+         "observed" : {
+            "output" : "deep"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "switch",
+         "observed" : {
+            "output" : "W"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "switch_default",
+         "observed" : {
+            "output" : "other"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "switch_lower",
+         "observed" : {
+            "output" : "B"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach",
+         "observed" : {
+            "output" : "b,a,c,"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_eq",
+         "observed" : {
+            "output" : "10 2 33 4 "
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_lower",
+         "observed" : {
+            "output" : "bac"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "for",
+         "observed" : {
+            "output" : "12"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_noloopvar",
+         "observed" : {
+            "output" : "Zoe;adam;Bob;World"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_loop",
+         "observed" : {
+            "output" : "0/1/3/2/1/0//a 1/2/3/2/0/0/b/c 2/3/3/2/0/1/a/ "
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_loop_parity",
+         "observed" : {
+            "output" : "odd10 even01 odd10 "
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_hash",
+         "observed" : {
+            "output" : "one=1;three=3;two=2;"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_hash_pairs",
+         "observed" : {
+            "output" : "one=1;three=3;two=2;"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_hash_keys",
+         "observed" : {
+            "output" : "onethreetwo"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_scalar",
+         "observed" : {
+            "output" : "World"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_undef",
+         "observed" : {
+            "output" : "x"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_postfix",
+         "observed" : {
+            "output" : "b,a,c,"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_next_last",
+         "observed" : {
+            "output" : "134"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_nested_loop",
+         "observed" : {
+            "output" : "01x 11y 0|02x 12y 1|"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_var_restored",
+         "observed" : {
+            "output" : "2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "foreach_assign_inside",
+         "observed" : {
+            "output" : "49"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "while",
+         "observed" : {
+            "output" : "012"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "block_process",
+         "observed" : {
+            "output" : "in-b 1"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "block_include_args",
+         "observed" : {
+            "output" : "X-World"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "include_localises",
+         "observed" : {
+            "output" : "orig"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "process_shares",
+         "observed" : {
+            "output" : "changed"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "include_file",
+         "observed" : {
+            "output" : "file:3:World"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "include_file_subdir",
+         "observed" : {
+            "output" : "sub World"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "include_file_quoted",
+         "observed" : {
+            "output" : "q"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "include_dynamic",
+         "observed" : {
+            "output" : "dyn"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : "file error - : not found",
+         "failures" : [],
+         "id" : "include_interp",
+         "observed" : null,
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "include_file_trailing_nl",
+         "observed" : {
+            "output" : "[with nl\n]"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "include_hash_arg_deep",
+         "observed" : {
+            "output" : "1"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "process_file_vars",
+         "observed" : {
+            "output" : "leaked"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "include_block_in_file",
+         "observed" : {
+            "output" : "lib-block"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : "file error - nonexist.tt: not found",
+         "failures" : [],
+         "id" : "include_missing",
+         "observed" : null,
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : "file error - w: not found",
+         "failures" : [],
+         "id" : "wrapper",
+         "observed" : null,
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "wrapper_block",
+         "observed" : {
+            "output" : "<inner World>"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "wrapper_file_args",
+         "observed" : {
+            "output" : "<h1>T</h1>body"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "macro",
+         "observed" : {
+            "output" : "1+2 x+"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "macro_directive",
+         "observed" : {
+            "output" : "ABC"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "macro_named_args",
+         "observed" : {
+            "output" : "12"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "macro_noargs",
+         "observed" : {
+            "output" : "hello World"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "macro_localises",
+         "observed" : {
+            "output" : "1"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "return",
+         "observed" : {
+            "output" : "ac"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "stop",
+         "observed" : {
+            "output" : "a"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "insert",
+         "observed" : {
+            "output" : "raw [% name %]"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "include_list_arg",
+         "observed" : {
+            "output" : "2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "include_multiline_args",
+         "observed" : {
+            "output" : "1two"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_html",
+         "observed" : {
+            "output" : "&lt;a href=&quot;x&quot;&gt;Tom &amp; &quot;Jerry&quot;&lt;/a&gt;"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_html_entity",
+         "observed" : {
+            "output" : "caf&eacute; &#x2603; &lt;a href=&quot;x&quot;&gt;Tom &amp; &quot;Jerry&quot;&lt;/a&gt;"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_uri",
+         "observed" : {
+            "output" : "a%20b%26c%2Fd%3Fe%3Df%C3%A9"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_url",
+         "observed" : {
+            "output" : "a%20b&c/d?e=f"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_upper_lower",
+         "observed" : {
+            "output" : "WORLD world Abc aBC"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_trim_collapse",
+         "observed" : {
+            "output" : "[a  b] [a b]"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_replace",
+         "observed" : {
+            "output" : "----- f00"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_html_para",
+         "observed" : {
+            "output" : "<p>\nline1\nline2\n</p>\n\n<p>\nline4</p>\n"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_html_break",
+         "observed" : {
+            "output" : "line1\nline2\n<br />\n<br />\nline4"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_html_line_break",
+         "observed" : {
+            "output" : "line1<br />\nline2<br />\n<br />\nline4"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_chain",
+         "observed" : {
+            "output" : "&lt;B&gt;"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_block",
+         "observed" : {
+            "output" : "&lt;p&gt;World&lt;/p&gt;"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_block_upper",
+         "observed" : {
+            "output" : "ABC"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_postfix",
+         "observed" : {
+            "output" : "WORLD"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_null",
+         "observed" : {
+            "output" : "y"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_format",
+         "observed" : {
+            "output" : "3.14 005"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_truncate",
+         "observed" : {
+            "output" : "The qui... The quic.."
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_repeat",
+         "observed" : {
+            "output" : "ababab"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_remove",
+         "observed" : {
+            "output" : "abc"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_indent",
+         "observed" : {
+            "output" : "  line1\n  line2\n  \n  line4"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_indent_str",
+         "observed" : {
+            "output" : "> a\n> b"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : "undef error - squote: filter not found",
+         "failures" : [],
+         "id" : "filter_squote",
+         "observed" : null,
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_xml",
+         "observed" : {
+            "output" : "&lt;a href=&quot;x&quot;&gt;Tom &amp; &quot;Jerry&quot;&lt;/a&gt;"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "filter_undef",
+         "observed" : {
+            "output" : "[]"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : "undef error - nofilter: filter not found",
+         "failures" : [],
+         "id" : "filter_unknown",
+         "observed" : null,
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_length",
+         "observed" : {
+            "output" : "5 6 2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_upper",
+         "observed" : {
+            "output" : "WORLD world Abc aBC"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_defined",
+         "observed" : {
+            "output" : "dud"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_match",
+         "observed" : {
+            "output" : "m/"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_match_global",
+         "observed" : {
+            "output" : ""
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_match_nocapture",
+         "observed" : {
+            "output" : "1:1"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_search",
+         "observed" : {
+            "output" : "yn"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : "file error - parse error - _main.tt line unknown: unexpected token (0)\n  [% $0b %]",
+         "failures" : [],
+         "id" : "vm_replace",
+         "observed" : null,
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_split",
+         "observed" : {
+            "output" : "4:a|b||c a|b|c"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_split_limit",
+         "observed" : {
+            "output" : "a|b:c:d"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_substr",
+         "observed" : {
+            "output" : "quick fox"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_repeat",
+         "observed" : {
+            "output" : "-----"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_trim",
+         "observed" : {
+            "output" : "[x y] [a b]"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_chunk",
+         "observed" : {
+            "output" : "abc,def,g a,bcd,efg"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_on_scalar",
+         "observed" : {
+            "output" : "1 World"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_item",
+         "observed" : {
+            "output" : "World 2 a"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_html",
+         "observed" : {
+            "output" : "&lt;a href=&quot;x&quot;&gt;Tom &amp; &quot;Jerry&quot;&lt;/a&gt;"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_dquote",
+         "observed" : {
+            "output" : "a\\\"b\\nc"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_size_scalar",
+         "observed" : {
+            "output" : "1"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_on_scalar",
+         "observed" : {
+            "output" : "World"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_size",
+         "observed" : {
+            "output" : "3 2 0 -1"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_first_last",
+         "observed" : {
+            "output" : "b c 10,2 33,4"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_join",
+         "observed" : {
+            "output" : "b a c|b, a, c|102334"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_sort",
+         "observed" : {
+            "output" : "a,b,c 10,2,33,4 2,4,10,33"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_sort_key",
+         "observed" : {
+            "output" : "adam Bob Zoe "
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_sort_case",
+         "observed" : {
+            "output" : "A,b,B,c"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_nsort_key",
+         "observed" : {
+            "output" : "25 30 40 "
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_reverse",
+         "observed" : {
+            "output" : "c,a,b"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_push_pop",
+         "observed" : {
+            "output" : "0,1,2,3 30 1,2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_push_multi",
+         "observed" : {
+            "output" : "1,2,a"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_push_output",
+         "observed" : {
+            "output" : "[]"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_grep",
+         "observed" : {
+            "output" : "banana 0"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_unique",
+         "observed" : {
+            "output" : "1,2,3"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_merge",
+         "observed" : {
+            "output" : "1,2,3,4,5 2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_slice",
+         "observed" : {
+            "output" : "2,3,4 3,4,5"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_splice",
+         "observed" : {
+            "output" : "1,4,5"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_defined",
+         "observed" : {
+            "output" : "yny"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_hash",
+         "observed" : {
+            "output" : "2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_import",
+         "observed" : {
+            "output" : "1,2,3"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_item_neg",
+         "observed" : {
+            "output" : "c a"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_exists",
+         "observed" : {
+            "output" : "n"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_list_column",
+         "observed" : {
+            "output" : "12"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_keys",
+         "observed" : {
+            "output" : "one,three,two"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_values",
+         "observed" : {
+            "output" : "1,2,3"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_size",
+         "observed" : {
+            "output" : "3 0"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_exists",
+         "observed" : {
+            "output" : "yn"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_defined",
+         "observed" : {
+            "output" : "yny"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_delete",
+         "observed" : {
+            "output" : "b"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_each",
+         "observed" : {
+            "output" : "a,1"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_sort",
+         "observed" : {
+            "output" : "one,two,three one,two,three"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_pairs",
+         "observed" : {
+            "output" : "a1b2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_list",
+         "observed" : {
+            "output" : "a=1"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_import",
+         "observed" : {
+            "output" : "a,b"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_item",
+         "observed" : {
+            "output" : "3"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "vm_hash_dot_size_key",
+         "observed" : {
+            "output" : "key-wins"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "hash_stringify",
+         "observed" : {
+            "output" : "T"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "multi_directive",
+         "observed" : {
+            "output" : "a"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "multi_directive_newlines",
+         "observed" : {
+            "output" : "lt"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "block_in_if",
+         "observed" : {
+            "output" : "L"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "block_defined_after",
+         "observed" : {
+            "output" : "after-def"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nested_includes",
+         "observed" : {
+            "output" : "o(i9)"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : "file error - parse error - _main.tt line 1: unexpected token (.)\n  [% \"abc\".length %]",
+         "failures" : [],
+         "id" : "method_on_literal",
+         "observed" : null,
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "negative_number",
+         "observed" : {
+            "output" : "-5 5"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "chained_vmethods",
+         "observed" : {
+            "output" : "FOX BROWN QUICK THE"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "param_from_var",
+         "observed" : {
+            "output" : "c"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "list_in_string",
+         "observed" : {
+            "output" : "x3"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "equals_undef",
+         "observed" : {
+            "output" : "eqfalse"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "string_number_eq",
+         "observed" : {
+            "output" : "yn"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "assign_list_element",
+         "observed" : {
+            "output" : "1,x,3"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "numeric_string_output",
+         "observed" : {
+            "output" : "007 7"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "large_numbers",
+         "observed" : {
+            "output" : "1000000000000 0.666666666666667 0.25"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "increment",
+         "observed" : {
+            "output" : "2"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "quote_in_html_attr",
+         "observed" : {
+            "output" : "<input value=\"&lt;a href=&quot;x&quot;&gt;Tom &amp; &quot;Jerry&quot;&lt;/a&gt;\">"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "text_with_percent",
+         "observed" : {
+            "output" : "100% done 50%"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "unclosed_tag",
+         "observed" : {
+            "output" : "a [% name"
+         },
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : "file error - parse error - _main.tt line 1: unexpected end of directive\n  [% IF %]",
+         "failures" : [],
+         "id" : "parse_error",
+         "observed" : null,
+         "pass" : true,
+         "type" : "template"
+      },
+      {
+         "error" : "file error - parse error - _main.tt line 1: unexpected end of input",
+         "failures" : [],
+         "id" : "missing_end",
+         "observed" : null,
+         "pass" : true,
+         "type" : "template"
+      }
+   ]
+}

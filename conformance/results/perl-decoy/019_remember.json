@@ -1,0 +1,323 @@
+{
+   "runner" : "perl",
+   "scenario" : "019_remember",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:column",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:column",
+         "observed" : {
+            "id" : "9"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:column",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:column",
+         "observed" : {
+            "id" : "11"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:column",
+         "observed" : {
+            "id" : "12"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:column",
+         "observed" : {
+            "id" : "13"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:column",
+         "observed" : {
+            "id" : "14"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:column",
+         "observed" : {
+            "id" : "15"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "remembered values",
+         "observed" : {
+            "current_id" : null,
+            "datum" : {
+               "date1" : {
+                  "as_string" : "2009-01-02"
+               },
+               "daterange1" : {
+                  "as_string" : "2008-05-04 to 2008-07-14"
+               },
+               "enum1" : {
+                  "as_string" : "foo1"
+               },
+               "integer1" : {
+                  "as_string" : "99"
+               },
+               "person1" : {
+                  "as_string" : "User1, User1"
+               },
+               "string1" : {
+                  "as_string" : "Bar"
+               },
+               "tree1" : {
+                  "as_string" : "tree1"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "remembered values with view limit",
+         "observed" : {
+            "current_id" : null,
+            "datum" : {
+               "date1" : {
+                  "as_string" : "2009-01-02"
+               },
+               "daterange1" : {
+                  "as_string" : "2008-05-04 to 2008-07-14"
+               },
+               "enum1" : {
+                  "as_string" : "foo1"
+               },
+               "integer1" : {
+                  "as_string" : "99"
+               },
+               "person1" : {
+                  "as_string" : "User1, User1"
+               },
+               "string1" : {
+                  "as_string" : "Bar"
+               },
+               "tree1" : {
+                  "as_string" : "tree1"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "last record",
+         "observed" : [
+            {
+               "instance_id" : "1",
+               "record_id" : "1",
+               "user_id" : "1"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "20:held",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "22:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "deleted record blank",
+         "observed" : {
+            "current_id" : null,
+            "datum" : {
+               "date1" : {
+                  "as_string" : ""
+               },
+               "daterange1" : {
+                  "as_string" : ""
+               },
+               "enum1" : {
+                  "as_string" : ""
+               },
+               "integer1" : {
+                  "as_string" : ""
+               },
+               "person1" : {
+                  "as_string" : ""
+               },
+               "string1" : {
+                  "as_string" : ""
+               },
+               "tree1" : {
+                  "as_string" : ""
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      }
+   ]
+}

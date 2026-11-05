@@ -1,0 +1,272 @@
+{
+   "runner" : "perl",
+   "scenario" : "004_previous_values_fields",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "41",
+               "curval1" : "39",
+               "date1" : "33",
+               "date2" : "34",
+               "daterange1" : "35",
+               "daterange2" : "36",
+               "enum1" : "29",
+               "enum2" : "30",
+               "file1" : "37",
+               "integer1" : "27",
+               "integer2" : "28",
+               "person1" : "38",
+               "rag1" : "40",
+               "string1" : "25",
+               "string2" : "26",
+               "tree1" : "31",
+               "tree2" : "32"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "initial values record1",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "date1" : "2010-01-02",
+               "daterange1" : "2012-04-02 to 2012-05-10",
+               "enum1" : "foo1",
+               "integer1" : "45",
+               "string1" : "Foobar1",
+               "tree1" : "tree1"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:held",
+         "observed" : {
+            "current_id" : "3",
+            "record_id" : "5"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "written values",
+         "observed" : {
+            "current_id" : "3",
+            "values" : {
+               "date1" : "2010-03-06",
+               "daterange1" : "2012-06-01 to 2012-07-10",
+               "enum1" : "foo2",
+               "integer1" : "55",
+               "string1" : "Foobar2",
+               "tree1" : "tree2"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal search on old value - string",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "search previous values - string",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal search on old value - enum",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "search previous values - enum",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal search on old value - tree",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "search previous values - tree",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal search on old value - integer",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "search previous values - integer",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal search on old value - date",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "search previous values - date",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal search on old value - daterange",
+         "observed" : {
+            "count" : "0",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "search previous values - daterange",
+         "observed" : {
+            "count" : "1",
+            "ids" : []
+         },
+         "pass" : true,
+         "type" : "search"
+      }
+   ]
+}

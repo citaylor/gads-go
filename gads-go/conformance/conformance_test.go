@@ -45,17 +45,23 @@ func missingRequirements(t *testing.T, file string) []string {
 
 // goldenDir is the directory of the Perl reference results
 func goldenDir() string {
+	dir := "../../conformance/results/perl"
 	if pgParams() != "" {
-		return "../../conformance/results/perl-pg"
+		dir += "-pg"
 	}
-	return "../../conformance/results/perl"
+	if decoySite() {
+		dir += "-decoy"
+	}
+	return dir
 }
 
 // TestConformance runs every scenario against the Go engine and checks:
 //  1. the expectations ported from the original GADS test suite, and
 //  2. parity: every observation is identical to the Perl reference
 //     results in conformance/results/perl (results/perl-pg on PostgreSQL,
-//     with GADS_TEST_PG set).
+//     with GADS_TEST_PG set, and results/perl-decoy with a decoy site,
+//     GADS_DECOY_SITE=1, where only parity is checked: the copies of the
+//     decoy site move the automatic IDs that some expectations name).
 func TestConformance(t *testing.T) {
 	scenarios, _ := filepath.Glob("../../conformance/scenarios/*.yaml")
 	if len(scenarios) == 0 {
@@ -77,13 +83,19 @@ func checkScenario(t *testing.T, f string) {
 	if res.Fatal != "" {
 		t.Fatalf("fatal: %s", res.Fatal)
 	}
-	for _, s := range res.Steps {
-		for _, m := range s.Failures {
-			t.Errorf("%s: %s", s.ID, m)
+	if !decoySite() {
+		for _, s := range res.Steps {
+			for _, m := range s.Failures {
+				t.Errorf("%s: %s", s.ID, m)
+			}
 		}
 	}
 	golden := filepath.Join(goldenDir(), res.Scenario+".json")
 	if _, err := os.Stat(golden); err != nil {
+		if decoySite() {
+			// (every scenario has a decoy result)
+			t.Fatalf("no Perl reference result with a decoy site for %s", res.Scenario)
+		}
 		t.Logf("no Perl reference result for %s", res.Scenario)
 		return
 	}

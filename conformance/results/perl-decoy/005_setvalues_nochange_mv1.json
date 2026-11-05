@@ -1,0 +1,1504 @@
+{
+   "runner" : "perl",
+   "scenario" : "005_setvalues_nochange_mv1",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "33",
+               "curval2" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:column",
+         "observed" : {
+            "id" : "34"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0: one record",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 curval1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 curval1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 curval1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "changed" : "0",
+                  "html" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 curval2: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval2" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 curval2: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 curval2: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval2" : {
+                  "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "changed" : "0",
+                  "html" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "oldvalue" : {
+                     "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 date1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 date1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 date1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "as_string" : "2011-10-10",
+                  "changed" : "0",
+                  "html" : "2011-10-10",
+                  "html_form" : [
+                     "2011-10-10"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "2011-10-10",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 daterange1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "daterange1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 daterange1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 daterange1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "daterange1" : {
+                  "as_string" : "2000-11-11 to 2001-11-11",
+                  "changed" : "0",
+                  "html" : "2000-11-11 to 2001-11-11",
+                  "html_form" : [
+                     "2000-11-11",
+                     "2001-11-11"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "2000-11-11 to 2001-11-11",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 enum1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 enum1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 enum1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "as_string" : "foo2",
+                  "changed" : "0",
+                  "html" : "foo2",
+                  "html_form" : [
+                     "8"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "foo2",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 file1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "file1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 file1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 file1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "file1" : {
+                  "as_string" : "file2.txt",
+                  "changed" : "0",
+                  "html" : "file2.txt",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "file2.txt",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 integer1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 integer1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 integer1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "as_string" : "200",
+                  "changed" : "0",
+                  "html" : "200",
+                  "html_form" : [
+                     "200"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "200",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 person1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "person1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 person1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 person1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "person1" : {
+                  "as_string" : "User2, User2",
+                  "changed" : "0",
+                  "html" : "User2, User2",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "User2, User2",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 string1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "string1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 string1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 string1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "string1" : {
+                  "as_string" : "bar",
+                  "changed" : "0",
+                  "html" : "bar",
+                  "html_form" : [
+                     "bar"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "bar",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 tree1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 tree1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted0 tree1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "as_string" : "tree2",
+                  "changed" : "0",
+                  "html" : "tree2",
+                  "html_form" : [
+                     "11"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "tree2",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "37:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "38:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "39:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "33",
+               "curval2" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "40:column",
+         "observed" : {
+            "id" : "34"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "41:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted1: one record",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "43:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted1 enum1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted1 enum1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted1 tree1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref0 deleted1 tree1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "48:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "49:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "50:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "33",
+               "curval2" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "51:column",
+         "observed" : {
+            "id" : "34"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0: one record",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "53:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 curval1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 curval1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 curval1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval1" : {
+                  "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "changed" : "0",
+                  "html" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 curval2: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval2" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 curval2: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 curval2: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "curval2" : {
+                  "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "changed" : "0",
+                  "html" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                  "oldvalue" : {
+                     "as_string" : "Bar, 99, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 date1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 date1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 date1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "date1" : {
+                  "as_string" : "2011-10-10",
+                  "changed" : "0",
+                  "html" : "2011-10-10",
+                  "html_form" : [
+                     "2011-10-10"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "2011-10-10",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 enum1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 enum1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 enum1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "as_string" : "foo2",
+                  "changed" : "0",
+                  "html" : "foo2",
+                  "html_form" : [
+                     "8"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "foo2",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 file1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "file1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 file1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 file1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "file1" : {
+                  "as_string" : "file2.txt",
+                  "changed" : "0",
+                  "html" : "file2.txt",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "file2.txt",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 integer1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 integer1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 integer1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "integer1" : {
+                  "as_string" : "200",
+                  "changed" : "0",
+                  "html" : "200",
+                  "html_form" : [
+                     "200"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "200",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 person1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "person1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 person1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 person1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "person1" : {
+                  "as_string" : "User2, User2",
+                  "changed" : "0",
+                  "html" : "User2, User2",
+                  "html_form" : [
+                     "2"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "User2, User2",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 string1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "string1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 string1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 string1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "string1" : {
+                  "as_string" : "bar",
+                  "changed" : "0",
+                  "html" : "bar",
+                  "html_form" : [
+                     "bar"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "bar",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 tree1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 tree1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted0 tree1: after set for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "as_string" : "tree2",
+                  "changed" : "0",
+                  "html" : "tree2",
+                  "html_form" : [
+                     "11"
+                  ],
+                  "oldvalue" : {
+                     "as_string" : "tree2",
+                     "blank" : "0"
+                  }
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "81:reset",
+         "observed" : {},
+         "pass" : true,
+         "type" : "reset"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "82:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "83:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "33",
+               "curval2" : "34",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "84:column",
+         "observed" : {
+            "id" : "34"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "85:db",
+         "observed" : {},
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted1: one record",
+         "observed" : {
+            "count" : "1",
+            "first" : "3",
+            "ids" : [
+               "3"
+            ],
+            "last" : "3"
+         },
+         "pass" : true,
+         "type" : "search"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "87:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted1 enum1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "enum1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted1 enum1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted1 tree1: blank status for multivalue",
+         "observed" : {
+            "current_id" : "3",
+            "datum" : {
+               "tree1" : {
+                  "blank" : "0"
+               }
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "nochange mv1 arrayref1 deleted1 tree1: set new value",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      }
+   ]
+}

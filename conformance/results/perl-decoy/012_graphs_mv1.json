@@ -1,0 +1,1489 @@
+{
+   "runner" : "perl",
+   "scenario" : "012_graphs_mv1",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:held",
+         "observed" : {
+            "current_id" : "2"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:held",
+         "observed" : {
+            "current_id" : "2",
+            "record_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "36",
+               "curval1" : "34",
+               "date1" : "30",
+               "daterange1" : "31",
+               "enum1" : "28",
+               "file1" : "32",
+               "integer1" : "26",
+               "integer2" : "27",
+               "person1" : "33",
+               "rag1" : "35",
+               "string1" : "25",
+               "tree1" : "29"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : [
+               "3",
+               "4",
+               "5",
+               "6"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:add_autocur",
+         "observed" : {
+            "id" : "37",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:column",
+         "observed" : {
+            "id" : "38",
+            "name" : "calc2"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:held",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "8"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "55",
+               "date1" : "50",
+               "daterange1" : "51",
+               "enum1" : "48",
+               "file1" : "52",
+               "integer1" : "47",
+               "person1" : "53",
+               "rag1" : "54",
+               "string1" : "46",
+               "tree1" : "49"
+            },
+            "instance_id" : "3",
+            "internal" : {
+               "_created" : "44",
+               "_created_user" : "42",
+               "_deleted_by" : "43",
+               "_id" : "39",
+               "_serial" : "45",
+               "_version_datetime" : "40",
+               "_version_user" : "41"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:column",
+         "observed" : {
+            "id" : "26"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:column",
+         "observed" : {
+            "id" : "28"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "17:held",
+         "observed" : {
+            "current_id" : "7",
+            "record_id" : "9"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "18:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:held",
+         "observed" : {
+            "current_id" : "3"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String x-axis, integer sum y-axis",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "50",
+                  "10",
+                  "35"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "Foo",
+               "FooBar"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String x-axis, multi-integer sum y-axis",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "96",
+                  "24",
+                  "63"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "Foo",
+               "FooBar"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String x-axis, multi-integer sum y-axis, filtered",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "72",
+                  "39"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "FooBar"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Integer x-axis, count y-axis",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "1",
+                  "1",
+                  "2"
+               ]
+            ],
+            "xlabels" : [
+               "13",
+               "24",
+               "8"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String x-axis, integer sum y-axis as percent",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "53",
+                  "11",
+                  "37"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "Foo",
+               "FooBar"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Pie as percent",
+         "observed" : {
+            "labels" : [],
+            "options" : {},
+            "points" : [
+               [
+                  [
+                     "Bar",
+                     "53"
+                  ],
+                  [
+                     "Foo",
+                     "11"
+                  ],
+                  [
+                     "FooBar",
+                     "37"
+                  ]
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "Foo",
+               "FooBar"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Pie with blank value",
+         "observed" : {
+            "labels" : [],
+            "options" : {},
+            "points" : [
+               [
+                  [
+                     "2013-10-10",
+                     "1"
+                  ],
+                  [
+                     "2014-10-10",
+                     "1"
+                  ],
+                  [
+                     "2016-10-10",
+                     "1"
+                  ],
+                  [
+                     "&lt;no value&gt;",
+                     "1"
+                  ]
+               ]
+            ],
+            "xlabels" : [
+               "2013-10-10",
+               "2014-10-10",
+               "2016-10-10",
+               "<no value>"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String x-axis, integer sum y-axis with view filter",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "15",
+                  "10",
+                  "15"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "Foo",
+               "FooBar"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date range x-axis, integer sum y-axis",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "20",
+                  "35",
+                  "35",
+                  "20",
+                  "20",
+                  "30",
+                  "30",
+                  "20",
+                  "20"
+               ]
+            ],
+            "xlabels" : [
+               "2009",
+               "2010",
+               "2011",
+               "2012",
+               "2013",
+               "2014",
+               "2015",
+               "2016",
+               "2017"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date range x-axis, integer sum y-axis, limited time period by dates",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "20",
+                  "30",
+                  "30",
+                  "20"
+               ]
+            ],
+            "xlabels" : [
+               "2013",
+               "2014",
+               "2015",
+               "2016"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date range x-axis, integer sum y-axis, limited time period by length",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "30",
+                  "30",
+                  "30",
+                  "20",
+                  "20",
+                  "20",
+                  "20"
+               ]
+            ],
+            "xlabels" : [
+               "January 2015",
+               "February 2015",
+               "March 2015",
+               "April 2015",
+               "May 2015",
+               "June 2015",
+               "July 2015"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date range x-axis, integer sum y-axis, limited time period by length negative",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "30",
+                  "30",
+                  "30",
+                  "30",
+                  "30",
+                  "30",
+                  "30"
+               ]
+            ],
+            "xlabels" : [
+               "July 2014",
+               "August 2014",
+               "September 2014",
+               "October 2014",
+               "November 2014",
+               "December 2014",
+               "January 2015"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date range x-axis from curval, integer sum y-axis",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "35",
+                  "0",
+                  "0",
+                  "0",
+                  "45",
+                  "45"
+               ]
+            ],
+            "xlabels" : [
+               "2008",
+               "2009",
+               "2010",
+               "2011",
+               "2012",
+               "2013"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date range x-axis from curval, integer sum y-axis, group by curval",
+         "observed" : {
+            "labels" : [
+               "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+               "Bar, 132, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "45",
+                  "45"
+               ],
+               [
+                  "35",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0"
+               ]
+            ],
+            "xlabels" : [
+               "2008",
+               "2009",
+               "2010",
+               "2011",
+               "2012",
+               "2013"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date x-axis, integer count y-axis",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "1",
+                  "1",
+                  "0",
+                  "1"
+               ]
+            ],
+            "xlabels" : [
+               "2013",
+               "2014",
+               "2015",
+               "2016"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date x-axis, integer count y-axis, limited range",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "1",
+                  "0",
+                  "1"
+               ]
+            ],
+            "xlabels" : [
+               "2014",
+               "2015",
+               "2016"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date x-axis, integer sum y-axis, limited range by length",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "0",
+                  "20",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0"
+               ]
+            ],
+            "xlabels" : [
+               "2015",
+               "2016",
+               "2017",
+               "2018",
+               "2019",
+               "2020",
+               "2021",
+               "2022",
+               "2023",
+               "2024",
+               "2025"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date x-axis, integer sum y-axis, limited range by length, grouped",
+         "observed" : {
+            "labels" : [
+               "foo1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "10",
+                  "15",
+                  "0"
+               ]
+            ],
+            "xlabels" : [
+               "2005",
+               "2006",
+               "2007",
+               "2008",
+               "2009",
+               "2010",
+               "2011",
+               "2012",
+               "2013",
+               "2014",
+               "2015"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Date x-axis, integer sum y-axis, limited range by dates, grouped",
+         "observed" : {
+            "labels" : [
+               "foo3",
+               "foo2",
+               "foo1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "20",
+                  "0",
+                  "0"
+               ],
+               [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "20",
+                  "0",
+                  "0"
+               ],
+               [
+                  "0",
+                  "10",
+                  "15",
+                  "0",
+                  "0",
+                  "0",
+                  "0"
+               ]
+            ],
+            "xlabels" : [
+               "2012",
+               "2013",
+               "2014",
+               "2015",
+               "2016",
+               "2017",
+               "2018"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String x-axis, sum y-axis, group by enum",
+         "observed" : {
+            "labels" : [
+               "foo3",
+               "foo2",
+               "foo1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "0",
+                  "0",
+                  "20"
+               ],
+               [
+                  "35",
+                  "0",
+                  "20"
+               ],
+               [
+                  "15",
+                  "10",
+                  "15"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "Foo",
+               "FooBar"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String x-axis, sum y-axis, group by enum as percent",
+         "observed" : {
+            "labels" : [
+               "foo3",
+               "foo2",
+               "foo1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "0",
+                  "0",
+                  "36"
+               ],
+               [
+                  "70",
+                  "0",
+                  "36"
+               ],
+               [
+                  "30",
+                  "100",
+                  "27"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "Foo",
+               "FooBar"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Filter on multi-value enum",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "1",
+                  "1"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "FooBar"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Curval on x-axis",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "35",
+                  "45"
+               ]
+            ],
+            "xlabels" : [
+               "Bar, 132, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+               "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Field from curval on x-axis",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "35",
+                  "45"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "Foo"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Enum field from curval on x-axis",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "45",
+                  "35"
+               ]
+            ],
+            "xlabels" : [
+               "foo1",
+               "foo2"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Enum field from curval on x-axis, enum on y, with filter",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "1",
+                  "1"
+               ]
+            ],
+            "xlabels" : [
+               "foo1",
+               "foo2"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Enum field from curval on x-axis, with filter on whole curval",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "2"
+               ]
+            ],
+            "xlabels" : [
+               "foo1"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Curval on x-axis grouped by enum",
+         "observed" : {
+            "labels" : [
+               "foo3",
+               "foo2",
+               "foo1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "20",
+                  "0"
+               ],
+               [
+                  "20",
+                  "35"
+               ],
+               [
+                  "15",
+                  "10"
+               ]
+            ],
+            "xlabels" : [
+               "Bar, 132, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+               "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Enum on x-axis, filter by enum",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "2",
+                  "2",
+                  "1"
+               ]
+            ],
+            "xlabels" : [
+               "foo1",
+               "foo2",
+               "foo3"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Curval on x-axis, filter by enum",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "1",
+                  "1"
+               ]
+            ],
+            "xlabels" : [
+               "Bar, 132, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008",
+               "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Graph grouped by curvals",
+         "observed" : {
+            "labels" : [
+               "Foo, 50, foo1, , 2014-10-10, 2012-02-10 to 2013-06-15, , , c_amber, 2012",
+               "Bar, 132, foo2, , 2009-01-02, 2008-05-04 to 2008-07-14, , , b_red, 2008"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "35",
+                  "10",
+                  "0"
+               ],
+               [
+                  "15",
+                  "0",
+                  "35"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "Foo",
+               "FooBar"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Linked value on x-axis, count",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "1",
+                  "1",
+                  "1",
+                  "1"
+               ]
+            ],
+            "xlabels" : [
+               "10",
+               "15",
+               "20",
+               "35"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "52:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "53:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "54:held",
+         "observed" : {
+            "current_id" : "8",
+            "record_id" : "10"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "55:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "56:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Linked value on x-axis (multiple linked), count",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "1",
+                  "1",
+                  "1",
+                  "1"
+               ]
+            ],
+            "xlabels" : [
+               "10",
+               "20",
+               "35",
+               "55"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "58:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "59:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "60:held",
+         "observed" : {
+            "current_id" : "8"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "61:held",
+         "observed" : {
+            "current_id" : "8"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "62:held",
+         "observed" : {
+            "current_id" : "7"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "63:held",
+         "observed" : {
+            "current_id" : "7",
+            "record_id" : "10"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Linked value on x-axis (same value in normal/linked), sum",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "4024",
+                  "2009",
+                  "0"
+               ]
+            ],
+            "xlabels" : [
+               "15",
+               "20",
+               "35"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "65:held",
+         "observed" : {
+            "current_id" : "7"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "66:held",
+         "observed" : {
+            "current_id" : "7",
+            "record_id" : "11"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "All columns x-axis, sum y-axis",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "25"
+               ]
+            ],
+            "xlabels" : [
+               "integer1"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "String on x-axis, group by autocur",
+         "observed" : {
+            "labels" : [
+               "FooBar",
+               "Foo",
+               "Bar"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "2",
+                  "0"
+               ],
+               [
+                  "0",
+                  "1"
+               ],
+               [
+                  "1",
+                  "1"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "Foo"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "Autocur on x-axis",
+         "observed" : {
+            "labels" : [
+               "1"
+            ],
+            "options" : {},
+            "points" : [
+               [
+                  "2",
+                  "1",
+                  "2"
+               ]
+            ],
+            "xlabels" : [
+               "Bar",
+               "Foo",
+               "FooBar"
+            ]
+         },
+         "pass" : true,
+         "type" : "graph"
+      }
+   ]
+}

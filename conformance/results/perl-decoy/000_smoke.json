@@ -1,0 +1,99 @@
+{
+   "runner" : "perl",
+   "scenario" : "000_smoke",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:record",
+         "observed" : {
+            "current_id" : "1",
+            "parent_id" : null,
+            "record_id" : "1",
+            "values" : {
+               "Created by" : "User1, User1",
+               "Created time" : "2014-10-10 02:00:00",
+               "ID" : "1",
+               "Last edited by" : "User1, User1",
+               "Last edited time" : "2014-10-10 02:00:00",
+               "Serial" : "1",
+               "calc1" : "2012",
+               "date1" : "2014-10-10",
+               "daterange1" : "2012-02-10 to 2013-06-15",
+               "enum1" : "foo1",
+               "file1" : "",
+               "integer1" : "50",
+               "person1" : "",
+               "rag1" : "c_amber",
+               "string1" : "Foo",
+               "tree1" : ""
+            }
+         },
+         "pass" : true,
+         "type" : "record"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:search",
+         "observed" : {
+            "count" : "2",
+            "first" : "1",
+            "ids" : [
+               "1",
+               "2"
+            ],
+            "last" : "2",
+            "rows" : [
+               {
+                  "enum1" : "foo1",
+                  "integer1" : "50",
+                  "string1" : "Foo"
+               },
+               {
+                  "enum1" : "foo2",
+                  "integer1" : "99",
+                  "string1" : "Bar"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      }
+   ]
+}

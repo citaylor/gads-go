@@ -182,9 +182,15 @@ Why this is fair:
   (164 and 174 µs); Go's call into C and its conversion of the values
   cost about 1 µs a call, which is most of the difference in the short
   units.
-- **Go still does more than Perl.** It still stops endless code, which
-  Perl does not do at all: such code now runs for 100 ms more before it
-  is counted, out of the about 4 s it is allowed.
+- **Go's timings include its safety checks; Perl's include none.** Perl
+  runs Lua with no limits at all, while Go still checks on every call:
+  the memory limit (in the allocator, at each allocation), the timer of
+  the instruction count (a lock and a timer reset at the start and end
+  of the call), and the size of tables coming back. Any difference left
+  is to Go's disadvantage. Go needs these checks because its workers
+  share one process, where a Perl worker that runs out of memory or
+  loops for ever affects only itself. Endless code is still stopped,
+  only 100 ms later than before, out of the about 4 s it is allowed.
 - **Nothing was traded for speed.** The memory limit (512 MB) applies from
   the start, as before, and costs nothing (the allocator checks it).
   Code running longer than 100 ms is counted with the same hook as

@@ -1,0 +1,327 @@
+{
+   "runner" : "perl",
+   "scenario" : "007_curval_edit_limited",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "3",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "newcastle",
+         "observed" : {
+            "current_id" : "1",
+            "values" : {
+               "string1" : "Newcastle"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "35",
+               "curval1" : "33",
+               "date1" : "29",
+               "daterange1" : "30",
+               "enum1" : "27",
+               "file1" : "31",
+               "integer1" : "26",
+               "person1" : "32",
+               "rag1" : "34",
+               "string1" : "25",
+               "tree1" : "28"
+            },
+            "instance_id" : "2",
+            "internal" : {
+               "_created" : "23",
+               "_created_user" : "21",
+               "_deleted_by" : "22",
+               "_id" : "18",
+               "_serial" : "24",
+               "_version_datetime" : "19",
+               "_version_user" : "20"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "53",
+               "curval1" : "51",
+               "date1" : "47",
+               "daterange1" : "48",
+               "enum1" : "45",
+               "file1" : "49",
+               "integer1" : "44",
+               "person1" : "50",
+               "rag1" : "52",
+               "string1" : "43",
+               "tree1" : "46"
+            },
+            "instance_id" : "4",
+            "internal" : {
+               "_created" : "41",
+               "_created_user" : "39",
+               "_deleted_by" : "40",
+               "_id" : "36",
+               "_serial" : "42",
+               "_version_datetime" : "37",
+               "_version_user" : "38"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "71",
+               "curval1" : "69",
+               "date1" : "65",
+               "daterange1" : "66",
+               "enum1" : "63",
+               "file1" : "67",
+               "integer1" : "62",
+               "person1" : "68",
+               "rag1" : "70",
+               "string1" : "61",
+               "tree1" : "64"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "59",
+               "_created_user" : "57",
+               "_deleted_by" : "58",
+               "_id" : "54",
+               "_serial" : "60",
+               "_version_datetime" : "55",
+               "_version_user" : "56"
+            },
+            "records" : []
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:column",
+         "observed" : {
+            "id" : "72",
+            "name" : "Staff involved"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "8:column",
+         "observed" : {
+            "id" : "73",
+            "name" : "Tasks"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:column",
+         "observed" : {
+            "id" : "74",
+            "name" : "Staff ages"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "10:column",
+         "observed" : {
+            "id" : "75",
+            "name" : "Project region"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "11:add_autocur",
+         "observed" : {
+            "id" : "76",
+            "name" : "autocur1"
+         },
+         "pass" : true,
+         "type" : "add_autocur"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "12:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "13:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "14:layout",
+         "observed" : {},
+         "pass" : true,
+         "type" : "layout"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "15:held",
+         "observed" : {},
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "16:held",
+         "observed" : {
+            "current_id" : null
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "write project",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "written",
+         "observed" : {
+            "current_id" : "4",
+            "datum" : {
+               "Staff involved" : {
+                  "ids" : [
+                     "5"
+                  ]
+               }
+            },
+            "values" : {
+               "Staff ages" : "65"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "19:held",
+         "observed" : {
+            "current_id" : "4"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "edit project",
+         "observed" : {
+            "current_id" : "4",
+            "record_id" : "6"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "after edit",
+         "observed" : {
+            "current_id" : "4",
+            "values" : {
+               "Staff ages" : "65",
+               "Tasks" : "MyTask"
+            }
+         },
+         "pass" : true,
+         "type" : "held"
+      }
+   ]
+}

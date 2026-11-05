@@ -1,0 +1,100 @@
+{
+   "runner" : "perl",
+   "scenario" : "004_group_recalc",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "18",
+               "date1" : "13",
+               "daterange1" : "14",
+               "enum1" : "11",
+               "file1" : "15",
+               "integer1" : "9",
+               "integer2" : "10",
+               "person1" : "16",
+               "rag1" : "17",
+               "string1" : "8",
+               "tree1" : "12"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2",
+               "3",
+               "4"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:column",
+         "observed" : {
+            "id" : "9"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:column",
+         "observed" : {
+            "id" : "10"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:column",
+         "observed" : {
+            "id" : "18"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group with recalc",
+         "observed" : {
+            "count" : "4",
+            "first" : null,
+            "ids" : [
+               null,
+               null
+            ],
+            "last" : null,
+            "rows" : [
+               {
+                  "calc1" : "55",
+                  "string1" : "foo1"
+               },
+               {
+                  "calc1" : "50",
+                  "string1" : "foo2"
+               }
+            ]
+         },
+         "pass" : true,
+         "type" : "search"
+      }
+   ]
+}

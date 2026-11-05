@@ -1,0 +1,121 @@
+{
+   "runner" : "perl",
+   "scenario" : "007_file_access",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:view",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "view"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:user",
+         "observed" : {},
+         "pass" : true,
+         "type" : "user"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:clear_layouts",
+         "observed" : {},
+         "pass" : true,
+         "type" : "clear_layouts"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "normal record",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "limited record",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Requested record not found",
+         "failures" : [],
+         "id" : "limited file",
+         "observed" : null,
+         "pass" : true,
+         "type" : "file_access"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "accessible file",
+         "observed" : {
+            "found" : "1"
+         },
+         "pass" : true,
+         "type" : "file_access"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "9:column",
+         "observed" : {
+            "id" : "14"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : "You do not have access to file ID 1",
+         "failures" : [],
+         "id" : "file without field permission",
+         "observed" : null,
+         "pass" : true,
+         "type" : "file_access"
+      }
+   ]
+}
