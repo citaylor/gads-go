@@ -551,7 +551,12 @@ Not fixed:
     - Lua stops after about 1e9 instructions (about 4 s; "code stopped
       after running more than N instructions") and is limited to 512 MB
       while code runs ("not enough memory"). These are
-      `lua.Interpreter.MaxInstructions` and `MaxMemory`.
+      `lua.Interpreter.MaxInstructions` and `MaxMemory`. The
+      instructions are counted only once a call has run for 100 ms
+      (`CountAfter`): counting needs a Lua hook, which slows every
+      instruction while set (loops by 1.6 times), so a timer sets it then,
+      and usual code runs at Lua's full speed, as in Perl. Why this is
+      fair to the benchmarks: `gads-postgres-performance.md`.
     - `working_days_add` with a negative count, or more than 100000 days,
       is an error. Perl's loop never ends for these.
     - A field's regex that runs for over 1 s counts as no match.

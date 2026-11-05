@@ -1,8 +1,10 @@
 package lua
 
 import (
+	"fmt"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestSmoke(t *testing.T) {
@@ -70,6 +72,66 @@ func TestLimits(t *testing.T) {
 		r, err := it.Run(`local n = 0 for i = 1, 1000000 do n = n + 1 end return working_days_diff(n)`, nil, double, nil)
 		if err != nil || r.Return != float64(2000000) {
 			t.Fatalf("run %d: %#v %v", i, r, err)
+		}
+	}
+}
+
+// The instructions of a call are counted only once it has run for
+// CountAfter, and only during that call
+func TestCountAfter(t *testing.T) {
+	it, err := New()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer it.Close()
+	// working_days_diff(ms) sleeps, then reports whether the count hook is
+	// set
+	probe := Func(func(args []any) ([]any, error) {
+		time.Sleep(time.Duration(args[0].(float64)) * time.Millisecond)
+		if it.counting() {
+			return []any{Int(1)}, nil
+		}
+		return []any{Int(0)}, nil
+	})
+	check := func(name string, ms int, want int64) {
+		t.Helper()
+		r, err := it.Run(`return working_days_diff(vars.ms)`, map[string]any{"ms": Int(ms)}, probe, nil)
+		if err != nil {
+			t.Fatalf("%s: %v", name, err)
+		}
+		if got := fmt.Sprint(r.Return); got != fmt.Sprint(want) {
+			t.Errorf("%s: counting %v, want %d", name, r.Return, want)
+		}
+	}
+	it.CountAfter = 50 * time.Millisecond
+	check("start of a call", 0, 0)
+	check("after CountAfter", 120, 1)
+	// The next call starts without the hook, and the timer of the last
+	// call, stopped, does not set it
+	check("next call", 0, 0)
+	check("next call, later", 20, 0)
+	// No limit: never counted
+	it.MaxInstructions = 0
+	check("no limit", 120, 0)
+	// CountAfter 0: counted from the start
+	it.MaxInstructions = 10_000_000
+	it.CountAfter = 0
+	check("CountAfter 0", 0, 1)
+	it.CountAfter = 50 * time.Millisecond
+	check("CountAfter again", 0, 0)
+
+	// Code that never ends is stopped after CountAfter and the limit, and
+	// many short calls in a row are not
+	start := time.Now()
+	if _, err := it.Run("while true do end", nil, nil, nil); err == nil || !strings.Contains(err.Error(), "more than 10000000 instructions") {
+		t.Errorf("endless code: %v", err)
+	}
+	if d := time.Since(start); d < it.CountAfter {
+		t.Errorf("stopped after %s, before CountAfter", d)
+	}
+	for i := 0; i < 2000; i++ {
+		if _, err := it.Run(`local n = 0 for i = 1, 1000 do n = n + i end return n`, nil, nil, nil); err != nil {
+			t.Fatalf("short call %d: %v", i, err)
 		}
 	}
 }

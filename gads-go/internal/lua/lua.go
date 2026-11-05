@@ -47,7 +47,10 @@ static gads_limits *gads_getlimits(lua_State *L) {
 
 // The instruction count is checked every GADS_HOOK_COUNT instructions; once
 // over the limit, at every instruction, so that a pcall in the code cannot
-// keep it running
+// keep it running. The hook is set only once a call has run for a while
+// (Interpreter.CountAfter, gads_arm): while a count hook is set, Lua 5.3
+// calls luaG_traceexec before every instruction (lvm.c vmfetch), whatever
+// the count, which made loops about 1.6 times slower.
 #define GADS_HOOK_COUNT 10000
 
 static void gads_hook(lua_State *L, lua_Debug *ar) {
@@ -83,15 +86,39 @@ static void gads_close(lua_State *L) {
 	free(l);
 }
 
-// gads_limited_pcall is lua_pcall with the limits applied to the code run
-static int gads_limited_pcall(lua_State *L, int nargs, int nresults, size_t memlimit, long long maxsteps) {
+// gads_arm starts counting the instructions of the call in progress (if it
+// has a limit). It is called from another thread, by the timer of
+// Interpreter.CountAfter, while the call runs: lua_sethook may be called
+// asynchronously (lua.c calls it from a signal handler), and the VM reads
+// the hook's fields at its next instruction. If it sees the mask before
+// the hook, luaD_hook skips a NULL hook, and the count starts one round
+// later.
+static void gads_arm(lua_State *L) {
+	gads_limits *l = gads_getlimits(L);
+	if (l->maxsteps) lua_sethook(L, gads_hook, LUA_MASKCOUNT, GADS_HOOK_COUNT);
+	__atomic_thread_fence(__ATOMIC_SEQ_CST);
+}
+
+// gads_disarm removes the hook once a call has returned
+static void gads_disarm(lua_State *L) {
+	lua_sethook(L, NULL, 0, 0);
+}
+
+static int gads_hookmask(lua_State *L) {
+	return lua_gethookmask(L);
+}
+
+// gads_limited_pcall is lua_pcall with the limits applied to the code run:
+// the memory limit from the start, and the instruction count from the
+// start if arm is set, otherwise from gads_arm. The caller removes the hook
+// with gads_disarm.
+static int gads_limited_pcall(lua_State *L, int nargs, int nresults, size_t memlimit, long long maxsteps, int arm) {
 	gads_limits *l = gads_getlimits(L);
 	l->steps = 0;
 	l->maxsteps = maxsteps;
 	l->limit = memlimit;
-	lua_sethook(L, gads_hook, maxsteps ? LUA_MASKCOUNT : 0, GADS_HOOK_COUNT);
+	if (arm) gads_arm(L);
 	int r = lua_pcall(L, nargs, nresults, 0);
-	lua_sethook(L, NULL, 0, 0);
 	l->limit = 0;
 	if (r == LUA_ERRMEM) lua_gc(L, LUA_GCCOLLECT, 0);
 	return r;
@@ -145,6 +172,7 @@ import (
 	"sort"
 	"strconv"
 	"sync"
+	"time"
 	"unsafe"
 )
 
@@ -268,6 +296,20 @@ type Interpreter struct {
 	// or that takes all memory, from holding up the whole application.
 	MaxInstructions int64
 	MaxMemory       int64
+	// CountAfter is how long a Run goes before its instructions are
+	// counted (0: from the start). Counting needs a Lua hook, which slows
+	// every instruction while it is set, so that code ending sooner (any
+	// usual calculation) runs at the full speed of Lua, as in Perl, and
+	// only code running longer pays for its limit.
+	CountAfter time.Duration
+
+	// The timer of CountAfter, and the call it may arm: the timer arms
+	// only a call in progress whose time has come, so that a late timer
+	// of a call that has ended cannot arm the next one
+	armMu      sync.Mutex
+	armTimer   *time.Timer
+	armRunning bool
+	armAt      time.Time
 }
 
 // The default limits of an interpreter: some seconds of computing, and
@@ -275,6 +317,7 @@ type Interpreter struct {
 const (
 	DefaultMaxInstructions = 1_000_000_000
 	DefaultMaxMemory       = 512 << 20
+	DefaultCountAfter      = 100 * time.Millisecond
 )
 
 // maxArrayIndex limits the array made of a table with number keys:
@@ -297,7 +340,8 @@ func New() (*Interpreter, error) {
 	}
 	C.luaL_openlibs(L)
 	it := &Interpreter{L: L, callbacks: map[int]Func{},
-		MaxInstructions: DefaultMaxInstructions, MaxMemory: DefaultMaxMemory}
+		MaxInstructions: DefaultMaxInstructions, MaxMemory: DefaultMaxMemory,
+		CountAfter: DefaultCountAfter}
 	registryMu.Lock()
 	registry[L] = it
 	registryMu.Unlock()
@@ -367,7 +411,7 @@ func (it *Interpreter) Run(code string, vars map[string]any, wdd, wda Func) (*Ru
 	it.pushVal(vars)
 	it.pushVal(wdd)
 	it.pushVal(wda)
-	status := C.gads_limited_pcall(L, 4, C.LUA_MULTRET, C.size_t(it.MaxMemory), C.longlong(it.MaxInstructions))
+	status := it.limitedPcall(4)
 	// Remove callbacks registered for this call
 	defer func() { it.callbacks = map[int]Func{} }()
 	if status != 0 {
@@ -396,6 +440,56 @@ func (it *Interpreter) Run(code string, vars map[string]any, wdd, wda Func) (*Ru
 		res.Error = h["error"]
 	}
 	return res, nil
+}
+
+// limitedPcall calls the function on the stack with nargs arguments, with
+// the limits: the instructions are counted from the start, or from a timer
+// after CountAfter
+func (it *Interpreter) limitedPcall(nargs int) C.int {
+	L := it.L
+	arm := C.int(0)
+	timed := it.MaxInstructions > 0 && it.CountAfter > 0
+	if it.MaxInstructions > 0 && !timed {
+		arm = 1
+	}
+	if timed {
+		it.armMu.Lock()
+		it.armRunning = true
+		it.armAt = time.Now().Add(it.CountAfter)
+		if it.armTimer == nil {
+			it.armTimer = time.AfterFunc(it.CountAfter, it.armDue)
+		} else {
+			it.armTimer.Reset(it.CountAfter)
+		}
+		it.armMu.Unlock()
+	}
+	status := C.gads_limited_pcall(L, C.int(nargs), C.LUA_MULTRET, C.size_t(it.MaxMemory), C.longlong(it.MaxInstructions), arm)
+	if timed {
+		it.armMu.Lock()
+		it.armRunning = false
+		it.armTimer.Stop()
+		it.armMu.Unlock()
+	}
+	// (after armRunning is cleared, so that no timer sets it again)
+	C.gads_disarm(L)
+	return status
+}
+
+// armDue is the timer of CountAfter: it starts counting the instructions of
+// the call in progress, if its time has come (a timer of an earlier call
+// may fire late, once the next has begun)
+func (it *Interpreter) armDue() {
+	it.armMu.Lock()
+	defer it.armMu.Unlock()
+	if it.armRunning && !time.Now().Before(it.armAt) {
+		C.gads_arm(it.L)
+	}
+}
+
+// counting reports whether the instructions of the call in progress are
+// being counted (the count hook is set)
+func (it *Interpreter) counting() bool {
+	return C.gads_hookmask(it.L)&C.LUA_MASKCOUNT != 0
 }
 
 // pushVal implements Inline::Lua push_val for the Go representation of

@@ -1,11 +1,15 @@
 # GADS on PostgreSQL: Perl and Go performance
 
 Measured on 2026-11-05 against GADS `dev` at `337d733c`, for information.
+The figures of one request at a time are those of the second run, after
+the change to the Lua limit (see [The Lua limit, and why the comparison
+is fair](#the-lua-limit-and-why-the-comparison-is-fair)); the load test
+ran before it, and uses no Lua.
 
 ## Summary
 
 - **One request at a time** (the suite's benchmarks, in one process): Go
-  is **4.3 times faster** overall, and between 1.5 and 84 times faster on
+  is **4.2 times faster** overall, and between 1.2 and 82 times faster on
   each step. Perl and Go give the same output on every benchmark scenario.
 - **Under load** (HTTP, 5 workers each): Go serves **about 53 requests a
   second**, and Perl about 8, or **6.5 times** more. Its median response
@@ -15,9 +19,9 @@ Measured on 2026-11-05 against GADS `dev` at `337d733c`, for information.
   service: at 20 clients Perl's slowest 1% of requests took 62 s, and
   Go's 0.6 s.
 - **Memory under load:** Perl's 5 workers used 1.24 GB, and Go 29 MB.
-- **Slower in Go:** JSON encoding and decoding (against Perl's XS
-  modules), and long Lua loops since the limit on Lua instructions (see
-  [Where Go is slower](#where-go-is-slower)).
+- **Slower in Go:** JSON encoding and decoding, against Perl's XS
+  modules (see [Where Go is slower](#where-go-is-slower)). Lua runs at
+  the same speed in both, the limit on Lua instructions included.
 
 ## Setup
 
@@ -42,28 +46,37 @@ median is reported. The full report is
 
 | Scenario | Perl | Go | Go faster | Same output |
 |---|---:|---:|---:|:---:|
-| `b01_records`: records, searches, filters, graphs, CSV | 66.6 s | 16.0 s | 4.2× | yes |
-| `b02_import`: importing 1000 rows | 25.9 s | 4.4 s | 5.8× | yes |
-| `b03_lua`: calculated fields | 1.6 s | 0.7 s | 2.3× | yes |
-| `b04_web`: pages and the API | 93.8 s | 22.4 s | 4.2× | yes |
-| **Total** | **187.9 s** | **43.5 s** | **4.3×** | |
+| `b01_records`: records, searches, filters, graphs, CSV | 59.8 s | 14.6 s | 4.1× | yes |
+| `b02_import`: importing 1000 rows | 23.6 s | 4.3 s | 5.5× | yes |
+| `b03_lua`: calculated fields | 1.6 s | 0.7 s | 2.4× | yes |
+| `b04_web`: pages and the API | 89.3 s | 21.9 s | 4.1× | yes |
+| **Total** | **174.3 s** | **41.4 s** | **4.2×** | |
 
 Median time of some steps:
 
 | Step | Perl | Go | Go faster |
 |---|---:|---:|---:|
-| Get a record | 73 ms | 5.1 ms | 14× |
-| Update a record | 59 ms | 5.2 ms | 11× |
-| Page of 50 records, sorted | 232 ms | 21.5 ms | 11× |
-| Quick search | 154 ms | 54 ms | 2.9× |
-| Filter (AND) | 95 ms | 34 ms | 2.8× |
-| Line graph by date | 65 ms | 7.3 ms | 9.0× |
-| Log in | 635 ms | 7.5 ms | 84× |
-| Data table page | 77 ms | 8.7 ms | 8.8× |
-| Records API, 100 records | 989 ms | 179 ms | 5.5× |
-| Record page | 211 ms | 33 ms | 6.4× |
-| CSV download, 1000 records | 8.7 s | 3.7 s | 2.4× |
-| Import 1000 rows | 24.5 s | 3.8 s | 6.4× |
+| Get a record | 69 ms | 5.1 ms | 13× |
+| Update a record | 55 ms | 5.1 ms | 11× |
+| Page of 50 records, sorted | 138 ms | 21.3 ms | 6.5× |
+| Quick search | 150 ms | 36 ms | 4.2× |
+| Filter (AND) | 90 ms | 26 ms | 3.4× |
+| Line graph by date | 60 ms | 7.4 ms | 8.1× |
+| Log in | 581 ms | 7.0 ms | 82× |
+| Data table page | 68 ms | 8.4 ms | 8.0× |
+| Records API, 100 records | 942 ms | 173 ms | 5.4× |
+| Record page | 197 ms | 30 ms | 6.5× |
+| CSV download, 1000 records | 8.4 s | 3.6 s | 2.3× |
+| Import 1000 rows | 22.3 s | 3.7 s | 6.0× |
+
+A single step can differ by a third or more between two runs, in both
+applications (Perl's sorted page took 232 ms in the first run and 138 ms
+in the second); the totals vary by a few per cent. The unit
+`db/csv_100` is one of these: on PostgreSQL Go took 203 ms (±36%) in the
+first run and 436 ms in the second, against Perl's 293 and 258 ms, while
+on SQLite it takes 82 ms with or without the Lua change, and the CSV
+downloads of the scenarios took the same time in both runs. It is not
+explained yet.
 
 ## Under load
 
@@ -123,15 +136,59 @@ What the figures show:
   (about 1% of the benchmark's CPU), and the decision is to keep Go's
   `encoding/json`. Against JSON::PP, which the reference install uses,
   Go is faster.
-- **Long Lua loops** (unit `lua/loop`: Go 278 µs, Perl 174 µs; it was a
-  tie before). Go stops user code after about 1e9 Lua instructions, a
-  deliberate deviation so that a calc field cannot hold a worker for ever.
-  The count needs a Lua hook, and while one is set Lua 5.3 makes an extra
-  call before every instruction. Short calculations are not affected
-  (`lua/simple`: 7.9 µs in both). Checking the count only after a time
-  limit would remove the cost.
-- The other Lua units are within 10% of each other: both run the same C
-  Lua 5.3.
+- The other units where Go is not faster are Lua's (0.9×, see below).
+
+## The Lua limit, and why the comparison is fair
+
+Perl GADS runs the Lua of calc and RAG fields without any limit, so code
+that never ends holds its worker process for ever. Go stops it after
+about 1e9 Lua instructions (a deliberate deviation, listed in
+[`CLAUDE.md`](CLAUDE.md#deviations-and-not-ported)), since in Go all the
+workers share one process.
+
+Counting instructions needs a Lua hook, and while a count hook is set,
+Lua 5.3 calls `luaG_traceexec` before every instruction, whatever the
+count (`lvm.c`, `vmfetch`). In the first run this made the unit
+`lua/loop` (a loop of 10,000 iterations) take 278 µs in Go against Perl's
+174 µs (0.6×), where both had been equal.
+
+Go now counts only once a call has run for 100 ms
+(`lua.Interpreter.CountAfter`): a timer then sets the hook, and the limit
+applies from there. Calculations ending sooner, which are all usual ones,
+run with no hook. The timer arms only the call in progress, so that a
+late timer cannot arm the next call (`TestCountAfter`).
+
+| Unit | Perl | Go, counting from the start | Go, counting after 100 ms |
+|---|---:|---:|---:|
+| `lua/simple` | 6.6 µs | 7.9 µs | 7.4 µs |
+| `lua/loop` | 164 µs | 278 µs | 182 µs |
+| `lua/strings` | 12.0 µs | 13.7 µs | 13.1 µs |
+
+(Perl and the last column are from the second run; the middle column is
+the first. On this machine outside Docker, `lua/loop` took 268 µs before
+the change and 162 µs after.)
+
+Why this is fair:
+
+- **The benchmark measures what users run.** The benchmark sets no option
+  of its own: the limit is on, with its defaults, as in `gads serve`.
+  Turning the limit off for the benchmark would have made the numbers
+  look the same while users kept paying for it.
+- **Both run the same Lua.** Perl's Inline::Lua and Go embed the same C
+  Lua 5.3.6, unchanged (Go's is vendored, with `-O2`; Perl's is Debian's
+  `liblua5.3`). Go's VM was not modified to make the count cheaper, so
+  each instruction costs the same in both. The tenth that remains in
+  `lua/loop` is of the size of the difference between two runs of Perl
+  (164 and 174 µs); Go's call into C and its conversion of the values
+  cost about 1 µs a call, which is most of the difference in the short
+  units.
+- **Go still does more than Perl.** It still stops endless code, which
+  Perl does not do at all: such code now runs for 100 ms more before it
+  is counted, out of the about 4 s it is allowed.
+- **Nothing was traded for speed.** The memory limit (512 MB) applies from
+  the start, as before, and costs nothing (the allocator checks it).
+  Code running longer than 100 ms is counted with the same hook as
+  before, and pays the same cost as before.
 
 ## Running it again
 
