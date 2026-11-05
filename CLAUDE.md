@@ -99,7 +99,7 @@ Go packages, under `gads-go/`:
 | `internal/perltest` | Builds Go values from the typed form of the golden files (`{"f": IEEE bits}`, `{"i"}`, `{"s"}`, ...). |
 | `conformance/` | Go runner and DataSheet port. `go test ./conformance` runs every scenario against the Perl golden. |
 | `cmd/gads` | The application: `serve`, `deploy`, `list`, `<script>`. Also reads the config and sends mail. |
-| `cmd/gads-conformance`, `cmd/gads-compare`, `cmd/gads-bench` | Suite runner, results comparison, benchmarks. |
+| `cmd/gads-conformance`, `cmd/gads-compare`, `cmd/gads-bench`, `cmd/gads-loadtest` | Suite runner, results comparison, benchmarks, load test of a server. |
 
 ## Environment
 
@@ -178,7 +178,9 @@ cd /path/to/GADS && prove -r -j8 t/conformance     # GADS_CONFORMANCE_NO_GOLDEN=
 ```
 
 Benchmarks: `conformance/bench_all.sh [--pg] [--time]`, `bench_docker.sh`,
-and `GADS_BENCH=1`. See SPEC.md "Benchmarks". Run nothing else that is heavy
+and `GADS_BENCH=1`; the load test of the servers is
+`conformance/loadtest_docker.sh` (`cmd/gads-loadtest`, see
+`gads-postgres-performance.md`). See SPEC.md "Benchmarks". Run nothing else that is heavy
 at the same time.
 
 Debugging environment variables:

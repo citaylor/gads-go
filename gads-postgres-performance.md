@@ -206,23 +206,20 @@ cd conformance
 ./bench_docker.sh --pg      # report: results/bench-report-pg-docker.md
 ```
 
-The load test has no script in the repository. Its steps were:
+The load test (about 10 minutes with the defaults; also with nothing else
+heavy running):
 
-1. Build the data and keep its database: from `gads-go/`, with the
-   container of `conformance/docker-compose.test-pg.yml` running,
-   `GADS_TEST_PG="host=127.0.0.1 port=55432 user=gads_test"
-   PGPASSWORD=gads_test GADS_TEST_PG_KEEP=1 go run ./cmd/gads-conformance
-   ../conformance/bench/b04_web.yaml`. The runner prints the name of the
-   database it kept.
-2. Copy that database once for each application (`CREATE DATABASE ...
-   TEMPLATE ...`), and set `pwchanged = now()` for the users: the
-   runner's clock is in 2014, so their passwords have expired.
-3. Start each application in a container on the network of the database,
-   with 5 workers: Starman in `gads-perl-bench`, with
-   `DANCER_CONFDIR` pointing at a copy of `config.yml-example` that names
-   the database; `gads serve` in `gads-go-builder`, with
-   `docker/config.yml` plus the database, `hardened: 0` and
-   `access_log: 0`.
-4. Run the clients against one application at a time: each logs in as
-   `user1@example.com` (password `password`), with `Host: localhost`, and
-   then sends the four requests in turn.
+```sh
+cd conformance
+./loadtest_docker.sh [-c 1,5,10,20] [-d 60s]
+```
+
+It builds the `b04_web` data on the test PostgreSQL, keeping its database
+(`GADS_TEST_PG_KEEP=1`), copies it for each application (setting
+`pwchanged = now()`, as the runner's clock is in 2014 and the passwords
+would have expired), starts Starman in `gads-perl-bench` and `gads serve`
+in `gads-go-builder` on the network of the database as above, runs
+`gads-go/cmd/gads-loadtest` against each in turn, prints their memory, and
+removes all of it. `gads-loadtest` can also measure any other GADS server:
+`gads-loadtest -url URL -user EMAIL [-password P] [-host HOST] [-sheet
+SHORT_NAME] [-record ID] [-c 1,5,10,20] [-d 60s]`.
