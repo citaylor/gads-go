@@ -26,6 +26,8 @@ func Setup(file string) (*Fixture, error) {
 	if err != nil {
 		return nil, err
 	}
+	// (a fixture is for benchmarks: see syncSequences)
+	r.analyze = true
 	var failed []string
 	gerr := gads.Try(func() {
 		for _, sr := range r.runSteps() {

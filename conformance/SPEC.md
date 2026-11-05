@@ -725,6 +725,13 @@ For PostgreSQL:
   users and other rows with explicit IDs, which leave the sequences behind,
   so that a later insert would take an ID in use (as SQLite gives the
   largest rowid + 1, it never does there).
+* In benchmarks (`GADS_BENCH`, and the fixture of the unit benchmarks),
+  both runners also run `ANALYZE` after each step. PostgreSQL plans the
+  queries on tables just filled from their statistics, which exist only
+  once autovacuum has analysed them, at a moment of its own: whether it
+  had before or during a timing changed the plans, and so the times, of
+  `db/csv_100` from 217 to 455 ms between runs (211 to 222 ms with
+  `ANALYZE`). Normal runs don't, so their observations are unchanged.
 * `GADS_RAW_ERRORS=1` makes the Perl runner print each raw error (debugging).
 * `GADS_TEST_PG_KEEP=1` makes the Go runner keep each database it creates
   (and print its name), e.g. to serve a benchmark's data afterwards.

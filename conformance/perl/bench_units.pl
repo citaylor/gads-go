@@ -114,7 +114,7 @@ my $password = 'correct horse battery staple';
 my $fixture;
 sub fixture
 {   return $fixture if $fixture;
-    my $runner = GADS::Conformance::Runner->new(file => $fixture_file, gads => $gads);
+    my $runner = GADS::Conformance::Runner->new(file => $fixture_file, gads => $gads, analyze => 1);
     my $result = $runner->run;
     die "$fixture_file: $result->{fatal}\n" if $result->{fatal};
     my @failed = map "$_->{id}: @{$_->{failures}}", grep !$_->{pass}, @{$result->{steps}};

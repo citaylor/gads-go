@@ -71,12 +71,24 @@ Median time of some steps:
 
 A single step can differ by a third or more between two runs, in both
 applications (Perl's sorted page took 232 ms in the first run and 138 ms
-in the second); the totals vary by a few per cent. The unit
-`db/csv_100` is one of these: on PostgreSQL Go took 203 ms (±36%) in the
-first run and 436 ms in the second, against Perl's 293 and 258 ms, while
-on SQLite it takes 82 ms with or without the Lua change, and the CSV
-downloads of the scenarios took the same time in both runs. It is not
-explained yet.
+in the second); the totals vary by a few per cent.
+
+The unit `db/csv_100` swung most: on PostgreSQL Go took 203 ms (±36%) in
+the first run and 436 ms in the second, against Perl's 293 and 258 ms
+(on SQLite it takes 82 ms either way). The cause was PostgreSQL's
+statistics, not either application. The unit's data is inserted just
+before it is timed, and PostgreSQL plans its queries from statistics that
+exist only once autovacuum has analysed the tables, at a moment of its
+own. The CSV export runs the same few small queries thousands of times,
+and their plans before and after the analysis differ by up to 20 times
+(a check for child records took 3 ms with a nested loop over the
+records, and 0.16 ms once the statistics showed there were none). Six
+runs of the Go unit took between 217 and 455 ms, one swinging by 32% as
+autovacuum ran during it. The runners now run `ANALYZE` after each step
+of a benchmark (SPEC.md "PostgreSQL"), as a database in use would have
+its statistics, and six runs took between 211 and 222 ms (Perl, three
+runs outside Docker: 321 to 335 ms). The figures above were measured
+before this change.
 
 ## Under load
 

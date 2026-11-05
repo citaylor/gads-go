@@ -191,6 +191,8 @@ sub new
         file    => $args{file},
         verbose => $args{verbose},
         gads_dir => $args{gads},
+        # ANALYZE after each step on PostgreSQL (benchmarks)
+        analyze => $args{analyze},
         sheets  => {},
         views   => {},
         records => {},
@@ -953,11 +955,20 @@ sub _make_decoy_site
     }
 }
 
+# After each step on PostgreSQL: the sequences, and in benchmarks
+# (GADS_BENCH, and the fixture of the units) ANALYZE, as the plans for
+# tables just filled depend on whether autovacuum has analysed them yet
+# (the Go runner does the same)
 sub _pg_sync_sequences
 {   my $self = shift;
     $ENV{GADS_TEST_PG} && $self->schema or return;
     eval { $self->schema->storage->dbh->do($SYNC_SEQUENCES); 1 }
         or warn "Failed to move the sequences on: $@";
+    if ($ENV{GADS_BENCH} || $self->{analyze})
+    {
+        eval { $self->schema->storage->dbh->do('ANALYZE'); 1 }
+            or warn "Failed to analyze: $@";
+    }
 }
 
 sub pg_cleanup { eval { _pg_drop_all() }; warn "Failed to drop databases: $@" if $@ }

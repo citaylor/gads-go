@@ -86,12 +86,22 @@ BEGIN
 END
 $$`
 
-// syncSequences runs syncSequencesSQL after each step on PostgreSQL
+// syncSequences runs syncSequencesSQL after each step on PostgreSQL, and
+// in benchmarks (GADS_BENCH, and the fixture of the units) ANALYZE: the
+// plans of PostgreSQL for tables just filled depend on whether autovacuum
+// has analysed them yet, which made a unit's timings vary by four times
+// from one run to the next (gads-postgres-performance.md). The Perl runner
+// does the same.
 func (r *Runner) syncSequences() {
 	if r.pgName == "" || r.db == nil {
 		return
 	}
 	if _, err := r.db.TryExec(syncSequencesSQL); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to move the sequences on: %s\n", err)
+	}
+	if r.analyze || os.Getenv("GADS_BENCH") != "" {
+		if _, err := r.db.TryExec("ANALYZE"); err != nil {
+			fmt.Fprintf(os.Stderr, "Failed to analyze: %s\n", err)
+		}
 	}
 }

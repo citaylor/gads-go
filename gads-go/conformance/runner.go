@@ -105,6 +105,8 @@ type Runner struct {
 	// caughtFatal is the first error caught by tryCol in the step
 	caughtFatal *string
 	pgName      string
+	// analyze runs ANALYZE after each step on PostgreSQL (benchmarks)
+	analyze bool
 	// forkDir holds the SQLite file of forkImports
 	forkDir string
 	// uploads is the directory of uploaded files (gads.uploads), kept for
