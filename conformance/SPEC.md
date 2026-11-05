@@ -373,10 +373,12 @@ as a DBIx::Class arrayref does. Values may refer to runner objects: `@now`, `@us
 `@view:<alias>`. `select` orders by `id`, or by the columns of `order_by`
 (for tables without an id column, such as `oauthtoken`). In a `select`, a
 mapping as a `where` value is an SQL::Abstract operator: `{ ">": 35 }`
-(`>`, `<`, `>=`, `<=`, `!=`). The tables with a `site_id` (such as `user`,
-`group` and `instance`) are limited to the site of the runner (site 1), as
-the schema of the tests is; rows of another site are observed through the
-tables without one, or by a script (such as `export.pl`).
+(`>`, `<`, `>=`, `<=`, `!=`). When the schema has a site (the sheet's
+`site_id`, or the `site` step), the tables with a `site_id` (such as
+`user`, `group` and `instance`) and the table `site` are limited to it, as
+the resultsets of GADS::Schema are: a `where` naming another site matches
+nothing, and `insert` sets `site_id` unless `set` gives it. Rows of another
+site are observed after a `site` step to it (and one back).
 
 ### `repeat_single`
 Retrieve the first record (`Records->single`) `repeat` times (default 10)
@@ -462,6 +464,8 @@ A PNG response (`image/png`) is observed as `png`: `{width, height}` from
 its header, as the pixels of a screenshot depend on the browser.
 The CSRF token of a client is taken from each page (`data-csrf` or a
 `csrf_token` field).
+The path and query are escaped as URI->new escapes them (Plack::Test): each
+character outside URI's reserved and unreserved characters, `%` and `#`.
 
 ### `outgoing_http`
 The requests that GADS makes to other services are answered by the runner
@@ -575,7 +579,8 @@ values are only reported when `fixed_time` controls them.
 * `./run_go.sh [--pg] [scenario.yaml ...]` – the Go runner alone
   (`results/go`); `go test ./conformance` in gads-go also checks parity
   against the saved reference results.
-* `./run_all.sh [--pg] [filter]` – both, then `gads-compare`.
+* `./run_all.sh [--pg | --decoy] [filter]` – both, then `gads-compare`.
+  `--decoy` (also for the other two) adds a decoy site (see "Decoy site").
 
 With `--pg` the scenarios run on PostgreSQL: a disposable server is started
 with Docker if needed (`docker-compose.test-pg.yml`, 127.0.0.1:55432, data
@@ -584,6 +589,26 @@ in memory) unless `GADS_TEST_PG` is already set, and the observations go to
 `go test ./conformance` compares with `results/perl-pg` when
 `GADS_TEST_PG` is set. Stop the server with
 `docker compose -f docker-compose.test-pg.yml down`.
+
+### Decoy site
+
+With `--decoy` (`GADS_DECOY_SITE=1`) both runners check that every search
+of a site's tables is restricted to the site. The first sheet of each
+database is in site 1 unless the scenario gives `site_id`, and once it is
+built a second site (99, `decoy.invalid`) gets a copy of the rows of every
+table with a `site_id`: organisations, departments, teams, titles, groups,
+users and instances, with the same names and email addresses and IDs
+raised by 900000, plus a user, a dashboard, an audit row, an export and an
+import of its own. A search that misses the site then finds the copies,
+and its observations change. The same SQL is in both runners
+(`decoy.go`, `Runner.pm`). The observations go to `results/perl-decoy` and
+`results/go-decoy`, which are compared as usual; they differ from the
+normal ones only where the copies move automatic IDs, so that the
+expectations naming such IDs fail (in 009, 024, 208, 213, 249 and 250, in
+both runners). Lookups by
+ID are not covered (no scenario names a copy's ID):
+`260_web_other_site` asks for the users and groups of another site by
+their IDs.
 
 ## Benchmarks
 

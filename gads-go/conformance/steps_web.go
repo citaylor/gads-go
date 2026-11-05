@@ -242,7 +242,7 @@ func (r *Runner) webRequest(args map[string]any) map[string]any {
 		body = strings.Join(pairs, "&")
 		ctype = "application/x-www-form-urlencoded"
 	}
-	req := httptest.NewRequest(method, target, strings.NewReader(body))
+	req := httptest.NewRequest(method, uriNew(target), strings.NewReader(body))
 	if ctype != "" {
 		req.Header.Set("Content-Type", ctype)
 	}
@@ -619,3 +619,18 @@ func (r *Runner) webValues(v any) any {
 }
 
 var _ = db.Q
+
+// uriNew escapes the characters that URI->new escapes: those outside
+// URI's reserved and unreserved characters, % and #, as UTF-8
+func uriNew(s string) string {
+	var b strings.Builder
+	for i := 0; i < len(s); i++ {
+		c := s[i]
+		if c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z' || c >= '0' && c <= '9' || strings.IndexByte(";/?:@&=+$,[]-_.!~*'()%#", c) >= 0 {
+			b.WriteByte(c)
+		} else {
+			fmt.Fprintf(&b, "%%%02X", c)
+		}
+	}
+	return b.String()
+}

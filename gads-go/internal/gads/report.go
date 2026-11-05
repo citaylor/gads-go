@@ -138,7 +138,7 @@ func (e *Engine) RemoveReport(report db.Row) {
 // GroupsViewableRows is groups_viewable as group rows
 func (u *User) GroupsViewableRows() []db.Row {
 	if u.Permission()["superadmin"] {
-		return u.e.DB.Query(`SELECT * FROM "group" ORDER BY "id"`)
+		return u.e.DB.Query(`SELECT * FROM "group"` + u.e.siteWhere("group") + ` ORDER BY "id"`)
 	}
 	// Perl returns these in hash order: the order here is that of
 	// GroupsViewable

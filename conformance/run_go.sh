@@ -1,6 +1,6 @@
 #!/bin/bash
 # Run conformance scenarios against the Go port (as run_perl.sh for Perl)
-#   ./run_go.sh [--pg] [scenario.yaml ...]
+#   ./run_go.sh [--pg | --decoy] [scenario.yaml ...]
 # With --pg the scenarios run on PostgreSQL (see pg_test_env.sh) and the
 # observations go to results/go-pg instead of results/go.
 set -e
@@ -11,6 +11,12 @@ if [ "${1:-}" = "--pg" ]; then
     shift
     . "$HERE/pg_test_env.sh"
     OUT="$HERE/results/go-pg"
+fi
+if [ "${1:-}" = "--decoy" ]; then
+    # A second site with copies of the site's rows (SPEC.md "Decoy site")
+    shift
+    export GADS_DECOY_SITE=1
+    OUT="$HERE/results/go-decoy"
 fi
 export PATH="$HOME/.local/go/bin:$PATH"
 if [ $# -eq 0 ]; then set -- "$HERE"/scenarios/*.yaml; fi

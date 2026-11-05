@@ -75,6 +75,10 @@ func (e *Engine) AuditLogs(f *AuditFiltering) []*AuditLog {
 		where = append(where, `"user_id" = ?`)
 		args = append(args, u)
 	}
+	// (in the site, as resultset('Audit'))
+	if sc := e.siteCond("me"); sc != "" {
+		where = append(where, strings.TrimPrefix(sc, " AND "))
+	}
 	rows := e.DB.Query(`SELECT "me".* FROM "audit" "me" LEFT JOIN "user" "user" ON "user"."id" = "me"."user_id" WHERE ( ( `+strings.Join(where, " AND ")+` ) ) ORDER BY "datetime" DESC`, args...)
 	var out []*AuditLog
 	for _, r := range rows {

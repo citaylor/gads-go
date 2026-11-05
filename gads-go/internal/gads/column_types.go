@@ -362,14 +362,16 @@ func (c *Column) deleteUnusedNodes(keep map[int64]bool) {
 // Person
 // =====================================================================
 
-// People returns the users selectable for a person column.
+// People returns the users selectable for a person column: GADS::Users
+// all, the summary of the site's active users (ordered by value, and by ID
+// as DBIC's collapse).
 func (c *Column) People() []*User {
 	if c.peopleLoaded {
 		return c.people
 	}
 	c.peopleLoaded = true
 	where, args := c.e.userFilterSQL(c.FilterFn())
-	rows := c.e.DB.Query(`SELECT "me".* FROM "user" "me" LEFT JOIN "organisation" "organisation" ON "organisation"."id" = "me"."organisation" LEFT JOIN "department" "department" ON "department"."id" = "me"."department_id" LEFT JOIN "team" "team" ON "team"."id" = "me"."team_id" LEFT JOIN "title" "title" ON "title"."id" = "me"."title" WHERE "me"."account_request" = 0 AND "me"."deleted" IS NULL`+where+` ORDER BY "surname", "me"."id"`, args...)
+	rows := c.e.DB.Query(`SELECT "me".* FROM "user" "me" LEFT JOIN "organisation" "organisation" ON "organisation"."id" = "me"."organisation" LEFT JOIN "department" "department" ON "department"."id" = "me"."department_id" LEFT JOIN "team" "team" ON "team"."id" = "me"."team_id" LEFT JOIN "title" "title" ON "title"."id" = "me"."title" WHERE "me"."account_request" = 0 AND "me"."deleted" IS NULL`+c.e.siteCond("me")+where+` ORDER BY "me"."value", "me"."id"`, args...)
 	for _, r := range rows {
 		c.people = append(c.people, c.e.userFromRow(r))
 	}

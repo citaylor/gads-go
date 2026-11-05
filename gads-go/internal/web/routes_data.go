@@ -277,7 +277,7 @@ func (s *Server) hData(c *Ctx) string {
 		alertUser := user
 		if ou := c.SessionGet("views_other_user_id"); truthy(ou) {
 			id, _ := toInt64(ou)
-			alertUser = c.E.FindUser(id)
+			alertUser = c.E.FindSiteUser(id)
 		}
 		viewID, _ := toInt64(c.ParamS("view_id"))
 		if c.Process(func() {
@@ -373,7 +373,7 @@ func (s *Server) hData(c *Ctx) string {
 	}
 	if ou := c.SessionGet("views_other_user_id"); truthy(ou) {
 		id, _ := toInt64(ou)
-		if u := c.E.FindUser(id); u != nil {
+		if u := c.E.FindSiteUser(id); u != nil {
 			params.Set("views_other_user", c.ttUser(u))
 		} else {
 			params.Set("views_other_user", nil)
@@ -420,7 +420,8 @@ func (s *Server) dataTable(c *Ctx, layout *gads.Layout, user *gads.User, view *g
 		lid, _ := c.QueryParam("curval_layout_id")
 		var curvalName any
 		if n, ok := toInt64(lid); ok {
-			if r := c.E.DB.QueryRow(`SELECT "name" FROM "instance" WHERE "id" = ?`, n); r != nil {
+			// The name of the curval field (resultset('Layout')->find)
+			if r := c.E.DB.QueryRow(`SELECT "me".* FROM "layout" "me" WHERE "me"."id" = ?`, n); r != nil {
 				curvalName = r["name"]
 			}
 		}

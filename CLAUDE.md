@@ -4,7 +4,7 @@ This workspace ports [ctrlo GADS](https://github.com/ctrlo/GADS), a Perl and
 Dancer2 application, to Go. A language-neutral conformance suite proves that
 the port behaves the same: every scenario runs against the original Perl
 code and against Go, and the two sets of observations must be identical.
-As of 2026-11-04, against GADS `dev` at `337d733c` (schema 115), all 188
+As of 2026-11-05, against GADS `dev` at `337d733c` (schema 115), all 189
 scenarios are identical.
 
 ## Rules
@@ -148,6 +148,7 @@ Conformance suite (from `conformance/`):
 ./run_go.sh   scenarios/205_web_record.yaml   # Go results -> results/go
 ./run_all.sh [FILTER]                         # Perl, then Go, then compare
 ./run_all.sh --pg [FILTER]                    # on PostgreSQL (starts docker-compose.test-pg.yml on :55432)
+./run_all.sh --decoy [FILTER]                 # with a decoy site: checks that searches keep to the site
 (cd ../gads-go && go run ./cmd/gads-compare -perl ../conformance/results/perl -go ../conformance/results/go)
 ```
 
@@ -478,6 +479,14 @@ Changes made in the Go code that don't affect parity:
   `working_days_add`), and the API token of a deleted user is refused
   (see Deviations).
 
+Site isolation: as GADS::Schema restricts the resultsets of the tables
+with a `site_id` to the request's site, Go adds `e.siteCond`/`siteWhere`
+to every search of them, and finds users by ID within the site
+(`FindSiteUser`; `FindUser` only through a relationship). `run_all.sh
+--decoy` (SPEC.md "Decoy site") runs the suite with a copy of each site's
+rows in another site, and `260_web_other_site` asks for another site's
+user and group by ID: both are identical to Perl.
+
 SAML responses are always rejected, as in Perl with Net::SAML2 0.89, so the
 Perl authentication bypass (C-1) does not exist in Go.
 
@@ -576,7 +585,7 @@ Not fixed:
   - `/healthz` is answered before routing, so it shadows a table whose
     short name is `healthz`.
 - PostgreSQL parity (`run_all.sh --pg`, dev `337d733c`, 2026-11-05) is
-  187 of 188. The difference is in `013_datatime`, in searches whose sort
+  188 of 189. The difference is in `013_datatime`, in searches whose sort
   leaves ties, which PostgreSQL returns in the order of its plan: two
   runs of Perl differ there too. The runners move the sequences past the
   fixtures' explicit IDs (SPEC.md "PostgreSQL"). Failed expectations are

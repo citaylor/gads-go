@@ -681,6 +681,27 @@ func (r *Runner) stepLua(args map[string]any) any {
 	return map[string]any{"return": ret.Return(), "error": e}
 }
 
+// siteTables are the tables with a site_id column, which the resultsets of
+// GADS::Schema restrict to the site of the schema
+var siteTables = map[string]bool{"audit": true, "authentication": true, "dashboard": true,
+	"department": true, "export": true, "group": true, "import": true, "instance": true,
+	"organisation": true, "team": true, "title": true, "user": true}
+
+// dbSiteColumn is the column by which a resultset of the table is
+// restricted to the site of the schema, if one is set: site_id, or the id
+// of the site table itself
+func (r *Runner) dbSiteColumn(table string) (string, bool) {
+	switch {
+	case r.e.SiteID == 0:
+		return "", false
+	case table == "site":
+		return "id", true
+	case siteTables[table]:
+		return "site_id", true
+	}
+	return "", false
+}
+
 func (r *Runner) stepDB(args map[string]any) any {
 	op := str(args["op"])
 	if op == "" {
@@ -701,15 +722,42 @@ func (r *Runner) stepDB(args map[string]any) any {
 		}
 		return out
 	}
+	// As the resultset of GADS::Schema, in the site of the schema: the
+	// condition of its site (a condition on another site matches nothing),
+	// which an insert takes as its value
+	siteCol, inSite := r.dbSiteColumn(table)
+	scoped := func(m map[string]any) (map[string]any, bool) {
+		if !inSite {
+			return m, true
+		}
+		if v, ok := m[siteCol]; ok {
+			if _, list := v.([]any); !list && str(v) != strconv.FormatInt(r.e.SiteID, 10) {
+				return m, false
+			}
+			return m, true
+		}
+		m[siteCol] = r.e.SiteID
+		return m, true
+	}
 	switch op {
 	case "update":
 		set, _ := args["set"].(map[string]any)
-		r.e.DB.UpdateMap(table, conv(set), conv(where))
+		w, inScope := scoped(conv(where))
+		if !inScope {
+			break
+		}
+		r.e.DB.UpdateMap(table, conv(set), w)
 		if truthy(args["clear_layouts"]) {
 			r.clearLayouts()
 		}
 	case "count", "max":
-		w := conv(where)
+		w, inScope := scoped(conv(where))
+		if !inScope {
+			if op == "max" {
+				return map[string]any{"max": nil}
+			}
+			return map[string]any{"count": int64(0)}
+		}
 		keys := make([]string, 0, len(w))
 		for k := range w {
 			keys = append(keys, k)
@@ -740,13 +788,22 @@ func (r *Runner) stepDB(args map[string]any) any {
 		}
 		return map[string]any{"count": n}
 	case "delete":
-		r.e.DB.DeleteWhere(table, conv(where))
+		if w, inScope := scoped(conv(where)); inScope {
+			r.e.DB.DeleteWhere(table, w)
+		}
 	case "insert":
 		set, _ := args["set"].(map[string]any)
-		return map[string]any{"id": r.e.DB.InsertMap(table, conv(set))}
+		vals := conv(set)
+		if _, ok := vals[siteCol]; inSite && !ok {
+			vals[siteCol] = r.e.SiteID
+		}
+		return map[string]any{"id": r.e.DB.InsertMap(table, vals)}
 	case "select":
 		cols := strList(args["columns"])
-		w := conv(where)
+		w, inScope := scoped(conv(where))
+		if !inScope {
+			return []any{}
+		}
 		keys := make([]string, 0, len(w))
 		for k := range w {
 			keys = append(keys, k)

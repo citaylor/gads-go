@@ -38,7 +38,7 @@ func (s *Server) hAPIUserAccount(c *Ctx) string {
 	var update *gads.User
 	if hasID {
 		if n, ok := toInt64(id); ok {
-			update = c.E.FindUser(n)
+			update = c.E.FindSiteUser(n)
 		}
 		if update == nil {
 			gads.Fail("User id %s not found", id)

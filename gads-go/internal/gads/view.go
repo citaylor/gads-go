@@ -161,7 +161,7 @@ func (v *View) CurrentUserHasAccess() bool {
 	noAccess := v.ID != 0 && !v.Global && !v.IsAdmin && !v.IsLimitExtra() && !v.layout.UserCan("layout") && (v.Owner == nil || *v.Owner != user.ID)
 	if !noAccess && v.Global && v.GroupID != nil {
 		// The user is retrieved afresh, so its groups are current
-		if !v.e.FindUser(user.ID).HasGroup()[*v.GroupID] {
+		if !v.e.FindSiteUser(user.ID).HasGroup()[*v.GroupID] {
 			noAccess = true
 		}
 	}

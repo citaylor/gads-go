@@ -1,0 +1,878 @@
+{
+   "runner" : "perl",
+   "scenario" : "260_web_other_site",
+   "steps" : [
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "1:sheet",
+         "observed" : {
+            "columns" : {
+               "calc1" : "17",
+               "date1" : "12",
+               "daterange1" : "13",
+               "enum1" : "10",
+               "file1" : "14",
+               "integer1" : "9",
+               "person1" : "15",
+               "rag1" : "16",
+               "string1" : "8",
+               "tree1" : "11"
+            },
+            "instance_id" : "1",
+            "internal" : {
+               "_created" : "6",
+               "_created_user" : "4",
+               "_deleted_by" : "5",
+               "_id" : "1",
+               "_serial" : "7",
+               "_version_datetime" : "2",
+               "_version_user" : "3"
+            },
+            "records" : [
+               "1",
+               "2"
+            ]
+         },
+         "pass" : true,
+         "type" : "sheet"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "2:db",
+         "observed" : {
+            "id" : "2"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "3:db",
+         "observed" : {
+            "id" : "50"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "4:db",
+         "observed" : {
+            "id" : "50"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "5:db",
+         "observed" : {
+            "id" : "1"
+         },
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "6:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:login",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "home",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "api_update_other_user",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "is_error" : "true",
+               "message" : "User id 50 not found"
+            },
+            "status" : "400"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user_page_other_user",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user_overview_after_page",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>user | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users nav__link--active\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    User id 50 not found\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info col-lg-6\">\n    <h1 class=\"content-block__title\">\n      Users\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      This is an overview of all the users within your Linkspace system.\n    </div>\n  </div>\n  \n    <div class=\"content-block__aside col-lg-6\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <div class=\"row mb-4\">\n    <div class=\"col\">\n      <div class=\"list list--horizontal\">\n        <ul class=\"list__items\">\n          <li class=\"list__item\">\n            <a href='/user_overview/' class='link link--plain link--active'><span>Active accounts</span></a>\n          </li>\n\n          <li class=\"list__item\">\n            <a href='/user_requests/' class='link link--plain'><span>Account requests</span></a>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  \n\n<table\n  class=\"data-table  table table-striped table-hover datatables-no-header-search\"\n  \n  data-href=\"/user\"\n  \n  width=\"100%\"\n  data-config='eyJhamF4Ijp7InR5cGUiOiJQT1NUIiwidXJsIjoiL2FwaS91c2Vycz9jc3JmLXRva2VuPVQwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAyIn0sImF1dG9XaWR0aCI6MCwiY29sdW1ucyI6W3sibmFtZSI6IklEIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6IklEIn0seyJuYW1lIjoiU3VybmFtZSIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJTdXJuYW1lIn0seyJuYW1lIjoiRm9yZW5hbWUiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiRm9yZW5hbWUifSx7Im5hbWUiOiJUaXRsZSIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJUaXRsZSJ9LHsibmFtZSI6IkVtYWlsIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6IkVtYWlsIn0seyJuYW1lIjoiT3JnYW5pc2F0aW9uIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6Ik9yZ2FuaXNhdGlvbiJ9LHsibmFtZSI6IkNyZWF0ZWQiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiQ3JlYXRlZCJ9LHsibmFtZSI6IkNyZWF0ZWQgYnkiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiQ3JlYXRlZCBieSJ9LHsibmFtZSI6Ikxhc3QgbG9naW4iLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiTGFzdCBsb2dpbiJ9LHsiY2xhc3NOYW1lIjoiZHRyLWNvbnRyb2wgZGF0YS10YWJsZV9faGVhZGVyLS1pbnZpc2libGUiLCJuYW1lIjoiVG9nZ2xlIGNoaWxkIHJvdyIsIm9yZGVyYWJsZSI6MCwidGFyZ2V0cyI6LTF9XSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6IlRoZXJlIGlzIG5vIGRhdGEgYXZhaWxhYmxlIGluIHRoaXMgdGFibGUiLCJsZW5ndGhNZW51IjoiUm93cyBwZXIgcGFnZSBfTUVOVV8iLCJwYWdpbmF0ZSI6eyJuZXh0IjoiTmV4dCBwYWdlIiwicHJldmlvdXMiOiJQcmV2aW91cyBwYWdlIn0sInNlYXJjaCI6IjxzcGFuIGNsYXNzPVwidmlzdWFsbHktaGlkZGVuXCI+U2VhcmNoIGluIHVzZXJzOjwvc3Bhbj4iLCJzZWFyY2hQbGFjZWhvbGRlciI6IlNlYXJjaCB0aHJvdWdoIHlvdXIgdXNlcnMifSwibGF5b3V0Ijp7ImJvdHRvbUVuZCI6ImluZm8iLCJib3R0b21TdGFydCI6InBhZ2luZyIsInRvcEVuZCI6InBhZ2VMZW5ndGgiLCJ0b3BTdGFydCI6InNlYXJjaCJ9LCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInByb2Nlc3NpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIiwic2VydmVyU2lkZSI6MSwic3RhdGVTYXZlIjoxfQ=='\n>\n  \n    <caption class=\"visually-hidden\">Table to show list of users</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    ID\n  </span>\n</th>\n\n<th >\n  <span>\n    Surname\n  </span>\n</th>\n\n<th >\n  <span>\n    Forename\n  </span>\n</th>\n\n<th >\n  <span>\n    Title\n  </span>\n</th>\n\n<th >\n  <span>\n    Email\n  </span>\n</th>\n\n<th >\n  <span>\n    Organisation\n  </span>\n</th>\n\n<th >\n  <span>\n    Created\n  </span>\n</th>\n\n<th >\n  <span>\n    Created by\n  </span>\n</th>\n\n<th >\n  <span>\n    Last login\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n  </tbody>\n  \n  \n</table>\n\n</div>\n<div class=\"modal modal--wizzard modal--user\"\n     data-config='{\"url\":\"/api/user_account\"}'\n     id=\"userModal\"\n     tabindex=\"-1\"\n     role=\"dialog\"\n     aria-labelledby=\"userModalLabel\"\n     aria-hidden=\"true\"\n>\n  <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex jusify-content-between\">\n        <div class=\"modal-header__content\">\n          <h3 class=\"modal-title\" id=\"userModalLabel\">\n            <span class='js-add-user'>Add a user</span>\n            <span class='js-approve-account'>Approve requested account</span>\n          </h3>\n\n          <ol class=\"modal__steps\">\n            <li class=\"modal__step modal__step--active\" data-step=\"1\">\n              <span>\n                User details\n              </span>\n            </li>\n            <li class=\"modal__step \" data-step=\"2\">\n              <span>\n                User connections\n              </span>\n            </li>\n            <li class=\"modal__step \" data-step=\"3\">\n              <span>\n                User permissions\n              </span>\n            </li>\n          </ol>\n        </div>\n\n        <button type=\"button\" class=\"btn close hidden\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n        </button>\n      </div>\n\n      <form method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n\n        <div class=\"modal-frame\" data-config='{\"step\":1,\"frame\":1,\"item\":null,\"count\":null}'>\n          <div class=\"modal-body\">\n            <div class=\"container-fluid\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <div class=\"alert alert-danger alert-js-user-details\" role=\"alert\" id=\"modal-alert\">\n                  </div>\n                </div>\n              </div>\n\n              <div class=\"row mb-4\">\n                <div class=\"col\">\n                  <p class=\"js-add-user\">In this window you can add a user in the system.</p>\n                  <p class=\"js-approve-account\">In this window you can approve this account request.</p>\n                </div>\n              </div>\n              <div class=\"row\">                <div class=\"col-lg-6\">\n<div class=\"form-group\">\n\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"firstname\" class=\"form-label\">\n    Forename\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"firstname\"\n        name=\"firstname\"\n        placeholder=\"Forename\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n                </div>                <div class=\"col-lg-6\">\n<div class=\"form-group\">\n\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"surname\" class=\"form-label\">\n    Surname\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"surname\"\n        name=\"surname\"\n        placeholder=\"Surname\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n                </div>              </div>\n              <div class=\"row\">                <div class=\"col-lg-6\">\n<div class=\"form-group\">\n\n  <div class=\"input  input--required\"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"email\" class=\"form-label\">\n    Email address\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"email\"\n        class=\"form-control \"\n        id=\"email\"\n        name=\"email\"\n        placeholder=\"name@example.com\"\n        value=\"\"\n        data-restore-value=\"\"\n        required\n        aria-required=\"true\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n                </div>                <div class=\"col-lg-6\">\n\n\n<div class=\"form-group mb-4\">\n\n\n  <div class=\"textarea \">\n    <div class=\"textarea__label\">\n  \n  <label for=\"account_request_notes\" class=\"form-label\">\n    Notes\n  </label>\n  \n</div>\n\n\n\n    <div class=\"input__field w-100\">\n      <textarea\n        class=\"form-control \"\n        id=\"account_request_notes\"\n        name=\"account_request_notes\"\n        rows=\"2\"\n        placeholder=\"Notes\"\n      ></textarea>\n    </div>\n\n  </div>\n\n\n\n\n</div>\n\n                </div>              </div>\n            </div> <!-- container end -->\n          </div> <!-- modal body end -->\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"button\" class=\"btn btn-danger btn-js-reject-request\" name=\"delete\" value=\"1\">\n    <span class=\"btn__title\">Reject request</span>\n  </button>  <button type=\"button\" class=\"btn btn-primary btn-disabled btn-js-next\">\n    <span class=\"btn__title\">Next</span>\n  </button>  </div>\n</div>\n        </div>\n\n        <div class=\"modal-frame\" data-config='{\"step\":2,\"frame\":2,\"item\":null,\"count\":null}'>\n          <div class=\"modal-body\">\n            <div class=\"container-fluid\">\n              <div class=\"row mb-4\">\n                <div class=\"col\">\n                  <p>Connect the user with email address: \"<span class=\"js-email\">USER</span>\" to a title,\n                    organisation, team or department</p>\n                </div>\n              </div>\n              <div class=\"row mt-4\">                <div class=\"col-lg-6\">\n\n<div class=\"form-group \">\n\n  <fieldset class=\"fieldset \">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"title-label\">\n    Title\n  </legend>\n  \n</div>\n\n\n    <div class=\"select-widget\" >\n      <div class=\"select-widget-dropdown\">\n        <div class=\"form-control\" >\n          <ul class=\"current\">\n            <li class=\"none-selected\">Select title</li>\n            \n            \n              <li class=\"search\">\n                <input\n                  type=\"search\"\n                  class=\"form-control-search\"\n                  style=\"width:100px\"\n                  placeholder = Search...\n                  aria-controls=\"title-values-single\"\n                  aria-expanded=\"false\"\n                  aria-describedby=\"title-label\"\n                  \n                >\n              </li>\n            \n          </ul>\n        </div>\n\n        \n        <ul hidden class=\"available select__menu dropdown-menu show \"\n            id=\"title-values-single\"\n            aria-labelledby=\"title-label\"\n            \n            role=\"listbox\"\n        >\n          \n          <li class=\"has-noresults\" hidden>No results</li>\n          \n      </ul>\n      \n    </div>\n  </div>\n</fieldset>\n\n</div>\n\n                </div>                <div class=\"col-lg-6 align-self-end\">\n\n<div class=\"form-group \">\n\n  <fieldset class=\"fieldset \">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"organisation-label\">\n    Organisation\n  </legend>\n  \n</div>\n\n\n    <div class=\"select-widget\" >\n      <div class=\"select-widget-dropdown\">\n        <div class=\"form-control\" >\n          <ul class=\"current\">\n            <li class=\"none-selected\">Select Organisation</li>\n            \n            <li\n              data-list-id=\"1\"\n              data-list-item=\"organisation_1\"\n              data-list-text=\"My Organisation\"\n               hidden\n            >\n              <span class=\"widget-value__value\">My Organisation</span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            \n              <li class=\"search\">\n                <input\n                  type=\"search\"\n                  class=\"form-control-search\"\n                  style=\"width:100px\"\n                  placeholder = Search...\n                  aria-controls=\"organisation-values-single\"\n                  aria-expanded=\"false\"\n                  aria-describedby=\"organisation-label\"\n                  \n                >\n              </li>\n            \n          </ul>\n        </div>\n\n        \n        <ul hidden class=\"available select__menu dropdown-menu show \"\n            id=\"organisation-values-single\"\n            aria-labelledby=\"organisation-label\"\n            \n            role=\"listbox\"\n        >\n          \n          <li class=\"has-noresults\" hidden>No results</li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"radio-group__option\">\n                <input\n                  type=\"radio\"\n                  id=\"organisation_1\"\n                  class=\"radio-group__input\"\n                  name=\"organisation\"\n                  value=1\n                  data-value=\"My Organisation\"\n              >\n              <label class=\"radio-group__label form-label\" for=\"organisation_1\">\n                My Organisation\n              </label>\n            </div>\n          \n        </li>\n        \n      </ul>\n      \n    </div>\n  </div>\n</fieldset>\n\n</div>\n\n                </div>              </div>\n            </div> <!-- container end -->\n          </div> <!-- modal body end -->\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel btn-js-back\">\n    <span class=\"btn__title\">Back</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"button\" class=\"btn btn-danger btn-js-reject-request\" name=\"delete\" value=\"1\">\n    <span class=\"btn__title\">Reject request</span>\n  </button>  <button type=\"button\" class=\"btn btn-primary btn-js-next\">\n    <span class=\"btn__title\">Next</span>\n  </button>  </div>\n</div>\n        </div>\n\n        <div class=\"modal-frame\" data-config='{\"step\":3,\"frame\":3,\"item\":null,\"count\":null}'>\n          <div class=\"modal-body\">\n            <div class=\"container-fluid\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <div class=\"alert alert-danger alert-js-user-permissions\" role=\"alert\">\n                  </div>\n                </div>\n              </div>\n              <div class=\"row mb-4\">\n                <div class=\"col\">\n                  <p>Give the user with email address: \"<span class=\"js-email\">USER</span>\" the following\n                    permissions:</p>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col\">\n  \n\n  <fieldset class=\"fieldset\" data-name=\"permissions\">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"-label\">\n    User&#39;s system-wide permissions\n  </legend>\n  <div class=\"popover-container popover-container--top\">\n  <div class=\"popover-content\" id=\"-popover\">\n    \n            <dl>\n              <dt>No permissions selected</dt>\n              <dd>If a user has no permissions, they cannot edit any data. They can only:\n                <ul>\n                  <li>View data</li>\n                  <li>Create private views of data</li>\n                  <li>Add and remove the graphs displayed on their personal page</li>\n                </ul>\n              </dd>\n              <dt>User can update records</dt>\n              <dd>\n                This permission allows a user to update an existing record:\n                <ul>\n                  <li>Fields that are set to &quot;Open access&quot; can be updated immediately by the user</li>\n                  <li>Fields that are set to &quot;Edit with approval&quot; can be updated, but any changes\n                    will be held for approval</li>\n                  <li>Fields that are set to &quot;Read only&quot; cannot be changed</li>\n                </ul>\n              </dd>\n              <dt>User does not need approval when updating records</dt>\n              <dd>This permission is the same as the previous one, except that all fields can be updated\n                immediately by the user (including &quot;Read only&quot; fields).<ul></ul></dt>\n              <dt>User can create new records</dt>\n              <dd>This permission allows a user to create a new record. All values (including &quot;Read only&quot; values)\n                can be entered, but the entire record will require approval.<ul></ul></dd>\n              <dt>User does not need approval when creating new records</dt>\n              <dd>This permission allows a user to create a new record. All values (including &quot;Read only&quot; values)\n                can be entered, and the new record will not require any approval.<ul></ul></dd>\n              <dt>User can approve changes</dt>\n              <dd>This permission allows a user to approve any of the above changes that require approval.<ul></ul></dd>\n              <dt>User can manage other user accounts</dt>\n              <dd>This permission allows a user to manage user accounts on the system, including the\n                configuration of permissions<ul></ul></dd>\n              <dt>User can download data</dt>\n              <dd>This permission allows a user to download data in CSV format<ul></ul></dd>\n              <dt>User can administer layout, views and graphs</dt>\n              <dd>This permission allows a user to configure the system itself, including the\n                configuration of the layout and graphs, and the creation of global views<ul></ul></dd>\n              <dt>User can send messages</dt>\n              <dd>This permission allows a user to send messages to users, using the messaging capability\n                in the tabular data view<ul></ul></dd>\n            </dl>\n  \n  </div>\n  <button class=\"btn btn-popover \" type=\"button\"\n    title=\"Permissions help\" \n    aria-describedby=\"-popover\"\n    data-bs-toggle=\"popover\">\n        <span>popover</span>\n  </button>\n</div>\n\n</div>\n\n\n    <div class=\"list list--no-borders list--checkboxes form-group\">\n      <ul class=\"list__items\" id=\"\">\n      \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"super_administrator\"\n    type=\"checkbox\"\n    name=\"permissions\"\n    value=\"superadmin\"\n    class=\"\"    aria-labelledby=\"super_administrator-label\"\n    data-value=\"Super-administrator\"\n    \n  >\n  <label for=\"super_administrator\" id=\"super_administrator-label\" class=\"checkbox-label form-label\">\n    Super-administrator\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"user_can_manage_other_accounts\"\n    type=\"checkbox\"\n    name=\"permissions\"\n    value=\"useradmin\"\n    class=\"\"    aria-labelledby=\"user_can_manage_other_accounts-label\"\n    data-value=\"User can manage other user accounts\"\n    \n  >\n  <label for=\"user_can_manage_other_accounts\" id=\"user_can_manage_other_accounts-label\" class=\"checkbox-label form-label\">\n    User can manage other user accounts\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"user_can_access_audit_data\"\n    type=\"checkbox\"\n    name=\"permissions\"\n    value=\"audit\"\n    class=\"\"    aria-labelledby=\"user_can_access_audit_data-label\"\n    data-value=\"User can access audit data\"\n    \n  >\n  <label for=\"user_can_access_audit_data\" id=\"user_can_access_audit_data-label\" class=\"checkbox-label form-label\">\n    User can access audit data\n  </label>\n  \n</div>\n\n        </li>\n              </ul>\n    </div>\n  </fieldset>\n  \n\n\n\n</div>\n\n              </div>\n              <div class=\"row\">\n                <div class=\"col\">\n  \n\n  <fieldset class=\"fieldset\" data-name=\"groups\">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"-label\">\n    Add this user to the following groups\n  </legend>\n  \n</div>\n\n\n    <div class=\"list list--no-borders list--checkboxes form-group\">\n      <ul class=\"list__items\" id=\"\">\n      \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_3\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"3\"\n    class=\"\"    aria-labelledby=\"groups_3-label\"\n    data-value=\"delete_1\"\n    \n  >\n  <label for=\"groups_3\" id=\"groups_3-label\" class=\"checkbox-label form-label\">\n    delete_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_6\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"6\"\n    class=\"\"    aria-labelledby=\"groups_6-label\"\n    data-value=\"download_1\"\n    \n  >\n  <label for=\"groups_6\" id=\"groups_6-label\" class=\"checkbox-label form-label\">\n    download_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_1\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"1\"\n    class=\"\"    aria-labelledby=\"groups_1-label\"\n    data-value=\"group1\"\n    \n  >\n  <label for=\"groups_1\" id=\"groups_1-label\" class=\"checkbox-label form-label\">\n    group1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_2\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"2\"\n    class=\"\"    aria-labelledby=\"groups_2-label\"\n    data-value=\"link_1\"\n    \n  >\n  <label for=\"groups_2\" id=\"groups_2-label\" class=\"checkbox-label form-label\">\n    link_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_4\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"4\"\n    class=\"\"    aria-labelledby=\"groups_4-label\"\n    data-value=\"purge_1\"\n    \n  >\n  <label for=\"groups_4\" id=\"groups_4-label\" class=\"checkbox-label form-label\">\n    purge_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_8\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"8\"\n    class=\"\"    aria-labelledby=\"groups_8-label\"\n    data-value=\"view_create_4\"\n    \n  >\n  <label for=\"groups_8\" id=\"groups_8-label\" class=\"checkbox-label form-label\">\n    view_create_4\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_9\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"9\"\n    class=\"\"    aria-labelledby=\"groups_9-label\"\n    data-value=\"view_create_5\"\n    \n  >\n  <label for=\"groups_9\" id=\"groups_9-label\" class=\"checkbox-label form-label\">\n    view_create_5\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_5\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"5\"\n    class=\"\"    aria-labelledby=\"groups_5-label\"\n    data-value=\"view_group_1\"\n    \n  >\n  <label for=\"groups_5\" id=\"groups_5-label\" class=\"checkbox-label form-label\">\n    view_group_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_7\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"7\"\n    class=\"\"    aria-labelledby=\"groups_7-label\"\n    data-value=\"view_limit_extra_1\"\n    \n  >\n  <label for=\"groups_7\" id=\"groups_7-label\" class=\"checkbox-label form-label\">\n    view_limit_extra_1\n  </label>\n  \n</div>\n\n        </li>\n              </ul>\n    </div>\n  </fieldset>\n  \n\n\n\n</div>\n\n              </div>\n\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n  <fieldset class=\"fieldset\" data-name=\"view_limits\">\n    <div class=\"fieldset__legend\">\n      <legend >\n        Only allow this user to see records in these views\n      </legend>\n      \n      <div class=\"popover-container \">\n  <div class=\"popover-content\" id=\"view_limits_popover-popover\">\n    \n  <p>By default, a user can see any record in Linkspace, and is only limited to what fields of that record he or she can view. This option makes it possible to also limit the records that a user can view. By selecting a view in the dropdown box, a user can only ever see records that meet the search criteria of that view (of the view's particular table), regardless of what other search criteria or views they may make themselves. By selecting multiple views, a user will only be able to see records contained in any of the listed views. Note that the limitation only applies to the particular table of the view(s). So if only View A from Table A is selected, the user will be limited to only View A's records in Table A, but will be able to see any record in Table B.</p>\n  <p>Views defined here are in addition to any view limitations applied to the relevant table. If a view is applied to a table and another view is applied here, then the user will be able to see records contained in either view.</p>\n  \n  </div>\n  <button class=\"btn btn-popover \" type=\"button\"\n    title=\"Limiting a user&#39;s access to records\" \n    aria-describedby=\"view_limits_popover-popover\"\n    data-bs-toggle=\"popover\">\n        <span>popover</span>\n  </button>\n</div>\n\n    </div>\n    \n    <div class=\"multiple-select\">\n      <div class=\"multiple-select__list\">        <div class=\"multiple-select__row\">\n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"view_limits\" class=\"form-label\">\n    Only allow this user to see records in this view\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-view_limits\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\">Select view</span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"view_limits\"\n      name=\"view_limits\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"Select view\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-view_limits\"\n      \n      role=\"listbox\"\n    >\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n          <button\n            type=\"button\"\n            class=\"btn btn-delete\"\n          >\n            <span class=\"btn__title\">Delete view</span>\n          </button>\n        </div>      </div>\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-add-link\"\n      >\n        <span class=\"btn__title\">Add a view</span>\n      </button>\n    </div>\n  </fieldset>\n</div>\n\n              </div>\n            </div> <!-- container end -->\n          </div> <!-- modal body end -->\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel btn-js-back\">\n    <span class=\"btn__title\">Back</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"button\" class=\"btn btn-danger btn-js-reject-request\" name=\"delete\" value=\"1\">\n    <span class=\"btn__title\">Reject request</span>\n  </button>  <button type=\"button\" class=\"btn btn-primary btn-js-save\">\n    <span class=\"btn__title\">Create account</span>\n  </button>  </div>\n</div>\n        </div>\n        <div class=\"modal-frame\" data-config='{\"step\":4,\"frame\":4,\"item\":null,\"count\":null}'>\n          <div class=\"modal-body\">\n            <div class=\"container-fluid\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <div class=\"alert alert-danger alert-js-reject-details\" role=\"alert\" id=\"modal-alert-reject\">\n                  </div>\n                </div>\n              </div>\n\n              <div class=\"row mb-4\">\n                <div class=\"col\">\n                  <p class=\"js-reject-account\">In this window you can add a reason for the account request rejection.</p>\n                </div>\n              </div>\n\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n\n\n<div class=\"form-group mb-4\">\n\n\n  <div class=\"textarea \">\n    <div class=\"textarea__label\">\n  \n  <label for=\"reject_reason\" class=\"form-label\">\n    Reject reason\n  </label>\n  \n</div>\n\n\n\n    <div class=\"input__field w-100\">\n      <textarea\n        class=\"form-control \"\n        id=\"reject_reason\"\n        name=\"reject_reason\"\n        rows=\"2\"\n        placeholder=\"Enter reject reason\"\n      ></textarea>\n    </div>\n\n  </div>\n\n\n\n\n</div>\n\n                </div>\n              </div>\n\n            </div> <!-- container end -->\n          </div> <!-- modal body end --><div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger btn-js-reject-request-send\" name=\"delete\" value=\"1\">\n    <span class=\"btn__title\">Reject request</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n<div class=\"modal modal--form\"  id=\"emailUsersModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"emailUsersModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"emailUsersModalLabel\">\n      Send an email\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n\n      <form method=\"post\">\n        <div class=\"modal-frame\">\n          <div class=\"modal-body\"><input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n\n<div class=\"form-group mb-4 \">\n\n  <fieldset class=\"fieldset \">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"group-label\">\n    \n  </legend>\n  \n</div>\n\n\n    <div class=\"select-widget multi\" >\n      <div class=\"select-widget-dropdown\">\n        <div class=\"form-control\" >\n          <ul class=\"current\">\n            <li class=\"none-selected\">All users</li>\n            \n            <li\n              data-list-id=\"3\"\n              data-list-item=\"group_3\"\n              data-list-text=\"delete_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  delete_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"6\"\n              data-list-item=\"group_6\"\n              data-list-text=\"download_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  download_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"1\"\n              data-list-item=\"group_1\"\n              data-list-text=\"group1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  group1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"2\"\n              data-list-item=\"group_2\"\n              data-list-text=\"link_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  link_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"4\"\n              data-list-item=\"group_4\"\n              data-list-text=\"purge_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  purge_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"8\"\n              data-list-item=\"group_8\"\n              data-list-text=\"view_create_4\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  view_create_4\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"9\"\n              data-list-item=\"group_9\"\n              data-list-text=\"view_create_5\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  view_create_5\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"5\"\n              data-list-item=\"group_5\"\n              data-list-text=\"view_group_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  view_group_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"7\"\n              data-list-item=\"group_7\"\n              data-list-text=\"view_limit_extra_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  view_limit_extra_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            \n              <li class=\"search\">\n                <input\n                  type=\"search\"\n                  class=\"form-control-search\"\n                  style=\"width:100px\"\n                  placeholder=\"Search...\"\n                  aria-controls=\"group-values-multi\"\n                  aria-expanded=\"false\"\n                  aria-describedby=\"group-label\"\n                >\n              </li>\n            \n          </ul>\n        </div>\n\n        <ul hidden class=\"available select__menu dropdown-menu show \"\n            id=\"group-values-multi\"\n            aria-labelledby=\"group-label\"\n            \n            role=\"listbox\"\n        >\n          \n          <li class=\"has-noresults\" hidden>No results</li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_3\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"3\"\n    class=\"\"    aria-labelledby=\"group_3-label\"\n    data-value=\"delete_1\"\n    \n  >\n  <label for=\"group_3\" id=\"group_3-label\" class=\"checkbox-label form-label\">\n    delete_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_6\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"6\"\n    class=\"\"    aria-labelledby=\"group_6-label\"\n    data-value=\"download_1\"\n    \n  >\n  <label for=\"group_6\" id=\"group_6-label\" class=\"checkbox-label form-label\">\n    download_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_1\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"1\"\n    class=\"\"    aria-labelledby=\"group_1-label\"\n    data-value=\"group1\"\n    \n  >\n  <label for=\"group_1\" id=\"group_1-label\" class=\"checkbox-label form-label\">\n    group1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_2\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"2\"\n    class=\"\"    aria-labelledby=\"group_2-label\"\n    data-value=\"link_1\"\n    \n  >\n  <label for=\"group_2\" id=\"group_2-label\" class=\"checkbox-label form-label\">\n    link_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_4\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"4\"\n    class=\"\"    aria-labelledby=\"group_4-label\"\n    data-value=\"purge_1\"\n    \n  >\n  <label for=\"group_4\" id=\"group_4-label\" class=\"checkbox-label form-label\">\n    purge_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_8\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"8\"\n    class=\"\"    aria-labelledby=\"group_8-label\"\n    data-value=\"view_create_4\"\n    \n  >\n  <label for=\"group_8\" id=\"group_8-label\" class=\"checkbox-label form-label\">\n    view_create_4\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_9\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"9\"\n    class=\"\"    aria-labelledby=\"group_9-label\"\n    data-value=\"view_create_5\"\n    \n  >\n  <label for=\"group_9\" id=\"group_9-label\" class=\"checkbox-label form-label\">\n    view_create_5\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_5\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"5\"\n    class=\"\"    aria-labelledby=\"group_5-label\"\n    data-value=\"view_group_1\"\n    \n  >\n  <label for=\"group_5\" id=\"group_5-label\" class=\"checkbox-label form-label\">\n    view_group_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_7\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"7\"\n    class=\"\"    aria-labelledby=\"group_7-label\"\n    data-value=\"view_limit_extra_1\"\n    \n  >\n  <label for=\"group_7\" id=\"group_7-label\" class=\"checkbox-label form-label\">\n    view_limit_extra_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </fieldset>\n\n</div>\n\n\n<div class=\"form-group\">\n\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"email_subject\" class=\"form-label\">\n    Subject\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"email_subject\"\n        name=\"email_subject\"\n        placeholder=\"Subject\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n\n\n\n<div class=\"form-group mb-4\">\n\n\n  <div class=\"textarea \">\n    <div class=\"textarea__label\">\n  \n  <label for=\"email_text\" class=\"form-label\">\n    Message\n  </label>\n  \n</div>\n\n\n\n    <div class=\"input__field w-100\">\n      <textarea\n        class=\"form-control \"\n        id=\"email_text\"\n        name=\"email_text\"\n        rows=\"10\"\n        placeholder=\"\"\n      ></textarea>\n    </div>\n\n  </div>\n\n\n\n\n</div>\n\n          </div>\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-primary\" name=\"sendemail\" value=\"submit\">\n    <span class=\"btn__title\">Send e-mail</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user_update_other_user",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user_delete_other_user",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "user_overview_after_delete",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>user | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--users nav__link--active\" href=\"/user_overview/\">\n              <span>Users</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--groups\" href=\"/group_overview/\">\n              <span>Groups</span>\n            </a>\n          </li>\n          \n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--files\" href=\"/file/\">\n              <span>Files</span>\n            </a>\n          </li>\n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--admin-settings\" href=\"/settings/\">\n              <span>Admin Settings</span>\n            </a>\n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info col-lg-6\">\n    <h1 class=\"content-block__title\">\n      Users\n    </h1>\n    \n    <div class=\"content-block__intro\">\n      This is an overview of all the users within your Linkspace system.\n    </div>\n  </div>\n  \n    <div class=\"content-block__aside col-lg-6\">\n      <div class=\"list list--horizontal list--no-borders list--buttons\">\n  <ul class=\"list__items\">\n    \n  </ul>\n</div>\n\n    </div>\n  \n</div>\n\n\n<div class=\"content-block__main\">\n  <div class=\"row mb-4\">\n    <div class=\"col\">\n      <div class=\"list list--horizontal\">\n        <ul class=\"list__items\">\n          <li class=\"list__item\">\n            <a href='/user_overview/' class='link link--plain link--active'><span>Active accounts</span></a>\n          </li>\n\n          <li class=\"list__item\">\n            <a href='/user_requests/' class='link link--plain'><span>Account requests</span></a>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  \n\n<table\n  class=\"data-table  table table-striped table-hover datatables-no-header-search\"\n  \n  data-href=\"/user\"\n  \n  width=\"100%\"\n  data-config='eyJhamF4Ijp7InR5cGUiOiJQT1NUIiwidXJsIjoiL2FwaS91c2Vycz9jc3JmLXRva2VuPVQwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAyIn0sImF1dG9XaWR0aCI6MCwiY29sdW1ucyI6W3sibmFtZSI6IklEIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6IklEIn0seyJuYW1lIjoiU3VybmFtZSIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJTdXJuYW1lIn0seyJuYW1lIjoiRm9yZW5hbWUiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiRm9yZW5hbWUifSx7Im5hbWUiOiJUaXRsZSIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJUaXRsZSJ9LHsibmFtZSI6IkVtYWlsIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6IkVtYWlsIn0seyJuYW1lIjoiT3JnYW5pc2F0aW9uIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6Ik9yZ2FuaXNhdGlvbiJ9LHsibmFtZSI6IkNyZWF0ZWQiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiQ3JlYXRlZCJ9LHsibmFtZSI6IkNyZWF0ZWQgYnkiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiQ3JlYXRlZCBieSJ9LHsibmFtZSI6Ikxhc3QgbG9naW4iLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiTGFzdCBsb2dpbiJ9LHsiY2xhc3NOYW1lIjoiZHRyLWNvbnRyb2wgZGF0YS10YWJsZV9faGVhZGVyLS1pbnZpc2libGUiLCJuYW1lIjoiVG9nZ2xlIGNoaWxkIHJvdyIsIm9yZGVyYWJsZSI6MCwidGFyZ2V0cyI6LTF9XSwiaW5mbyI6MSwibGFuZ3VhZ2UiOnsiZW1wdHlUYWJsZSI6IlRoZXJlIGlzIG5vIGRhdGEgYXZhaWxhYmxlIGluIHRoaXMgdGFibGUiLCJsZW5ndGhNZW51IjoiUm93cyBwZXIgcGFnZSBfTUVOVV8iLCJwYWdpbmF0ZSI6eyJuZXh0IjoiTmV4dCBwYWdlIiwicHJldmlvdXMiOiJQcmV2aW91cyBwYWdlIn0sInNlYXJjaCI6IjxzcGFuIGNsYXNzPVwidmlzdWFsbHktaGlkZGVuXCI+U2VhcmNoIGluIHVzZXJzOjwvc3Bhbj4iLCJzZWFyY2hQbGFjZWhvbGRlciI6IlNlYXJjaCB0aHJvdWdoIHlvdXIgdXNlcnMifSwibGF5b3V0Ijp7ImJvdHRvbUVuZCI6ImluZm8iLCJib3R0b21TdGFydCI6InBhZ2luZyIsInRvcEVuZCI6InBhZ2VMZW5ndGgiLCJ0b3BTdGFydCI6InNlYXJjaCJ9LCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInByb2Nlc3NpbmciOjEsInJlc3BvbnNpdmUiOnsiZGV0YWlscyI6eyJ0YXJnZXQiOi0xLCJ0eXBlIjoiY29sdW1uIn19LCJzY3JvbGxZIjoiIiwic2VydmVyU2lkZSI6MSwic3RhdGVTYXZlIjoxfQ=='\n>\n  \n    <caption class=\"visually-hidden\">Table to show list of users</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    ID\n  </span>\n</th>\n\n<th >\n  <span>\n    Surname\n  </span>\n</th>\n\n<th >\n  <span>\n    Forename\n  </span>\n</th>\n\n<th >\n  <span>\n    Title\n  </span>\n</th>\n\n<th >\n  <span>\n    Email\n  </span>\n</th>\n\n<th >\n  <span>\n    Organisation\n  </span>\n</th>\n\n<th >\n  <span>\n    Created\n  </span>\n</th>\n\n<th >\n  <span>\n    Created by\n  </span>\n</th>\n\n<th >\n  <span>\n    Last login\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n  </tbody>\n  \n  \n</table>\n\n</div>\n<div class=\"modal modal--wizzard modal--user\"\n     data-config='{\"url\":\"/api/user_account\"}'\n     id=\"userModal\"\n     tabindex=\"-1\"\n     role=\"dialog\"\n     aria-labelledby=\"userModalLabel\"\n     aria-hidden=\"true\"\n>\n  <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex jusify-content-between\">\n        <div class=\"modal-header__content\">\n          <h3 class=\"modal-title\" id=\"userModalLabel\">\n            <span class='js-add-user'>Add a user</span>\n            <span class='js-approve-account'>Approve requested account</span>\n          </h3>\n\n          <ol class=\"modal__steps\">\n            <li class=\"modal__step modal__step--active\" data-step=\"1\">\n              <span>\n                User details\n              </span>\n            </li>\n            <li class=\"modal__step \" data-step=\"2\">\n              <span>\n                User connections\n              </span>\n            </li>\n            <li class=\"modal__step \" data-step=\"3\">\n              <span>\n                User permissions\n              </span>\n            </li>\n          </ol>\n        </div>\n\n        <button type=\"button\" class=\"btn close hidden\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n        </button>\n      </div>\n\n      <form method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n\n        <div class=\"modal-frame\" data-config='{\"step\":1,\"frame\":1,\"item\":null,\"count\":null}'>\n          <div class=\"modal-body\">\n            <div class=\"container-fluid\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <div class=\"alert alert-danger alert-js-user-details\" role=\"alert\" id=\"modal-alert\">\n                  </div>\n                </div>\n              </div>\n\n              <div class=\"row mb-4\">\n                <div class=\"col\">\n                  <p class=\"js-add-user\">In this window you can add a user in the system.</p>\n                  <p class=\"js-approve-account\">In this window you can approve this account request.</p>\n                </div>\n              </div>\n              <div class=\"row\">                <div class=\"col-lg-6\">\n<div class=\"form-group\">\n\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"firstname\" class=\"form-label\">\n    Forename\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"firstname\"\n        name=\"firstname\"\n        placeholder=\"Forename\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n                </div>                <div class=\"col-lg-6\">\n<div class=\"form-group\">\n\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"surname\" class=\"form-label\">\n    Surname\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"surname\"\n        name=\"surname\"\n        placeholder=\"Surname\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n                </div>              </div>\n              <div class=\"row\">                <div class=\"col-lg-6\">\n<div class=\"form-group\">\n\n  <div class=\"input  input--required\"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"email\" class=\"form-label\">\n    Email address\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"email\"\n        class=\"form-control \"\n        id=\"email\"\n        name=\"email\"\n        placeholder=\"name@example.com\"\n        value=\"\"\n        data-restore-value=\"\"\n        required\n        aria-required=\"true\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n                </div>                <div class=\"col-lg-6\">\n\n\n<div class=\"form-group mb-4\">\n\n\n  <div class=\"textarea \">\n    <div class=\"textarea__label\">\n  \n  <label for=\"account_request_notes\" class=\"form-label\">\n    Notes\n  </label>\n  \n</div>\n\n\n\n    <div class=\"input__field w-100\">\n      <textarea\n        class=\"form-control \"\n        id=\"account_request_notes\"\n        name=\"account_request_notes\"\n        rows=\"2\"\n        placeholder=\"Notes\"\n      ></textarea>\n    </div>\n\n  </div>\n\n\n\n\n</div>\n\n                </div>              </div>\n            </div> <!-- container end -->\n          </div> <!-- modal body end -->\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"button\" class=\"btn btn-danger btn-js-reject-request\" name=\"delete\" value=\"1\">\n    <span class=\"btn__title\">Reject request</span>\n  </button>  <button type=\"button\" class=\"btn btn-primary btn-disabled btn-js-next\">\n    <span class=\"btn__title\">Next</span>\n  </button>  </div>\n</div>\n        </div>\n\n        <div class=\"modal-frame\" data-config='{\"step\":2,\"frame\":2,\"item\":null,\"count\":null}'>\n          <div class=\"modal-body\">\n            <div class=\"container-fluid\">\n              <div class=\"row mb-4\">\n                <div class=\"col\">\n                  <p>Connect the user with email address: \"<span class=\"js-email\">USER</span>\" to a title,\n                    organisation, team or department</p>\n                </div>\n              </div>\n              <div class=\"row mt-4\">                <div class=\"col-lg-6\">\n\n<div class=\"form-group \">\n\n  <fieldset class=\"fieldset \">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"title-label\">\n    Title\n  </legend>\n  \n</div>\n\n\n    <div class=\"select-widget\" >\n      <div class=\"select-widget-dropdown\">\n        <div class=\"form-control\" >\n          <ul class=\"current\">\n            <li class=\"none-selected\">Select title</li>\n            \n            \n              <li class=\"search\">\n                <input\n                  type=\"search\"\n                  class=\"form-control-search\"\n                  style=\"width:100px\"\n                  placeholder = Search...\n                  aria-controls=\"title-values-single\"\n                  aria-expanded=\"false\"\n                  aria-describedby=\"title-label\"\n                  \n                >\n              </li>\n            \n          </ul>\n        </div>\n\n        \n        <ul hidden class=\"available select__menu dropdown-menu show \"\n            id=\"title-values-single\"\n            aria-labelledby=\"title-label\"\n            \n            role=\"listbox\"\n        >\n          \n          <li class=\"has-noresults\" hidden>No results</li>\n          \n      </ul>\n      \n    </div>\n  </div>\n</fieldset>\n\n</div>\n\n                </div>                <div class=\"col-lg-6 align-self-end\">\n\n<div class=\"form-group \">\n\n  <fieldset class=\"fieldset \">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"organisation-label\">\n    Organisation\n  </legend>\n  \n</div>\n\n\n    <div class=\"select-widget\" >\n      <div class=\"select-widget-dropdown\">\n        <div class=\"form-control\" >\n          <ul class=\"current\">\n            <li class=\"none-selected\">Select Organisation</li>\n            \n            <li\n              data-list-id=\"1\"\n              data-list-item=\"organisation_1\"\n              data-list-text=\"My Organisation\"\n               hidden\n            >\n              <span class=\"widget-value__value\">My Organisation</span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            \n              <li class=\"search\">\n                <input\n                  type=\"search\"\n                  class=\"form-control-search\"\n                  style=\"width:100px\"\n                  placeholder = Search...\n                  aria-controls=\"organisation-values-single\"\n                  aria-expanded=\"false\"\n                  aria-describedby=\"organisation-label\"\n                  \n                >\n              </li>\n            \n          </ul>\n        </div>\n\n        \n        <ul hidden class=\"available select__menu dropdown-menu show \"\n            id=\"organisation-values-single\"\n            aria-labelledby=\"organisation-label\"\n            \n            role=\"listbox\"\n        >\n          \n          <li class=\"has-noresults\" hidden>No results</li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"radio-group__option\">\n                <input\n                  type=\"radio\"\n                  id=\"organisation_1\"\n                  class=\"radio-group__input\"\n                  name=\"organisation\"\n                  value=1\n                  data-value=\"My Organisation\"\n              >\n              <label class=\"radio-group__label form-label\" for=\"organisation_1\">\n                My Organisation\n              </label>\n            </div>\n          \n        </li>\n        \n      </ul>\n      \n    </div>\n  </div>\n</fieldset>\n\n</div>\n\n                </div>              </div>\n            </div> <!-- container end -->\n          </div> <!-- modal body end -->\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel btn-js-back\">\n    <span class=\"btn__title\">Back</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"button\" class=\"btn btn-danger btn-js-reject-request\" name=\"delete\" value=\"1\">\n    <span class=\"btn__title\">Reject request</span>\n  </button>  <button type=\"button\" class=\"btn btn-primary btn-js-next\">\n    <span class=\"btn__title\">Next</span>\n  </button>  </div>\n</div>\n        </div>\n\n        <div class=\"modal-frame\" data-config='{\"step\":3,\"frame\":3,\"item\":null,\"count\":null}'>\n          <div class=\"modal-body\">\n            <div class=\"container-fluid\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <div class=\"alert alert-danger alert-js-user-permissions\" role=\"alert\">\n                  </div>\n                </div>\n              </div>\n              <div class=\"row mb-4\">\n                <div class=\"col\">\n                  <p>Give the user with email address: \"<span class=\"js-email\">USER</span>\" the following\n                    permissions:</p>\n                </div>\n              </div>\n              <div class=\"row\">\n                <div class=\"col\">\n  \n\n  <fieldset class=\"fieldset\" data-name=\"permissions\">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"-label\">\n    User&#39;s system-wide permissions\n  </legend>\n  <div class=\"popover-container popover-container--top\">\n  <div class=\"popover-content\" id=\"-popover\">\n    \n            <dl>\n              <dt>No permissions selected</dt>\n              <dd>If a user has no permissions, they cannot edit any data. They can only:\n                <ul>\n                  <li>View data</li>\n                  <li>Create private views of data</li>\n                  <li>Add and remove the graphs displayed on their personal page</li>\n                </ul>\n              </dd>\n              <dt>User can update records</dt>\n              <dd>\n                This permission allows a user to update an existing record:\n                <ul>\n                  <li>Fields that are set to &quot;Open access&quot; can be updated immediately by the user</li>\n                  <li>Fields that are set to &quot;Edit with approval&quot; can be updated, but any changes\n                    will be held for approval</li>\n                  <li>Fields that are set to &quot;Read only&quot; cannot be changed</li>\n                </ul>\n              </dd>\n              <dt>User does not need approval when updating records</dt>\n              <dd>This permission is the same as the previous one, except that all fields can be updated\n                immediately by the user (including &quot;Read only&quot; fields).<ul></ul></dt>\n              <dt>User can create new records</dt>\n              <dd>This permission allows a user to create a new record. All values (including &quot;Read only&quot; values)\n                can be entered, but the entire record will require approval.<ul></ul></dd>\n              <dt>User does not need approval when creating new records</dt>\n              <dd>This permission allows a user to create a new record. All values (including &quot;Read only&quot; values)\n                can be entered, and the new record will not require any approval.<ul></ul></dd>\n              <dt>User can approve changes</dt>\n              <dd>This permission allows a user to approve any of the above changes that require approval.<ul></ul></dd>\n              <dt>User can manage other user accounts</dt>\n              <dd>This permission allows a user to manage user accounts on the system, including the\n                configuration of permissions<ul></ul></dd>\n              <dt>User can download data</dt>\n              <dd>This permission allows a user to download data in CSV format<ul></ul></dd>\n              <dt>User can administer layout, views and graphs</dt>\n              <dd>This permission allows a user to configure the system itself, including the\n                configuration of the layout and graphs, and the creation of global views<ul></ul></dd>\n              <dt>User can send messages</dt>\n              <dd>This permission allows a user to send messages to users, using the messaging capability\n                in the tabular data view<ul></ul></dd>\n            </dl>\n  \n  </div>\n  <button class=\"btn btn-popover \" type=\"button\"\n    title=\"Permissions help\" \n    aria-describedby=\"-popover\"\n    data-bs-toggle=\"popover\">\n        <span>popover</span>\n  </button>\n</div>\n\n</div>\n\n\n    <div class=\"list list--no-borders list--checkboxes form-group\">\n      <ul class=\"list__items\" id=\"\">\n      \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"super_administrator\"\n    type=\"checkbox\"\n    name=\"permissions\"\n    value=\"superadmin\"\n    class=\"\"    aria-labelledby=\"super_administrator-label\"\n    data-value=\"Super-administrator\"\n    \n  >\n  <label for=\"super_administrator\" id=\"super_administrator-label\" class=\"checkbox-label form-label\">\n    Super-administrator\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"user_can_manage_other_accounts\"\n    type=\"checkbox\"\n    name=\"permissions\"\n    value=\"useradmin\"\n    class=\"\"    aria-labelledby=\"user_can_manage_other_accounts-label\"\n    data-value=\"User can manage other user accounts\"\n    \n  >\n  <label for=\"user_can_manage_other_accounts\" id=\"user_can_manage_other_accounts-label\" class=\"checkbox-label form-label\">\n    User can manage other user accounts\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"user_can_access_audit_data\"\n    type=\"checkbox\"\n    name=\"permissions\"\n    value=\"audit\"\n    class=\"\"    aria-labelledby=\"user_can_access_audit_data-label\"\n    data-value=\"User can access audit data\"\n    \n  >\n  <label for=\"user_can_access_audit_data\" id=\"user_can_access_audit_data-label\" class=\"checkbox-label form-label\">\n    User can access audit data\n  </label>\n  \n</div>\n\n        </li>\n              </ul>\n    </div>\n  </fieldset>\n  \n\n\n\n</div>\n\n              </div>\n              <div class=\"row\">\n                <div class=\"col\">\n  \n\n  <fieldset class=\"fieldset\" data-name=\"groups\">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"-label\">\n    Add this user to the following groups\n  </legend>\n  \n</div>\n\n\n    <div class=\"list list--no-borders list--checkboxes form-group\">\n      <ul class=\"list__items\" id=\"\">\n      \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_3\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"3\"\n    class=\"\"    aria-labelledby=\"groups_3-label\"\n    data-value=\"delete_1\"\n    \n  >\n  <label for=\"groups_3\" id=\"groups_3-label\" class=\"checkbox-label form-label\">\n    delete_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_6\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"6\"\n    class=\"\"    aria-labelledby=\"groups_6-label\"\n    data-value=\"download_1\"\n    \n  >\n  <label for=\"groups_6\" id=\"groups_6-label\" class=\"checkbox-label form-label\">\n    download_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_1\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"1\"\n    class=\"\"    aria-labelledby=\"groups_1-label\"\n    data-value=\"group1\"\n    \n  >\n  <label for=\"groups_1\" id=\"groups_1-label\" class=\"checkbox-label form-label\">\n    group1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_2\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"2\"\n    class=\"\"    aria-labelledby=\"groups_2-label\"\n    data-value=\"link_1\"\n    \n  >\n  <label for=\"groups_2\" id=\"groups_2-label\" class=\"checkbox-label form-label\">\n    link_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_4\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"4\"\n    class=\"\"    aria-labelledby=\"groups_4-label\"\n    data-value=\"purge_1\"\n    \n  >\n  <label for=\"groups_4\" id=\"groups_4-label\" class=\"checkbox-label form-label\">\n    purge_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_8\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"8\"\n    class=\"\"    aria-labelledby=\"groups_8-label\"\n    data-value=\"view_create_4\"\n    \n  >\n  <label for=\"groups_8\" id=\"groups_8-label\" class=\"checkbox-label form-label\">\n    view_create_4\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_9\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"9\"\n    class=\"\"    aria-labelledby=\"groups_9-label\"\n    data-value=\"view_create_5\"\n    \n  >\n  <label for=\"groups_9\" id=\"groups_9-label\" class=\"checkbox-label form-label\">\n    view_create_5\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_5\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"5\"\n    class=\"\"    aria-labelledby=\"groups_5-label\"\n    data-value=\"view_group_1\"\n    \n  >\n  <label for=\"groups_5\" id=\"groups_5-label\" class=\"checkbox-label form-label\">\n    view_group_1\n  </label>\n  \n</div>\n\n        </li>\n        \n        <li class=\"list__item\">\n            <div class=\"checkbox \">\n  <input\n    id=\"groups_7\"\n    type=\"checkbox\"\n    name=\"groups\"\n    value=\"7\"\n    class=\"\"    aria-labelledby=\"groups_7-label\"\n    data-value=\"view_limit_extra_1\"\n    \n  >\n  <label for=\"groups_7\" id=\"groups_7-label\" class=\"checkbox-label form-label\">\n    view_limit_extra_1\n  </label>\n  \n</div>\n\n        </li>\n              </ul>\n    </div>\n  </fieldset>\n  \n\n\n\n</div>\n\n              </div>\n\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n  <fieldset class=\"fieldset\" data-name=\"view_limits\">\n    <div class=\"fieldset__legend\">\n      <legend >\n        Only allow this user to see records in these views\n      </legend>\n      \n      <div class=\"popover-container \">\n  <div class=\"popover-content\" id=\"view_limits_popover-popover\">\n    \n  <p>By default, a user can see any record in Linkspace, and is only limited to what fields of that record he or she can view. This option makes it possible to also limit the records that a user can view. By selecting a view in the dropdown box, a user can only ever see records that meet the search criteria of that view (of the view's particular table), regardless of what other search criteria or views they may make themselves. By selecting multiple views, a user will only be able to see records contained in any of the listed views. Note that the limitation only applies to the particular table of the view(s). So if only View A from Table A is selected, the user will be limited to only View A's records in Table A, but will be able to see any record in Table B.</p>\n  <p>Views defined here are in addition to any view limitations applied to the relevant table. If a view is applied to a table and another view is applied here, then the user will be able to see records contained in either view.</p>\n  \n  </div>\n  <button class=\"btn btn-popover \" type=\"button\"\n    title=\"Limiting a user&#39;s access to records\" \n    aria-describedby=\"view_limits_popover-popover\"\n    data-bs-toggle=\"popover\">\n        <span>popover</span>\n  </button>\n</div>\n\n    </div>\n    \n    <div class=\"multiple-select\">\n      <div class=\"multiple-select__list\">        <div class=\"multiple-select__row\">\n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"view_limits\" class=\"form-label\">\n    Only allow this user to see records in this view\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-view_limits\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\">Select view</span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"view_limits\"\n      name=\"view_limits\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"Select view\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-view_limits\"\n      \n      role=\"listbox\"\n    >\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n          <button\n            type=\"button\"\n            class=\"btn btn-delete\"\n          >\n            <span class=\"btn__title\">Delete view</span>\n          </button>\n        </div>      </div>\n      \n      <button\n        type=\"button\"\n        class=\"btn btn-add-link\"\n      >\n        <span class=\"btn__title\">Add a view</span>\n      </button>\n    </div>\n  </fieldset>\n</div>\n\n              </div>\n            </div> <!-- container end -->\n          </div> <!-- modal body end -->\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel btn-js-back\">\n    <span class=\"btn__title\">Back</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"button\" class=\"btn btn-danger btn-js-reject-request\" name=\"delete\" value=\"1\">\n    <span class=\"btn__title\">Reject request</span>\n  </button>  <button type=\"button\" class=\"btn btn-primary btn-js-save\">\n    <span class=\"btn__title\">Create account</span>\n  </button>  </div>\n</div>\n        </div>\n        <div class=\"modal-frame\" data-config='{\"step\":4,\"frame\":4,\"item\":null,\"count\":null}'>\n          <div class=\"modal-body\">\n            <div class=\"container-fluid\">\n              <div class=\"row\">\n                <div class=\"col\">\n                  <div class=\"alert alert-danger alert-js-reject-details\" role=\"alert\" id=\"modal-alert-reject\">\n                  </div>\n                </div>\n              </div>\n\n              <div class=\"row mb-4\">\n                <div class=\"col\">\n                  <p class=\"js-reject-account\">In this window you can add a reason for the account request rejection.</p>\n                </div>\n              </div>\n\n              <div class=\"row\">\n                <div class=\"col-lg-12\">\n\n\n<div class=\"form-group mb-4\">\n\n\n  <div class=\"textarea \">\n    <div class=\"textarea__label\">\n  \n  <label for=\"reject_reason\" class=\"form-label\">\n    Reject reason\n  </label>\n  \n</div>\n\n\n\n    <div class=\"input__field w-100\">\n      <textarea\n        class=\"form-control \"\n        id=\"reject_reason\"\n        name=\"reject_reason\"\n        rows=\"2\"\n        placeholder=\"Enter reject reason\"\n      ></textarea>\n    </div>\n\n  </div>\n\n\n\n\n</div>\n\n                </div>\n              </div>\n\n            </div> <!-- container end -->\n          </div> <!-- modal body end --><div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-danger btn-js-reject-request-send\" name=\"delete\" value=\"1\">\n    <span class=\"btn__title\">Reject request</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n<div class=\"modal modal--form\"  id=\"emailUsersModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"emailUsersModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"emailUsersModalLabel\">\n      Send an email\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n\n      <form method=\"post\">\n        <div class=\"modal-frame\">\n          <div class=\"modal-body\"><input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n\n<div class=\"form-group mb-4 \">\n\n  <fieldset class=\"fieldset \">\n    <div class=\"fieldset__legend\">\n  \n  <legend id=\"group-label\">\n    \n  </legend>\n  \n</div>\n\n\n    <div class=\"select-widget multi\" >\n      <div class=\"select-widget-dropdown\">\n        <div class=\"form-control\" >\n          <ul class=\"current\">\n            <li class=\"none-selected\">All users</li>\n            \n            <li\n              data-list-id=\"3\"\n              data-list-item=\"group_3\"\n              data-list-text=\"delete_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  delete_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"6\"\n              data-list-item=\"group_6\"\n              data-list-text=\"download_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  download_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"1\"\n              data-list-item=\"group_1\"\n              data-list-text=\"group1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  group1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"2\"\n              data-list-item=\"group_2\"\n              data-list-text=\"link_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  link_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"4\"\n              data-list-item=\"group_4\"\n              data-list-text=\"purge_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  purge_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"8\"\n              data-list-item=\"group_8\"\n              data-list-text=\"view_create_4\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  view_create_4\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"9\"\n              data-list-item=\"group_9\"\n              data-list-text=\"view_create_5\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  view_create_5\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"5\"\n              data-list-item=\"group_5\"\n              data-list-text=\"view_group_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  view_group_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            <li\n              data-list-id=\"7\"\n              data-list-item=\"group_7\"\n              data-list-text=\"view_limit_extra_1\"\n               hidden\n            >\n              <span class=\"widget-value__value\">\n                  view_limit_extra_1\n              </span>\n              \n                <button class=\"close select-widget-value__delete\" aria-hidden=\"true\" aria-label=\"delete\" title=\"delete\" tabindex=\"-1\">&times;</button>\n              \n            </li>\n            \n            \n              <li class=\"search\">\n                <input\n                  type=\"search\"\n                  class=\"form-control-search\"\n                  style=\"width:100px\"\n                  placeholder=\"Search...\"\n                  aria-controls=\"group-values-multi\"\n                  aria-expanded=\"false\"\n                  aria-describedby=\"group-label\"\n                >\n              </li>\n            \n          </ul>\n        </div>\n\n        <ul hidden class=\"available select__menu dropdown-menu show \"\n            id=\"group-values-multi\"\n            aria-labelledby=\"group-label\"\n            \n            role=\"listbox\"\n        >\n          \n          <li class=\"has-noresults\" hidden>No results</li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_3\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"3\"\n    class=\"\"    aria-labelledby=\"group_3-label\"\n    data-value=\"delete_1\"\n    \n  >\n  <label for=\"group_3\" id=\"group_3-label\" class=\"checkbox-label form-label\">\n    delete_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_6\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"6\"\n    class=\"\"    aria-labelledby=\"group_6-label\"\n    data-value=\"download_1\"\n    \n  >\n  <label for=\"group_6\" id=\"group_6-label\" class=\"checkbox-label form-label\">\n    download_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_1\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"1\"\n    class=\"\"    aria-labelledby=\"group_1-label\"\n    data-value=\"group1\"\n    \n  >\n  <label for=\"group_1\" id=\"group_1-label\" class=\"checkbox-label form-label\">\n    group1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_2\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"2\"\n    class=\"\"    aria-labelledby=\"group_2-label\"\n    data-value=\"link_1\"\n    \n  >\n  <label for=\"group_2\" id=\"group_2-label\" class=\"checkbox-label form-label\">\n    link_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_4\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"4\"\n    class=\"\"    aria-labelledby=\"group_4-label\"\n    data-value=\"purge_1\"\n    \n  >\n  <label for=\"group_4\" id=\"group_4-label\" class=\"checkbox-label form-label\">\n    purge_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_8\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"8\"\n    class=\"\"    aria-labelledby=\"group_8-label\"\n    data-value=\"view_create_4\"\n    \n  >\n  <label for=\"group_8\" id=\"group_8-label\" class=\"checkbox-label form-label\">\n    view_create_4\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_9\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"9\"\n    class=\"\"    aria-labelledby=\"group_9-label\"\n    data-value=\"view_create_5\"\n    \n  >\n  <label for=\"group_9\" id=\"group_9-label\" class=\"checkbox-label form-label\">\n    view_create_5\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_5\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"5\"\n    class=\"\"    aria-labelledby=\"group_5-label\"\n    data-value=\"view_group_1\"\n    \n  >\n  <label for=\"group_5\" id=\"group_5-label\" class=\"checkbox-label form-label\">\n    view_group_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n          <li class=\"answer\" role=\"option\">\n            \n              <div class=\"checkbox \">\n  <input\n    id=\"group_7\"\n    type=\"checkbox\"\n    name=\"group_ids\"\n    value=\"7\"\n    class=\"\"    aria-labelledby=\"group_7-label\"\n    data-value=\"view_limit_extra_1\"\n    \n  >\n  <label for=\"group_7\" id=\"group_7-label\" class=\"checkbox-label form-label\">\n    view_limit_extra_1\n  </label>\n  \n</div>\n\n          \n          </li>\n          \n        </ul>\n      </div>\n    </div>\n  </fieldset>\n\n</div>\n\n\n<div class=\"form-group\">\n\n  <div class=\"input \"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"email_subject\" class=\"form-label\">\n    Subject\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"email_subject\"\n        name=\"email_subject\"\n        placeholder=\"Subject\"\n        value=\"\"\n        data-restore-value=\"\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n\n\n\n<div class=\"form-group mb-4\">\n\n\n  <div class=\"textarea \">\n    <div class=\"textarea__label\">\n  \n  <label for=\"email_text\" class=\"form-label\">\n    Message\n  </label>\n  \n</div>\n\n\n\n    <div class=\"input__field w-100\">\n      <textarea\n        class=\"form-control \"\n        id=\"email_text\"\n        name=\"email_text\"\n        rows=\"10\"\n        placeholder=\"\"\n      ></textarea>\n    </div>\n\n  </div>\n\n\n\n\n</div>\n\n          </div>\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-primary\" name=\"sendemail\" value=\"submit\">\n    <span class=\"btn__title\">Send e-mail</span>\n  </button>  </div>\n</div>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : 2,
+         "observed" : {},
+         "pass" : true,
+         "type" : "site"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "other_user_after",
+         "observed" : [
+            {
+               "deleted" : null,
+               "email" : "other@example.com",
+               "firstname" : "Other",
+               "id" : "50",
+               "site_id" : "2",
+               "surname" : "Site",
+               "username" : "other@example.com"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : 1,
+         "observed" : {},
+         "pass" : true,
+         "type" : "site"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group_page_other_group",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "group_delete_other_group",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/group_overview/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : 2,
+         "observed" : {},
+         "pass" : true,
+         "type" : "site"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "other_group_after",
+         "observed" : [
+            {
+               "id" : "50",
+               "name" : "Other group",
+               "site_id" : "2"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : 1,
+         "observed" : {},
+         "pass" : true,
+         "type" : "site"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "audit_with_other_user",
+         "observed" : {
+            "body" : "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n    <html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head>\n    <title>Moved</title>\n    </head>\n    <body>\n   <p>This item has moved <a href=\"/\">here</a>.</p>\n</body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "audit_filtered",
+         "observed" : {
+            "body" : "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <title>audit | Linkspace</title>\n    <meta name=\"description\" content=\"\">\n    <meta name=\"author\" content=\"\">\n    <meta name=\"viewport\" content=\"width=device-width,minimum-scale=1,initial-scale=1\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/external.css?v=7\">\n    <link rel=\"stylesheet\" href=\"http://localhost/css/general.css?v=10\">\n  </head>\n  <body class=\"page\" data-csrf=\"{csrf}\">\n    <div class=\"container-fluid\">\n      \n\n<div class=\"row flex-nowrap\">\n  \n<ul class=\"skip-links\">\n  <li>\n    <a href=\"#content-block\">Skip to content</a>\n  </li>\n</ul>\n\n<nav class=\"col-lg-2 sticky-top sidebar sidebar--collapsible hidden\" aria-label=\"Main\">\n  <div class=\"sidebar__container\">\n    <div class=\"sidebar__header\">\n      <div class=\"sidebar__logo\">\n        <img src=\"/images/logo_linkspace.svg\" aria-label=\"LinkSpace Logo\" />\n      </div>\n      <button type=\"button\" class=\"sidebar__toggle btn btn-primary\" aria-expanded=\"true\">\n        <span>Hide menu</span>\n      </button>\n    </div>\n    <div class=\"sidebar__menu\">\n      <div class=\"sidebar__nav\">\n        <ul class=\"nav flex-column\">\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--dashboard\" href=\"/\">\n              <span>Home</span>\n            </a>\n          </li>\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--tables\" href=\"/table/\">\n              <span>Tables</span>\n            </a>\n          </li>\n          \n          \n          <!---\n          <li class=\"nav__item\">\n            <a class=\"nav__link nav__link--support\" href=\"/support/\"><span>Support</span></a>\n          </li>\n          -->\n          \n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"sidebar__bottom\">\n    <div class=\"sidebar__logo\">\n      <img src=\"/images/logo_linkspace_small.svg\" aria-label=\"LinkSpace Logo\" />\n    </div>\n  </div>\n</nav>\n\n  <main class=\"main col-lg-10\">\n    <div class=\"main__container\">\n      <header class=\"page-header row g-0\">\n  <nav class=\"page-header_container\" aria-label=\"Top\">\n  <ul class=\"user\">\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--details\" href=\"/myaccount\" title=\"View user profile\">\n        <span>My details</span>\n      </a>\n    </li>\n    <li class=\"user__item\">\n      <a class=\"user__link user__link--logout\" href=\"/logout\" title=\"Logout\">\n        <span>Logout</span>\n      </a>\n    </li>\n  </ul>\n</nav>\n\n</header>\n\n      <div class=\"content-block \" id=\"content-block\">\n        \n  \n  <div class=\"alert alert-danger\" role=\"alert\">\n    ERROR:\n    The CSRF token is invalid or has expired. Please try reloading the page and making the request again.\n  </div>\n  \n\n\n\n\n        <div class=\"content-block__head row\">\n  <div class=\"content-block__info\">\n    <h1 class=\"content-block__title\">\n      \n        <a href=\"/settings/\" class=\"btn btn-title-back\">\n          <span class=\"btn__title\">User audit logs</span>\n        </a>\n      \n    </h1>\n    \n    <div class=\"content-block__intro\">\n      In this window you can view your system audit log.\n    </div>\n  </div>\n  \n</div>\n\n<div class=\"content-block__main\">\n  <div class=\"content-block__main-content\">\n    <div class=\"row justify-content-md-end\">\n      <div class=\"col-auto\">\n        <div class=\"list list--horizontal list--no-borders list--buttons\">\n          <ul class=\"list__items\">\n            <li class=\"list__item\">\n              <a href=\"/settings/audit?clear\" class=\"btn btn-clear\">\n                <span class=\"btn__title\">Clear Filter</span>\n              </a>\n            </li>\n            <li class=\"list__item\">\n              <button\n                type=\"button\"\n                class=\"btn btn-filter\"\n                data-bs-toggle=\"modal\" data-bs-target=#filterAuditLogs\n              >\n                <span class=\"btn__title\">Filter</span>\n              </button>\n            </li>\n\n            <li class=\"list__item\">\n              <a href=\"/settings/audit?download\" class=\"btn btn-export\">\n                <span class=\"btn__title\">Download</span>\n              </a>\n            </li>\n          </ul>\n        </div>\n      </div>\n    </div>\n\n    \n\n<table\n  class=\"data-table  table table-force-buttons\"\n  \n  \n  \n  width=\"100%\"\n  data-config='eyJhdXRvV2lkdGgiOjAsImNvbHVtbnMiOlt7Im5hbWUiOiJJRCIsIm9yZGVyYWJsZSI6MSwidGl0bGUiOiJJRCJ9LHsibmFtZSI6IlVzZXIiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiVXNlciJ9LHsibmFtZSI6IlR5cGUiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiVHlwZSJ9LHsibmFtZSI6IlRpbWUiLCJvcmRlcmFibGUiOjEsInRpdGxlIjoiVGltZSJ9LHsibmFtZSI6IkRlc2NyaXB0aW9uIiwib3JkZXJhYmxlIjoxLCJ0aXRsZSI6IkRlc2NyaXB0aW9uIn0seyJjbGFzc05hbWUiOiJkdHItY29udHJvbCBkYXRhLXRhYmxlX19oZWFkZXItLWludmlzaWJsZSIsIm5hbWUiOiJUb2dnbGUgY2hpbGQgcm93Iiwib3JkZXJhYmxlIjowLCJ0YXJnZXRzIjotMX1dLCJpRGlzcGxheUxlbmd0aCI6LTEsImluZm8iOjEsImxhbmd1YWdlIjp7ImVtcHR5VGFibGUiOiJUaGVyZSBpcyBubyBkYXRhIGF2YWlsYWJsZSBpbiB0aGlzIHRhYmxlIn0sImxheW91dCI6eyJib3R0b21FbmQiOiIiLCJib3R0b21TdGFydCI6IiIsInRvcEVuZCI6ImZ1bGxzY3JlZW4iLCJ0b3BTdGFydCI6IiJ9LCJvcmRlciI6W10sIm9yZGVyaW5nIjoxLCJwYWdpbmciOjEsInJlc3BvbnNpdmUiOjAsInNjcm9sbFkiOiIifQ=='\n>\n  \n    <caption class=\"visually-hidden\">Table for audit log</caption>\n  \n  <thead>\n    \n<tr >\n  \n<th >\n  <span>\n    ID\n  </span>\n</th>\n\n<th >\n  <span>\n    User\n  </span>\n</th>\n\n<th >\n  <span>\n    Type\n  </span>\n</th>\n\n<th >\n  <span>\n    Time\n  </span>\n</th>\n\n<th >\n  <span>\n    Description\n  </span>\n</th>\n\n<th >\n  <span>\n    Toggle child row\n  </span>\n</th>\n\n</tr>\n\n  </thead>\n  <tbody>\n  \n<tr >\n  \n<td >\n  13\n\n</td>\n\n<td >\n  User2, User2\n\n</td>\n\n<td >\n  user_action\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  User &quot;user2@example.com&quot; made &quot;GET&quot; request to &quot;/settings/audit/&quot;\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  12\n\n</td>\n\n<td >\n  User1, User1\n\n</td>\n\n<td >\n  user_action\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  User &quot;user1@example.com&quot; made &quot;POST&quot; request to &quot;/group_edit/50&quot;\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  11\n\n</td>\n\n<td >\n  User1, User1\n\n</td>\n\n<td >\n  user_action\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  User &quot;user1@example.com&quot; made &quot;GET&quot; request to &quot;/group_edit/50&quot;\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  10\n\n</td>\n\n<td >\n  User1, User1\n\n</td>\n\n<td >\n  user_action\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  User &quot;user1@example.com&quot; made &quot;GET&quot; request to &quot;/user_overview/&quot;\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  9\n\n</td>\n\n<td >\n  User1, User1\n\n</td>\n\n<td >\n  user_action\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  User &quot;user1@example.com&quot; made &quot;POST&quot; request to &quot;/user_overview/&quot;\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  8\n\n</td>\n\n<td >\n  User1, User1\n\n</td>\n\n<td >\n  user_action\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  User &quot;user1@example.com&quot; made &quot;POST&quot; request to &quot;/user/50&quot;\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  7\n\n</td>\n\n<td >\n  User1, User1\n\n</td>\n\n<td >\n  user_action\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  User &quot;user1@example.com&quot; made &quot;GET&quot; request to &quot;/user_overview/&quot;\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  6\n\n</td>\n\n<td >\n  User1, User1\n\n</td>\n\n<td >\n  user_action\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  User &quot;user1@example.com&quot; made &quot;GET&quot; request to &quot;/user/50&quot;\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  5\n\n</td>\n\n<td >\n  User1, User1\n\n</td>\n\n<td >\n  user_action\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  User &quot;user1@example.com&quot; made &quot;POST&quot; request to &quot;/api/user_account/50&quot;\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  4\n\n</td>\n\n<td >\n  User1, User1\n\n</td>\n\n<td >\n  user_action\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  User &quot;user1@example.com&quot; made &quot;GET&quot; request to &quot;/&quot;\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  3\n\n</td>\n\n<td >\n  User2, User2\n\n</td>\n\n<td >\n  login_success\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  Successful login by username user2@example.com\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n<tr >\n  \n<td >\n  2\n\n</td>\n\n<td >\n  User1, User1\n\n</td>\n\n<td >\n  login_success\n\n</td>\n\n<td >\n  10 Oct 2014 02:00:00\n\n</td>\n\n<td >\n  Successful login by username user1@example.com\n\n</td>\n\n<td >\n  \n\n</td>\n\n</tr>\n\n  </tbody>\n  \n  \n</table>\n\n  </div>\n</div>\n<div class=\"modal \" id=\"filterAuditLogs\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"filterAuditLogsLabel\"\n     aria-hidden=\"true\">\n  <div class=\"modal-dialog modal-dialog-centered modal-lg\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header d-flex justify-content-between align-items-baseline\">\n  <div class=\"modal-header__content\">\n    <h3 class=\"modal-title\" id=\"filterAuditLogsLabel\">\n      Filter\n    </h3>\n  </div>\n  <button type=\"button\" class=\"btn close m-0 p-0\" data-bs-dismiss=\"modal\" aria-label=\"Close\">\n    <span aria-hidden=\"true\" class=\"hidden\">Close</span>\n  </button>\n</div>\n\n\n      <form method=\"post\">\n        <input type=\"hidden\"\n       name=\"csrf_token\"\n       value=\"{csrf}\">\n\n\n        <div class=\"modal-frame\">\n          <div class=\"modal-body\">\n\n            <p>In this window you can filter your user audit logs.</p>\n            <div class=\"row\">\n              <div class=\"col-lg-6\">\n                \n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"btn-method\" class=\"form-label\">\n    Method\n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-btn-method\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\">All requests</span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"btn-method\"\n      name=\"method\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"All requests\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-btn-method\"\n      \n      role=\"listbox\"\n    >\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"\" aria-selected=\"true\">\n        All requests\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"get\" aria-selected=\"false\">\n        Only GET requests\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"post\" aria-selected=\"false\">\n        Only POST requests\n      </li>\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n\n              </div>\n              <div class=\"col-lg-6\">\n                \n\n\n<div class=\"form-group mb-4\">\n\n  <div class=\"select dropdown select--select\">\n    <div class=\"select__label\">\n  \n  <label for=\"btn-type\" class=\"form-label\">\n    Type \n  </label>\n  \n</div>\n\n\n    <button\n      id=\"btn-btn-type\"\n      type=\"button\"\n      class=\"select__toggle dropdown-toggle form-control\"\n      \n      \n      data-bs-toggle=\"dropdown\"\n      aria-haspopup=\"listbox\"\n      aria-expanded=\"false\"\n      \n    >\n      <span class=\"select__placeholder\">All types</span>\n    </button>\n    <input\n      type=\"hidden\"\n      id=\"btn-type\"\n      name=\"type\"\n      value=\"\"\n      data-restore-value=\"\"      placeholder=\"All types\"\n      \n    >\n\n    <ul\n      class=\"select__menu dropdown-menu\"\n      aria-labelledby=\"lbl-btn-type\"\n      \n      role=\"listbox\"\n    >\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"\" aria-selected=\"true\">\n        All types\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"user_action\" aria-selected=\"false\">\n        user_action\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"login_change\" aria-selected=\"false\">\n        login_change\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"login_success\" aria-selected=\"false\">\n        login_success\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"logout\" aria-selected=\"false\">\n        logout\n      </li>\n      \n      <li class=\"select__menu-item\" role=\"option\"  data-value=\"login_failure\" aria-selected=\"false\">\n        login_failure\n      </li>\n      \n    </ul>\n  </div>\n  \n\n\n</div>\n\n\n              </div>\n            </div>\n            <div class=\"row\">\n              <div class=\"col-lg-6\">\n                \n<div class=\"form-group mb-4\">\n\n  <div class=\"input  input--autocomplete typeahead__container \">\n    <div class=\"input__label\">\n  \n  <label for=\"views_other_user_id\" class=\"form-label\">\n    Name\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input type=\"hidden\" id=\"views_other_user_id\" name=\"user\" value=\"\">\n\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"views_other_user_id_typeahead\"\n        name=\"user_typeahead\"\n        placeholder=\"Start typing...\"\n        value=\"\"\n        autocomplete=\"off\"\n        tabindex=\"3\"\n      >\n\n    </div>\n  </div>\n\n  \n\n\n</div>\n\n\n              </div>\n            </div>\n            <div class=\"row\">\n              <div class=\"col-lg-6\">\n                \n<div class=\"form-group\">\n\n  <div class=\"input input--date\"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"from\" class=\"form-label\">\n    From\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"from\"\n        name=\"from\"\n        placeholder=\"yyyy-MM-dd\"\n        value=\"2014-10-09\"\n        data-restore-value=\"2014-10-09\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n\n              </div>\n              <div class=\"col-lg-6\">\n                \n<div class=\"form-group\">\n\n  <div class=\"input input--date\"\n  \n  >\n    <div class=\"input__label\">\n  \n  <label for=\"to\" class=\"form-label\">\n    To\n  </label>\n  \n</div>\n\n\n    <div class=\"input__field\">\n      <input\n        type=\"text\"\n        class=\"form-control \"\n        id=\"to\"\n        name=\"to\"\n        placeholder=\"yyyy-MM-dd\"\n        value=\"2014-10-10\"\n        data-restore-value=\"2014-10-10\"\n      >\n    </div>\n  </div>\n  \n\n\n</div>\n\n\n              </div>\n            </div>\n\n          </div>\n<div class=\"modal-footer\">\n  <div class=\"modal-footer__left\">  <button type=\"button\" class=\"btn btn-cancel\" data-bs-dismiss=\"modal\">\n    <span class=\"btn__title\">Cancel</span>\n  </button>  </div>\n  <div class=\"modal-footer__right\">  <button type=\"submit\" class=\"btn btn-primary\" name=\"audit_filtering\" value=\"submit\">\n    <span class=\"btn__title\">Update</span>\n  </button>  </div>\n</div>\n        </div>\n\n\n      </form>\n\n\n    </div>\n  </div>\n</div>\n\n\n      </div>\n    </div>\n  </main>\n</div>\n\n    </div>\n    <script type=\"text/javascript\" src=\"http://localhost/js/fengari-web.js\"></script>\n    <script type=\"text/javascript\" src=\"http://localhost/js/site.js?v=40\"></script>\n  </body>\n</html>\n",
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "match_user",
+         "observed" : {
+            "content_type" : "application/json",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : [],
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "api_users",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : [
+               {
+                  "data" : "surname",
+                  "name" : "surname"
+               },
+               {
+                  "data" : "firstname",
+                  "name" : "firstname"
+               },
+               {
+                  "data" : "title",
+                  "name" : "title"
+               },
+               {
+                  "data" : "email",
+                  "name" : "email"
+               },
+               {
+                  "data" : "organisation",
+                  "name" : "organisation"
+               },
+               {
+                  "data" : "created",
+                  "name" : "created"
+               },
+               {
+                  "data" : "lastlogin",
+                  "name" : "lastlogin"
+               },
+               {
+                  "data" : "created_by",
+                  "name" : "created_by"
+               }
+            ],
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "api_users_rows",
+         "observed" : {
+            "content_type" : "application/json; charset=UTF-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "data" : [
+                  {
+                     "Created" : {
+                        "name" : "Created",
+                        "type" : "string",
+                        "values" : [
+                           "Unknown"
+                        ]
+                     },
+                     "Created by" : {
+                        "name" : "Created By",
+                        "type" : "string",
+                        "values" : [
+                           "Unknown"
+                        ]
+                     },
+                     "Email" : {
+                        "name" : "Email",
+                        "type" : "string",
+                        "values" : [
+                           "user5@example.com"
+                        ]
+                     },
+                     "Forename" : {
+                        "name" : "Forename",
+                        "type" : "string",
+                        "values" : [
+                           "User5"
+                        ]
+                     },
+                     "ID" : {
+                        "name" : "ID",
+                        "type" : "id",
+                        "values" : [
+                           "5"
+                        ]
+                     },
+                     "Last login" : {
+                        "name" : "Last login (GMT)",
+                        "type" : "string",
+                        "values" : [
+                           "Never logged in"
+                        ]
+                     },
+                     "Organisation" : {
+                        "name" : "Organisation",
+                        "type" : "string",
+                        "values" : [
+                           "My Organisation"
+                        ]
+                     },
+                     "Surname" : {
+                        "name" : "Surname",
+                        "type" : "string",
+                        "values" : [
+                           "User5"
+                        ]
+                     },
+                     "Title" : {
+                        "name" : "Title",
+                        "type" : "string",
+                        "values" : [
+                           null
+                        ]
+                     },
+                     "_id" : "5"
+                  },
+                  {
+                     "Created" : {
+                        "name" : "Created",
+                        "type" : "string",
+                        "values" : [
+                           "Unknown"
+                        ]
+                     },
+                     "Created by" : {
+                        "name" : "Created By",
+                        "type" : "string",
+                        "values" : [
+                           "Unknown"
+                        ]
+                     },
+                     "Email" : {
+                        "name" : "Email",
+                        "type" : "string",
+                        "values" : [
+                           "user4@example.com"
+                        ]
+                     },
+                     "Forename" : {
+                        "name" : "Forename",
+                        "type" : "string",
+                        "values" : [
+                           "User4"
+                        ]
+                     },
+                     "ID" : {
+                        "name" : "ID",
+                        "type" : "id",
+                        "values" : [
+                           "4"
+                        ]
+                     },
+                     "Last login" : {
+                        "name" : "Last login (GMT)",
+                        "type" : "string",
+                        "values" : [
+                           "Never logged in"
+                        ]
+                     },
+                     "Organisation" : {
+                        "name" : "Organisation",
+                        "type" : "string",
+                        "values" : [
+                           "My Organisation"
+                        ]
+                     },
+                     "Surname" : {
+                        "name" : "Surname",
+                        "type" : "string",
+                        "values" : [
+                           "User4"
+                        ]
+                     },
+                     "Title" : {
+                        "name" : "Title",
+                        "type" : "string",
+                        "values" : [
+                           null
+                        ]
+                     },
+                     "_id" : "4"
+                  },
+                  {
+                     "Created" : {
+                        "name" : "Created",
+                        "type" : "string",
+                        "values" : [
+                           "Unknown"
+                        ]
+                     },
+                     "Created by" : {
+                        "name" : "Created By",
+                        "type" : "string",
+                        "values" : [
+                           "Unknown"
+                        ]
+                     },
+                     "Email" : {
+                        "name" : "Email",
+                        "type" : "string",
+                        "values" : [
+                           "user3@example.com"
+                        ]
+                     },
+                     "Forename" : {
+                        "name" : "Forename",
+                        "type" : "string",
+                        "values" : [
+                           "User3"
+                        ]
+                     },
+                     "ID" : {
+                        "name" : "ID",
+                        "type" : "id",
+                        "values" : [
+                           "3"
+                        ]
+                     },
+                     "Last login" : {
+                        "name" : "Last login (GMT)",
+                        "type" : "string",
+                        "values" : [
+                           "Never logged in"
+                        ]
+                     },
+                     "Organisation" : {
+                        "name" : "Organisation",
+                        "type" : "string",
+                        "values" : [
+                           "My Organisation"
+                        ]
+                     },
+                     "Surname" : {
+                        "name" : "Surname",
+                        "type" : "string",
+                        "values" : [
+                           "User3"
+                        ]
+                     },
+                     "Title" : {
+                        "name" : "Title",
+                        "type" : "string",
+                        "values" : [
+                           null
+                        ]
+                     },
+                     "_id" : "3"
+                  },
+                  {
+                     "Created" : {
+                        "name" : "Created",
+                        "type" : "string",
+                        "values" : [
+                           "Unknown"
+                        ]
+                     },
+                     "Created by" : {
+                        "name" : "Created By",
+                        "type" : "string",
+                        "values" : [
+                           "Unknown"
+                        ]
+                     },
+                     "Email" : {
+                        "name" : "Email",
+                        "type" : "string",
+                        "values" : [
+                           "user2@example.com"
+                        ]
+                     },
+                     "Forename" : {
+                        "name" : "Forename",
+                        "type" : "string",
+                        "values" : [
+                           "User2"
+                        ]
+                     },
+                     "ID" : {
+                        "name" : "ID",
+                        "type" : "id",
+                        "values" : [
+                           "2"
+                        ]
+                     },
+                     "Last login" : {
+                        "name" : "Last login (GMT)",
+                        "type" : "string",
+                        "values" : [
+                           "2014-10-10"
+                        ]
+                     },
+                     "Organisation" : {
+                        "name" : "Organisation",
+                        "type" : "string",
+                        "values" : [
+                           "My Organisation"
+                        ]
+                     },
+                     "Surname" : {
+                        "name" : "Surname",
+                        "type" : "string",
+                        "values" : [
+                           "User2"
+                        ]
+                     },
+                     "Title" : {
+                        "name" : "Title",
+                        "type" : "string",
+                        "values" : [
+                           null
+                        ]
+                     },
+                     "_id" : "2"
+                  },
+                  {
+                     "Created" : {
+                        "name" : "Created",
+                        "type" : "string",
+                        "values" : [
+                           "Unknown"
+                        ]
+                     },
+                     "Created by" : {
+                        "name" : "Created By",
+                        "type" : "string",
+                        "values" : [
+                           "Unknown"
+                        ]
+                     },
+                     "Email" : {
+                        "name" : "Email",
+                        "type" : "string",
+                        "values" : [
+                           "user1@example.com"
+                        ]
+                     },
+                     "Forename" : {
+                        "name" : "Forename",
+                        "type" : "string",
+                        "values" : [
+                           "User1"
+                        ]
+                     },
+                     "ID" : {
+                        "name" : "ID",
+                        "type" : "id",
+                        "values" : [
+                           "1"
+                        ]
+                     },
+                     "Last login" : {
+                        "name" : "Last login (GMT)",
+                        "type" : "string",
+                        "values" : [
+                           "2014-10-10"
+                        ]
+                     },
+                     "Organisation" : {
+                        "name" : "Organisation",
+                        "type" : "string",
+                        "values" : [
+                           "My Organisation"
+                        ]
+                     },
+                     "Surname" : {
+                        "name" : "Surname",
+                        "type" : "string",
+                        "values" : [
+                           "User1"
+                        ]
+                     },
+                     "Title" : {
+                        "name" : "Title",
+                        "type" : "string",
+                        "values" : [
+                           null
+                        ]
+                     },
+                     "_id" : "1"
+                  }
+               ],
+               "draw" : null,
+               "recordsFiltered" : "5",
+               "recordsTotal" : "5"
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "person_typeahead",
+         "observed" : {
+            "content_type" : "application/json",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "error" : "0",
+               "records" : []
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "person_typeahead_own_site",
+         "observed" : {
+            "content_type" : "application/json",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "Content-Security-Policy" : "script-src 'self';",
+               "X-Frame-Options" : "DENY"
+            },
+            "json" : {
+               "error" : "0",
+               "records" : [
+                  {
+                     "id" : "1",
+                     "label" : "User1, User1"
+                  },
+                  {
+                     "id" : "2",
+                     "label" : "User2, User2"
+                  },
+                  {
+                     "id" : "3",
+                     "label" : "User3, User3"
+                  },
+                  {
+                     "id" : "4",
+                     "label" : "User4, User4"
+                  },
+                  {
+                     "id" : "5",
+                     "label" : "User5, User5"
+                  }
+               ]
+            },
+            "status" : "200"
+         },
+         "pass" : true,
+         "type" : "http"
+      }
+   ]
+}

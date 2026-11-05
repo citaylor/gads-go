@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/ctrlo/gads-go/internal/db"
@@ -146,9 +147,14 @@ func ImportUser(env *Env) {
 		Die("%s: %s", file, perlIOError(err))
 	}
 	d := env.E.DB
+	// rset(...)->all: the rows of the site
+	site := ""
+	if env.E.SiteID != 0 {
+		site = ` WHERE "site_id" = ` + strconv.FormatInt(env.E.SiteID, 10)
+	}
 	ids := func(table string) map[string]int64 {
 		m := map[string]int64{}
-		for _, r := range d.Query(`SELECT "id", "name" FROM "` + table + `" ORDER BY "id"`) {
+		for _, r := range d.Query(`SELECT "id", "name" FROM "` + table + `"` + site + ` ORDER BY "id"`) {
 			id, _ := db.AsInt64(r["id"])
 			m[str(r["name"])] = id
 		}
@@ -182,7 +188,7 @@ func ImportUser(env *Env) {
 			if !ok || groupID == 0 {
 				Die(`Group "%s" not found`, group)
 			}
-			userID := d.InsertMap("user", map[string]any{
+			userID := env.E.InsertSite("user", map[string]any{
 				"firstname":    firstname,
 				"surname":      surname,
 				"email":        email,

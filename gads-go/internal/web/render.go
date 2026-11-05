@@ -180,7 +180,7 @@ func (s *Server) beforeTemplate(c *Ctx, tokens *tt.Hash) {
 	if id := c.SessionGet("views_other_user_id"); tt.True(id) {
 		if p, _ := tokens.Get("page"); strings.Contains(tt.Str(p), "data") || strings.Contains(tt.Str(p), "view") {
 			if id64, ok := toInt64(id); ok {
-				if u := c.E.FindUser(id64); u != nil {
+				if u := c.E.FindSiteUser(id64); u != nil {
 					c.Notice("You are currently viewing, editing and creating views as " + u.Value)
 				}
 			}

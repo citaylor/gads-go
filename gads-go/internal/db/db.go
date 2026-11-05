@@ -78,6 +78,9 @@ type Error struct {
 	Populate bool
 	// Full is FullErrors of the database at the time of the error
 	Full bool
+	// SQLite is set for an error of SQLite, reported as a DBI exception
+	// of DBD::SQLite
+	SQLite bool
 }
 
 // Error is the message of the error. A PostgreSQL error is given as GADS
@@ -108,6 +111,9 @@ func (e *Error) Error() string {
 			msg += "\nCONTEXT:  " + pe.Where
 		}
 		return fmt.Sprintf(`DBI Exception: DBD::Pg::st execute failed: %s [for Statement "%s"]`, msg, e.Query)
+	}
+	if e.SQLite {
+		return fmt.Sprintf(`DBI Exception: DBD::SQLite::st execute failed: %s [for Statement "%s"]`, e.Err.Error(), e.Query)
 	}
 	return e.Err.Error()
 }
@@ -337,7 +343,7 @@ func (d *DB) TryExec(q string, args ...any) (sql.Result, error) {
 		return err
 	})
 	if err != nil {
-		return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
+		return nil, &Error{Query: q, Err: err, Full: d.FullErrors, SQLite: d.Dialect == SQLite}
 	}
 	return r, nil
 }
@@ -365,12 +371,12 @@ func (d *DB) TryQuery(q string, args ...any) ([]Row, error) {
 		return err
 	})
 	if err != nil {
-		return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
+		return nil, &Error{Query: q, Err: err, Full: d.FullErrors, SQLite: d.Dialect == SQLite}
 	}
 	defer rs.Close()
 	cols, err := rs.Columns()
 	if err != nil {
-		return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
+		return nil, &Error{Query: q, Err: err, Full: d.FullErrors, SQLite: d.Dialect == SQLite}
 	}
 	// PostgreSQL dates and times are given as text, as DBD::Pg does (and
 	// as SQLite stores them)
@@ -390,7 +396,7 @@ func (d *DB) TryQuery(q string, args ...any) ([]Row, error) {
 			ptrs[i] = &vals[i]
 		}
 		if err := rs.Scan(ptrs...); err != nil {
-			return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
+			return nil, &Error{Query: q, Err: err, Full: d.FullErrors, SQLite: d.Dialect == SQLite}
 		}
 		row := make(Row, len(cols))
 		for i, c := range cols {
@@ -406,7 +412,7 @@ func (d *DB) TryQuery(q string, args ...any) ([]Row, error) {
 		out = append(out, row)
 	}
 	if err := rs.Err(); err != nil {
-		return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
+		return nil, &Error{Query: q, Err: err, Full: d.FullErrors, SQLite: d.Dialect == SQLite}
 	}
 	return out, nil
 }
@@ -454,14 +460,14 @@ func (d *DB) TryQueryCol(q string, args ...any) ([]any, error) {
 		return err
 	})
 	if err != nil {
-		return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
+		return nil, &Error{Query: q, Err: err, Full: d.FullErrors, SQLite: d.Dialect == SQLite}
 	}
 	defer rs.Close()
 	var out []any
 	for rs.Next() {
 		var v any
 		if err := rs.Scan(&v); err != nil {
-			return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
+			return nil, &Error{Query: q, Err: err, Full: d.FullErrors, SQLite: d.Dialect == SQLite}
 		}
 		if b, ok := v.([]byte); ok {
 			v = string(b)
@@ -469,7 +475,7 @@ func (d *DB) TryQueryCol(q string, args ...any) ([]any, error) {
 		out = append(out, v)
 	}
 	if err := rs.Err(); err != nil {
-		return nil, &Error{Query: q, Err: err, Full: d.FullErrors}
+		return nil, &Error{Query: q, Err: err, Full: d.FullErrors, SQLite: d.Dialect == SQLite}
 	}
 	return out, nil
 }

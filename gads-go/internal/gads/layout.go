@@ -78,7 +78,8 @@ func (l *Layout) Clone(instanceID int64) *Layout {
 
 func (l *Layout) rset() db.Row {
 	if l.instanceRow == nil {
-		l.instanceRow = l.e.DB.QueryRow(`SELECT * FROM "instance" WHERE "id" = ?`, l.InstanceID)
+		// (find on resultset('Instance'), in the site)
+		l.instanceRow = l.e.DB.QueryRow(`SELECT * FROM "instance" WHERE "id" = ?`+l.e.siteCond("instance"), l.InstanceID)
 		if l.instanceRow == nil {
 			l.instanceRow = db.Row{}
 		}
@@ -825,7 +826,8 @@ func (l *Layout) Write(set map[string]any) {
 		if !reTableShort.MatchString(s) {
 			Fail(`Invalid short name for table "%s": short names can only contain alphanumeric characters and the underscore`, s)
 		}
-		row := l.e.DB.QueryRow(`SELECT "name" FROM "instance" WHERE "name_short" = ? AND "id" != ?`, s, l.InstanceID)
+		// (a table of the site)
+		row := l.e.DB.QueryRow(`SELECT "name" FROM "instance" WHERE "name_short" = ? AND "id" != ?`+l.e.siteCond("instance"), s, l.InstanceID)
 		if row != nil {
 			n, _ := db.AsString(row["name"])
 			Fail("The short name %s already exists for the table %s", s, n)

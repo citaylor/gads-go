@@ -10,7 +10,7 @@ import (
 // ExportUsers is GADS::Users csv: an export of the users is created for the
 // user and produced (inline: Perl forks a process for it)
 func (e *Engine) ExportUsers(user *User) {
-	id := e.DB.InsertMap("export", map[string]any{"user_id": user.ID, "type": "users", "started": e.Now()})
+	id := e.InsertSite("export", map[string]any{"user_id": user.ID, "type": "users", "started": e.Now()})
 	var content string
 	if err := Try(func() { content = e.usersCSV(user) }); err != nil {
 		msg := err.Error()

@@ -130,7 +130,8 @@ func (u *User) SetGroups(loggedIn *User, groups []int64) {
 	}
 	// Delete any groups that are no longer set
 	var all []any
-	for _, g := range u.e.DB.QueryInt64s(`SELECT "me"."id" FROM "group" "me"`) {
+	// (the groups of the site, as resultset('Group'))
+	for _, g := range u.e.DB.QueryInt64s(`SELECT "me"."id" FROM "group" "me"` + u.e.siteWhere("me")) {
 		if allowed(g) {
 			all = append(all, g)
 		}
@@ -275,7 +276,8 @@ func (e *Engine) InsertUser(fields map[string]any) int64 {
 	}
 	validateMFAFields(m)
 	for _, f := range []string{"username", "email"} {
-		if _, ok := e.DB.QueryInt64(`SELECT "id" FROM "user" WHERE `+q(f)+` = ? AND "account_request" = 0 AND "deleted" IS NULL LIMIT 1`, m[f]); ok {
+		// (the active users of the site)
+		if _, ok := e.DB.QueryInt64(`SELECT "id" FROM "user" WHERE `+q(f)+` = ? AND "account_request" = 0 AND "deleted" IS NULL`+e.siteCond("user")+` LIMIT 1`, m[f]); ok {
 			Fail("%s already exists as an active user", anyToString(m[f]))
 		}
 	}
@@ -314,7 +316,7 @@ func (e *Engine) UpdateUserFields(id int64, fields map[string]any) {
 		if !ok || anyToString(v) == anyToString(row[f]) {
 			continue
 		}
-		if _, exists := e.DB.QueryInt64(`SELECT "id" FROM "user" WHERE `+q(f)+` = ? AND "id" != ? AND "account_request" = 0 AND "deleted" IS NULL LIMIT 1`, v, id); exists {
+		if _, exists := e.DB.QueryInt64(`SELECT "id" FROM "user" WHERE `+q(f)+` = ? AND "id" != ? AND "account_request" = 0 AND "deleted" IS NULL`+e.siteCond("user")+` LIMIT 1`, v, id); exists {
 			Fail("%s already exists as an active user", anyToString(v))
 		}
 	}
@@ -327,7 +329,8 @@ func (e *Engine) UpdateUserFields(id int64, fields map[string]any) {
 func (u *User) GroupsViewable() []string {
 	if u.Permission()["superadmin"] {
 		var out []string
-		for _, r := range u.e.DB.Query(`SELECT "name" FROM "group" ORDER BY "id"`) {
+		// (the groups of the site)
+		for _, r := range u.e.DB.Query(`SELECT "name" FROM "group"` + u.e.siteWhere("group") + ` ORDER BY "id"`) {
 			n, _ := db.AsString(r["name"])
 			out = append(out, n)
 		}

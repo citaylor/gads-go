@@ -1,6 +1,6 @@
 #!/bin/bash
 # Run conformance scenarios against the original Perl GADS
-#   ./run_perl.sh [--pg] [scenario.yaml ...]
+#   ./run_perl.sh [--pg | --decoy] [scenario.yaml ...]
 # The observations are the reference results (results/perl). With --pg the
 # scenarios run on PostgreSQL (see pg_test_env.sh) and the observations go
 # to results/perl-pg.
@@ -12,6 +12,12 @@ if [ "${1:-}" = "--pg" ]; then
     shift
     . "$HERE/pg_test_env.sh"
     OUT="$HERE/results/perl-pg"
+fi
+if [ "${1:-}" = "--decoy" ]; then
+    # A second site with copies of the site's rows (SPEC.md "Decoy site")
+    shift
+    export GADS_DECOY_SITE=1
+    OUT="$HERE/results/perl-decoy"
 fi
 eval "$(perl -I "$HOME/perl5/lib/perl5" -Mlocal::lib 2>/dev/null)"
 export PERL_INLINE_DIRECTORY="${PERL_INLINE_DIRECTORY:-$HOME/.cache/gads-inline-dev}"

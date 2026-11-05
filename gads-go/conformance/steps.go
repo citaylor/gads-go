@@ -18,6 +18,7 @@ func (r *Runner) stepSheet(args map[string]any) any {
 		gads.Fail("Sheet alias (as) required")
 	}
 	s := NewDataSheet(r)
+	firstSheet := len(r.sheets) == 0
 	if v, ok := args["instance_id"]; ok {
 		s.InstanceID, _ = strconv.ParseInt(str(v), 10, 64)
 	}
@@ -62,7 +63,12 @@ func (r *Runner) stepSheet(args map[string]any) any {
 	}
 	// As DataSheet's site_id, which only applies when it builds the schema
 	// (the first sheet)
-	if v, ok := args["site_id"]; ok && len(r.sheets) == 0 {
+	siteID, hasSite := args["site_id"]
+	if !hasSite && decoySite() {
+		// (the site of the decoys' searches, as SPEC.md "Decoy site")
+		siteID, hasSite = 1, true
+	}
+	if v, ok := siteID, hasSite; ok && firstSheet {
 		id, _ := strconv.ParseInt(str(v), 10, 64)
 		r.e.DB.InsertMap("site", map[string]any{"id": id})
 		r.e.SiteID = id
@@ -121,6 +127,9 @@ func (r *Runner) stepSheet(args map[string]any) any {
 	}
 	if v, ok := args["create_records"]; !ok || truthy(v) {
 		s.CreateRecords()
+	}
+	if firstSheet && decoySite() {
+		r.makeDecoySite(r.e.SiteID)
 	}
 	colIDs := map[string]any{}
 	for n, c := range cols {

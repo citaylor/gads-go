@@ -4,6 +4,7 @@
 #   ./run_all.sh            all scenarios
 #   ./run_all.sh 003_       scenarios whose file name contains "003_"
 #   ./run_all.sh --pg [..]  on PostgreSQL (results/perl-pg, results/go-pg)
+#   ./run_all.sh --decoy [..]  with a decoy site (results/perl-decoy, results/go-decoy)
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
 GO="$HERE/../gads-go"
@@ -17,6 +18,11 @@ if [ "${1:-}" = "--pg" ]; then
     GO_OUT="$HERE/results/go-pg"
     # Started once here, for both runners
     . "$HERE/pg_test_env.sh"
+elif [ "${1:-}" = "--decoy" ]; then
+    shift
+    PG=(--decoy)
+    PERL_OUT="$HERE/results/perl-decoy"
+    GO_OUT="$HERE/results/go-decoy"
 fi
 FILTER="${1:-}"
 FILES=$(ls "$HERE"/scenarios/*.yaml | grep -- "$FILTER")

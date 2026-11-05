@@ -1,0 +1,122 @@
+name: 260_web_other_site
+source:
+  - lib/GADS/Schema.pm (resultset: restricted to the schema's site)
+  - lib/GADS/API.pm (post /api/user_account/:id, _post_add_user_account)
+  - lib/GADS.pm (/user/:id, /group_edit/:id, /user_overview/, /settings/audit/, /match/user/, /match/layout/:id)
+  - lib/GADS/API.pm (/api/users)
+description: >
+  The users and groups of another site, by their IDs: a superadmin of
+  site 1 asks for a user, a group and the audit of site 2, which the
+  site-filtered resultsets of GADS::Schema do not find, and tries to change
+  and delete them.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - db:
+      op: insert
+      table: site
+      set: { id: 2, host: other.example.com, name: Other site }
+  - db:
+      op: insert
+      table: user
+      set: { id: 50, site_id: 2, email: other@example.com, username: other@example.com, firstname: Other, surname: Site, value: "Site, Other", account_request: 0 }
+  - db:
+      op: insert
+      table: group
+      set: { id: 50, site_id: 2, name: Other group }
+  - db:
+      op: insert
+      table: audit
+      set: { site_id: 2, user_id: 50, type: user_action, datetime: "2014-10-05 10:00:00", method: GET, url: /other, description: Other site visit }
+  - login: { user: superadmin }
+  - login: { user: audit }
+  - http: { id: home, as: superadmin, path: /, no_body: true }
+  # The user of the other site
+  - http:
+      id: api_update_other_user
+      as: superadmin
+      method: POST
+      path: /api/user_account/50
+      json: { firstname: Taken, surname: Over, email: taken@example.com }
+  - http:
+      id: user_page_other_user
+      as: superadmin
+      path: /user/50
+      no_body: true
+  # The error of the redirect, and the list of users
+  - http: { id: user_overview_after_page, as: superadmin, path: /user_overview/ }
+  - http:
+      id: user_update_other_user
+      as: superadmin
+      method: POST
+      path: /user/50
+      form: { firstname: Taken, surname: Over, email: taken@example.com, username: taken@example.com, submit: 1 }
+      no_body: true
+  - http:
+      id: user_delete_other_user
+      as: superadmin
+      method: POST
+      path: /user_overview/
+      form: { delete: 50 }
+      no_body: true
+  - http: { id: user_overview_after_delete, as: superadmin, path: /user_overview/ }
+  - site: { id: 2 }
+  - db:
+      id: other_user_after
+      op: select
+      table: user
+      where: { id: 50 }
+      columns: [id, site_id, email, username, firstname, surname, deleted]
+  - site: { id: 1 }
+  # The group of the other site
+  - http:
+      id: group_page_other_group
+      as: superadmin
+      path: /group_edit/50
+      no_body: true
+  - http:
+      id: group_delete_other_group
+      as: superadmin
+      method: POST
+      path: /group_edit/50
+      form: { delete: 1 }
+      no_body: true
+  - site: { id: 2 }
+  - db:
+      id: other_group_after
+      op: select
+      table: group
+      where: { id: 50 }
+      columns: [id, site_id, name]
+  - site: { id: 1 }
+  # The audit of the other site, with its user as the filter
+  - http:
+      id: audit_with_other_user
+      as: audit
+      method: POST
+      path: /settings/audit/
+      form: { audit_filtering: 1, user: 50, method: "", type: "", from: "2014-10-01", to: "2014-10-10" }
+  - http: { id: audit_filtered, as: audit, path: /settings/audit/ }
+  - http:
+      id: match_user
+      as: audit
+      path: /match/user/
+      query: { q: Site }
+  - http:
+      id: api_users
+      as: superadmin
+      path: /api/users
+      query: { cols: 1 }
+  - http: { id: api_users_rows, as: superadmin, path: /api/users }
+  # The users that may be chosen for a person field
+  - http:
+      id: person_typeahead
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/match/layout/{column:person1}"
+      form: { q: Site }
+  - http:
+      id: person_typeahead_own_site
+      as: superadmin
+      method: POST
+      path: "/{sheet:s}/match/layout/{column:person1}"
+      form: { q: User }

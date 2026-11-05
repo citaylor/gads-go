@@ -8,7 +8,7 @@ import (
 	"github.com/jackc/pgx/v5/pgconn"
 )
 
-// The errors as GADS reports DBI exceptions of DBD::Pg
+// The errors as GADS reports DBI exceptions of DBD::Pg and DBD::SQLite
 func TestPgErrorText(t *testing.T) {
 	q := `SELECT 1`
 	one := &pgconn.PgError{Severity: "ERROR", Message: "current transaction is aborted"}
@@ -25,6 +25,8 @@ func TestPgErrorText(t *testing.T) {
 		// A bulk insert of populate
 		{&Error{Query: q, Err: one, Populate: true}, ""},
 		{&Error{Query: q, Err: errors.New("UNIQUE constraint failed: x.y")}, "UNIQUE constraint failed: x.y"},
+		// SQLite's, as DBD::SQLite's
+		{&Error{Query: q, Err: errors.New("FOREIGN KEY constraint failed"), SQLite: true}, `DBI Exception: DBD::SQLite::st execute failed: FOREIGN KEY constraint failed [for Statement "SELECT 1"]`},
 	}
 	for i, c := range cases {
 		if got := c.err.Error(); got != c.want {

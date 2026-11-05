@@ -782,6 +782,9 @@ sub step_sheet
     }
     $params{multivalue_columns} = { map { $_ => 1 } @{$params{multivalue_columns}} }
         if ref $params{multivalue_columns} eq 'ARRAY';
+    # With GADS_DECOY_SITE, the first sheet is in site 1 unless given one
+    my $new_schema = !$self->schema;
+    $params{site_id} //= 1 if $ENV{GADS_DECOY_SITE} && $new_schema;
     $params{schema} = $self->schema || $self->_pg_schema($params{site_id});
     delete $params{schema} if !$params{schema};
     if (my $curval = $args->{curval})
@@ -817,6 +820,8 @@ sub step_sheet
     {
         $sheet->create_records;
     }
+    $self->_make_decoy_site($self->schema->site_id)
+        if $ENV{GADS_DECOY_SITE} && $new_schema;
     my %cols = map { $_ => $columns->{$_}->id } keys %$columns;
     my @internal = map { $_->name_short => $_->id } $sheet->layout->all(only_internal => 1, include_hidden => 1);
     return {
@@ -913,6 +918,40 @@ BEGIN
 END
 $$
 SQL
+
+# With GADS_DECOY_SITE=1 (SPEC.md "Decoy site"), once the first sheet is
+# built, a second site (99) gets a copy of the rows of every table that
+# GADS restricts to a site, with the same names and email addresses. GADS
+# searches these tables in the site of the schema only, so that the
+# observations are unchanged by the copies unless a search misses the
+# site. The Go runner runs the same SQL; ? is the site of the first sheet.
+my $DECOY_SITE = <<'SQL';
+INSERT INTO "site" ("id", "host", "name") VALUES (99, 'decoy.invalid', 'Decoy site');
+INSERT INTO "organisation" ("id", "name", "site_id", "deleted") SELECT "id" + 900000, "name", 99, "deleted" FROM "organisation" WHERE "site_id" = ?;
+INSERT INTO "department" ("id", "name", "site_id", "deleted") SELECT "id" + 900000, "name", 99, "deleted" FROM "department" WHERE "site_id" = ?;
+INSERT INTO "team" ("id", "name", "site_id", "deleted") SELECT "id" + 900000, "name", 99, "deleted" FROM "team" WHERE "site_id" = ?;
+INSERT INTO "title" ("id", "name", "site_id", "deleted") SELECT "id" + 900000, "name", 99, "deleted" FROM "title" WHERE "site_id" = ?;
+INSERT INTO "group" ("id", "name", "site_id") SELECT "id" + 900000, "name", 99 FROM "group" WHERE "site_id" = ?;
+INSERT INTO "user" ("id", "site_id", "firstname", "surname", "email", "username", "value", "password", "pwchanged", "deleted", "account_request") SELECT "id" + 900000, 99, "firstname", "surname", "email", "username", "value", "password", "pwchanged", "deleted", "account_request" FROM "user" WHERE "site_id" = ?;
+INSERT INTO "user" ("id", "site_id", "firstname", "surname", "email", "username", "value", "account_request") VALUES (900000, 99, 'Decoy', 'Decoy', 'decoy@example.com', 'decoy@example.com', 'Decoy, Decoy', 0);
+INSERT INTO "instance" ("id", "name", "name_short", "site_id") SELECT "id" + 900000, "name", "name_short", 99 FROM "instance" WHERE "site_id" = ?;
+INSERT INTO "dashboard" ("id", "site_id") VALUES (900001, 99);
+INSERT INTO "audit" ("id", "site_id", "user_id", "type", "datetime", "method", "url", "description") VALUES (900001, 99, 900000, 'login_change', '2008-01-01 00:00:00', 'GET', '/decoy', 'Decoy audit');
+INSERT INTO "export" ("id", "site_id", "user_id", "type", "started", "completed", "result") VALUES (900001, 99, 900000, 'csv', '2008-01-01 00:00:00', '2008-01-01 00:00:00', 'Decoy export');
+INSERT INTO "import" ("id", "site_id", "user_id", "type", "row_count", "started", "completed", "result") VALUES (900001, 99, 900000, 'data', 1, '2008-01-01 00:00:00', '2008-01-01 00:00:00', 'Decoy import')
+SQL
+
+sub _make_decoy_site
+{   my ($self, $site_id) = @_;
+    my $dbh = $self->schema->storage->dbh;
+    foreach my $stmt (split /;\n/, $DECOY_SITE)
+    {
+        $stmt =~ s/\s+$//;
+        my @bind = $stmt =~ /\?/ ? ($site_id) : ();
+        eval { $dbh->do($stmt, undef, @bind); 1 }
+            or do { warn "Failed to make the decoy site: $@"; return };
+    }
+}
 
 sub _pg_sync_sequences
 {   my $self = shift;
