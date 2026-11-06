@@ -739,3 +739,30 @@ func TestBaseForwardedHost(t *testing.T) {
 		t.Errorf("Host: %s", got)
 	}
 }
+
+// Hardened: a request without a user has the small limit
+func TestBodyLimitAnonymous(t *testing.T) {
+	c := testCtx()
+	e := &gads.Engine{Config: &gads.Config{Hardened: true}}
+	c.s.E = e
+	big := "a=" + strings.Repeat("x", anonMaxBodyBytes)
+	read := func(auth string) bool {
+		c.uploads = map[string][]*Upload{}
+		c.body = newMultiValue()
+		c.Req = httptest.NewRequest("POST", "/", strings.NewReader(big))
+		if auth != "" {
+			c.Req.Header.Set("Authorization", auth)
+		}
+		return c.readBody(httptest.NewRecorder())
+	}
+	if read("") {
+		t.Error("anonymous body over the limit accepted")
+	}
+	if !read("Bearer x") {
+		t.Error("API body refused")
+	}
+	e.Config.Hardened = false
+	if !read("") {
+		t.Error("body refused when not hardened")
+	}
+}

@@ -335,7 +335,8 @@ Configuration works as in Dancer2:
   is not saved, and logged. Other engines, such as GADS's example `YAML`,
   are kept in memory, with a warning.
 - Request bodies are limited to 100 MB (`web.Config.MaxBodyBytes`); a
-  larger request gets 413.
+  larger request gets 413. Hardened, a request with neither a logged in
+  user nor an `Authorization` header is limited to 1 MB.
 - `serve` stops on SIGINT or SIGTERM within 170 s altogether (compose's
   `stop_grace_period` is 3m): requests in progress get 30 s, then the
   imports running and the queued emails the rest, the emails at least

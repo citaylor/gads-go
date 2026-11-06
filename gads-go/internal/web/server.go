@@ -780,6 +780,10 @@ func (s *Server) serveStatic(w http.ResponseWriter, req *http.Request) bool {
 	return true
 }
 
+// anonMaxBodyBytes is the largest body of a request without a user, when
+// hardened
+const anonMaxBodyBytes = 1 << 20
+
 // readBody reads the request body (parameters and uploads). It returns
 // false if the body is over the size limit.
 func (c *Ctx) readBody(w http.ResponseWriter) bool {
@@ -789,6 +793,13 @@ func (c *Ctx) readBody(w http.ResponseWriter) bool {
 	limit := c.s.Config.MaxBodyBytes
 	if limit <= 0 {
 		limit = DefaultMaxBodyBytes
+	}
+	// Hardened: a request of no logged in user (nor bearer token) has
+	// small forms only (login, registration, a password reset), so that
+	// anyone cannot make the server hold the largest bodies in memory
+	if c.s.E != nil && c.s.E.Config != nil && c.s.E.Config.Hardened && limit > anonMaxBodyBytes &&
+		c.Req.Header.Get("Authorization") == "" && c.cookieUser() == "" {
+		limit = anonMaxBodyBytes
 	}
 	b, err := io.ReadAll(http.MaxBytesReader(w, c.Req.Body, limit))
 	var tooLarge *http.MaxBytesError
