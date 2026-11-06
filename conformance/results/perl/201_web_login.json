@@ -369,7 +369,43 @@
       {
          "error" : null,
          "failures" : [],
-         "id" : "19:set_time",
+         "id" : "login_return_url_bad_escape",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/some%ZZpage/x+0",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "login_return_url_zero",
+         "observed" : {
+            "content_type" : "text/html; charset=utf-8",
+            "cookies" : [
+               "dancer.session"
+            ],
+            "headers" : {
+               "X-Frame-Options" : "DENY"
+            },
+            "location" : "/",
+            "status" : "302"
+         },
+         "pass" : true,
+         "type" : "login"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "21:set_time",
          "observed" : {
             "time" : "2014-10-10 01:01:00"
          },
@@ -493,7 +529,7 @@
       {
          "error" : null,
          "failures" : [],
-         "id" : "27:set_time",
+         "id" : "29:set_time",
          "observed" : {
             "time" : "2014-10-10 01:20:00"
          },

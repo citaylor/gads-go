@@ -712,3 +712,30 @@ func TestSessionStoreIdle(t *testing.T) {
 		t.Error("session expired without an idle timeout")
 	}
 }
+
+// request->base behind a proxy: the first forwarded host (Dancer2's split
+// /\s*,\s*/), escaped as URI's authority
+func TestBaseForwardedHost(t *testing.T) {
+	s := &Server{Config: &Config{BehindProxy: true}}
+	for fwd, want := range map[string]string{
+		"":                        "http://example.com/",
+		"a.example":               "http://a.example/",
+		"a.example:8080 , b.test": "http://a.example:8080/",
+		`a b"<c>.example`:         "http://a%20b%22%3Cc%3E.example/",
+		"user@b.example":          "http://user@b.example/",
+	} {
+		r := httptest.NewRequest("GET", "/", nil)
+		if fwd != "" {
+			r.Header.Set("X-Forwarded-Host", fwd)
+		}
+		c := &Ctx{s: s, Req: r}
+		if got := c.Base(); got != want {
+			t.Errorf("%q: %s, want %s", fwd, got, want)
+		}
+	}
+	r := httptest.NewRequest("GET", "/", nil)
+	r.Header.Set("X-Forwarded-Host", "A.Example:81, b")
+	if got := (&Ctx{s: s, Req: r}).Host(); got != "a.example" {
+		t.Errorf("Host: %s", got)
+	}
+}

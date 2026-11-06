@@ -378,16 +378,26 @@ func (c *Ctx) IsPost() bool { return c.Req.Method == "POST" }
 
 // Host is request->base->host
 func (c *Ctx) Host() string {
-	h := c.Req.Host
-	if c.s.Config.BehindProxy {
-		if f := c.Req.Header.Get("X-Forwarded-Host"); f != "" {
-			h = f
-		}
-	}
+	h := c.rawHost()
 	if i := strings.LastIndex(h, ":"); i >= 0 && !strings.Contains(h[i:], "]") {
 		h = h[:i]
 	}
 	return strings.ToLower(h)
+}
+
+// rawHost is Dancer2's request->host: the Host header, or behind a proxy
+// the first host of X-Forwarded-Host
+func (c *Ctx) rawHost() string {
+	if c.s.Config.BehindProxy {
+		// (split /\s*,\s*/, $host, 2; an empty header is the Host's)
+		if f := c.Req.Header.Get("X-Forwarded-Host"); f != "" {
+			if h, _, ok := strings.Cut(f, ","); ok {
+				return strings.TrimRight(h, " \t\n\r\f\v")
+			}
+			return f
+		}
+	}
+	return c.Req.Host
 }
 
 // Scheme is request->scheme
@@ -405,17 +415,30 @@ func (c *Ctx) Scheme() string {
 
 // hostPort is the host (with any port) of the request
 func (c *Ctx) hostPort() string {
-	h := c.Req.Host
-	if c.s.Config.BehindProxy {
-		if f := c.Req.Header.Get("X-Forwarded-Host"); f != "" {
-			h = f
-		}
-	}
+	h := c.rawHost()
 	if h == "" {
 		h = "localhost"
 	}
-	return h
+	// (URI's authority escapes what is not a URI character)
+	var b strings.Builder
+	for i := 0; i < len(h); i++ {
+		if ch := h[i]; ch < 0x80 && uriAuthorityChar[ch] {
+			b.WriteByte(ch)
+		} else {
+			fmt.Fprintf(&b, "%%%02X", ch)
+		}
+	}
+	return b.String()
 }
+
+// uriAuthorityChar are URI's $uric4host: the reserved, unreserved and
+// mark characters, %, and the square brackets
+var uriAuthorityChar = func() (t [128]bool) {
+	for _, ch := range "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.!~*'();/?:@&=+$,%[]" {
+		t[ch] = true
+	}
+	return
+}()
 
 // Base is request->base ("http://host/")
 func (c *Ctx) Base() string { return c.Scheme() + "://" + c.hostPort() + "/" }

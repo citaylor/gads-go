@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/url"
+	"regexp"
+	"strconv"
 	"time"
 
 	"github.com/ctrlo/gads-go/internal/db"
@@ -56,6 +58,17 @@ func (s *Server) forwardLastTable(c *Ctx) {
 	c.ForwardHome("", "", forward)
 }
 
+var reURIEscape = regexp.MustCompile(`%[0-9A-Fa-f]{2}`)
+
+// uriUnescape is URI::Escape uri_unescape: each %XX decoded, anything else
+// (a lone %, a +) kept
+func uriUnescape(s string) string {
+	return reURIEscape.ReplaceAllStringFunc(s, func(h string) string {
+		b, _ := strconv.ParseUint(h[1:], 16, 8)
+		return string([]byte{byte(b)})
+	})
+}
+
 // successfulLogin is _successful_login
 func (s *Server) successfulLogin(c *Ctx, username, realm string) {
 	c.ChangeSessionID()
@@ -83,8 +96,8 @@ func (s *Server) successfulLogin(c *Ctx, username, realm string) {
 		}
 	}
 	c.SessionSet("persistent", persistent)
-	if ret, ok := c.QueryParam("return_url"); ok && ret != "" {
-		ret, _ = url.PathUnescape(ret)
+	if ret, _ := c.QueryParam("return_url"); truthy(ret) {
+		ret = uriUnescape(ret)
 		if ret == "/" {
 			s.forwardLastTable(c)
 		}

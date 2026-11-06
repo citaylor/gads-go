@@ -96,6 +96,16 @@ steps:
       user: normal1
       as: normal1b
       path: "/login?return_url=%2F"
+  - login:
+      id: login_return_url_bad_escape
+      user: normal1
+      as: normal1c
+      path: "/login?return_url=%2Fsome%25ZZpage%252Fx%2B0"
+  - login:
+      id: login_return_url_zero
+      user: normal1
+      as: normal1d
+      path: "/login?return_url=0"
   - set_time: { time: "2014-10-10 01:01:00" }
   - login:
       id: fail1

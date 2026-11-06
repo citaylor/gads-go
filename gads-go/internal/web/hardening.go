@@ -28,13 +28,15 @@ func safeMethod(m string) bool { return m == "GET" || m == "HEAD" || m == "OPTIO
 // the audit log, the user's session settings, the defaults it creates on
 // first use (dashboards, RAG settings, submission tokens, the OAuth client,
 // the colour of each value in a graph), the SMS code that the MFA page
-// sends, and the API tokens it clears when expired
+// sends, and the API token it clears when expired (one at a time, by
+// its value). The tables' other writes (widgets, graph colours) are made
+// by POST and PUT routes, which need the CSRF token.
 var readOnlyWrites = []*regexp.Regexp{
 	regexp.MustCompile(`^(?i)INSERT\s+INTO\s+"?(audit|dashboard|widget|instance_rag|submission|oauthclient|graph_color)"?\s`),
 	regexp.MustCompile(`^(?i)UPDATE\s+"?user"?\s+SET\s+"?session_settings"?\s*=\s*\?\s+WHERE\s+"?id"?\s*=\s*\?$`),
 	regexp.MustCompile(`^(?i)UPDATE\s+"?graph_color"?\s+SET\s+"?color"?\s*=\s*\?\s+WHERE\s+"?name"?\s*=\s*\?$`),
 	regexp.MustCompile(`^(?i)UPDATE\s+"?user"?\s+SET\s+"?mfa_sms_created"?\s*=\s*\?\s*,\s*"?mfa_sms_token"?\s*=\s*\?\s+WHERE\s+"?id"?\s*=\s*\?$`),
-	regexp.MustCompile(`^(?i)DELETE\s+FROM\s+"?oauthtoken"?\s`),
+	regexp.MustCompile(`^(?i)DELETE\s+FROM\s+"?oauthtoken"?\s+WHERE\s+"?token"?\s*=\s*\?$`),
 }
 
 // errReadOnly is the error of a change requested without a form
