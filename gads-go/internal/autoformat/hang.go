@@ -115,15 +115,16 @@ func init() {
 // postRx is the closing bracket of a level opened by pre: Perl's
 // [$close{$pre}] is [][.:/] for a pre with spaces, which has no entry
 func postRx(pre string) rx {
-	if r, ok := rePostClose.Load(pre); ok {
-		return r.(rx)
-	}
 	class := `[\]\[.:/]`
 	if c, ok := close[pre]; ok {
 		class = `[` + c + `]`
 	}
+	// (cached by the class, of which there are few, not by the text)
+	if r, ok := rePostClose.Load(class); ok {
+		return r.(rx)
+	}
 	r := mustRx(`\A(`+ows+`()[.:/]?`+class+`[.:/]?)`, 0)
-	rePostClose.Store(pre, r)
+	rePostClose.Store(class, r)
 	return r
 }
 

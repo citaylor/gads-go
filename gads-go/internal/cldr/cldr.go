@@ -488,7 +488,9 @@ func Parse(value, pattern string) (time.Time, bool) {
 				continue
 			}
 			num = idx
-		} else {
+		} else if p.command != 'S' {
+			// (the fraction of S is read below: its digits may be more
+			// than an int holds)
 			n, err := strconv.Atoi(capture)
 			if err != nil {
 				return time.Time{}, false

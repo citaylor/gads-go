@@ -198,11 +198,20 @@ func replace(typ string, length int, ref *string, cfg *config) string {
 	}
 	if filled == 0 && rem > 0 && hasNonSpace(*ref) && text == "" {
 		// s/^\s*(.{1,$rem})//
-		re := regexp.MustCompile(`\A` + ws + `*(.{1,` + itoa(rem) + `})`)
-		if m := re.FindStringSubmatchIndex(*ref); m != nil {
-			text = (*ref)[m[2]:m[3]]
-			*ref = (*ref)[m[1]:]
-			rem -= runes(text)
+		// (as code: a regexp repeats at most 1000 times). The spaces
+		// end at a character that is not one, as there is one.
+		r := *ref
+		start := strings.IndexFunc(r, func(c rune) bool { return !isWS(c) })
+		if start >= 0 {
+			end, n := start, 0
+			for end < len(r) && n < rem && r[end] != '\n' {
+				_, size := utf8.DecodeRuneInString(r[end:])
+				end += size
+				n++
+			}
+			text = r[start:end]
+			*ref = r[end:]
+			rem -= n
 		}
 	}
 	switch {
@@ -274,7 +283,7 @@ func replaceNumber(typ string, ref *string) string {
 	if runes(formatted) > fmtnum {
 		text = strings.Repeat("#", ilen) + "." + strings.Repeat("#", dlen)
 	}
-	if !regexp.MustCompile(`\.[0-9][0-9]{` + itoa(dlen) + `,}$`).MatchString(num) {
+	if !hasDecimals(num, dlen+1) {
 		text = reTrailZeros.ReplaceAllStringFunc(text, func(s string) string {
 			m := reTrailZeros.FindStringSubmatch(s)
 			return m[1] + spaces(runes(m[2]))
@@ -435,4 +444,23 @@ func form(args ...any) string {
 		out = reTrailing.ReplaceAllString(out, "")
 	}
 	return out
+}
+
+// isWS is whether a character is in ws
+func isWS(c rune) bool {
+	switch c {
+	case '\t', '\n', '\v', '\f', '\r', 0x85:
+		return true
+	}
+	return unicode.Is(unicode.Z, c)
+}
+
+// hasDecimals is whether num ends with a point and at least n digits
+// (/\.[0-9][0-9]{n-1,}$/, as code: a regexp repeats at most 1000 times)
+func hasDecimals(num string, n int) bool {
+	i := len(num)
+	for i > 0 && num[i-1] >= '0' && num[i-1] <= '9' {
+		i--
+	}
+	return len(num)-i >= n && i > 0 && num[i-1] == '.'
 }
