@@ -12,6 +12,7 @@ package lua
 #include "lua.h"
 #include "lauxlib.h"
 #include "lualib.h"
+#include "lstate.h"
 
 extern int goLuaCallback(lua_State *L, int id);
 
@@ -68,6 +69,8 @@ static int gads_atpanic(lua_State *L) {
 	return 0;
 }
 
+static void gads_disarm(lua_State *L);
+
 static lua_State *gads_newstate(void) {
 	gads_limits *l = calloc(1, sizeof(gads_limits));
 	if (l == NULL) return NULL;
@@ -77,6 +80,7 @@ static lua_State *gads_newstate(void) {
 		return NULL;
 	}
 	lua_atpanic(L, gads_atpanic);
+	gads_disarm(L);
 	return L;
 }
 
@@ -88,20 +92,26 @@ static void gads_close(lua_State *L) {
 
 // gads_arm starts counting the instructions of the call in progress (if it
 // has a limit). It is called from another thread, by the timer of
-// Interpreter.CountAfter, while the call runs: lua_sethook may be called
-// asynchronously (lua.c calls it from a signal handler), and the VM reads
-// the hook's fields at its next instruction. If it sees the mask before
-// the hook, luaD_hook skips a NULL hook, and the count starts one round
-// later.
+// Interpreter.CountAfter, while the call runs, so it sets only the hook and
+// its mask, as lua.c's signal handler does in effect, and not through
+// lua_sethook, which also reads the call in progress (L->ci, which the VM
+// may be freeing). The counts are already GADS_HOOK_COUNT (gads_disarm), so
+// a VM that sees the mask before the hook skips a NULL hook and counts one
+// round later; one that sees the mask early can't decrement a count of 0
+// past it (2^32 more instructions).
 static void gads_arm(lua_State *L) {
 	gads_limits *l = gads_getlimits(L);
-	if (l->maxsteps) lua_sethook(L, gads_hook, LUA_MASKCOUNT, GADS_HOOK_COUNT);
-	__atomic_thread_fence(__ATOMIC_SEQ_CST);
+	if (!l->maxsteps) return;
+	__atomic_store_n(&L->hook, gads_hook, __ATOMIC_SEQ_CST);
+	__atomic_store_n(&L->hookmask, LUA_MASKCOUNT, __ATOMIC_SEQ_CST);
 }
 
-// gads_disarm removes the hook once a call has returned
+// gads_disarm removes the hook once a call has returned, leaving the counts
+// at GADS_HOOK_COUNT for gads_arm
 static void gads_disarm(lua_State *L) {
 	lua_sethook(L, NULL, 0, 0);
+	L->basehookcount = GADS_HOOK_COUNT;
+	L->hookcount = GADS_HOOK_COUNT;
 }
 
 static int gads_hookmask(lua_State *L) {

@@ -1210,8 +1210,23 @@ func (r *Records) resolve(column *Column, c ruleCondition, defaultValue []any, i
 	to.search = true
 	tn := st.tableName(column, to)
 	cc.field = tn + "." + c.sField
+	if !reSQLName.MatchString(c.sField) {
+		// The value_field of a view's filter rule, from the user: as
+		// SQL::Abstract, one quoted identifier (a database error for an
+		// unknown column), never SQL: each part between dots quoted, as
+		// its name_sep. (A field in parentheses is passed as is by
+		// quoteField; db.Q doubles the quotes in a part.)
+		parts := strings.Split(tn+"."+c.sField, ".")
+		for i, p := range parts {
+			parts[i] = db.Q(p)
+		}
+		cc.field = "(" + strings.Join(parts, ".") + ")"
+	}
 	return cc
 }
+
+// reSQLName is a column name that needs no quoting (those of the layout)
+var reSQLName = regexp.MustCompile(`^[A-Za-z_][A-Za-z0-9_]*$`)
 
 func (r *Records) changedAfter(column *Column, date, meTable string) cond {
 	// GADS::Helper::Changed: each value of the record versions created

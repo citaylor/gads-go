@@ -63,6 +63,10 @@ func goldenDir() string {
 //     GADS_DECOY_SITE=1, where only parity is checked: the copies of the
 //     decoy site move the automatic IDs that some expectations name).
 func TestConformance(t *testing.T) {
+	if pgParams() != "" && decoySite() {
+		// (there are no Perl results of both: run_all.sh takes --pg or --decoy)
+		t.Fatal("GADS_TEST_PG and GADS_DECOY_SITE can't be used together")
+	}
 	scenarios, _ := filepath.Glob("../../conformance/scenarios/*.yaml")
 	if len(scenarios) == 0 {
 		t.Skip("no scenarios found")

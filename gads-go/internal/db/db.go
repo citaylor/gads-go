@@ -113,6 +113,9 @@ func (e *Error) Error() string {
 		return fmt.Sprintf(`DBI Exception: DBD::Pg::st execute failed: %s [for Statement "%s"]`, msg, e.Query)
 	}
 	if e.SQLite {
+		if sqlitePrepareError(e.Err) {
+			return fmt.Sprintf(`DBI Exception: DBD::SQLite::db prepare_cached failed: %s [for Statement "%s"]`, e.Err.Error(), e.Query)
+		}
 		return fmt.Sprintf(`DBI Exception: DBD::SQLite::st execute failed: %s [for Statement "%s"]`, e.Err.Error(), e.Query)
 	}
 	return e.Err.Error()
@@ -253,13 +256,17 @@ func (d *DB) deploySchema(schema string) error {
 	return nil
 }
 
-// Q quotes an identifier.
+// Q quotes an identifier, "table.column" as two (as SQL::Abstract with
+// name_sep ".", and doubling a quote within one, so that a name can't end
+// its quotes)
 func Q(name string) string {
 	if i := strings.IndexByte(name, '.'); i >= 0 {
-		return `"` + name[:i] + `"."` + name[i+1:] + `"`
+		return quoteIdent(name[:i]) + "." + quoteIdent(name[i+1:])
 	}
-	return `"` + name + `"`
+	return quoteIdent(name)
 }
+
+func quoteIdent(s string) string { return `"` + strings.ReplaceAll(s, `"`, `""`) + `"` }
 
 func (d *DB) trace(q string, args []any) {
 	if d.Trace != nil {

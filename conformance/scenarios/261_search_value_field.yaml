@@ -1,0 +1,56 @@
+name: 261_search_value_field
+description: >-
+  A filter rule's value_field (kept in a saved view's filter) names a column
+  of the value table: SQL::Abstract quotes it as an identifier, so anything
+  else is an unknown column, never SQL
+steps:
+- sheet:
+    as: main
+    data:
+    - string1: Foo
+    - string1: Bar
+- search:
+    sheet: main
+    filter:
+      rules:
+      - name: string1
+        operator: equal
+        value: Foo
+        value_field: value
+    observe:
+    - string1
+    expect:
+      count: 1
+- search:
+    sheet: main
+    filter:
+      rules:
+      - name: string1
+        operator: equal
+        value: x
+        value_field: value IS NOT NULL OR 1=1 OR value
+    observe:
+    - string1
+    expect_error: no such column
+- search:
+    sheet: main
+    filter:
+      rules:
+      - name: string1
+        operator: equal
+        value: x
+        value_field: value"/**/OR/**/1=1/**/OR/**/"value
+    observe:
+    - string1
+    expect_error: no such column
+- search:
+    sheet: main
+    filter:
+      rules:
+      - name: string1
+        operator: equal
+        value: x
+        value_field: x.value
+    observe:
+    - string1
+    expect_error: no such column

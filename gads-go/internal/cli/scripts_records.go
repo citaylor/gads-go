@@ -6,7 +6,6 @@ import (
 	"io"
 	"os"
 	"regexp"
-	"strconv"
 	"strings"
 
 	"github.com/ctrlo/gads-go/internal/db"
@@ -148,13 +147,13 @@ func ImportUser(env *Env) {
 	}
 	d := env.E.DB
 	// rset(...)->all: the rows of the site
-	site := ""
+	site, siteArgs := "", []any(nil)
 	if env.E.SiteID != 0 {
-		site = ` WHERE "site_id" = ` + strconv.FormatInt(env.E.SiteID, 10)
+		site, siteArgs = ` WHERE "site_id" = ?`, []any{env.E.SiteID}
 	}
 	ids := func(table string) map[string]int64 {
 		m := map[string]int64{}
-		for _, r := range d.Query(`SELECT "id", "name" FROM "` + table + `"` + site + ` ORDER BY "id"`) {
+		for _, r := range d.Query(`SELECT "id", "name" FROM "`+table+`"`+site+` ORDER BY "id"`, siteArgs...) {
 			id, _ := db.AsInt64(r["id"])
 			m[str(r["name"])] = id
 		}

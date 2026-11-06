@@ -99,7 +99,7 @@ func (r *Runner) syncSequences() {
 	if _, err := r.db.TryExec(syncSequencesSQL); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to move the sequences on: %s\n", err)
 	}
-	if r.analyze || os.Getenv("GADS_BENCH") != "" {
+	if r.analyze || bench {
 		if _, err := r.db.TryExec("ANALYZE"); err != nil {
 			fmt.Fprintf(os.Stderr, "Failed to analyze: %s\n", err)
 		}

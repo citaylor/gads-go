@@ -59,7 +59,11 @@ type client struct {
 
 func newClient(cfg *config) *client {
 	jar, _ := cookiejar.New(nil)
+	// (a Transport of its own: the shared default keeps only 2 idle
+	// connections per host, so that most clients would reconnect for each
+	// request)
 	return &client{cfg: cfg, h: &http.Client{Jar: jar, Timeout: 5 * time.Minute,
+		Transport:     http.DefaultTransport.(*http.Transport).Clone(),
 		CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}}
 }
 

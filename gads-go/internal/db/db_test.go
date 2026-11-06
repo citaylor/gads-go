@@ -2,6 +2,7 @@ package db
 
 import (
 	"errors"
+	"strings"
 	"testing"
 	"time"
 
@@ -118,4 +119,27 @@ func TestSavepointsAndRollbackAll(t *testing.T) {
 		t.Errorf("%d rows after the rollback", n)
 	}
 	d.RollbackAll()
+}
+
+// SQLite's errors are worded as DBI's: a statement that does not compile
+// fails at prepare_cached, one that does at execute
+func TestSQLiteErrorStage(t *testing.T) {
+	d, err := OpenMemory()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer d.Close()
+	for _, q := range []string{`CREATE TABLE "p" ("id" integer primary key)`, `CREATE TABLE "c" ("p" integer not null references "p" ("id"))`, `PRAGMA foreign_keys = ON`} {
+		if _, err := d.TryExec(q); err != nil {
+			t.Fatal(err)
+		}
+	}
+	_, err = d.TryQuery(`SELECT "p"."nope" FROM "p"`)
+	if err == nil || !strings.HasPrefix(err.Error(), "DBI Exception: DBD::SQLite::db prepare_cached failed: ") || !strings.Contains(err.Error(), "no such column: p.nope") {
+		t.Errorf("unknown column: %v", err)
+	}
+	_, err = d.TryExec(`INSERT INTO "c" ("p") VALUES (5)`)
+	if err == nil || !strings.HasPrefix(err.Error(), "DBI Exception: DBD::SQLite::st execute failed: ") || !strings.Contains(err.Error(), "FOREIGN KEY constraint failed") {
+		t.Errorf("constraint: %v", err)
+	}
 }
