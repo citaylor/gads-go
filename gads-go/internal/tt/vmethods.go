@@ -695,8 +695,11 @@ func init() {
 					// (Perl's splice dies before the start of the array)
 					return nil, fmt.Errorf("Modification of non-creatable array value attempted, subscript %d", v)
 				}
-				// (clamped before the conversion to int)
-				off = int(min(o, int64(n)))
+				// (bounded before the conversion to int)
+				if o > int64(n) {
+					o = int64(n)
+				}
+				off = int(o)
 			}
 			length := n - off
 			if len(a) > 1 && a[1] != nil {
@@ -704,7 +707,10 @@ func init() {
 				if v < 0 {
 					v = max(int64(n-off)+v, 0)
 				}
-				length = int(min(v, int64(n-off)))
+				if v > int64(n-off) {
+					v = int64(n - off)
+				}
+				length = int(v)
 			}
 			var repl []any
 			if len(a) > 2 {
