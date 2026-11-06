@@ -253,11 +253,21 @@ func (c *Content) Image(img *Image, x, y, scale float64) {
 	c.add("q", num(float64(img.Width)*scale), "0 0", num(float64(img.Height)*scale), num(x), num(y), "cm /"+img.name, "Do Q")
 }
 
+// maxImagePixels is the largest image added (40 million pixels: a logo
+// is far smaller)
+const maxImagePixels = 40_000_000
+
 // AddImage reads an image (PNG, JPEG or GIF) for the document
 func (d *Document) AddImage(data []byte) (*Image, error) {
 	cfg, format, err := image.DecodeConfig(bytes.NewReader(data))
 	if err != nil {
 		return nil, err
+	}
+	// Deviation: an image of more than maxImagePixels is refused before
+	// it is decoded, as its pixels are held in memory (Perl's worker
+	// would run out of memory; here, the server)
+	if cfg.Width <= 0 || cfg.Height <= 0 || int64(cfg.Width)*int64(cfg.Height) > maxImagePixels {
+		return nil, fmt.Errorf("image of %dx%d pixels is too large", cfg.Width, cfg.Height)
 	}
 	img := &Image{name: fmt.Sprintf("Im%d", len(d.images)+1), Width: cfg.Width, Height: cfg.Height}
 	if format == "jpeg" {
@@ -279,12 +289,18 @@ func (d *Document) AddImage(data []byte) (*Image, error) {
 		}
 		b := m.Bounds()
 		hasAlpha := false
+	alpha:
 		for y := b.Min.Y; y < b.Max.Y; y++ {
 			for x := b.Min.X; x < b.Max.X; x++ {
 				if color.NRGBAModel.Convert(m.At(x, y)).(color.NRGBA).A != 255 {
 					hasAlpha = true
+					break alpha
 				}
 			}
+		}
+		img.rgb = make([]byte, 0, 3*b.Dx()*b.Dy())
+		if hasAlpha {
+			img.alpha = make([]byte, 0, b.Dx()*b.Dy())
 		}
 		for y := b.Min.Y; y < b.Max.Y; y++ {
 			for x := b.Min.X; x < b.Max.X; x++ {

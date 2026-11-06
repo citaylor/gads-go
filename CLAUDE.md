@@ -550,6 +550,9 @@ Not fixed:
   - Record and report PDFs use the Liberation Sans built into the binary.
     CtrlO::PDF loads it from
     `/usr/share/fonts/truetype/liberation/`, and fails without it.
+  - A PDF's logo of more than 40 million pixels is refused ("Unable to
+    identify image type: image of WxH pixels is too large"), before its
+    pixels are decoded.
   - Import's final sort puts filvals last, in a stable order.
   - A script's `--site-id` that is not a whole number is an error
     ("Invalid site ID"). Perl binds it as given, so that it matches no

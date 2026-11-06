@@ -466,4 +466,11 @@ func (b *Browser) Close() {
 	}
 	b.w.Close()
 	os.RemoveAll(b.dataDir)
+	// The reader may be waiting to hand over a message that no one will
+	// take: take the rest, so that it reaches the end of the pipe and
+	// ends
+	go func() {
+		for range b.msgs {
+		}
+	}()
 }

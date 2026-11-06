@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"image/png"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -277,5 +278,29 @@ func TestGetWaitsForNavigation(t *testing.T) {
 	// Everything up to the second stop was read, and no further
 	if len(b.msgs) != 1 {
 		t.Errorf("%d messages left, want 1 (Get ended early or late)", len(b.msgs))
+	}
+}
+
+// After Close the reader ends, even with messages no one took
+func TestCloseEndsReader(t *testing.T) {
+	r, w := io.Pipe()
+	b := &Browser{cmd: &exec.Cmd{}, w: discard{}, msgs: make(chan message, 1), replies: map[int]message{},
+		stderr: &tailWriter{}, dataDir: t.TempDir()}
+	done := make(chan struct{})
+	go func() {
+		b.read(r)
+		close(done)
+	}()
+	go func() {
+		for i := 0; i < 5; i++ {
+			_, _ = w.Write([]byte("{\"method\":\"x\"}\x00"))
+		}
+		w.Close()
+	}()
+	b.Close()
+	select {
+	case <-done:
+	case <-time.After(5 * time.Second):
+		t.Fatal("the reader is still waiting")
 	}
 }
