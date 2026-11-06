@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
 
 	"github.com/ctrlo/gads-go/internal/db"
@@ -286,4 +287,16 @@ func isInt(s string) bool {
 		}
 	}
 	return true
+}
+
+// parseSiteID is the site ID of a --site-id option. Deviation: one that is
+// not a whole number is an error. Perl binds it as given, so that "1x"
+// matches no rows; read as 0 here, it would be no site at all (every
+// site's rows, for import --purge among others).
+func parseSiteID(s string) int64 {
+	id, err := strconv.ParseInt(strings.TrimSpace(s), 10, 64)
+	if err != nil || id <= 0 {
+		Die("Invalid site ID %s", s)
+	}
+	return id
 }

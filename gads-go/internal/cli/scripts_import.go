@@ -252,7 +252,7 @@ func Import(env *Env) {
 	old := e.IgnorePermissions
 	e.IgnorePermissions = true
 	defer func() { e.IgnorePermissions = old }()
-	e.SiteID, _ = strconv.ParseInt(siteID, 10, 64)
+	e.SiteID = parseSiteID(siteID)
 	im.ignoreFields = map[string]bool{}
 	for _, f := range ignoreFields {
 		im.ignoreFields[f] = true

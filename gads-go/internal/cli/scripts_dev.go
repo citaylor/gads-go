@@ -114,11 +114,13 @@ func BulkLayoutPermissions(env *Env) {
 }
 
 func importPermissions(env *Env, file string) {
-	if st, err := os.Stat(file); err != nil || !st.Mode().IsRegular() {
+	// (the messages name the file as given)
+	path := env.Path(file)
+	if st, err := os.Stat(path); err != nil || !st.Mode().IsRegular() {
 		// The message is not translated, so its placeholder remains
 		gads.Fail("File '{file}' does not exist")
 	}
-	content, err := os.ReadFile(file) // #nosec G304 -- a file named on the script's command line
+	content, err := os.ReadFile(path) // #nosec G304 -- a file named on the script's command line
 	if err != nil {
 		permissionsFault(env, "Unable to open file {file}", err)
 	}
@@ -171,7 +173,8 @@ func importPermissions(env *Env, file string) {
 }
 
 func exportPermissions(env *Env, file string) {
-	if _, err := os.Stat(file); err == nil {
+	path := env.Path(file)
+	if _, err := os.Stat(path); err == nil {
 		gads.Fail("%s already exists, unable to overwrite file!", file)
 	}
 	env.Say("Enter the group IDs you're looking to export (e.g. 1,2,3): ")
@@ -180,7 +183,7 @@ func exportPermissions(env *Env, file string) {
 		gads.Fail("You need to enter a number or a comma-separated list of numbers.\n")
 	}
 	groups := reListSplit.Split(input, -1)
-	f, err := os.Create(file) // #nosec G304 -- a file named on the script's command line
+	f, err := os.Create(path) // #nosec G304 -- a file named on the script's command line
 	if err != nil {
 		permissionsFault(env, file, err)
 	}

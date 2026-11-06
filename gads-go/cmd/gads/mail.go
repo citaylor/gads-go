@@ -109,7 +109,7 @@ type mailer struct {
 	// send delivers a message to one recipient (sendmail or SMTP)
 	send func(envelopeFrom, to string, msg []byte) error
 
-	mu    sync.Mutex
+	mu    sync.RWMutex // (written by Close, which closes queue)
 	queue chan gads.Email // nil once closed
 	done  chan struct{}   // closed when the queue has been delivered
 }
@@ -133,27 +133,33 @@ func newMailer(cfg *mailConfig, from string) *mailer {
 	return m
 }
 
-// Send queues an email (delivered at once after Close)
+// Send queues an email (delivered at once after Close). A full queue
+// holds up the sender, not the other senders.
 func (m *mailer) Send(e gads.Email) {
 	e.To = append([]string(nil), e.To...)
-	m.mu.Lock()
-	defer m.mu.Unlock()
-	if m.queue == nil {
-		m.deliver(e)
+	m.mu.RLock()
+	if m.queue != nil {
+		m.queue <- e
+		m.mu.RUnlock()
 		return
 	}
-	m.queue <- e
+	m.mu.RUnlock()
+	m.deliver(e)
 }
 
 // Close delivers the queued emails, waiting at most timeout for them. It
 // reports whether all were delivered.
 func (m *mailer) Close(timeout time.Duration) bool {
-	m.mu.Lock()
-	if m.queue != nil {
-		close(m.queue)
-		m.queue = nil
-	}
-	m.mu.Unlock()
+	// (closing the queue waits for the senders held up by a full queue:
+	// the timeout covers that too)
+	go func() {
+		m.mu.Lock()
+		if m.queue != nil {
+			close(m.queue)
+			m.queue = nil
+		}
+		m.mu.Unlock()
+	}()
 	select {
 	case <-m.done:
 		return true

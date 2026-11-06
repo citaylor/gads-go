@@ -2,10 +2,11 @@ package gads
 
 import (
 	"bytes"
-	"encoding/csv"
 	"fmt"
 	"sort"
 	"strings"
+
+	"github.com/ctrlo/gads-go/internal/textcsv"
 )
 
 // UploadUsersOptions are the options of a user upload
@@ -28,9 +29,8 @@ func (e *Engine) UploadUsers(content []byte, haveFile bool, o UploadUsersOptions
 	var count int
 	var created []*User
 	e.DB.Txn(func() {
-		r := csv.NewReader(bytes.NewReader(content))
-		r.FieldsPerRecord = -1
-		r.LazyQuotes = true
+		// (Text::CSV getline, which stops at the first error)
+		r := textcsv.NewReader(bytes.NewReader(content))
 		site := e.Site()
 		heading, _ := r.Read()
 		userFields := map[string]bool{}

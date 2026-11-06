@@ -44,22 +44,28 @@ func Export(env *Env) {
 	if perlFalse(siteID) {
 		gads.Fail("Please provide site ID with --site-id")
 	}
+	// Perl's modes (0777 and 0666, less the umask). Hardened: the owner's
+	// only, as --include-data exports the users' password hashes
+	dirMode, fileMode := os.FileMode(0o777), os.FileMode(0o666)
+	if env.E.Config.Hardened {
+		dirMode, fileMode = 0o700, 0o600
+	}
 	mkdir := func(dir, what string) {
-		if err := os.Mkdir(env.Path(dir), 0o777); err != nil { // #nosec G301 -- Perl's mkdir default (0777, less the umask)
+		if err := os.Mkdir(env.Path(dir), dirMode); err != nil {
 			gads.Fail("Unable to create %s directory: %s", what, perlErr(err))
 		}
 	}
 	write := func(file string, v any) {
-		if err := os.WriteFile(env.Path(file), []byte(perljson.Pretty(v)), 0o666); err != nil { // #nosec G306 -- as Perl creates the file (0666, less the umask)
+		if err := os.WriteFile(env.Path(file), []byte(perljson.Pretty(v)), fileMode); err != nil {
 			gads.Fail("Error opening %s for write: %s", file, perlErr(err))
 		}
 	}
-	if err := os.Mkdir(env.Path("_export"), 0o777); err != nil { // #nosec G301 -- Perl's mkdir default (0777, less the umask)
+	if err := os.Mkdir(env.Path("_export"), dirMode); err != nil {
 		gads.Fail("Unable to create export directory: %s", perlErr(err))
 	}
 	e := env.E
 	d := e.DB
-	e.SiteID, _ = strconv.ParseInt(siteID, 10, 64)
+	e.SiteID = parseSiteID(siteID)
 	old := e.IgnorePermissions
 	e.IgnorePermissions = true
 	defer func() { e.IgnorePermissions = old }()

@@ -58,6 +58,20 @@ steps:
       files: { users.csv: "Jo,Bloggs,jo@example.com,f1,f2,Dr,Acme,group1\n\"Ann, Q\",Smith,ann@example.com,,\"x \"\"y\"\"\",Dr,Acme,group1\n" }
   - db: { id: users_imported, op: select, table: user, columns: [id, firstname, surname, email, username, freetext1, freetext2, title, organisation], order_by: [id] }
   - db: { id: user_groups, op: select, table: user_group, columns: [user_id, group_id], order_by: [user_id, group_id] }
+  # As Text::CSV getline: a blank line is a row of one empty field (an
+  # unknown title, so nothing is imported), and a malformed line ends the
+  # rows (those before it are imported)
+  - cli:
+      id: iu_blank_line
+      script: import-user.pl
+      args: ["{file:users.csv}"]
+      files: { users.csv: "Al,One,al@example.com,,,Dr,Acme,group1\n\nBo,Two,bo@example.com,,,Dr,Acme,group1\n" }
+  - cli:
+      id: iu_bad_quote
+      script: import-user.pl
+      args: ["{file:users.csv}"]
+      files: { users.csv: "Cy,Three,cy@example.com,,,Dr,Acme,group1\nD\"i,Four,di@example.com,,,Dr,Acme,group1\nEd,Five,ed@example.com,,,Dr,Acme,group1\n" }
+  - db: { id: users_after_csv_quirks, op: select, table: user, columns: [firstname, email], order_by: [id] }
   - db: { op: update, table: record, where: { id: 1 }, set: { created: "2020-04-01 10:00:00" } }
   - cli: { id: fixtimes, script: fixtimes.pl }
   - db: { id: created_fixed, op: select, table: record, columns: [id, created], order_by: [id] }

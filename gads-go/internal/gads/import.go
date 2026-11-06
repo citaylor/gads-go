@@ -1,7 +1,7 @@
 package gads
 
 import (
-	"encoding/csv"
+	"bytes"
 	"fmt"
 	"io"
 	"math"
@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/ctrlo/gads-go/internal/db"
+	"github.com/ctrlo/gads-go/internal/textcsv"
 )
 
 // Port of GADS::Import (CSV import of records). Its rows are imported on a
@@ -66,10 +67,9 @@ func (e *Engine) NewImport(layout *Layout, user *User, content []byte, o ImportO
 // ImportID returns the ID of the import status row.
 func (im *Import) ImportID() int64 { return im.importID }
 
-func (im *Import) reader() *csv.Reader {
-	r := csv.NewReader(strings.NewReader(string(im.data)))
-	r.FieldsPerRecord = -1
-	return r
+// reader reads the rows as Text::CSV getline (GADS::Import's csv)
+func (im *Import) reader() *textcsv.Reader {
+	return textcsv.NewReader(bytes.NewReader(im.data))
 }
 
 func importTrim(s string) string {

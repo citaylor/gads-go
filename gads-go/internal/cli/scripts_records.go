@@ -1,8 +1,9 @@
 package cli
 
 import (
-	"encoding/csv"
+	"bytes"
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"regexp"
@@ -10,6 +11,7 @@ import (
 
 	"github.com/ctrlo/gads-go/internal/db"
 	"github.com/ctrlo/gads-go/internal/gads"
+	"github.com/ctrlo/gads-go/internal/textcsv"
 )
 
 func init() {
@@ -141,7 +143,7 @@ func ImportUser(env *Env) {
 		Die("Usage: %s filename", "bin/import-user.pl")
 	}
 	file := env.Args[0]
-	content, err := os.ReadFile(file) // #nosec G304 -- a file named on the script's command line
+	content, err := os.ReadFile(env.Path(file)) // #nosec G304 -- a file named on the script's command line
 	if err != nil {
 		Die("%s: %s", file, perlIOError(err))
 	}
@@ -160,33 +162,39 @@ func ImportUser(env *Env) {
 		return m
 	}
 	titles, organisations, groups := ids("title"), ids("organisation"), ids("group")
-	reader := csv.NewReader(strings.NewReader(string(content)))
-	reader.FieldsPerRecord = -1
+	reader := textcsv.NewReader(bytes.NewReader(content))
 	d.Txn(func() {
 		for {
+			// (while (my $row = $csv->getline($fh)): an error ends the
+			// rows as their end does)
 			row, err := reader.Read()
-			if err == io.EOF {
+			if err != nil {
 				break
 			}
-			if err != nil {
-				Die("%s", err)
-			}
+			// The fields a short row lacks are undef in Perl, which warns
+			// when they are used
+			n := len(row)
 			for len(row) < 8 {
 				row = append(row, "")
 			}
-			firstname, surname, email, freetext1, freetext2, title, organisation, group := row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]
-			titleID, ok := titles[title]
-			if !ok || titleID == 0 {
-				Die(`Title "%s" not found`, title)
+			undef := func(i int, name, op string) {
+				if i >= n {
+					fmt.Fprintf(env.Stderr, "Use of uninitialized value $%s in %s at bin/import-user.pl line 1.\n", name, op)
+				}
 			}
-			orgID, ok := organisations[organisation]
-			if !ok || orgID == 0 {
-				Die(`Organisation "%s" not found`, organisation)
+			find := func(m map[string]int64, i int, name, label string) int64 {
+				undef(i, name, "hash element")
+				id, ok := m[row[i]]
+				if !ok || id == 0 {
+					undef(i, name, "concatenation (.) or string")
+					Die(`%s "%s" not found`, label, row[i])
+				}
+				return id
 			}
-			groupID, ok := groups[group]
-			if !ok || groupID == 0 {
-				Die(`Group "%s" not found`, group)
-			}
+			firstname, surname, email, freetext1, freetext2 := row[0], row[1], row[2], row[3], row[4]
+			titleID := find(titles, 5, "title", "Title")
+			orgID := find(organisations, 6, "organisation", "Organisation")
+			groupID := find(groups, 7, "group", "Group")
 			userID := env.E.InsertSite("user", map[string]any{
 				"firstname":    firstname,
 				"surname":      surname,

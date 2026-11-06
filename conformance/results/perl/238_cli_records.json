@@ -467,7 +467,73 @@
       {
          "error" : null,
          "failures" : [],
-         "id" : "26:db",
+         "id" : "iu_blank_line",
+         "observed" : {
+            "died" : "Title \"\" not found",
+            "exit" : "255",
+            "stderr" : "Use of uninitialized value $title in hash elementUse of uninitialized value $title in concatenation (.) or string",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "iu_bad_quote",
+         "observed" : {
+            "exit" : "0",
+            "stderr" : "Finished\n",
+            "stdout" : ""
+         },
+         "pass" : true,
+         "type" : "cli"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "users_after_csv_quirks",
+         "observed" : [
+            {
+               "email" : "user1@example.com",
+               "firstname" : "User1"
+            },
+            {
+               "email" : "user2@example.com",
+               "firstname" : "User2"
+            },
+            {
+               "email" : "user3@example.com",
+               "firstname" : "User3"
+            },
+            {
+               "email" : "user4@example.com",
+               "firstname" : "User4"
+            },
+            {
+               "email" : "user5@example.com",
+               "firstname" : "User5"
+            },
+            {
+               "email" : "jo@example.com",
+               "firstname" : "Jo"
+            },
+            {
+               "email" : "ann@example.com",
+               "firstname" : "Ann, Q"
+            },
+            {
+               "email" : "cy@example.com",
+               "firstname" : "Cy"
+            }
+         ],
+         "pass" : true,
+         "type" : "db"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "29:db",
          "observed" : {},
          "pass" : true,
          "type" : "db"

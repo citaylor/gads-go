@@ -87,7 +87,7 @@ func Generate(env *Env) {
 		Die("Need site ID with --site-id")
 	}
 	e := env.E
-	e.SiteID, _ = strconv.ParseInt(siteID, 10, 64)
+	e.SiteID = parseSiteID(siteID)
 	iid, _ := strconv.ParseInt(instanceID, 10, 64)
 	layout := e.NewLayout(iid, nil)
 	var header []string

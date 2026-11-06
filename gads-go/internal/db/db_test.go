@@ -143,3 +143,36 @@ func TestSQLiteErrorStage(t *testing.T) {
 		t.Errorf("constraint: %v", err)
 	}
 }
+
+// A failed COMMIT does not leave the transaction open
+func TestCommitFailure(t *testing.T) {
+	d, err := OpenMemory()
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer d.Close()
+	for _, q := range []string{`PRAGMA foreign_keys = ON`, `CREATE TABLE "p" ("id" integer primary key)`,
+		`CREATE TABLE "c" ("p" integer references "p" ("id") DEFERRABLE INITIALLY DEFERRED)`} {
+		if _, err := d.TryExec(q); err != nil {
+			t.Fatal(err)
+		}
+	}
+	func() {
+		defer func() {
+			if recover() == nil {
+				t.Error("COMMIT of a deferred violation did not fail")
+			}
+		}()
+		d.Txn(func() { d.Exec(`INSERT INTO "c" ("p") VALUES (5)`) })
+	}()
+	if d.InTxn() {
+		t.Error("still in a transaction")
+	}
+	d.Txn(func() { d.Exec(`INSERT INTO "p" ("id") VALUES (1)`) })
+	if n, _ := d.QueryInt64(`SELECT COUNT(*) FROM "c"`); n != 0 {
+		t.Errorf("failed transaction's row kept: %d", n)
+	}
+	if n, _ := d.QueryInt64(`SELECT COUNT(*) FROM "p"`); n != 1 {
+		t.Errorf("next transaction: %d rows", n)
+	}
+}

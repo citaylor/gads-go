@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -190,10 +191,23 @@ func (c *appConfig) webConfig() *web.Config {
 	if v, ok := auth["password_expiry_days"]; ok {
 		cfg.PasswordExpiryDays = int(asInt(v))
 	} else if realms, ok := auth["realms"].(map[string]any); ok {
-		for _, r := range realms {
-			if rm, ok := r.(map[string]any); ok {
+		// The expiry of the realm that users log in through: GADS's login
+		// is the realm "dbic" (Auth::Extensible applies the provider of
+		// the session's realm). Without one, that of the first realm by
+		// name, so that it does not change from one start to the next.
+		names := make([]string, 0, len(realms))
+		for n := range realms {
+			names = append(names, n)
+		}
+		sort.Strings(names)
+		if _, ok := realms["dbic"]; ok {
+			names = []string{"dbic"}
+		}
+		for _, n := range names {
+			if rm, ok := realms[n].(map[string]any); ok {
 				if v, ok := rm["password_expiry_days"]; ok {
 					cfg.PasswordExpiryDays = int(asInt(v))
+					break
 				}
 			}
 		}
@@ -295,12 +309,22 @@ func (c *appConfig) database() (driver, dsn string, err error) {
 	return mapDSN(asString(d["dsn"]), asString(d["user"]), asString(d["password"]))
 }
 
+// dsnPrefix is the part of a data source before its attributes, for
+// messages
+func dsnPrefix(dsn string) string {
+	if i := strings.IndexAny(dsn, ";="); i >= 0 {
+		return dsn[:i] + "..."
+	}
+	return dsn
+}
+
 // mapDSN maps a DBI data source to a Go driver and its data source:
 // dbi:SQLite (sqlite) and dbi:Pg (pgx)
 func mapDSN(dsn, user, password string) (string, string, error) {
 	parts := strings.SplitN(dsn, ":", 3)
 	if len(parts) != 3 || !strings.EqualFold(parts[0], "dbi") {
-		return "", "", fmt.Errorf("unsupported data source %q", dsn)
+		// (only the driver part: the rest may hold a password)
+		return "", "", fmt.Errorf("unsupported data source %q", dsnPrefix(dsn))
 	}
 	attrs := map[string]string{}
 	var order []string
@@ -323,7 +347,7 @@ func mapDSN(dsn, user, password string) (string, string, error) {
 			name = attrs["database"]
 		}
 		if name == "" {
-			return "", "", fmt.Errorf("no database file in %q", dsn)
+			return "", "", fmt.Errorf("no database file in %q", dsnPrefix(dsn))
 		}
 		return "sqlite", name, nil
 	case "Pg":

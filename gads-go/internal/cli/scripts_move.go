@@ -106,7 +106,7 @@ func MoveLayout(env *Env) {
 		Die("Need either --load-file or --dump-file")
 	}
 	e := env.E
-	e.SiteID, _ = strconv.ParseInt(siteID, 10, 64)
+	e.SiteID = parseSiteID(siteID)
 	iid, _ := strconv.ParseInt(instanceID, 10, 64)
 	layout := e.NewLayout(iid, nil)
 	d := e.DB

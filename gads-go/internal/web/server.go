@@ -182,6 +182,23 @@ func (s *Server) acquire(ctx context.Context) (*gads.Engine, bool) {
 // release returns an engine to the pool
 func (s *Server) release(e *gads.Engine) { s.engines <- e }
 
+// WaitIdle takes every engine of the pool, waiting up to timeout for the
+// requests using them, and is whether it took them all: then no request
+// uses an engine. They are not given back, as the server is stopping.
+func (s *Server) WaitIdle(timeout time.Duration) bool {
+	if s.engines == nil {
+		return true
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+	for range s.pool {
+		if _, ok := s.acquire(ctx); !ok {
+			return false
+		}
+	}
+	return true
+}
+
 // WaitBackground waits for the background work (imports) of all the
 // engines, up to timeout, and is whether it all finished
 func (s *Server) WaitBackground(timeout time.Duration) bool {

@@ -711,6 +711,17 @@ func (d *DB) Commit() {
 	}
 	d.depth--
 	if d.depth == 0 {
+		// A COMMIT that fails (SQLite: a locked database, a deferred
+		// constraint) leaves the transaction open: it is rolled back, so
+		// that the connection's next transaction can begin, and the error
+		// raised
+		defer func() {
+			if r := recover(); r != nil {
+				d.svp = 0
+				d.TryExec("ROLLBACK")
+				panic(r)
+			}
+		}()
 		d.Exec("COMMIT")
 	}
 }

@@ -95,6 +95,7 @@ Go packages, under `gads-go/`:
 | `internal/chrome` | Headless Chrome for `_page_as_mech` (WWW::Mechanize::Chrome): loads a page and prints it to PDF or captures a PNG, over the DevTools protocol on a pipe, with WMC's switches. |
 | `internal/lua` | Lua 5.3.6, vendored and called through cgo, used for calc and RAG fields. Same sandbox as Inline::Lua in GADS. |
 | `internal/perl`, `perljson`, `yamlxs`, `cldr`, `mimeinfo`, `saml` | Behaviour of Perl and CPAN modules (truthiness, JSON::PP, YAML::XS, CLDR dates, File::MimeInfo, Net::SAML2). |
+| `internal/textcsv` | Text::CSV_PP's `getline` translated (the `binary => 1` options): the CSV reading of the data import, the user upload and `import-user`. A blank line is a row of one empty field, a lone CR ends lines from then on, and the first error ends the rows, as Perl's `while (getline)`. |
 | `internal/autoformat` | Text::Autoformat and the parts of Text::Reform it uses, translated: the formatting of the plain text of every email (`GADS::Email::send`), applied by the mailer of `cmd/gads`. The runners capture mail before it, so the suite compares the text unformatted. |
 | `internal/perltest` | Builds Go values from the typed form of the golden files (`{"f": IEEE bits}`, `{"i"}`, `{"s"}`, ...). |
 | `conformance/` | Go runner and DataSheet port. `go test ./conformance` runs every scenario against the Perl golden. |
@@ -269,8 +270,7 @@ Debugging environment variables:
     (`Engine.Fork`, `Engine.Background`): an engine of its own, with its
     own database connection and Lua interpreter, in a goroutine. The rows
     of a data import run there, so the upload returns at once. `gads
-    serve` waits for them at exit (2 minutes; compose's
-    `stop_grace_period` is 3m). Without `Fork` (the scripts, and the
+    serve` waits for them at exit (within its stop budget, below). Without `Fork` (the scripts, and the
     conformance runner, as GADS_NO_FORK) the work runs in process;
     `TestImportForked` runs the import scenarios forked. `gads serve`
     waits for those of every engine. On SQLite, as DBD::SQLite,
@@ -295,6 +295,7 @@ Debugging environment variables:
   | `gen_lua_golden.pl` | `internal/lua` | GADS's `lua_run` (Inline::Lua) |
   | `gen_mime_golden.pl` | `internal/mimeinfo` (the globs of `testdata`) | File::MimeInfo |
   | `gen_autoformat_golden.pl` | `internal/autoformat` | Text::Autoformat (texts written for its rules, and random ones) |
+  | `gen_csv_golden.pl` | `internal/textcsv` | Text::CSV getline (inputs written for its rules, and random ones) |
 
   Floats are passed by their IEEE bits, so that neither parser rounds
   them. Both runners compare JSON numbers as sent (the Go runner keeps
@@ -335,9 +336,12 @@ Configuration works as in Dancer2:
   are kept in memory, with a warning.
 - Request bodies are limited to 100 MB (`web.Config.MaxBodyBytes`); a
   larger request gets 413.
-- `serve` stops on SIGINT or SIGTERM, letting requests in progress finish
-  (30 s), and every command delivers the queued emails before it exits
-  (for up to a minute).
+- `serve` stops on SIGINT or SIGTERM within 170 s altogether (compose's
+  `stop_grace_period` is 3m): requests in progress get 30 s, then the
+  imports running and the queued emails the rest, the emails at least
+  20 s. Engines that a request may still be using are not closed. The
+  other commands deliver the queued emails before they exit (for up to a
+  minute).
 - Mail settings are in `gads: mail:` (via sendmail or smtp, host, port,
   security starttls/tls/none, username, password, helo, timeout).
 - Uploaded files are stored on disk under `gads: uploads`.
@@ -546,6 +550,12 @@ Not fixed:
     CtrlO::PDF loads it from
     `/usr/share/fonts/truetype/liberation/`, and fails without it.
   - Import's final sort puts filvals last, in a stable order.
+  - A script's `--site-id` that is not a whole number is an error
+    ("Invalid site ID"). Perl binds it as given, so that it matches no
+    rows; read as 0 it would mean every site (`import --purge` among
+    others).
+  - Hardened, `export` writes its files for the owner only (0600, and
+    0700 directories), as `--include-data` exports password hashes.
   - SQLite has the extra index `record_idx_current_id_approval_created`,
     which avoids a quadratic search plan.
   - The SAML callback fails as Perl's does. Working verification would be an

@@ -43,6 +43,10 @@ section() {
 	cat internal/autoformat/LICENSE
 	echo
 
+	section "Text::CSV_PP 2.06 (internal/textcsv)"
+	cat internal/textcsv/LICENSE
+	echo
+
 	for tags in "" modernc; do
 		go list -tags "$tags" -deps -f '{{with .Module}}{{if not .Main}}{{.Path}} {{.Version}} {{.Dir}}{{end}}{{end}}' ./cmd/gads
 	done | sort -u | while read -r path version dir; do

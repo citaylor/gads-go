@@ -144,7 +144,16 @@ func serve(args []string) int {
 	if err != nil {
 		return fail(err)
 	}
-	defer m.Close(mailDrainTimeout)
+	mailTimeout := mailDrainTimeout
+	defer func() { m.Close(mailTimeout) }()
+	// (the engines are not closed if a request may still be using them at
+	// exit)
+	enginesIdle := true
+	defer func() {
+		if enginesIdle {
+			closeEngine(e)
+		}
+	}()
 	if *views == "" {
 		*views = filepath.Join(dir, "views")
 	}
@@ -206,7 +215,11 @@ func serve(args []string) int {
 		if err != nil {
 			return fail(err)
 		}
-		defer func() { w.Close(); w.DB.Close() }()
+		defer func() {
+			if enginesIdle {
+				closeEngine(w)
+			}
+		}()
 		more = append(more, w)
 	}
 	srv.SetWorkers(more...)
@@ -231,17 +244,29 @@ func serve(args []string) int {
 	case <-ctx.Done():
 	}
 	logger.Info("GADS shutting down")
-	sctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	// The requests, then the imports, then the emails are waited for,
+	// within stopTimeout altogether (Docker's stop_grace_period is 3m)
+	end := time.Now().Add(stopTimeout)
+	sctx, cancel := context.WithTimeout(context.Background(), requestDrainTimeout)
 	defer cancel()
 	if err := server.Shutdown(sctx); err != nil {
-		return fail(err)
+		logger.Warn("GADS stopping with requests still running", "error", err)
+		// Their handlers still run: the engines are not closed under them
+		enginesIdle = srv.WaitIdle(max(time.Until(end)-mailDrainReserve, 0))
 	}
 	// Imports still running are waited for (Perl's forked processes
 	// outlive the application)
-	if !srv.WaitBackground(backgroundDrainTimeout) {
+	if !srv.WaitBackground(max(time.Until(end)-mailDrainReserve, 0)) {
 		logger.Warn("GADS stopped with imports still running")
 	}
+	mailTimeout = max(time.Until(end), mailDrainReserve)
 	return 0
+}
+
+// closeEngine closes an engine's Lua interpreter and database connection
+func closeEngine(e *gads.Engine) {
+	e.Close()
+	e.DB.Close()
 }
 
 // forkOf makes the forks of an engine (Engine.Fork): an engine with the
@@ -266,9 +291,14 @@ func forkOf(driver, dsn string, send func(gads.Email), src *gads.Engine) func() 
 	}
 }
 
-// backgroundDrainTimeout is how long the imports still running at exit are
-// waited for
-const backgroundDrainTimeout = 2 * time.Minute
+// The stop of serve: requests are given requestDrainTimeout, then the
+// imports and the emails the rest of stopTimeout, at least
+// mailDrainReserve for the emails (compose's stop_grace_period is 3m)
+const (
+	stopTimeout         = 170 * time.Second
+	requestDrainTimeout = 30 * time.Second
+	mailDrainReserve    = 20 * time.Second
+)
 
 func deploy(args []string) int {
 	fs := flag.NewFlagSet("deploy", flag.ExitOnError)
@@ -279,6 +309,7 @@ func deploy(args []string) int {
 		return fail(err)
 	}
 	defer m.Close(mailDrainTimeout)
+	defer closeEngine(e)
 	if err := e.DB.Deploy(); err != nil {
 		return fail(err)
 	}
@@ -296,6 +327,7 @@ func upgrade(args []string) int {
 		return fail(err)
 	}
 	defer m.Close(mailDrainTimeout)
+	defer closeEngine(e)
 	applied, err := e.DB.Upgrade()
 	for _, name := range applied {
 		fmt.Printf("Applied schema upgrade %s\n", name)
@@ -321,6 +353,7 @@ func script(name string, args []string) int {
 	}
 	env := cli.NewEnv(e, args, os.Stdin, os.Stdout, os.Stderr)
 	res := cli.Run(name, env)
+	closeEngine(e)
 	m.Close(mailDrainTimeout)
 	if res.Died != "" {
 		fmt.Fprintln(os.Stderr, res.Died)
