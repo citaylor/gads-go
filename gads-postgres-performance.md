@@ -1,7 +1,8 @@
 # GADS on PostgreSQL: Perl and Go performance
 
-Measured on 2026-11-05 against GADS `dev` at `337d733c`, for information,
-after the change to the Lua limit (see [The Lua limit, and why the
+Measured on 2026-11-06 against GADS `dev` at `337d733c`, for information,
+with the fixes of the full review of the Go code (commits `22bb0b0` to
+`9774243`), after the change to the Lua limit (see [The Lua limit, and why the
 comparison is fair](#the-lua-limit-and-why-the-comparison-is-fair)) and
 with the statistics of the benchmark data analysed (see the end of [One
 request at a time](#one-request-at-a-time)).
@@ -9,19 +10,19 @@ request at a time](#one-request-at-a-time)).
 ## Summary
 
 - **One request at a time** (the suite's benchmarks, in one process): Go
-  is **4.7 times faster** overall, and between 1.3 and 66 times faster on
+  is **4.8 times faster** overall, and between 1.4 and 67 times faster on
   each step. Perl and Go give the same output on every benchmark scenario.
-- **Under load** (HTTP, 5 workers each): Go serves **about 48 requests a
-  second**, and Perl about 7.7, or **6.4 times** more. Its median time for
-  each request is 6 to 9 times lower.
+- **Under load** (HTTP, 5 workers each): Go serves **about 47 requests a
+  second**, and Perl about 7.3, or **6.4 times** more. Its median time for
+  each request is 6 to 8 times lower.
 - **More clients than workers:** Go shares the wait evenly among the
   clients. Under Starman, clients beyond the 5 workers get almost no
-  service: at 20 clients Perl's slowest 1% of requests took 62 s, and
+  service: at 20 clients Perl's slowest 1% of requests took 64 s, and
   Go's 0.66 s.
 - **Hardened mode**, which `gads serve` runs by default, costs nothing
   measurable under load (see [Hardened mode](#hardened-mode)).
-- **Memory under load:** Perl's 5 workers used 1.24 GB, and Go 25 MB
-  (29 MB hardened).
+- **Memory under load:** Perl's 5 workers used 1.24 GB, and Go 24 MB
+  (26 MB hardened).
 - **Slower in Go:** JSON encoding and decoding, against Perl's XS
   modules (see [Where Go is slower](#where-go-is-slower)). Lua runs at
   the same speed in both, the limit on Lua instructions included.
@@ -49,32 +50,34 @@ median is reported. The full report is
 
 | Scenario | Perl | Go | Go faster | Same output |
 |---|---:|---:|---:|:---:|
-| `b01_records`: records, searches, filters, graphs, CSV | 62.0 s | 14.8 s | 4.2× | yes |
-| `b02_import`: importing 1000 rows | 23.8 s | 4.0 s | 6.0× | yes |
-| `b03_lua`: calculated fields | 1.8 s | 0.9 s | 1.9× | yes |
-| `b04_web`: pages and the API | 91.0 s | 18.4 s | 4.9× | yes |
-| **Total** | **178.5 s** | **38.1 s** | **4.7×** | |
+| `b01_records`: records, searches, filters, graphs, CSV | 67.8 s | 15.2 s | 4.5× | yes |
+| `b02_import`: importing 1000 rows | 25.1 s | 4.2 s | 6.0× | yes |
+| `b03_lua`: calculated fields | 1.9 s | 1.0 s | 1.9× | yes |
+| `b04_web`: pages and the API | 95.2 s | 19.1 s | 5.0× | yes |
+| **Total** | **190.0 s** | **39.5 s** | **4.8×** | |
 
 Median time of some steps:
 
 | Step | Perl | Go | Go faster |
 |---|---:|---:|---:|
-| Get a record | 67 ms | 7.4 ms | 9.0× |
-| Update a record | 56 ms | 6.9 ms | 8.2× |
-| Page of 50 records, sorted | 141 ms | 16.3 ms | 8.7× |
-| Quick search | 148 ms | 35 ms | 4.2× |
-| Filter (AND) | 90 ms | 14.8 ms | 6.1× |
-| Line graph by date | 62 ms | 7.6 ms | 8.2× |
-| Log in | 612 ms | 9.2 ms | 66× |
-| Data table page | 70 ms | 7.9 ms | 8.9× |
-| Records API, 100 records | 929 ms | 131 ms | 7.1× |
-| Record page | 197 ms | 28 ms | 7.0× |
-| CSV download, 1000 records | 8.4 s | 2.9 s | 2.9× |
-| Import 1000 rows | 22.2 s | 3.2 s | 7.0× |
+| Get a record | 72 ms | 7.5 ms | 9.7× |
+| Update a record | 61 ms | 7.6 ms | 8.0× |
+| Page of 50 records, sorted | 152 ms | 16.8 ms | 9.0× |
+| Quick search | 169 ms | 38 ms | 4.5× |
+| Filter (AND) | 99 ms | 15.7 ms | 6.3× |
+| Line graph by date | 63 ms | 7.1 ms | 8.9× |
+| Log in | 651 ms | 9.7 ms | 67× |
+| Data table page | 71 ms | 8.4 ms | 8.4× |
+| Records API, 100 records | 985 ms | 137 ms | 7.2× |
+| Record page | 209 ms | 28 ms | 7.4× |
+| CSV download, 1000 records | 8.8 s | 3.0 s | 3.0× |
+| Import 1000 rows | 23.5 s | 3.3 s | 7.0× |
 
 A single step can differ by a third or more between two runs, in both
 applications (Perl's sorted page took 232 ms in one run and 138 ms in
-another); the totals vary by a few per cent.
+another); the totals vary by a few per cent. This run was slower than
+that of 2026-11-05 in both applications alike (Perl 178.5 s then, Go
+38.1 s), so the ratios held (4.7× then).
 
 The unit `db/csv_100` swung most: on PostgreSQL Go took 203 ms (±36%) in
 the first run and 436 ms in the second, against Perl's 293 and 258 ms
@@ -91,8 +94,8 @@ autovacuum ran during it. The runners now run `ANALYZE` after each step
 of a benchmark (SPEC.md "PostgreSQL"), as a database in use would have
 its statistics, and six runs took between 211 and 222 ms (Perl, three
 runs outside Docker: 321 to 335 ms). The figures above are from a run
-with it, where the unit took 194 ms (±3%) in Go and 263 ms (±2%) in
-Perl.
+with it, where the unit took 203 ms (±2%) in Go and 282 ms (±6%) in
+Perl (194 and 263 ms in the run of 2026-11-05).
 
 ## Under load
 
@@ -112,19 +115,19 @@ search, and a record page. No request failed.
 
 | Clients | Perl req/s | Go req/s | Perl median | Go median | Perl 99% | Go 99% |
 |---:|---:|---:|---:|---:|---:|---:|
-| 1 | 2.3 | 12.3 | 283 ms | 103 ms | 969 ms | 184 ms |
-| 5 | 7.7 | 49.1 | 771 ms | 125 ms | 1.5 s | 234 ms |
-| 10 | 7.6 | 45.3 | 786 ms | 205 ms | 1.8 s | 457 ms |
-| 20 | 7.7 | 47.8 | 795 ms | 412 ms | **62 s** | 658 ms |
+| 1 | 2.1 | 11.9 | 291 ms | 78 ms | 1.0 s | 193 ms |
+| 5 | 7.4 | 47.0 | 817 ms | 128 ms | 1.6 s | 246 ms |
+| 10 | 7.2 | 47.3 | 833 ms | 200 ms | 1.6 s | 422 ms |
+| 20 | 7.1 | 47.0 | 828 ms | 416 ms | **64 s** | 658 ms |
 
 Median time of each request with 5 clients (all workers busy):
 
 | Request | Perl | Go |
 |---|---:|---:|
-| Data table page | 94 ms | 11 ms |
-| Records API, 100 records | 1363 ms | 218 ms |
-| Records API, search | 815 ms | 141 ms |
-| Record page | 262 ms | 35 ms |
+| Data table page | 99 ms | 12 ms |
+| Records API, 100 records | 1440 ms | 229 ms |
+| Records API, search | 853 ms | 146 ms |
+| Record page | 267 ms | 36 ms |
 
 What the figures show:
 
@@ -134,19 +137,19 @@ What the figures show:
   `--workers`) would raise the ceiling of either.
 - **Go shares the wait evenly.** With more clients than workers, a request
   waits for the next free engine, so every client's response time grows
-  alike (20 clients: median 412 ms, 99% under 0.7 s).
+  alike (20 clients: median 416 ms, 99% under 0.7 s).
 - **Starman does not.** Each Starman worker keeps serving the client
   whose connection it holds, as long as that client keeps the connection
   open, so the other clients wait in the queue of the socket. At 10 and
   20 clients the median stays at 5 clients' level, because 5 clients are
-  served and the others are starved, which shows in the slowest 1% (62 s
+  served and the others are starved, which shows in the slowest 1% (64 s
   at 20 clients). A web server in front of Starman that does not reuse
   its connections avoids this.
 - **Memory:** after the runs, Perl's container used 1.24 GB (5 workers),
-  and Go's 25 MB.
+  and Go's 24 MB.
 - **From one run to the next** the request rates differ by about 5%:
-  in an earlier run, Perl served 8.1 requests a second and Go 52.6 at 5
-  clients.
+  at 5 clients, Perl served 7.7 requests a second and Go 49.1 on
+  2026-11-05, and 8.1 and 52.6 in an earlier run.
 
 ### Hardened mode
 
@@ -157,13 +160,17 @@ hardened, on a copy of its own of the database:
 
 | Clients | Go req/s | Hardened req/s | Go median | Hardened median | Go 99% | Hardened 99% |
 |---:|---:|---:|---:|---:|---:|---:|
-| 1 | 12.3 | 12.0 | 103 ms | 76 ms | 184 ms | 191 ms |
-| 5 | 49.1 | 47.4 | 125 ms | 126 ms | 234 ms | 252 ms |
-| 10 | 45.3 | 48.2 | 205 ms | 192 ms | 457 ms | 411 ms |
-| 20 | 47.8 | 47.7 | 412 ms | 416 ms | 658 ms | 729 ms |
+| 1 | 11.9 | 11.9 | 78 ms | 77 ms | 193 ms | 194 ms |
+| 5 | 47.0 | 46.7 | 128 ms | 128 ms | 246 ms | 248 ms |
+| 10 | 47.3 | 47.4 | 200 ms | 200 ms | 422 ms | 422 ms |
+| 20 | 47.0 | 47.8 | 416 ms | 412 ms | 658 ms | 677 ms |
 
-The differences go both ways and are within those between two runs
-(at 10 clients the hardened server was the faster). What hardened mode
+The differences go both ways and are within 1%, well inside those
+between two runs (in the run of 2026-11-05, within 5%, the hardened
+server again the faster at some client counts). This includes the
+hardened changes of the review: the smaller limit on the bodies of
+requests without a user, and the narrower list of writes allowed in a
+GET. What hardened mode
 adds to each request (the check of the CSRF token, the security
 headers, the check that a GET writes nothing) is small beside the
 queries. Its one costly change is at login: passwords are hashed with
@@ -171,16 +178,17 @@ PBKDF2-SHA512 (210,000 iterations), and a Perl hash is rehashed so at
 the first login. The clients log in before the timing starts, so that
 cost is not in these figures. Hardened mode also limits logins to 20 a
 minute from each address, which the test stays within. Its memory was
-29 MB.
+26 MB.
 
 ## Where Go is slower
 
-- **JSON** (units `json/encode_1000` and `json/decode_1000`): Go takes 5
-  and 3 times as long as Perl's JSON::XS. GADS spends little time there
+- **JSON** (units `json/encode_1000` and `json/decode_1000`): Go takes 6
+  and 5 times as long as Perl's JSON::XS. GADS spends little time there
   (about 1% of the benchmark's CPU), and the decision is to keep Go's
   `encoding/json`. Against JSON::PP, which the reference install uses,
   Go is faster.
-- The other units where Go is not faster are Lua's (0.9×, see below).
+- The other units where Go is not faster are Lua's (0.9 to 1.1×, see
+  below).
 
 ## The Lua limit, and why the comparison is fair
 
@@ -210,7 +218,9 @@ late timer cannot arm the next call (`TestCountAfter`).
 
 (Perl and the last column are from the second run; the middle column is
 the first. On this machine outside Docker, `lua/loop` took 268 µs before
-the change and 162 µs after.)
+the change and 162 µs after. In the run of 2026-11-06, `lua/simple`,
+`lua/loop` and `lua/strings` took 6.9, 198 and 12.1 µs in Perl, and 7.6,
+178 and 13.9 µs in Go.)
 
 Why this is fair:
 

@@ -27,8 +27,8 @@ identical.
   graphs, imports, alerts) and the web application (pages, forms, the API,
   dashboards and their widgets, sessions, MFA).
 - **Databases:** SQLite and PostgreSQL.
-- **Performance:** on PostgreSQL, Go is about 4 times faster per request
-  and serves about 6.5 times as many requests a second, in a fraction of
+- **Performance:** on PostgreSQL, Go is about 5 times faster per request
+  and serves about 6.4 times as many requests a second, in a fraction of
   the memory. See
   [`gads-postgres-performance.md`](gads-postgres-performance.md).
 - **Security:** the application runs in *hardened mode* by default, which
