@@ -92,3 +92,25 @@ func TestGolden(t *testing.T) {
 		}
 	}
 }
+
+// A template that includes itself is an error (RECURSION off, as
+// Template::Document's _HOT), and blocks nested without end stop at
+// maxDepth rather than overflowing the stack
+func TestRecursion(t *testing.T) {
+	e := NewEngine("/t")
+	e.Load = func(p string) ([]byte, error) {
+		switch p {
+		case "/t/self.tt":
+			return []byte(`[% TRY %][% INCLUDE self.tt %][% CATCH file %][% error.info %][% END %]`), nil
+		case "/t/block.tt":
+			return []byte(`[% BLOCK r %][% INCLUDE r %][% END %][% TRY %][% INCLUDE r %][% CATCH file %][% error.info %][% END %]`), nil
+		}
+		return nil, os.ErrNotExist
+	}
+	if out, err := e.Process("self.tt", nil); err != nil || out != "recursion into 'self.tt'" {
+		t.Errorf("self: %q %v", out, err)
+	}
+	if out, err := e.Process("block.tt", nil); err != nil || out != "recursion into 'r' over 1000 levels" {
+		t.Errorf("block: %q %v", out, err)
+	}
+}

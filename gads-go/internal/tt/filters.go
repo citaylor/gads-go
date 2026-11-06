@@ -429,6 +429,17 @@ func perlSprintf(format string, args []any) string {
 			}
 			return r
 		}, format[i:j])
+		// A width of * is the next argument (a negative one left
+		// justifies), as Perl's sprintf
+		if k := strings.IndexByte(spec, '*'); k >= 0 && conv != '%' {
+			w, _ := perlInt(next()).(int64)
+			flags := spec[:k]
+			if w < 0 {
+				flags += "-"
+				w = -w
+			}
+			spec = flags + strconv.FormatInt(w, 10) + strings.ReplaceAll(spec[k+1:], "*", "")
+		}
 		switch conv {
 		case '%':
 			b.WriteByte('%')

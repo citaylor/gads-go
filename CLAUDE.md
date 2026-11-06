@@ -593,6 +593,11 @@ Not fixed:
     - A callback (`working_days_diff`, `working_days_add`) that fails
       ends the run, even inside a `pcall`, as Perl's `die` unwinds
       through Inline::Lua: the code stops at its next instruction.
+  - Templates (`internal/tt`): templates and blocks nested over 1000
+    deep are a `file` error ("recursion into 'NAME' over 1000 levels"),
+    where Perl recurses until it runs out of memory and Go's stack would
+    overflow; a list item assigned at an index of 2^24 or more is "Out
+    of memory!" at once. The views do neither.
   - Lua tables with a key that is not a number or a string (a boolean)
     fail with Inline::Lua's "Illegal type (boolean) in table subscript",
     without its place in Perl. Inline::Lua's Lua state is then broken, so

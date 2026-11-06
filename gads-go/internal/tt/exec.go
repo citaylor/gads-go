@@ -3,6 +3,7 @@ package tt
 import (
 	"errors"
 	"fmt"
+	"math"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -315,7 +316,16 @@ type Context struct {
 	blocks      map[string]*tmplBody
 	blkstack    []map[string]*tmplBody
 	filterCache map[string]filterFunc
+	// hot are the documents being processed (Template::Document's _HOT,
+	// kept here as documents are shared), depth the nesting of templates
+	hot   map[*document]bool
+	depth int
 }
+
+// maxDepth is the deepest nesting of templates and blocks. Deviation:
+// Perl recurses until it runs out of memory; Go's stack would overflow,
+// which ends the process.
+const maxDepth = 1000
 
 // Stash returns the current stash's variables.
 func (c *Context) Vars() *Hash { return c.stash.vars }
@@ -394,6 +404,14 @@ func (c *Context) processTemplates(names []any, params *Hash, localize bool) (st
 			c.stash.vars.Set("component", element)
 			var s string
 			var err error
+			if c.depth >= maxDepth {
+				nm := Str(names[i])
+				if d, ok := t.(*document); ok {
+					nm = d.name
+				}
+				return throwErr("file", fmt.Sprintf("recursion into '%s' over %d levels", nm, maxDepth))
+			}
+			c.depth++
 			switch tt := t.(type) {
 			case *document:
 				if !localize {
@@ -411,6 +429,7 @@ func (c *Context) processTemplates(names []any, params *Hash, localize bool) (st
 					s = Str(r[0])
 				}
 			}
+			c.depth--
 			if err != nil {
 				return err
 			}
@@ -434,6 +453,15 @@ func (c *Context) processTemplates(names []any, params *Hash, localize bool) (st
 }
 
 func (c *Context) processDocument(d *document) (string, error) {
+	// (RECURSION is off: a template may not include itself)
+	if c.hot[d] {
+		return "", throwErr("file", fmt.Sprintf("recursion into '%s'", d.name))
+	}
+	if c.hot == nil {
+		c.hot = map[*document]bool{}
+	}
+	c.hot[d] = true
+	defer delete(c.hot, d)
 	c.blkstack = append([]map[string]*tmplBody{d.blocks}, c.blkstack...)
 	s, err := c.runBody(d.body)
 	c.blkstack = c.blkstack[1:]
@@ -1092,7 +1120,50 @@ func (c *Context) stashSet(names []any, args [][]any, value any, def bool) (any,
 
 func isPrivate(s string) bool { return strings.HasPrefix(s, "_") || strings.HasPrefix(s, ".") }
 
-var intItemRe = regexp.MustCompile(`^-?\d+$`)
+// arrayIndex is how Template::Stash::XS indexes a list: by a key that
+// looks like a number, converted as SvIV (a number past the integers is
+// UV_MAX, -1, or IV_MIN)
+func arrayIndex(item any, key string) (int64, bool) {
+	switch v := item.(type) {
+	case int64:
+		return v, true
+	case int:
+		return int64(v), true
+	case float64:
+		return nvToIV(v), true
+	}
+	if !perl.LooksLikeNumber(key) {
+		return 0, false
+	}
+	t := strings.TrimSpace(key)
+	if n, err := strconv.ParseInt(strings.TrimPrefix(t, "+"), 10, 64); err == nil {
+		return n, true
+	}
+	if u, err := strconv.ParseUint(strings.TrimPrefix(t, "+"), 10, 64); err == nil {
+		return int64(u), true // #nosec G115 -- Perl's IV of a UV
+	}
+	return nvToIV(perl.Numify(t)), true
+}
+
+// nvToIV is Perl's SvIV of a float
+func nvToIV(f float64) int64 {
+	switch {
+	case math.IsNaN(f):
+		return 0
+	case f < math.MaxInt64:
+		if f < math.MinInt64 {
+			return math.MinInt64
+		}
+		return int64(f)
+	case f < math.MaxUint64:
+		return int64(uint64(f)) // #nosec G115 -- Perl's IV of a UV
+	}
+	return -1 // UV_MAX
+}
+
+// maxListAssign is the largest index assigned to (a deviation: Perl
+// makes the array that long, or runs out of memory)
+const maxListAssign = 1 << 24
 
 func (c *Context) assignItem(root any, item any, args []any, value any, def bool) (any, error) {
 	if !True(root) || item == nil {
@@ -1120,15 +1191,19 @@ func (c *Context) assignItem(root any, item any, args []any, value any, def bool
 		r.Set(key, value)
 		return value, nil
 	case *List:
-		if intItemRe.MatchString(key) {
-			idx, _ := strconv.Atoi(key)
+		if idx, ok := arrayIndex(item, key); ok {
+			// (Stash::XS: av_store, which ignores an index before the
+			// start)
 			if idx < 0 {
-				idx += len(r.Items)
+				idx += int64(len(r.Items))
 				if idx < 0 {
-					return nil, fmt.Errorf("Modification of non-creatable array value attempted, subscript %s", key)
+					return nil, nil
 				}
 			}
-			for len(r.Items) <= idx {
+			if idx >= int64(maxListAssign) {
+				return nil, fmt.Errorf("Out of memory!")
+			}
+			for int64(len(r.Items)) <= idx {
 				r.Items = append(r.Items, nil)
 			}
 			r.Items[idx] = value
@@ -1211,12 +1286,11 @@ func (c *Context) dotop(root any, item any, args []any, lvalue bool) (any, error
 	case *List:
 		if op, ok := listOps[key]; ok {
 			result, err = op(c, r, args)
-		} else if intItemRe.MatchString(key) {
-			idx, _ := strconv.Atoi(key)
+		} else if idx, ok := arrayIndex(item, key); ok {
 			if idx < 0 {
-				idx += len(r.Items)
+				idx += int64(len(r.Items))
 			}
-			if idx < 0 || idx >= len(r.Items) {
+			if idx < 0 || idx >= int64(len(r.Items)) {
 				return nil, nil
 			}
 			v := r.Items[idx]
@@ -1279,7 +1353,7 @@ func (c *Context) objectFallback(root any, key string, args []any, lvalue bool) 
 		if op, ok := listOps[key]; ok {
 			return op(c, l, args)
 		}
-		if intItemRe.MatchString(key) {
+		if _, ok := arrayIndex(key, key); ok {
 			r, err := c.dotop(l, key, args, lvalue)
 			return []any{r}, err
 		}
@@ -1524,6 +1598,9 @@ func (c *Context) eval(e Expr) (any, error) {
 		if err != nil {
 			return nil, err
 		}
+		if v == minInt64Neg {
+			return v, nil
+		}
 		return perlInt(v), nil
 	case *exprParen:
 		return c.eval(t.e)
@@ -1577,6 +1654,9 @@ func perlRange(a, b any) []any {
 	var res []any
 	for i := xi; i <= yi; i++ {
 		res = append(res, i)
+		if i == math.MaxInt64 {
+			break
+		}
 	}
 	return res
 }

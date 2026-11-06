@@ -34,7 +34,7 @@
          "template" : "[% TRY %][% TRY %][% THROW inner \"i\" %][% CATCH outer %]wrong[% END %][% CATCH inner %]outer caught [% error.info %][% END %]"
       },
       {
-         "out" : "x=HASH(0x5584fcaa5ad0)",
+         "out" : "x=HASH(0x5641a689e740)",
          "template" : "[% TRY %][% THROW x 'a' 'b' %][% CATCH %][% error.type %]=[% error.info.join(',') %][% END %]"
       },
       {
@@ -178,7 +178,7 @@
          "template" : "[% l = [3,1,2] %][% l.push(4) %][% l.join %]|[% l.pop %]|[% l.shift %]|[% l.unshift(9) %][% l.join %]|[% l.grep('^[12]$').join %]|[% l.grep('9').size %]"
       },
       {
-         "out" : "a b c|2|1|0|a|ARRAY(0x5584fca10238)a b z",
+         "out" : "a b c|2|1|0|a|ARRAY(0x5641a68af380)a b z",
          "template" : "[% l = ['a','b'] %][% l.merge(['c'], 'd').join %]|[% l.size %]|[% l.defined(1) %]|[% l.defined(5) ? 1 : 0 %]|[% l.hash.keys.sort.join %]|[% l.import(['z']) %][% l.join %]"
       },
       {
@@ -318,7 +318,7 @@
          "template" : "[% DEFAULT x = 3 %][% x %]|[% y = 0 %][% DEFAULT y = 4 %][% y %]|[% z = 'set' %][% DEFAULT z = 5 %][% z %]"
       },
       {
-         "out" : "c|3|1|a|1,2,HASH(0x5584fc9e6eb8)",
+         "out" : "c|3|1|a|1,2,HASH(0x5641a689ef80)",
          "template" : "[% x = { a => [1, 2, { b => 'c' }] } %][% x.a.2.b %]|[% x.a.size %]|[% x.item('a').0 %]|[% x.keys.join %]|[% x.a.join(',') %]"
       },
       {
@@ -404,6 +404,46 @@
       {
          "out" : "123|4",
          "template" : "[% l = [1, 2, 3] %][% FOREACH i IN l %][% l.push(9) IF i == 1 %][% i %][% END %]|[% l.size %]"
+      },
+      {
+         "out" : "err undef|2 3|1",
+         "template" : "[% l = [1,2,3] %][% TRY %][% l.splice(-5, 1).join %][% CATCH %]err [% error.type %][% END %]|[% l.splice(1, 99999999999).join %]|[% l.join %]"
+      },
+      {
+         "out" : "y|y",
+         "template" : "[% l = [1,2] %][% x = l.99999999999999999999 %][% x.defined ? 'y' : 'n' %]|[% l.item(99999999999999999999).defined ? 'y' : 'n' %]"
+      },
+      {
+         "out" : "9223372036854775806,9223372036854775807,",
+         "template" : "[% FOREACH i IN [9223372036854775806..9223372036854775807] %][% i %],[% END %]"
+      },
+      {
+         "out" : "9223372036854775808|9223372036854775808|0",
+         "template" : "[% n = -9223372036854775807 - 1 %][% m = n / -1 %][% m %]|[% n div -1 %]|[% n mod -1 %]"
+      },
+      {
+         "out" : "    0|[0  ]|",
+         "template" : "[% 5 | format('%*d|') %][% -3 | format('[%*d]') %][% 'ab' | format('%-*s|') %]"
+      },
+      {
+         "out" : "1,9",
+         "template" : "[% l=[1,2] %][% l.99999999999999999999 = 9 %][% l.join(\",\") %]"
+      },
+      {
+         "out" : "1,2",
+         "template" : "[% l=[1,2] %][% l.-99999999999999999999 = 9 %][% l.join(\",\") %]"
+      },
+      {
+         "out" : "",
+         "template" : "[% l=[1,2] %][% x = l.-99999999999999999999 %][% x %]"
+      },
+      {
+         "out" : "2|2|2|3|3||u",
+         "template" : "[% l=[1,2,3] %][% k=\"1.7\" %][% l.$k %]|[% k=\" 1\" %][% l.$k %]|[% k=\"1e0\" %][% l.$k %]|[% k=\"-1\" %][% l.$k %]|[% k=\"18446744073709551615\" %][% l.$k %]|[% k=\"9223372036854775808\" %][% l.$k %]|[% k=\"1x\" %][% l.$k.defined ? 'd' : 'u' %]"
+      },
+      {
+         "out" : "1,9,3|1,8,3|1,8,3|5",
+         "template" : "[% l=[1,2,3] %][% k=\"1.7\" %][% l.$k = 9 %][% l.join(\",\") %]|[% k=\"1e0\" %][% l.$k = 8 %][% l.join(\",\") %]|[% l.-5 = 7 %][% l.join(\",\") %]|[% l.4 = 6 %][% l.size %]"
       }
    ],
    "template" : "3.106"

@@ -272,6 +272,9 @@ func Float(v any) float64 {
 	return 0
 }
 
+// minInt64Neg is -MinInt64, which Perl holds as an unsigned integer (UV)
+const minInt64Neg = "9223372036854775808"
+
 func arith(op string, a, b any) (any, error) {
 	x, y := Num(a), Num(b)
 	xi, xok := x.(int64)
@@ -310,6 +313,10 @@ func arith(op string, a, b any) (any, error) {
 			return nil, fmt.Errorf("Illegal division by zero")
 		}
 		if xok && yok && yi != 0 && xi%yi == 0 {
+			if xi == math.MinInt64 && yi == -1 {
+				// (past the signed integers: Perl's unsigned one)
+				return minInt64Neg, nil
+			}
 			return xi / yi, nil
 		}
 		return Float(x) / fy, nil

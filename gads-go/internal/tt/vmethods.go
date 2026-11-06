@@ -1,6 +1,7 @@
 package tt
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
@@ -691,6 +692,10 @@ func init() {
 					off += n
 				}
 			}
+			if off < 0 {
+				// (Perl's splice dies before the start of the array)
+				return nil, fmt.Errorf("Modification of non-creatable array value attempted, subscript %d", off-n)
+			}
 			if off > n {
 				off = n
 			}
@@ -705,7 +710,7 @@ func init() {
 					}
 				}
 			}
-			if off+length > n {
+			if length > n-off {
 				length = n - off
 			}
 			var repl []any
