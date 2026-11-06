@@ -1,0 +1,33 @@
+name: site_mfa_user
+hardened: 1
+description: >
+  The MFA hook finds the logged in user in the request's site (a deviation
+  in either mode: Perl's finds the user in the site of the worker's
+  previous request). Site 1 forces MFA; site 2 has a user of the same
+  username, before normal1 in row order, who needs none. Found without the
+  site, that user's settings would skip MFA.
+steps:
+  - sheet: { as: s, site_id: 1 }
+  - db:
+      id: normal1_username
+      op: select
+      table: user
+      where: { id: "@user:normal1" }
+      columns: [id, username]
+      expect: [{ id: "4", username: user4@example.com }]
+  - db:
+      op: insert
+      table: site
+      set: { id: 2, host: other.example.com, name: Other site }
+  - db:
+      op: insert
+      table: user
+      set: { id: 0, site_id: 2, email: user4@example.com, username: user4@example.com, firstname: Other, surname: Site, value: "Site, Other", account_request: 0 }
+  - login: { user: normal1 }
+  - db: { op: update, table: site, where: { id: 1 }, set: { force_mfa: any } }
+  - http:
+      id: mfa_forced
+      as: normal1
+      path: /myaccount
+      no_body: true
+      expect: { status: "302", location: /mfa }

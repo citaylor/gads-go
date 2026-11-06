@@ -14,6 +14,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/ctrlo/gads-go/internal/db"
@@ -126,6 +127,12 @@ func hashPasswordPBKDF2(pw string) string {
 		base64.StdEncoding.EncodeToString(salt), base64.StdEncoding.EncodeToString(key))
 }
 
+// dummyPBKDF2 is a PBKDF2 hash (after its scheme) of no password, to check
+// against for an unknown user
+var dummyPBKDF2 = sync.OnceValue(func() string {
+	return strings.TrimPrefix(hashPasswordPBKDF2(""), "{"+pbkdf2Scheme+"}")
+})
+
 // matchPBKDF2 checks a password against the part of a PBKDF2 hash after
 // its scheme
 func matchPBKDF2(given, h string) bool {
@@ -173,6 +180,12 @@ func (c *Ctx) authenticateUser(username, password string) bool {
 	}
 	user := c.E.FindActiveUser(username)
 	if user == nil {
+		// Hardened (M-4): an unknown user takes the time of a PBKDF2
+		// check, so that the time of the answer does not tell which
+		// usernames exist
+		if cfg := c.E.Config; cfg.Hardened && !cfg.PerlPasswordHashes {
+			matchPBKDF2(password, dummyPBKDF2())
+		}
 		return false
 	}
 	pw, _ := db.AsString(user.Row["password"])

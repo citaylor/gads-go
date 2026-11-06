@@ -175,3 +175,41 @@ func TestReadOnly(t *testing.T) {
 		t.Error("emailer not restored")
 	}
 }
+
+// The limit holds in any window: a burst just before and just after a
+// minute is not twice the limit, and quiet addresses are forgotten
+func TestRateLimiterSliding(t *testing.T) {
+	var r rateLimiter
+	t0 := time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC)
+	for i := 0; i < rateLimit; i++ {
+		if !r.allow("a", t0.Add(59*time.Second)) {
+			t.Fatalf("request %d refused", i+1)
+		}
+	}
+	if r.allow("a", t0.Add(61*time.Second)) {
+		t.Error("burst over the window's end allowed")
+	}
+	if !r.allow("b", t0.Add(61*time.Second)) {
+		t.Error("other address refused")
+	}
+	if !r.allow("a", t0.Add(119*time.Second)) {
+		t.Error("refused once the window has passed")
+	}
+	r.allow("c", t0.Add(10*time.Minute))
+	if _, ok := r.times["b"]; ok || len(r.times) != 1 {
+		t.Errorf("quiet addresses kept: %v", r.times)
+	}
+}
+
+// Hardened, an unknown username takes about the time of a known one's
+// PBKDF2 check, so that the answer's time does not tell which exist
+func TestLoginTimingUnknownUser(t *testing.T) {
+	salt := dummyPBKDF2() // (made once, before timing)
+	start := time.Now()
+	if matchPBKDF2("guess", salt) {
+		t.Fatal("dummy hash matched")
+	}
+	if d := time.Since(start); d < 10*time.Millisecond {
+		t.Errorf("dummy check took only %v", d)
+	}
+}

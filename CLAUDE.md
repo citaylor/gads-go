@@ -513,16 +513,16 @@ code.
 
 | Finding | Fix (web layer: `internal/web/hardening.go`) |
 |---|---|
-| H-1 CSRF | A GET request cannot change data: `DB.WriteCheck` allows only the writes of showing a page (audit, `session_settings`, default dashboards and RAG settings, submission tokens, the OAuth client, the colours of graph values, the SMS code of the MFA page, expired tokens), and mail fails. PUT, PATCH and DELETE need the token in a session. The cookie is SameSite=Lax unless configured. |
+| H-1 CSRF | A GET request cannot change data: `DB.WriteCheck` allows only the writes of showing a page (audit, `session_settings`, default dashboards and RAG settings, submission tokens, the OAuth client, the colours of graph values, the SMS code of the MFA page, expired tokens), and mail fails. PUT, PATCH and DELETE need the token in a session. `/login` and `/mfa` take credentials and tokens only in a POST (a GET could not write the failures for the lockout). The cookie is SameSite=Lax unless configured. |
 | H-2 | Pages printed by Chrome (`/print`, dashboards, timelines, graphs) load from a server of the public files on the loopback interface, at a random path, instead of `file://`: every other request is refused (`Fetch`), and a CSP keeps connections to that origin. `/print` needs the CSRF token, and its POSTs are rate-limited as M-7's. |
 | H-3 | Only a superadmin changes or retires a superadmin (`User.CheckCanManage`). |
 | H-4 | A historic purge takes only records that the user sees in this table's view, and the columns the page offers. |
 | H-5 | Dashboards are changed by their own scope: the site's by superadmins, a table's with `layout` on that table, a personal one by its owner, who is also the only one who can read it (M-2). Notice HTML is sanitised (bluemonday). |
 | M-1 | Graphs, reports, trees, field values and help text are found only in the URL's table, or among the fields the user can read. A view is found only in its own table (Perl's DBIC `find` ignores the instance), and a record dashboard's table widget checks its view with the referenced table's permissions. |
 | M-3 | Only superadmins upload independent files. |
-| M-4 | PBKDF2-SHA512 (210000 iterations, 91 characters), upgraded at login. The user's `encryption_key` changes with the hash, as it does on a password change. |
+| M-4 | PBKDF2-SHA512 (210000 iterations, 91 characters), upgraded at login. The user's `encryption_key` changes with the hash, as it does on a password change. An unknown username at `/login` or the password grant takes the time of a PBKDF2 check, so that the time does not tell which exist. |
 | M-5 | The password grant has the lockout and audit of `/login`. Retiring a user revokes their tokens. |
-| M-7 | Pages are at most 1000 rows. POSTs to `/login`, `/register`, `/resetpw`, `/api/token` and `/print` are limited to 20 a minute per address (429). |
+| M-7 | Pages are at most 1000 rows. POSTs to `/login`, `/register`, `/resetpw`, `/api/token` and `/print` are limited to 20 in any minute per address (a sliding window; 429). |
 | M-8 | CSP with `object-src`, `base-uri` and `frame-ancestors` on every response, plus nosniff, Referrer-Policy and HSTS (with `is_secure`). |
 | M-9 | A request for an existing account resends the pending reset code. Long names and notes are refused. |
 | M-11 | CSV downloads quote a cell that starts with `= + - @`, a tab or a CR, unless it is a number. |
@@ -595,6 +595,11 @@ Not fixed:
   - The `DBIC` session engine's table, `sessions`, is not part of GADS's
     schema (as with Dancer2::Session::DBIC, which needs a table of the
     application's own), and has a `last_active` column for the expiry.
+  - The MFA hook finds the logged in user in the request's site (the
+    site is set before it, its redirect still made after it). Perl's
+    finds the user in the site of the worker's previous request, so a
+    user of the same username in another site could decide whether MFA
+    is needed. `conformance/hardened/site_mfa_user.yaml` tests it.
   - The requests of one session run one at a time. With Perl's YAML
     sessions, two at once can each overwrite the other's changes.
   - A CSV download without the download permission redirects with the

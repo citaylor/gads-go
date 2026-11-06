@@ -148,6 +148,9 @@ func (c *Ctx) verifyUserPasswordHardened(client, user db.Row, username, password
 			return oauthVerifyResult{client: cid, userID: uid}
 		}
 		e.DB.UpdateMap("user", map[string]any{"failcount": fc + 1, "lastfail": e.Now()}, map[string]any{"id": uid})
+	} else if !e.Config.PerlPasswordHashes {
+		// (the time of a check, as authenticateUser)
+		matchPBKDF2(password, dummyPBKDF2())
 	}
 	e.Audit(map[string]any{"description": "API login failure using username " + username, "type": "login_failure"})
 	return oauthVerifyResult{err: "access_denied"}

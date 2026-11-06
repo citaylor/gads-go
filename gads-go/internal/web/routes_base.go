@@ -113,8 +113,12 @@ func (s *Server) hLogin(c *Ctx) string {
 		}
 	}
 
+	// Hardened (H-1, M-5): credentials only in a POST, which the rate
+	// limit counts, and which can write the failures for the lockout (a
+	// GET can't write, so its guesses would go uncounted)
+	post := !e.Config.Hardened || c.IsPost()
 	var errorText, errorModal string
-	if v, _ := c.Param("resetpwd"); truthy(v) {
+	if v, _ := c.Param("resetpwd"); truthy(v) && post {
 		if username, _ := c.Param("emailreset"); username != "" {
 			if gads.EmailValid(username) {
 				e.Audit(map[string]any{"user_id": nil, "description": "Password reset request for " + username, "type": "login_change"})
@@ -133,7 +137,7 @@ func (s *Server) hLogin(c *Ctx) string {
 		}
 	}
 
-	if _, ok := c.Param("signin"); ok {
+	if _, ok := c.Param("signin"); ok && post {
 		username := c.ParamS("username")
 		lastfail := e.Now().Add(-15 * time.Minute)
 		q := `SELECT COUNT(*) FROM "user" "me" WHERE "me"."account_request" = 0 AND "me"."deleted" IS NULL AND "me"."username" = ? AND "me"."failcount" >= 5 AND "me"."lastfail" > ?` + siteAndMe(e)

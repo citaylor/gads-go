@@ -41,7 +41,16 @@ func (s *Server) hMFA(c *Ctx) string {
 		c.Redirect("/")
 	}
 	params := tt.NewHash()
-	body := func(k string) string { v, _ := c.BodyParam(k); return v }
+	// Hardened (H-1): tokens and changes only in a POST, which can write
+	// the failures for the lockout
+	post := !c.E.Config.Hardened || c.IsPost()
+	body := func(k string) string {
+		if !post {
+			return ""
+		}
+		v, _ := c.BodyParam(k)
+		return v
+	}
 	if user.NeedMFASetup() {
 		// Does user need to choose their MFA?
 		if !truthy(user.MFATypeEffective()) {

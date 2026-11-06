@@ -824,6 +824,7 @@ func (c *Ctx) dispatch() {
 			// As Dancer2, the before hooks run for each route tried, those
 			// of API.pm and MFA.pm (loaded by GADS.pm) first
 			c.s.apiBeforeHook(c)
+			c.s.siteForMFA(c)
 			c.s.mfaBeforeHook(c)
 			c.s.beforeHook(c)
 			c.content = c.route.r.handler(c)

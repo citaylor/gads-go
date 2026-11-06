@@ -94,27 +94,52 @@ const (
 // a browser (H-2)
 var rateLimited = regexp.MustCompile(`^/(login|register|resetpw(/.*)?|api/token|print)$`)
 
+// rateLimiter allows each address limit requests in any rateWindow (a
+// sliding window: the times of an address's last requests), so that no
+// burst around a shared reset doubles it
 type rateLimiter struct {
 	// limit is the number of requests allowed in a window (0: rateLimit)
-	limit  int
-	mu     sync.Mutex
-	start  time.Time
-	counts map[string]int
+	limit int
+	mu    sync.Mutex
+	times map[string][]time.Time
+	swept time.Time
 }
 
 // allow counts a request from addr and is whether it is within the limit
+// (a refused request is not counted)
 func (r *rateLimiter) allow(addr string, now time.Time) bool {
 	r.mu.Lock()
 	defer r.mu.Unlock()
-	if now.Sub(r.start) >= rateWindow || r.counts == nil {
-		r.start, r.counts = now, map[string]int{}
-	}
-	r.counts[addr]++
 	limit := r.limit
 	if limit == 0 {
 		limit = rateLimit
 	}
-	return r.counts[addr] <= limit
+	if r.times == nil {
+		r.times, r.swept = map[string][]time.Time{}, now
+	}
+	recent := func(ts []time.Time) []time.Time {
+		i := 0
+		for i < len(ts) && now.Sub(ts[i]) >= rateWindow {
+			i++
+		}
+		return ts[i:]
+	}
+	// (the addresses gone quiet are forgotten, once a window)
+	if now.Sub(r.swept) >= rateWindow {
+		for a, ts := range r.times {
+			if len(recent(ts)) == 0 {
+				delete(r.times, a)
+			}
+		}
+		r.swept = now
+	}
+	ts := recent(r.times[addr])
+	if len(ts) >= limit {
+		r.times[addr] = ts
+		return false
+	}
+	r.times[addr] = append(ts, now)
+	return true
 }
 
 // clientAddr is the address of the client (the one the proxy reports,

@@ -18,38 +18,63 @@ var (
 	userStatusOpenRe = regexp.MustCompile(`^/(user_status|aup|mfa)`)
 )
 
-// beforeHook is the GADS before hook (lib/GADS.pm hook before)
-func (s *Server) beforeHook(c *Ctx) {
+// siteOf is the site of the request's host, as the GADS before hook finds
+// it, and where to redirect a request for another host ("" for none). An
+// unknown host of several sites has site -1, which has no rows.
+func (s *Server) siteOf(c *Ctx) (int64, string) {
 	e := c.E
-	e.SiteID = 0
 	nsites, _ := e.DB.QueryInt64(`SELECT COUNT(*) FROM "site"`)
 	if nsites > 1 && !strings.Contains(c.Path(), "/invalidsite") {
 		row := e.DB.QueryRow(`SELECT "id" FROM "site" WHERE "host" = ? ORDER BY "id" LIMIT 1`, c.Host())
 		if row == nil {
-			c.Redirect("/invalidsite")
+			return -1, "/invalidsite"
 		}
 		id, _ := db.AsInt64(row["id"])
-		e.SiteID = id
-		c.SetVar("site", e.Site())
-	} else {
-		row := e.DB.QueryRow(`SELECT "id", "host" FROM "site" ORDER BY "id" LIMIT 1`)
-		var host string
-		if row != nil {
-			host, _ = db.AsString(row["host"])
-		}
-		if c.Host() != host {
-			u, _ := url.Parse(c.Base())
-			if p := u.Port(); p != "" {
-				u.Host = host + ":" + p
-			} else {
-				u.Host = host
-			}
-			c.Redirect(u.String())
-		}
-		id, _ := db.AsInt64(row["id"])
-		e.SiteID = id
-		c.SetVar("site", e.Site())
+		return id, ""
 	}
+	row := e.DB.QueryRow(`SELECT "id", "host" FROM "site" ORDER BY "id" LIMIT 1`)
+	var host string
+	if row != nil {
+		host, _ = db.AsString(row["host"])
+	}
+	id, _ := db.AsInt64(row["id"])
+	if c.Host() != host {
+		u, _ := url.Parse(c.Base())
+		if p := u.Port(); p != "" {
+			u.Host = host + ":" + p
+		} else {
+			u.Host = host
+		}
+		return id, u.String()
+	}
+	return id, ""
+}
+
+// siteForMFA sets the site before the MFA hook, without its redirect (which
+// the GADS before hook makes after the MFA hook, as in Perl). Deviation: so
+// that the MFA hook finds the logged in user in the request's site; Perl's
+// finds the user in the site of the worker's previous request.
+func (s *Server) siteForMFA(c *Ctx) {
+	c.E.SiteID, _ = s.siteOf(c)
+}
+
+// setSite is the start of the GADS before hook: the site of the request's
+// host, or a redirect
+func (s *Server) setSite(c *Ctx) {
+	e := c.E
+	e.SiteID = 0
+	id, redirect := s.siteOf(c)
+	if redirect != "" {
+		c.Redirect(redirect)
+	}
+	e.SiteID = id
+	c.SetVar("site", e.Site())
+}
+
+// beforeHook is the GADS before hook (lib/GADS.pm hook before)
+func (s *Server) beforeHook(c *Ctx) {
+	e := c.E
+	s.setSite(c)
 
 	var user *gads.User
 	if strings.HasPrefix(c.URI(), "/api/") && c.Var("api_user") != nil {
