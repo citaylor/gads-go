@@ -2,9 +2,10 @@
 # security updates (on in the repository settings) come as soon as an
 # advisory is published, whatever this file says.
 #
-# - A Go module update changes the versions listed in
-#   gads-go/THIRD-PARTY-LICENSES, so CI's licence check fails on its PR
-#   until `./third-party-licenses.sh` is run on the branch (from gads-go/).
+# - gads-go/THIRD-PARTY-LICENSES lists no versions, so a Go module update
+#   passes CI's licence check unless it changes a licence or adds or
+#   removes a module: then run `./third-party-licenses.sh` (from gads-go/)
+#   on the branch, and update NOTICE for a new module.
 # - The Dockerfiles build their base image tags from ARGs, which
 #   Dependabot cannot read; GO_VERSION (Dockerfile, ci.yml) and the Perl
 #   reference image are updated by hand. The Perl image must stay the one

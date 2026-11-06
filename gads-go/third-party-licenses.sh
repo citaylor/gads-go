@@ -47,10 +47,13 @@ section() {
 	cat internal/textcsv/LICENSE
 	echo
 
+	# Without the module versions, so that an update that keeps the licence
+	# (Dependabot's) leaves this file unchanged; `go version -m gads` lists
+	# them.
 	for tags in "" modernc; do
-		go list -tags "$tags" -deps -f '{{with .Module}}{{if not .Main}}{{.Path}} {{.Version}} {{.Dir}}{{end}}{{end}}' ./cmd/gads
-	done | sort -u | while read -r path version dir; do
-		section "$path $version"
+		go list -tags "$tags" -deps -f '{{with .Module}}{{if not .Main}}{{.Path}} {{.Dir}}{{end}}{{end}}' ./cmd/gads
+	done | sort -u | while read -r path dir; do
+		section "$path"
 		found=
 		for f in "$dir"/LICENSE* "$dir"/LICENCE* "$dir"/COPYING* "$dir"/NOTICE*; do
 			[ -f "$f" ] || continue
