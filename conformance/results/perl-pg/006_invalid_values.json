@@ -93,6 +93,68 @@
          "type" : "held"
       },
       {
+         "error" : null,
+         "failures" : [],
+         "id" : "7:column",
+         "observed" : {
+            "id" : "8"
+         },
+         "pass" : true,
+         "type" : "column"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "force_regex alternation start",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : null,
+         "failures" : [],
+         "id" : "force_regex alternation end",
+         "observed" : {
+            "current_id" : "1"
+         },
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "Invalid value \"xyz\" for string1",
+         "failures" : [],
+         "id" : "force_regex alternation neither",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "'abc' is not a valid file ID for 'file1'",
+         "failures" : [],
+         "id" : "file ID not a number",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "'99999999999999999999' is not a valid person ID",
+         "failures" : [],
+         "id" : "person ID too large",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
+         "error" : "'00' is not a valid person ID",
+         "failures" : [],
+         "id" : "person ID zeros",
+         "observed" : null,
+         "pass" : true,
+         "type" : "held"
+      },
+      {
          "error" : "'bar' is not a valid integer for 'integer1'",
          "failures" : [],
          "id" : "non-integer value",
@@ -151,7 +213,7 @@
       {
          "error" : null,
          "failures" : [],
-         "id" : "14:column",
+         "id" : "21:column",
          "observed" : {
             "id" : "8"
          },
@@ -161,7 +223,7 @@
       {
          "error" : null,
          "failures" : [],
-         "id" : "15:held",
+         "id" : "22:held",
          "observed" : {
             "current_id" : "1"
          },
@@ -189,7 +251,7 @@
       {
          "error" : null,
          "failures" : [],
-         "id" : "18:column",
+         "id" : "25:column",
          "observed" : {
             "id" : "8"
          },
@@ -199,7 +261,7 @@
       {
          "error" : null,
          "failures" : [],
-         "id" : "19:held",
+         "id" : "26:held",
          "observed" : {
             "current_id" : "1"
          },

@@ -4,7 +4,7 @@ This workspace ports [ctrlo GADS](https://github.com/ctrlo/GADS), a Perl and
 Dancer2 application, to Go. A language-neutral conformance suite proves that
 the port behaves the same: every scenario runs against the original Perl
 code and against Go, and the two sets of observations must be identical.
-As of 2026-11-05, against GADS `dev` at `337d733c` (schema 115), all 189
+As of 2026-11-06, against GADS `dev` at `337d733c` (schema 115), all 190
 scenarios are identical.
 
 ## Rules
@@ -631,8 +631,8 @@ Not fixed:
   - Hardened mode, on in the application: see Security.
   - `/healthz` is answered before routing, so it shadows a table whose
     short name is `healthz`.
-- PostgreSQL parity (`run_all.sh --pg`, dev `337d733c`, 2026-11-05) is
-  188 of 189. The difference is in `013_datatime`, in searches whose sort
+- PostgreSQL parity (`run_all.sh --pg`, dev `337d733c`, 2026-11-06) is
+  189 of 190. The difference is in `013_datatime`, in searches whose sort
   leaves ties, which PostgreSQL returns in the order of its plan: two
   runs of Perl differ there too. The runners move the sequences past the
   fixtures' explicit IDs (SPEC.md "PostgreSQL"). Failed expectations are
