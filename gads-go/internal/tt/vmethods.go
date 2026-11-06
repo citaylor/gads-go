@@ -2,6 +2,7 @@ package tt
 
 import (
 	"fmt"
+	"math"
 	"sort"
 	"strconv"
 	"strings"
@@ -695,11 +696,7 @@ func init() {
 					// (Perl's splice dies before the start of the array)
 					return nil, fmt.Errorf("Modification of non-creatable array value attempted, subscript %d", v)
 				}
-				// (bounded before the conversion to int)
-				if o > int64(n) {
-					o = int64(n)
-				}
-				off = int(o)
+				off = clampInt(o, n)
 			}
 			length := n - off
 			if len(a) > 1 && a[1] != nil {
@@ -707,10 +704,7 @@ func init() {
 				if v < 0 {
 					v = max(int64(n-off)+v, 0)
 				}
-				if v > int64(n-off) {
-					v = int64(n - off)
-				}
-				length = int(v)
+				length = clampInt(v, n-off)
 			}
 			var repl []any
 			if len(a) > 2 {
@@ -954,4 +948,14 @@ func listNsort(c *Context, l *List, a []any) ([]any, error) {
 		return numCompare(c.sortKey(items[i], nil), c.sortKey(items[j], nil)) < 0
 	})
 	return one(&List{Items: items}), nil
+}
+
+// clampInt is v (not negative) as an int, at most hi. The constant bound
+// is what CodeQL needs to see the conversion as safe; no list has 2^31
+// items.
+func clampInt(v int64, hi int) int {
+	if v > int64(hi) || v > math.MaxInt32 {
+		return hi
+	}
+	return int(v)
 }
