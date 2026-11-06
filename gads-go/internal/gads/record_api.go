@@ -3,7 +3,7 @@ package gads
 // APIIndexLayout is Layout->api_index_layout: the column whose values
 // identify records in the API (instance api_index_layout_id)
 func (l *Layout) APIIndexLayout() *Column {
-	id, ok := l.e.DB.QueryInt64(`SELECT "api_index_layout_id" FROM "instance" WHERE "id" = ? AND "api_index_layout_id" IS NOT NULL`, l.InstanceID)
+	id, ok := l.e.DB.QueryInt64(`SELECT "me"."api_index_layout_id" FROM "instance" "me" WHERE "me"."id" = ? AND "me"."api_index_layout_id" IS NOT NULL`+l.e.siteCond("me"), l.InstanceID)
 	if !ok {
 		return nil
 	}

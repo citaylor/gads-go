@@ -48,7 +48,7 @@ func encodeBase64(b []byte) string {
 
 // Export is Layout->export: the settings of the table
 func (l *Layout) Export() map[string]any {
-	row := l.e.DB.QueryRow(`SELECT * FROM "instance" WHERE "id" = ?`, l.InstanceID)
+	row := l.e.DB.QueryRow(`SELECT * FROM "instance" "me" WHERE "me"."id" = ?`+l.e.siteCond("me"), l.InstanceID)
 	perms := []any{}
 	for _, p := range l.e.DB.Query(`SELECT "group_id", "permission" FROM "instance_group" WHERE "instance_id" = ? ORDER BY "id"`, l.InstanceID) {
 		perms = append(perms, map[string]any{"group_id": p["group_id"], "permission": p["permission"]})

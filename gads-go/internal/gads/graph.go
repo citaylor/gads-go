@@ -318,7 +318,7 @@ func (g *Graph) Write() {
 // SetYAxis is set_y_axis: a Y-axis as a column ID, or the full ID
 // (parent_child) of a field within a curval
 func (g *Graph) SetYAxis(value string) {
-	if m := regexp.MustCompile(`^([0-9]+)_([0-9]+)$`).FindStringSubmatch(value); m != nil {
+	if m := reXAxisFull.FindStringSubmatch(value); m != nil {
 		g.YAxis, _ = strconv.ParseInt(m[2], 10, 64)
 		g.YAxisLink, _ = strconv.ParseInt(m[1], 10, 64)
 		return

@@ -98,7 +98,9 @@ func (d *StringDatum) SetValue(value any, opts SetValueOptions) {
 	changed := joinSpace(textAll) != joinSpace(oldTexts)
 	if !opts.Draft {
 		if re := d.column.ForceRegex; re != "" {
-			rx := perlRegex("(?i)^(?:" + re + ")$")
+			// (/^$regex$/i: not in a group, so that the anchors bind to
+			// the first and last alternatives of a|b)
+			rx := perlRegex("(?i)^" + re + "$")
 			for _, val := range values {
 				if perl.True(val) && (rx == nil || !rx.MatchString(val)) {
 					msg := `Invalid value "` + val + `" for ` + d.column.Name
@@ -1561,10 +1563,14 @@ func (d *PersonDatum) SetValue(value any, opts SetValueOptions) {
 				}
 				id = found.ID
 			} else {
-				id, _ = anyToInt64(s)
-			}
-			if id != 0 && !opts.NoValidation && !d.column.validPerson(id) && !d.hasIDValue(id) {
-				Fail("'%s' is not a valid person ID", itoa(id))
+				// $id = $value: Perl tests the string's truth ("00" is
+				// true) and names it as given, and a number too large
+				// for an ID is no person
+				var ok bool
+				id, ok = anyToInt64(s)
+				if perl.True(s) && !opts.NoValidation && (!ok || !d.column.validPerson(id) && !d.hasIDValue(id)) {
+					Fail("'%s' is not a valid person ID", s)
+				}
 			}
 		}
 		values2 = append(values2, id)
@@ -1751,7 +1757,8 @@ func (d *PersonDatum) Clone(record *Record, fresh bool) Datum {
 
 func (e *Engine) findOrCreateUser(m map[string]any) int64 {
 	if id, ok := anyToInt64(m["id"]); ok && id != 0 {
-		if u := e.FindUser(id); u != nil {
+		// (find_or_create on the site's resultset)
+		if u := e.FindSiteUser(id); u != nil {
 			return id
 		}
 		e.InsertUser(m)
@@ -1861,7 +1868,9 @@ func (d *FileDatum) SetValue(value any, opts SetValueOptions) {
 		}
 	}
 	sort.SliceStable(in, func(i, j int) bool { return anyToString(in[i]) < anyToString(in[j]) })
-	var values []int64
+	// The values as given (Perl compares and validates them so: "abc" is
+	// not a valid file ID, rather than file 0)
+	var vs []string
 	for _, v := range in {
 		if m, ok := v.(map[string]any); ok {
 			// The content is written to the uploads directory
@@ -1869,25 +1878,27 @@ func (d *FileDatum) SetValue(value any, opts SetValueOptions) {
 				"name":     m["name"],
 				"mimetype": m["mimetype"],
 			}, contentBytes(m["content"]))
-			values = append(values, id)
+			vs = append(vs, itoa(id))
 		} else {
-			id, _ := anyToInt64(v)
-			values = append(values, id)
+			vs = append(vs, anyToString(v))
 		}
 	}
-	var vs, old []string
-	for _, v := range values {
-		vs = append(vs, itoa(v))
-	}
+	var old []string
 	for _, v := range d.IDs() {
 		old = append(old, itoa(v))
 	}
 	old = sortedStrings(old)
 	changed := joinSpace(vs) != joinSpace(old)
 	if changed {
-		for _, v := range values {
-			d.column.Validate(itoa(v), true)
+		for _, v := range vs {
+			d.column.Validate(v, true)
 		}
+	}
+	values := make([]int64, len(vs))
+	for i, v := range vs {
+		values[i], _ = anyToInt64(v)
+	}
+	if changed {
 		if len(values) == 1 && len(old) == 1 {
 			e := d.column.e
 			oldRow := e.DB.QueryRow(`SELECT "id", "name" FROM "fileval" WHERE "id" = ?`, old[0])

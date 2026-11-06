@@ -462,7 +462,10 @@ func (f *Filter) Base64() string {
 	return base64.StdEncoding.EncodeToString([]byte(f.AsJSON()))
 }
 
-var reCurdate = regexp.MustCompile(`^(\s*([0-9]+)\s*([+])\s*)?CURDATE(\s*([-+])\s*([0-9]+)\s*)?$`)
+// (Perl's \h, and $ that also matches before a final newline)
+const perlH = `[\t \x{a0}\x{1680}\x{2000}-\x{200a}\x{202f}\x{205f}\x{3000}]`
+
+var reCurdate = regexp.MustCompile(`^(` + perlH + `*([0-9]+)` + perlH + `*([+])` + perlH + `*)?CURDATE(` + perlH + `*([-+])` + perlH + `*([0-9]+)` + perlH + `*)?\n?$`)
 
 // ParseDateFilter parses CURDATE expressions (GADS::Filter->parse_date_filter).
 func ParseDateFilter(now time.Time, value string) (time.Time, bool) {
@@ -471,18 +474,28 @@ func ParseDateFilter(now time.Time, value string) (time.Time, bool) {
 		return time.Time{}, false
 	}
 	t := now
-	v1, op1, op2, v2 := m[2], m[3], m[5], m[6]
-	if op1 == "+" && v1 != "" && v1 != "0" {
-		n, _ := strconv.Atoi(v1)
-		t = t.Add(time.Duration(n) * time.Second)
+	// DateTime add(seconds => N). The seconds are added to the Unix time,
+	// as a time.Duration overflows past 292 years; a count too large for
+	// an int64 is ignored (DateTime's result there is meaningless)
+	add := func(v string, sign int64) {
+		n, err := strconv.ParseInt(v, 10, 64)
+		if err != nil || n == 0 {
+			return
+		}
+		u := t.Unix()
+		if sign > 0 && u > math.MaxInt64-n || sign < 0 && u < math.MinInt64+n {
+			return
+		}
+		t = time.Unix(u+sign*n, int64(t.Nanosecond())).In(t.Location())
 	}
-	if op2 == "+" && v2 != "" && v2 != "0" {
-		n, _ := strconv.Atoi(v2)
-		t = t.Add(time.Duration(n) * time.Second)
+	if m[3] == "+" {
+		add(m[2], 1)
 	}
-	if op2 == "-" && v2 != "" && v2 != "0" {
-		n, _ := strconv.Atoi(v2)
-		t = t.Add(-time.Duration(n) * time.Second)
+	switch m[5] {
+	case "+":
+		add(m[6], 1)
+	case "-":
+		add(m[6], -1)
 	}
 	return t, true
 }

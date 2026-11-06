@@ -30,6 +30,14 @@ var mfaBase32 = base32.NewEncoding("abcdefghijklmnopqrstuvwxyz234567").WithPaddi
 
 var reMobileValid = regexp.MustCompile(`^\+[0-9]{4,}$`)
 
+var (
+	reMFAType      = regexp.MustCompile(`^(otp|yub|sms)$`)
+	reYubiModhex   = regexp.MustCompile(`(?i)[cbdefghijklnrtuv]`)
+	reYubiStatusOK = regexp.MustCompile(`(?i)status=ok`)
+	reYubiStatus   = regexp.MustCompile(`status=(.+)`)
+	reYubiSpace    = regexp.MustCompile(`[\t\n\v\f\r ]`) // Perl's \s
+)
+
 // ValidateMobile is Result::User validate_mobile
 func ValidateMobile(mobile string) bool { return reMobileValid.MatchString(mobile) }
 
@@ -39,7 +47,7 @@ func validateMFAFields(row map[string]any) {
 	if mobile := anyToString(row["mobile"]); truthy(row["mobile"]) && !ValidateMobile(mobile) {
 		Fail("The mobile number %s is invalid. Please enter as international format (e.g. +1444555666)", mobile)
 	}
-	if t := anyToString(row["mfa_type"]); truthy(row["mfa_type"]) && !regexp.MustCompile(`^(otp|yub|sms)$`).MatchString(t) {
+	if t := anyToString(row["mfa_type"]); truthy(row["mfa_type"]) && !reMFAType.MatchString(t) {
 		Fail("Invalid MFA type: %s", t)
 	}
 }
@@ -298,11 +306,19 @@ func (e *Engine) NewDigits(n int) string {
 	if e.TokenGenerator != nil {
 		return e.TokenGenerator(n)
 	}
+	// (bytes of 250 and over are drawn again, so that each digit is as
+	// likely as the others, as Session::Token does)
+	code := make([]byte, 0, n)
 	b := make([]byte, n)
-	rand.Read(b)
-	code := make([]byte, n)
-	for i := range b {
-		code[i] = '0' + b[i]%10
+	for len(code) < n {
+		if _, err := rand.Read(b); err != nil {
+			Panic("Unable to read random bytes: %s", err)
+		}
+		for _, c := range b {
+			if c < 250 && len(code) < n {
+				code = append(code, '0'+c%10)
+			}
+		}
 	}
 	return string(code)
 }
@@ -342,7 +358,7 @@ func yubikeyWebclient(client *http.Client, otp, id, api, nonce, endpoint string)
 		Panic("Your API key must be in 4 byte lengths")
 	}
 	otp = strings.TrimSuffix(otp, "\n")
-	if !regexp.MustCompile(`(?i)[cbdefghijklnrtuv]`).MatchString(otp) || len(otp) < 32 {
+	if !reYubiModhex.MatchString(otp) || len(otp) < 32 {
 		return "ERR_BAD_OTP"
 	}
 	key, _ := base64.StdEncoding.DecodeString(api)
@@ -362,17 +378,17 @@ func yubikeyWebclient(client *http.Client, otp, id, api, nonce, endpoint string)
 		}
 	}
 	response = strings.TrimSuffix(response, "\n")
-	if !regexp.MustCompile(`(?i)status=ok`).MatchString(response) {
+	if !reYubiStatusOK.MatchString(response) {
 		status := ""
-		if m := regexp.MustCompile(`status=(.+)`).FindStringSubmatch(response); m != nil {
+		if m := reYubiStatus.FindStringSubmatch(response); m != nil {
 			status = m[1]
 		}
-		return "ERR_" + regexp.MustCompile(`\s`).ReplaceAllString(status, "")
+		return "ERR_" + reYubiSpace.ReplaceAllString(status, "")
 	}
 	result := map[string]string{}
 	for _, l := range strings.Split(response, "\n") {
 		if k, v, ok := strings.Cut(strings.TrimSuffix(l, "\n"), "="); ok {
-			result[k] = regexp.MustCompile(`\s`).ReplaceAllString(v, "")
+			result[k] = reYubiSpace.ReplaceAllString(v, "")
 		}
 	}
 	sig := result["h"]

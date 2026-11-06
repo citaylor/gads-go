@@ -101,21 +101,6 @@ func (r *Records) FindUnique(col *Column, value string, ignoreCurrentID int64, r
 	return n
 }
 
-// Exists reports whether the search matches any records (used for unique
-// checks with a cached query).
-func (r *Records) Exists(value string) bool {
-	// Replace the value of the first rule and run a count
-	if r.View != nil {
-		if rules, ok := r.View.Filter().AsHash()["rules"].([]any); ok && len(rules) > 0 {
-			if m, ok := rules[0].(map[string]any); ok {
-				m["value"] = value
-			}
-		}
-	}
-	r.Clear()
-	return r.Count() > 0
-}
-
 // SubmissionToken returns a submission token for the record form.
 func (r *Record) SubmissionToken() string {
 	if r.submissionToken == "" {

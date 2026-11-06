@@ -249,6 +249,8 @@ var (
 	regexCacheMu sync.Mutex
 )
 
+const regexCacheMax = 1000
+
 // perlMatcher matches with Perl-compatible (backtracking) semantics.
 type perlMatcher struct{ re *regexp2.Regexp }
 
@@ -280,6 +282,11 @@ func perlRegex(re string) *perlMatcher {
 			// (a+)+$) does not match, rather than holding up the
 			// application
 			r.MatchTimeout = regexMatchTimeout
+		}
+		// (the patterns come from the layout and from searches, so the
+		// cache is emptied rather than left to grow without end)
+		if len(regexCache) >= regexCacheMax {
+			clear(regexCache)
 		}
 		regexCache[re] = r
 	}

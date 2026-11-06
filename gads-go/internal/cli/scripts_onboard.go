@@ -210,7 +210,8 @@ func Onboard(env *Env) {
 		}
 		invalid.WriteString(csvLine(append(append([]string{"Status"}, heads...), "Errors")))
 		for _, name := range invalidReport {
-			re, err := regexp.Compile("^(?:" + name + ")$")
+			// (/^$name$/, the anchors not around a group)
+			re, err := regexp.Compile("^" + name + "$")
 			index := -1
 			for i, n := range names {
 				if err == nil && re.MatchString(n) {

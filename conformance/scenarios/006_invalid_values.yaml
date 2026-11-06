@@ -34,6 +34,38 @@ steps:
     as: r
     values: {string1: foo}
     expect_error: Invalid value
+# /^$regex$/i: the anchors bind to the first and last alternatives
+- column:
+    op: update
+    sheet: main
+    column: string1
+    set: {force_regex: 'a|b'}
+- held: {id: force_regex alternation start, op: set, as: r, values: {string1: axyz}}
+- held: {id: force_regex alternation end, op: set, as: r, values: {string1: xyzb}}
+- held:
+    id: force_regex alternation neither
+    op: set
+    as: r
+    values: {string1: xyz}
+    expect_error: Invalid value
+- held:
+    id: file ID not a number
+    op: set
+    as: r
+    values: {file1: abc}
+    expect_error: not a valid file ID
+- held:
+    id: person ID too large
+    op: set
+    as: r
+    values: {person1: '99999999999999999999'}
+    expect_error: not a valid person ID
+- held:
+    id: person ID zeros
+    op: set
+    as: r
+    values: {person1: '00'}
+    expect_error: not a valid person ID
 - held:
     id: non-integer value
     op: set
