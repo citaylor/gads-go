@@ -177,7 +177,9 @@ record: `init_value: [...]` (as for grouped results) and/or
 ### `reset`
 Start again with a fresh database (as tests that create a new DataSheet
 without passing a schema). All sheets, users, views and held records are
-forgotten.
+forgotten, and the web clients (`http`, `login`). The emails and the
+requests to other services captured are kept, until an `emails` or
+`outgoing_http` step observes them.
 
 ### `search`
 `sheet`, `user`, `filter` (GADS filter JSON with column references in `id`

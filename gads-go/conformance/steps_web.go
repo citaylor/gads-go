@@ -248,6 +248,11 @@ func (r *Runner) webRequest(args map[string]any) map[string]any {
 	}
 	if hd, ok := args["headers"].(map[string]any); ok {
 		for k, v := range hd {
+			if v == nil {
+				// (HTTP::Headers: an undefined value removes the header)
+				req.Header.Del(k)
+				continue
+			}
 			req.Header.Set(k, str(v))
 		}
 	}
@@ -343,8 +348,9 @@ func (r *Runner) webObserve(client *webClient, res *http.Response, content strin
 	}
 	headers := map[string]any{}
 	for _, hname := range []string{"X-Frame-Options", "Content-Security-Policy", "Content-Disposition"} {
-		if v := res.Header.Get(hname); v != "" {
-			headers[hname] = v
+		// (HTTP::Headers: defined even when empty, values joined)
+		if v := res.Header.Values(hname); len(v) > 0 {
+			headers[hname] = strings.Join(v, ", ")
 		}
 	}
 	if len(headers) > 0 {
@@ -527,8 +533,9 @@ func (r *Runner) stepLogin(args map[string]any) any {
 	r.web()
 	user := r.user(args["user"])
 	r.db.UpdateMap("user", map[string]any{"password": webPasswordHash, "pwchanged": r.e.Now()}, map[string]any{"id": user.ID})
+	// ($args->{as} || $args->{user}, and the password //)
 	as := str(args["as"])
-	if as == "" {
+	if !truthy(args["as"]) {
 		as = str(args["user"])
 	}
 	r.webRequest(map[string]any{"as": as, "method": "GET", "path": "/login"})
@@ -537,7 +544,7 @@ func (r *Runner) stepLogin(args map[string]any) any {
 		path = "/login"
 	}
 	pw := webPassword
-	if p, ok := args["password"]; ok {
+	if p, ok := args["password"]; ok && p != nil {
 		pw = str(p)
 	}
 	return r.webRequest(map[string]any{

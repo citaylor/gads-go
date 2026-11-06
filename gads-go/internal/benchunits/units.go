@@ -36,6 +36,7 @@ import (
 	"github.com/ctrlo/gads-go/internal/cldr"
 	"github.com/ctrlo/gads-go/internal/gads"
 	"github.com/ctrlo/gads-go/internal/lua"
+	"github.com/ctrlo/gads-go/internal/perl"
 	"github.com/ctrlo/gads-go/internal/tt"
 	"github.com/ctrlo/gads-go/internal/web"
 )
@@ -134,7 +135,7 @@ func perlString(v any) string {
 	case nil:
 		return ""
 	case float64:
-		return strconv.FormatFloat(x, 'g', 15, 64)
+		return perl.NumString(x)
 	case bool:
 		if x {
 			return "1"

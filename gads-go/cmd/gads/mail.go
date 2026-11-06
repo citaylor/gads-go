@@ -109,7 +109,7 @@ type mailer struct {
 	// send delivers a message to one recipient (sendmail or SMTP)
 	send func(envelopeFrom, to string, msg []byte) error
 
-	mu    sync.RWMutex // (written by Close, which closes queue)
+	mu    sync.RWMutex    // (written by Close, which closes queue)
 	queue chan gads.Email // nil once closed
 	done  chan struct{}   // closed when the queue has been delivered
 }

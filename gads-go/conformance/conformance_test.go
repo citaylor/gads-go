@@ -96,12 +96,8 @@ func checkScenario(t *testing.T, f string) {
 	}
 	golden := filepath.Join(goldenDir(), res.Scenario+".json")
 	if _, err := os.Stat(golden); err != nil {
-		if decoySite() {
-			// (every scenario has a decoy result)
-			t.Fatalf("no Perl reference result with a decoy site for %s", res.Scenario)
-		}
-		t.Logf("no Perl reference result for %s", res.Scenario)
-		return
+		// (every scenario has a result of each: a new one needs run_perl.sh)
+		t.Fatalf("no Perl reference result for %s in %s", res.Scenario, goldenDir())
 	}
 	tmp := filepath.Join(t.TempDir(), "go.json")
 	if err := WriteJSON(tmp, res); err != nil {

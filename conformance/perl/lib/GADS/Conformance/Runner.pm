@@ -342,6 +342,11 @@ sub run
     foreach my $step (@{$scenario->{steps} || []})
     {
         $i++;
+        if (ref $step ne 'HASH' || keys %$step != 1)
+        {
+            push @{$result->{steps}}, { id => "$i", pass => JSON::false, failures => ["A step must be a map of one key, its type"] };
+            next;
+        }
         my ($type, $args) = %$step;
         $args ||= {};
         my $id = $args->{id} || "$i:$type";
@@ -979,8 +984,9 @@ END { pg_cleanup() if @pg_databases }
 # without passing a schema do
 sub step_reset
 {   my ($self, $args) = @_;
+    # (the web clients too: they would keep the old database)
     delete $self->{$_} foreach qw/schema sheets first_sheet default_sheet views
-        records users groups held held_cols cols topics graphs held_views saved_groups held_filters tables/;
+        records users groups held held_cols cols topics graphs held_views saved_groups held_filters tables web/;
     return {};
 }
 

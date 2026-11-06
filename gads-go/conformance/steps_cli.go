@@ -90,7 +90,8 @@ func (r *Runner) stepCLI(args map[string]any) any {
 			obs[k] = sortLines(obs[k].(string))
 		}
 	}
-	if res.Died != "" || res.Exit == 255 {
+	// (only a die: a script's own exit 255 has none, as Perl's)
+	if res.Died != "" {
 		obs["died"] = clean(res.Died)
 	}
 	// The files written by the script: their contents, or (for random
@@ -117,9 +118,10 @@ func (r *Runner) stepCLI(args map[string]any) any {
 			}
 			content := string(b)
 			if mode == "lines" {
-				lines := strings.Split(strings.TrimRight(content, "\n"), "\n")
-				if content == "" {
-					lines = nil
+				// (split /\n/: the empty fields at the end are dropped)
+				var lines []string
+				if t := strings.TrimRight(content, "\n"); t != "" {
+					lines = strings.Split(t, "\n")
 				}
 				first := any(nil)
 				if len(lines) > 0 {

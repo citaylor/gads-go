@@ -206,6 +206,8 @@ func (r *Runner) runSteps() []StepResult {
 	for i, st := range steps {
 		sm, ok := st.(map[string]any)
 		if !ok || len(sm) != 1 {
+			// (as the Perl runner)
+			results = append(results, StepResult{ID: fmt.Sprintf("%d", i+1), Failures: []string{"A step must be a map of one key, its type"}})
 			continue
 		}
 		var typ string
@@ -392,10 +394,16 @@ func (r *Runner) closeDatabase() {
 // stepReset starts again with a fresh database, as tests that create new
 // DataSheets without passing a schema do.
 func (r *Runner) stepReset(args map[string]any) any {
+	// The emails and the requests to other services captured are kept,
+	// as the Perl runner's (@EMAILS, @OUTGOING)
+	emails, outgoing := r.emails, r.outgoing
 	r.closeDatabase()
 	if err := r.newDatabase(); err != nil {
 		gads.Panic("%s", err.Error())
 	}
+	r.emails = emails
+	r.outgoing = outgoing
+	r.e.HTTPClient = &http.Client{Transport: outgoing}
 	return map[string]any{}
 }
 
@@ -470,6 +478,13 @@ func (r *Runner) runStep(id, typ string, args map[string]any) StepResult {
 	}
 	// env: environment variables the Perl code checks, as engine flags
 	env, _ := args["env"].(map[string]any)
+	for k := range env {
+		// (the Perl runner sets any: one that Go does not know would
+		// differ unseen)
+		if k != "GADS_ALLOW_BLANK_CURVAL" && k != "PANIC_ON_CURVAL_BUILD_VALUES" {
+			sr.Failures = append(sr.Failures, "env "+k+" is not supported by the Go runner")
+		}
+	}
 	r.e.AllowBlankCurval = truthy(env["GADS_ALLOW_BLANK_CURVAL"])
 	r.e.PanicOnCurvalBuildValues = truthy(env["PANIC_ON_CURVAL_BUILD_VALUES"])
 	// runs: run the step several times (benchmarks), observing the last
@@ -537,7 +552,7 @@ var reAtLine = regexp.MustCompile(`(?m) at \S+ line \d+\.?$`)
 var reForStatement = regexp.MustCompile(`(?s) \[for Statement ".*$`)
 
 func normaliseError(msg string) string {
-	msg = strings.TrimRight(msg, " \t\n")
+	msg = strings.TrimRight(msg, " \t\n\r\f\v") // (Perl's \s+$)
 	msg = reLuaChunk.ReplaceAllString(msg, "[string]")
 	msg = reAtLine.ReplaceAllString(msg, "")
 	// The SQL of a DBI exception (generated differently by DBIx::Class and

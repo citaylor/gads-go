@@ -599,11 +599,8 @@ func (r *Runner) stepColumn(args map[string]any) any {
 		if v, ok := args["validate_search"]; ok {
 			m := map[string]any{}
 			for _, x := range strList(v) {
-				var res bool
-				if err := gads.Try(func() { res = c.ValidateSearch(x, false, nil) }); err != nil {
-					res = false
-				}
-				m[x] = boolInt(res)
+				// (an error ends the step, as Perl's)
+				m[x] = boolInt(c.ValidateSearch(x, false, nil))
 			}
 			obs["validate_search"] = m
 		}
