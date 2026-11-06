@@ -1,0 +1,45 @@
+# Dependabot version updates: a weekly PR for each group of updates. The
+# security updates (on in the repository settings) come as soon as an
+# advisory is published, whatever this file says.
+#
+# - A Go module update changes the versions listed in
+#   gads-go/THIRD-PARTY-LICENSES, so CI's licence check fails on its PR
+#   until `./third-party-licenses.sh` is run on the branch (from gads-go/).
+# - The Dockerfiles build their base image tags from ARGs, which
+#   Dependabot cannot read; GO_VERSION (Dockerfile, ci.yml) and the Perl
+#   reference image are updated by hand. The Perl image must stay the one
+#   the golden results come from.
+version: 2
+updates:
+  - package-ecosystem: gomod
+    directory: /gads-go
+    schedule:
+      interval: weekly
+    groups:
+      go-minor-and-patch:
+        update-types: [minor, patch]
+    commit-message:
+      prefix: "Go modules"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "CI"
+
+  # caddy and postgres in the compose files
+  - package-ecosystem: docker-compose
+    directories: [/gads-go, /conformance]
+    schedule:
+      interval: weekly
+    ignore:
+      # A new major PostgreSQL needs its data directory upgraded (pg_upgrade
+      # or a dump and restore): change it by hand.
+      - dependency-name: postgres
+        update-types: [version-update:semver-major]
+    commit-message:
+      prefix: "Docker"
