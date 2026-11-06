@@ -1,6 +1,7 @@
 package lua
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 	"testing"
@@ -65,6 +66,49 @@ func TestLimits(t *testing.T) {
 	}
 	if r, err := it.Run(`return {[9999999] = 1}`, nil, nil, nil); err != nil || len(r.Return.([]any)) != 9999999 {
 		t.Errorf("largest index: %v", err)
+	}
+	// Results that Inline::Lua would convert without end: a table nested
+	// deeper than the stack, one that contains itself, one whose parts are
+	// shared (2^40 values), and a key before any array's start
+	for code, want := range map[string]string{
+		`local t = {} for i = 1, 500 do t = {t} end return t`:    "tables nested over the limit of 200",
+		`local t = {} t[1] = t return t`:                         "tables nested over the limit of 200",
+		`local t = {1} for i = 1, 40 do t = {t, t} end return t`: "table values are over the limit of 10000000",
+	} {
+		_, err := it.Run(code, nil, nil, nil)
+		if err == nil || !strings.Contains(err.Error(), want) {
+			t.Errorf("%s: %v", code, err)
+		}
+	}
+	if r, err := it.Run(`local t = {} for i = 1, 150 do t = {t} end return 1`, nil, nil, nil); err != nil || r.Return != float64(1) {
+		t.Errorf("nested table not returned: %v", err)
+	}
+	if r, err := it.Run(`return {[-math.huge] = 1, [-1e300] = 2, [1] = 3}`, nil, nil, nil); err != nil || fmt.Sprint(r.Return) != "[3]" {
+		t.Errorf("keys before the start: %#v %v", r, err)
+	}
+	// The pattern matcher's backtracking counts as instructions
+	start := time.Now()
+	_, err = it.Run(`return string.find(string.rep('a', 3000), '.-.-.-.-b')`, nil, nil, nil)
+	if err == nil || !strings.Contains(err.Error(), "code stopped after running more than 10000000 instructions") || time.Since(start) > 10*time.Second {
+		t.Errorf("pattern: %v after %v", err, time.Since(start))
+	}
+	// A failed callback ends the run, even in a pcall (as Perl's die)
+	fail := Func(func(args []any) ([]any, error) { return nil, fmt.Errorf("no working days") })
+	for _, code := range []string{
+		`local ok = pcall(working_days_diff, 1) error("boom")`,
+		`local ok = pcall(working_days_diff, 1) return 1`,
+		`local ok = pcall(working_days_diff, 1) while true do end`,
+	} {
+		_, err := it.Run(code, nil, fail, nil)
+		var ce *CallbackError
+		if !errors.As(err, &ce) || ce.Msg != "no working days" {
+			t.Errorf("%s: %#v", code, err)
+		}
+	}
+	// ... and a callback's arguments are limited as results are
+	_, err = it.Run(`local t = {} t[1] = t return working_days_diff(t)`, nil, fail, nil)
+	if err == nil || !strings.Contains(err.Error(), "tables nested over the limit") {
+		t.Errorf("callback argument: %v", err)
 	}
 	// Callbacks still work, and the limits apply to each call
 	double := Func(func(args []any) ([]any, error) { return []any{Int(2 * int64(args[0].(float64)))}, nil })

@@ -564,10 +564,24 @@ Not fixed:
     - `working_days_add` with a negative count, or more than 100000 days,
       is an error. Perl's loop never ends for these.
     - A field's regex that runs for over 1 s counts as no match.
+    - The steps of Lua's pattern matcher (`string.find`, `match`,
+      `gmatch`, `gsub`) count as instructions (vendored `lstrlib.c`
+      calls `gads_match_steps`), so a pattern that backtracks without
+      end stops too (about 6 s).
     - A Lua table with a number key of ten million or more is an error
       ("table index N is over the limit of 10000000"): Inline::Lua makes
       an array up to the largest key, so that a key of 2^53 takes all
-      memory.
+      memory. A key of minus ten million or less is dropped, as
+      `av_store` drops a key before the array's start.
+    - Converting a Lua value (a result, or a callback's arguments) stops
+      at tables nested 200 deep ("tables nested over the limit of 200")
+      or ten million values ("table values are over the limit of ..."):
+      in Perl a table that contains itself, or is nested deeper than
+      Lua's stack, crashes the worker, and one whose parts are shared
+      takes time exponential in its depth.
+    - A callback (`working_days_diff`, `working_days_add`) that fails
+      ends the run, even inside a `pcall`, as Perl's `die` unwinds
+      through Inline::Lua: the code stops at its next instruction.
   - Lua tables with a key that is not a number or a string (a boolean)
     fail with Inline::Lua's "Illegal type (boolean) in table subscript",
     without its place in Perl. Inline::Lua's Lua state is then broken, so

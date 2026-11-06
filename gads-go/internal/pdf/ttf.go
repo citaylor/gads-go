@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"sync"
 	"unicode"
 )
 
@@ -38,10 +39,17 @@ type Font struct {
 	stemV     int
 }
 
-var fontCache = map[string]*Font{}
+// fontCache holds the fonts parsed, which are only read after (the engines
+// make PDFs at once, so it is locked)
+var (
+	fontMu    sync.Mutex
+	fontCache = map[string]*Font{}
+)
 
 // LoadFont returns a built in font: "regular" or "bold"
 func LoadFont(style string) (*Font, error) {
+	fontMu.Lock()
+	defer fontMu.Unlock()
 	if f := fontCache[style]; f != nil {
 		return f, nil
 	}

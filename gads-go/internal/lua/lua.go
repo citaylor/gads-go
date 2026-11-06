@@ -16,13 +16,8 @@ package lua
 
 extern int goLuaCallback(lua_State *L, int id);
 
-// The limits of a state, its allocator's user data: the memory in use and
-// its limit, and the instructions run by the current call and their limit
-// (a limit of 0 is none)
-typedef struct {
-	size_t used, limit;
-	long long steps, maxsteps;
-} gads_limits;
+// The limits of a state (gads_limits), its allocator's user data
+#include "gads_limits.h"
 
 // gads_alloc is the standard allocator (l_alloc of lauxlib) refusing to
 // grow beyond the memory limit (Lua then raises "not enough memory")
@@ -112,6 +107,18 @@ static void gads_disarm(lua_State *L) {
 	lua_sethook(L, NULL, 0, 0);
 	L->basehookcount = GADS_HOOK_COUNT;
 	L->hookcount = GADS_HOOK_COUNT;
+}
+
+// gads_abort makes the code stop at its next instruction, and at every one
+// after it (so that pcall can't catch it), once a callback has failed. It
+// runs on the thread of the call (in the callback).
+static void gads_abort_hook(lua_State *L, lua_Debug *ar) {
+	lua_pushliteral(L, "callback failed");
+	lua_error(L);
+}
+
+static void gads_abort(lua_State *L) {
+	lua_sethook(L, gads_abort_hook, LUA_MASKCOUNT, 1);
 }
 
 static int gads_hookmask(lua_State *L) {
@@ -297,8 +304,12 @@ type Interpreter struct {
 	callbacks map[int]Func
 	nextID    int
 	cbErr     error
-	// convErr is the first error in converting the result to Perl's form
-	convErr error
+	// convErr is the first error in converting the result to Perl's form,
+	// and convCount and convDepth the values converted and the tables
+	// being converted (maxConvertValues, maxConvertDepth)
+	convErr   error
+	convCount int
+	convDepth int
 
 	// MaxInstructions stops a Run after about this many Lua instructions,
 	// and MaxMemory limits the memory of the interpreter while code runs
@@ -335,6 +346,23 @@ const (
 // takes all memory (in Perl, the end of one worker; here, of the whole
 // application). A larger key is an error.
 const maxArrayIndex = 10_000_000
+
+// maxConvertValues and maxConvertDepth limit the conversion of a value from
+// Lua: Inline::Lua converts a table that contains itself, or is nested
+// deeper than the Lua stack, without end (the end of one worker in Perl,
+// of the whole application here), and one whose parts are shared (t =
+// {t, t}, many times) in time exponential in its depth
+const (
+	maxConvertValues = 10_000_000
+	maxConvertDepth  = 200 // (LUAI_MAXCCALLS, Lua's own limit of nested C calls)
+)
+
+// convFail records the first error of a conversion
+func (it *Interpreter) convFail(format string, args ...any) {
+	if it.convErr == nil {
+		it.convErr = &RuntimeError{Msg: fmt.Sprintf(format, args...)}
+	}
+}
 
 var (
 	registryMu sync.Mutex
@@ -424,19 +452,22 @@ func (it *Interpreter) Run(code string, vars map[string]any, wdd, wda Func) (*Ru
 	status := it.limitedPcall(4)
 	// Remove callbacks registered for this call
 	defer func() { it.callbacks = map[int]Func{} }()
+	// (a callback that failed ends the run, as Perl's die unwinds through
+	// Inline::Lua, even if the code caught the error with pcall)
+	if it.cbErr != nil {
+		C.lua_settop(L, 0)
+		return nil, &CallbackError{Msg: it.cbErr.Error()}
+	}
 	if status != 0 {
 		msg := it.tostring(-1)
 		C.lua_settop(L, 0)
-		if it.cbErr != nil {
-			return nil, &CallbackError{Msg: it.cbErr.Error()}
-		}
 		return nil, &RuntimeError{Msg: "error: " + msg + "\n"}
 	}
 	n := int(C.lua_gettop(L))
 	if n == 0 {
 		return &RunResult{}, nil
 	}
-	it.convErr = nil
+	it.convErr, it.convCount, it.convDepth = nil, 0, 0
 	val := it.toPerl(1)
 	C.lua_settop(L, 0)
 	if err := it.convErr; err != nil {
@@ -530,6 +561,7 @@ func (it *Interpreter) pushVal(v any) {
 			C.lua_pushboolean(L, 0)
 		}
 	case []any:
+		it.checkPushStack()
 		C.gads_newtable(L)
 		for i, e := range x {
 			C.lua_pushinteger(L, C.lua_Integer(i+1))
@@ -537,6 +569,7 @@ func (it *Interpreter) pushVal(v any) {
 			C.lua_settable(L, -3)
 		}
 	case map[string]any:
+		it.checkPushStack()
 		C.gads_newtable(L)
 		keys := make([]string, 0, len(x))
 		for k := range x {
@@ -557,6 +590,13 @@ func (it *Interpreter) pushVal(v any) {
 	}
 }
 
+// checkPushStack makes room on the stack for a table, its key and value
+func (it *Interpreter) checkPushStack() {
+	if C.lua_checkstack(it.L, 3) == 0 {
+		panic("Lua stack overflow passing a value to Lua")
+	}
+}
+
 // numToString is LUA_NUMBER_FMT ("%.14g"), used for numeric table keys
 // when converted into a Perl hash.
 func numToString(n float64) string {
@@ -566,6 +606,13 @@ func numToString(n float64) string {
 // toPerl implements Inline::Lua luaval_to_perl.
 func (it *Interpreter) toPerl(idx int) any {
 	L := it.L
+	if it.convErr != nil {
+		return nil
+	}
+	if it.convCount++; it.convCount > maxConvertValues {
+		it.convFail("table values are over the limit of %d\n", maxConvertValues)
+		return nil
+	}
 	switch C.lua_type(L, C.int(idx)) {
 	case C.LUA_TNIL:
 		return nil
@@ -576,6 +623,12 @@ func (it *Interpreter) toPerl(idx int) any {
 	case C.LUA_TSTRING:
 		return it.tostring(idx)
 	case C.LUA_TTABLE:
+		if it.convDepth >= maxConvertDepth {
+			it.convFail("tables nested over the limit of %d\n", maxConvertDepth)
+			return nil
+		}
+		it.convDepth++
+		defer func() { it.convDepth-- }()
 		return it.tableToPerl(idx)
 	case C.LUA_TFUNCTION:
 		return "CODE"
@@ -593,8 +646,17 @@ func (it *Interpreter) tableToPerl(idx int) any {
 	var ary []any
 	var aryExists []bool
 	var hash map[string]any
+	// (the key, the value, and the next table's key)
+	if C.lua_checkstack(L, 4) == 0 {
+		it.convFail("stack overflow\n")
+		return nil
+	}
 	C.lua_pushnil(L)
 	for C.lua_next(L, C.int(idx)) != 0 {
+		if it.convErr != nil {
+			C.gads_pop(L, 2)
+			break
+		}
 		// key at -2, value at -1
 		if isary && C.lua_type(L, -2) != C.LUA_TNUMBER {
 			hash = map[string]any{}
@@ -609,14 +671,18 @@ func (it *Interpreter) tableToPerl(idx int) any {
 		if isary {
 			n := float64(C.lua_tonumberx(L, -2, nil))
 			if n >= maxArrayIndex {
-				if it.convErr == nil {
-					it.convErr = &RuntimeError{Msg: fmt.Sprintf("table index %s is over the limit of %d\n", FormatG(n, 14), maxArrayIndex)}
-				}
+				it.convFail("table index %s is over the limit of %d\n", FormatG(n, 14), maxArrayIndex)
+				C.gads_pop(L, 1)
+				continue
+			}
+			val := it.toPerl(top)
+			if n <= -maxArrayIndex {
+				// (before the start of any array: not stored, as av_store
+				// with a negative index; int(n) would overflow)
 				C.gads_pop(L, 1)
 				continue
 			}
 			k := int(n) - 1
-			val := it.toPerl(top)
 			if k < 0 {
 				k += len(ary)
 			}
@@ -639,9 +705,7 @@ func (it *Interpreter) tableToPerl(idx int) any {
 				// Inline::Lua croaks (its message ends "at (eval N) line 5.",
 				// a place in Perl), and its Lua state is broken afterwards,
 				// failing every later call in that process: not reproduced
-				if it.convErr == nil {
-					it.convErr = &RuntimeError{Msg: fmt.Sprintf("Illegal type (%s) in table subscript\n", C.GoString(C.lua_typename(L, C.lua_type(L, -2))))}
-				}
+				it.convFail("Illegal type (%s) in table subscript\n", C.GoString(C.lua_typename(L, C.lua_type(L, -2))))
 			}
 			hash[key] = it.toPerl(top)
 		}
@@ -667,6 +731,7 @@ func goLuaCallback(L *C.lua_State, id C.int) C.int {
 	f := it.callbacks[int(id)]
 	nargs := int(C.lua_gettop(L))
 	args := make([]any, 0, nargs)
+	it.convErr, it.convCount, it.convDepth = nil, 0, 0
 	for i := 1; i <= nargs; i++ {
 		args = append(args, it.toPerl(i))
 	}
@@ -674,18 +739,25 @@ func goLuaCallback(L *C.lua_State, id C.int) C.int {
 	if f == nil {
 		return 0
 	}
-	// A Go panic must not unwind through the C frames of Lua: it is the
-	// error of the callback
-	res, err := func() (res []any, err error) {
-		defer func() {
-			if r := recover(); r != nil {
-				res, err = nil, fmt.Errorf("%v", r)
-			}
+	var res []any
+	err := it.convErr
+	it.convErr = nil
+	if err == nil {
+		// A Go panic must not unwind through the C frames of Lua: it is
+		// the error of the callback
+		res, err = func() (res []any, err error) {
+			defer func() {
+				if r := recover(); r != nil {
+					res, err = nil, fmt.Errorf("%v", r)
+				}
+			}()
+			return f(args)
 		}()
-		return f(args)
-	}()
+	}
 	if err != nil {
 		it.cbErr = err
+		// (the code stops at its next instruction, whatever pcall it is in)
+		C.gads_abort(L)
 		msg := err.Error()
 		cs := C.CString(msg)
 		C.gads_pushlstring(L, cs, C.size_t(len(msg)))

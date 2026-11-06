@@ -48,7 +48,8 @@ Material taken or generated from GADS:
 2. Code compiled into gads
 --------------------------
 
-Lua 5.3.6, vendored in gads-go/internal/lua
+Lua 5.3.6, vendored in gads-go/internal/lua (lstrlib.c is changed: the
+steps of pattern matching count against GADS's instruction limit)
   Copyright (C) 1994-2020 Lua.org, PUC-Rio.
   MIT License.
 

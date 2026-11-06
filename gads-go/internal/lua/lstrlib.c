@@ -23,6 +23,7 @@
 
 #include "lauxlib.h"
 #include "lualib.h"
+#include "gads_limits.h"  /* GADS: the steps of match count as instructions */
 
 
 /*
@@ -217,6 +218,7 @@ typedef struct MatchState {
   const char *p_end;  /* end ('\0') of pattern */
   lua_State *L;
   int matchdepth;  /* control for recursive depth (to avoid C stack overflow) */
+  int gadscount;  /* GADS: steps until gads_match_steps */
   unsigned char level;  /* total number of captures (finished or unfinished) */
   struct {
     const char *init;
@@ -426,6 +428,10 @@ static const char *match (MatchState *ms, const char *s, const char *p) {
   if (ms->matchdepth-- == 0)
     luaL_error(ms->L, "pattern too complex");
   init: /* using goto's to optimize tail recursion */
+  if (--ms->gadscount <= 0) {  /* GADS */
+    ms->gadscount = GADS_MATCH_COUNT;
+    gads_match_steps(ms->L);
+  }
   if (p != ms->p_end) {  /* end of pattern? */
     switch (*p) {
       case '(': {  /* start capture */
@@ -592,6 +598,7 @@ static void prepstate (MatchState *ms, lua_State *L,
                        const char *s, size_t ls, const char *p, size_t lp) {
   ms->L = L;
   ms->matchdepth = MAXCCALLS;
+  ms->gadscount = GADS_MATCH_COUNT;  /* GADS */
   ms->src_init = s;
   ms->src_end = s + ls;
   ms->p_end = p + lp;
