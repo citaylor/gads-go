@@ -53,8 +53,10 @@ FROM debian:${DEBIAN_RELEASE}-slim
 ARG WITH_CHROMIUM=0
 # postgresql-client: waiting for and seeding the database; shared-mime-info:
 # the MIME types of uploaded files (as File::MimeInfo); openssl: hashing
-# the initial admin password
+# the initial admin password. The upgrade takes the security fixes
+# published since the base image was built.
 RUN apt-get update \
+    && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y --no-install-recommends ca-certificates tzdata postgresql-client openssl shared-mime-info \
     && if [ "$WITH_CHROMIUM" = 1 ]; then apt-get install -y --no-install-recommends chromium fonts-liberation; fi \
     && rm -rf /var/lib/apt/lists/* \
