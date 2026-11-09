@@ -7,8 +7,10 @@
 # The views (Template Toolkit) and public files (built CSS/JS) are those of
 # the Perl application, taken from the named build context "gads-upstream".
 
-ARG GO_VERSION=1.27
-ARG DEBIAN_RELEASE=trixie
+# The base images are pinned by digest (OpenSSF Scorecard), with the exact
+# tag for the reader. Dependabot updates the digests; Go's version must
+# match GO_VERSION in .github/workflows/ci.yml. Debian's security fixes
+# come from the apt-get upgrade of the runtime stage, not only the digest.
 
 # builder: everything needed to build and test the Go code, without the
 # source (mount it at /src):
@@ -20,7 +22,7 @@ ARG DEBIAN_RELEASE=trixie
 # the C library headers (cgo for the vendored Lua of calculated fields) and
 # the modules of go.mod, downloaded and verified, so no downloads are
 # needed to build. The caches are writable by any user.
-FROM golang:${GO_VERSION}-${DEBIAN_RELEASE} AS builder
+FROM golang:1.27.3-trixie@sha256:af1bfc2614ebb1dbd31af514b78740fd678850e76498762b425ecee4c5c6ea80 AS builder
 # (shared-mime-info: MIME types of files, as on the host; postgresql-client
 # and openssl: running the service from the source, as
 # the dev service of docker-compose.yml does)
@@ -45,7 +47,7 @@ COPY cmd ./cmd
 COPY internal ./internal
 RUN go build -trimpath -ldflags "-s -w" -o /out/gads ./cmd/gads
 
-FROM debian:${DEBIAN_RELEASE}-slim
+FROM debian:trixie-slim@sha256:a72b4433de1cf7d6bae0c4cee74d0547f58601a643b3375f070c51600d63b6b2
 # WITH_CHROMIUM=1 adds Chromium (/usr/bin/chromium) and its fonts, for the
 # PDFs and images that GADS makes of pages: dashboard and timeline PDFs,
 # /print, timeline and graph images. Off by default, as it triples the

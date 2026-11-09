@@ -12,9 +12,9 @@
 # (used by JSON, which otherwise falls back to JSON::PP) and Text::CSV_XS
 # (Text::CSV, otherwise Text::CSV_PP).
 
-ARG PERL_VERSION=5.40
-ARG DEBIAN_RELEASE=trixie
-FROM perl:${PERL_VERSION}-${DEBIAN_RELEASE}
+# Pinned by digest: Perl 5.40.5, the Perl of gads-perl:reference and of the
+# golden results. Change it by hand only, rerunning the golden results.
+FROM perl:5.40.5-trixie@sha256:1cf15be105e8442db007c5e87ff402a1eccdbcca19aadfcb33a534aa66aa930b
 
 # Lua 5.3 (Inline::Lua, as the Go port's vendored Lua 5.3.6), PostgreSQL
 # (DBD::Pg), libmagic (File::LibMagic), libxml2/expat (Net::SAML2),

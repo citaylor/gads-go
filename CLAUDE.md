@@ -59,7 +59,10 @@ scenarios are identical.
   (`uses: actions/checkout@<sha> # v7.0.1`), and checkouts don't keep the
   token (`persist-credentials: false`). Dependabot updates the pins, a
   week after a release (`cooldown`). Check a workflow change with
-  `zizmor --offline .github` (no findings).
+  `zizmor --offline .github` (no findings). The Dockerfiles' base images
+  are pinned by digest too: Dependabot updates those of
+  `gads-go/Dockerfile` (Go patch releases only; keep `GO_VERSION` in
+  `ci.yml` the same), never the Perl reference image's.
 - **Code scanning.** The repository is public. CodeQL (default setup),
   Dependabot, secret scanning and push protection are on. An alert that
   is not a defect is dismissed on GitHub with its reason; a gosec finding

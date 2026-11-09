@@ -6,10 +6,10 @@
 #   passes CI's licence check unless it changes a licence or adds or
 #   removes a module: then run `./third-party-licenses.sh` (from gads-go/)
 #   on the branch, and update NOTICE for a new module.
-# - The Dockerfiles build their base image tags from ARGs, which
-#   Dependabot cannot read; GO_VERSION (Dockerfile, ci.yml) and the Perl
-#   reference image are updated by hand. The Perl image must stay the one
-#   the golden results come from.
+# - The base images of gads-go/Dockerfile are pinned by digest, which
+#   Dependabot updates (Go patch releases only: change GO_VERSION in ci.yml
+#   to match). The Perl reference image (conformance/docker/perl) is left
+#   out: it must stay the one the golden results come from.
 # - The workflows pin actions to commits, with the version in a comment;
 #   Dependabot updates both.
 # - A release is proposed only once it is 7 days old (cooldown), so that a
@@ -53,5 +53,22 @@ updates:
       # or a dump and restore): change it by hand.
       - dependency-name: postgres
         update-types: [version-update:semver-major]
+    commit-message:
+      prefix: "Docker"
+
+  # golang and debian in gads-go/Dockerfile
+  - package-ecosystem: docker
+    directory: /gads-go
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      docker-images:
+        patterns: ["*"]
+    ignore:
+      # A new Go minor is a change of go.mod and CI too: by hand
+      - dependency-name: golang
+        update-types: [version-update:semver-major, version-update:semver-minor]
     commit-message:
       prefix: "Docker"
