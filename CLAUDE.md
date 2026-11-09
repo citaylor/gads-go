@@ -30,8 +30,8 @@ scenarios are identical.
   - Keep this parent directory out of Docker build contexts, because it
     contains `sudo-creds`.
 - **Version control.** This directory is the git repository
-  `github.com/citaylor/gads-go` (private, branch `main`, pushed over HTTPS
-  with `gh`). `.gitignore` keeps out `sudo-creds`, `.env`, binaries,
+  `github.com/citaylor/gads-go` (public, branch `main`, pushed over HTTPS
+  with `gh`; rulesets let only the owner push, except Dependabot's branches). `.gitignore` keeps out `sudo-creds`, `.env`, binaries,
   caches and the regenerated results; only `results/perl`,
   `results/perl-pg` and `results/perl-decoy` are committed. Commit with the GitHub noreply address:
   pushes with a private email are refused.
@@ -49,10 +49,17 @@ scenarios are identical.
   PostgreSQL the hardened scenarios and the tests of workers, stored
   sessions and forked imports (`internal/web` runs them on both
   databases when `GADS_TEST_PG` is set). Its `security` job runs gosec, gitleaks on the
-  whole history and Trivy on the built image and the Docker files
-  (pinned releases checked by SHA-256), and sends gosec and Trivy results
-  to the Security tab, beside CodeQL. Keep it passing, and update its pins
-  with the local tools.
+  whole history, Trivy on the built image and the Docker files, and
+  zizmor on the workflows and `dependabot.yml` (pinned releases checked
+  by SHA-256), and sends gosec, Trivy and zizmor results to the Security
+  tab, beside CodeQL. Keep it passing, and update its pins with the local
+  tools. `scorecard.yml` runs OpenSSF Scorecard on pushes to `main` and
+  weekly, and publishes the score.
+- **Actions** are pinned to a commit with the version in a comment
+  (`uses: actions/checkout@<sha> # v7.0.1`), and checkouts don't keep the
+  token (`persist-credentials: false`). Dependabot updates the pins, a
+  week after a release (`cooldown`). Check a workflow change with
+  `zizmor --offline .github` (no findings).
 - **Code scanning.** The repository is public. CodeQL (default setup),
   Dependabot, secret scanning and push protection are on. An alert that
   is not a defect is dismissed on GitHub with its reason; a gosec finding
@@ -109,7 +116,7 @@ Go packages, under `gads-go/`:
 
 - Go 1.27.3 is in `~/.local/go` (1.27.2 is kept in `~/.local/go1.27.2`).
   Set `export PATH=$HOME/.local/go/bin:$HOME/go/bin:$PATH`. Linters are in
-  `~/go/bin`.
+  `~/go/bin`; zizmor is in `~/.local/bin`.
 - The Perl dependencies are in `~/perl5`, loaded with
   `eval "$(perl -I ~/perl5/lib/perl5 -Mlocal::lib)"`. The run scripts do
   this for you.

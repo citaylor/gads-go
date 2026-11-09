@@ -23,10 +23,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # The submodules are the Perl GADS, whose views the web tests render
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           submodules: true
-      - uses: actions/setup-go@v7
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: ${{ env.GO_VERSION }}
           cache-dependency-path: gads-go/go.sum
@@ -59,8 +60,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-go@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: ${{ env.GO_VERSION }}
           cache-dependency-path: gads-go/go.sum
@@ -97,10 +100,11 @@ jobs:
       GADS_TEST_PG: host=localhost port=5432 user=gads_test
       PGPASSWORD: gads_test
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           submodules: true
-      - uses: actions/setup-go@v7
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: ${{ env.GO_VERSION }}
           cache-dependency-path: gads-go/go.sum
@@ -123,11 +127,13 @@ jobs:
           go test -race ./internal/web -run 'TestWorkers|TestSession'
           go test -race ./conformance -run 'TestImportForked'
 
-  # gosec (Go security patterns), gitleaks (secrets in the whole history)
-  # and Trivy (vulnerabilities in the built image, and the Docker files).
+  # gosec (Go security patterns), gitleaks (secrets in the whole history),
+  # Trivy (vulnerabilities in the built image, and the Docker files) and
+  # zizmor (the workflows and dependabot.yml).
   # The binaries are pinned releases checked against their SHA-256 (not the
   # actions: trivy-action's tags were replaced with malicious code in March
-  # 2026). gosec and Trivy results also go to the Security tab.
+  # 2026). The actions themselves are pinned to commits, which Dependabot
+  # updates. gosec, Trivy and zizmor results also go to the Security tab.
   security:
     runs-on: ubuntu-latest
     permissions:
@@ -139,17 +145,20 @@ jobs:
       GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
       TRIVY_VERSION: 0.76.0
       TRIVY_SHA256: e24b1c51293c1b15e4ba8d45bbc7891ba053f90278ec2698f3562c993e145fe7
+      ZIZMOR_VERSION: 1.32.0
+      ZIZMOR_SHA256: bb110cc765eca9cd7efb2e284a956be5974c60027b0970f16397d86208a9957b
     steps:
       # The whole history for gitleaks, and GADS-dev for the image's views
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           fetch-depth: 0
           submodules: true
-      - uses: actions/setup-go@v7
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: ${{ env.GO_VERSION }}
           cache-dependency-path: gads-go/go.sum
-      - name: Install gosec, gitleaks and Trivy
+      - name: Install gosec, gitleaks, Trivy and zizmor
         run: |
           go install github.com/securego/gosec/v2/cmd/gosec@$GOSEC_VERSION
           mkdir -p "$RUNNER_TEMP/bin" && cd "$RUNNER_TEMP"
@@ -159,6 +168,9 @@ jobs:
           curl -fsSLO "https://github.com/aquasecurity/trivy/releases/download/v$TRIVY_VERSION/trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz"
           echo "$TRIVY_SHA256  trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" | sha256sum -c
           tar -xzf "trivy_${TRIVY_VERSION}_Linux-64bit.tar.gz" -C bin trivy
+          curl -fsSLO "https://github.com/zizmorcore/zizmor/releases/download/v$ZIZMOR_VERSION/zizmor-x86_64-unknown-linux-gnu.tar.gz"
+          echo "$ZIZMOR_SHA256  zizmor-x86_64-unknown-linux-gnu.tar.gz" | sha256sum -c
+          tar -xzf zizmor-x86_64-unknown-linux-gnu.tar.gz -C bin zizmor
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
       # G104 (unchecked errors) is left out: the ignored errors are those
       # Perl ignores (Close, response writes, try {}). The conformance runner
@@ -173,6 +185,13 @@ jobs:
       - name: gitleaks
         working-directory: .
         run: gitleaks git --no-banner --redact -v .
+      # Offline: the online audits would need a token, and look for the
+      # actions' known vulnerabilities, which Dependabot reports
+      - name: zizmor
+        working-directory: .
+        run: |
+          zizmor --offline --format sarif .github > gads-go/zizmor.sarif || true
+          zizmor --offline .github
       - name: Build the image
         run: docker build -t gads-go:ci --build-context gads-upstream=../upstream/GADS-dev .
       - name: Trivy
@@ -187,19 +206,25 @@ jobs:
       # gone by the time of the upload)
       - name: Upload gosec results
         if: ${{ !cancelled() && github.ref == 'refs/heads/main' && hashFiles('gads-go/gosec.sarif') != '' }}
-        uses: github/codeql-action/upload-sarif@v4
+        uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
         with:
           sarif_file: gads-go/gosec.sarif
           category: gosec
       - name: Upload Trivy results
         if: ${{ !cancelled() && github.ref == 'refs/heads/main' && hashFiles('gads-go/trivy-image.sarif') != '' }}
-        uses: github/codeql-action/upload-sarif@v4
+        uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
         with:
           sarif_file: gads-go/trivy-image.sarif
           category: trivy-image
       - name: Upload Trivy configuration results
         if: ${{ !cancelled() && github.ref == 'refs/heads/main' && hashFiles('gads-go/trivy-config.sarif') != '' }}
-        uses: github/codeql-action/upload-sarif@v4
+        uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
         with:
           sarif_file: gads-go/trivy-config.sarif
           category: trivy-config
+      - name: Upload zizmor results
+        if: ${{ !cancelled() && github.ref == 'refs/heads/main' && hashFiles('gads-go/zizmor.sarif') != '' }}
+        uses: github/codeql-action/upload-sarif@33d7b85da1a04171e211befe2c739303b9a4c066 # v4.39.3
+        with:
+          sarif_file: gads-go/zizmor.sarif
+          category: zizmor
