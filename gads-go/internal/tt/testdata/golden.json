@@ -34,7 +34,7 @@
          "template" : "[% TRY %][% TRY %][% THROW inner \"i\" %][% CATCH outer %]wrong[% END %][% CATCH inner %]outer caught [% error.info %][% END %]"
       },
       {
-         "out" : "x=HASH(0x5641a689e740)",
+         "out" : "x=HASH(0x564a3ac3b3b0)",
          "template" : "[% TRY %][% THROW x 'a' 'b' %][% CATCH %][% error.type %]=[% error.info.join(',') %][% END %]"
       },
       {
@@ -178,7 +178,7 @@
          "template" : "[% l = [3,1,2] %][% l.push(4) %][% l.join %]|[% l.pop %]|[% l.shift %]|[% l.unshift(9) %][% l.join %]|[% l.grep('^[12]$').join %]|[% l.grep('9').size %]"
       },
       {
-         "out" : "a b c|2|1|0|a|ARRAY(0x5641a68af380)a b z",
+         "out" : "a b c|2|1|0|a|ARRAY(0x564a3ac0cd28)a b z",
          "template" : "[% l = ['a','b'] %][% l.merge(['c'], 'd').join %]|[% l.size %]|[% l.defined(1) %]|[% l.defined(5) ? 1 : 0 %]|[% l.hash.keys.sort.join %]|[% l.import(['z']) %][% l.join %]"
       },
       {
@@ -318,7 +318,7 @@
          "template" : "[% DEFAULT x = 3 %][% x %]|[% y = 0 %][% DEFAULT y = 4 %][% y %]|[% z = 'set' %][% DEFAULT z = 5 %][% z %]"
       },
       {
-         "out" : "c|3|1|a|1,2,HASH(0x5641a689ef80)",
+         "out" : "c|3|1|a|1,2,HASH(0x564a3ac5a648)",
          "template" : "[% x = { a => [1, 2, { b => 'c' }] } %][% x.a.2.b %]|[% x.a.size %]|[% x.item('a').0 %]|[% x.keys.join %]|[% x.a.join(',') %]"
       },
       {
@@ -444,6 +444,10 @@
       {
          "out" : "1,9,3|1,8,3|1,8,3|5",
          "template" : "[% l=[1,2,3] %][% k=\"1.7\" %][% l.$k = 9 %][% l.join(\",\") %]|[% k=\"1e0\" %][% l.$k = 8 %][% l.join(\",\") %]|[% l.-5 = 7 %][% l.join(\",\") %]|[% l.4 = 6 %][% l.size %]"
+      },
+      {
+         "out" : "5|5|1 2|2 3|6|2 3|8|0|0",
+         "template" : "[% l = [1,2,3] %][% l.first(5).size %]|[% l.last(5).size %]|[% l.first(2).join %]|[% l.last(2).join %]|[% l.slice(1,6).size %]|[% l.slice(-2).join %]|[% l.slice(-9,1).size %]|[% l.first(0).size %]|[% l.last(-1).size %]"
       }
    ],
    "template" : "3.106"

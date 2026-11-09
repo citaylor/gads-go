@@ -574,7 +574,14 @@ func init() {
 				return one(l.Items[0]), nil
 			}
 			n, _ := perlInt(a[0]).(int64)
-			return one(&List{Items: perlSliceRange(l.Items, 0, int(n)-1)}), nil
+			if n <= 0 {
+				return one(&List{}), nil
+			}
+			res, err := listRange(l.Items, 0, n-1, true)
+			if err != nil {
+				return nil, err
+			}
+			return one(&List{Items: res}), nil
 		},
 		"last": func(c *Context, l *List, a []any) ([]any, error) {
 			if len(a) == 0 {
@@ -584,7 +591,14 @@ func init() {
 				return one(l.Items[len(l.Items)-1]), nil
 			}
 			n, _ := perlInt(a[0]).(int64)
-			return one(&List{Items: perlSliceRange(l.Items, -int(n), -1)}), nil
+			if n <= 0 {
+				return one(&List{}), nil
+			}
+			res, err := listRange(l.Items, -n, -1, true)
+			if err != nil {
+				return nil, err
+			}
+			return one(&List{Items: res}), nil
 		},
 		"reverse": func(c *Context, l *List, a []any) ([]any, error) {
 			r := make([]any, len(l.Items))
@@ -657,29 +671,26 @@ func init() {
 			return one(res), nil
 		},
 		"slice": func(c *Context, l *List, a []any) ([]any, error) {
-			from := 0
+			n := int64(len(l.Items))
+			from := int64(0)
 			if f := argN(a, 0); True(f) {
-				v, _ := perlInt(f).(int64)
-				from = int(v)
+				from, _ = perlInt(f).(int64)
 			}
-			to := len(l.Items) - 1
+			to := n - 1
 			if t := argN(a, 1); t != nil {
-				v, _ := perlInt(t).(int64)
-				to = int(v)
+				to, _ = perlInt(t).(int64)
 			}
+			// (perlInt is within ±9.2e18, so adding the length cannot
+			// overflow)
 			if from < 0 {
-				from += len(l.Items)
+				from += n
 			}
 			if to < 0 {
-				to += len(l.Items)
+				to += n
 			}
-			var res []any
-			for i := from; i <= to; i++ {
-				if i >= 0 && i < len(l.Items) {
-					res = append(res, l.Items[i])
-				} else {
-					res = append(res, nil)
-				}
+			res, err := listRange(l.Items, from, to, false)
+			if err != nil {
+				return nil, err
 			}
 			return one(&List{Items: res}), nil
 		},
@@ -859,13 +870,22 @@ func looksLikeNumber(v any) bool {
 	return false
 }
 
-// perlSliceRange is @list[$from..$to] with negative indexes
-func perlSliceRange(items []any, from, to int) []any {
-	n := len(items)
-	var res []any
-	for i := from; i <= to; i++ {
-		j := i
-		if j < 0 {
+// listRange is @list[$from..$to], each negative index counted from the
+// end when wrap is set (first and last; slice counts its bounds itself)
+func listRange(items []any, from, to int64, wrap bool) ([]any, error) {
+	if to < from {
+		return nil, nil
+	}
+	// (a deviation, as maxListAssign: Perl makes the list that long, or
+	// runs out of memory; to-from below 0 is an overflow)
+	if to-from < 0 || to-from >= maxListAssign {
+		return nil, fmt.Errorf("Out of memory!")
+	}
+	n := int64(len(items))
+	res := make([]any, 0, to-from+1)
+	for k := int64(0); k <= to-from; k++ {
+		j := from + k
+		if wrap && j < 0 {
 			j += n
 		}
 		if j >= 0 && j < n {
@@ -874,7 +894,7 @@ func perlSliceRange(items []any, from, to int) []any {
 			res = append(res, nil)
 		}
 	}
-	return res
+	return res, nil
 }
 
 // sortKey is _list_sort_make_key

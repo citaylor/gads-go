@@ -368,38 +368,59 @@ func anycaseBefore(rest string) bool {
 // matchQuoted matches (?:\\\\|\\Q|.|\n)*?Q from position start (just after
 // the opening quote Q) with Perl's backtracking order. It returns the
 // content, the position after the closing quote and whether it matched.
+// The positions where a try failed are remembered, as Perl's regex engine
+// does: otherwise a string of backslashes with no closing quote takes time
+// exponential in their number.
 func matchQuoted(text string, start int, q byte) (string, int, bool) {
+	// failed[i] is 1 + the least depth at which try(i) failed (0: not
+	// tried). A deeper try explores fewer alternatives (past the depth
+	// limit, none), so it fails too.
+	failed := map[int]int{}
 	var try func(i, depth int) (int, bool)
 	try = func(i, depth int) (int, bool) {
-		for {
-			if i >= len(text) {
-				return 0, false
-			}
-			if text[i] == q {
-				return i, true
-			}
-			if text[i] == '\\' && i+1 < len(text) && (text[i+1] == '\\' || text[i+1] == q) {
-				// alternatives \\\\ or \\Q (two characters); on failure
-				// fall back to consuming the backslash alone
-				if depth < 64 {
-					if e, ok := try(i+2, depth+1); ok {
-						return e, true
-					}
-					i++
-					continue
-				}
-				i += 2
-				continue
-			}
-			_, sz := utf8.DecodeRuneInString(text[i:])
-			i += sz
+		if f := failed[i]; f > 0 && depth >= f-1 {
+			return 0, false
 		}
+		e, ok := tryFrom(text, i, depth, q, try)
+		if !ok {
+			if f := failed[i]; f == 0 || depth < f-1 {
+				failed[i] = depth + 1
+			}
+		}
+		return e, ok
 	}
 	e, ok := try(start, 0)
 	if !ok {
 		return "", 0, false
 	}
 	return text[start:e], e + 1, true
+}
+
+// tryFrom is one try of matchQuoted from position i
+func tryFrom(text string, i, depth int, q byte, try func(i, depth int) (int, bool)) (int, bool) {
+	for {
+		if i >= len(text) {
+			return 0, false
+		}
+		if text[i] == q {
+			return i, true
+		}
+		if text[i] == '\\' && i+1 < len(text) && (text[i+1] == '\\' || text[i+1] == q) {
+			// alternatives \\\\ or \\Q (two characters); on failure
+			// fall back to consuming the backslash alone
+			if depth < 64 {
+				if e, ok := try(i+2, depth+1); ok {
+					return e, true
+				}
+				i++
+				continue
+			}
+			i += 2
+			continue
+		}
+		_, sz := utf8.DecodeRuneInString(text[i:])
+		i += sz
+	}
 }
 
 // unescapeDouble applies s/\\([^\$nrt])/$1/g then s/\\([nrt])/.../ge

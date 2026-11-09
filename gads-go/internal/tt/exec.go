@@ -982,9 +982,15 @@ func (c *Context) defineMacro(t *stmtMacro) {
 		} else if len(args) > 0 {
 			params, _ = args[0].(*Hash)
 		}
+		// A deviation, as for blocks: Perl recurses until it crashes
+		if cc.depth >= maxDepth {
+			return nil, throwErr("file", fmt.Sprintf("recursion into '%s' over %d levels", t.name, maxDepth))
+		}
 		var out strings.Builder
 		cc.localise(params)
+		cc.depth++
 		err := cc.execBlock(t.body, &out)
+		cc.depth--
 		cc.delocalise()
 		if err != nil {
 			return nil, err
@@ -1161,7 +1167,8 @@ func nvToIV(f float64) int64 {
 	return -1 // UV_MAX
 }
 
-// maxListAssign is the largest index assigned to (a deviation: Perl
+// maxListAssign is the largest index assigned to, and the longest list
+// made by first, last and slice (a deviation: Perl
 // makes the array that long, or runs out of memory)
 const maxListAssign = 1 << 24
 

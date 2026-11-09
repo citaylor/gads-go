@@ -1,0 +1,2 @@
+go test fuzz v1
+string("[%MACRO m(A A)BLOCK%]%][%m%]0[%END%][%m%]0")

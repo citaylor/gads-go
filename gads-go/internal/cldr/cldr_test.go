@@ -23,7 +23,7 @@ type golden struct {
 	} `json:"parse"`
 }
 
-func loadGolden(t *testing.T) golden {
+func loadGolden(t testing.TB) golden {
 	t.Helper()
 	data, err := os.ReadFile("testdata/golden.json")
 	if err != nil {
