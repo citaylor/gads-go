@@ -21,6 +21,8 @@ scenarios are identical.
 - **Go reproduces Perl's behaviour, quirks included.** This covers messages,
   SQL shape, row order and bugs. A deliberate deviation must be commented
   and listed under "Deviations" below.
+- **Perl bugs.** Record each bug found in the Perl GADS or its modules in
+  `PERL-BUGS.md`, with where it was found and whether Go keeps it.
 - **Secrets.**
   - `sudo-creds` holds the sudo password. Use it only as
     `sudo -S -p '' CMD < /home/ctaylor/ctrlo/sudo-creds` and never print it.
@@ -81,6 +83,7 @@ scenarios are identical.
 | `conformance/results/perl` | Golden observations from Perl. `results/go` holds Go's; `-pg` suffixes are the PostgreSQL runs. |
 | `gads-go/` | Go module `github.com/ctrlo/gads-go` (Go 1.27, cgo). |
 | `GADS-security-report-verified.md` | Security review of the Perl GADS. Most findings also apply to Go (see Security). |
+| `PERL-BUGS.md` | Every bug found in the Perl GADS (and its CPAN modules), with what Go does about it. Add each new one. |
 
 Go packages, under `gads-go/`:
 
@@ -281,6 +284,13 @@ Debugging environment variables:
   what it calls inside it.
 - Format with gofmt. Test files sit beside the code (`*_test.go`). Expected
   values are taken from Perl wherever possible.
+- **Fuzz tests** (`fuzz_test.go`, `filter_fuzz_test.go`) cover the parsers
+  of users' input: templates (`tt`), CSV (`textcsv`), CLDR dates,
+  autoformat, Perl numification, and the filters (JSON and dates). They
+  check that nothing panics or hangs. `go test` runs their seeds and the
+  inputs once found (`testdata/fuzz/`); to fuzz one, `go test
+  ./internal/tt -run '^$' -fuzz '^FuzzProcess$' -fuzztime 5m`. When a
+  finding is Perl's behaviour too, keep it (as a seed) and fix the test.
 - **Golden files from Perl.** `conformance/perl/gen_*_golden.pl` run the
   real Perl modules and write `testdata/golden.json`, which the Go tests
   compare with (the usage is at the top of each script; rerun it after
@@ -596,11 +606,12 @@ Not fixed:
     - A callback (`working_days_diff`, `working_days_add`) that fails
       ends the run, even inside a `pcall`, as Perl's `die` unwinds
       through Inline::Lua: the code stops at its next instruction.
-  - Templates (`internal/tt`): templates and blocks nested over 1000
+  - Templates (`internal/tt`): templates, blocks and macros nested over 1000
     deep are a `file` error ("recursion into 'NAME' over 1000 levels"),
     where Perl recurses until it runs out of memory and Go's stack would
-    overflow; a list item assigned at an index of 2^24 or more is "Out
-    of memory!" at once. The views do neither.
+    overflow; a list item assigned at an index of 2^24 or more, or a
+    list of 2^24 items or more from `first`, `last` or `slice` (which
+    pad with undef), is "Out of memory!" at once. The views do neither.
   - Lua tables with a key that is not a number or a string (a boolean)
     fail with Inline::Lua's "Illegal type (boolean) in table subscript",
     without its place in Perl. Inline::Lua's Lua state is then broken, so
