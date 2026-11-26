@@ -87,7 +87,7 @@ services:
   # (Caddy's own CA, the default), an email address (Let's Encrypt), or
   # "/certs/cert.pem /certs/key.pem" (your own, in GADS_CERTS).
   proxy:
-    image: caddy:2.10.2-alpine
+    image: caddy:2.11.9-alpine
     environment:
       GADS_HOST: ${GADS_HOST:-localhost}
       GADS_TLS: ${GADS_TLS:-internal}
